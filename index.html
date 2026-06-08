@@ -1,958 +1,2710 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es" data-lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Miguel Tillero — Especialista en FLE, gestión pedagógica intercultural y dirección cultural. Clases particulares, asesorías, conferencias.">
-<meta name="author" content="Miguel Tillero">
-<title>Miguel Tillero · Especialista FLE & Gestión Cultural</title>
-
+<meta name="description" content="Miguel David Tillero Álvarez — Director General de la Alliance Française de San Cristóbal de Las Casas. Profesor especialista en FLE, gestión cultural y formación. Venezuela · Ecuador · México · France.">
+<title>Miguel David Tillero Álvarez | Director General · Alliance Française San Cristóbal de Las Casas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500;600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 
 <style>
+/* ════════════════════════════════════════════════
+   VARIABLES — SISTEMA FUTURISTA
+════════════════════════════════════════════════ */
 :root {
-  --ink:    #12192b;
-  --cream:  #f7f3ee;
-  --gold:   #b8954a;
-  --gold-lt:#d4b06a;
-  --muted:  #7a7972;
-  --line:   rgba(184,149,74,0.2);
-  --white:  #ffffff;
+  /* ── MÁRMOL ESMERALDA & ORO ── */
+  --void:    #020c06;          /* negro esmeralda profundo */
+  --deep:    #041509;          /* verde oscuro profundo */
+  --panel:   rgba(4,16,8,0.84);
+  --gold:    #c9a96e;          /* veta dorada — igual que el mármol */
+  --gold2:   #f0cf8e;          /* dorado claro */
+  --goldx:   rgba(201,169,110,0.13);
+  --cyan:    #4dffc8;          /* esmeralda luminoso (antes cyan azul) */
+  --cyanx:   rgba(77,255,200,0.08);
+  --white:   #f0f7f2;          /* blanco con tono verde muy suave */
+  --text:    rgba(240,247,242,0.85);
+  --muted:   rgba(240,247,242,0.40);
+  --border:  rgba(201,169,110,0.20);
+  --borderx: rgba(77,255,200,0.13);
+  --glow:    0 0 40px rgba(201,169,110,0.18), 0 0 80px rgba(201,169,110,0.07);
+  --glowc:   0 0 30px rgba(77,255,200,0.22);
+  --glass:   rgba(4,20,10,0.75);
+  --scan:    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(201,169,110,0.014) 2px, rgba(201,169,110,0.014) 4px);
+  /* ── esmeraldas adicionales ── */
+  --em1:     #0d3b2e;          /* esmeralda medio */
+  --em2:     #1a5c45;          /* esmeralda claro */
+  --em3:     rgba(13,59,46,0.6);
 }
 
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:16px}
-body{background:var(--cream);color:var(--ink);font-family:'Jost',sans-serif;overflow-x:hidden;line-height:1.7}
-
-/* ── TYPOGRAPHY ─────────────────────────────── */
-.serif{font-family:'Cormorant Garamond',serif}
-.cinzel{font-family:'Cinzel',serif}
-h1,h2,h3{font-family:'Cormorant Garamond',serif;line-height:1.1}
-.eyebrow{font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);font-weight:500}
-
-/* ── NAV ─────────────────────────────────────── */
-nav{position:fixed;top:0;width:100%;z-index:100;padding:1.8rem 4rem;display:flex;justify-content:space-between;align-items:center;transition:all .5s;background:transparent}
-nav.scrolled{background:rgba(247,243,238,.96);backdrop-filter:blur(20px);padding:1.2rem 4rem;border-bottom:1px solid var(--line);box-shadow:0 4px 40px rgba(18,25,43,.04)}
-.nav-logo{font-family:'Cinzel',serif;font-size:1.1rem;letter-spacing:.2em;color:var(--ink);text-decoration:none}
-.nav-logo span{color:var(--gold)}
-.nav-links{display:flex;gap:2.5rem;list-style:none}
-.nav-links a{font-size:.7rem;letter-spacing:.35em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:.3s;font-weight:500}
-.nav-links a:hover{color:var(--gold)}
-.nav-lang{display:flex;gap:.5rem}
-.nav-lang button{background:none;border:1px solid var(--line);padding:.2rem .6rem;font-size:.6rem;letter-spacing:.2em;cursor:pointer;color:var(--muted);transition:.3s;font-family:'Jost',sans-serif}
-.nav-lang button.active,.nav-lang button:hover{border-color:var(--gold);color:var(--gold)}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
-.hamburger span{display:block;width:24px;height:1.5px;background:var(--ink);transition:.3s}
-
-/* ── HERO ────────────────────────────────────── */
-#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:0 4rem;gap:4rem;position:relative;overflow:hidden}
-#hero::before{content:'';position:absolute;right:0;top:0;width:50%;height:100%;background:var(--ink);z-index:0}
-.hero-text{position:relative;z-index:1;padding-top:6rem}
-.hero-name{font-size:clamp(3rem,6vw,5.5rem);font-weight:300;color:var(--ink);line-height:1}
-.hero-name strong{display:block;font-weight:600;color:var(--gold)}
-.hero-tagline{font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.5em;text-transform:uppercase;color:var(--muted);margin:1.5rem 0 2rem;font-weight:300}
-.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem}
-.btn-primary{background:var(--gold);color:var(--white);padding:.9rem 2.5rem;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;text-decoration:none;font-weight:600;transition:.4s;font-family:'Jost',sans-serif;border:none;cursor:pointer}
-.btn-primary:hover{background:var(--ink);transform:translateY(-2px);box-shadow:0 12px 30px rgba(18,25,43,.2)}
-.btn-outline{background:transparent;color:var(--ink);padding:.9rem 2.5rem;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;text-decoration:none;font-weight:600;transition:.4s;font-family:'Jost',sans-serif;border:1px solid rgba(18,25,43,.3);cursor:pointer}
-.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
-.hero-photo-wrap{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:6rem}
-.hero-photo{width:min(420px,90%);aspect-ratio:3/4;object-fit:cover;object-position:top;filter:grayscale(20%);transition:filter .8s}
-.hero-photo:hover{filter:grayscale(0%)}
-.hero-badge{position:absolute;bottom:3rem;left:-2rem;background:var(--gold);color:var(--white);padding:1.2rem 1.8rem;font-family:'Jost',sans-serif}
-.hero-badge p:first-child{font-size:1.8rem;font-weight:600;line-height:1}
-.hero-badge p:last-child{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;margin-top:.2rem;opacity:.8}
-.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.5px;background:var(--line);border-top:.5px solid var(--line);margin-top:0}
-.stat{background:rgba(18,25,43,.9);padding:1.5rem 1rem;text-align:center;backdrop-filter:blur(5px)}
-.stat-n{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold-lt);line-height:1}
-.stat-l{font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:.4rem;font-weight:400}
-
-/* ── SECTION BASE ────────────────────────────── */
-section{padding:7rem 4rem}
-.section-inner{max-width:1200px;margin:0 auto}
-.section-header{margin-bottom:4rem}
-.section-num{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.5em;color:var(--gold);margin-bottom:.8rem}
-.section-title{font-size:clamp(2.2rem,4vw,3.5rem);color:var(--ink);font-weight:300}
-.section-title em{font-style:italic;color:var(--gold)}
-.section-line{width:3rem;height:1px;background:var(--gold);margin:1.5rem 0}
-
-/* ── ABOUT ───────────────────────────────────── */
-#about{background:var(--white)}
-.about-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:6rem;align-items:start}
-.about-sidebar{}
-.about-langs{margin-top:2.5rem}
-.lang-item{display:flex;justify-content:space-between;align-items:center;padding:.8rem 0;border-bottom:1px solid var(--line)}
-.lang-bar{height:2px;background:var(--line);margin-top:.4rem;position:relative}
-.lang-fill{height:100%;background:var(--gold);transition:width 1.2s ease}
-.skill-tag{display:inline-block;border:1px solid var(--line);padding:.3rem .8rem;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:.25rem;transition:.3s}
-.skill-tag:hover{border-color:var(--gold);color:var(--gold)}
-.about-text p{font-size:1.05rem;color:#444;line-height:1.85;margin-bottom:1.5rem;font-weight:300}
-.about-text p:first-child{font-family:'Cormorant Garamond',serif;font-size:1.35rem;color:var(--ink);line-height:1.6;font-style:italic}
-
-/* ── SERVICES ────────────────────────────────── */
-#services{background:var(--cream)}
-.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
-.service-card{background:var(--cream);padding:2.5rem 2rem;transition:.5s;cursor:default;position:relative;overflow:hidden}
-.service-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--gold);transition:.5s}
-.service-card:hover{background:var(--white);transform:translateY(-4px);box-shadow:0 20px 60px rgba(18,25,43,.07)}
-.service-card:hover::after{width:100%}
-.service-icon{font-size:1.4rem;color:var(--gold);margin-bottom:1.5rem}
-.service-card h3{font-size:1.1rem;margin-bottom:.8rem;font-weight:400}
-.service-card p{font-size:.82rem;color:var(--muted);line-height:1.7;font-weight:300}
-
-/* ── TIMELINE ────────────────────────────────── */
-#parcours{background:var(--ink);color:var(--white)}
-#parcours .section-title{color:var(--white)}
-#parcours .section-num{color:var(--gold-lt)}
-.timeline{position:relative;padding-left:2rem}
-.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:rgba(255,255,255,.1)}
-.tl-item{position:relative;padding:0 0 3.5rem 2.5rem}
-.tl-item::before{content:'';position:absolute;left:-4px;top:.4rem;width:9px;height:9px;border:1px solid var(--gold);background:var(--ink);transform:rotate(45deg)}
-.tl-year{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.4em;color:var(--gold);margin-bottom:.5rem}
-.tl-title{font-size:1.15rem;font-weight:300;margin-bottom:.3rem;font-family:'Cormorant Garamond',serif}
-.tl-org{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.8rem}
-.tl-desc{font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.7;font-weight:300;max-width:560px}
-.tl-highlight{color:var(--gold-lt);font-weight:500}
-
-/* ── FORMATION ───────────────────────────────── */
-#formation{background:var(--white)}
-.formation-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
-.formation-card{border:1px solid var(--line);padding:2rem 2rem 1.8rem;position:relative;transition:.4s}
-.formation-card:hover{border-color:var(--gold);box-shadow:0 8px 40px rgba(184,149,74,.1)}
-.formation-card .badge{position:absolute;top:1.2rem;right:1.2rem;background:var(--gold);color:var(--white);font-size:.55rem;letter-spacing:.2em;padding:.25rem .7rem;text-transform:uppercase;font-weight:600}
-.formation-year{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.4em;color:var(--gold);margin-bottom:.6rem}
-.formation-card h3{font-size:1rem;font-family:'Cormorant Garamond',serif;margin-bottom:.4rem;font-weight:400;line-height:1.3}
-.formation-card p{font-size:.8rem;color:var(--muted);line-height:1.6}
-.distinctions{margin-top:3rem;border-left:2px solid var(--gold);padding-left:2rem}
-.distinctions h4{font-family:'Cormorant Garamond',serif;font-size:1.3rem;margin-bottom:1rem;font-weight:300;font-style:italic}
-.dist-item{display:flex;align-items:center;gap:1rem;padding:.6rem 0;border-bottom:1px solid var(--line)}
-.dist-item i{color:var(--gold);font-size:.75rem;flex-shrink:0}
-.dist-item span{font-size:.82rem;color:var(--muted)}
-
-/* ── GALLERY ─────────────────────────────────── */
-#galerie{background:var(--cream)}
-.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:8px}
-.gallery-item{overflow:hidden;cursor:pointer;position:relative;background:var(--ink)}
-.gallery-item:nth-child(1){grid-column:span 2;grid-row:span 2}
-.gallery-item:nth-child(5){grid-column:span 2}
-.gallery-placeholder{width:100%;height:100%;background:linear-gradient(135deg,rgba(18,25,43,.85),rgba(18,25,43,.6));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;border:1px dashed rgba(184,149,74,.3);transition:.4s}
-.gallery-placeholder i{font-size:1.4rem;color:var(--gold);opacity:.5}
-.gallery-placeholder span{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.3)}
-.gallery-item:hover .gallery-placeholder{border-color:var(--gold);background:linear-gradient(135deg,rgba(18,25,43,.9),rgba(184,149,74,.15))}
-.gallery-item img{width:100%;height:100%;object-fit:cover;transition:.8s;filter:brightness(.9)}
-.gallery-item:hover img{transform:scale(1.06);filter:brightness(1)}
-.gallery-overlay{position:absolute;inset:0;background:rgba(18,25,43,.5);opacity:0;transition:.4s;display:flex;align-items:center;justify-content:center}
-.gallery-item:hover .gallery-overlay{opacity:1}
-.gallery-overlay i{color:var(--white);font-size:1.2rem}
-
-/* ── CONTACT ─────────────────────────────────── */
-#contact{background:var(--ink);color:var(--white)}
-#contact .section-title{color:var(--white)}
-#contact .section-num{color:var(--gold-lt)}
-.contact-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:6rem;align-items:start}
-.contact-form{display:flex;flex-direction:column;gap:1.5rem}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-.form-group{display:flex;flex-direction:column;gap:.5rem}
-.form-group label{font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:500}
-.form-group input,.form-group select,.form-group textarea{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);padding:.9rem 1rem;color:var(--white);font-family:'Jost',sans-serif;font-size:.85rem;font-weight:300;outline:none;transition:.3s;resize:none}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold);background:rgba(184,149,74,.05)}
-.form-group select option{background:var(--ink)}
-.form-error{font-size:.65rem;color:#e57373;display:none;margin-top:.2rem}
-.form-group.error input,.form-group.error select,.form-group.error textarea{border-color:#e57373}
-.form-group.error .form-error{display:block}
-.btn-send{background:var(--gold);color:var(--white);border:none;padding:1rem 3rem;font-size:.7rem;letter-spacing:.35em;text-transform:uppercase;font-weight:600;cursor:pointer;transition:.4s;font-family:'Jost',sans-serif;align-self:flex-start}
-.btn-send:hover{background:var(--white);color:var(--ink)}
-.btn-send:disabled{opacity:.5;cursor:not-allowed}
-.form-success{display:none;background:rgba(184,149,74,.15);border:1px solid var(--gold);padding:1rem 1.5rem;font-size:.82rem;color:var(--gold-lt)}
-.contact-info{display:flex;flex-direction:column;gap:2.5rem;padding-top:1rem}
-.ci-item{display:flex;align-items:flex-start;gap:1.2rem;padding-bottom:2.5rem;border-bottom:1px solid rgba(255,255,255,.06)}
-.ci-item:last-child{border-bottom:none}
-.ci-icon{width:38px;height:38px;border:1px solid rgba(184,149,74,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.2rem}
-.ci-icon i{color:var(--gold);font-size:.85rem}
-.ci-label{font-size:.55rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.3rem}
-.ci-value{font-size:.9rem;color:rgba(255,255,255,.8);font-weight:300}
-.ci-value a{color:inherit;text-decoration:none;transition:.3s}
-.ci-value a:hover{color:var(--gold)}
-.social-row{display:flex;gap:1rem;margin-top:2rem}
-.social-btn{width:40px;height:40px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);text-decoration:none;transition:.3s;font-size:.85rem}
-.social-btn:hover{border-color:var(--gold);color:var(--gold)}
-.qr-block{margin-top:2.5rem;text-align:center}
-.qr-block img{width:140px;border:3px solid rgba(184,149,74,.3);padding:8px;background:white;transition:.4s}
-.qr-block img:hover{border-color:var(--gold);transform:scale(1.05)}
-.qr-block p{font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:.8rem}
-
-/* ── FOOTER ──────────────────────────────────── */
-footer{background:var(--ink);border-top:1px solid rgba(255,255,255,.06);padding:3rem 4rem;text-align:center}
-.footer-name{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:rgba(255,255,255,.25);letter-spacing:.2em}
-.footer-flag{display:flex;justify-content:center;gap:4px;align-items:center;margin:1.5rem auto}
-.footer-flag span{width:6px;height:18px}
-.footer-copy{font-size:.6rem;letter-spacing:.3em;color:rgba(255,255,255,.15);text-transform:uppercase;margin-top:1.2rem}
-
-/* ── AUDIO BUTTON ────────────────────────────── */
-#audio-btn{position:fixed;bottom:2rem;right:2rem;width:52px;height:52px;background:var(--gold);border:none;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(184,149,74,.4);transition:.4s;color:var(--white);font-size:1rem}
-#audio-btn:hover{background:var(--ink);transform:scale(1.08)}
-#audio-btn.playing{animation:pulse-gold 2s infinite}
-@keyframes pulse-gold{0%,100%{box-shadow:0 8px 30px rgba(184,149,74,.4)}50%{box-shadow:0 8px 50px rgba(184,149,74,.7)}}
-
-/* ── LIGHTBOX ────────────────────────────────── */
-#lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:1000;align-items:center;justify-content:center}
-#lightbox.open{display:flex}
-#lightbox img{max-width:90vw;max-height:85vh;object-fit:contain}
-#lb-close{position:absolute;top:1.5rem;right:1.5rem;color:white;font-size:1.5rem;cursor:pointer;background:none;border:none;opacity:.6;transition:.3s}
-#lb-close:hover{opacity:1}
-
-/* ── REVEAL ANIMATIONS ───────────────────────── */
-.reveal{opacity:0;transform:translateY(30px);transition:opacity .9s ease,transform .9s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
-.reveal-left{opacity:0;transform:translateX(-30px);transition:opacity .9s ease,transform .9s ease}
-.reveal-left.visible{opacity:1;transform:translateX(0)}
-.reveal-right{opacity:0;transform:translateX(30px);transition:opacity .9s ease,transform .9s ease}
-.reveal-right.visible{opacity:1;transform:translateX(0)}
-
-/* ── MOBILE ──────────────────────────────────── */
-@media(max-width:900px){
-  nav{padding:1.2rem 1.5rem}
-  nav.scrolled{padding:1rem 1.5rem}
-  .nav-links{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--cream);flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;z-index:99}
-  .nav-links.open{display:flex}
-  .nav-links a{font-size:.9rem}
-  .hamburger{display:flex;z-index:100}
-  #hero{grid-template-columns:1fr;padding:0 1.5rem;min-height:auto;padding-top:5rem;padding-bottom:0}
-  #hero::before{display:none}
-  .hero-text{padding-top:2rem;padding-bottom:2rem}
-  .hero-photo-wrap{padding-top:0;background:var(--ink);margin:0 -1.5rem;padding:3rem 1.5rem}
-  .hero-photo{width:100%;max-width:320px}
-  .hero-badge{position:static;margin-top:1.5rem;display:inline-block}
-  .hero-stats{grid-template-columns:repeat(3,1fr)}
-  .stat{padding:1rem .5rem}
-  section{padding:4rem 1.5rem}
-  .about-grid,.contact-grid,.formation-grid{grid-template-columns:1fr;gap:2.5rem}
-  .gallery-grid{grid-template-columns:1fr 1fr;grid-auto-rows:160px}
-  .gallery-item:nth-child(1){grid-column:span 2}
-  .gallery-item:nth-child(5){grid-column:span 1}
-  .form-row{grid-template-columns:1fr}
-  .services-grid{grid-template-columns:1fr 1fr}
-  footer{padding:2rem 1.5rem}
+/* ════════════════════════════════════════════════
+   RESET
+════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--void);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  font-weight: 400;
+  overflow-x: hidden;
+  cursor: none;
 }
-@media(max-width:500px){
-  .services-grid{grid-template-columns:1fr}
-  .hero-stats{grid-template-columns:1fr 1fr 1fr}
-  .stat-n{font-size:1.4rem}
+::selection { background: var(--gold); color: var(--void); }
+a { color: inherit; text-decoration: none; }
+
+/* ════════ 3D CANVAS ════════ */
+#vanta-bg {
+  position: fixed; inset: 0; z-index: 0;
+  pointer-events: none;
 }
 
-/* ── GALLERY OVERLAY con caption ── */
-.gallery-overlay {
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 0.5rem;
+/* ════════ SCANLINE OVERLAY ════════ */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 2;
+  background: var(--scan);
+  pointer-events: none; opacity: 0.5;
 }
-.gallery-overlay span {
-  font-size: .65rem; letter-spacing: .25em; text-transform: uppercase;
-  color: rgba(255,255,255,.8); font-family: 'Jost', sans-serif;
-  font-weight: 400; text-align: center;
+
+/* ════════ NOISE GRAIN ════════ */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  opacity: 0.6;
+}
+
+.z10 { position: relative; z-index: 10; }
+.container { max-width: 1120px; margin: 0 auto; padding: 0 2rem; }
+
+/* ════════════════════════════════════════════════
+   TYPOGRAPHY
+════════════════════════════════════════════════ */
+.mono { font-family: 'Space Mono', monospace; }
+.serif { font-family: 'Cormorant Garamond', serif; }
+.syne { font-family: 'Syne', sans-serif; }
+
+.eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.58rem; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--gold); display: flex; align-items: center; gap: 0.8rem;
+}
+.eyebrow::before {
+  content: ''; display: inline-block;
+  width: 24px; height: 1px; background: var(--gold); flex-shrink: 0;
+}
+
+.sec-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 300; line-height: 1.05; color: var(--white);
+}
+.sec-title em { font-style: normal; color: var(--gold); }
+
+.hud-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.5rem; letter-spacing: 0.5em; text-transform: uppercase; color: var(--muted);
+}
+
+/* ════════════════════════════════════════════════
+   GLASS PANEL — elemento base
+════════════════════════════════════════════════ */
+.panel {
+  background: var(--panel);
+  backdrop-filter: blur(28px) saturate(130%);
+  -webkit-backdrop-filter: blur(28px) saturate(130%);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.panel::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold) 40%, var(--cyan) 70%, transparent 100%);
+  opacity: 0.4;
+}
+
+/* Corner brackets */
+.bracket {
+  position: relative;
+}
+.bracket::before, .bracket::after {
+  content: '';
+  position: absolute;
+  width: 12px; height: 12px;
+  border-color: var(--gold);
+  border-style: solid;
+  opacity: 0.6;
+}
+.bracket::before { top: 0; left: 0; border-width: 1px 0 0 1px; }
+.bracket::after  { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
+
+/* ════════════════════════════════════════════════
+   ANIMATIONS
+════════════════════════════════════════════════ */
+@keyframes fadeUp   { from { opacity:0; transform:translateY(32px); } to { opacity:1; transform:none; } }
+@keyframes fadeIn   { from { opacity:0; } to { opacity:1; } }
+@keyframes scanIn   { from { opacity:0; transform:translateX(-20px); } to { opacity:1; transform:none; } }
+@keyframes glitch {
+  0%,100% { clip-path: inset(0 0 100% 0); }
+  10% { clip-path: inset(8% 0 70% 0); transform: skewX(-2deg); }
+  20% { clip-path: inset(50% 0 30% 0); transform: skewX(1.5deg); }
+  30% { clip-path: inset(20% 0 60% 0); }
+  40% { clip-path: inset(0 0 0 0); }
+  50%,90% { clip-path: inset(0 0 0 0); transform: none; }
+}
+@keyframes flicker {
+  0%,100% { opacity:1; } 92% { opacity:1; } 93% { opacity:0.7; } 95% { opacity:1; } 97% { opacity:0.85; }
+}
+@keyframes pulse-border {
+  0%,100% { border-color: var(--border); }
+  50% { border-color: rgba(201,169,110,0.5); }
+}
+@keyframes hud-scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(400px); }
+}
+@keyframes counter { from { --n: 0; } }
+@keyframes blink { 50% { opacity: 0; } }
+
+.reveal { opacity:0; transform:translateY(24px); transition: opacity 0.8s cubic-bezier(.16,1,.3,1), transform 0.8s cubic-bezier(.16,1,.3,1); }
+.reveal.on { opacity:1; transform:none; }
+.d1{transition-delay:.1s} .d2{transition-delay:.2s} .d3{transition-delay:.3s}
+.d4{transition-delay:.4s} .d5{transition-delay:.5s} .d6{transition-delay:.6s}
+
+/* ════════════════════════════════════════════════
+   NAVIGATION
+════════════════════════════════════════════════ */
+#nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+  padding: 1.5rem 2.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  transition: all 0.5s ease;
+}
+#nav.scrolled {
+  background: rgba(2,5,16,0.88);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.9rem 2.5rem;
+  box-shadow: 0 4px 40px rgba(0,0,0,0.5);
+}
+.nav-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem; font-weight: 400;
+  color: var(--white); letter-spacing: 0.05em;
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.nav-brand .dot { width: 5px; height: 5px; background: var(--gold); transform: rotate(45deg); flex-shrink: 0; animation: flicker 4s infinite; }
+.nav-brand span { color: var(--gold); }
+
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--muted); transition: color 0.3s; position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+  height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-links a:hover::after { transform: scaleX(1); }
+
+.nav-controls { display: flex; gap: 0.5rem; align-items: center; }
+.ctrl-btn {
+  background: var(--goldx); border: 1px solid var(--border);
+  color: var(--muted); font-family: 'Space Mono', monospace;
+  font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 0.35rem 0.65rem; cursor: pointer; transition: all 0.3s;
+}
+.ctrl-btn:hover, .ctrl-btn.active { background: rgba(201,169,110,0.2); color: var(--gold); border-color: var(--gold); }
+
+.hamburger { display:none; background:none; border:1px solid var(--border); color:var(--gold); width:2.2rem; height:2.2rem; cursor:pointer; font-size:0.75rem; align-items:center; justify-content:center; }
+
+/* Mobile */
+.mobile-menu {
+  display:none; position:fixed; inset:0; z-index:950;
+  background:rgba(2,12,5,0.97); backdrop-filter:blur(30px);
+  flex-direction:column; align-items:center; justify-content:center; gap:3rem;
+}
+.mobile-menu.open { display:flex; }
+.mobile-menu a { font-family:'Cormorant Garamond',serif; font-size:3rem; font-weight:300; color:var(--white); transition:color 0.3s; }
+.mobile-menu a:hover { color:var(--gold); }
+
+/* ════════════════════════════════════════════════
+   HERO
+════════════════════════════════════════════════ */
+#hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 8rem 0 5rem;
+  position: relative;
+}
+
+/* HUD corner decorations */
+.hud-corner {
+  position: absolute; z-index: 5;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.45rem; letter-spacing: 0.2em; color: rgba(201,169,110,0.25);
+}
+.hud-tl { top: 5rem; left: 2rem; }
+.hud-tr { top: 5rem; right: 2rem; text-align: right; }
+.hud-bl { bottom: 2rem; left: 2rem; }
+.hud-br { bottom: 2rem; right: 2rem; text-align: right; }
+
+/* Vertical HUD lines */
+.hud-vline {
+  position: absolute; top: 6rem; bottom: 3rem; width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(201,169,110,0.15), transparent);
+}
+.hud-vline.l { left: 1.5rem; }
+.hud-vline.r { right: 1.5rem; }
+
+.hero-inner {
+  position: relative; z-index: 10;
+  display: grid; grid-template-columns: 1fr 340px;
+  gap: 5rem; align-items: center;
+}
+
+/* Name with glitch */
+.hero-pre {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem; letter-spacing: 0.5em; text-transform: uppercase;
+  color: var(--gold);
+  display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
+  animation: fadeIn 1s 0.2s ease forwards; opacity: 0;
+}
+.hero-pre::after { content: ''; flex:1; height:1px; background: linear-gradient(to right, var(--gold), transparent); }
+
+.hero-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.5rem,7vw,7rem);
+  font-weight: 300; line-height: 0.9;
+  color: var(--white);
+  animation: fadeUp 1s 0.3s cubic-bezier(.16,1,.3,1) forwards; opacity: 0;
+  position: relative;
+}
+.hero-name em { font-style: normal; color: var(--gold); display: block; }
+.hero-name .glitch-layer {
+  position: absolute; inset: 0;
+  font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit;
+  color: var(--cyan); opacity: 0;
+  animation: glitch 8s 2s infinite;
+  clip-path: inset(0 0 100% 0);
+  pointer-events: none;
+}
+
+.hero-tagline {
+  font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 400;
+  color: var(--muted); margin: 1.8rem 0;
+  animation: fadeUp 1s 0.5s cubic-bezier(.16,1,.3,1) forwards; opacity: 0;
+  border-left: 2px solid var(--gold); padding-left: 1.2rem;
+  line-height: 1.6;
+}
+
+.hero-langs {
+  display: flex; gap: 1.5rem; margin-bottom: 2.5rem;
+  animation: fadeUp 1s 0.6s cubic-bezier(.16,1,.3,1) forwards; opacity: 0;
+}
+.lang-pill {
+  border: 1px solid var(--border); padding: 0.4rem 1rem;
+  display: flex; flex-direction: column; align-items: center; gap: 0.15rem;
+  background: var(--goldx); transition: all 0.3s;
+}
+.lang-pill:hover { border-color: var(--gold); background: rgba(201,169,110,0.18); }
+.lang-pill .flag { font-size: 1.2rem; }
+.lang-pill .code { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.2em; color: var(--gold); }
+.lang-pill .lvl { font-size: 0.45rem; letter-spacing: 0.2em; color: var(--muted); }
+
+.hero-cta {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  animation: fadeUp 1s 0.7s cubic-bezier(.16,1,.3,1) forwards; opacity: 0;
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  padding: 0.9rem 2rem;
+  font-family: 'Space Mono', monospace; font-size: 0.55rem;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  cursor: pointer; transition: all 0.3s; border: none; position: relative; overflow: hidden;
+}
+.btn::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, transparent 50%, rgba(255,255,255,0.05) 100%);
+  transition: opacity 0.3s; opacity: 0;
+}
+.btn:hover::before { opacity: 1; }
+.btn-gold {
+  background: var(--gold); color: var(--void); font-weight: 700;
+  box-shadow: 0 0 30px rgba(201,169,110,0.3), inset 0 1px 0 rgba(255,255,255,0.15);
+}
+.btn-gold:hover { background: var(--gold2); box-shadow: 0 0 50px rgba(201,169,110,0.5); transform: translateY(-2px); }
+.btn-ghost {
+  background: transparent; color: var(--gold);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover { border-color: var(--gold); background: var(--goldx); box-shadow: var(--glow); }
+
+/* Portrait panel */
+.hero-portrait-panel {
+  animation: fadeIn 1.4s 0.4s ease forwards; opacity: 0;
+  position: relative;
+}
+.portrait-hud {
+  position: relative;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--gold), transparent 50%, var(--cyan) 100%);
+}
+.portrait-inner {
+  background: linear-gradient(145deg, var(--deep), var(--em1));
+  position: relative; overflow: hidden;
+}
+.portrait-scan {
+  position: absolute; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(77,255,200,0.5), transparent);
+  animation: hud-scan 3s linear infinite;
+  z-index: 5; pointer-events: none;
+}
+.portrait-inner img {
+  width: 100%; display: block;
+  filter: contrast(105%) saturate(85%);
+  transition: filter 0.5s;
+}
+.portrait-inner img:hover { filter: contrast(100%) saturate(100%); }
+.portrait-inner .initials {
+  aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 300;
+  color: var(--gold); opacity: 0.4;
+}
+.portrait-data {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(2,5,16,0.95) 0%, transparent 100%);
+  padding: 1.5rem 1rem 0.8rem;
+  font-family: 'Space Mono', monospace; font-size: 0.45rem;
+  letter-spacing: 0.2em; color: var(--gold);
+}
+.portrait-data .name-tag { font-size: 0.65rem; color: var(--white); margin-bottom: 0.2rem; }
+.portrait-data .loc { color: var(--muted); }
+
+.hud-data-box {
+  margin-top: 0.5rem;
+  border: 1px solid var(--border);
+  padding: 0.8rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.45rem; letter-spacing: 0.15em; line-height: 2;
+  color: var(--muted);
+  background: rgba(4,18,9,0.72); backdrop-filter: blur(12px);
+}
+.hud-data-box .row { display: flex; justify-content: space-between; }
+.hud-data-box .val { color: var(--gold); }
+
+/* ════════════════════════════════════════════════
+   SECTIONS
+════════════════════════════════════════════════ */
+section { padding: 6rem 0; }
+section.alt { background: rgba(4,16,8,0.65); }
+
+.sec-head { margin-bottom: 4rem; }
+
+/* ════════════════════════════════════════════════
+   STATS ROW
+════════════════════════════════════════════════ */
+.stats-bar {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  border: 1px solid var(--border);
+  margin-bottom: 3.5rem;
+  background: var(--panel); backdrop-filter: blur(20px);
+}
+.stat-cell {
+  padding: 1.5rem; text-align: center;
+  border-right: 1px solid var(--border);
+  position: relative; overflow: hidden; transition: background 0.3s;
+}
+.stat-cell:last-child { border-right: none; }
+.stat-cell:hover { background: var(--goldx); }
+.stat-cell::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px; background: var(--gold); transform: scaleX(0);
+  transition: transform 0.4s ease; transform-origin: left;
+}
+.stat-cell:hover::after { transform: scaleX(1); }
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem; font-weight: 300; color: var(--gold);
+  display: block; line-height: 1;
+}
+.stat-lbl { font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); margin-top: 0.4rem; display: block; }
+
+/* ════════════════════════════════════════════════
+   ABOUT
+════════════════════════════════════════════════ */
+.about-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 4rem; align-items: start; }
+.about-text { font-size: 1rem; line-height: 1.9; color: var(--text); }
+.about-text p { margin-bottom: 1.4rem; }
+.about-text p::first-letter {
+  font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300;
+  color: var(--gold); float: left; line-height: 0.8; margin: 0.15rem 0.12rem 0 0;
+}
+
+.skills-panel { padding: 2rem; }
+.skill-row { margin-bottom: 1.5rem; }
+.skill-name { font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text); margin-bottom: 0.5rem; display: flex; justify-content: space-between; }
+.skill-name span { color: var(--gold); }
+.skill-bar { height: 2px; background: rgba(255,255,255,0.06); position: relative; }
+.skill-fill {
+  position: absolute; top: 0; left: 0; height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--cyan));
+  transition: width 1.5s cubic-bezier(.16,1,.3,1); width: 0;
+}
+.skill-fill.on { width: var(--w); }
+
+/* ════════════════════════════════════════════════
+   SERVICES
+════════════════════════════════════════════════ */
+.services-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(210px,1fr));
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border);
+}
+.svc-card {
+  background: var(--deep); padding: 2.5rem 2rem;
+  position: relative; overflow: hidden; cursor: default;
+  transition: background 0.4s;
+}
+.svc-card::before {
+  content: ''; position: absolute;
+  top: -50%; left: -50%; width: 200%; height: 200%;
+  background: radial-gradient(circle at center, rgba(201,169,110,0.06) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.5s;
+}
+.svc-card:hover::before { opacity: 1; }
+.svc-card:hover { background: rgba(8,18,48,0.95); }
+.svc-num { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.3em; color: var(--gold); opacity: 0.5; margin-bottom: 1.5rem; }
+.svc-icon { font-size: 1.4rem; color: var(--gold); margin-bottom: 1.2rem; display: block; transition: transform 0.3s; }
+.svc-card:hover .svc-icon { transform: translateY(-4px); }
+.svc-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 0.8rem; }
+.svc-desc { font-size: 0.82rem; line-height: 1.7; color: var(--muted); }
+/* Bottom accent line */
+.svc-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 1px; background: linear-gradient(90deg, var(--gold), var(--cyan));
+  transform: scaleX(0); transform-origin: left; transition: transform 0.5s ease;
+}
+.svc-card:hover::after { transform: scaleX(1); }
+
+/* ════════════════════════════════════════════════
+   TIMELINE
+════════════════════════════════════════════════ */
+.tl { position: relative; }
+.tl::before {
+  content: ''; position: absolute; left: 110px; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--border) 10%, var(--border) 90%, transparent);
+}
+.tl-item {
+  display: grid; grid-template-columns: 110px 1fr;
+  gap: 0 2.5rem; margin-bottom: 3rem; position: relative;
+}
+.tl-date-col { text-align: right; padding-top: 0.15rem; }
+.tl-date {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.5rem; letter-spacing: 0.2em; color: var(--gold); line-height: 1.8;
+}
+.tl-dot {
+  position: absolute; left: 110px; top: 6px;
+  width: 9px; height: 9px;
+  background: var(--void); border: 1px solid var(--gold);
+  transform: translate(-50%, 0) rotate(45deg);
+  z-index: 2; transition: background 0.3s;
+}
+.tl-item:hover .tl-dot { background: var(--gold); }
+.tl-body { padding-left: 1.5rem; }
+.tl-role {
+  font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 600;
+  color: var(--white); margin-bottom: 0.15rem;
+}
+.tl-org { font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.8rem; }
+.tl-list { list-style: none; }
+.tl-list li {
+  font-size: 0.85rem; color: var(--text); line-height: 1.7;
+  padding-left: 1.2rem; position: relative; margin-bottom: 0.3rem;
+}
+.tl-list li::before { content: '›'; position: absolute; left: 0; color: var(--gold); font-size: 1rem; line-height: 1.4; }
+
+/* ════════════════════════════════════════════════
+   EDUCATION
+════════════════════════════════════════════════ */
+.edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 3rem; }
+.edu-card {
+  padding: 2rem;
+  position: relative; overflow: hidden;
+  transition: all 0.4s;
+}
+.edu-card:hover { border-color: rgba(201,169,110,0.4); box-shadow: var(--glow); }
+.edu-year { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.3em; color: var(--gold); margin-bottom: 0.6rem; }
+.edu-deg { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 0.3rem; }
+.edu-inst { font-size: 0.78rem; color: var(--muted); margin-bottom: 1rem; }
+.dist-list { list-style: none; }
+.dist-list li { font-size: 0.8rem; color: var(--text); padding-left: 1rem; position: relative; margin-bottom: 0.25rem; }
+.dist-list li::before { content: '✦'; position: absolute; left: 0; color: var(--gold); font-size: 0.5rem; top: 3px; }
+
+.cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.cert-item {
+  display: flex; gap: 0.8rem; align-items: flex-start;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--borderx);
+  background: var(--cyanx); transition: border-color 0.3s;
+}
+.cert-item:hover { border-color: rgba(77,217,255,0.3); }
+.cert-item i { color: var(--cyan); flex-shrink: 0; margin-top: 2px; font-size: 0.75rem; }
+.cert-item span { font-size: 0.82rem; color: var(--text); line-height: 1.5; }
+
+/* ════════════════════════════════════════════════
+   GALLERY
+════════════════════════════════════════════════ */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  grid-template-rows: auto;
+  gap: 3px;
+}
+.g-item {
+  overflow: hidden; cursor: pointer; position: relative;
+  background: var(--deep); border: 1px solid var(--border);
+  transition: border-color 0.3s;
+}
+.g-item:hover { border-color: rgba(201,169,110,0.5); }
+.g-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+.g-item:nth-child(5) { grid-column: span 2; }
+.g-item img { width: 100%; height: 100%; object-fit: cover; object-position: top center; transition: transform 0.6s ease, filter 0.4s; filter: saturate(0.7); }
+.g-item:hover img { transform: scale(1.06); filter: saturate(1); }
+.g-placeholder {
+  min-height: 180px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem;
+  background: var(--deep);
+}
+.g-item:nth-child(1) .g-placeholder { min-height: 380px; }
+.g-item:nth-child(5) .g-placeholder { min-height: 180px; }
+.g-placeholder i { color: rgba(201,169,110,0.2); font-size: 1.4rem; }
+.g-placeholder span { font-family: 'Space Mono', monospace; font-size: 0.45rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(201,169,110,0.25); text-align: center; padding: 0 1rem; }
+.g-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(2,5,16,0.85) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.4s;
+  display: flex; align-items: flex-end; padding: 1rem;
+}
+.g-item:hover .g-overlay { opacity: 1; }
+.g-overlay span { font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; }
+
+/* Lightbox */
+#lightbox {
+  display: none; position: fixed; inset: 0; z-index: 5000;
+  background: rgba(2,5,16,0.97); backdrop-filter: blur(16px);
+  align-items: center; justify-content: center;
+}
+#lightbox.open { display: flex; }
+#lightbox img { max-width: 90vw; max-height: 88vh; object-fit: contain; }
+#lb-close {
+  position: absolute; top: 2rem; right: 2rem;
+  background: none; border: 1px solid var(--border);
+  color: var(--muted); width: 2.5rem; height: 2.5rem;
+  cursor: pointer; font-size: 0.8rem; display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s;
+}
+#lb-close:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ════════════════════════════════════════════════
+   CONTACT SECTION
+════════════════════════════════════════════════ */
+#contact { background: rgba(2,5,16,0.7); }
+
+.contact-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 4rem; align-items: start; }
+
+/* Form futurista */
+.form-field { margin-bottom: 1.4rem; }
+.form-field label {
+  display: block; font-family: 'Space Mono', monospace;
+  font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 0.5rem;
+}
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width: 100%;
+  background: rgba(255,255,255,0.03);
+  border: none; border-bottom: 1px solid var(--border);
+  padding: 0.75rem 0; color: var(--white);
+  font-family: 'Syne', sans-serif; font-size: 0.88rem;
+  outline: none; transition: border-color 0.3s; -webkit-appearance: none;
+}
+.form-field select { cursor: pointer; }
+.form-field select option { background: var(--deep); }
+.form-field input::placeholder, .form-field textarea::placeholder { color: var(--muted); }
+.form-field input:focus, .form-field textarea:focus, .form-field select:focus {
+  border-color: var(--gold);
+  background: rgba(201,169,110,0.03);
+}
+.form-field textarea { resize: none; min-height: 90px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.form-error { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.2em; color: #ff6b6b; margin-top: 0.3rem; display: none; }
+.form-error.show { display: block; }
+.form-success {
+  display: none; padding: 1.2rem; border: 1px solid rgba(201,169,110,0.3);
+  font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.2em;
+  color: var(--gold); margin-top: 1rem; text-align: center;
+}
+.form-success.show { display: block; animation: fadeIn 0.5s ease; }
+
+/* Contact cards */
+.c-cards { display: flex; flex-direction: column; gap: 0.8rem; }
+.c-card {
+  display: flex; gap: 1rem; align-items: flex-start;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--border);
+  background: var(--panel); backdrop-filter: blur(12px);
+  transition: border-color 0.3s, background 0.3s;
+}
+.c-card:hover { border-color: rgba(201,169,110,0.4); background: var(--goldx); }
+.c-icon { width: 2rem; height: 2rem; flex-shrink: 0; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 0.7rem; }
+.c-label { font-family: 'Space Mono', monospace; font-size: 0.45rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.2rem; }
+.c-val { font-size: 0.82rem; color: var(--text); line-height: 1.5; }
+.c-val a { color: inherit; transition: color 0.3s; }
+.c-val a:hover { color: var(--gold); }
+
+.cta-btns { display: flex; gap: 0.8rem; margin-top: 1.5rem; }
+.cta-btns .btn { flex: 1; justify-content: center; }
+.btn-cyan { background: transparent; color: var(--cyan); border: 1px solid rgba(77,217,255,0.3); }
+.btn-cyan:hover { border-color: var(--cyan); background: var(--cyanx); box-shadow: var(--glowc); }
+
+.socials { display: flex; gap: 0.5rem; margin-top: 1.2rem; }
+.social-btn {
+  width: 2.5rem; height: 2.5rem; border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted); font-size: 0.8rem; transition: all 0.3s; cursor: pointer;
+  background: var(--goldx);
+}
+.social-btn:hover { border-color: var(--gold); color: var(--gold); box-shadow: var(--glow); }
+
+/* ════════════════════════════════════════════════
+   MODALS
+════════════════════════════════════════════════ */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; z-index: 4000;
+  background: rgba(2,5,16,0.92); backdrop-filter: blur(16px);
+  align-items: center; justify-content: center; padding: 1rem;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: linear-gradient(145deg, var(--deep), rgba(13,59,46,0.3));
+  border: 1px solid var(--border);
+  max-width: 580px; width: 100%; max-height: 90vh; overflow-y: auto;
+  padding: 2.5rem; position: relative;
+  box-shadow: var(--glow), 0 32px 80px rgba(0,0,0,0.6);
+  animation: fadeUp 0.4s cubic-bezier(.16,1,.3,1) forwards;
+}
+.modal-box::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold) 40%, var(--cyan) 70%, transparent);
+}
+.modal-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: none; border: 1px solid var(--border);
+  color: var(--muted); width: 2rem; height: 2rem;
+  cursor: pointer; font-size: 0.7rem;
+  display: flex; align-items: center; justify-content: center; transition: all 0.3s;
+}
+.modal-close:hover { border-color: var(--gold); color: var(--gold); }
+.modal-title { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: var(--white); margin-bottom: 0.2rem; }
+.modal-sub { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--muted); margin-bottom: 2rem; }
+.modal-rule { height: 1px; background: linear-gradient(to right, var(--gold), transparent); margin-bottom: 2rem; }
+.modal-box .form-field label { color: var(--muted); }
+.modal-box .form-field input,
+.modal-box .form-field textarea,
+.modal-box .form-field select { background: rgba(255,255,255,0.02); }
+.confirm-badge {
+  display: none; border: 1px solid rgba(201,169,110,0.3); padding: 1.5rem;
+  margin-top: 1rem; text-align: center; background: var(--goldx);
+}
+.confirm-badge.show { display: block; animation: fadeIn 0.5s ease; }
+.confirm-badge i { font-size: 1.8rem; color: var(--gold); display: block; margin-bottom: 0.8rem; }
+.confirm-badge p { font-size: 0.85rem; color: var(--text); line-height: 1.7; }
+
+/* Time slots */
+.time-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.4rem; margin-top: 0.4rem; }
+.time-slot {
+  padding: 0.5rem; border: 1px solid var(--border);
+  background: none; color: var(--muted);
+  font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.1em;
+  cursor: pointer; transition: all 0.3s; text-align: center;
+}
+.time-slot:hover, .time-slot.sel { border-color: var(--gold); color: var(--gold); background: var(--goldx); }
+
+/* ════════════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════════════ */
+#footer {
+  padding: 3rem 0;
+  border-top: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--void) 0%, #010804 100%);
+}
+.footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
+.footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--white); }
+.footer-brand em { font-style: normal; color: var(--gold); }
+.footer-tag { font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
+.footer-copy { font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.2em; color: var(--muted); text-align: center; }
+.footer-langs { display: flex; gap: 0.4rem; }
+.footer-lb {
+  background: none; border: 1px solid var(--border); color: var(--muted);
+  font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.2em;
+  padding: 0.3rem 0.6rem; cursor: pointer; transition: all 0.3s;
+}
+.footer-lb:hover, .footer-lb.active { border-color: var(--gold); color: var(--gold); }
+
+/* ════════════════════════════════════════════════
+   FLOATING ELEMENTS
+════════════════════════════════════════════════ */
+#wa-float {
+  position: fixed; bottom: 5.5rem; right: 2rem; z-index: 900;
+  display: flex; align-items: center; gap: 0.7rem;
+}
+#wa-btn {
+  width: 3rem; height: 3rem; border-radius: 50%;
+  background: #25D366; color: white; border: none;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; cursor: pointer; text-decoration: none;
+  box-shadow: 0 0 30px rgba(37,211,102,0.4); transition: all 0.3s;
+}
+#wa-btn:hover { transform: scale(1.1); box-shadow: 0 0 50px rgba(37,211,102,0.6); }
+#wa-lbl {
+  font-family: 'Space Mono', monospace; font-size: 0.45rem; letter-spacing: 0.2em;
+  color: #25D366; background: rgba(2,5,16,0.9); padding: 0.35rem 0.7rem;
+  backdrop-filter: blur(8px); white-space: nowrap;
+  opacity: 0; transform: translateX(8px); pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+}
+#wa-float:hover #wa-lbl { opacity: 1; transform: translateX(0); }
+
+#audio-player { position: fixed; bottom: 2rem; right: 2rem; z-index: 900; }
+#audio-btn {
+  width: 3rem; height: 3rem; border-radius: 50%;
+  background: var(--goldx); border: 1px solid var(--border);
+  color: var(--gold); cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem; backdrop-filter: blur(12px);
+  box-shadow: var(--glow); transition: all 0.3s;
+}
+#audio-btn:hover { border-color: var(--gold); background: rgba(201,169,110,0.2); }
+#audio-btn.playing { animation: pulse-border 2s infinite; border-color: var(--gold); }
+
+/* ════════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-portrait-panel { order: -1; max-width: 320px; margin: 0 auto; }
+  .about-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .edu-grid { grid-template-columns: 1fr; }
+  .cert-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: repeat(2,1fr); }
+  .g-item:nth-child(1) { grid-column: span 2; }
+  .g-item:nth-child(5) { grid-column: span 2; }
+  .stats-bar { grid-template-columns: repeat(2,1fr); }
+  .tl::before { left: 80px; }
+  .tl-item { grid-template-columns: 80px 1fr; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .hud-tr, .hud-bl, .hud-br, .hud-vline { display: none; }
+}
+@media (max-width: 600px) {
+  section { padding: 4rem 0; }
+  .services-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .time-grid { grid-template-columns: repeat(2,1fr); }
+  .cta-btns { flex-direction: column; }
+  .footer-inner { flex-direction: column; text-align: center; }
+}
+
+/* ════ CURSOR PERSONALIZADO ════ */
+#cursor-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold);
+  position: fixed; z-index: 99999;
+  pointer-events: none;
+  transform: translate(-50%,-50%);
+  transition: transform 0.1s ease, background 0.3s, width 0.3s, height 0.3s;
+  mix-blend-mode: normal;
+  box-shadow: 0 0 8px var(--gold);
+}
+#cursor-ring {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid rgba(201,169,110,0.5);
+  position: fixed; z-index: 99998;
+  pointer-events: none;
+  transform: translate(-50%,-50%);
+  transition: width 0.4s cubic-bezier(.16,1,.3,1),
+              height 0.4s cubic-bezier(.16,1,.3,1),
+              border-color 0.3s,
+              transform 0.12s ease;
+}
+#cursor-ring.hover {
+  width: 60px; height: 60px;
+  border-color: var(--gold);
+  background: rgba(201,169,110,0.06);
+}
+#cursor-ring.click {
+  width: 20px; height: 20px;
+  border-color: var(--cyan);
+  border-width: 2px;
+}
+a, button, .svc-card, .g-item, .time-slot, .lang-pill, .stat-cell { cursor: none; }
+
+/* ════ TEXT FROSTED GLASS BACKDROPS ════ */
+.text-glass {
+  background: rgba(4,18,9,0.68);
+  backdrop-filter: blur(18px) saturate(130%);
+  -webkit-backdrop-filter: blur(18px) saturate(120%);
+  border-radius: 2px;
+  padding: 2.5rem;
+  border: 1px solid rgba(201,169,110,0.08);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.35);
+}
+
+.svc-glass {
+  background: rgba(3,14,7,0.80);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(130%);
+}
+
+/* Override section bg for deeper glass */
+.about-text {
+  background: rgba(4,18,9,0.62);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 2rem 2rem 2rem 2rem;
+  border-left: 2px solid rgba(201,169,110,0.25);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.3), inset 0 0 60px rgba(13,59,46,0.08);
+}
+
+/* Hero name + tagline glass pill */
+.hero-content > .hero-tagline {
+  background: rgba(4,18,9,0.58);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 1rem 1.4rem;
+  border-left: 2px solid var(--gold);
+  border-radius: 0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3), inset 0 0 30px rgba(13,59,46,0.06);
+}
+
+/* Stats bar deepened */
+.stats-bar { backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
+
+/* Service cards glass */
+.svc-card { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+
+/* Timeline body glass */
+.tl-body {
+  padding: 1.4rem 1.6rem;
+  background: rgba(4,18,9,0.60);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(201,169,110,0.10);
+  border-left: 2px solid rgba(201,169,110,0.2);
+}
+
+/* Edu cards */
+.edu-card { backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+
+/* Cert items */
+.cert-item { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+
+/* ════ EXTRA ANIMATIONS ════ */
+@keyframes float-y {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+@keyframes rotateGlow {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes typewriter {
+  from { width: 0; } to { width: 100%; }
+}
+@keyframes expandWidth {
+  from { transform: scaleX(0); } to { transform: scaleX(1); }
+}
+
+/* Portrait floating */
+.portrait-hud { animation: float-y 6s ease-in-out infinite; }
+
+/* Shimmer on skill bars fill */
+.skill-fill.on {
+  background: linear-gradient(90deg,
+    var(--gold) 0%, var(--gold2) 35%, var(--cyan) 65%, var(--gold) 100%);
+  background-size: 400px 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Service icon spin on hover */
+.svc-card:hover .svc-icon { transform: translateY(-6px) rotate(10deg) scale(1.15); }
+
+/* Gold dots on nav brand pulse */
+.nav-brand .dot {
+  box-shadow: 0 0 8px var(--gold), 0 0 16px rgba(201,169,110,0.3);
+}
+
+/* Stat cells — number count-up shimmer */
+.stat-num {
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold2) 50%, var(--gold) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+/* HUD corner flicker */
+.hud-corner { animation: flicker 6s infinite; }
+.hud-tl { animation-delay: 0.2s; }
+.hud-tr { animation-delay: 1.1s; }
+
+/* Section title entrance underline */
+.sec-title { position: relative; }
+.sec-title::after {
+  content: '';
+  position: absolute; bottom: -8px; left: 0;
+  width: 0; height: 1px;
+  background: linear-gradient(90deg, var(--gold), var(--cyan));
+  transition: width 0.8s cubic-bezier(.16,1,.3,1);
+}
+.sec-title.visible-title::after { width: 60%; }
+
+/* Tl dot glow on hover */
+.tl-item:hover .tl-dot {
+  box-shadow: 0 0 12px var(--gold), 0 0 24px rgba(201,169,110,0.3);
+}
+
+/* Hero name gradient shimmer */
+.hero-name em {
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold2) 40%, var(--cyan) 80%, var(--gold) 100%);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 5s linear infinite;
+}
+
+/* Contact cards hover lift */
+.c-card { transition: border-color 0.3s, background 0.3s, transform 0.3s, box-shadow 0.3s; }
+.c-card:hover { transform: translateX(6px); box-shadow: -4px 0 20px rgba(201,169,110,0.1); }
+
+/* Lang pill hover glow */
+.lang-pill:hover { box-shadow: 0 0 20px rgba(201,169,110,0.2); }
+
+/* Button shimmer sweep */
+.btn-gold::after {
+  content: ''; position: absolute;
+  top: 0; left: -100%; width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.5s ease;
+}
+.btn-gold:hover::after { left: 140%; }
+
+/* Gallery item scan line */
+.g-item::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; z-index: 5;
+  background: linear-gradient(90deg, transparent, rgba(77,217,255,0.4), transparent);
+  transform: translateY(-100%);
+  transition: transform 0s;
+  pointer-events: none;
+}
+.g-item:hover::before {
+  animation: hud-scan 1.2s linear infinite;
 }
 
 
-/* ── HERO CAROUSEL ── */
-.hero-carousel { position: relative; width: 100%; }
-.hc-img {
-  width: 100%; position: absolute; top: 0; left: 0;
+/* ════ SECCIÓN PAGOS ════ */
+#pagos { padding: 6rem 0; }
+.pagos-intro {
+  max-width: 600px; margin: 0 auto 3.5rem;
+  text-align: center;
+  font-size: 0.95rem; color: var(--text); line-height: 1.8;
+  background: rgba(4,18,9,0.60);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 1.8rem 2rem;
+  border: 1px solid rgba(201,169,110,0.12);
+}
+
+.payment-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.pay-card {
+  padding: 2rem;
+  background: rgba(3,14,7,0.82);
+  backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+  border: 1px solid var(--border);
+  position: relative; overflow: hidden;
+  transition: border-color 0.4s, box-shadow 0.4s;
+}
+.pay-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--cyan));
+  transform: scaleX(0); transform-origin: left; transition: transform 0.5s ease;
+}
+.pay-card:hover::before { transform: scaleX(1); }
+.pay-card:hover { border-color: rgba(201,169,110,0.35); box-shadow: var(--glow); }
+
+.pay-bank-logo {
+  display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.5rem;
+}
+.pay-bank-icon {
+  width: 2.5rem; height: 2.5rem; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; flex-shrink: 0; font-weight: 700;
+}
+.icon-nu   { background: #7B2BF9; color: white; }
+.icon-albo { background: #0A84FF; color: white; }
+.icon-oxxo { background: #EC0000; color: white; }
+.pay-bank-name {
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: var(--white);
+}
+.pay-bank-sub { font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.3em; color: var(--muted); text-transform: uppercase; }
+
+.pay-field { margin-bottom: 1.2rem; }
+.pay-label { font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+.pay-value-row { display: flex; align-items: center; gap: 0.6rem; }
+.pay-value {
+  font-family: 'Space Mono', monospace; font-size: 0.88rem; letter-spacing: 0.12em;
+  color: var(--gold); flex: 1;
+  background: rgba(201,169,110,0.05);
+  padding: 0.6rem 0.8rem;
+  border: 1px solid rgba(201,169,110,0.1);
+  word-break: break-all; line-height: 1.5;
+}
+.copy-btn {
+  width: 2.2rem; height: 2.2rem; flex-shrink: 0;
+  background: var(--goldx); border: 1px solid var(--border);
+  color: var(--gold); font-size: 0.7rem;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.3s;
+}
+.copy-btn:hover { background: rgba(201,169,110,0.2); border-color: var(--gold); }
+.copy-btn.copied { background: rgba(77,217,255,0.15); border-color: var(--cyan); color: var(--cyan); }
+
+/* OXXO stores list */
+.stores-list {
+  display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem;
+}
+.store-badge {
+  font-family: 'Space Mono', monospace; font-size: 0.42rem; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--muted);
+  border: 1px solid rgba(255,255,255,0.07); padding: 0.2rem 0.5rem;
+  background: rgba(255,255,255,0.02);
+}
+
+/* QR section */
+.pay-qr-row {
+  display: flex; justify-content: center; margin-top: 1.5rem; padding-top: 1.2rem;
+  border-top: 1px solid rgba(201,169,110,0.08);
+  gap: 2rem; align-items: center; flex-wrap: wrap;
+}
+.qr-wrap-pay {
+  padding: 0.6rem; background: white;
+  box-shadow: 0 0 20px rgba(201,169,110,0.1);
+}
+.qr-wrap-pay img { width: 90px; height: 90px; display: block; }
+.qr-info { font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.2em; color: var(--muted); line-height: 2.2; }
+.qr-info strong { color: var(--gold); display: block; font-size: 0.55rem; margin-bottom: 0.3rem; }
+
+/* Note box */
+.pay-note {
+  margin-top: 2.5rem; padding: 1.2rem 1.5rem;
+  border: 1px solid rgba(77,217,255,0.15);
+  background: rgba(13,59,46,0.18);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  display: flex; gap: 1rem; align-items: flex-start;
+}
+.pay-note i { color: var(--cyan); flex-shrink: 0; margin-top: 2px; }
+.pay-note p { font-size: 0.82rem; color: var(--text2); line-height: 1.7; }
+.pay-note strong { color: var(--cyan); }
+
+/* OXXO card spans full width on large screens */
+@media (min-width: 768px) {
+  .pay-card.full { grid-column: 1 / -1; }
+}
+
+
+/* ════ MARBLE TEXTURE ════ */
+#hero-marble {
+  position: absolute; inset: 0; z-index: 1;
+  background-image: url('marble-texture-emerald-gold.jpg');
+  background-size: cover; background-position: center;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+/* Marble accent on section dividers */
+section::after {
+  content: ''; display: block;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(201,169,110,0.08) 20%,
+    rgba(201,169,110,0.22) 50%,
+    rgba(201,169,110,0.08) 80%,
+    transparent 100%
+  );
+  margin-top: 0;
+}
+/* Emerald glow on hover for svc cards */
+.svc-card::before {
+  content: ''; position: absolute;
+  top: -50%; left: -50%; width: 200%; height: 200%;
+  background: radial-gradient(circle at center, rgba(13,59,46,0.12) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.5s;
+}
+/* HUD accent color to emerald-gold */
+.hud-data-box .val { color: var(--gold); }
+
+
+/* ════ PORTRAIT CAROUSEL ════ */
+.portrait-slide {
+  width: 100%; display: block;
+  filter: contrast(105%) saturate(85%);
+  position: absolute; top: 0; left: 0;
   opacity: 0; transition: opacity 1.2s ease;
   aspect-ratio: 3/4; object-fit: cover; object-position: top center;
 }
-.hc-img.active { opacity: 1; position: relative; }
-.hc-dots {
-  position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%);
-  display: flex; gap: 6px; z-index: 10;
+.portrait-slide.active { opacity: 1; position: relative; }
+
+
+/* ════ VIDEO SECTION ════ */
+#video-reel {
+  padding: 5rem 0;
+  background: linear-gradient(180deg, rgba(4,16,8,.9) 0%, rgba(2,12,6,.95) 100%);
+  position: relative; z-index: 10;
 }
-.hc-dot {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: rgba(255,255,255,.35); cursor: pointer;
-  transition: background .3s, transform .3s; border: none;
+.video-wrapper {
+  position: relative; max-width: 900px; margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid rgba(201,169,110,0.25);
+  box-shadow: 0 0 60px rgba(201,169,110,0.08), 0 30px 80px rgba(0,0,0,0.6);
 }
-.hc-dot.active { background: var(--gold); transform: scale(1.4); }
+.video-wrapper::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(201,169,110,0.5), rgba(77,255,200,0.4), transparent);
+  z-index: 2;
+}
+.video-wrapper::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,169,110,0.3), transparent);
+  z-index: 2;
+}
+.video-wrapper video {
+  width: 100%; display: block;
+  filter: contrast(105%) saturate(90%);
+}
+/* Play button overlay */
+.video-play-overlay {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(2,12,6,0.45);
+  transition: opacity 0.4s; cursor: pointer; z-index: 5;
+}
+.video-play-overlay.hidden { opacity: 0; pointer-events: none; }
+.play-circle {
+  width: 72px; height: 72px; border-radius: 50%;
+  border: 1px solid rgba(201,169,110,0.7);
+  background: rgba(4,16,8,0.7);
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s;
+  box-shadow: 0 0 30px rgba(201,169,110,0.2);
+}
+.play-circle i { color: var(--gold); font-size: 1.5rem; margin-left: 4px; }
+.video-play-overlay:hover .play-circle {
+  background: rgba(201,169,110,0.15);
+  border-color: var(--gold);
+  box-shadow: 0 0 50px rgba(201,169,110,0.35);
+}
+/* Corner markers */
+.v-corner {
+  position: absolute; width: 16px; height: 16px;
+  border-color: rgba(201,169,110,0.5); border-style: solid; z-index: 6;
+}
+.v-corner.tl { top: 0; left: 0; border-width: 2px 0 0 2px; }
+.v-corner.tr { top: 0; right: 0; border-width: 2px 2px 0 0; }
+.v-corner.bl { bottom: 0; left: 0; border-width: 0 0 2px 2px; }
+.v-corner.br { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
+.video-meta {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.8rem 1rem 0;
+  font-family: 'Space Mono', monospace; font-size: 0.45rem;
+  letter-spacing: 0.3em; color: var(--muted); text-transform: uppercase;
+}
+.video-meta .vtag { color: var(--gold); }
+
+
+/* ════════════════════════════════════════════════
+   VIDEO INTRO — Pantalla completa de entrada
+════════════════════════════════════════════════ */
+#video-intro {
+  position: fixed; inset: 0; z-index: 99999;
+  background: #000;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  transition: opacity 1.2s ease;
+}
+#video-intro.fade-out {
+  opacity: 0; pointer-events: none;
+}
+
+/* El vídeo cubre toda la pantalla */
+#intro-video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Vignette oscuro en los bordes */
+#video-intro::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: radial-gradient(
+    ellipse 90% 90% at 50% 50%,
+    transparent 40%,
+    rgba(0,0,0,0.35) 70%,
+    rgba(0,0,0,0.75) 100%
+  );
+}
+
+/* Overlay con branding sobre el vídeo */
+.intro-brand {
+  position: absolute; inset: 0; z-index: 5;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: flex-end;
+  padding-bottom: 5rem;
+  pointer-events: none;
+}
+.intro-monogram {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 300; color: transparent;
+  background: linear-gradient(135deg,
+    rgba(201,169,110,0.9) 0%,
+    rgba(240,207,142,1) 50%,
+    rgba(77,255,200,0.8) 100%);
+  background-size: 300% auto;
+  -webkit-background-clip: text; background-clip: text;
+  filter: drop-shadow(0 0 40px rgba(201,169,110,0.5));
+  animation: shimmer 5s linear infinite;
+  line-height: 1; letter-spacing: 0.1em;
+  opacity: 0; transition: opacity 0.8s ease 0.5s;
+}
+.intro-monogram.show { opacity: 1; }
+
+.intro-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(0.6rem, 2vw, 0.85rem);
+  font-weight: 600; letter-spacing: 0.45em; text-transform: uppercase;
+  color: rgba(240,247,242,0.7);
+  margin-top: 0.8rem;
+  opacity: 0; transition: opacity 0.8s ease 0.9s;
+}
+.intro-title.show { opacity: 1; }
+
+.intro-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(0.45rem, 1.5vw, 0.55rem);
+  letter-spacing: 0.35em; text-transform: uppercase;
+  color: rgba(201,169,110,0.55);
+  margin-top: 0.4rem;
+  opacity: 0; transition: opacity 0.8s ease 1.2s;
+}
+.intro-sub.show { opacity: 1; }
+
+/* Barra de progreso dorada */
+.intro-progress-bar {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: rgba(255,255,255,0.06); z-index: 6;
+}
+.intro-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--cyan));
+  width: 0%; transition: none;
+}
+
+/* Botón saltar */
+.intro-skip {
+  position: absolute; top: 2rem; right: 2rem; z-index: 10;
+  background: rgba(4,16,8,0.65);
+  border: 1px solid rgba(201,169,110,0.35);
+  color: rgba(240,247,242,0.6);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase;
+  padding: 0.5rem 1.2rem;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  transition: all 0.3s;
+  opacity: 0; animation: fadeIn 0.6s ease 2s forwards;
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.intro-skip:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(201,169,110,0.1);
+}
+.intro-skip .skip-icon {
+  font-size: 0.6rem;
+  transition: transform 0.3s;
+}
+.intro-skip:hover .skip-icon { transform: translateX(3px); }
+
+/* Logo AF esquina superior izquierda */
+.intro-logo {
+  position: absolute; top: 2rem; left: 2rem; z-index: 10;
+  font-family: 'Cinzel', 'Cormorant Garamond', serif;
+  font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: rgba(201,169,110,0.55);
+  opacity: 0; animation: fadeIn 0.6s ease 0.5s forwards;
+}
+
+/* Mientras el vídeo intro está activo, bloquear scroll */
+body.intro-active { overflow: hidden; }
 
 </style>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
-<!-- AUDIO (user replaces URL) -->
-<audio id="bg-audio" loop preload="none">
-  <!-- Reemplaza esta URL con tu archivo de música: -->
-  <source src="https://www.bensound.com/bensound-music/bensound-ofeliasdream.mp3" type="audio/mpeg">
-</audio>
+<!-- 3D BG -->
+<!-- ═══════════════════════════════════════════
+     VIDEO INTRO — Pantalla completa de entrada
+═══════════════════════════════════════════ -->
+<div id="video-intro">
+  <!-- Branding sobre el vídeo -->
+  <div class="intro-brand">
+    <div class="intro-monogram" id="intro-monogram">MT</div>
+    <div class="intro-title" id="intro-title">Miguel Tillero Álvarez</div>
+    <div class="intro-sub" id="intro-sub">Director Général · Alliance Française · San Cristóbal de Las Casas</div>
+  </div>
+
+  <!-- Logo AF -->
+  <div class="intro-logo">Alliance Française · SCSC</div>
+
+  <!-- Botón saltar -->
+  <button class="intro-skip" id="intro-skip" onclick="skipIntro()">
+    Saltar &nbsp;<i class="fas fa-chevron-right skip-icon"></i>
+  </button>
+
+  <!-- Barra de progreso -->
+  <div class="intro-progress-bar">
+    <div class="intro-progress-fill" id="intro-progress"></div>
+  </div>
+
+  <!-- El vídeo -->
+  <video id="intro-video" autoplay muted playsinline
+         src="Miguel_Tillero_video_bienvenida.mp4"
+         preload="auto">
+  </video>
+</div>
+
+<div id="vanta-bg"></div>
 
 <!-- LIGHTBOX -->
-<div id="lightbox">
-  <button id="lb-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+<div id="lightbox" role="dialog" aria-modal="true">
+  <button id="lb-close" aria-label="Cerrar"><i class="fa fa-times"></i></button>
   <img id="lb-img" src="" alt="">
 </div>
 
+<!-- AUDIO -->
+<div id="audio-player">
+  <button id="audio-btn" aria-label="Música de fondo"><i class="fa fa-music"></i></button>
+</div>
+<audio id="bg-audio" loop preload="auto">
+  <source src="Arrival_at_the_Terminal_(1).mp3" type="audio/mpeg">
+</audio>
+
+<!-- WHATSAPP FLOAT -->
+<div id="wa-float">
+  <span id="wa-lbl">WhatsApp · +58 412 246 5331</span>
+  <a id="wa-btn" href="https://wa.me/584122465331?text=Hola%20Miguel%2C%20te%20contacto%20desde%20tu%20sitio%20web." target="_blank" rel="noopener" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+</div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#about" onclick="closeMob()">Sobre mí</a>
+  <a href="#services" onclick="closeMob()">Servicios</a>
+  <a href="#timeline" onclick="closeMob()">Trayectoria</a>
+  <a href="#education" onclick="closeMob()">Formación</a>
+  <a href="#gallery" onclick="closeMob()">Galería</a>
+  <a href="#contact" onclick="closeMob()">Contacto</a>
+</div>
+
 <!-- NAV -->
-<nav id="nav">
-  <a href="#hero" class="nav-logo cinzel">M<span>.</span>T</a>
-  <ul class="nav-links" id="nav-links">
-    <li><a href="#about" onclick="closeMenu()" data-i18n="nav_about">Sobre mí</a></li>
-    <li><a href="#services" onclick="closeMenu()" data-i18n="nav_services">Servicios</a></li>
-    <li><a href="#parcours" onclick="closeMenu()" data-i18n="nav_parcours">Trayectoria</a></li>
-    <li><a href="#galerie" onclick="closeMenu()" data-i18n="nav_gallery">Galería</a></li>
-    <li><a href="#contact" onclick="closeMenu()" data-i18n="nav_contact">Contacto</a></li>
+<nav id="nav" class="z10">
+  <div class="nav-brand">
+    <span class="dot"></span>
+    Miguel <span>Tillero</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about" data-es="Sobre mí" data-fr="À propos" data-en="About">Sobre mí</a></li>
+    <li><a href="#services" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</a></li>
+    <li><a href="#timeline" data-es="Trayectoria" data-fr="Parcours" data-en="Career">Trayectoria</a></li>
+    <li><a href="#education" data-es="Formación" data-fr="Formation" data-en="Education">Formación</a></li>
+    <li><a href="#gallery" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a></li>
+    <li><a href="#video-reel" data-es="Vídeo" data-fr="Vidéo" data-en="Video">Vídeo</a></li>
+    <li><a href="#pagos" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a></li>
+    <li><a href="#contact" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a></li>
   </ul>
-  <div style="display:flex;align-items:center;gap:1rem">
-    <div class="nav-lang">
-      <button onclick="setLang('es')" class="active" id="lang-es">ES</button>
-      <button onclick="setLang('fr')" id="lang-fr">FR</button>
-      <button onclick="setLang('en')" id="lang-en">EN</button>
-    </div>
-    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+  <div class="nav-controls">
+    <button class="ctrl-btn active" onclick="setLang('es')">ES</button>
+    <button class="ctrl-btn" onclick="setLang('fr')">FR</button>
+    <button class="ctrl-btn" onclick="setLang('en')">EN</button>
+    <button class="hamburger" onclick="toggleMob()" aria-label="Menú"><i class="fa fa-bars"></i></button>
   </div>
 </nav>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-text reveal">
-    <p class="eyebrow" data-i18n="hero_eyebrow">Especialista FLE · Gestión Cultural · Formación</p>
-    <h1 class="hero-name serif">Miguel<br><strong>Tillero</strong></h1>
-    <p class="hero-tagline" data-i18n="hero_tagline">Docente · Directeur Pédagogique · Conseiller interculturel</p>
-    <p style="font-size:.9rem;color:var(--muted);max-width:400px;font-weight:300;line-height:1.8" data-i18n="hero_sub">13 años construyendo puentes entre culturas a través del lenguaje. Venezuela · Ecuador · México · Francia.</p>
-    <div class="hero-btns">
-      <a href="#contact" class="btn-primary" data-i18n="hero_btn1">Contactarme</a>
-      <a href="#services" class="btn-outline" data-i18n="hero_btn2">Mis servicios</a>
-    </div>
-  </div>
-  <div class="hero-photo-wrap">
-    <!-- CARRUSEL de retratos oficiales -->
-    <div style="position:relative;display:inline-block;width:min(420px,90%)">
-      <div class="hero-carousel" id="heroCarousel">
-        <img src="Gemini_Generated_Image_65ewme65ewme65ew.png"
-             alt="Miguel Tillero — Director Général" class="hero-photo hc-img active"
-             onerror="this.src='IMG-20250925-WA0034.jpg'">
-        <img src="Gemini_Generated_Image_xmy7mxmy7mxmy7mx.png"
-             alt="Miguel Tillero — Spécialiste FLE" class="hero-photo hc-img"
-             onerror="this.style.display='none'">
-        <img src="Gemini_Generated_Image_ctjmf9ctjmf9ctjm.png"
-             alt="Miguel Tillero" class="hero-photo hc-img"
-             onerror="this.style.display='none'">
-        <img src="Gemini_Generated_Image_hbz6v1hbz6v1hbz6.png"
-             alt="Miguel Tillero" class="hero-photo hc-img"
-             onerror="this.style.display='none'">
+<!-- ═══ HERO ═══ -->
+<section id="hero" class="z10">
+  <div id="hero-marble"></div>
+  <div class="hud-corner hud-tl">SYS.INIT / LAT:16.73 / LON:-92.63<br>STATUS: ONLINE · v2025.1</div>
+  <div class="hud-corner hud-tr">NODE: MT-EDUCATION<br>UPTIME: 13 YRS · 5 COUNTRIES</div>
+  <div class="hud-corner hud-bl">LANG: ES / FR / EN · C1 CERTIFIED</div>
+  <div class="hud-corner hud-br">DIRECTOR GÉNÉRAL<br>ALLIANCE FRANÇAISE · SCSC</div>
+  <div class="hud-vline l"></div>
+  <div class="hud-vline r"></div>
+
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-pre">
+          <span>Direction Générale · FLE Specialist</span>
+        </div>
+        <h1 class="hero-name">
+          Miguel
+          <em>Tillero</em>
+          <div class="glitch-layer" aria-hidden="true">Miguel Tillero</div>
+        </h1>
+        <p class="hero-tagline" data-es="Profesor especialista en la enseñanza del francés como lengua extranjera · FLE · Gestión cultural." data-fr="Spécialiste de l'enseignement du français langue étrangère · FLE · Direction culturelle." data-en="French as a Foreign Language Specialist · FLE Teaching · Cultural Management.">
+          Profesor especialista en la enseñanza del francés como lengua extranjera · FLE · Gestión cultural.
+        </p>
+        <div class="hero-langs">
+          <div class="lang-pill"><span class="flag">🇻🇪</span><span class="code">ES</span><span class="lvl">Nativo</span></div>
+          <div class="lang-pill"><span class="flag">🇫🇷</span><span class="code">FR</span><span class="lvl">C1</span></div>
+          <div class="lang-pill"><span class="flag">🇬🇧</span><span class="code">EN</span><span class="lvl">B1/B2</span></div>
+        </div>
+        <div class="hero-cta">
+          <a href="#contact" class="btn btn-gold"><i class="fa fa-envelope"></i><span data-es="Escribirme" data-fr="Me contacter" data-en="Contact me">Escribirme</span></a>
+          <button onclick="openModal('modal-clase')" class="btn btn-ghost"><i class="fa fa-graduation-cap"></i><span data-es="Clase de prueba" data-fr="Cours d'essai" data-en="Trial class">Clase de prueba</span></button>
+          <a href="CV_Miguel_TILLERO_en_francais_pdf.pdf" class="btn btn-ghost" download><i class="fa fa-download"></i><span data-es="CV" data-fr="CV" data-en="CV">CV</span></a>
+        </div>
       </div>
-      <!-- Dots -->
-      <div class="hc-dots" id="hcDots"></div>
-      <div class="hero-badge">
-        <p>Magna Cum Laude</p>
-        <p>UPEL · AVENPROF 2011</p>
-      </div>
-    </div>
-    <div class="hero-stats" style="width:100%;margin-top:1.5rem">
-      <div class="stat">
-        <div class="stat-n">13</div>
-        <div class="stat-l" data-i18n="stat1">Años exp.</div>
-      </div>
-      <div class="stat">
-        <div class="stat-n">3</div>
-        <div class="stat-l" data-i18n="stat2">Idiomas</div>
-      </div>
-      <div class="stat">
-        <div class="stat-n">+34%</div>
-        <div class="stat-l" data-i18n="stat3">Crecimiento</div>
+
+      <div class="hero-portrait-panel">
+        <div class="portrait-hud bracket">
+          <div class="portrait-inner" id="portraitCarousel">
+            <div class="portrait-scan"></div>
+            <!-- Carrusel de retratos oficiales -->
+            <img class="portrait-slide active" src="miguel-tillero-paris-tour-eiffel.png" alt="Miguel Tillero — París"
+                 onerror="this.src='alianza-francesa-san-cristobal-fachada.jpg'">
+            <img class="portrait-slide" src="miguel-tillero-director-general-afsc.png" alt="Miguel Tillero — Director Général"
+                 onerror="this.style.display='none'">
+            <img class="portrait-slide" src="miguel-tillero-paris-alliance-francaise.png" alt="Miguel Tillero — Tour Eiffel"
+                 onerror="this.style.display='none'">
+            <img class="portrait-slide" src="miguel-tillero-gestion-cultural.png" alt="Miguel Tillero"
+                 onerror="this.style.display='none'">
+            <img class="portrait-slide" src="miguel-tillero-retrato-oficial.png" alt="Miguel Tillero"
+                 onerror="this.style.display='none'">
+            <img class="portrait-slide" src="miguel-tillero-pedagogo-internacional.png" alt="Miguel Tillero"
+                 onerror="this.style.display='none'">
+            <div class="portrait-data">
+              <div class="name-tag">MIGUEL TILLERO ÁLVAREZ</div>
+              <div class="loc"><i class="fa fa-map-marker-alt"></i> Director Général · Alliance Française SCSC</div>
+            </div>
+          </div>
+        </div>
+        <div class="hud-data-box">
+          <div class="row"><span>EXP</span><span class="val">13 YRS / 5 COUNTRIES</span></div>
+          <div class="row"><span>STATUS</span><span class="val" style="color:var(--cyan)">● ACTIVE</span></div>
+          <div class="row"><span>CERT</span><span class="val">DELF · DALF · MCL</span></div>
+          <div class="row"><span>CONTACT</span><span class="val">migueltillero@gmail.com</span></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="section-inner">
+<!-- ═══ ABOUT ═══ -->
+<section id="about" class="alt z10">
+  <div class="container">
+    <div class="stats-bar reveal">
+      <div class="stat-cell"><span class="stat-num">13</span><span class="stat-lbl" data-es="Años exp." data-fr="Ans d'exp." data-en="Years exp.">Años exp.</span></div>
+      <div class="stat-cell"><span class="stat-num" style="color:var(--cyan)">+34<small style="font-size:1.4rem">%</small></span><span class="stat-lbl" data-es="Crecimiento matrícula" data-fr="Hausse étudiants" data-en="Enrollment growth">Crecimiento matrícula</span></div>
+      <div class="stat-cell"><span class="stat-num">3</span><span class="stat-lbl" data-es="Idiomas" data-fr="Langues" data-en="Languages">Idiomas</span></div>
+      <div class="stat-cell"><span class="stat-num">5</span><span class="stat-lbl" data-es="Países" data-fr="Pays" data-en="Countries">Países</span></div>
+    </div>
+
+    <div class="sec-head reveal">
+      <p class="eyebrow" data-es="Perfil profesional" data-fr="Profil professionnel" data-en="Professional profile">Perfil profesional</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;">À <em>propos</em></h2>
+    </div>
+
     <div class="about-grid">
-      <div class="reveal-left">
-        <div class="section-header">
-          <p class="section-num">01</p>
-          <h2 class="section-title" data-i18n="about_title">Sobre <em>mí</em></h2>
-          <div class="section-line"></div>
-        </div>
-        <div class="about-langs">
-          <p class="eyebrow" style="margin-bottom:1rem" data-i18n="about_langs">Idiomas</p>
-          <div class="lang-item">
-            <span style="font-size:.82rem;font-weight:500">Español</span>
-            <span style="font-size:.7rem;color:var(--gold)">Nativo</span>
-          </div>
-          <div class="lang-bar"><div class="lang-fill" style="width:0%" data-width="100%"></div></div>
-          <div class="lang-item" style="margin-top:.8rem">
-            <span style="font-size:.82rem;font-weight:500">Français</span>
-            <span style="font-size:.7rem;color:var(--gold)">C1</span>
-          </div>
-          <div class="lang-bar"><div class="lang-fill" style="width:0%" data-width="88%"></div></div>
-          <div class="lang-item" style="margin-top:.8rem">
-            <span style="font-size:.82rem;font-weight:500">English</span>
-            <span style="font-size:.7rem;color:var(--gold)">B1/B2</span>
-          </div>
-          <div class="lang-bar"><div class="lang-fill" style="width:0%" data-width="62%"></div></div>
-        </div>
-        <div style="margin-top:2.5rem">
-          <p class="eyebrow" style="margin-bottom:1rem" data-i18n="about_skills">Competencias</p>
-          <div>
-            <span class="skill-tag">FLE / ELE</span>
-            <span class="skill-tag">DELF · DALF</span>
-            <span class="skill-tag">Gestion pédagogique</span>
-            <span class="skill-tag">Diplomatie culturelle</span>
-            <span class="skill-tag">Leadership</span>
-            <span class="skill-tag">Formation formateurs</span>
-            <span class="skill-tag">Traduction ES↔FR</span>
-            <span class="skill-tag">Interculturalité</span>
-          </div>
+      <div class="about-text reveal d1">
+        <p data-es="Soy pedagogo de formación y especialista en lenguas extranjeras con trece años de trayectoria internacional. A lo largo de mi carrera he aprendido que enseñar un idioma no se trata solo de gramática: se trata de abrir puertas, de acercar culturas y de transformar la vida de las personas que deciden dar ese paso." data-fr="Pédagogue de formation et spécialiste des langues étrangères, je porte treize ans de parcours international. Enseigner une langue, c'est ouvrir des portes, rapprocher des cultures et transformer la vie de ceux qui font ce pas." data-en="I am a trained educator and foreign language specialist with thirteen years of international experience. Teaching a language is not just about grammar — it is about opening doors, bridging cultures and transforming lives.">Soy pedagogo de formación y especialista en lenguas extranjeras con trece años de trayectoria internacional. A lo largo de mi carrera he aprendido que enseñar un idioma no se trata solo de gramática: se trata de abrir puertas, de acercar culturas y de transformar la vida de las personas que deciden dar ese paso.</p>
+        <p data-es="He pasado por aulas universitarias en Caracas, oficinas de la Embajada de Francia en Venezuela y Ecuador, y la dirección pedagógica de la Alianza Francesa de Cuenca, donde bajo mi liderazgo la matrícula creció un 34,7% en tres años. Hoy, al frente de la Alianza Francesa de San Cristóbal de Las Casas, continúo ese mismo trabajo: construir instituciones sólidas y comunidades de aprendizaje reales." data-fr="Des salles de classe de Caracas aux bureaux de l'Ambassade de France, en passant par la direction pédagogique de l'Alliance Française de Cuenca où les effectifs ont grandi de 34,7 %, mon parcours est un fil conducteur : construire des institutions solides et des communautés apprenantes." data-en="From university classrooms in Caracas to the French Embassy offices, to the pedagogical direction of the Alliance Française of Cuenca where enrollment grew 34.7%, my path has one thread: building solid institutions and genuine learning communities.">He pasado por aulas universitarias en Caracas, oficinas de la Embajada de Francia en Venezuela y Ecuador, y la dirección pedagógica de la Alianza Francesa de Cuenca, donde bajo mi liderazgo la matrícula creció un 34,7% en tres años. Hoy, al frente de la Alianza Francesa de San Cristóbal de Las Casas, continúo ese mismo trabajo: construir instituciones sólidas y comunidades de aprendizaje reales.</p>
+      </div>
+      <div class="reveal d2">
+        <div class="panel bracket skills-panel">
+          <p class="hud-label" style="margin-bottom:1.5rem;">COMPETENCIAS CLAVE</p>
+          <div class="skill-row"><div class="skill-name">Pédagogie FLE <span>95%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:95%"></div></div></div>
+          <div class="skill-row"><div class="skill-name">Gestion d'équipe <span>88%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:88%"></div></div></div>
+          <div class="skill-row"><div class="skill-name">DELF/DALF <span>100%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:100%"></div></div></div>
+          <div class="skill-row"><div class="skill-name">Direction culturelle <span>90%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:90%"></div></div></div>
+          <div class="skill-row"><div class="skill-name">Traduction ES↔FR <span>92%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:92%"></div></div></div>
         </div>
       </div>
-      <div class="about-text reveal-right">
-        <p data-i18n="about_p1">Soy docente, pedagogo y especialista en francés como lengua extranjera, con trece años de experiencia en educación, gestión intercultural y diplomacia cultural. Mi trabajo ha tenido como norte una convicción simple: aprender un idioma no es memorizar conjugaciones — es abrirse al mundo.</p>
-        <p data-i18n="about_p2">He enseñado en universidades, liceos, centros culturales y alianzas francesas en Venezuela, Ecuador y México. He asesorado candidatos en procesos migratorios hacia Quebec, trabajado con la Embajada de Francia, y dirigido equipos pedagógicos en contextos tan distintos como Caracas, Cuenca y San Cristóbal de Las Casas.</p>
-        <p data-i18n="about_p3">Como director pedagógico de la Alianza Francesa de Cuenca, logré un crecimiento del <strong>34,7% en matrícula</strong> en tres años, consolidando un equipo de 12 docentes con formación individualizada y coordinando exámenes oficiales DELF. Hoy dirijo la Alianza Francesa de San Cristóbal de Las Casas, liderando su proceso de recuperación institucional.</p>
-        <p data-i18n="about_p4">Esta página existe para conectarme directamente con quienes buscan clases de francés, asesorías pedagógicas, formaciones o cualquier proyecto que ponga al lenguaje en el centro.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SERVICES ═══ -->
+<section id="services" class="z10">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow" data-es="Lo que ofrezco" data-fr="Ce que je propose" data-en="What I offer">Lo que ofrezco</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;"><em>Services</em></h2>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card reveal d1">
+        <div class="svc-num">// 01</div>
+        <i class="fa fa-chalkboard-teacher svc-icon"></i>
+        <h3 class="svc-title" data-es="Clases de francés" data-fr="Cours de français" data-en="French classes">Clases de francés</h3>
+        <p class="svc-desc" data-es="Desde el primer bonjour hasta la certificación oficial DELF/DALF. Clases individuales o en pequeño grupo, con una metodología comunicativa y accional que convierte cada sesión en una experiencia real de la lengua." data-fr="Du premier bonjour jusqu'à la certification DELF/DALF. Cours individuels ou en petit groupe, avec une approche communicative centrée sur l'usage réel de la langue." data-en="From the first bonjour to official DELF/DALF certification. Individual or small group classes using a communicative approach that makes every session feel like real language use.">Desde el primer bonjour hasta la certificación oficial DELF/DALF. Clases individuales o en pequeño grupo, con una metodología comunicativa y accional que convierte cada sesión en una experiencia real de la lengua.</p>
+      </div>
+      <div class="svc-card reveal d2">
+        <div class="svc-num">// 02</div>
+        <i class="fa fa-graduation-cap svc-icon"></i>
+        <h3 class="svc-title" data-es="Asesorías pedagógicas" data-fr="Conseil pédagogique" data-en="Pedagogical consulting">Asesorías pedagógicas</h3>
+        <p class="svc-desc" data-es="Acompañamiento a docentes y equipos pedagógicos que quieren enseñar mejor el francés. Desde el diseño de su programa hasta la formación de su equipo, con herramientas concretas y aplicables desde el día uno." data-fr="Accompagnement de professeurs et équipes qui veulent enseigner mieux. Du programme à la formation de l'équipe, avec des outils concrets applicables dès le premier jour." data-en="Support for teachers and teams who want to teach French more effectively, from curriculum design to team training with practical tools from day one.">Acompañamiento a docentes y equipos pedagógicos que quieren enseñar mejor el francés. Desde el diseño de su programa hasta la formación de su equipo, con herramientas concretas y aplicables desde el día uno.</p>
+      </div>
+      <div class="svc-card reveal d3">
+        <div class="svc-num">// 03</div>
+        <i class="fa fa-building-columns svc-icon"></i>
+        <h3 class="svc-title" data-es="Gestión cultural" data-fr="Gestion culturelle" data-en="Cultural management">Gestión cultural</h3>
+        <p class="svc-desc" data-es="Más de una década dirigiendo y transformando centros culturales de la red francófona. Aporto experiencia real en diagnóstico institucional, desarrollo de equipos, relaciones interinstitucionales y reactivación financiera." data-fr="Plus d'une décennie à diriger et transformer des centres culturels francophones. Expérience réelle en diagnostic institutionnel, développement d'équipes et relance financière." data-en="Over a decade directing and transforming francophone cultural centers. Real experience in institutional diagnosis, team development, and financial relaunch.">Más de una década dirigiendo y transformando centros culturales de la red francófona. Aporto experiencia real en diagnóstico institucional, desarrollo de equipos, relaciones interinstitucionales y reactivación financiera.</p>
+      </div>
+      <div class="svc-card reveal d4">
+        <div class="svc-num">// 04</div>
+        <i class="fa fa-microphone-lines svc-icon"></i>
+        <h3 class="svc-title" data-es="Conferencias" data-fr="Conférences" data-en="Conferences">Conferencias</h3>
+        <p class="svc-desc" data-es="Intervenciones dinámicas sobre francophonie, pedagogía intercultural e innovación educativa. Conferencista con experiencia en Venezuela, Ecuador y México, adaptando el mensaje al contexto de cada institución." data-fr="Interventions dynamiques sur la francophonie, la pédagogie interculturelle et l'innovation éducative. Conférencier expérimenté au Venezuela, Équateur et Mexique." data-en="Dynamic talks on francophonie, intercultural pedagogy and educational innovation. Speaker with experience in Venezuela, Ecuador and Mexico.">Intervenciones dinámicas sobre francophonie, pedagogía intercultural e innovación educativa. Conferencista con experiencia en Venezuela, Ecuador y México, adaptando el mensaje al contexto de cada institución.</p>
+      </div>
+      <div class="svc-card reveal d5">
+        <div class="svc-num">// 05</div>
+        <i class="fa fa-language svc-icon"></i>
+        <h3 class="svc-title" data-es="Traducción ES↔FR" data-fr="Traduction ES↔FR" data-en="Translation ES↔FR">Traducción ES↔FR</h3>
+        <p class="svc-desc" data-es="Traducciones fidedignas y con registro institucional, entre español y francés. Contratos, convenios, correspondencia diplomática y materiales didácticos, con la sensibilidad cultural que solo da quien vive ambas lenguas." data-fr="Traductions fidèles et au registre institutionnel, entre espagnol et français. Contrats, correspondance diplomatique et matériaux didactiques." data-en="Faithful, institutionally-registered translations between Spanish and French. Contracts, diplomatic correspondence and teaching materials.">Traducciones fidedignas y con registro institucional, entre español y francés. Contratos, convenios, correspondencia diplomática y materiales didácticos, con la sensibilidad cultural que solo da quien vive ambas lenguas.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
-<section id="services">
-  <div class="section-inner">
-    <div class="section-header reveal">
-      <p class="section-num">02</p>
-      <h2 class="section-title" data-i18n="serv_title">Mis <em>servicios</em></h2>
-      <div class="section-line"></div>
+<!-- ═══ TIMELINE ═══ -->
+<section id="timeline" class="alt z10">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow" data-es="Experiencia" data-fr="Expérience" data-en="Experience">Experiencia</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;"><em>Parcours</em></h2>
     </div>
-    <div class="services-grid reveal">
-      <div class="service-card">
-        <div class="service-icon"><i class="fas fa-chalkboard-teacher"></i></div>
-        <h3 class="serif" data-i18n="s1_title">Clases particulares de francés</h3>
-        <p data-i18n="s1_desc">Todos los niveles, metodología accional y comunicativa. Preparación DELF/DALF. Adolescentes, adultos, profesionales. Presencial o en línea.</p>
+    <div class="tl">
+      <div class="tl-item reveal d1">
+        <div class="tl-date-col"><div class="tl-date">Oct 2024<br>Présent</div></div>
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <div class="tl-role" data-es="Director General" data-fr="Directeur général" data-en="General Director">Director General</div>
+          <div class="tl-org">Alliance Française · San Cristóbal de Las Casas, MX</div>
+          <ul class="tl-list">
+            <li data-es="Pilotaje del plan de relance institucional: diagnóstico estratégico y relance financiero." data-fr="Pilotage du plan de relance institutionnel : diagnostic stratégique et relance financière." data-en="Leading the institutional recovery plan: strategic diagnosis and financial relaunch.">Pilotaje del plan de relance institucional: diagnóstico estratégico y relance financiero.</li>
+            <li data-es="Implementación de protocolos administrativos, financieros y de RRHH." data-fr="Mise en œuvre de protocoles administratifs, financiers et RH." data-en="Implementation of administrative, financial and HR protocols.">Implementación de protocolos administrativos, financieros y de RRHH.</li>
+            <li data-es="Lanzamiento del proyecto STAFE «Potager Innovant»: agricultura urbana y educación culinaria." data-fr="Lancement du projet STAFE «Potager Innovant»." data-en="Launch of the STAFE «Potager Innovant» project.">Lanzamiento del proyecto STAFE «Potager Innovant»: agricultura urbana y educación culinaria.</li>
+            <li data-es="Alianzas con Institut Parmentier y Colegio La Salle." data-fr="Partenariats avec l'Institut Parmentier et le Colegio La Salle." data-en="Alliances with Institut Parmentier and Colegio La Salle.">Alianzas con Institut Parmentier y Colegio La Salle.</li>
+          </ul>
+        </div>
       </div>
-      <div class="service-card">
-        <div class="service-icon"><i class="fas fa-search"></i></div>
-        <h3 class="serif" data-i18n="s2_title">Asesorías pedagógicas</h3>
-        <p data-i18n="s2_desc">Para docentes de FLE: diseño curricular, planificación de programas, formación de formadores y evaluación de competencias comunicativas.</p>
+      <div class="tl-item reveal d1">
+        <div class="tl-date-col"><div class="tl-date">2019<br>2022</div></div>
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <div class="tl-role" data-es="Director Pedagógico" data-fr="Directeur pédagogique" data-en="Pedagogical Director">Director Pedagógico</div>
+          <div class="tl-org">Alliance Française de Cuenca · Ecuador</div>
+          <ul class="tl-list">
+            <li data-es="Crecimiento del 34,7% en matrícula bajo su dirección." data-fr="Hausse de 34,7 % du nombre d'étudiants sur la période." data-en="34.7% student enrollment growth under his leadership.">Crecimiento del 34,7% en matrícula.</li>
+            <li data-es="Gestión de equipo de 12 docentes con formación individualizada." data-fr="Gestion d'une équipe de 12 enseignants." data-en="Management of a team of 12 teachers.">Gestión de equipo de 12 docentes.</li>
+            <li data-es="Organización de exámenes oficiales DELF y traducciones oficiales." data-fr="Organisation des examens DELF et traductions officielles." data-en="DELF examinations organization and official translations.">Organización DELF y traducciones oficiales.</li>
+          </ul>
+        </div>
       </div>
-      <div class="service-card">
-        <div class="service-icon"><i class="fas fa-landmark"></i></div>
-        <h3 class="serif" data-i18n="s3_title">Gestión cultural</h3>
-        <p data-i18n="s3_desc">Consultoría para centros culturales, alianzas, asociaciones e instituciones educativas: dirección, planificación estratégica, relaciones interinstitucionales.</p>
+      <div class="tl-item reveal d1">
+        <div class="tl-date-col"><div class="tl-date">2013<br>2017 · 2023</div></div>
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <div class="tl-role" data-es="Profesor y Coordinador Pedagógico" data-fr="Professeur et coordinateur pédagogique" data-en="Teacher & Pedagogical Coordinator">Profesor y Coordinador Pedagógico</div>
+          <div class="tl-org">Lycée Français de Caracas · Venezuela</div>
+          <ul class="tl-list">
+            <li>Enseñanza FLE / ELE. Coordinación DELF escolar. Acompañamiento DIL.</li>
+          </ul>
+        </div>
       </div>
-      <div class="service-card">
-        <div class="service-icon"><i class="fas fa-microphone-alt"></i></div>
-        <h3 class="serif" data-i18n="s4_title">Conferencias & ponencias</h3>
-        <p data-i18n="s4_desc">Francophonie, interculturalidad, pedagogía innovadora, FLE en contextos latinoamericanos. Eventos académicos y culturales.</p>
+      <div class="tl-item reveal d1">
+        <div class="tl-date-col"><div class="tl-date">2010<br>2012</div></div>
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <div class="tl-role">Collaborateur — Campus France</div>
+          <div class="tl-org">Embajada de Francia · Venezuela</div>
+          <ul class="tl-list"><li>Formaciones regionales. Gestión de redes y contenidos institucionales.</li></ul>
+        </div>
       </div>
-      <div class="service-card">
-        <div class="service-icon"><i class="fas fa-language"></i></div>
-        <h3 class="serif" data-i18n="s5_title">Traducción ES ↔ FR</h3>
-        <p data-i18n="s5_desc">Documentos oficiales, textos institucionales, correspondencia diplomática y académica. Experiencia como traductor oficial de obras pedagógicas.</p>
+      <div class="tl-item reveal d1">
+        <div class="tl-date-col"><div class="tl-date">2011<br>2014</div></div>
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <div class="tl-role">Conseiller Migration · Dir. Pédagogique</div>
+          <div class="tl-org">Centro Cultural Canadiense · Caracas</div>
+          <ul class="tl-list"><li>Asesoría migración Quebec. Eventos orientación universitaria.</li></ul>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- TIMELINE / PARCOURS -->
-<section id="parcours">
-  <div class="section-inner">
-    <div class="section-header reveal">
-      <p class="section-num">03</p>
-      <h2 class="section-title" data-i18n="parc_title">Trayectoria <em>profesional</em></h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="timeline">
-      <div class="tl-item reveal">
-        <div class="tl-year">Desde Oct 2024</div>
-        <div class="tl-title">Directeur Général</div>
-        <div class="tl-org">Alliance Française de San Cristóbal de Las Casas · México</div>
-        <div class="tl-desc">Pilotaje del plan de relance institucional. Implementación de protocolos administrativos, financieros y de RRHH. Lanzamiento del proyecto STAFE "Potager Innovant". Alianzas con Institut Parmentier y Colegio La Salle.</div>
-      </div>
-      <div class="tl-item reveal">
-        <div class="tl-year">2019 – 2022</div>
-        <div class="tl-title">Directeur Pédagogique</div>
-        <div class="tl-org">Alliance Française de Cuenca · Ecuador</div>
-        <div class="tl-desc">Gestión de equipo de 12 docentes. Coordinación DELF oficial. <span class="tl-highlight">Crecimiento del 34,7% en matrícula</span>. Traducciones oficiales y enlace con autoridades educativas locales.</div>
-      </div>
-      <div class="tl-item reveal">
-        <div class="tl-year">2013 – 2017 · 2023</div>
-        <div class="tl-title">Profesor y Coordinador Pedagógico</div>
-        <div class="tl-org">Lycée Français de Caracas · Venezuela</div>
-        <div class="tl-desc">Enseñanza de francés y español como lengua extranjera. Coordinación DELF escolar. Acompañamiento a jóvenes en dificultad escolar (DIL). Actividades extracurriculares bilingües.</div>
-      </div>
-      <div class="tl-item reveal">
-        <div class="tl-year">2011 – 2014</div>
-        <div class="tl-title">Conseiller en migration · Directeur Pédagogique</div>
-        <div class="tl-org">Centre Culturel Canadien · Caracas</div>
-        <div class="tl-desc">Asesoría a candidatos de movilidad hacia Quebec. Organización de eventos "Découvre le Canada" y "Euro Postgrados". Elaboración de contenidos pedagógicos y sesiones de orientación universitaria.</div>
-      </div>
-      <div class="tl-item reveal">
-        <div class="tl-year">2010 – 2012</div>
-        <div class="tl-title">Collaborateur</div>
-        <div class="tl-org">Ambassade de France au Venezuela · Espace Campus France</div>
-        <div class="tl-desc">Coordinación logística y pedagógica de formaciones regionales. Gestión de redes sociales y producción de contenidos institucionales.</div>
-      </div>
-      <div class="tl-item reveal">
-        <div class="tl-year">2010 – 2017</div>
-        <div class="tl-title">Formateur · Enseignant de langues étrangères</div>
-        <div class="tl-org">Centros culturales y establecimientos educativos · Venezuela & France</div>
-        <div class="tl-desc">Enseñanza de francés, inglés y español en todos los niveles. Clubs de conversación, eventos nacionales. Asistanato lingüístico en <span class="tl-highlight">Millau, France</span>.</div>
+      <div class="tl-item reveal d1">
+        <div class="tl-date-col"><div class="tl-date">2010<br>2017</div></div>
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <div class="tl-role">Formateur & Enseignant LE</div>
+          <div class="tl-org">Venezuela · France (Millau)</div>
+          <ul class="tl-list"><li>Enseñanza FR/EN/ES todos los niveles. Asistanato lingüístico Millau, Francia.</li></ul>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FORMATION -->
-<section id="formation">
-  <div class="section-inner">
-    <div class="section-header reveal">
-      <p class="section-num">04</p>
-      <h2 class="section-title" data-i18n="form_title">Formación & <em>distinciones</em></h2>
-      <div class="section-line"></div>
+<!-- ═══ EDUCATION ═══ -->
+<section id="education" class="z10">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow" data-es="Formación y distinciones" data-fr="Formation et distinctions" data-en="Education & distinctions">Formación y distinciones</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;"><em>Formation</em></h2>
     </div>
-    <div class="formation-grid">
-      <div class="formation-card reveal">
-        <div class="badge">Posgrado</div>
-        <div class="formation-year">2017</div>
-        <h3>Diploma de Especialización en Enseñanza Universitaria</h3>
-        <p>Universidad Pedagógica Experimental Libertador (UPEL) · Caracas</p>
+    <div class="edu-grid">
+      <div class="edu-card panel reveal d1">
+        <div class="edu-year">2017</div>
+        <div class="edu-deg" data-es="Diploma de Especialización en Enseñanza Universitaria" data-fr="Diplôme de spécialisation en enseignement universitaire" data-en="Specialization Diploma in University Teaching">Diploma de Especialización en Enseñanza Universitaria</div>
+        <div class="edu-inst">UPEL – Universidad Pedagógica Experimental Libertador · Caracas</div>
       </div>
-      <div class="formation-card reveal">
-        <div class="badge">Magna Cum Laude</div>
-        <div class="formation-year">2009 – 2016</div>
-        <h3>Licenciatura en Educación mención Francés</h3>
-        <p>Instituto Pedagógico de Caracas · UPEL</p>
-      </div>
-      <div class="formation-card reveal">
-        <div class="formation-year">Francia · Montpellier</div>
-        <h3>Formaciones continuas internacionales</h3>
-        <p>France Éducation International · Institut Français · CLE International Montpellier · CIEP (certificación DELF-DALF)</p>
-      </div>
-      <div class="formation-card reveal">
-        <div class="formation-year">Competencias</div>
-        <h3>Especialidades técnicas</h3>
-        <p>Evaluación DELF/DALF · Didáctica FLE avanzada · Transición digital educativa · Liderazgo pedagógico</p>
+      <div class="edu-card panel reveal d2">
+        <div class="edu-year">2009 — 2016</div>
+        <div class="edu-deg" data-es="Licenciatura en Educación, mención Francés" data-fr="Licence en éducation mention français" data-en="Bachelor's in Education, French">Licenciatura en Educación, mención Francés</div>
+        <div class="edu-inst">Instituto Pedagógico de Caracas – UPEL</div>
+        <ul class="dist-list">
+          <li>Mención Magna Cum Laude (2016)</li>
+          <li>Premio Talentum (2015)</li>
+          <li>Distinción excelencia académica AVENPROF (2011)</li>
+        </ul>
       </div>
     </div>
-    <div class="distinctions reveal" style="margin-top:3rem">
-      <h4>Distinciones académicas</h4>
-      <div class="dist-item"><i class="fas fa-award"></i><span>Mención <strong>Magna Cum Laude</strong> — UPEL (2016)</span></div>
-      <div class="dist-item"><i class="fas fa-trophy"></i><span>Premio <strong>Talentum</strong> a la excelencia académica — UPEL (2015)</span></div>
-      <div class="dist-item"><i class="fas fa-star"></i><span>Distinción a la excelencia académica — UPEL (2015)</span></div>
-      <div class="dist-item"><i class="fas fa-medal"></i><span>Reconocimiento <strong>AVENPROF</strong> — Asociación Venezolana de Profesores de Francés (2011)</span></div>
+    <p class="eyebrow reveal" style="margin:3rem 0 1.5rem;">Formations continues</p>
+    <div class="cert-grid">
+      <div class="cert-item reveal d1"><i class="fa fa-certificate"></i><span>France Éducation International — FLE, évaluation et motivation en classe</span></div>
+      <div class="cert-item reveal d2"><i class="fa fa-certificate"></i><span>Institut Français — Transition numérique et stratégie éducative</span></div>
+      <div class="cert-item reveal d3"><i class="fa fa-certificate"></i><span>CLE International – Montpellier — Didactique avancée du FLE</span></div>
+      <div class="cert-item reveal d4"><i class="fa fa-certificate"></i><span>CIEP – France — Certification officielle correction DELF-DALF</span></div>
     </div>
   </div>
 </section>
 
-<!-- GALLERY -->
-<section id="galerie">
-  <div class="section-inner">
-    <div class="section-header reveal">
-      <p class="section-num">05</p>
-      <h2 class="section-title" data-i18n="gal_title">Galería <em>fotográfica</em></h2>
-      <div class="section-line"></div>
-      <p style="font-size:.82rem;color:var(--muted);font-weight:300;margin-top:.5rem" data-i18n="gal_sub">Momentos y actividades profesionales — reemplaza los placeholders con tus fotos reales</p>
+<!-- ═══ GALLERY ═══ -->
+<section id="gallery" class="alt z10">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow" data-es="Momentos y proyectos" data-fr="Moments et projets" data-en="Moments & projects">Momentos y proyectos</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;"><em>Galerie</em></h2>
     </div>
-    <div class="gallery-grid reveal">
-      <!-- ── FOTOS OFICIALES GEMINI + ORIGINALES ── -->
-      <div class="gallery-item" onclick="openLightbox('Gemini_Generated_Image_65ewme65ewme65ew.png','Directeur Général — Alliance Française')">
-        <img src="Gemini_Generated_Image_65ewme65ewme65ew.png" alt="Miguel Tillero — Directeur Général">
-        <div class="gallery-overlay"><i class="fas fa-expand"></i><span>Direction Générale</span></div>
+    <div class="gallery-grid">
+      <!-- ── FOTOS OFICIALES GEMINI ── -->
+      <div class="g-item reveal" onclick="openLB('miguel-tillero-director-general-afsc.png','Director Général · Alliance Française')">
+        <img src="miguel-tillero-director-general-afsc.png" alt="Director Général" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>Direction Générale</span></div>
+        <div class="g-overlay"><span>Direction Générale</span></div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('Gemini_Generated_Image_ctjmf9ctjmf9ctjm.png','Miguel Tillero — Spécialiste FLE')">
-        <img src="Gemini_Generated_Image_ctjmf9ctjmf9ctjm.png" alt="Miguel Tillero — Spécialiste FLE">
-        <div class="gallery-overlay"><i class="fas fa-expand"></i><span>Portrait officiel</span></div>
+      <div class="g-item reveal d1" onclick="openLB('miguel-tillero-retrato-oficial.png','Portrait officiel')">
+        <img src="miguel-tillero-retrato-oficial.png" alt="Portrait officiel" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>Portrait officiel</span></div>
+        <div class="g-overlay"><span>Portrait officiel</span></div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('Gemini_Generated_Image_hbz6v1hbz6v1hbz6.png','Miguel Tillero — Pédagogue')">
-        <img src="Gemini_Generated_Image_hbz6v1hbz6v1hbz6.png" alt="Miguel Tillero — Pédagogue">
-        <div class="gallery-overlay"><i class="fas fa-expand"></i><span>Pédagogue international</span></div>
+      <div class="g-item reveal d2" onclick="openLB('miguel-tillero-pedagogo-internacional.png','Pédagogue international')">
+        <img src="miguel-tillero-pedagogo-internacional.png" alt="Pédagogue" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>Pédagogue</span></div>
+        <div class="g-overlay"><span>Pédagogue international</span></div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('Gemini_Generated_Image_xmy7mxmy7mxmy7mx.png','Miguel Tillero — Gestión cultural')">
-        <img src="Gemini_Generated_Image_xmy7mxmy7mxmy7mx.png" alt="Miguel Tillero — Gestión cultural">
-        <div class="gallery-overlay"><i class="fas fa-expand"></i><span>Gestión cultural</span></div>
+      <div class="g-item reveal d3" onclick="openLB('miguel-tillero-gestion-cultural.png','Gestión cultural')">
+        <img src="miguel-tillero-gestion-cultural.png" alt="Gestión cultural" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>Gestión cultural</span></div>
+        <div class="g-overlay"><span>Gestión cultural</span></div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('IMG-20250925-WA0034.jpg','Miguel Tillero — AFSC')">
-        <img src="IMG-20250925-WA0034.jpg" alt="Miguel Tillero — AFSC">
-        <div class="gallery-overlay"><i class="fas fa-expand"></i><span>Alliance Française SCSC</span></div>
+      <div class="g-item reveal d1" onclick="openLB('alianza-francesa-san-cristobal-fachada.jpg','Alliance Française SCSC')">
+        <img src="alianza-francesa-san-cristobal-fachada.jpg" alt="AFSC" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>Alliance Française</span></div>
+        <div class="g-overlay"><span>Alliance Française SCSC</span></div>
       </div>
-      <!-- Placeholders elegantes para fotos futuras -->
-      <div class="gallery-item"><div class="gallery-placeholder"><i class="fas fa-chalkboard-teacher"></i><span>Clases · Añadir foto</span></div></div>
-      <div class="gallery-item"><div class="gallery-placeholder"><i class="fas fa-certificate"></i><span>DELF/DALF · Añadir foto</span></div></div>
-      <div class="gallery-item"><div class="gallery-placeholder"><i class="fas fa-flag"></i><span>Francophonie · Añadir foto</span></div></div>
+      <div class="g-item reveal d2" onclick="openLB('miguel-tillero-paris-tour-eiffel.png','Paris · Tour Eiffel')">
+        <img src="miguel-tillero-paris-tour-eiffel.png" alt="París · Tour Eiffel" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="object-position:top center">
+        <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>París · Tour Eiffel</span></div>
+        <div class="g-overlay"><span>Paris · Tour Eiffel</span></div>
+      </div>
+      <div class="g-item reveal d3" onclick="openLB('miguel-tillero-paris-alliance-francaise.png','Paris · Alliance Française')">
+        <img src="miguel-tillero-paris-alliance-francaise.png" alt="París — Alliance Française" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="object-position:center">
+        <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>Paris</span></div>
+        <div class="g-overlay"><span>Paris · Alliance Française</span></div>
+      </div>
+      <div class="g-item reveal d4"><div class="g-placeholder"><i class="fa fa-image"></i><span>Vichy 2026 · Añadir foto</span></div></div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="section-inner">
-    <div class="section-header reveal">
-      <p class="section-num">06</p>
-      <h2 class="section-title" data-i18n="cont_title">Ponte en <em>contacto</em></h2>
-      <div class="section-line"></div>
+<!-- ═══ CONTACT ═══ -->
+<section id="contact" class="z10">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow" data-es="Hablemos" data-fr="Parlons" data-en="Let's talk">Hablemos</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;"><em>Contact</em></h2>
     </div>
     <div class="contact-grid">
-      <div class="reveal-left">
-        <p style="font-size:.9rem;color:rgba(255,255,255,.5);margin-bottom:2rem;font-weight:300;line-height:1.8" data-i18n="cont_intro">¿Quieres clases de francés, una asesoría pedagógica, una conferencia o simplemente conectar? Escríbeme directamente.</p>
-        <form class="contact-form" id="contact-form" novalidate>
+      <div class="reveal d1">
+        <form id="contact-form" novalidate>
           <div class="form-row">
-            <div class="form-group" id="fg-name">
-              <label data-i18n="f_name">Nombre completo</label>
-              <input type="text" id="f-name" placeholder="Tu nombre" autocomplete="name">
-              <span class="form-error" data-i18n="f_req">Campo requerido</span>
+            <div class="form-field">
+              <label data-es="Nombre *" data-fr="Nom *" data-en="Name *">Nombre *</label>
+              <input type="text" name="name" id="f-name" placeholder="Tu nombre">
+              <div class="form-error" id="e-name">Campo requerido.</div>
             </div>
-            <div class="form-group" id="fg-email">
-              <label data-i18n="f_email">Correo electrónico</label>
-              <input type="email" id="f-email" placeholder="tu@correo.com" autocomplete="email">
-              <span class="form-error" id="email-err">Correo inválido</span>
+            <div class="form-field">
+              <label>Email *</label>
+              <input type="email" name="email" id="f-email" placeholder="tu@correo.com">
+              <div class="form-error" id="e-email">Email inválido.</div>
             </div>
           </div>
-          <div class="form-group" id="fg-subject">
-            <label data-i18n="f_subject">Motivo de contacto</label>
-            <select id="f-subject">
-              <option value="" disabled selected data-i18n="f_sel">Selecciona una opción</option>
-              <option value="clases" data-i18n="f_opt1">Clases particulares de francés</option>
-              <option value="asesoria" data-i18n="f_opt2">Asesoría pedagógica</option>
-              <option value="gestion" data-i18n="f_opt3">Gestión cultural</option>
-              <option value="conferencia" data-i18n="f_opt4">Conferencia / Ponencia</option>
-              <option value="traduccion" data-i18n="f_opt5">Traducción ES ↔ FR</option>
-              <option value="otro" data-i18n="f_opt6">Otro</option>
+          <div class="form-row">
+            <div class="form-field">
+              <label>WhatsApp / Tel</label>
+              <input type="tel" name="telefono" placeholder="+52 xxx xxx xxxx">
+            </div>
+            <div class="form-field">
+              <label data-es="País / Ciudad" data-fr="Pays / Ville" data-en="Country / City">País / Ciudad</label>
+              <input type="text" name="ciudad" placeholder="Tu ciudad">
+            </div>
+          </div>
+          <div class="form-field">
+            <label data-es="Motivo" data-fr="Objet" data-en="Subject">Motivo</label>
+            <select name="subject_sel">
+              <option value="" disabled selected>— Selecciona —</option>
+              <option>Clases particulares de francés</option>
+              <option>Asesoría pedagógica</option>
+              <option>Gestión y dirección cultural</option>
+              <option>Conferencia o ponencia</option>
+              <option>Traducción / Interpretación</option>
+              <option>Otro</option>
             </select>
-            <span class="form-error" data-i18n="f_req">Campo requerido</span>
           </div>
-          <div class="form-group" id="fg-msg">
-            <label data-i18n="f_msg">Mensaje</label>
-            <textarea id="f-msg" rows="5" placeholder="Cuéntame en qué puedo ayudarte..."></textarea>
-            <span class="form-error" data-i18n="f_req">Campo requerido</span>
+          <div class="form-field">
+            <label data-es="Mensaje *" data-fr="Message *" data-en="Message *">Mensaje *</label>
+            <textarea name="message" id="f-msg" placeholder="Cuéntame tu proyecto o consulta..." rows="4"></textarea>
+            <div class="form-error" id="e-msg">Campo requerido.</div>
           </div>
-          <button type="button" class="btn-send" onclick="submitForm()" id="btn-send" data-i18n="f_send">Enviar mensaje</button>
-          <div class="form-success" id="form-success" data-i18n="f_ok">✓ Mensaje enviado. Te responderé pronto.</div>
+          <button type="submit" class="btn btn-gold" style="width:100%;justify-content:center;">
+            <i class="fa fa-paper-plane"></i>
+            <span data-es="Enviar mensaje" data-fr="Envoyer" data-en="Send message">Enviar mensaje</span>
+          </button>
+          <div class="form-success" id="form-success">✦ Mensaje enviado. Te respondo pronto. ✦</div>
         </form>
       </div>
-      <div class="contact-info reveal-right">
-        <div class="ci-item">
-          <div class="ci-icon"><i class="fas fa-envelope"></i></div>
-          <div>
-            <div class="ci-label" data-i18n="ci_email">Correo electrónico</div>
-            <div class="ci-value"><a href="mailto:migueltillero@gmail.com">migueltillero@gmail.com</a></div>
+
+      <div class="reveal d2">
+        <div class="c-cards">
+          <div class="c-card">
+            <div class="c-icon"><i class="fa fa-envelope"></i></div>
+            <div><div class="c-label">Email</div><div class="c-val"><a href="mailto:migueltillero@gmail.com">migueltillero@gmail.com</a></div></div>
+          </div>
+          <div class="c-card">
+            <div class="c-icon"><i class="fab fa-whatsapp"></i></div>
+            <div>
+              <div class="c-label">WhatsApp (VE)</div>
+              <div class="c-val"><a href="https://wa.me/584122465331" target="_blank" rel="noopener">+58 412 246 5331</a></div>
+            </div>
+          </div>
+          <div class="c-card">
+            <div class="c-icon"><i class="fa fa-phone"></i></div>
+            <div>
+              <div class="c-label">Teléfono (MX)</div>
+              <div class="c-val"><a href="tel:+529673424456">+52 967 342 4456</a></div>
+            </div>
+          </div>
+          <div class="c-card">
+            <div class="c-icon"><i class="fa fa-map-marker-alt"></i></div>
+            <div>
+              <div class="c-label" data-es="Ubicación" data-fr="Localisation" data-en="Location">Ubicación</div>
+              <div class="c-val">San Cristóbal de Las Casas<br>Chiapas · México</div>
+            </div>
           </div>
         </div>
-        <div class="ci-item">
-          <div class="ci-icon"><i class="fas fa-phone"></i></div>
-          <div>
-            <div class="ci-label" data-i18n="ci_phone">Teléfono / WhatsApp</div>
-            <div class="ci-value"><a href="https://wa.me/584122465331" target="_blank" rel="noopener">+58 412 246 5331 (WhatsApp)</a><br><a href="tel:+529673424456">+52 967 342 4456 (México)</a></div>
-          </div>
+        <div class="cta-btns">
+          <button onclick="openModal('modal-cita')" class="btn btn-ghost" style="flex:1;justify-content:center;">
+            <i class="fa fa-calendar-alt"></i>
+            <span data-es="Agendar cita" data-fr="Rendez-vous" data-en="Book meeting">Agendar cita</span>
+          </button>
+          <button onclick="openModal('modal-clase')" class="btn btn-cyan" style="flex:1;justify-content:center;">
+            <i class="fa fa-graduation-cap"></i>
+            <span data-es="Clase de prueba" data-fr="Cours d'essai" data-en="Trial class">Clase de prueba</span>
+          </button>
         </div>
-        <div class="ci-item">
-          <div class="ci-icon"><i class="fas fa-map-marker-alt"></i></div>
-          <div>
-            <div class="ci-label" data-i18n="ci_loc">Ubicación</div>
-            <div class="ci-value">San Cristóbal de Las Casas, Chiapas, México</div>
-          </div>
-        </div>
-        <div>
-          <p class="eyebrow" style="margin-bottom:1rem" data-i18n="ci_social">Redes sociales</p>
-          <div class="social-row">
-            <a href="#" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://wa.me/584122465331" class="social-btn" title="WhatsApp · +58 412 246 5331" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
-            <a href="mailto:migueltillero@gmail.com" class="social-btn" title="Email"><i class="fas fa-envelope"></i></a>
-          </div>
-        </div>
-        <div class="qr-block">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&color=b8954a&bgcolor=12192b&data=https://wa.me/584122465331" alt="WhatsApp QR Miguel Tillero">
-          <p data-i18n="ci_qr">Escanea para WhatsApp</p>
+        <div class="socials">
+          <a href="https://linkedin.com" target="_blank" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://wa.me/584122465331" target="_blank" class="social-btn" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-name">Miguel Tillero</div>
-  <div class="footer-flag">
-    <span style="background:#002395"></span>
-    <span style="background:#fff;border:1px solid rgba(255,255,255,.1)"></span>
-    <span style="background:#ED2939"></span>
-    &nbsp;&nbsp;·&nbsp;&nbsp;
-    <span style="background:#CF142B"></span>
-    <span style="background:#fff;border:1px solid rgba(255,255,255,.1)"></span>
-    <span style="background:#002B7F"></span>
-    &nbsp;&nbsp;·&nbsp;&nbsp;
-    <span style="background:#006847"></span>
-    <span style="background:#fff;border:1px solid rgba(255,255,255,.1)"></span>
-    <span style="background:#CE1126"></span>
+
+<!-- ═══ VIDEO REEL ═══ -->
+<section id="video-reel" class="z10">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;margin-bottom:3rem;">
+      <p class="eyebrow" style="justify-content:center"
+         data-es="Presentación audiovisual" data-fr="Présentation audiovisuelle" data-en="Audiovisual presentation">
+        Presentación audiovisual
+      </p>
+      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;">
+        <em data-es="En vídeo" data-fr="En vidéo" data-en="On video">En vídeo</em>
+      </h2>
+    </div>
+
+    <div class="video-wrapper reveal bracket">
+      <!-- Corners -->
+      <div class="v-corner tl"></div>
+      <div class="v-corner tr"></div>
+      <div class="v-corner bl"></div>
+      <div class="v-corner br"></div>
+
+      <!-- Video -->
+      <video id="site-video" preload="metadata" playsinline muted
+             poster="miguel-tillero-paris-tour-eiffel.png">
+        <source src="Miguel_Tillero_video_bienvenida.mp4" type="video/mp4">
+      </video>
+
+      <!-- Custom play overlay -->
+      <div class="video-play-overlay" id="video-overlay" onclick="playVideo()">
+        <div class="play-circle"><i class="fa fa-play"></i></div>
+      </div>
+    </div>
+
+    <div class="video-meta reveal">
+      <span class="vtag">MT · ALLIANCE FRANÇAISE · SCSC</span>
+      <span data-es="Clic para reproducir" data-fr="Cliquer pour lire" data-en="Click to play">Clic para reproducir</span>
+      <span class="vtag">FLE · GESTIÓN CULTURAL · FORMACIÓN</span>
+    </div>
   </div>
-  <div class="footer-copy">© 2025 Miguel Tillero · Especialista FLE & Gestión Cultural · migueltillero@gmail.com</div>
+</section>
+
+
+<!-- ═══ PAGOS ═══ -->
+<section id="pagos" class="alt z10">
+  <div class="container">
+
+    <div class="sec-head reveal">
+      <p class="eyebrow" data-es="Para mis estudiantes" data-fr="Pour mes étudiants" data-en="For my students">Para mis estudiantes</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;" data-es="<em>Métodos</em> de pago" data-fr="<em>Moyens</em> de paiement" data-en="Payment <em>methods</em>"><em>Métodos</em> de pago</h2>
+    </div>
+
+    <div class="pagos-intro reveal">
+      <p data-es="Si eres uno de mis estudiantes y deseas realizar el pago de tus clases, aquí encontrarás todas las opciones disponibles. Puedes transferir por CLABE desde cualquier banco mexicano o venezolano, o pagar en efectivo en tiendas de conveniencia con el código OXXO." data-fr="Si vous êtes l'un de mes étudiants, vous trouverez ici toutes les options de paiement disponibles. Vous pouvez transférer via CLABE depuis n'importe quelle banque mexicaine, ou payer en espèces avec le code OXXO." data-en="If you are one of my students and wish to pay for your classes, here are all available options. You can transfer by CLABE from any Mexican bank, or pay cash at convenience stores with the OXXO code.">Si eres uno de mis estudiantes y deseas realizar el pago de tus clases, aquí encontrarás todas las opciones disponibles. Puedes transferir por CLABE desde cualquier banco mexicano, o pagar en efectivo en tiendas de conveniencia con el código OXXO.</p>
+    </div>
+
+    <div class="payment-grid">
+
+      <!-- ── Nu México ── -->
+      <div class="pay-card reveal d1">
+        <div class="pay-bank-logo">
+          <div class="pay-bank-icon icon-nu">Nu</div>
+          <div>
+            <div class="pay-bank-name">Nu México</div>
+            <div class="pay-bank-sub">Transferencia SPEI · CLABE</div>
+          </div>
+        </div>
+
+        <div class="pay-field">
+          <div class="pay-label">Beneficiario</div>
+          <div class="pay-value" style="color:var(--white); font-size:0.82rem;">Miguel David Tillero Álvarez</div>
+        </div>
+        <div class="pay-field">
+          <div class="pay-label">CLABE Interbancaria</div>
+          <div class="pay-value-row">
+            <div class="pay-value" id="clabe-nu">638180000116253075</div>
+            <button class="copy-btn" onclick="copyVal('clabe-nu', this)" title="Copiar CLABE">
+              <i class="fa fa-copy"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="pay-qr-row">
+          <div class="qr-wrap-pay">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&color=020510&bgcolor=ffffff&data=CLABE%3A638180000116253075%0ABeneficiario%3AMiguel+David+Tillero+%C3%81lvarez%0ABanco%3ANu+M%C3%A9xico"
+                 alt="QR Nu México" loading="lazy">
+          </div>
+          <div class="qr-info">
+            <strong>Escanear para pagar</strong>
+            Banco: Nu México<br>
+            CLABE: 6381 8000 0116 2530 75<br>
+            Referencia: Tu nombre completo
+          </div>
+        </div>
+      </div>
+
+      <!-- ── albo ── -->
+      <div class="pay-card reveal d2">
+        <div class="pay-bank-logo">
+          <div class="pay-bank-icon icon-albo">al</div>
+          <div>
+            <div class="pay-bank-name">albo</div>
+            <div class="pay-bank-sub">Transferencia SPEI · CLABE</div>
+          </div>
+        </div>
+
+        <div class="pay-field">
+          <div class="pay-label">Beneficiario</div>
+          <div class="pay-value" style="color:var(--white); font-size:0.82rem;">Miguel David Tillero Álvarez</div>
+        </div>
+        <div class="pay-field">
+          <div class="pay-label">CLABE Interbancaria</div>
+          <div class="pay-value-row">
+            <div class="pay-value" id="clabe-albo">721180100037915995</div>
+            <button class="copy-btn" onclick="copyVal('clabe-albo', this)" title="Copiar CLABE">
+              <i class="fa fa-copy"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="pay-qr-row">
+          <div class="qr-wrap-pay">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&color=020510&bgcolor=ffffff&data=CLABE%3A721180100037915995%0ABeneficiario%3AMiguel+David+Tillero+%C3%81lvarez%0ABanco%3Aalbo"
+                 alt="QR albo" loading="lazy">
+          </div>
+          <div class="qr-info">
+            <strong>Escanear para pagar</strong>
+            Banco: albo<br>
+            CLABE: 7211 8010 0037 9159 95<br>
+            Referencia: Tu nombre completo
+          </div>
+        </div>
+      </div>
+
+      <!-- ── OXXO / Tiendas ── -->
+      <div class="pay-card full reveal d3">
+        <div class="pay-bank-logo">
+          <div class="pay-bank-icon icon-oxxo"><i class="fa fa-store"></i></div>
+          <div>
+            <div class="pay-bank-name">Pago en efectivo — Tiendas de conveniencia</div>
+            <div class="pay-bank-sub">Sin tarjeta · Sin cuenta bancaria · Inmediato</div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:start;">
+          <div>
+            <div class="pay-field">
+              <div class="pay-label">Código de depósito (Nu México)</div>
+              <div class="pay-value-row">
+                <div class="pay-value" id="cod-oxxo">5101 2532 3062 6677</div>
+                <button class="copy-btn" onclick="copyVal('cod-oxxo', this)" title="Copiar código">
+                  <i class="fa fa-copy"></i>
+                </button>
+              </div>
+            </div>
+            <div class="pay-field">
+              <div class="pay-label">Disponible en</div>
+              <div class="stores-list">
+                <span class="store-badge">OXXO</span>
+                <span class="store-badge">Soriana</span>
+                <span class="store-badge">Chedraui</span>
+                <span class="store-badge">Kiosko</span>
+                <span class="store-badge">Farmacias del Ahorro</span>
+                <span class="store-badge">Waldo's</span>
+              </div>
+            </div>
+          </div>
+          <div class="pay-qr-row" style="margin-top:0; padding-top:0; border-top:none; justify-content:flex-start;">
+            <div class="qr-wrap-pay">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&color=020510&bgcolor=ffffff&data=Código+OXXO+Nu+México%3A+5101+2532+3062+6677%0AMiguel+David+Tillero+%C3%81lvarez"
+                   alt="QR OXXO" loading="lazy">
+            </div>
+            <div class="qr-info">
+              <strong>Instrucciones OXXO</strong>
+              1. Ve a cualquier caja<br>
+              2. Di "depósito a Nu México"<br>
+              3. Proporciona el código<br>
+              4. Paga en efectivo
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /payment-grid -->
+
+    <div class="pay-note reveal" style="margin-top:2rem;">
+      <i class="fa fa-circle-info"></i>
+      <p><strong>Importante:</strong> Al realizar tu pago, incluye tu <strong>nombre completo</strong> en el campo de referencia o concepto para que pueda identificar tu transferencia. Si tienes dudas, escríbeme por <a href="https://wa.me/584122465331" target="_blank" rel="noopener" style="color:var(--cyan)">WhatsApp</a> y te confirmo la recepción.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer id="footer" class="z10">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">Miguel <em>Tillero</em></div>
+        <div class="footer-tag" data-es="Spécialiste FLE · Gestion culturelle · Formation" data-fr="Spécialiste FLE · Gestion culturelle · Formation" data-en="FLE Specialist · Cultural Management · Training">Spécialiste FLE · Gestion culturelle · Formation</div>
+      </div>
+      <p class="footer-copy">© 2025 Miguel Tillero · <span data-es="Todos los derechos reservados" data-fr="Tous droits réservés" data-en="All rights reserved">Todos los derechos reservados</span></p>
+      <div class="footer-langs">
+        <button class="footer-lb active" onclick="setLang('es')">ES</button>
+        <button class="footer-lb" onclick="setLang('fr')">FR</button>
+        <button class="footer-lb" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </div>
 </footer>
 
-<!-- EMAILJS SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<!-- ═══ MODAL CITA ═══ -->
+<div class="modal-overlay" id="modal-cita" role="dialog" aria-modal="true">
+  <div class="modal-box bracket">
+    <button class="modal-close" onclick="closeModal('modal-cita')"><i class="fa fa-times"></i></button>
+    <div class="modal-title">Agendar cita</div>
+    <div class="modal-sub">Consultoría · Asesoría · Gestión cultural</div>
+    <div class="modal-rule"></div>
+    <form id="form-cita" novalidate>
+      <div class="form-row">
+        <div class="form-field"><label>Nombre *</label><input type="text" name="nombre" placeholder="Tu nombre" required></div>
+        <div class="form-field"><label>Email *</label><input type="email" name="email" placeholder="tu@correo.com" required></div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label>WhatsApp / Tel</label><input type="tel" name="telefono" placeholder="+xx xxx xxx xxxx"></div>
+        <div class="form-field"><label>País / Ciudad</label><input type="text" name="ciudad" placeholder="Tu ciudad"></div>
+      </div>
+      <div class="form-field">
+        <label>Motivo *</label>
+        <select name="motivo" required>
+          <option value="" disabled selected>— Selecciona —</option>
+          <option>Asesoría pedagógica FLE</option>
+          <option>Consultoría para centro cultural</option>
+          <option>Traducción / Interpretación</option>
+          <option>Ponencia o conferencia</option>
+          <option>Colaboración institucional</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label>Fecha preferida *</label><input type="date" name="fecha" required></div>
+        <div class="form-field"><label>Modalidad</label>
+          <select name="modalidad"><option>Videollamada (Zoom/Meet)</option><option>Llamada telefónica</option><option>Presencial (San Cristóbal)</option></select>
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Horario preferido</label>
+        <div class="time-grid" id="cita-slots">
+          <button type="button" class="time-slot" onclick="pickTime(this,'cita-val')">09:00–10:00</button>
+          <button type="button" class="time-slot" onclick="pickTime(this,'cita-val')">10:00–11:00</button>
+          <button type="button" class="time-slot" onclick="pickTime(this,'cita-val')">11:00–12:00</button>
+          <button type="button" class="time-slot" onclick="pickTime(this,'cita-val')">14:00–15:00</button>
+          <button type="button" class="time-slot" onclick="pickTime(this,'cita-val')">15:00–16:00</button>
+          <button type="button" class="time-slot" onclick="pickTime(this,'cita-val')">16:00–17:00</button>
+        </div>
+        <input type="hidden" name="horario" id="cita-val">
+      </div>
+      <div class="form-field"><label>Mensaje adicional</label><textarea name="mensaje" placeholder="Contexto de tu solicitud..." rows="3"></textarea></div>
+      <button type="submit" class="btn btn-gold" style="width:100%;justify-content:center;margin-top:0.5rem;"><i class="fa fa-calendar-check"></i>&nbsp;Solicitar cita</button>
+      <div class="confirm-badge" id="cita-ok"><i class="fa fa-check-circle"></i><p><strong>¡Solicitud recibida!</strong><br>Te confirmaré la cita por email en las próximas 24 h. También puedes escribirme al WhatsApp.</p></div>
+    </form>
+  </div>
+</div>
 
-<!-- WHATSAPP FLOTANTE -->
-<a href="https://wa.me/584122465331?text=Hola%20Miguel%2C%20vi%20tu%20sitio%20y%20quiero%20contactarte."
-   id="wa-float-btn" target="_blank" rel="noopener" title="WhatsApp +58 412 246 5331"
-   style="position:fixed;bottom:5.5rem;right:1.8rem;z-index:900;
-          width:3rem;height:3rem;border-radius:50%;background:#25D366;
-          color:#fff;display:flex;align-items:center;justify-content:center;
-          font-size:1.1rem;text-decoration:none;
-          box-shadow:0 4px 20px rgba(37,211,102,.4);transition:transform .3s">
-  <i class="fab fa-whatsapp"></i>
-</a>
-
-<!-- AUDIO BUTTON -->
-<button id="audio-btn" onclick="toggleAudio()" title="Música de fondo">
-  <i class="fas fa-music" id="audio-icon"></i>
-</button>
+<!-- ═══ MODAL CLASE ═══ -->
+<div class="modal-overlay" id="modal-clase" role="dialog" aria-modal="true">
+  <div class="modal-box bracket">
+    <button class="modal-close" onclick="closeModal('modal-clase')"><i class="fa fa-times"></i></button>
+    <div class="modal-title">Clase de prueba</div>
+    <div class="modal-sub">Gratuite · 45 min · Tous niveaux</div>
+    <div class="modal-rule"></div>
+    <form id="form-clase" novalidate>
+      <div class="form-row">
+        <div class="form-field"><label>Nombre *</label><input type="text" name="nombre" placeholder="Tu nombre" required></div>
+        <div class="form-field"><label>Email *</label><input type="email" name="email" placeholder="tu@correo.com" required></div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label>WhatsApp / Tel</label><input type="tel" name="telefono" placeholder="+xx xxx xxx xxxx"></div>
+        <div class="form-field"><label>País / Ciudad</label><input type="text" name="ciudad" placeholder="Tu ciudad"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Nivel francés *</label>
+          <select name="nivel" required>
+            <option value="" disabled selected>— Selecciona —</option>
+            <option>Principiante (A0)</option><option>Básico (A1–A2)</option>
+            <option>Intermedio (B1–B2)</option><option>Avanzado (C1–C2)</option>
+            <option>No sé / Necesito evaluación</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Objetivo</label>
+          <select name="objetivo">
+            <option>Conversación general</option><option>Certificación DELF/DALF</option>
+            <option>Viaje / Inmersión</option><option>Profesional / Académico</option><option>Otro</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label>Fecha preferida *</label><input type="date" name="fecha" required></div>
+        <div class="form-field">
+          <label>Plataforma</label>
+          <select name="plataforma"><option>Zoom</option><option>Google Meet</option><option>WhatsApp Video</option><option>Skype</option></select>
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Horario (hora México)</label>
+        <div class="time-grid" id="clase-slots">
+          <button type="button" class="time-slot" onclick="pickTime(this,'clase-val')">09:00–09:45</button>
+          <button type="button" class="time-slot" onclick="pickTime(this,'clase-val')">10:00–10:45</button>
+          <button type="button" class="time-slot" onclick="pickTime(this,'clase-val')">11:00–11:45</button>
+          <button type="button" class="time-slot" onclick="pickTime(this,'clase-val')">14:00–14:45</button>
+          <button type="button" class="time-slot" onclick="pickTime(this,'clase-val')">16:00–16:45</button>
+          <button type="button" class="time-slot" onclick="pickTime(this,'clase-val')">17:00–17:45</button>
+        </div>
+        <input type="hidden" name="horario" id="clase-val">
+      </div>
+      <div class="form-field"><label>¿Algo más?</label><textarea name="notas" placeholder="Experiencias previas, dificultades, objetivos..." rows="3"></textarea></div>
+      <button type="submit" class="btn btn-gold" style="width:100%;justify-content:center;margin-top:0.5rem;"><i class="fa fa-graduation-cap"></i>&nbsp;Reservar clase de prueba</button>
+      <div class="confirm-badge" id="clase-ok"><i class="fa fa-check-circle"></i><p><strong>¡Reserva confirmada!</strong><br>Recibirás un email con el enlace de la videollamada. Si no llega en 24 h, escríbeme por WhatsApp.</p></div>
+    </form>
+  </div>
+</div>
 
 <script>
-// ── LANGUAGE ─────────────────────────────────────────────────────
-const i18n = {
-  es:{
-    nav_about:'Sobre mí',nav_services:'Servicios',nav_parcours:'Trayectoria',nav_gallery:'Galería',nav_contact:'Contacto',
-    hero_eyebrow:'Especialista FLE · Gestión Cultural · Formación',
-    hero_tagline:'Docente · Directeur Pédagogique · Conseiller interculturel',
-    hero_sub:'13 años construyendo puentes entre culturas a través del lenguaje. Venezuela · Ecuador · México · Francia.',
-    hero_btn1:'Contactarme',hero_btn2:'Mis servicios',
-    stat1:'Años exp.',stat2:'Idiomas',stat3:'Crecimiento',
-    about_title:'Sobre <em>mí</em>',about_langs:'Idiomas',about_skills:'Competencias',
-    about_p1:'Soy docente, pedagogo y especialista en francés como lengua extranjera, con trece años de experiencia en educación, gestión intercultural y diplomacia cultural. Mi trabajo ha tenido como norte una convicción simple: aprender un idioma no es memorizar conjugaciones — es abrirse al mundo.',
-    about_p2:'He enseñado en universidades, liceos, centros culturales y alianzas francesas en Venezuela, Ecuador y México. He asesorado candidatos en procesos migratorios hacia Quebec, trabajado con la Embajada de Francia, y dirigido equipos pedagógicos en contextos muy diversos.',
-    about_p3:'Como director pedagógico de la Alianza Francesa de Cuenca, logré un crecimiento del <strong>34,7% en matrícula</strong> en tres años. Hoy dirijo la Alianza Francesa de San Cristóbal de Las Casas.',
-    about_p4:'Esta página existe para conectarme directamente con quienes buscan clases de francés, asesorías pedagógicas, formaciones o cualquier proyecto que ponga al lenguaje en el centro.',
-    serv_title:'Mis <em>servicios</em>',
-    s1_title:'Clases particulares de francés',s1_desc:'Todos los niveles, metodología accional y comunicativa. Preparación DELF/DALF. Adolescentes, adultos, profesionales. Presencial o en línea.',
-    s2_title:'Asesorías pedagógicas',s2_desc:'Para docentes de FLE: diseño curricular, planificación de programas, formación de formadores y evaluación de competencias comunicativas.',
-    s3_title:'Gestión cultural',s3_desc:'Consultoría para centros culturales, alianzas, asociaciones e instituciones educativas: dirección, planificación estratégica, relaciones interinstitucionales.',
-    s4_title:'Conferencias & ponencias',s4_desc:'Francophonie, interculturalidad, pedagogía innovadora, FLE en contextos latinoamericanos. Eventos académicos y culturales.',
-    s5_title:'Traducción ES ↔ FR',s5_desc:'Documentos oficiales, textos institucionales, correspondencia diplomática y académica. Experiencia como traductor oficial de obras pedagógicas.',
-    parc_title:'Trayectoria <em>profesional</em>',
-    form_title:'Formación & <em>distinciones</em>',
-    gal_title:'Galería <em>fotográfica</em>',gal_sub:'Momentos y actividades profesionales — reemplaza los placeholders con tus fotos reales',
-    cont_title:'Ponte en <em>contacto</em>',cont_intro:'¿Quieres clases de francés, una asesoría pedagógica, una conferencia o simplemente conectar? Escríbeme directamente.',
-    f_name:'Nombre completo',f_email:'Correo electrónico',f_subject:'Motivo de contacto',f_sel:'Selecciona una opción',
-    f_opt1:'Clases particulares de francés',f_opt2:'Asesoría pedagógica',f_opt3:'Gestión cultural',f_opt4:'Conferencia / Ponencia',f_opt5:'Traducción ES ↔ FR',f_opt6:'Otro',
-    f_msg:'Mensaje',f_send:'Enviar mensaje',f_req:'Campo requerido',f_ok:'✓ Mensaje enviado. Te responderé pronto.',
-    ci_email:'Correo electrónico',ci_phone:'Teléfono / WhatsApp',ci_loc:'Ubicación',ci_social:'Redes sociales',ci_qr:'Escanea para WhatsApp'
-  },
-  fr:{
-    nav_about:'À propos',nav_services:'Services',nav_parcours:'Parcours',nav_gallery:'Galerie',nav_contact:'Contact',
-    hero_eyebrow:'Spécialiste FLE · Gestion culturelle · Formation',
-    hero_tagline:'Enseignant · Directeur pédagogique · Conseiller interculturel',
-    hero_sub:'13 ans à bâtir des ponts entre les cultures par le langage. Venezuela · Équateur · Mexique · France.',
-    hero_btn1:'Me contacter',hero_btn2:'Mes services',
-    stat1:'Ans d\'exp.',stat2:'Langues',stat3:'Croissance',
-    about_title:'À <em>propos</em>',about_langs:'Langues',about_skills:'Compétences',
-    about_p1:'Je suis enseignant, pédagogue et spécialiste du français langue étrangère, avec treize ans d\'expérience en éducation, gestion interculturelle et diplomatie culturelle. Ma conviction : apprendre une langue, c\'est s\'ouvrir au monde.',
-    about_p2:'J\'ai enseigné dans des universités, lycées, centres culturels et Alliances françaises au Venezuela, en Équateur et au Mexique. J\'ai conseillé des candidats à la mobilité vers le Québec et travaillé avec l\'Ambassade de France.',
-    about_p3:'En tant que directeur pédagogique de l\'Alliance Française de Cuenca, j\'ai obtenu une <strong>croissance de 34,7% des effectifs</strong> en trois ans. Je dirige aujourd\'hui l\'Alliance Française de San Cristóbal de Las Casas.',
-    about_p4:'Cette page existe pour me connecter directement avec ceux qui cherchent des cours de français, des conseils pédagogiques ou tout projet centré sur le langage.',
-    serv_title:'Mes <em>services</em>',
-    s1_title:'Cours particuliers de français',s1_desc:'Tous niveaux, approche actionnelle et communicative. Préparation DELF/DALF. Adolescents, adultes, professionnels. En présentiel ou en ligne.',
-    s2_title:'Conseils pédagogiques',s2_desc:'Pour enseignants FLE : conception curriculaire, planification de programmes, formation de formateurs et évaluation des compétences communicatives.',
-    s3_title:'Gestion culturelle',s3_desc:'Conseil pour centres culturels, alliances, associations et institutions éducatives : direction, planification stratégique, relations interinstitutionnelles.',
-    s4_title:'Conférences & interventions',s4_desc:'Francophonie, interculturalité, pédagogie innovante, FLE en contextes latino-américains.',
-    s5_title:'Traduction ES ↔ FR',s5_desc:'Documents officiels, textes institutionnels, correspondance diplomatique et académique.',
-    parc_title:'Parcours <em>professionnel</em>',
-    form_title:'Formation & <em>distinctions</em>',
-    gal_title:'Galerie <em>photo</em>',gal_sub:'Moments et activités professionnels — remplace les espaces avec tes vraies photos',
-    cont_title:'Prendre <em>contact</em>',cont_intro:'Cours de français, conseil pédagogique, conférence ou simplement échanger ? Écris-moi directement.',
-    f_name:'Nom complet',f_email:'Adresse courriel',f_subject:'Objet de la demande',f_sel:'Choisir une option',
-    f_opt1:'Cours particuliers de français',f_opt2:'Conseil pédagogique',f_opt3:'Gestion culturelle',f_opt4:'Conférence / Intervention',f_opt5:'Traduction ES ↔ FR',f_opt6:'Autre',
-    f_msg:'Message',f_send:'Envoyer',f_req:'Champ requis',f_ok:'✓ Message envoyé. Je vous répondrai bientôt.',
-    ci_email:'Adresse courriel',ci_phone:'Téléphone / WhatsApp',ci_loc:'Localisation',ci_social:'Réseaux sociaux',ci_qr:'Scanner pour WhatsApp'
-  },
-  en:{
-    nav_about:'About',nav_services:'Services',nav_parcours:'Career',nav_gallery:'Gallery',nav_contact:'Contact',
-    hero_eyebrow:'FLE Specialist · Cultural Management · Training',
-    hero_tagline:'Teacher · Pedagogical Director · Intercultural Advisor',
-    hero_sub:'13 years building bridges between cultures through language. Venezuela · Ecuador · Mexico · France.',
-    hero_btn1:'Contact me',hero_btn2:'My services',
-    stat1:'Years exp.',stat2:'Languages',stat3:'Growth',
-    about_title:'About <em>me</em>',about_langs:'Languages',about_skills:'Skills',
-    about_p1:'I am a teacher, educator and French as a Foreign Language specialist, with thirteen years of experience in education, intercultural management and cultural diplomacy. My guiding conviction: learning a language means opening up to the world.',
-    about_p2:'I have taught in universities, high schools, cultural centres and Alliances françaises in Venezuela, Ecuador and Mexico. I have advised candidates in migration processes to Quebec and worked with the Embassy of France.',
-    about_p3:'As Pedagogical Director of the Alliance Française de Cuenca, I achieved a <strong>34.7% growth in enrolment</strong> over three years. I currently lead the Alliance Française de San Cristóbal de Las Casas.',
-    about_p4:'This page exists to connect directly with those seeking French lessons, pedagogical advice, training or any language-centred project.',
-    serv_title:'My <em>services</em>',
-    s1_title:'Private French lessons',s1_desc:'All levels, action-oriented and communicative methodology. DELF/DALF preparation. Teenagers, adults, professionals. In-person or online.',
-    s2_title:'Pedagogical consultancy',s2_desc:'For FFL teachers: curriculum design, programme planning, teacher training and communicative competence assessment.',
-    s3_title:'Cultural management',s3_desc:'Consultancy for cultural centres, alliances, associations and educational institutions: leadership, strategic planning, inter-institutional relations.',
-    s4_title:'Lectures & keynotes',s4_desc:'Francophonie, interculturality, innovative pedagogy, FFL in Latin American contexts.',
-    s5_title:'Translation ES ↔ FR',s5_desc:'Official documents, institutional texts, diplomatic and academic correspondence.',
-    parc_title:'Professional <em>career</em>',
-    form_title:'Education & <em>distinctions</em>',
-    gal_title:'Photo <em>gallery</em>',gal_sub:'Professional moments — replace placeholders with your actual photos',
-    cont_title:'Get in <em>touch</em>',cont_intro:'French lessons, pedagogical advice, a lecture or just a conversation? Write to me directly.',
-    f_name:'Full name',f_email:'Email address',f_subject:'Subject',f_sel:'Select an option',
-    f_opt1:'Private French lessons',f_opt2:'Pedagogical advice',f_opt3:'Cultural management',f_opt4:'Lecture / Keynote',f_opt5:'Translation ES ↔ FR',f_opt6:'Other',
-    f_msg:'Message',f_send:'Send message',f_req:'Required field',f_ok:'✓ Message sent. I\'ll reply soon.',
-    ci_email:'Email address',ci_phone:'Phone / WhatsApp',ci_loc:'Location',ci_social:'Social media',ci_qr:'Scan for WhatsApp'
-  }
-};
-
-let currentLang = 'es';
-function setLang(lang){
-  currentLang = lang;
-  document.querySelectorAll('[data-i18n]').forEach(el=>{
-    const key = el.getAttribute('data-i18n');
-    if(i18n[lang][key] !== undefined) el.innerHTML = i18n[lang][key];
-  });
-  ['es','fr','en'].forEach(l=>{
-    document.getElementById('lang-'+l).classList.toggle('active',l===lang);
-  });
-}
-
-// ── NAV ──────────────────────────────────────────────────────────
-window.addEventListener('scroll',()=>{
-  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60);
+/* ── VANTA 3D — FONDO OSCURO FUTURISTA ──── */
+VANTA.NET({
+  el: '#vanta-bg',
+  mouseControls: true, touchControls: true, gyroControls: false,
+  minHeight: 200, minWidth: 200, scale: 1.0, scaleMobile: 0.5,
+  color: 0xc9a96e,        /* vetas doradas del mármol */
+  backgroundColor: 0x020c06, /* negro esmeralda */
+  points: 9, maxDistance: 24, spacing: 20, showDots: true
 });
-function toggleMenu(){
-  document.getElementById('nav-links').classList.toggle('open');
-}
-function closeMenu(){
-  document.getElementById('nav-links').classList.remove('open');
+
+/* ── NAV ─────────────────────────────────── */
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', scrollY > 60);
+});
+
+/* ── MOBILE ──────────────────────────────── */
+function toggleMob() { document.getElementById('mobile-menu').classList.toggle('open'); }
+function closeMob()  { document.getElementById('mobile-menu').classList.remove('open'); }
+
+/* ── LANG ────────────────────────────────── */
+function setLang(lang) {
+  document.documentElement.setAttribute('data-lang', lang);
+  document.querySelectorAll('[data-' + lang + ']').forEach(el => {
+    const v = el.getAttribute('data-' + lang);
+    if (['INPUT','TEXTAREA'].includes(el.tagName)) el.placeholder = v;
+    else if (el.tagName === 'OPTION') el.text = v;
+    else el.textContent = v;
+  });
+  document.querySelectorAll('.ctrl-btn, .footer-lb').forEach(b =>
+    b.classList.toggle('active', b.textContent.toLowerCase() === lang));
 }
 
-// ── REVEAL ON SCROLL ─────────────────────────────────────────────
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');}});
-},{threshold:0.1});
-document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>observer.observe(el));
+/* ── REVEAL ──────────────────────────────── */
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); ro.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
-// Language bars animate on scroll
-const barObserver = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.querySelectorAll('.lang-fill').forEach(bar=>{
-        bar.style.width = bar.getAttribute('data-width');
-      });
+/* ── SKILL BARS ──────────────────────────── */
+const sro = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.skill-fill').forEach(f => f.classList.add('on'));
+      sro.unobserve(e.target);
     }
   });
-},{threshold:0.3});
-const aboutSec = document.getElementById('about');
-if(aboutSec) barObserver.observe(aboutSec);
+}, { threshold: 0.3 });
+document.querySelectorAll('.skills-panel').forEach(el => sro.observe(el));
 
-// ── AUDIO ────────────────────────────────────────────────────────
-let audioPlaying = false;
-const audioEl = document.getElementById('bg-audio');
-function toggleAudio(){
-  if(!audioPlaying){
-    audioEl.volume = 0.35;
-    audioEl.play().then(()=>{
-      document.getElementById('audio-btn').classList.add('playing');
-      document.getElementById('audio-icon').className = 'fas fa-pause';
-      audioPlaying = true;
-    }).catch(()=>{
-      console.log('Audio autoplay blocked — user needs to interact first');
-    });
-  } else {
-    audioEl.pause();
-    document.getElementById('audio-btn').classList.remove('playing');
-    document.getElementById('audio-icon').className = 'fas fa-music';
-    audioPlaying = false;
-  }
-}
-
-// ── LIGHTBOX ─────────────────────────────────────────────────────
-function openLightbox(src, cap){
+/* ── LIGHTBOX ────────────────────────────── */
+function openLB(src, alt) {
+  const lb = document.getElementById('lightbox');
   document.getElementById('lb-img').src = src;
-  if(cap && document.getElementById('lb-cap')) document.getElementById('lb-cap').textContent = cap;
-  document.getElementById('lightbox').classList.add('open');
+  document.getElementById('lb-img').alt = alt || '';
+  lb.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-function closeLightbox(){
+document.getElementById('lb-close').onclick = () => {
   document.getElementById('lightbox').classList.remove('open');
   document.body.style.overflow = '';
-}
-document.getElementById('lightbox').addEventListener('click',function(e){
-  if(e.target === this) closeLightbox();
-});
-document.addEventListener('keydown',e=>{if(e.key==='Escape') closeLightbox();});
+};
+document.getElementById('lightbox').onclick = function(e) {
+  if (e.target === this) { this.classList.remove('open'); document.body.style.overflow = ''; }
+};
 
-// ── FORM ─────────────────────────────────────────────────────────
-function submitForm(){
-  const name = document.getElementById('f-name').value.trim();
-  const email = document.getElementById('f-email').value.trim();
-  const subject = document.getElementById('f-subject').value;
-  const msg = document.getElementById('f-msg').value.trim();
-  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  let valid = true;
-  [['fg-name',name],['fg-subject',subject],['fg-msg',msg]].forEach(([id,val])=>{
-    document.getElementById(id).classList.toggle('error',!val);
-    if(!val) valid = false;
-  });
-  const emailFg = document.getElementById('fg-email');
-  const emailErr = document.getElementById('email-err');
-  if(!email){emailFg.classList.add('error');emailErr.textContent=i18n[currentLang].f_req||'Requerido';valid=false;}
-  else if(!emailRe.test(email)){emailFg.classList.add('error');emailErr.textContent='Email inválido / Email invalide';valid=false;}
-  else{emailFg.classList.remove('error');}
-  if(!valid) return;
-  const btn = document.getElementById('btn-send');
-  btn.disabled = true;
-  btn.textContent = '...';
-  /* ── EmailJS — Envío real a migueltillero@gmail.com
-     PENDIENTE: reemplazar TU_TEMPLATE_ID y TU_PUBLIC_KEY ── */
-  var EJSVC  = 'service_k9b1j7y';  // ✅ configurado
-  var EJTPL  = 'TU_TEMPLATE_ID';   // ← pendiente
-  var EJKEY  = 'TU_PUBLIC_KEY';    // ← pendiente
-
-  function doSuccess(){
-    document.getElementById('form-success').style.display = 'block';
-    document.getElementById('contact-form').reset();
-    btn.disabled = false;
-    btn.innerHTML = i18n[currentLang].f_send || 'Enviar mensaje';
-    setTimeout(()=>{document.getElementById('form-success').style.display='none';},6000);
+/* ── MODALS ──────────────────────────────── */
+function openModal(id)  { document.getElementById(id).classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; }
+document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', function(e) { if (e.target === this) closeModal(this.id); }));
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.open, #lightbox.open').forEach(m => {
+      m.classList.remove('open'); document.body.style.overflow = '';
+    });
   }
+});
+
+/* ── TIME SLOTS ──────────────────────────── */
+function pickTime(btn, valId) {
+  btn.closest('.time-grid').querySelectorAll('.time-slot').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  document.getElementById(valId).value = btn.textContent.trim();
+}
+
+/* Set min date */
+const today = new Date().toISOString().split('T')[0];
+document.querySelectorAll('input[type="date"]').forEach(d => d.min = today);
+
+/* ══════════════════════════════════════════════════════
+   SISTEMA DE EMAIL — 100% GRATUITO
+   Motor: EmailJS (200 emails/mes gratis, para siempre)
+   
+   CONFIGURACIÓN (5 minutos, gratis):
+   ──────────────────────────────────
+   1. Ir a https://emailjs.com → "Sign Up Free"
+   2. En "Email Services" → Add Service → Gmail → conectar migueltillero@gmail.com
+      Copiar el SERVICE_ID (ej: service_abc123)
+   3. En "Email Templates" → Create Template con este contenido:
+      Subject: {{subject}}
+      Body:
+        De: {{from_name}} ({{from_email}})
+        Teléfono: {{telefono}}
+        Ciudad: {{ciudad}}
+        Tipo: {{tipo}}
+        Fecha/Hora: {{fecha}} {{horario}}
+        Mensaje: {{message}}
+      Copiar el TEMPLATE_ID (ej: template_xyz789)
+   4. En "Account" → General → Public Key
+      Copiar el PUBLIC_KEY (ej: user_AbCdEf)
+   5. Reemplazar los 3 valores abajo:
+══════════════════════════════════════════════════════ */
+const EMAILJS_SERVICE  = 'service_k9b1j7y'; // ✅ CONFIGURADO
+const EMAILJS_TEMPLATE = 'TU_TEMPLATE_ID';  // ← reemplazar
+const EMAILJS_KEY      = 'TU_PUBLIC_KEY';   // ← reemplazar
+
+/* Inicializar EmailJS */
+emailjs.init(EMAILJS_KEY);
+
+/* Función de envío unificada */
+async function sendEmail(params, successId, formEl) {
+  /* Construir payload para la plantilla EmailJS */
+  const payload = {
+    subject:     params.subject    || 'Nuevo mensaje — MiguelTillero.com',
+    from_name:   params.nombre     || params.name || 'Sin nombre',
+    from_email:  params.email      || '',
+    telefono:    params.telefono   || '—',
+    ciudad:      params.ciudad     || '—',
+    tipo:        params.tipo       || 'Contacto general',
+    fecha:       params.fecha      || '—',
+    horario:     params.horario    || '—',
+    message:     params.message    || params.mensaje || params.notas || '—',
+    to_email:    'migueltillero@gmail.com'
+  };
 
   try {
-    emailjs.init(EJKEY);
-    emailjs.send(EJSVC, EJTPL, {
-      from_name: name, from_email: email,
-      subject: subject, message: msg,
-      to_email: 'migueltillero@gmail.com'
-    }).then(doSuccess).catch(function(){
-      /* fallback mailto si EmailJS no está configurado */
-      var body = encodeURIComponent('Nombre: '+name+'\nEmail: '+email+'\nAsunto: '+subject+'\nMensaje: '+msg);
-      window.open('mailto:migueltillero@gmail.com?subject=Nuevo contacto web&body='+body,'_blank');
-      doSuccess();
-    });
-  } catch(e) {
-    /* EmailJS SDK no cargado — fallback mailto */
-    var body2 = encodeURIComponent('Nombre: '+name+'\nEmail: '+email+'\nMensaje: '+msg);
-    window.open('mailto:migueltillero@gmail.com?subject=Contacto web&body='+body2,'_blank');
-    doSuccess();
+    const result = await emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, payload);
+    if (result.status === 200) {
+      if (formEl) {
+        formEl.reset();
+        formEl.querySelectorAll('.time-slot').forEach(b => b.classList.remove('sel'));
+      }
+      document.getElementById(successId).classList.add('show');
+    } else { throw new Error('EmailJS error'); }
+  } catch(err) {
+    console.error('EmailJS error:', err);
+    /* Fallback: abrir WhatsApp con los datos */
+    const msg = encodeURIComponent(
+      'Hola Miguel, intenté usar tu formulario.\n' +
+      'Nombre: ' + payload.from_name + '\n' +
+      'Email: ' + payload.from_email + '\n' +
+      'Asunto: ' + payload.tipo
+    );
+    if (confirm('Hubo un problema con el formulario.\n¿Te escribo por WhatsApp?')) {
+      window.open('https://wa.me/584122465331?text=' + msg, '_blank');
+    }
   }
 }
 
-// ── HERO CAROUSEL ──────────────────────────────────────────
-(function(){
-  var car = document.getElementById('heroCarousel');
-  if (!car) return;
-  var imgs = Array.from(car.querySelectorAll('.hc-img')).filter(function(i){ return i.style.display !== 'none'; });
-  if (imgs.length < 2) return;
+/* ── FORMULARIO PRINCIPAL ─────────────────── */
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  let ok = true;
+  ['e-name','e-email','e-msg'].forEach(id => document.getElementById(id).classList.remove('show'));
+  if (!document.getElementById('f-name').value.trim())  { document.getElementById('e-name').classList.add('show'); ok = false; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('f-email').value)) { document.getElementById('e-email').classList.add('show'); ok = false; }
+  if (!document.getElementById('f-msg').value.trim())   { document.getElementById('e-msg').classList.add('show'); ok = false; }
+  if (!ok) return;
 
-  var dots = document.getElementById('hcDots');
-  imgs.forEach(function(_, i){
-    var d = document.createElement('button');
-    d.className = 'hc-dot' + (i===0?' active':'');
-    d.setAttribute('aria-label', 'Foto '+(i+1));
-    d.addEventListener('click', function(){ go(i); });
-    dots.appendChild(d);
+  const data = Object.fromEntries(new FormData(this));
+  sendEmail({
+    subject:  '📩 Nuevo mensaje — MiguelTillero.com',
+    nombre:   data.name,
+    email:    data.email,
+    telefono: data.telefono,
+    ciudad:   data.ciudad,
+    tipo:     data.subject_sel || 'Mensaje general',
+    message:  data.message
+  }, 'form-success', this);
+});
+
+/* ── MODAL CITA ───────────────────────────── */
+document.getElementById('form-cita').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const d = Object.fromEntries(new FormData(this));
+  if (!d.nombre || !d.email || !d.fecha) { alert('Completa los campos obligatorios (*)'); return; }
+  sendEmail({
+    subject:  '📅 Solicitud de CITA — MiguelTillero.com',
+    nombre:   d.nombre, email: d.email, telefono: d.telefono,
+    ciudad:   d.ciudad, tipo: d.motivo || 'Cita/Consultoría',
+    fecha:    d.fecha, horario: d.horario,
+    message:  d.mensaje || '—'
+  }, 'cita-ok', this);
+});
+
+/* ── MODAL CLASE DE PRUEBA ────────────────── */
+document.getElementById('form-clase').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const d = Object.fromEntries(new FormData(this));
+  if (!d.nombre || !d.email || !d.fecha) { alert('Completa los campos obligatorios (*)'); return; }
+  sendEmail({
+    subject:  '🎓 Clase de PRUEBA — MiguelTillero.com',
+    nombre:   d.nombre, email: d.email, telefono: d.telefono,
+    ciudad:   d.ciudad,
+    tipo:     'Clase de prueba · Nivel: ' + (d.nivel||'?') + ' · Objetivo: ' + (d.objetivo||'?'),
+    fecha:    d.fecha, horario: d.horario,
+    message:  d.notas || '—'
+  }, 'clase-ok', this);
+});
+
+
+
+/* ── COPY TO CLIPBOARD ───────────────────── */
+function copyVal(elId, btn) {
+  const text = document.getElementById(elId).textContent.replace(/\s/g, '');
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<i class="fa fa-check"></i>';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => {
+    /* Fallback for older browsers */
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.innerHTML = '<i class="fa fa-check"></i>';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.innerHTML = '<i class="fa fa-copy"></i>'; btn.classList.remove('copied'); }, 2000);
   });
-  var dotEls = dots.querySelectorAll('.hc-dot');
-  var cur = 0;
+}
 
-  function go(n){
-    imgs[cur].classList.remove('active'); dotEls[cur].classList.remove('active');
-    cur = n;
-    imgs[cur].classList.add('active'); dotEls[cur].classList.add('active');
+/* ── CURSOR PERSONALIZADO ─────────────────── */
+const curDot  = document.getElementById('cursor-dot');
+const curRing = document.getElementById('cursor-ring');
+let mouseX = 0, mouseY = 0;
+let ringX = 0, ringY = 0;
+
+window.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  curDot.style.left = mouseX + 'px';
+  curDot.style.top  = mouseY + 'px';
+});
+
+/* Smooth ring follow */
+function animateCursor() {
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+  curRing.style.left = ringX + 'px';
+  curRing.style.top  = ringY + 'px';
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+/* Hover states */
+document.querySelectorAll('a, button, .svc-card, .g-item, .lang-pill, .stat-cell, .time-slot').forEach(el => {
+  el.addEventListener('mouseenter', () => curRing.classList.add('hover'));
+  el.addEventListener('mouseleave', () => curRing.classList.remove('hover'));
+});
+document.addEventListener('mousedown', () => curRing.classList.add('click'));
+document.addEventListener('mouseup',   () => curRing.classList.remove('click'));
+
+/* Hide on touch devices */
+if ('ontouchstart' in window) {
+  curDot.style.display = 'none';
+  curRing.style.display = 'none';
+}
+
+/* ── SECTION TITLE UNDERLINE REVEAL ──────── */
+const titleObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible-title');
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.sec-title').forEach(t => titleObs.observe(t));
+
+/* ── MAGNETIC EFFECT ON BUTTONS ──────────── */
+document.querySelectorAll('.btn-gold').forEach(btn => {
+  btn.addEventListener('mousemove', function(e) {
+    const r = this.getBoundingClientRect();
+    const x = e.clientX - r.left - r.width/2;
+    const y = e.clientY - r.top  - r.height/2;
+    this.style.transform = `translate(${x*0.15}px, ${y*0.2}px)`;
+  });
+  btn.addEventListener('mouseleave', function() {
+    this.style.transform = '';
+  });
+});
+
+/* ── PARALLAX ON HUD CORNERS ─────────────── */
+window.addEventListener('mousemove', e => {
+  const cx = (e.clientX / window.innerWidth  - 0.5) * 12;
+  const cy = (e.clientY / window.innerHeight - 0.5) * 8;
+  document.querySelectorAll('.hud-corner').forEach((el, i) => {
+    const dir = i % 2 === 0 ? 1 : -1;
+    el.style.transform = `translate(${cx*dir*0.5}px, ${cy*dir*0.4}px)`;
+  });
+});
+
+/* ── AUDIO ───────────────────────────────── */
+const bgAudio = document.getElementById('bg-audio');
+const audioBtn = document.getElementById('audio-btn');
+let playing = false;
+bgAudio.volume = 0.4;
+audioBtn.addEventListener('click', () => {
+  playing ? (bgAudio.pause(), audioBtn.classList.remove('playing'), audioBtn.innerHTML='<i class="fa fa-music"></i>')
+          : (bgAudio.play().catch(()=>{}), audioBtn.classList.add('playing'), audioBtn.innerHTML='<i class="fa fa-pause"></i>');
+  playing = !playing;
+});
+
+/* ── PORTRAIT CAROUSEL ─────────────────────── */
+(function(){
+  var slides = document.querySelectorAll('.portrait-slide');
+  if (slides.length < 2) return;
+  var cur = 0;
+  function next(){
+    if (slides[cur]) slides[cur].classList.remove('active');
+    cur = (cur + 1) % slides.length;
+    /* Saltar slides ocultadas por onerror, máximo un ciclo completo */
+    var attempts = 0;
+    while (slides[cur] && getComputedStyle(slides[cur]).display === 'none'
+           && attempts < slides.length) {
+      cur = (cur + 1) % slides.length;
+      attempts++;
+    }
+    if (slides[cur]) slides[cur].classList.add('active');
   }
-  setInterval(function(){ go((cur+1)%imgs.length); }, 5500);
+  setInterval(next, 5500);
 })();
 
+
+/* ── VIDEO PLAYER ─────────────────────────── */
+function playVideo() {
+  var vid = document.getElementById('site-video');
+  var overlay = document.getElementById('video-overlay');
+  if (!vid) return;
+  vid.play().then(function() {
+    overlay.classList.add('hidden');
+  }).catch(function(e) {
+    console.warn('Video autoplay blocked:', e);
+  });
+}
+document.addEventListener('DOMContentLoaded', function() {
+  var vid = document.getElementById('site-video');
+  var overlay = document.getElementById('video-overlay');
+  if (!vid || !overlay) return;
+  vid.addEventListener('pause', function() { overlay.classList.remove('hidden'); });
+  vid.addEventListener('ended', function() { overlay.classList.remove('hidden'); });
+  vid.addEventListener('click', function() {
+    if (vid.paused) { vid.play(); overlay.classList.add('hidden'); }
+    else { vid.pause(); }
+  });
+});
+
+
+/* ══════════════════════════════════════════════
+   VIDEO INTRO — lógica robusta (sin null errors)
+══════════════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded', function() {
+
+  var introEl   = document.getElementById('video-intro');
+  var introVid  = document.getElementById('intro-video');
+  var progressEl= document.getElementById('intro-progress');
+  var monogramEl= document.getElementById('intro-monogram');
+  var titleEl   = document.getElementById('intro-title');
+  var subEl     = document.getElementById('intro-sub');
+  var introDone = false;
+  var rafId     = null;      /* ID del requestAnimationFrame activo */
+  var safetyT1  = null;
+  var safetyT2  = null;
+
+  /* Bloquear scroll durante el intro */
+  document.body.classList.add('intro-active');
+
+  /* Mostrar branding con delay */
+  setTimeout(function() {
+    if (monogramEl) monogramEl.classList.add('show');
+    if (titleEl)    titleEl.classList.add('show');
+    if (subEl)      subEl.classList.add('show');
+  }, 400);
+
+  /* Barra de progreso — con cancelación limpia */
+  var progressStarted = false;
+  function startProgress() {
+    if (progressStarted) return;     /* solo un loop activo */
+    progressStarted = true;
+    function tick() {
+      if (introDone || !introVid || !progressEl) return; /* detener */
+      var dur = introVid.duration;
+      if (dur && isFinite(dur) && dur > 0) {
+        progressEl.style.width = ((introVid.currentTime / dur) * 100) + '%';
+      }
+      rafId = requestAnimationFrame(tick);
+    }
+    rafId = requestAnimationFrame(tick);
+  }
+
+  /* Terminar intro — sin efectos secundarios si ya terminó */
+  function endIntro() {
+    if (introDone) return;
+    introDone = true;
+
+    /* Cancelar el RAF de la barra de progreso */
+    if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+
+    /* Cancelar timeouts de seguridad */
+    if (safetyT1) clearTimeout(safetyT1);
+    if (safetyT2) clearTimeout(safetyT2);
+
+    /* Animar salida */
+    if (introEl) introEl.classList.add('fade-out');
+    document.body.classList.remove('intro-active');
+
+    /* Ocultar del DOM tras la transición */
+    setTimeout(function() {
+      if (introEl) {
+        introEl.style.display = 'none';
+        /* Liberar memoria del video */
+        if (introVid) {
+          introVid.pause();
+          introVid.removeAttribute('src');
+          introVid.load();
+        }
+      }
+    }, 1400);
+  }
+
+  /* Exponer globalmente para el botón onclick */
+  window.skipIntro = endIntro;
+
+  if (!introEl || !introVid) {
+    /* Elementos no encontrados → saltar inmediatamente */
+    document.body.classList.remove('intro-active');
+    return;
+  }
+
+  /* Intentar reproducir */
+  function tryPlay() {
+    introVid.play()
+      .then(function() { startProgress(); })
+      .catch(function() {
+        /* Intentar en mute si autoplay fue bloqueado */
+        introVid.muted = true;
+        introVid.play()
+          .then(function() { startProgress(); })
+          .catch(function() { endIntro(); });   /* sin video → saltar */
+      });
+  }
+
+  introVid.addEventListener('canplay',  tryPlay, { once: true });
+  introVid.addEventListener('ended',    endIntro, { once: true });
+  introVid.addEventListener('error',    endIntro, { once: true });
+
+  /* Seguridad 1: vídeo no carga en 8 segundos */
+  safetyT2 = setTimeout(function() {
+    if (!introDone && introVid.readyState < 2) endIntro();
+  }, 8000);
+
+  /* Seguridad 2: máximo 60 segundos */
+  safetyT1 = setTimeout(endIntro, 60000);
+
+  /* Intentar reproducción directa si ya listo */
+  if (introVid.readyState >= 3) tryPlay();
+
+}); /* fin DOMContentLoaded */
+
+
+/* ── PORTRAIT CAROUSEL ─────────────────────── */
+window.addEventListener('DOMContentLoaded', function() {
+  var slides = document.querySelectorAll('.portrait-slide');
+  if (slides.length < 2) return;
+  var cur = 0;
+  function next(){
+    if (slides[cur]) slides[cur].classList.remove('active');
+    cur = (cur + 1) % slides.length;
+    var attempts = 0;
+    while (slides[cur] && getComputedStyle(slides[cur]).display === 'none'
+           && attempts < slides.length) {
+      cur = (cur + 1) % slides.length;
+      attempts++;
+    }
+    if (slides[cur]) slides[cur].classList.add('active');
+  }
+  setInterval(next, 5500);
+});
 </script>
+
+<!-- CURSOR PERSONALIZADO -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
 </body>
 </html>
