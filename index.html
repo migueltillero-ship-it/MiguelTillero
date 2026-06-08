@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Miguel Tillero — Especialista en FLE, gestión pedagógica intercultural y dirección cultural. Clases particulares, asesorías, conferencias.">
+<meta name="author" content="Miguel Tillero">
+<title>Miguel Tillero · Especialista FLE & Gestión Cultural</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500;600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root {
+  --ink:    #12192b;
+  --cream:  #f7f3ee;
+  --gold:   #b8954a;
+  --gold-lt:#d4b06a;
+  --muted:  #7a7972;
+  --line:   rgba(184,149,74,0.2);
+  --white:  #ffffff;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px}
+body{background:var(--cream);color:var(--ink);font-family:'Jost',sans-serif;overflow-x:hidden;line-height:1.7}
+
+/* ── TYPOGRAPHY ─────────────────────────────── */
+.serif{font-family:'Cormorant Garamond',serif}
+.cinzel{font-family:'Cinzel',serif}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;line-height:1.1}
+.eyebrow{font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);font-weight:500}
+
+/* ── NAV ─────────────────────────────────────── */
+nav{position:fixed;top:0;width:100%;z-index:100;padding:1.8rem 4rem;display:flex;justify-content:space-between;align-items:center;transition:all .5s;background:transparent}
+nav.scrolled{background:rgba(247,243,238,.96);backdrop-filter:blur(20px);padding:1.2rem 4rem;border-bottom:1px solid var(--line);box-shadow:0 4px 40px rgba(18,25,43,.04)}
+.nav-logo{font-family:'Cinzel',serif;font-size:1.1rem;letter-spacing:.2em;color:var(--ink);text-decoration:none}
+.nav-logo span{color:var(--gold)}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-size:.7rem;letter-spacing:.35em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:.3s;font-weight:500}
+.nav-links a:hover{color:var(--gold)}
+.nav-lang{display:flex;gap:.5rem}
+.nav-lang button{background:none;border:1px solid var(--line);padding:.2rem .6rem;font-size:.6rem;letter-spacing:.2em;cursor:pointer;color:var(--muted);transition:.3s;font-family:'Jost',sans-serif}
+.nav-lang button.active,.nav-lang button:hover{border-color:var(--gold);color:var(--gold)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:24px;height:1.5px;background:var(--ink);transition:.3s}
+
+/* ── HERO ────────────────────────────────────── */
+#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:0 4rem;gap:4rem;position:relative;overflow:hidden}
+#hero::before{content:'';position:absolute;right:0;top:0;width:50%;height:100%;background:var(--ink);z-index:0}
+.hero-text{position:relative;z-index:1;padding-top:6rem}
+.hero-name{font-size:clamp(3rem,6vw,5.5rem);font-weight:300;color:var(--ink);line-height:1}
+.hero-name strong{display:block;font-weight:600;color:var(--gold)}
+.hero-tagline{font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.5em;text-transform:uppercase;color:var(--muted);margin:1.5rem 0 2rem;font-weight:300}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem}
+.btn-primary{background:var(--gold);color:var(--white);padding:.9rem 2.5rem;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;text-decoration:none;font-weight:600;transition:.4s;font-family:'Jost',sans-serif;border:none;cursor:pointer}
+.btn-primary:hover{background:var(--ink);transform:translateY(-2px);box-shadow:0 12px 30px rgba(18,25,43,.2)}
+.btn-outline{background:transparent;color:var(--ink);padding:.9rem 2.5rem;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;text-decoration:none;font-weight:600;transition:.4s;font-family:'Jost',sans-serif;border:1px solid rgba(18,25,43,.3);cursor:pointer}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.hero-photo-wrap{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:6rem}
+.hero-photo{width:min(420px,90%);aspect-ratio:3/4;object-fit:cover;object-position:top;filter:grayscale(20%);transition:filter .8s}
+.hero-photo:hover{filter:grayscale(0%)}
+.hero-badge{position:absolute;bottom:3rem;left:-2rem;background:var(--gold);color:var(--white);padding:1.2rem 1.8rem;font-family:'Jost',sans-serif}
+.hero-badge p:first-child{font-size:1.8rem;font-weight:600;line-height:1}
+.hero-badge p:last-child{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;margin-top:.2rem;opacity:.8}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.5px;background:var(--line);border-top:.5px solid var(--line);margin-top:0}
+.stat{background:rgba(18,25,43,.9);padding:1.5rem 1rem;text-align:center;backdrop-filter:blur(5px)}
+.stat-n{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold-lt);line-height:1}
+.stat-l{font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:.4rem;font-weight:400}
+
+/* ── SECTION BASE ────────────────────────────── */
+section{padding:7rem 4rem}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-header{margin-bottom:4rem}
+.section-num{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.5em;color:var(--gold);margin-bottom:.8rem}
+.section-title{font-size:clamp(2.2rem,4vw,3.5rem);color:var(--ink);font-weight:300}
+.section-title em{font-style:italic;color:var(--gold)}
+.section-line{width:3rem;height:1px;background:var(--gold);margin:1.5rem 0}
+
+/* ── ABOUT ───────────────────────────────────── */
+#about{background:var(--white)}
+.about-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:6rem;align-items:start}
+.about-sidebar{}
+.about-langs{margin-top:2.5rem}
+.lang-item{display:flex;justify-content:space-between;align-items:center;padding:.8rem 0;border-bottom:1px solid var(--line)}
+.lang-bar{height:2px;background:var(--line);margin-top:.4rem;position:relative}
+.lang-fill{height:100%;background:var(--gold);transition:width 1.2s ease}
+.skill-tag{display:inline-block;border:1px solid var(--line);padding:.3rem .8rem;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:.25rem;transition:.3s}
+.skill-tag:hover{border-color:var(--gold);color:var(--gold)}
+.about-text p{font-size:1.05rem;color:#444;line-height:1.85;margin-bottom:1.5rem;font-weight:300}
+.about-text p:first-child{font-family:'Cormorant Garamond',serif;font-size:1.35rem;color:var(--ink);line-height:1.6;font-style:italic}
+
+/* ── SERVICES ────────────────────────────────── */
+#services{background:var(--cream)}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.service-card{background:var(--cream);padding:2.5rem 2rem;transition:.5s;cursor:default;position:relative;overflow:hidden}
+.service-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--gold);transition:.5s}
+.service-card:hover{background:var(--white);transform:translateY(-4px);box-shadow:0 20px 60px rgba(18,25,43,.07)}
+.service-card:hover::after{width:100%}
+.service-icon{font-size:1.4rem;color:var(--gold);margin-bottom:1.5rem}
+.service-card h3{font-size:1.1rem;margin-bottom:.8rem;font-weight:400}
+.service-card p{font-size:.82rem;color:var(--muted);line-height:1.7;font-weight:300}
+
+/* ── TIMELINE ────────────────────────────────── */
+#parcours{background:var(--ink);color:var(--white)}
+#parcours .section-title{color:var(--white)}
+#parcours .section-num{color:var(--gold-lt)}
+.timeline{position:relative;padding-left:2rem}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:rgba(255,255,255,.1)}
+.tl-item{position:relative;padding:0 0 3.5rem 2.5rem}
+.tl-item::before{content:'';position:absolute;left:-4px;top:.4rem;width:9px;height:9px;border:1px solid var(--gold);background:var(--ink);transform:rotate(45deg)}
+.tl-year{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.4em;color:var(--gold);margin-bottom:.5rem}
+.tl-title{font-size:1.15rem;font-weight:300;margin-bottom:.3rem;font-family:'Cormorant Garamond',serif}
+.tl-org{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.8rem}
+.tl-desc{font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.7;font-weight:300;max-width:560px}
+.tl-highlight{color:var(--gold-lt);font-weight:500}
+
+/* ── FORMATION ───────────────────────────────── */
+#formation{background:var(--white)}
+.formation-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+.formation-card{border:1px solid var(--line);padding:2rem 2rem 1.8rem;position:relative;transition:.4s}
+.formation-card:hover{border-color:var(--gold);box-shadow:0 8px 40px rgba(184,149,74,.1)}
+.formation-card .badge{position:absolute;top:1.2rem;right:1.2rem;background:var(--gold);color:var(--white);font-size:.55rem;letter-spacing:.2em;padding:.25rem .7rem;text-transform:uppercase;font-weight:600}
+.formation-year{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.4em;color:var(--gold);margin-bottom:.6rem}
+.formation-card h3{font-size:1rem;font-family:'Cormorant Garamond',serif;margin-bottom:.4rem;font-weight:400;line-height:1.3}
+.formation-card p{font-size:.8rem;color:var(--muted);line-height:1.6}
+.distinctions{margin-top:3rem;border-left:2px solid var(--gold);padding-left:2rem}
+.distinctions h4{font-family:'Cormorant Garamond',serif;font-size:1.3rem;margin-bottom:1rem;font-weight:300;font-style:italic}
+.dist-item{display:flex;align-items:center;gap:1rem;padding:.6rem 0;border-bottom:1px solid var(--line)}
+.dist-item i{color:var(--gold);font-size:.75rem;flex-shrink:0}
+.dist-item span{font-size:.82rem;color:var(--muted)}
+
+/* ── GALLERY ─────────────────────────────────── */
+#galerie{background:var(--cream)}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:8px}
+.gallery-item{overflow:hidden;cursor:pointer;position:relative;background:var(--ink)}
+.gallery-item:nth-child(1){grid-column:span 2;grid-row:span 2}
+.gallery-item:nth-child(5){grid-column:span 2}
+.gallery-placeholder{width:100%;height:100%;background:linear-gradient(135deg,rgba(18,25,43,.85),rgba(18,25,43,.6));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;border:1px dashed rgba(184,149,74,.3);transition:.4s}
+.gallery-placeholder i{font-size:1.4rem;color:var(--gold);opacity:.5}
+.gallery-placeholder span{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.gallery-item:hover .gallery-placeholder{border-color:var(--gold);background:linear-gradient(135deg,rgba(18,25,43,.9),rgba(184,149,74,.15))}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:.8s;filter:brightness(.9)}
+.gallery-item:hover img{transform:scale(1.06);filter:brightness(1)}
+.gallery-overlay{position:absolute;inset:0;background:rgba(18,25,43,.5);opacity:0;transition:.4s;display:flex;align-items:center;justify-content:center}
+.gallery-item:hover .gallery-overlay{opacity:1}
+.gallery-overlay i{color:var(--white);font-size:1.2rem}
+
+/* ── CONTACT ─────────────────────────────────── */
+#contact{background:var(--ink);color:var(--white)}
+#contact .section-title{color:var(--white)}
+#contact .section-num{color:var(--gold-lt)}
+.contact-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:6rem;align-items:start}
+.contact-form{display:flex;flex-direction:column;gap:1.5rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.form-group{display:flex;flex-direction:column;gap:.5rem}
+.form-group label{font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:500}
+.form-group input,.form-group select,.form-group textarea{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);padding:.9rem 1rem;color:var(--white);font-family:'Jost',sans-serif;font-size:.85rem;font-weight:300;outline:none;transition:.3s;resize:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold);background:rgba(184,149,74,.05)}
+.form-group select option{background:var(--ink)}
+.form-error{font-size:.65rem;color:#e57373;display:none;margin-top:.2rem}
+.form-group.error input,.form-group.error select,.form-group.error textarea{border-color:#e57373}
+.form-group.error .form-error{display:block}
+.btn-send{background:var(--gold);color:var(--white);border:none;padding:1rem 3rem;font-size:.7rem;letter-spacing:.35em;text-transform:uppercase;font-weight:600;cursor:pointer;transition:.4s;font-family:'Jost',sans-serif;align-self:flex-start}
+.btn-send:hover{background:var(--white);color:var(--ink)}
+.btn-send:disabled{opacity:.5;cursor:not-allowed}
+.form-success{display:none;background:rgba(184,149,74,.15);border:1px solid var(--gold);padding:1rem 1.5rem;font-size:.82rem;color:var(--gold-lt)}
+.contact-info{display:flex;flex-direction:column;gap:2.5rem;padding-top:1rem}
+.ci-item{display:flex;align-items:flex-start;gap:1.2rem;padding-bottom:2.5rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.ci-item:last-child{border-bottom:none}
+.ci-icon{width:38px;height:38px;border:1px solid rgba(184,149,74,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.2rem}
+.ci-icon i{color:var(--gold);font-size:.85rem}
+.ci-label{font-size:.55rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.3rem}
+.ci-value{font-size:.9rem;color:rgba(255,255,255,.8);font-weight:300}
+.ci-value a{color:inherit;text-decoration:none;transition:.3s}
+.ci-value a:hover{color:var(--gold)}
+.social-row{display:flex;gap:1rem;margin-top:2rem}
+.social-btn{width:40px;height:40px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);text-decoration:none;transition:.3s;font-size:.85rem}
+.social-btn:hover{border-color:var(--gold);color:var(--gold)}
+.qr-block{margin-top:2.5rem;text-align:center}
+.qr-block img{width:140px;border:3px solid rgba(184,149,74,.3);padding:8px;background:white;transition:.4s}
+.qr-block img:hover{border-color:var(--gold);transform:scale(1.05)}
+.qr-block p{font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:.8rem}
+
+/* ── FOOTER ──────────────────────────────────── */
+footer{background:var(--ink);border-top:1px solid rgba(255,255,255,.06);padding:3rem 4rem;text-align:center}
+.footer-name{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:rgba(255,255,255,.25);letter-spacing:.2em}
+.footer-flag{display:flex;justify-content:center;gap:4px;align-items:center;margin:1.5rem auto}
+.footer-flag span{width:6px;height:18px}
+.footer-copy{font-size:.6rem;letter-spacing:.3em;color:rgba(255,255,255,.15);text-transform:uppercase;margin-top:1.2rem}
+
+/* ── AUDIO BUTTON ────────────────────────────── */
+#audio-btn{position:fixed;bottom:2rem;right:2rem;width:52px;height:52px;background:var(--gold);border:none;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(184,149,74,.4);transition:.4s;color:var(--white);font-size:1rem}
+#audio-btn:hover{background:var(--ink);transform:scale(1.08)}
+#audio-btn.playing{animation:pulse-gold 2s infinite}
+@keyframes pulse-gold{0%,100%{box-shadow:0 8px 30px rgba(184,149,74,.4)}50%{box-shadow:0 8px 50px rgba(184,149,74,.7)}}
+
+/* ── LIGHTBOX ────────────────────────────────── */
+#lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:1000;align-items:center;justify-content:center}
+#lightbox.open{display:flex}
+#lightbox img{max-width:90vw;max-height:85vh;object-fit:contain}
+#lb-close{position:absolute;top:1.5rem;right:1.5rem;color:white;font-size:1.5rem;cursor:pointer;background:none;border:none;opacity:.6;transition:.3s}
+#lb-close:hover{opacity:1}
+
+/* ── REVEAL ANIMATIONS ───────────────────────── */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .9s ease,transform .9s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-30px);transition:opacity .9s ease,transform .9s ease}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(30px);transition:opacity .9s ease,transform .9s ease}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+
+/* ── MOBILE ──────────────────────────────────── */
+@media(max-width:900px){
+  nav{padding:1.2rem 1.5rem}
+  nav.scrolled{padding:1rem 1.5rem}
+  .nav-links{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--cream);flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;z-index:99}
+  .nav-links.open{display:flex}
+  .nav-links a{font-size:.9rem}
+  .hamburger{display:flex;z-index:100}
+  #hero{grid-template-columns:1fr;padding:0 1.5rem;min-height:auto;padding-top:5rem;padding-bottom:0}
+  #hero::before{display:none}
+  .hero-text{padding-top:2rem;padding-bottom:2rem}
+  .hero-photo-wrap{padding-top:0;background:var(--ink);margin:0 -1.5rem;padding:3rem 1.5rem}
+  .hero-photo{width:100%;max-width:320px}
+  .hero-badge{position:static;margin-top:1.5rem;display:inline-block}
+  .hero-stats{grid-template-columns:repeat(3,1fr)}
+  .stat{padding:1rem .5rem}
+  section{padding:4rem 1.5rem}
+  .about-grid,.contact-grid,.formation-grid{grid-template-columns:1fr;gap:2.5rem}
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-auto-rows:160px}
+  .gallery-item:nth-child(1){grid-column:span 2}
+  .gallery-item:nth-child(5){grid-column:span 1}
+  .form-row{grid-template-columns:1fr}
+  .services-grid{grid-template-columns:1fr 1fr}
+  footer{padding:2rem 1.5rem}
+}
+@media(max-width:500px){
+  .services-grid{grid-template-columns:1fr}
+  .hero-stats{grid-template-columns:1fr 1fr 1fr}
+  .stat-n{font-size:1.4rem}
+}
+
+/* ── GALLERY OVERLAY con caption ── */
+.gallery-overlay {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 0.5rem;
+}
+.gallery-overlay span {
+  font-size: .65rem; letter-spacing: .25em; text-transform: uppercase;
+  color: rgba(255,255,255,.8); font-family: 'Jost', sans-serif;
+  font-weight: 400; text-align: center;
+}
+
+
+/* ── HERO CAROUSEL ── */
+.hero-carousel { position: relative; width: 100%; }
+.hc-img {
+  width: 100%; position: absolute; top: 0; left: 0;
+  opacity: 0; transition: opacity 1.2s ease;
+  aspect-ratio: 3/4; object-fit: cover; object-position: top center;
+}
+.hc-img.active { opacity: 1; position: relative; }
+.hc-dots {
+  position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 6px; z-index: 10;
+}
+.hc-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(255,255,255,.35); cursor: pointer;
+  transition: background .3s, transform .3s; border: none;
+}
+.hc-dot.active { background: var(--gold); transform: scale(1.4); }
+
+</style>
+</head>
+<body>
+
+<!-- AUDIO (user replaces URL) -->
+<audio id="bg-audio" loop preload="none">
+  <!-- Reemplaza esta URL con tu archivo de música: -->
+  <source src="https://www.bensound.com/bensound-music/bensound-ofeliasdream.mp3" type="audio/mpeg">
+</audio>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button id="lb-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo cinzel">M<span>.</span>T</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#about" onclick="closeMenu()" data-i18n="nav_about">Sobre mí</a></li>
+    <li><a href="#services" onclick="closeMenu()" data-i18n="nav_services">Servicios</a></li>
+    <li><a href="#parcours" onclick="closeMenu()" data-i18n="nav_parcours">Trayectoria</a></li>
+    <li><a href="#galerie" onclick="closeMenu()" data-i18n="nav_gallery">Galería</a></li>
+    <li><a href="#contact" onclick="closeMenu()" data-i18n="nav_contact">Contacto</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:1rem">
+    <div class="nav-lang">
+      <button onclick="setLang('es')" class="active" id="lang-es">ES</button>
+      <button onclick="setLang('fr')" id="lang-fr">FR</button>
+      <button onclick="setLang('en')" id="lang-en">EN</button>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-text reveal">
+    <p class="eyebrow" data-i18n="hero_eyebrow">Especialista FLE · Gestión Cultural · Formación</p>
+    <h1 class="hero-name serif">Miguel<br><strong>Tillero</strong></h1>
+    <p class="hero-tagline" data-i18n="hero_tagline">Docente · Directeur Pédagogique · Conseiller interculturel</p>
+    <p style="font-size:.9rem;color:var(--muted);max-width:400px;font-weight:300;line-height:1.8" data-i18n="hero_sub">13 años construyendo puentes entre culturas a través del lenguaje. Venezuela · Ecuador · México · Francia.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary" data-i18n="hero_btn1">Contactarme</a>
+      <a href="#services" class="btn-outline" data-i18n="hero_btn2">Mis servicios</a>
+    </div>
+  </div>
+  <div class="hero-photo-wrap">
+    <!-- CARRUSEL de retratos oficiales -->
+    <div style="position:relative;display:inline-block;width:min(420px,90%)">
+      <div class="hero-carousel" id="heroCarousel">
+        <img src="Gemini_Generated_Image_65ewme65ewme65ew.png"
+             alt="Miguel Tillero — Director Général" class="hero-photo hc-img active"
+             onerror="this.src='IMG-20250925-WA0034.jpg'">
+        <img src="Gemini_Generated_Image_xmy7mxmy7mxmy7mx.png"
+             alt="Miguel Tillero — Spécialiste FLE" class="hero-photo hc-img"
+             onerror="this.style.display='none'">
+        <img src="Gemini_Generated_Image_ctjmf9ctjmf9ctjm.png"
+             alt="Miguel Tillero" class="hero-photo hc-img"
+             onerror="this.style.display='none'">
+        <img src="Gemini_Generated_Image_hbz6v1hbz6v1hbz6.png"
+             alt="Miguel Tillero" class="hero-photo hc-img"
+             onerror="this.style.display='none'">
+      </div>
+      <!-- Dots -->
+      <div class="hc-dots" id="hcDots"></div>
+      <div class="hero-badge">
+        <p>Magna Cum Laude</p>
+        <p>UPEL · AVENPROF 2011</p>
+      </div>
+    </div>
+    <div class="hero-stats" style="width:100%;margin-top:1.5rem">
+      <div class="stat">
+        <div class="stat-n">13</div>
+        <div class="stat-l" data-i18n="stat1">Años exp.</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">3</div>
+        <div class="stat-l" data-i18n="stat2">Idiomas</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">+34%</div>
+        <div class="stat-l" data-i18n="stat3">Crecimiento</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="reveal-left">
+        <div class="section-header">
+          <p class="section-num">01</p>
+          <h2 class="section-title" data-i18n="about_title">Sobre <em>mí</em></h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="about-langs">
+          <p class="eyebrow" style="margin-bottom:1rem" data-i18n="about_langs">Idiomas</p>
+          <div class="lang-item">
+            <span style="font-size:.82rem;font-weight:500">Español</span>
+            <span style="font-size:.7rem;color:var(--gold)">Nativo</span>
+          </div>
+          <div class="lang-bar"><div class="lang-fill" style="width:0%" data-width="100%"></div></div>
+          <div class="lang-item" style="margin-top:.8rem">
+            <span style="font-size:.82rem;font-weight:500">Français</span>
+            <span style="font-size:.7rem;color:var(--gold)">C1</span>
+          </div>
+          <div class="lang-bar"><div class="lang-fill" style="width:0%" data-width="88%"></div></div>
+          <div class="lang-item" style="margin-top:.8rem">
+            <span style="font-size:.82rem;font-weight:500">English</span>
+            <span style="font-size:.7rem;color:var(--gold)">B1/B2</span>
+          </div>
+          <div class="lang-bar"><div class="lang-fill" style="width:0%" data-width="62%"></div></div>
+        </div>
+        <div style="margin-top:2.5rem">
+          <p class="eyebrow" style="margin-bottom:1rem" data-i18n="about_skills">Competencias</p>
+          <div>
+            <span class="skill-tag">FLE / ELE</span>
+            <span class="skill-tag">DELF · DALF</span>
+            <span class="skill-tag">Gestion pédagogique</span>
+            <span class="skill-tag">Diplomatie culturelle</span>
+            <span class="skill-tag">Leadership</span>
+            <span class="skill-tag">Formation formateurs</span>
+            <span class="skill-tag">Traduction ES↔FR</span>
+            <span class="skill-tag">Interculturalité</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-text reveal-right">
+        <p data-i18n="about_p1">Soy docente, pedagogo y especialista en francés como lengua extranjera, con trece años de experiencia en educación, gestión intercultural y diplomacia cultural. Mi trabajo ha tenido como norte una convicción simple: aprender un idioma no es memorizar conjugaciones — es abrirse al mundo.</p>
+        <p data-i18n="about_p2">He enseñado en universidades, liceos, centros culturales y alianzas francesas en Venezuela, Ecuador y México. He asesorado candidatos en procesos migratorios hacia Quebec, trabajado con la Embajada de Francia, y dirigido equipos pedagógicos en contextos tan distintos como Caracas, Cuenca y San Cristóbal de Las Casas.</p>
+        <p data-i18n="about_p3">Como director pedagógico de la Alianza Francesa de Cuenca, logré un crecimiento del <strong>34,7% en matrícula</strong> en tres años, consolidando un equipo de 12 docentes con formación individualizada y coordinando exámenes oficiales DELF. Hoy dirijo la Alianza Francesa de San Cristóbal de Las Casas, liderando su proceso de recuperación institucional.</p>
+        <p data-i18n="about_p4">Esta página existe para conectarme directamente con quienes buscan clases de francés, asesorías pedagógicas, formaciones o cualquier proyecto que ponga al lenguaje en el centro.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <p class="section-num">02</p>
+      <h2 class="section-title" data-i18n="serv_title">Mis <em>servicios</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+        <h3 class="serif" data-i18n="s1_title">Clases particulares de francés</h3>
+        <p data-i18n="s1_desc">Todos los niveles, metodología accional y comunicativa. Preparación DELF/DALF. Adolescentes, adultos, profesionales. Presencial o en línea.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-search"></i></div>
+        <h3 class="serif" data-i18n="s2_title">Asesorías pedagógicas</h3>
+        <p data-i18n="s2_desc">Para docentes de FLE: diseño curricular, planificación de programas, formación de formadores y evaluación de competencias comunicativas.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-landmark"></i></div>
+        <h3 class="serif" data-i18n="s3_title">Gestión cultural</h3>
+        <p data-i18n="s3_desc">Consultoría para centros culturales, alianzas, asociaciones e instituciones educativas: dirección, planificación estratégica, relaciones interinstitucionales.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-microphone-alt"></i></div>
+        <h3 class="serif" data-i18n="s4_title">Conferencias & ponencias</h3>
+        <p data-i18n="s4_desc">Francophonie, interculturalidad, pedagogía innovadora, FLE en contextos latinoamericanos. Eventos académicos y culturales.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-language"></i></div>
+        <h3 class="serif" data-i18n="s5_title">Traducción ES ↔ FR</h3>
+        <p data-i18n="s5_desc">Documentos oficiales, textos institucionales, correspondencia diplomática y académica. Experiencia como traductor oficial de obras pedagógicas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE / PARCOURS -->
+<section id="parcours">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <p class="section-num">03</p>
+      <h2 class="section-title" data-i18n="parc_title">Trayectoria <em>profesional</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-year">Desde Oct 2024</div>
+        <div class="tl-title">Directeur Général</div>
+        <div class="tl-org">Alliance Française de San Cristóbal de Las Casas · México</div>
+        <div class="tl-desc">Pilotaje del plan de relance institucional. Implementación de protocolos administrativos, financieros y de RRHH. Lanzamiento del proyecto STAFE "Potager Innovant". Alianzas con Institut Parmentier y Colegio La Salle.</div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">2019 – 2022</div>
+        <div class="tl-title">Directeur Pédagogique</div>
+        <div class="tl-org">Alliance Française de Cuenca · Ecuador</div>
+        <div class="tl-desc">Gestión de equipo de 12 docentes. Coordinación DELF oficial. <span class="tl-highlight">Crecimiento del 34,7% en matrícula</span>. Traducciones oficiales y enlace con autoridades educativas locales.</div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">2013 – 2017 · 2023</div>
+        <div class="tl-title">Profesor y Coordinador Pedagógico</div>
+        <div class="tl-org">Lycée Français de Caracas · Venezuela</div>
+        <div class="tl-desc">Enseñanza de francés y español como lengua extranjera. Coordinación DELF escolar. Acompañamiento a jóvenes en dificultad escolar (DIL). Actividades extracurriculares bilingües.</div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">2011 – 2014</div>
+        <div class="tl-title">Conseiller en migration · Directeur Pédagogique</div>
+        <div class="tl-org">Centre Culturel Canadien · Caracas</div>
+        <div class="tl-desc">Asesoría a candidatos de movilidad hacia Quebec. Organización de eventos "Découvre le Canada" y "Euro Postgrados". Elaboración de contenidos pedagógicos y sesiones de orientación universitaria.</div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">2010 – 2012</div>
+        <div class="tl-title">Collaborateur</div>
+        <div class="tl-org">Ambassade de France au Venezuela · Espace Campus France</div>
+        <div class="tl-desc">Coordinación logística y pedagógica de formaciones regionales. Gestión de redes sociales y producción de contenidos institucionales.</div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">2010 – 2017</div>
+        <div class="tl-title">Formateur · Enseignant de langues étrangères</div>
+        <div class="tl-org">Centros culturales y establecimientos educativos · Venezuela & France</div>
+        <div class="tl-desc">Enseñanza de francés, inglés y español en todos los niveles. Clubs de conversación, eventos nacionales. Asistanato lingüístico en <span class="tl-highlight">Millau, France</span>.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMATION -->
+<section id="formation">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <p class="section-num">04</p>
+      <h2 class="section-title" data-i18n="form_title">Formación & <em>distinciones</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="formation-grid">
+      <div class="formation-card reveal">
+        <div class="badge">Posgrado</div>
+        <div class="formation-year">2017</div>
+        <h3>Diploma de Especialización en Enseñanza Universitaria</h3>
+        <p>Universidad Pedagógica Experimental Libertador (UPEL) · Caracas</p>
+      </div>
+      <div class="formation-card reveal">
+        <div class="badge">Magna Cum Laude</div>
+        <div class="formation-year">2009 – 2016</div>
+        <h3>Licenciatura en Educación mención Francés</h3>
+        <p>Instituto Pedagógico de Caracas · UPEL</p>
+      </div>
+      <div class="formation-card reveal">
+        <div class="formation-year">Francia · Montpellier</div>
+        <h3>Formaciones continuas internacionales</h3>
+        <p>France Éducation International · Institut Français · CLE International Montpellier · CIEP (certificación DELF-DALF)</p>
+      </div>
+      <div class="formation-card reveal">
+        <div class="formation-year">Competencias</div>
+        <h3>Especialidades técnicas</h3>
+        <p>Evaluación DELF/DALF · Didáctica FLE avanzada · Transición digital educativa · Liderazgo pedagógico</p>
+      </div>
+    </div>
+    <div class="distinctions reveal" style="margin-top:3rem">
+      <h4>Distinciones académicas</h4>
+      <div class="dist-item"><i class="fas fa-award"></i><span>Mención <strong>Magna Cum Laude</strong> — UPEL (2016)</span></div>
+      <div class="dist-item"><i class="fas fa-trophy"></i><span>Premio <strong>Talentum</strong> a la excelencia académica — UPEL (2015)</span></div>
+      <div class="dist-item"><i class="fas fa-star"></i><span>Distinción a la excelencia académica — UPEL (2015)</span></div>
+      <div class="dist-item"><i class="fas fa-medal"></i><span>Reconocimiento <strong>AVENPROF</strong> — Asociación Venezolana de Profesores de Francés (2011)</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="galerie">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <p class="section-num">05</p>
+      <h2 class="section-title" data-i18n="gal_title">Galería <em>fotográfica</em></h2>
+      <div class="section-line"></div>
+      <p style="font-size:.82rem;color:var(--muted);font-weight:300;margin-top:.5rem" data-i18n="gal_sub">Momentos y actividades profesionales — reemplaza los placeholders con tus fotos reales</p>
+    </div>
+    <div class="gallery-grid reveal">
+      <!-- ── FOTOS OFICIALES GEMINI + ORIGINALES ── -->
+      <div class="gallery-item" onclick="openLightbox('Gemini_Generated_Image_65ewme65ewme65ew.png','Directeur Général — Alliance Française')">
+        <img src="Gemini_Generated_Image_65ewme65ewme65ew.png" alt="Miguel Tillero — Directeur Général">
+        <div class="gallery-overlay"><i class="fas fa-expand"></i><span>Direction Générale</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('Gemini_Generated_Image_ctjmf9ctjmf9ctjm.png','Miguel Tillero — Spécialiste FLE')">
+        <img src="Gemini_Generated_Image_ctjmf9ctjmf9ctjm.png" alt="Miguel Tillero — Spécialiste FLE">
+        <div class="gallery-overlay"><i class="fas fa-expand"></i><span>Portrait officiel</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('Gemini_Generated_Image_hbz6v1hbz6v1hbz6.png','Miguel Tillero — Pédagogue')">
+        <img src="Gemini_Generated_Image_hbz6v1hbz6v1hbz6.png" alt="Miguel Tillero — Pédagogue">
+        <div class="gallery-overlay"><i class="fas fa-expand"></i><span>Pédagogue international</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('Gemini_Generated_Image_xmy7mxmy7mxmy7mx.png','Miguel Tillero — Gestión cultural')">
+        <img src="Gemini_Generated_Image_xmy7mxmy7mxmy7mx.png" alt="Miguel Tillero — Gestión cultural">
+        <div class="gallery-overlay"><i class="fas fa-expand"></i><span>Gestión cultural</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('IMG-20250925-WA0034.jpg','Miguel Tillero — AFSC')">
+        <img src="IMG-20250925-WA0034.jpg" alt="Miguel Tillero — AFSC">
+        <div class="gallery-overlay"><i class="fas fa-expand"></i><span>Alliance Française SCSC</span></div>
+      </div>
+      <!-- Placeholders elegantes para fotos futuras -->
+      <div class="gallery-item"><div class="gallery-placeholder"><i class="fas fa-chalkboard-teacher"></i><span>Clases · Añadir foto</span></div></div>
+      <div class="gallery-item"><div class="gallery-placeholder"><i class="fas fa-certificate"></i><span>DELF/DALF · Añadir foto</span></div></div>
+      <div class="gallery-item"><div class="gallery-placeholder"><i class="fas fa-flag"></i><span>Francophonie · Añadir foto</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <p class="section-num">06</p>
+      <h2 class="section-title" data-i18n="cont_title">Ponte en <em>contacto</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal-left">
+        <p style="font-size:.9rem;color:rgba(255,255,255,.5);margin-bottom:2rem;font-weight:300;line-height:1.8" data-i18n="cont_intro">¿Quieres clases de francés, una asesoría pedagógica, una conferencia o simplemente conectar? Escríbeme directamente.</p>
+        <form class="contact-form" id="contact-form" novalidate>
+          <div class="form-row">
+            <div class="form-group" id="fg-name">
+              <label data-i18n="f_name">Nombre completo</label>
+              <input type="text" id="f-name" placeholder="Tu nombre" autocomplete="name">
+              <span class="form-error" data-i18n="f_req">Campo requerido</span>
+            </div>
+            <div class="form-group" id="fg-email">
+              <label data-i18n="f_email">Correo electrónico</label>
+              <input type="email" id="f-email" placeholder="tu@correo.com" autocomplete="email">
+              <span class="form-error" id="email-err">Correo inválido</span>
+            </div>
+          </div>
+          <div class="form-group" id="fg-subject">
+            <label data-i18n="f_subject">Motivo de contacto</label>
+            <select id="f-subject">
+              <option value="" disabled selected data-i18n="f_sel">Selecciona una opción</option>
+              <option value="clases" data-i18n="f_opt1">Clases particulares de francés</option>
+              <option value="asesoria" data-i18n="f_opt2">Asesoría pedagógica</option>
+              <option value="gestion" data-i18n="f_opt3">Gestión cultural</option>
+              <option value="conferencia" data-i18n="f_opt4">Conferencia / Ponencia</option>
+              <option value="traduccion" data-i18n="f_opt5">Traducción ES ↔ FR</option>
+              <option value="otro" data-i18n="f_opt6">Otro</option>
+            </select>
+            <span class="form-error" data-i18n="f_req">Campo requerido</span>
+          </div>
+          <div class="form-group" id="fg-msg">
+            <label data-i18n="f_msg">Mensaje</label>
+            <textarea id="f-msg" rows="5" placeholder="Cuéntame en qué puedo ayudarte..."></textarea>
+            <span class="form-error" data-i18n="f_req">Campo requerido</span>
+          </div>
+          <button type="button" class="btn-send" onclick="submitForm()" id="btn-send" data-i18n="f_send">Enviar mensaje</button>
+          <div class="form-success" id="form-success" data-i18n="f_ok">✓ Mensaje enviado. Te responderé pronto.</div>
+        </form>
+      </div>
+      <div class="contact-info reveal-right">
+        <div class="ci-item">
+          <div class="ci-icon"><i class="fas fa-envelope"></i></div>
+          <div>
+            <div class="ci-label" data-i18n="ci_email">Correo electrónico</div>
+            <div class="ci-value"><a href="mailto:migueltillero@gmail.com">migueltillero@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon"><i class="fas fa-phone"></i></div>
+          <div>
+            <div class="ci-label" data-i18n="ci_phone">Teléfono / WhatsApp</div>
+            <div class="ci-value"><a href="https://wa.me/584122465331" target="_blank" rel="noopener">+58 412 246 5331 (WhatsApp)</a><br><a href="tel:+529673424456">+52 967 342 4456 (México)</a></div>
+          </div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div>
+            <div class="ci-label" data-i18n="ci_loc">Ubicación</div>
+            <div class="ci-value">San Cristóbal de Las Casas, Chiapas, México</div>
+          </div>
+        </div>
+        <div>
+          <p class="eyebrow" style="margin-bottom:1rem" data-i18n="ci_social">Redes sociales</p>
+          <div class="social-row">
+            <a href="#" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://wa.me/584122465331" class="social-btn" title="WhatsApp · +58 412 246 5331" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+            <a href="mailto:migueltillero@gmail.com" class="social-btn" title="Email"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+        <div class="qr-block">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&color=b8954a&bgcolor=12192b&data=https://wa.me/584122465331" alt="WhatsApp QR Miguel Tillero">
+          <p data-i18n="ci_qr">Escanea para WhatsApp</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Miguel Tillero</div>
+  <div class="footer-flag">
+    <span style="background:#002395"></span>
+    <span style="background:#fff;border:1px solid rgba(255,255,255,.1)"></span>
+    <span style="background:#ED2939"></span>
+    &nbsp;&nbsp;·&nbsp;&nbsp;
+    <span style="background:#CF142B"></span>
+    <span style="background:#fff;border:1px solid rgba(255,255,255,.1)"></span>
+    <span style="background:#002B7F"></span>
+    &nbsp;&nbsp;·&nbsp;&nbsp;
+    <span style="background:#006847"></span>
+    <span style="background:#fff;border:1px solid rgba(255,255,255,.1)"></span>
+    <span style="background:#CE1126"></span>
+  </div>
+  <div class="footer-copy">© 2025 Miguel Tillero · Especialista FLE & Gestión Cultural · migueltillero@gmail.com</div>
+</footer>
+
+<!-- EMAILJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<!-- WHATSAPP FLOTANTE -->
+<a href="https://wa.me/584122465331?text=Hola%20Miguel%2C%20vi%20tu%20sitio%20y%20quiero%20contactarte."
+   id="wa-float-btn" target="_blank" rel="noopener" title="WhatsApp +58 412 246 5331"
+   style="position:fixed;bottom:5.5rem;right:1.8rem;z-index:900;
+          width:3rem;height:3rem;border-radius:50%;background:#25D366;
+          color:#fff;display:flex;align-items:center;justify-content:center;
+          font-size:1.1rem;text-decoration:none;
+          box-shadow:0 4px 20px rgba(37,211,102,.4);transition:transform .3s">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- AUDIO BUTTON -->
+<button id="audio-btn" onclick="toggleAudio()" title="Música de fondo">
+  <i class="fas fa-music" id="audio-icon"></i>
+</button>
+
+<script>
+// ── LANGUAGE ─────────────────────────────────────────────────────
+const i18n = {
+  es:{
+    nav_about:'Sobre mí',nav_services:'Servicios',nav_parcours:'Trayectoria',nav_gallery:'Galería',nav_contact:'Contacto',
+    hero_eyebrow:'Especialista FLE · Gestión Cultural · Formación',
+    hero_tagline:'Docente · Directeur Pédagogique · Conseiller interculturel',
+    hero_sub:'13 años construyendo puentes entre culturas a través del lenguaje. Venezuela · Ecuador · México · Francia.',
+    hero_btn1:'Contactarme',hero_btn2:'Mis servicios',
+    stat1:'Años exp.',stat2:'Idiomas',stat3:'Crecimiento',
+    about_title:'Sobre <em>mí</em>',about_langs:'Idiomas',about_skills:'Competencias',
+    about_p1:'Soy docente, pedagogo y especialista en francés como lengua extranjera, con trece años de experiencia en educación, gestión intercultural y diplomacia cultural. Mi trabajo ha tenido como norte una convicción simple: aprender un idioma no es memorizar conjugaciones — es abrirse al mundo.',
+    about_p2:'He enseñado en universidades, liceos, centros culturales y alianzas francesas en Venezuela, Ecuador y México. He asesorado candidatos en procesos migratorios hacia Quebec, trabajado con la Embajada de Francia, y dirigido equipos pedagógicos en contextos muy diversos.',
+    about_p3:'Como director pedagógico de la Alianza Francesa de Cuenca, logré un crecimiento del <strong>34,7% en matrícula</strong> en tres años. Hoy dirijo la Alianza Francesa de San Cristóbal de Las Casas.',
+    about_p4:'Esta página existe para conectarme directamente con quienes buscan clases de francés, asesorías pedagógicas, formaciones o cualquier proyecto que ponga al lenguaje en el centro.',
+    serv_title:'Mis <em>servicios</em>',
+    s1_title:'Clases particulares de francés',s1_desc:'Todos los niveles, metodología accional y comunicativa. Preparación DELF/DALF. Adolescentes, adultos, profesionales. Presencial o en línea.',
+    s2_title:'Asesorías pedagógicas',s2_desc:'Para docentes de FLE: diseño curricular, planificación de programas, formación de formadores y evaluación de competencias comunicativas.',
+    s3_title:'Gestión cultural',s3_desc:'Consultoría para centros culturales, alianzas, asociaciones e instituciones educativas: dirección, planificación estratégica, relaciones interinstitucionales.',
+    s4_title:'Conferencias & ponencias',s4_desc:'Francophonie, interculturalidad, pedagogía innovadora, FLE en contextos latinoamericanos. Eventos académicos y culturales.',
+    s5_title:'Traducción ES ↔ FR',s5_desc:'Documentos oficiales, textos institucionales, correspondencia diplomática y académica. Experiencia como traductor oficial de obras pedagógicas.',
+    parc_title:'Trayectoria <em>profesional</em>',
+    form_title:'Formación & <em>distinciones</em>',
+    gal_title:'Galería <em>fotográfica</em>',gal_sub:'Momentos y actividades profesionales — reemplaza los placeholders con tus fotos reales',
+    cont_title:'Ponte en <em>contacto</em>',cont_intro:'¿Quieres clases de francés, una asesoría pedagógica, una conferencia o simplemente conectar? Escríbeme directamente.',
+    f_name:'Nombre completo',f_email:'Correo electrónico',f_subject:'Motivo de contacto',f_sel:'Selecciona una opción',
+    f_opt1:'Clases particulares de francés',f_opt2:'Asesoría pedagógica',f_opt3:'Gestión cultural',f_opt4:'Conferencia / Ponencia',f_opt5:'Traducción ES ↔ FR',f_opt6:'Otro',
+    f_msg:'Mensaje',f_send:'Enviar mensaje',f_req:'Campo requerido',f_ok:'✓ Mensaje enviado. Te responderé pronto.',
+    ci_email:'Correo electrónico',ci_phone:'Teléfono / WhatsApp',ci_loc:'Ubicación',ci_social:'Redes sociales',ci_qr:'Escanea para WhatsApp'
+  },
+  fr:{
+    nav_about:'À propos',nav_services:'Services',nav_parcours:'Parcours',nav_gallery:'Galerie',nav_contact:'Contact',
+    hero_eyebrow:'Spécialiste FLE · Gestion culturelle · Formation',
+    hero_tagline:'Enseignant · Directeur pédagogique · Conseiller interculturel',
+    hero_sub:'13 ans à bâtir des ponts entre les cultures par le langage. Venezuela · Équateur · Mexique · France.',
+    hero_btn1:'Me contacter',hero_btn2:'Mes services',
+    stat1:'Ans d\'exp.',stat2:'Langues',stat3:'Croissance',
+    about_title:'À <em>propos</em>',about_langs:'Langues',about_skills:'Compétences',
+    about_p1:'Je suis enseignant, pédagogue et spécialiste du français langue étrangère, avec treize ans d\'expérience en éducation, gestion interculturelle et diplomatie culturelle. Ma conviction : apprendre une langue, c\'est s\'ouvrir au monde.',
+    about_p2:'J\'ai enseigné dans des universités, lycées, centres culturels et Alliances françaises au Venezuela, en Équateur et au Mexique. J\'ai conseillé des candidats à la mobilité vers le Québec et travaillé avec l\'Ambassade de France.',
+    about_p3:'En tant que directeur pédagogique de l\'Alliance Française de Cuenca, j\'ai obtenu une <strong>croissance de 34,7% des effectifs</strong> en trois ans. Je dirige aujourd\'hui l\'Alliance Française de San Cristóbal de Las Casas.',
+    about_p4:'Cette page existe pour me connecter directement avec ceux qui cherchent des cours de français, des conseils pédagogiques ou tout projet centré sur le langage.',
+    serv_title:'Mes <em>services</em>',
+    s1_title:'Cours particuliers de français',s1_desc:'Tous niveaux, approche actionnelle et communicative. Préparation DELF/DALF. Adolescents, adultes, professionnels. En présentiel ou en ligne.',
+    s2_title:'Conseils pédagogiques',s2_desc:'Pour enseignants FLE : conception curriculaire, planification de programmes, formation de formateurs et évaluation des compétences communicatives.',
+    s3_title:'Gestion culturelle',s3_desc:'Conseil pour centres culturels, alliances, associations et institutions éducatives : direction, planification stratégique, relations interinstitutionnelles.',
+    s4_title:'Conférences & interventions',s4_desc:'Francophonie, interculturalité, pédagogie innovante, FLE en contextes latino-américains.',
+    s5_title:'Traduction ES ↔ FR',s5_desc:'Documents officiels, textes institutionnels, correspondance diplomatique et académique.',
+    parc_title:'Parcours <em>professionnel</em>',
+    form_title:'Formation & <em>distinctions</em>',
+    gal_title:'Galerie <em>photo</em>',gal_sub:'Moments et activités professionnels — remplace les espaces avec tes vraies photos',
+    cont_title:'Prendre <em>contact</em>',cont_intro:'Cours de français, conseil pédagogique, conférence ou simplement échanger ? Écris-moi directement.',
+    f_name:'Nom complet',f_email:'Adresse courriel',f_subject:'Objet de la demande',f_sel:'Choisir une option',
+    f_opt1:'Cours particuliers de français',f_opt2:'Conseil pédagogique',f_opt3:'Gestion culturelle',f_opt4:'Conférence / Intervention',f_opt5:'Traduction ES ↔ FR',f_opt6:'Autre',
+    f_msg:'Message',f_send:'Envoyer',f_req:'Champ requis',f_ok:'✓ Message envoyé. Je vous répondrai bientôt.',
+    ci_email:'Adresse courriel',ci_phone:'Téléphone / WhatsApp',ci_loc:'Localisation',ci_social:'Réseaux sociaux',ci_qr:'Scanner pour WhatsApp'
+  },
+  en:{
+    nav_about:'About',nav_services:'Services',nav_parcours:'Career',nav_gallery:'Gallery',nav_contact:'Contact',
+    hero_eyebrow:'FLE Specialist · Cultural Management · Training',
+    hero_tagline:'Teacher · Pedagogical Director · Intercultural Advisor',
+    hero_sub:'13 years building bridges between cultures through language. Venezuela · Ecuador · Mexico · France.',
+    hero_btn1:'Contact me',hero_btn2:'My services',
+    stat1:'Years exp.',stat2:'Languages',stat3:'Growth',
+    about_title:'About <em>me</em>',about_langs:'Languages',about_skills:'Skills',
+    about_p1:'I am a teacher, educator and French as a Foreign Language specialist, with thirteen years of experience in education, intercultural management and cultural diplomacy. My guiding conviction: learning a language means opening up to the world.',
+    about_p2:'I have taught in universities, high schools, cultural centres and Alliances françaises in Venezuela, Ecuador and Mexico. I have advised candidates in migration processes to Quebec and worked with the Embassy of France.',
+    about_p3:'As Pedagogical Director of the Alliance Française de Cuenca, I achieved a <strong>34.7% growth in enrolment</strong> over three years. I currently lead the Alliance Française de San Cristóbal de Las Casas.',
+    about_p4:'This page exists to connect directly with those seeking French lessons, pedagogical advice, training or any language-centred project.',
+    serv_title:'My <em>services</em>',
+    s1_title:'Private French lessons',s1_desc:'All levels, action-oriented and communicative methodology. DELF/DALF preparation. Teenagers, adults, professionals. In-person or online.',
+    s2_title:'Pedagogical consultancy',s2_desc:'For FFL teachers: curriculum design, programme planning, teacher training and communicative competence assessment.',
+    s3_title:'Cultural management',s3_desc:'Consultancy for cultural centres, alliances, associations and educational institutions: leadership, strategic planning, inter-institutional relations.',
+    s4_title:'Lectures & keynotes',s4_desc:'Francophonie, interculturality, innovative pedagogy, FFL in Latin American contexts.',
+    s5_title:'Translation ES ↔ FR',s5_desc:'Official documents, institutional texts, diplomatic and academic correspondence.',
+    parc_title:'Professional <em>career</em>',
+    form_title:'Education & <em>distinctions</em>',
+    gal_title:'Photo <em>gallery</em>',gal_sub:'Professional moments — replace placeholders with your actual photos',
+    cont_title:'Get in <em>touch</em>',cont_intro:'French lessons, pedagogical advice, a lecture or just a conversation? Write to me directly.',
+    f_name:'Full name',f_email:'Email address',f_subject:'Subject',f_sel:'Select an option',
+    f_opt1:'Private French lessons',f_opt2:'Pedagogical advice',f_opt3:'Cultural management',f_opt4:'Lecture / Keynote',f_opt5:'Translation ES ↔ FR',f_opt6:'Other',
+    f_msg:'Message',f_send:'Send message',f_req:'Required field',f_ok:'✓ Message sent. I\'ll reply soon.',
+    ci_email:'Email address',ci_phone:'Phone / WhatsApp',ci_loc:'Location',ci_social:'Social media',ci_qr:'Scan for WhatsApp'
+  }
+};
+
+let currentLang = 'es';
+function setLang(lang){
+  currentLang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(i18n[lang][key] !== undefined) el.innerHTML = i18n[lang][key];
+  });
+  ['es','fr','en'].forEach(l=>{
+    document.getElementById('lang-'+l).classList.toggle('active',l===lang);
+  });
+}
+
+// ── NAV ──────────────────────────────────────────────────────────
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60);
+});
+function toggleMenu(){
+  document.getElementById('nav-links').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('nav-links').classList.remove('open');
+}
+
+// ── REVEAL ON SCROLL ─────────────────────────────────────────────
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');}});
+},{threshold:0.1});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>observer.observe(el));
+
+// Language bars animate on scroll
+const barObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.lang-fill').forEach(bar=>{
+        bar.style.width = bar.getAttribute('data-width');
+      });
+    }
+  });
+},{threshold:0.3});
+const aboutSec = document.getElementById('about');
+if(aboutSec) barObserver.observe(aboutSec);
+
+// ── AUDIO ────────────────────────────────────────────────────────
+let audioPlaying = false;
+const audioEl = document.getElementById('bg-audio');
+function toggleAudio(){
+  if(!audioPlaying){
+    audioEl.volume = 0.35;
+    audioEl.play().then(()=>{
+      document.getElementById('audio-btn').classList.add('playing');
+      document.getElementById('audio-icon').className = 'fas fa-pause';
+      audioPlaying = true;
+    }).catch(()=>{
+      console.log('Audio autoplay blocked — user needs to interact first');
+    });
+  } else {
+    audioEl.pause();
+    document.getElementById('audio-btn').classList.remove('playing');
+    document.getElementById('audio-icon').className = 'fas fa-music';
+    audioPlaying = false;
+  }
+}
+
+// ── LIGHTBOX ─────────────────────────────────────────────────────
+function openLightbox(src, cap){
+  document.getElementById('lb-img').src = src;
+  if(cap && document.getElementById('lb-cap')) document.getElementById('lb-cap').textContent = cap;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('lightbox').addEventListener('click',function(e){
+  if(e.target === this) closeLightbox();
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape') closeLightbox();});
+
+// ── FORM ─────────────────────────────────────────────────────────
+function submitForm(){
+  const name = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const subject = document.getElementById('f-subject').value;
+  const msg = document.getElementById('f-msg').value.trim();
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  let valid = true;
+  [['fg-name',name],['fg-subject',subject],['fg-msg',msg]].forEach(([id,val])=>{
+    document.getElementById(id).classList.toggle('error',!val);
+    if(!val) valid = false;
+  });
+  const emailFg = document.getElementById('fg-email');
+  const emailErr = document.getElementById('email-err');
+  if(!email){emailFg.classList.add('error');emailErr.textContent=i18n[currentLang].f_req||'Requerido';valid=false;}
+  else if(!emailRe.test(email)){emailFg.classList.add('error');emailErr.textContent='Email inválido / Email invalide';valid=false;}
+  else{emailFg.classList.remove('error');}
+  if(!valid) return;
+  const btn = document.getElementById('btn-send');
+  btn.disabled = true;
+  btn.textContent = '...';
+  /* ── EmailJS — Envío real a migueltillero@gmail.com
+     PENDIENTE: reemplazar TU_TEMPLATE_ID y TU_PUBLIC_KEY ── */
+  var EJSVC  = 'service_k9b1j7y';  // ✅ configurado
+  var EJTPL  = 'TU_TEMPLATE_ID';   // ← pendiente
+  var EJKEY  = 'TU_PUBLIC_KEY';    // ← pendiente
+
+  function doSuccess(){
+    document.getElementById('form-success').style.display = 'block';
+    document.getElementById('contact-form').reset();
+    btn.disabled = false;
+    btn.innerHTML = i18n[currentLang].f_send || 'Enviar mensaje';
+    setTimeout(()=>{document.getElementById('form-success').style.display='none';},6000);
+  }
+
+  try {
+    emailjs.init(EJKEY);
+    emailjs.send(EJSVC, EJTPL, {
+      from_name: name, from_email: email,
+      subject: subject, message: msg,
+      to_email: 'migueltillero@gmail.com'
+    }).then(doSuccess).catch(function(){
+      /* fallback mailto si EmailJS no está configurado */
+      var body = encodeURIComponent('Nombre: '+name+'\nEmail: '+email+'\nAsunto: '+subject+'\nMensaje: '+msg);
+      window.open('mailto:migueltillero@gmail.com?subject=Nuevo contacto web&body='+body,'_blank');
+      doSuccess();
+    });
+  } catch(e) {
+    /* EmailJS SDK no cargado — fallback mailto */
+    var body2 = encodeURIComponent('Nombre: '+name+'\nEmail: '+email+'\nMensaje: '+msg);
+    window.open('mailto:migueltillero@gmail.com?subject=Contacto web&body='+body2,'_blank');
+    doSuccess();
+  }
+}
+
+// ── HERO CAROUSEL ──────────────────────────────────────────
+(function(){
+  var car = document.getElementById('heroCarousel');
+  if (!car) return;
+  var imgs = Array.from(car.querySelectorAll('.hc-img')).filter(function(i){ return i.style.display !== 'none'; });
+  if (imgs.length < 2) return;
+
+  var dots = document.getElementById('hcDots');
+  imgs.forEach(function(_, i){
+    var d = document.createElement('button');
+    d.className = 'hc-dot' + (i===0?' active':'');
+    d.setAttribute('aria-label', 'Foto '+(i+1));
+    d.addEventListener('click', function(){ go(i); });
+    dots.appendChild(d);
+  });
+  var dotEls = dots.querySelectorAll('.hc-dot');
+  var cur = 0;
+
+  function go(n){
+    imgs[cur].classList.remove('active'); dotEls[cur].classList.remove('active');
+    cur = n;
+    imgs[cur].classList.add('active'); dotEls[cur].classList.add('active');
+  }
+  setInterval(function(){ go((cur+1)%imgs.length); }, 5500);
+})();
+
+</script>
+</body>
+</html>
