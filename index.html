@@ -1419,23 +1419,32 @@ body.intro-active { overflow: hidden; }
 </head>
 <body>
 
+<!-- 3D BG -->
+<!-- ═══════════════════════════════════════════
+   VIDEO INTRO — Pantalla completa de entrada
+═══════════════════════════════════════════ -->
 <div id="video-intro">
+  <!-- Branding sobre el vídeo -->
   <div class="intro-brand">
     <div class="intro-monogram" id="intro-monogram">MT</div>
     <div class="intro-title" id="intro-title">Miguel Tillero Álvarez</div>
     <div class="intro-sub" id="intro-sub">Director Général · Alliance Française · San Cristóbal de Las Casas</div>
   </div>
 
+  <!-- Logo AF -->
   <div class="intro-logo">Alliance Française · SCSC</div>
 
+  <!-- Botón saltar -->
   <button class="intro-skip" id="intro-skip" onclick="skipIntro()">
     Saltar &nbsp;<i class="fas fa-chevron-right skip-icon"></i>
   </button>
 
+  <!-- Barra de progreso -->
   <div class="intro-progress-bar">
     <div class="intro-progress-fill" id="intro-progress"></div>
   </div>
 
+  <!-- El vídeo -->
   <video id="intro-video" autoplay muted playsinline
          src="Miguel_Tillero_video_bienvenida.mp4"
          preload="auto">
@@ -1444,11 +1453,13 @@ body.intro-active { overflow: hidden; }
 
 <div id="vanta-bg"></div>
 
+<!-- LIGHTBOX -->
 <div id="lightbox" role="dialog" aria-modal="true">
   <button id="lb-close" aria-label="Cerrar"><i class="fa fa-times"></i></button>
   <img id="lb-img" src="" alt="">
 </div>
 
+<!-- AUDIO -->
 <div id="audio-player">
   <button id="audio-btn" aria-label="Música de fondo"><i class="fa fa-music"></i></button>
 </div>
@@ -1456,6 +1467,7 @@ body.intro-active { overflow: hidden; }
   <source src="Arrival_at_the_Terminal (1).mp3" type="audio/mpeg">
 </audio>
 
+<!-- WHATSAPP FLOAT -->
 <div id="wa-float">
   <span id="wa-lbl">WhatsApp · +58 412 246 5331</span>
   <a id="wa-btn" href="https://wa.me/584122465331?text=Hola%20Miguel%2C%20te%20contacto%20desde%20tu%20sitio%20web." target="_blank" rel="noopener" aria-label="WhatsApp">
@@ -1463,6 +1475,7 @@ body.intro-active { overflow: hidden; }
   </a>
 </div>
 
+<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobile-menu">
   <a href="#about" onclick="closeMob()">Sobre mí</a>
   <a href="#services" onclick="closeMob()">Servicios</a>
@@ -1472,6 +1485,7 @@ body.intro-active { overflow: hidden; }
   <a href="#contact" onclick="closeMob()">Contacto</a>
 </div>
 
+<!-- NAV -->
 <nav id="nav" class="z10">
   <div class="nav-brand">
     <span class="dot"></span>
@@ -1495,6 +1509,7 @@ body.intro-active { overflow: hidden; }
   </div>
 </nav>
 
+<!-- ═══ HERO ═══ -->
 <section id="hero" class="z10">
   <div id="hero-marble"></div>
   <div class="hud-corner hud-tl">SYS.INIT / LAT:16.73 / LON:-92.63<br>STATUS: ONLINE · v2025.1</div>
@@ -1534,6 +1549,7 @@ body.intro-active { overflow: hidden; }
         <div class="portrait-hud bracket">
           <div class="portrait-inner" id="portraitCarousel">
             <div class="portrait-scan"></div>
+            <!-- Carrusel de retratos oficiales -->
             <img class="portrait-slide active" src="Gemini_Generated_Image_f6nksgf6nksgf6nk.png" alt="Miguel Tillero — París"
                  onerror="this.src='IMG-20250925-WA0034.jpg'">
             <img class="portrait-slide" src="Gemini_Generated_Image_6kr8rj6kr8rj6kr8(1).png" alt="Miguel Tillero — Director Général"
@@ -1563,6 +1579,7 @@ body.intro-active { overflow: hidden; }
   </div>
 </section>
 
+<!-- ═══ ABOUT ═══ -->
 <section id="about" class="alt z10">
   <div class="container">
     <div class="stats-bar reveal">
@@ -1596,6 +1613,7 @@ body.intro-active { overflow: hidden; }
   </div>
 </section>
 
+<!-- ═══ SERVICES ═══ -->
 <section id="services" class="z10">
   <div class="container">
     <div class="sec-head reveal">
@@ -1637,6 +1655,7 @@ body.intro-active { overflow: hidden; }
   </div>
 </section>
 
+<!-- ═══ METHODOLOGY ═══ -->
 <section id="methodologie" class="alt z10">
   <div class="container">
     <div class="sec-head reveal">
@@ -1663,6 +1682,7 @@ body.intro-active { overflow: hidden; }
   </div>
 </section>
 
+<!-- ═══ TESTIMONIALS ═══ -->
 <section id="temoignages" class="z10">
   <div class="container">
     <div class="sec-head reveal">
@@ -1686,6 +1706,7 @@ body.intro-active { overflow: hidden; }
   </div>
 </section>
 
+<!-- ═══ FAQ ═══ -->
 <section id="faq" class="alt z10">
   <div class="container">
     <div class="sec-head reveal" style="text-align: center;">
@@ -1724,6 +1745,7 @@ body.intro-active { overflow: hidden; }
   </div>
 </section>
 
+<!-- ═══ TIMELINE ═══ -->
 <section id="timeline" class="z10">
   <div class="container">
     <div class="sec-head reveal">
@@ -1800,6 +1822,7 @@ body.intro-active { overflow: hidden; }
   </div>
 </section>
 
+<!-- ═══ EDUCATION ═══ -->
 <section id="education" class="alt z10">
   <div class="container">
     <div class="sec-head reveal">
@@ -1833,6 +1856,7 @@ body.intro-active { overflow: hidden; }
   </div>
 </section>
 
+<!-- ═══ GALLERY ═══ -->
 <section id="gallery" class="z10">
   <div class="container">
     <div class="sec-head reveal">
@@ -1840,6 +1864,7 @@ body.intro-active { overflow: hidden; }
       <h2 class="sec-title" style="margin-top:0.8rem;"><em>Galerie</em></h2>
     </div>
     <div class="gallery-grid">
+      <!-- ── FOTOS OFICIALES GEMINI ── -->
       <div class="g-item reveal" onclick="openLB('Gemini_Generated_Image_6kr8rj6kr8rj6kr8(1).png','Director Général · Alliance Française')">
         <img src="Gemini_Generated_Image_6kr8rj6kr8rj6kr8(1).png" alt="Director Général" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
         <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>Direction Générale</span></div>
@@ -1880,6 +1905,7 @@ body.intro-active { overflow: hidden; }
   </div>
 </section>
 
+<!-- ═══ VIDEO REEL ═══ -->
 <section id="video-reel" class="z10">
   <div class="container">
     <div class="sec-head reveal" style="text-align:center;margin-bottom:3rem;">
@@ -1893,16 +1919,19 @@ body.intro-active { overflow: hidden; }
     </div>
 
     <div class="video-wrapper reveal bracket">
+      <!-- Corners -->
       <div class="v-corner tl"></div>
       <div class="v-corner tr"></div>
       <div class="v-corner bl"></div>
       <div class="v-corner br"></div>
 
+      <!-- Video -->
       <video id="site-video" preload="metadata" playsinline muted
              poster="Gemini_Generated_Image_f6nksgf6nksgf6nk.png">
         <source src="Miguel_Tillero_video_bienvenida.mp4" type="video/mp4">
       </video>
 
+      <!-- Custom play overlay -->
       <div class="video-play-overlay" id="video-overlay" onclick="playVideo()">
         <div class="play-circle"><i class="fa fa-play"></i></div>
       </div>
@@ -1917,6 +1946,7 @@ body.intro-active { overflow: hidden; }
 </section>
 
 
+<!-- ═══ PAGOS ═══ -->
 <section id="pagos" class="alt z10">
   <div class="container">
 
@@ -1931,6 +1961,7 @@ body.intro-active { overflow: hidden; }
 
     <div class="payment-grid">
 
+      <!-- ── Nu México ── -->
       <div class="pay-card reveal d1">
         <div class="pay-bank-logo">
           <div class="pay-bank-icon icon-nu">Nu</div>
@@ -1968,6 +1999,7 @@ body.intro-active { overflow: hidden; }
         </div>
       </div>
 
+      <!-- ── albo ── -->
       <div class="pay-card reveal d2">
         <div class="pay-bank-logo">
           <div class="pay-bank-icon icon-albo">al</div>
@@ -2005,6 +2037,7 @@ body.intro-active { overflow: hidden; }
         </div>
       </div>
 
+      <!-- ── OXXO / Tiendas ── -->
       <div class="pay-card full reveal d3">
         <div class="pay-bank-logo">
           <div class="pay-bank-icon icon-oxxo"><i class="fa fa-store"></i></div>
@@ -2053,7 +2086,9 @@ body.intro-active { overflow: hidden; }
         </div>
       </div>
 
-    </div><div class="pay-note reveal" style="margin-top:2rem;">
+    </div><!-- /payment-grid -->
+
+    <div class="pay-note reveal" style="margin-top:2rem;">
       <i class="fa fa-circle-info"></i>
       <p><strong>Importante:</strong> Al realizar tu pago, incluye tu <strong>nombre completo</strong> en el campo de referencia o concepto para que pueda identificar tu transferencia. Si tienes dudas, escríbeme por <a href="https://wa.me/584122465331" target="_blank" rel="noopener" style="color:var(--cyan)">WhatsApp</a> y te confirmo la recepción.</p>
     </div>
@@ -2061,6 +2096,7 @@ body.intro-active { overflow: hidden; }
   </div>
 </section>
 
+<!-- ═══ CONTACT ═══ -->
 <section id="contact" class="z10">
   <div class="container">
     <div class="sec-head reveal">
@@ -2164,6 +2200,7 @@ body.intro-active { overflow: hidden; }
   </div>
 </section>
 
+<!-- ═══ FOOTER ═══ -->
 <footer id="footer" class="z10">
   <div class="container">
     <div class="footer-inner">
@@ -2181,6 +2218,7 @@ body.intro-active { overflow: hidden; }
   </div>
 </footer>
 
+<!-- ═══ MODAL CITA ═══ -->
 <div class="modal-overlay" id="modal-cita" role="dialog" aria-modal="true">
   <div class="modal-box bracket">
     <button class="modal-close" onclick="closeModal('modal-cita')"><i class="fa fa-times"></i></button>
@@ -2233,6 +2271,7 @@ body.intro-active { overflow: hidden; }
   </div>
 </div>
 
+<!-- ═══ MODAL CLASE ═══ -->
 <div class="modal-overlay" id="modal-clase" role="dialog" aria-modal="true">
   <div class="modal-box bracket">
     <button class="modal-close" onclick="closeModal('modal-clase')"><i class="fa fa-times"></i></button>
@@ -2440,12 +2479,16 @@ async function sendEmail(params, successId, formEl) {
     console.error('EmailJS error:', err);
     /* Fallback: abrir WhatsApp con los datos */
     const msg = encodeURIComponent(
-      'Hola Miguel, intenté usar tu formulario.\n' +
-      'Nombre: ' + payload.from_name + '\n' +
-      'Email: ' + payload.from_email + '\n' +
+      'Hola Miguel, intenté usar tu formulario.
+' +
+      'Nombre: ' + payload.from_name + '
+' +
+      'Email: ' + payload.from_email + '
+' +
       'Asunto: ' + payload.tipo
     );
-    if (confirm('Hubo un problema con el formulario.\n¿Te escribo por WhatsApp?')) {
+    if (confirm('Hubo un problema con el formulario.
+¿Te escribo por WhatsApp?')) {
       window.open('https://wa.me/584122465331?text=' + msg, '_blank');
     }
   }
@@ -2798,6 +2841,7 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<!-- CURSOR PERSONALIZADO -->
 <div id="cursor-dot"></div>
 <div id="cursor-ring"></div>
 
