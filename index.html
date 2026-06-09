@@ -619,33 +619,6 @@ section.alt { background: rgba(4,16,8,0.65); }
 #lb-close:hover { border-color: var(--gold); color: var(--gold); }
 
 /* ════════════════════════════════════════════════
-   NUEVAS SECCIONES: METHODOLOGY, TESTIMONIALS, FAQ
-════════════════════════════════════════════════ */
-.method-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-.method-card { background: var(--panel); border: 1px solid var(--border); padding: 2.5rem; backdrop-filter: blur(12px); transition: all 0.4s; }
-.method-card:hover { border-color: var(--gold); transform: translateY(-5px); background: var(--goldx); }
-.method-icon { font-size: 2rem; color: var(--gold); margin-bottom: 1.2rem; }
-.method-title { font-family: 'Syne', sans-serif; font-size: 1.1rem; color: var(--white); margin-bottom: 0.8rem; }
-.method-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
-
-.testim-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-.testim-card { padding: 2.5rem 2rem; position: relative; background: var(--deep); border: 1px solid var(--border); transition: border-color 0.3s; }
-.testim-card:hover { border-color: rgba(201,169,110,0.5); }
-.testim-quote { font-size: 2.5rem; color: var(--goldx); position: absolute; top: 1rem; left: 1rem; pointer-events: none; }
-.testim-text { font-style: italic; font-size: 0.9rem; color: var(--text); line-height: 1.8; margin-bottom: 1.5rem; position: relative; z-index: 2; }
-.testim-author { font-family: 'Syne', sans-serif; color: var(--gold); font-size: 0.95rem; }
-.testim-role { font-family: 'Space Mono', monospace; font-size: 0.45rem; letter-spacing: 0.2em; color: var(--cyan); text-transform: uppercase; margin-top: 0.3rem; }
-
-.faq-container { max-width: 800px; margin: 0 auto; }
-.faq-item { border-bottom: 1px solid var(--border); }
-.faq-btn { width: 100%; text-align: left; background: none; border: none; padding: 1.5rem 0; font-family: 'Syne', sans-serif; font-size: 1.05rem; color: var(--white); cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: color 0.3s; }
-.faq-btn:hover, .faq-btn.active { color: var(--gold); }
-.faq-btn i { color: var(--gold); transition: transform 0.3s; font-size: 0.8rem; }
-.faq-btn.active i { transform: rotate(180deg); }
-.faq-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
-.faq-content p { padding-bottom: 1.5rem; font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
-
-/* ════════════════════════════════════════════════
    CONTACT SECTION
 ════════════════════════════════════════════════ */
 #contact { background: rgba(2,5,16,0.7); }
@@ -1557,6 +1530,89 @@ body.intro-active { overflow: hidden; }
 #back-top.show { opacity: 1; pointer-events: auto; }
 #back-top:hover { background: rgba(201,160,48,0.15); border-color: var(--gold); transform: translateY(-3px); }
 
+
+/* ── SKILL TAGS ── */
+.skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; padding-top: 1.3rem; border-top: 1px solid rgba(201,169,110,0.15); }
+.skill-tag {
+  display: inline-block; padding: 0.4rem 0.85rem;
+  background: rgba(201,169,110,0.08); border: 1px solid rgba(201,169,110,0.25);
+  color: var(--gold2); font-family: 'Space Mono', monospace;
+  font-size: 0.52rem; letter-spacing: 0.08em; text-transform: uppercase;
+  transition: all 0.3s;
+}
+.skill-tag:hover { background: rgba(201,169,110,0.15); border-color: var(--gold); transform: translateY(-2px); }
+
+
+/* ── BOTÓN ACTIVAR SONIDO (intro) ── */
+.intro-sound-btn {
+  position: absolute; top: 2rem; left: 50%; transform: translateX(-50%);
+  z-index: 12; display: none; align-items: center; gap: 0.7rem;
+  background: rgba(201,169,110,0.92); color: #03100a;
+  border: none; padding: 0.8rem 1.8rem; cursor: pointer;
+  font-family: 'Space Mono', monospace; font-size: 0.6rem;
+  letter-spacing: 0.25em; text-transform: uppercase; font-weight: 700;
+  border-radius: 40px; backdrop-filter: blur(8px);
+  box-shadow: 0 4px 30px rgba(201,169,110,0.5);
+  animation: soundPulse 2s ease-in-out infinite;
+}
+.intro-sound-btn.show { display: flex; }
+.intro-sound-btn i { font-size: 0.85rem; }
+@keyframes soundPulse {
+  0%,100% { box-shadow: 0 4px 30px rgba(201,169,110,0.5); transform: translateX(-50%) scale(1); }
+  50%     { box-shadow: 0 4px 45px rgba(201,169,110,0.8); transform: translateX(-50%) scale(1.04); }
+}
+
+
+/* ════ BOTÓN ENTRAR (intro) ════ */
+.intro-enter-btn {
+  margin-top: 1.8rem; display: inline-flex; align-items: center; gap: 1rem;
+  background: rgba(201,169,110,0.06);
+  border: 1px solid rgba(201,169,110,0.5);
+  color: var(--gold2); cursor: pointer; pointer-events: auto;
+  padding: 1rem 2.5rem;
+  font-family: 'Space Mono', monospace; font-size: 0.62rem;
+  letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700;
+  transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+  backdrop-filter: blur(8px); position: relative; overflow: hidden;
+  opacity: 0; transform: translateY(20px);
+}
+.intro-enter-btn.show { opacity: 1; transform: translateY(0); }
+.intro-enter-btn::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(201,169,110,0.25), transparent);
+  transform: translateX(-100%); transition: transform 0.6s;
+}
+.intro-enter-btn:hover {
+  border-color: var(--gold); color: var(--white);
+  background: rgba(201,169,110,0.14);
+  box-shadow: 0 0 40px rgba(201,169,110,0.35);
+  letter-spacing: 0.38em;
+}
+.intro-enter-btn:hover::before { transform: translateX(100%); }
+.intro-enter-btn .enter-arrow {
+  font-size: 1rem; transition: transform 0.3s;
+}
+.intro-enter-btn:hover .enter-arrow { transform: translateX(6px); }
+
+/* Hint de volumen */
+.intro-vol-hint {
+  margin-top: 1.2rem; display: flex; align-items: center; gap: 0.6rem;
+  font-family: 'Space Mono', monospace; font-size: 0.48rem;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: rgba(240,247,242,0.4);
+  opacity: 0; transition: opacity 1s ease 0.6s;
+}
+.intro-vol-hint.show { opacity: 1; }
+.intro-vol-hint i { color: var(--gold); font-size: 0.6rem; }
+
+/* El vídeo de fondo del intro con leve oscurecimiento */
+#video-intro #intro-video {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center; z-index: 2;
+  opacity: 0.45; transition: opacity 1s ease;
+}
+#video-intro.entered #intro-video { opacity: 1; }
+
 </style>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
@@ -1567,31 +1623,37 @@ body.intro-active { overflow: hidden; }
      VIDEO INTRO — Pantalla completa de entrada
 ═══════════════════════════════════════════ -->
 <div id="video-intro">
-  <!-- Branding sobre el vídeo -->
-  <div class="intro-brand">
-    <div class="intro-monogram" id="intro-monogram">MT</div>
-    <div class="intro-title" id="intro-title">Miguel Tillero Álvarez</div>
-    <div class="intro-sub" id="intro-sub">Director Général · Alliance Française · San Cristóbal de Las Casas</div>
-  </div>
+  <!-- El vídeo de fondo (silencioso en preview) -->
+  <video id="intro-video" muted playsinline loop
+         src="Miguel_Tillero_video_bienvenida.mp4"
+         preload="auto">
+  </video>
 
   <!-- Logo AF -->
   <div class="intro-logo">Alliance Française · SCSC</div>
 
-  <!-- Botón saltar -->
-  <button class="intro-skip" id="intro-skip" onclick="skipIntro()">
-    Saltar &nbsp;<i class="fas fa-chevron-right skip-icon"></i>
-  </button>
+  <!-- Branding central sobre el vídeo -->
+  <div class="intro-brand">
+    <div class="intro-monogram" id="intro-monogram">MT</div>
+    <div class="intro-title" id="intro-title">Miguel David Tillero Álvarez</div>
+    <div class="intro-sub" id="intro-sub">Director Général · Alliance Française · San Cristóbal de Las Casas</div>
+    <div class="intro-divider" id="intro-divider"></div>
 
-  <!-- Barra de progreso -->
+    <!-- BOTÓN ENTRAR — arranca todo con sonido -->
+    <button class="intro-enter-btn" id="intro-enter-btn" onclick="enterSite()">
+      <span class="enter-txt">Entrer&nbsp; ·&nbsp; Acceder&nbsp; ·&nbsp; Enter</span>
+      <span class="enter-arrow">→</span>
+    </button>
+    <div class="intro-vol-hint" id="intro-vol-hint">
+      <i class="fa fa-volume-high"></i>
+      <span data-es="Con audio · sube el volumen" data-fr="Avec audio · montez le son" data-en="With audio · turn up the volume">Con audio · sube el volumen</span>
+    </div>
+  </div>
+
+  <!-- Barra de progreso (se activa tras Entrar) -->
   <div class="intro-progress-bar">
     <div class="intro-progress-fill" id="intro-progress"></div>
   </div>
-
-  <!-- El vídeo -->
-  <video id="intro-video" autoplay muted playsinline
-         src="Miguel Tillero video bienvenida.mp4"
-         preload="auto">
-  </video>
 </div>
 
 <div id="scroll-progress"></div>
@@ -1744,6 +1806,7 @@ body.intro-active { overflow: hidden; }
       <div class="about-text reveal d1">
         <p data-es="Soy pedagogo de formación y especialista en lenguas extranjeras con trece años de trayectoria internacional. A lo largo de mi carrera he aprendido que enseñar un idioma no se trata solo de gramática: se trata de abrir puertas, de acercar culturas y de transformar la vida de las personas que deciden dar ese paso." data-fr="Pédagogue de formation et spécialiste des langues étrangères, je porte treize ans de parcours international. Enseigner une langue, c'est ouvrir des portes, rapprocher des cultures et transformer la vie de ceux qui font ce pas." data-en="I am a trained educator and foreign language specialist with thirteen years of international experience. Teaching a language is not just about grammar — it is about opening doors, bridging cultures and transforming lives.">Soy pedagogo de formación y especialista en lenguas extranjeras con trece años de trayectoria internacional. A lo largo de mi carrera he aprendido que enseñar un idioma no se trata solo de gramática: se trata de abrir puertas, de acercar culturas y de transformar la vida de las personas que deciden dar ese paso.</p>
         <p data-es="He pasado por aulas universitarias en Caracas, oficinas de la Embajada de Francia en Venezuela y Ecuador, y la dirección pedagógica de la Alianza Francesa de Cuenca, donde bajo mi liderazgo la matrícula creció un 34,7% en tres años. Hoy, al frente de la Alianza Francesa de San Cristóbal de Las Casas, continúo ese mismo trabajo: construir instituciones sólidas y comunidades de aprendizaje reales." data-fr="Des salles de classe de Caracas aux bureaux de l'Ambassade de France, en passant par la direction pédagogique de l'Alliance Française de Cuenca où les effectifs ont grandi de 34,7 %, mon parcours est un fil conducteur : construire des institutions solides et des communautés apprenantes." data-en="From university classrooms in Caracas to the French Embassy offices, to the pedagogical direction of the Alliance Française of Cuenca where enrollment grew 34.7%, my path has one thread: building solid institutions and genuine learning communities.">He pasado por aulas universitarias en Caracas, oficinas de la Embajada de Francia en Venezuela y Ecuador, y la dirección pedagógica de la Alianza Francesa de Cuenca, donde bajo mi liderazgo la matrícula creció un 34,7% en tres años. Hoy, al frente de la Alianza Francesa de San Cristóbal de Las Casas, continúo ese mismo trabajo: construir instituciones sólidas y comunidades de aprendizaje reales.</p>
+        <p data-es="He asesorado a candidatos en procesos migratorios hacia Quebec, he trabajado como traductor oficial de obras pedagógicas y he consolidado equipos docentes con formación individualizada y coordinación de exámenes oficiales DELF/DALF. Esta página existe para conectarme directamente con quienes buscan clases de francés, asesorías pedagógicas, formaciones o cualquier proyecto que ponga al lenguaje en el centro." data-fr="J'ai accompagné des candidats à l'immigration vers le Québec, traduit des ouvrages pédagogiques en tant que traducteur officiel et consolidé des équipes enseignantes avec formation individualisée et coordination des examens DELF/DALF. Cette page existe pour me relier directement à celles et ceux qui cherchent des cours, du conseil pédagogique, des formations ou tout projet plaçant la langue au centre." data-en="I have advised candidates in immigration processes to Quebec, worked as an official translator of pedagogical works, and built teaching teams with individualized training and DELF/DALF exam coordination. This page exists to connect me directly with those seeking French classes, pedagogical consulting, training, or any project that places language at its center.">He asesorado a candidatos en procesos migratorios hacia Quebec, he trabajado como traductor oficial de obras pedagógicas y he consolidado equipos docentes con formación individualizada y coordinación de exámenes oficiales DELF/DALF. Esta página existe para conectarme directamente con quienes buscan clases de francés, asesorías pedagógicas, formaciones o cualquier proyecto que ponga al lenguaje en el centro.</p>
       </div>
       <div class="reveal d2">
         <div class="panel bracket skills-panel">
@@ -1753,6 +1816,16 @@ body.intro-active { overflow: hidden; }
           <div class="skill-row"><div class="skill-name">DELF/DALF <span>100%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:100%"></div></div></div>
           <div class="skill-row"><div class="skill-name">Direction culturelle <span>90%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:90%"></div></div></div>
           <div class="skill-row"><div class="skill-name">Traduction ES↔FR <span>92%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:92%"></div></div></div>
+          <div class="skill-tags">
+            <span class="skill-tag">FLE / ELE</span>
+            <span class="skill-tag">DELF · DALF</span>
+            <span class="skill-tag">Gestion pédagogique</span>
+            <span class="skill-tag">Diplomatie culturelle</span>
+            <span class="skill-tag">Leadership</span>
+            <span class="skill-tag">Formation formateurs</span>
+            <span class="skill-tag">Traduction ES↔FR</span>
+            <span class="skill-tag">Interculturalité</span>
+          </div>
         </div>
       </div>
     </div>
@@ -2003,7 +2076,7 @@ body.intro-active { overflow: hidden; }
       <!-- Video -->
       <video id="site-video" preload="metadata" playsinline muted
              poster="Gemini_Generated_Image_f6nksgf6nksgf6nk.png">
-        <source src="Miguel Tillero video bienvenida.mp4" type="video/mp4">
+        <source src="Miguel_Tillero_video_bienvenida.mp4" type="video/mp4">
       </video>
 
       <!-- Custom play overlay -->
@@ -2701,16 +2774,12 @@ async function sendEmail(params, successId, formEl) {
     console.error('EmailJS error:', err);
     /* Fallback: abrir WhatsApp con los datos */
     const msg = encodeURIComponent(
-      'Hola Miguel, intenté usar tu formulario.
-' +
-      'Nombre: ' + payload.from_name + '
-' +
-      'Email: ' + payload.from_email + '
-' +
+      'Hola Miguel, intenté usar tu formulario.\n' +
+      'Nombre: ' + payload.from_name + '\n' +
+      'Email: ' + payload.from_email + '\n' +
       'Asunto: ' + payload.tipo
     );
-    if (confirm('Hubo un problema con el formulario.
-¿Te escribo por WhatsApp?')) {
+    if (confirm('Hubo un problema con el formulario.\n¿Te escribo por WhatsApp?')) {
       window.open('https://wa.me/584122465331?text=' + msg, '_blank');
     }
   }
@@ -2812,7 +2881,7 @@ function animateCursor() {
 animateCursor();
 
 /* Hover states */
-document.querySelectorAll('a, button, .svc-card, .g-item, .lang-pill, .stat-cell, .time-slot, .faq-btn').forEach(el => {
+document.querySelectorAll('a, button, .svc-card, .g-item, .lang-pill, .stat-cell, .time-slot').forEach(el => {
   el.addEventListener('mouseenter', () => curRing.classList.add('hover'));
   el.addEventListener('mouseleave', () => curRing.classList.remove('hover'));
 });
@@ -2861,18 +2930,6 @@ const bgAudio = document.getElementById('bg-audio');
 const audioBtn = document.getElementById('audio-btn');
 let playing = false;
 bgAudio.volume = 0.4;
-
-/* Activar audio automáticamente después del video de intro */
-function activateAudioBg() {
-  if (!playing && bgAudio) {
-    bgAudio.play().then(() => {
-      playing = true;
-      audioBtn.classList.add('playing');
-      audioBtn.innerHTML = '<i class="fa fa-pause"></i>';
-    }).catch(err => console.warn('Autoplay bloqueado', err));
-  }
-}
-
 audioBtn.addEventListener('click', () => {
   playing ? (bgAudio.pause(), audioBtn.classList.remove('playing'), audioBtn.innerHTML='<i class="fa fa-music"></i>')
           : (bgAudio.play().catch(()=>{}), audioBtn.classList.add('playing'), audioBtn.innerHTML='<i class="fa fa-pause"></i>');
@@ -2924,27 +2981,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-/* ── ACCORDION FAQ ─────────────────────────── */
-document.querySelectorAll('.faq-btn').forEach(button => {
-  button.addEventListener('click', () => {
-    const answer = button.nextElementSibling;
-    const isActive = button.classList.contains('active');
-    
-    document.querySelectorAll('.faq-btn').forEach(btn => {
-      btn.classList.remove('active');
-      btn.nextElementSibling.style.maxHeight = null;
-    });
-    
-    if (!isActive) {
-      button.classList.add('active');
-      answer.style.maxHeight = answer.scrollHeight + "px";
-    }
-  });
-});
-
-
 /* ══════════════════════════════════════════════
-   VIDEO INTRO — lógica robusta (sin null errors)
+   VIDEO INTRO — patrón "Entrar" (audio garantizado)
 ══════════════════════════════════════════════ */
 window.addEventListener('DOMContentLoaded', function() {
 
@@ -2954,28 +2992,37 @@ window.addEventListener('DOMContentLoaded', function() {
   var monogramEl= document.getElementById('intro-monogram');
   var titleEl   = document.getElementById('intro-title');
   var subEl     = document.getElementById('intro-sub');
+  var dividerEl = document.getElementById('intro-divider');
+  var enterBtn  = document.getElementById('intro-enter-btn');
+  var volHint   = document.getElementById('intro-vol-hint');
   var introDone = false;
-  var rafId     = null;      /* ID del requestAnimationFrame activo */
+  var rafId     = null;
   var safetyT1  = null;
-  var safetyT2  = null;
 
-  /* Bloquear scroll durante el intro */
+  /* Bloquear scroll mientras el intro está activo */
   document.body.classList.add('intro-active');
 
-  /* Mostrar branding con delay */
-  setTimeout(function() {
-    if (monogramEl) monogramEl.classList.add('show');
-    if (titleEl)    titleEl.classList.add('show');
-    if (subEl)      subEl.classList.add('show');
-  }, 400);
+  /* Reproducir el vídeo en SILENCIO de fondo (preview) — esto sí lo permite el navegador */
+  if (introVid) {
+    introVid.muted = true;
+    introVid.play().catch(function(){ /* si no carga, el branding se ve igual */ });
+  }
 
-  /* Barra de progreso — con cancelación limpia */
+  /* Aparición escalonada del branding */
+  setTimeout(function(){ if (monogramEl) monogramEl.classList.add('show'); }, 300);
+  setTimeout(function(){ if (titleEl)    titleEl.classList.add('show'); }, 700);
+  setTimeout(function(){ if (subEl)      subEl.classList.add('show'); }, 1000);
+  setTimeout(function(){ if (dividerEl)  dividerEl.classList.add('show'); }, 1300);
+  setTimeout(function(){ if (enterBtn)   enterBtn.classList.add('show'); }, 1600);
+  setTimeout(function(){ if (volHint)    volHint.classList.add('show'); }, 2000);
+
+  /* Barra de progreso (se activa tras pulsar Entrar) */
   var progressStarted = false;
   function startProgress() {
-    if (progressStarted) return;     /* solo un loop activo */
+    if (progressStarted) return;
     progressStarted = true;
     function tick() {
-      if (introDone || !introVid || !progressEl) return; /* detener */
+      if (introDone || !introVid || !progressEl) return;
       var dur = introVid.duration;
       if (dur && isFinite(dur) && dur > 0) {
         progressEl.style.width = ((introVid.currentTime / dur) * 100) + '%';
@@ -2985,101 +3032,76 @@ window.addEventListener('DOMContentLoaded', function() {
     rafId = requestAnimationFrame(tick);
   }
 
-  /* Terminar intro — sin efectos secundarios si ya terminó */
-  function endIntro() {
+  /* Cerrar intro y entrar al sitio */
+  function closeIntro() {
     if (introDone) return;
     introDone = true;
-
-    /* Cancelar el RAF de la barra de progreso */
     if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
-
-    /* Cancelar timeouts de seguridad */
     if (safetyT1) clearTimeout(safetyT1);
-    if (safetyT2) clearTimeout(safetyT2);
-
-    /* Animar salida */
     if (introEl) introEl.classList.add('fade-out');
     document.body.classList.remove('intro-active');
-    
-    /* Activar el audio de fondo al salir del intro */
-    activateAudioBg();
-
-    /* Ocultar del DOM tras la transición */
     setTimeout(function() {
       if (introEl) {
         introEl.style.display = 'none';
-        /* Liberar memoria del video */
-        if (introVid) {
-          introVid.pause();
-          introVid.removeAttribute('src');
-          introVid.load();
-        }
+        if (introVid) { introVid.pause(); introVid.removeAttribute('src'); introVid.load(); }
       }
     }, 1400);
   }
 
-  /* Exponer globalmente para el botón onclick */
-  window.skipIntro = endIntro;
+  /* ── BOTÓN ENTRAR — activa sonido del vídeo + audio de fondo ── */
+  window.enterSite = function() {
+    if (!introVid) { closeIntro(); return; }
 
-  if (!introEl || !introVid) {
-    /* Elementos no encontrados → saltar inmediatamente */
-    document.body.classList.remove('intro-active');
-    activateAudioBg();
-    return;
+    /* Quitar el loop y oscurecimiento — modo cinematográfico */
+    introVid.loop = false;
+    if (introEl) introEl.classList.add('entered');
+
+    /* ACTIVAR SONIDO del vídeo (esto funciona porque viene de un clic) */
+    introVid.muted = false;
+    introVid.volume = 1.0;
+    introVid.currentTime = 0;   /* reiniciar para verlo completo con sonido */
+    introVid.play();
+    startProgress();
+
+    /* Arrancar el audio de fondo de la página (también permitido tras el clic) */
+    var bgAudio = document.getElementById('bg-audio');
+    if (bgAudio) {
+      bgAudio.volume = 0.30;
+      bgAudio.play().then(function() {
+        var ab = document.getElementById('audio-btn');
+        if (ab) ab.classList.add('playing');
+        window._audioStarted = true;
+      }).catch(function(){});
+    }
+
+    /* Ocultar el botón Entrar y el branding (dejar ver el vídeo) */
+    if (enterBtn)  enterBtn.style.display = 'none';
+    if (volHint)   volHint.style.display = 'none';
+    if (monogramEl) monogramEl.style.opacity = '0';
+    if (titleEl)    titleEl.style.opacity = '0';
+    if (subEl)      subEl.style.opacity = '0';
+    if (dividerEl)  dividerEl.style.opacity = '0';
+
+    /* Cuando el vídeo termina → cerrar intro y entrar */
+    introVid.addEventListener('ended', closeIntro, { once: true });
+
+    /* Mostrar un pequeño botón "Saltar" por si quiere entrar antes */
+    var skip = document.createElement('button');
+    skip.className = 'intro-skip show';
+    skip.innerHTML = 'Saltar &nbsp;<i class="fas fa-chevron-right"></i>';
+    skip.onclick = closeIntro;
+    if (introEl) introEl.appendChild(skip);
+
+    /* Seguridad: cerrar a los 90s pase lo que pase */
+    safetyT1 = setTimeout(closeIntro, 90000);
+  };
+
+  /* Si el vídeo no existe / falla, permitir entrar igual con el botón */
+  if (introVid) {
+    introVid.addEventListener('error', function() {
+      /* El botón Entrar sigue funcionando (cerrará el intro) */
+    }, { once: true });
   }
-
-  /* Intentar reproducir el video */
-  var videoOk = false;
-  function tryPlay() {
-    introVid.play()
-      .then(function() {
-        videoOk = true;
-        introVid.setAttribute('data-loaded', 'true');
-        startProgress();
-      })
-      .catch(function() {
-        /* Intentar en mute si autoplay fue bloqueado */
-        introVid.muted = true;
-        introVid.play()
-          .then(function() {
-            videoOk = true;
-            introVid.setAttribute('data-loaded', 'true');
-            startProgress();
-          })
-          .catch(function() {
-            /* Video no se puede reproducir → mostrar branding igual */
-            videoOk = false;
-          });
-      });
-  }
-
-  /* Si el video carga, reproducirlo */
-  introVid.addEventListener('canplay', tryPlay, { once: true });
-
-  /* Si el video TERMINA, cerrar el intro */
-  introVid.addEventListener('ended', endIntro, { once: true });
-
-  /* Si el video FALLA (404, formato), NO cerrar — mostrar branding
-     durante el tiempo mínimo y luego cerrar */
-  introVid.addEventListener('error', function() {
-    videoOk = false;
-    introVid.setAttribute('data-loaded', 'false');
-    /* No llamar endIntro aquí — el timer mínimo se encarga */
-  }, { once: true });
-
-  /* TIEMPO MÍNIMO DE INTRO: 6 segundos garantizados
-     (con branding animado, haya video o no) */
-  setTimeout(function() {
-    /* Si el video está reproduciéndose, dejarlo terminar
-       (su evento 'ended' cerrará). Si no hay video, cerrar ahora. */
-    if (!videoOk) endIntro();
-  }, 6000);
-
-  /* Seguridad: máximo 60 segundos pase lo que pase */
-  safetyT1 = setTimeout(endIntro, 60000);
-
-  /* Intentar reproducción directa si el video ya está listo */
-  if (introVid.readyState >= 3) tryPlay();
 
 }); /* fin DOMContentLoaded */
 
