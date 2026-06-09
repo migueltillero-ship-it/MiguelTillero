@@ -1291,28 +1291,10 @@ section::after {
 ════════════════════════════════════════════════ */
 #video-intro {
   position: fixed; inset: 0; z-index: 99999;
-  background:
-    radial-gradient(ellipse 100% 100% at 50% 45%,
-      #0d3520 0%, #082415 30%, #051a0e 60%, #030f08 100%);
+  background: #000;
   display: flex; align-items: center; justify-content: center;
   overflow: hidden;
   transition: opacity 1.2s ease;
-}
-/* Vetas doradas de fondo del intro (siempre visibles) */
-#video-intro::after {
-  content: '';
-  position: absolute; inset: -10%;
-  background:
-    linear-gradient(127deg,
-      transparent 28%,
-      rgba(201,160,48,0.04) 30%, rgba(232,190,80,0.22) 31.5%,
-      rgba(248,216,120,0.3) 32%, rgba(232,190,80,0.18) 32.8%,
-      rgba(201,160,48,0.05) 34%, transparent 36%,
-      transparent 60%,
-      rgba(201,160,48,0.03) 62%, rgba(232,190,80,0.16) 63%,
-      rgba(201,160,48,0.08) 64%, transparent 66%);
-  pointer-events: none; z-index: 1;
-  animation: vein-shift 10s ease-in-out infinite alternate;
 }
 #video-intro.fade-out {
   opacity: 0; pointer-events: none;
@@ -1324,11 +1306,7 @@ section::after {
   width: 100%; height: 100%;
   object-fit: cover;
   object-position: center;
-  z-index: 2;
-  background: transparent;
 }
-/* Mientras no haya video, mostrar el poster de fondo */
-#intro-video[data-loaded="false"] { opacity: 0; }
 
 /* Vignette oscuro en los bordes */
 #video-intro::before {
@@ -1346,40 +1324,44 @@ section::after {
 .intro-brand {
   position: absolute; inset: 0; z-index: 5;
   display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 1.2rem;
+  align-items: center; justify-content: flex-end;
+  padding-bottom: 5rem;
   pointer-events: none;
 }
 .intro-monogram {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(5rem, 14vw, 10rem);
+  font-size: clamp(3rem, 8vw, 6rem);
   font-weight: 300; color: transparent;
-  background: linear-gradient(135deg, #c9a030 0%, #e8be50 35%, #f8d870 55%, #e8be50 75%, #c9a030 100%);
+  background: linear-gradient(135deg,
+    rgba(201,169,110,0.9) 0%,
+    rgba(240,207,142,1) 50%,
+    rgba(77,255,200,0.8) 100%);
   background-size: 300% auto;
   -webkit-background-clip: text; background-clip: text;
-  filter: drop-shadow(0 4px 50px rgba(201,160,48,0.6));
+  filter: drop-shadow(0 0 40px rgba(201,169,110,0.5));
   animation: shimmer 5s linear infinite;
-  line-height: 1; letter-spacing: 0.08em;
-  opacity: 0; transition: opacity 1s ease;
+  line-height: 1; letter-spacing: 0.1em;
+  opacity: 0; transition: opacity 0.8s ease 0.5s;
 }
 .intro-monogram.show { opacity: 1; }
 
 .intro-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.5rem, 4vw, 2.8rem);
-  font-weight: 400; letter-spacing: 0.12em;
-  color: #eef8f3; margin-top: 0.3rem;
-  opacity: 0; transition: opacity 1s ease 0.4s;
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(0.6rem, 2vw, 0.85rem);
+  font-weight: 600; letter-spacing: 0.45em; text-transform: uppercase;
+  color: rgba(240,247,242,0.7);
+  margin-top: 0.8rem;
+  opacity: 0; transition: opacity 0.8s ease 0.9s;
 }
 .intro-title.show { opacity: 1; }
 
 .intro-sub {
   font-family: 'Space Mono', monospace;
-  font-size: clamp(0.5rem, 1.6vw, 0.62rem);
-  letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--gold); margin-top: 0.5rem;
-  max-width: 90%; text-align: center; line-height: 2;
-  opacity: 0; transition: opacity 1s ease 0.7s;
+  font-size: clamp(0.45rem, 1.5vw, 0.55rem);
+  letter-spacing: 0.35em; text-transform: uppercase;
+  color: rgba(201,169,110,0.55);
+  margin-top: 0.4rem;
+  opacity: 0; transition: opacity 0.8s ease 1.2s;
 }
 .intro-sub.show { opacity: 1; }
 
@@ -1432,131 +1414,6 @@ section::after {
 /* Mientras el vídeo intro está activo, bloquear scroll */
 body.intro-active { overflow: hidden; }
 
-
-/* ════ SECCIÓN INSCRIPCIÓN ════ */
-#inscripcion { padding: 6rem 0; background: rgba(3,15,8,.6); position: relative; z-index: 10; }
-.insc-intro {
-  max-width: 640px; margin: 0 auto 3rem; text-align: center;
-  font-size: 0.92rem; line-height: 1.8; color: rgba(238,248,243,.7);
-  background: rgba(4,18,9,.55); backdrop-filter: blur(16px);
-  padding: 1.8rem 2rem; border: 1px solid rgba(201,160,48,.12);
-}
-.insc-form {
-  max-width: 780px; margin: 0 auto;
-  background: rgba(4,18,9,.78); backdrop-filter: blur(24px);
-  border: 1px solid rgba(201,160,48,.22);
-  padding: 2.5rem; position: relative; overflow: hidden;
-}
-.insc-form::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, transparent, var(--gold) 40%, var(--cyan) 70%, transparent);
-}
-.insc-group { margin-bottom: 1.8rem; }
-.insc-legend {
-  font-family: 'Space Mono', monospace; font-size: 0.5rem;
-  letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold);
-  margin-bottom: 1rem; padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(201,160,48,.15);
-  display: flex; align-items: center; gap: 0.6rem;
-}
-.insc-legend i { font-size: 0.7rem; }
-.insc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
-.insc-field { margin-bottom: 1.2rem; }
-.insc-field label {
-  display: block; font-family: 'Space Mono', monospace;
-  font-size: 0.48rem; letter-spacing: 0.25em; text-transform: uppercase;
-  color: rgba(238,248,243,.5); margin-bottom: 0.5rem;
-}
-.insc-field label .req { color: var(--gold); }
-.insc-field input, .insc-field textarea, .insc-field select {
-  width: 100%; background: rgba(255,255,255,.03);
-  border: none; border-bottom: 1px solid rgba(201,160,48,.2);
-  padding: 0.7rem 0; color: var(--white);
-  font-family: 'Syne', sans-serif; font-size: 0.88rem;
-  outline: none; transition: border-color 0.3s; -webkit-appearance: none;
-}
-.insc-field select { cursor: pointer; }
-.insc-field select option { background: #071a0a; color: var(--white); }
-.insc-field input:focus, .insc-field textarea:focus, .insc-field select:focus {
-  border-color: var(--gold); background: rgba(201,160,48,.03);
-}
-.insc-field textarea { resize: vertical; min-height: 80px; }
-.insc-field input::placeholder, .insc-field textarea::placeholder { color: rgba(238,248,243,.3); }
-
-/* Checkboxes de disponibilidad */
-.dispo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 0.6rem; }
-.dispo-option {
-  display: flex; align-items: center; gap: 0.6rem;
-  padding: 0.7rem 1rem; border: 1px solid rgba(201,160,48,.18);
-  background: rgba(255,255,255,.02); cursor: pointer; transition: all 0.3s;
-  font-size: 0.78rem; color: rgba(238,248,243,.8);
-}
-.dispo-option:hover { border-color: var(--gold); background: rgba(201,160,48,.06); }
-.dispo-option input { width: auto; margin: 0; accent-color: var(--gold); cursor: pointer; }
-.dispo-option.checked { border-color: var(--gold); background: rgba(201,160,48,.12); }
-
-/* Radio inline */
-.radio-row { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-.radio-opt { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.85rem; color: rgba(238,248,243,.8); }
-.radio-opt input { width: auto; accent-color: var(--gold); cursor: pointer; }
-
-.insc-submit {
-  width: 100%; margin-top: 1rem; padding: 1.1rem;
-  background: linear-gradient(135deg, var(--gold), var(--gold2));
-  color: #03100a; border: none; cursor: pointer;
-  font-family: 'Space Mono', monospace; font-size: 0.6rem;
-  letter-spacing: 0.35em; text-transform: uppercase; font-weight: 700;
-  transition: all 0.3s; position: relative; overflow: hidden;
-}
-.insc-submit:hover { box-shadow: 0 0 40px rgba(201,160,48,.4); transform: translateY(-2px); }
-.insc-success {
-  display: none; margin-top: 1.5rem; padding: 1.5rem;
-  border: 1px solid rgba(201,160,48,.4); background: rgba(201,160,48,.08);
-  text-align: center; font-family: 'Space Mono', monospace;
-  font-size: 0.6rem; letter-spacing: 0.2em; color: var(--gold-lt); line-height: 1.8;
-}
-.insc-success.show { display: block; animation: fadeIn 0.5s ease; }
-@media (max-width: 640px) { .insc-row { grid-template-columns: 1fr; } .insc-form { padding: 1.5rem; } }
-
-
-/* ════ BARRA DE PROGRESO DE SCROLL ════ */
-#scroll-progress {
-  position: fixed; top: 0; left: 0; height: 3px; width: 0%;
-  background: linear-gradient(90deg, var(--gold), var(--gold2), var(--cyan));
-  z-index: 9000; transition: width 0.1s ease;
-  box-shadow: 0 0 12px rgba(201,160,48,0.5);
-}
-/* ════ DIVISOR DE SECCIÓN ════ */
-.sec-divider {
-  display: flex; align-items: center; justify-content: center;
-  gap: 1.5rem; padding: 0; margin: 0 auto; max-width: 200px;
-  position: relative; z-index: 10;
-}
-.sec-divider .line {
-  flex: 1; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(201,160,48,0.4));
-}
-.sec-divider .line.right {
-  background: linear-gradient(90deg, rgba(201,160,48,0.4), transparent);
-}
-.sec-divider .diamond {
-  width: 8px; height: 8px; transform: rotate(45deg);
-  background: var(--gold); flex-shrink: 0;
-  box-shadow: 0 0 12px rgba(201,160,48,0.5);
-}
-/* ════ BOTÓN VOLVER ARRIBA ════ */
-#back-top {
-  position: fixed; bottom: 1.8rem; left: 1.8rem; z-index: 900;
-  width: 2.8rem; height: 2.8rem; border-radius: 50%;
-  background: rgba(4,18,9,0.85); border: 1px solid rgba(201,160,48,0.4);
-  color: var(--gold); cursor: pointer; backdrop-filter: blur(12px);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.9rem; opacity: 0; pointer-events: none;
-  transition: all 0.4s; box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-}
-#back-top.show { opacity: 1; pointer-events: auto; }
-#back-top:hover { background: rgba(201,160,48,0.15); border-color: var(--gold); transform: translateY(-3px); }
-
 </style>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
@@ -1564,7 +1421,7 @@ body.intro-active { overflow: hidden; }
 
 <!-- 3D BG -->
 <!-- ═══════════════════════════════════════════
-     VIDEO INTRO — Pantalla completa de entrada
+   VIDEO INTRO — Pantalla completa de entrada
 ═══════════════════════════════════════════ -->
 <div id="video-intro">
   <!-- Branding sobre el vídeo -->
@@ -1589,12 +1446,11 @@ body.intro-active { overflow: hidden; }
 
   <!-- El vídeo -->
   <video id="intro-video" autoplay muted playsinline
-         src="Miguel Tillero video bienvenida.mp4"
+         src="Miguel_Tillero_video_bienvenida.mp4"
          preload="auto">
   </video>
 </div>
 
-<div id="scroll-progress"></div>
 <div id="vanta-bg"></div>
 
 <!-- LIGHTBOX -->
@@ -1621,13 +1477,12 @@ body.intro-active { overflow: hidden; }
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobile-menu">
-  <a href="#about" onclick="closeMob()" data-es="Perfil" data-fr="Profil" data-en="Profile">Perfil</a>
-  <a href="#services" onclick="closeMob()" data-es="Expertise" data-fr="Expertise" data-en="Expertise">Expertise</a>
-  <a href="#timeline" onclick="closeMob()" data-es="Trayectoria" data-fr="Parcours" data-en="Career">Trayectoria</a>
-  <a href="#education" onclick="closeMob()" data-es="Formación" data-fr="Formation" data-en="Education">Formación</a>
-  <a href="#gallery" onclick="closeMob()" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a>
-  <a href="#inscripcion" onclick="closeMob()" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a>
-  <a href="#contact" onclick="closeMob()" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a>
+  <a href="#about" onclick="closeMob()">Sobre mí</a>
+  <a href="#services" onclick="closeMob()">Servicios</a>
+  <a href="#methodologie" onclick="closeMob()">Metodología</a>
+  <a href="#temoignages" onclick="closeMob()">Testimonios</a>
+  <a href="#gallery" onclick="closeMob()">Galería</a>
+  <a href="#contact" onclick="closeMob()">Contacto</a>
 </div>
 
 <!-- NAV -->
@@ -1639,12 +1494,11 @@ body.intro-active { overflow: hidden; }
   <ul class="nav-links">
     <li><a href="#about" data-es="Sobre mí" data-fr="À propos" data-en="About">Sobre mí</a></li>
     <li><a href="#services" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</a></li>
-    <li><a href="#timeline" data-es="Trayectoria" data-fr="Parcours" data-en="Career">Trayectoria</a></li>
-    <li><a href="#education" data-es="Formación" data-fr="Formation" data-en="Education">Formación</a></li>
+    <li><a href="#methodologie" data-es="Metodología" data-fr="Méthodologie" data-en="Methodology">Metodología</a></li>
+    <li><a href="#temoignages" data-es="Testimonios" data-fr="Témoignages" data-en="Testimonials">Testimonios</a></li>
+    <li><a href="#faq" data-es="FAQ" data-fr="FAQ" data-en="FAQ">FAQ</a></li>
     <li><a href="#gallery" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a></li>
-    <li><a href="#video-reel" data-es="Vídeo" data-fr="Vidéo" data-en="Video">Vídeo</a></li>
     <li><a href="#pagos" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a></li>
-    <li><a href="#inscripcion" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a></li>
     <li><a href="#contact" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a></li>
   </ul>
   <div class="nav-controls">
@@ -1737,7 +1591,7 @@ body.intro-active { overflow: hidden; }
 
     <div class="sec-head reveal">
       <p class="eyebrow" data-es="Perfil profesional" data-fr="Profil professionnel" data-en="Professional profile">Perfil profesional</p>
-      <h2 class="sec-title" style="margin-top:0.8rem;"><em data-es="Sobre mí" data-fr="À propos" data-en="About me">Sobre mí</em></h2>
+      <h2 class="sec-title" style="margin-top:0.8rem;">À <em>propos</em></h2>
     </div>
 
     <div class="about-grid">
@@ -1763,69 +1617,140 @@ body.intro-active { overflow: hidden; }
 <section id="services" class="z10">
   <div class="container">
     <div class="sec-head reveal">
-      <p class="eyebrow" data-es="Mis áreas de especialidad" data-fr="Mes domaines d'expertise" data-en="My areas of expertise">Mis áreas de especialidad</p>
-      <h2 class="sec-title" style="margin-top:0.8rem;"><em data-es="Lo que ofrezco" data-fr="Domaines d'expertise" data-en="What I offer">Lo que ofrezco</em></h2>
+      <p class="eyebrow" data-es="Lo que ofrezco" data-fr="Ce que je propose" data-en="What I offer">Lo que ofrezco</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;"><em>Services</em></h2>
     </div>
     <div class="services-grid">
-
-      <!-- 01 — LES COURS -->
       <div class="svc-card reveal d1">
         <div class="svc-num">// 01</div>
         <i class="fa fa-chalkboard-teacher svc-icon"></i>
-        <h3 class="svc-title" data-es="Clases de francés" data-fr="Les cours de français" data-en="French classes">Clases de francés</h3>
-        <p class="svc-desc" data-es="Desde el primer bonjour hasta la certificación oficial DELF/DALF. Clases individuales o en pequeño grupo, con metodología comunicativa y accional. Preparación de exámenes, francés general, conversación e inmersión cultural." data-fr="Du premier bonjour jusqu'à la certification DELF/DALF. Cours individuels ou en petit groupe, approche communicative et actionnelle. Préparation aux examens, conversation et immersion culturelle." data-en="From the first bonjour to DELF/DALF certification. Individual or small-group classes with a communicative, action-based method. Exam prep, general French, conversation and cultural immersion.">Desde el primer bonjour hasta la certificación oficial DELF/DALF. Clases individuales o en pequeño grupo, con metodología comunicativa y accional. Preparación de exámenes, francés general, conversación e inmersión cultural.</p>
+        <h3 class="svc-title" data-es="Clases de francés" data-fr="Cours de français" data-en="French classes">Clases de francés</h3>
+        <p class="svc-desc" data-es="Desde el primer bonjour hasta la certificación oficial DELF/DALF. Clases individuales o en pequeño grupo, con una metodología comunicativa y accional que convierte cada sesión en una experiencia real de la lengua." data-fr="Du premier bonjour jusqu'à la certification DELF/DALF. Cours individuels ou en petit groupe, avec une approche communicative centrée sur l'usage réel de la langue." data-en="From the first bonjour to official DELF/DALF certification. Individual or small group classes using a communicative approach that makes every session feel like real language use.">Desde el primer bonjour hasta la certificación oficial DELF/DALF. Clases individuales o en pequeño grupo, con una metodología comunicativa y accional que convierte cada sesión en una experiencia real de la lengua.</p>
       </div>
-
-      <!-- 02 — ASESORÍAS PEDAGÓGICAS -->
       <div class="svc-card reveal d2">
         <div class="svc-num">// 02</div>
-        <i class="fa fa-lightbulb svc-icon"></i>
+        <i class="fa fa-graduation-cap svc-icon"></i>
         <h3 class="svc-title" data-es="Asesorías pedagógicas" data-fr="Conseil pédagogique" data-en="Pedagogical consulting">Asesorías pedagógicas</h3>
-        <p class="svc-desc" data-es="Acompañamiento a docentes y equipos que quieren enseñar mejor el francés. Diseño curricular, formación de formadores, evaluación de programas y construcción de itinerarios pedagógicos según el MCER." data-fr="Accompagnement des enseignants et des équipes. Ingénierie de formation, conception curriculaire, évaluation de programmes et construction de parcours selon le CECRL." data-en="Support for teachers and teams. Curriculum design, trainer training, program evaluation and CEFR-aligned learning paths.">Acompañamiento a docentes y equipos que quieren enseñar mejor el francés. Diseño curricular, formación de formadores, evaluación de programas y construcción de itinerarios pedagógicos según el MCER.</p>
+        <p class="svc-desc" data-es="Acompañamiento a docentes y equipos pedagógicos que quieren enseñar mejor el francés. Desde el diseño de su programa hasta la formación de su equipo, con herramientas concretas y aplicables desde el día uno." data-fr="Accompagnement de professeurs et équipes qui veulent enseigner mieux. Du programme à la formation de l'équipe, avec des outils concrets applicables dès le premier jour." data-en="Support for teachers and teams who want to teach French more effectively, from curriculum design to team training with practical tools from day one.">Acompañamiento a docentes y equipos pedagógicos que quieren enseñar mejor el francés. Desde el diseño de su programa hasta la formación de su equipo, con herramientas concretas y aplicables desde el día uno.</p>
       </div>
-
-      <!-- 03 — PROYECTOS PEDAGÓGICOS -->
       <div class="svc-card reveal d3">
         <div class="svc-num">// 03</div>
-        <i class="fa fa-seedling svc-icon"></i>
-        <h3 class="svc-title" data-es="Proyectos pedagógicos" data-fr="Projets pédagogiques" data-en="Educational projects">Proyectos pedagógicos</h3>
-        <p class="svc-desc" data-es="Diseño y dirección de proyectos educativos innovadores: del huerto pedagógico STAFE que une agricultura y francés, a programas de inmersión como Vichy, ciclos de cine francófono y alianzas interinstitucionales." data-fr="Conception et pilotage de projets innovants : du potager pédagogique STAFE liant agriculture et français, aux programmes d'immersion comme Vichy, cycles de cinéma et partenariats." data-en="Design and leadership of innovative projects: from the STAFE pedagogical garden linking agriculture and French, to immersion programs like Vichy, francophone film cycles and partnerships.">Diseño y dirección de proyectos educativos innovadores: del huerto pedagógico STAFE que une agricultura y francés, a programas de inmersión como Vichy, ciclos de cine francófono y alianzas interinstitucionales.</p>
+        <i class="fa fa-building-columns svc-icon"></i>
+        <h3 class="svc-title" data-es="Gestión cultural" data-fr="Gestion culturelle" data-en="Cultural management">Gestión cultural</h3>
+        <p class="svc-desc" data-es="Más de una década dirigiendo y transformando centros culturales de la red francófona. Aporto experiencia real en diagnóstico institucional, desarrollo de equipos, relaciones interinstitucionales y reactivación financiera." data-fr="Plus d'une décennie à diriger et transformer des centres culturels francophones. Expérience réelle en diagnostic institutionnel, développement d'équipes et relance financière." data-en="Over a decade directing and transforming francophone cultural centers. Real experience in institutional diagnosis, team development, and financial relaunch.">Más de una década dirigiendo y transformando centros culturales de la red francófona. Aporto experiencia real en diagnóstico institucional, desarrollo de equipos, relaciones interinstitucionales y reactivación financiera.</p>
       </div>
-
-      <!-- 04 — GESTIÓN Y DIRECCIÓN CULTURAL -->
       <div class="svc-card reveal d4">
         <div class="svc-num">// 04</div>
-        <i class="fa fa-building-columns svc-icon"></i>
-        <h3 class="svc-title" data-es="Gestión y dirección cultural" data-fr="Direction culturelle" data-en="Cultural management">Gestión y dirección cultural</h3>
-        <p class="svc-desc" data-es="Más de una década dirigiendo y transformando centros de la red de las Alianzas Francesas. Diagnóstico institucional, desarrollo de equipos, relance financiero, relaciones diplomáticas y planificación estratégica." data-fr="Plus d'une décennie à diriger des centres du réseau des Alliances Françaises. Diagnostic institutionnel, développement d'équipes, relance financière, relations diplomatiques et planification stratégique." data-en="Over a decade directing centers in the Alliance Française network. Institutional diagnosis, team development, financial recovery, diplomatic relations and strategic planning.">Más de una década dirigiendo y transformando centros de la red de las Alianzas Francesas. Diagnóstico institucional, desarrollo de equipos, relance financiero, relaciones diplomáticas y planificación estratégica.</p>
+        <i class="fa fa-microphone-lines svc-icon"></i>
+        <h3 class="svc-title" data-es="Conferencias" data-fr="Conférences" data-en="Conferences">Conferencias</h3>
+        <p class="svc-desc" data-es="Intervenciones dinámicas sobre francophonie, pedagogía intercultural e innovación educativa. Conferencista con experiencia en Venezuela, Ecuador y México, adaptando el mensaje al contexto de cada institución." data-fr="Interventions dynamiques sur la francophonie, la pédagogie interculturelle et l'innovation éducative. Conférencier expérimenté au Venezuela, Équateur et Mexique." data-en="Dynamic talks on francophonie, intercultural pedagogy and educational innovation. Speaker with experience in Venezuela, Ecuador and Mexico.">Intervenciones dinámicas sobre francophonie, pedagogía intercultural e innovación educativa. Conferencista con experiencia en Venezuela, Ecuador y México, adaptando el mensaje al contexto de cada institución.</p>
       </div>
-
-      <!-- 05 — TRADUCCIÓN E INTERPRETACIÓN -->
       <div class="svc-card reveal d5">
         <div class="svc-num">// 05</div>
         <i class="fa fa-language svc-icon"></i>
-        <h3 class="svc-title" data-es="Traducción e interpretación" data-fr="Traduction et interprétation" data-en="Translation & interpreting">Traducción e interpretación</h3>
-        <p class="svc-desc" data-es="Traducciones fidedignas español ↔ francés con registro institucional: documentos oficiales, contratos, convenios, correspondencia diplomática y materiales didácticos. Interpretación en eventos y reuniones bilingües." data-fr="Traductions fidèles espagnol ↔ français au registre institutionnel : documents officiels, contrats, correspondance diplomatique. Interprétation lors d'événements bilingues." data-en="Faithful Spanish ↔ French translations with institutional register: official documents, contracts, diplomatic correspondence. Interpreting at bilingual events.">Traducciones fidedignas español ↔ francés con registro institucional: documentos oficiales, contratos, convenios, correspondencia diplomática y materiales didácticos. Interpretación en eventos y reuniones bilingües.</p>
+        <h3 class="svc-title" data-es="Traducción ES↔FR" data-fr="Traduction ES↔FR" data-en="Translation ES↔FR">Traducción ES↔FR</h3>
+        <p class="svc-desc" data-es="Traducciones fidedignas y con registro institucional, entre español y francés. Contratos, convenios, correspondencia diplomática y materiales didácticos, con la sensibilidad cultural que solo da quien vive ambas lenguas." data-fr="Traductions fidèles et au registre institutionnel, entre espagnol et français. Contrats, correspondance diplomatique et matériaux didactiques." data-en="Faithful, institutionally-registered translations between Spanish and French. Contracts, diplomatic correspondence and teaching materials.">Traducciones fidedignas y con registro institucional, entre español y francés. Contratos, convenios, correspondencia diplomática y materiales didácticos, con la sensibilidad cultural que solo da quien vive ambas lenguas.</p>
       </div>
+    </div>
+  </div>
+</section>
 
-      <!-- 06 — CONFERENCIAS Y FORMACIÓN -->
-      <div class="svc-card reveal d6">
-        <div class="svc-num">// 06</div>
-        <i class="fa fa-microphone-lines svc-icon"></i>
-        <h3 class="svc-title" data-es="Conferencias y formación" data-fr="Conférences et formation" data-en="Talks & training">Conferencias y formación</h3>
-        <p class="svc-desc" data-es="Intervenciones dinámicas sobre francophonie, interculturalidad, pedagogía innovadora y cooperación educativa internacional. Talleres y formaciones a medida para instituciones educativas y culturales." data-fr="Interventions sur la francophonie, l'interculturalité, la pédagogie innovante et la coopération éducative. Ateliers et formations sur mesure pour institutions." data-en="Talks on francophonie, interculturality, innovative pedagogy and educational cooperation. Tailored workshops and training for institutions.">Intervenciones dinámicas sobre francophonie, interculturalidad, pedagogía innovadora y cooperación educativa internacional. Talleres y formaciones a medida para instituciones educativas y culturales.</p>
+<!-- ═══ METHODOLOGY ═══ -->
+<section id="methodologie" class="alt z10">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow" data-es="Metodología y enfoque" data-fr="Méthodologie et approche" data-en="Methodology & approach">Metodología y enfoque</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;"><em>Méthodologie</em></h2>
+    </div>
+    <div class="method-grid">
+      <div class="method-card reveal d1">
+        <div class="method-icon"><i class="fa-solid fa-comments"></i></div>
+        <h3 class="method-title" data-es="Enfoque Comunicativo" data-fr="Approche Communicative" data-en="Communicative Approach">Enfoque Comunicativo</h3>
+        <p class="method-desc" data-es="Inmersión total desde el primer día. El idioma se vive y se habla, priorizando la fluidez natural y la comprensión auditiva en escenarios reales." data-fr="Immersion totale dès le premier jour. La langue se vit et se parle, en privilégiant la fluidité naturelle dans des scénarios réels." data-en="Total immersion from day one. The language is lived and spoken, prioritizing natural fluency and listening comprehension in real scenarios.">Inmersión total desde el primer día. El idioma se vive y se habla, priorizando la fluidez natural y la comprensión auditiva en escenarios reales.</p>
       </div>
+      <div class="method-card reveal d2">
+        <div class="method-icon"><i class="fa-solid fa-medal"></i></div>
+        <h3 class="method-title" data-es="Excelencia Certificada" data-fr="Excellence Certifiée" data-en="Certified Excellence">Excelencia Certificada</h3>
+        <p class="method-desc" data-es="Preparación quirúrgica para certificaciones oficiales. Como examinador DELF/DALF, conozco exactamente las exigencias del Ministerio de Educación de Francia." data-fr="Préparation chirurgicale pour les certifications officielles. En tant qu'examinateur DELF/DALF, je connais exactement les exigences du Ministère." data-en="Surgical preparation for official certifications. As a DELF/DALF examiner, I know exactly the requirements of the French Ministry of Education.">Preparación quirúrgica para certificaciones oficiales. Como examinador DELF/DALF, conozco exactamente las exigencias del Ministerio de Educación de Francia.</p>
+      </div>
+      <div class="method-card reveal d3">
+        <div class="method-icon"><i class="fa-solid fa-earth-europe"></i></div>
+        <h3 class="method-title" data-es="Inmersión Cultural" data-fr="Immersion Culturelle" data-en="Cultural Immersion">Inmersión Cultural</h3>
+        <p class="method-desc" data-es="No solo enseñamos gramática; transmitimos la francofonía. Integración de literatura, cine, actualidad y cultura para un aprendizaje orgánico." data-fr="Nous n'enseignons pas que la grammaire; nous transmettons la francophonie. Intégration de littérature, cinéma et actualité pour un apprentissage organique." data-en="We don't just teach grammar; we transmit Francophonie. Integration of literature, cinema, news, and culture for organic learning.">No solo enseñamos gramática; transmitimos la francofonía. Integración de literatura, cine, actualidad y cultura para un aprendizaje orgánico.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- ═══ TESTIMONIALS ═══ -->
+<section id="temoignages" class="z10">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow" data-es="Lo que dicen mis estudiantes" data-fr="Ce que disent mes étudiants" data-en="What my students say">Lo que dicen mis estudiantes</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;"><em>Témoignages</em></h2>
+    </div>
+    <div class="testim-grid">
+      <div class="testim-card panel reveal d1">
+        <i class="fa-solid fa-quote-right testim-quote"></i>
+        <p class="testim-text" data-es="La preparación con Miguel fue fundamental para mi DALF C1. Su dominio de la pedagogía y su exigencia me dieron la confianza necesaria para estudiar mi maestría en Francia." data-fr="La préparation avec Miguel a été fondamentale pour mon DALF C1. Sa maîtrise pédagogique m'a donné la confiance nécessaire pour étudier mon master en France." data-en="Preparation with Miguel was fundamental for my DALF C1. His pedagogical mastery and high standards gave me the confidence to study my master's in France.">La preparación con Miguel fue fundamental para mi DALF C1. Su dominio de la pedagogía y su exigencia me dieron la confianza necesaria para estudiar mi maestría en Francia.</p>
+        <div class="testim-author">Elena M.</div>
+        <div class="testim-role" data-es="Candidata DALF C1 · Estudiante de Maestría" data-fr="Candidate DALF C1 · Étudiante en Master" data-en="DALF C1 Candidate · Master's Student">Candidata DALF C1 · Estudiante de Maestría</div>
+      </div>
+      <div class="testim-card panel reveal d2">
+        <i class="fa-solid fa-quote-right testim-quote"></i>
+        <p class="testim-text" data-es="Como director, su visión cultural y liderazgo transformaron nuestra perspectiva del aprendizaje. Las clases son dinámicas, inmersivas y de un nivel excepcional." data-fr="En tant que directeur, sa vision culturelle et son leadership ont transformé notre perspective d'apprentissage. Les cours sont dynamiques et d'un niveau exceptionnel." data-en="As a director, his cultural vision and leadership transformed our perspective on learning. Classes are dynamic, immersive, and of an exceptional level.">Como director, su visión cultural y liderazgo transformaron nuestra perspectiva del aprendizaje. Las clases son dinámicas, inmersivas y de un nivel excepcional.</p>
+        <div class="testim-author">Carlos R.</div>
+        <div class="testim-role" data-es="Profesional Sector Turismo" data-fr="Professionnel du Tourisme" data-en="Tourism Sector Professional">Profesional Sector Turismo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section id="faq" class="alt z10">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align: center;">
+      <p class="eyebrow" style="justify-content: center;" data-es="Preguntas Frecuentes" data-fr="Foire aux Questions" data-en="Frequently Asked Questions">Preguntas Frecuentes</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;"><em>FAQ</em></h2>
+    </div>
+    <div class="faq-container">
+      <div class="faq-item reveal d1">
+        <button class="faq-btn">
+          <span data-es="¿Las clases son aptas para principiantes absolutos (A0)?" data-fr="Les cours sont-ils adaptés aux grands débutants (A0) ?" data-en="Are classes suitable for absolute beginners (A0)?">¿Las clases son aptas para principiantes absolutos (A0)?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="faq-content">
+          <p data-es="Absolutamente. Mi metodología está diseñada para guiarte desde tus primeras palabras hasta la fluidez avanzada, adaptando el ritmo a tu estilo de aprendizaje." data-fr="Absolument. Ma méthodologie est conçue pour vous guider de vos premiers mots jusqu'à la fluidité avancée, en adaptant le rythme à votre style." data-en="Absolutely. My methodology is designed to guide you from your first words to advanced fluency, adapting the pace to your learning style.">Absolutamente. Mi metodología está diseñada para guiarte desde tus primeras palabras hasta la fluidez avanzada, adaptando el ritmo a tu estilo de aprendizaje.</p>
+        </div>
+      </div>
+      <div class="faq-item reveal d2">
+        <button class="faq-btn">
+          <span data-es="¿Cómo funciona la preparación específica para DELF/DALF?" data-fr="Comment fonctionne la préparation DELF/DALF ?" data-en="How does the specific DELF/DALF preparation work?">¿Cómo funciona la preparación específica para DELF/DALF?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="faq-content">
+          <p data-es="Realizamos simulacros reales, análisis de criterios de evaluación y entrenamiento intensivo en las cuatro competencias evaluadas, garantizando que llegues al examen con total seguridad." data-fr="Nous effectuons de vraies simulations, une analyse des critères et un entraînement intensif dans les quatre compétences évaluées." data-en="We conduct real simulations, criteria analysis, and intensive training in the four evaluated competencies, ensuring you arrive at the exam with total confidence.">Realizamos simulacros reales, análisis de criterios de evaluación y entrenamiento intensivo en las cuatro competencias evaluadas, garantizando que llegues al examen con total seguridad.</p>
+        </div>
+      </div>
+      <div class="faq-item reveal d3">
+        <button class="faq-btn">
+          <span data-es="¿Qué plataformas se utilizan para las sesiones online?" data-fr="Quelles plateformes sont utilisées pour les sessions en ligne ?" data-en="What platforms are used for online sessions?">¿Qué plataformas se utilizan para las sesiones online?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="faq-content">
+          <p data-es="Las clases se imparten a través de Zoom o Google Meet, utilizando pizarras interactivas y material multimedia de alta definición para una experiencia inmersiva sin interrupciones." data-fr="Les cours sont dispensés via Zoom ou Google Meet, en utilisant des tableaux interactifs et du matériel multimédia HD pour une expérience immersive." data-en="Classes are taught via Zoom or Google Meet, using interactive whiteboards and high-definition multimedia materials for a seamless immersive experience.">Las clases se imparten a través de Zoom o Google Meet, utilizando pizarras interactivas y material multimedia de alta definición para una experiencia inmersiva sin interrupciones.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ═══ TIMELINE ═══ -->
-<section id="timeline" class="alt z10">
+<section id="timeline" class="z10">
   <div class="container">
     <div class="sec-head reveal">
-      <p class="eyebrow" data-es="Mi trayectoria" data-fr="Mon parcours" data-en="My career">Mi trayectoria</p>
-      <h2 class="sec-title" style="margin-top:0.8rem;"><em data-es="Trayectoria profesional" data-fr="Parcours professionnel" data-en="Professional path">Trayectoria profesional</em></h2>
+      <p class="eyebrow" data-es="Experiencia" data-fr="Expérience" data-en="Experience">Experiencia</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;"><em>Parcours</em></h2>
     </div>
     <div class="tl">
       <div class="tl-item reveal d1">
@@ -1898,11 +1823,11 @@ body.intro-active { overflow: hidden; }
 </section>
 
 <!-- ═══ EDUCATION ═══ -->
-<section id="education" class="z10">
+<section id="education" class="alt z10">
   <div class="container">
     <div class="sec-head reveal">
-      <p class="eyebrow" data-es="Mi formación académica" data-fr="Ma formation" data-en="My education">Mi formación académica</p>
-      <h2 class="sec-title" style="margin-top:0.8rem;"><em data-es="Formación y distinciones" data-fr="Formation et distinctions" data-en="Education & distinctions">Formación y distinciones</em></h2>
+      <p class="eyebrow" data-es="Formación y distinciones" data-fr="Formation et distinctions" data-en="Education & distinctions">Formación y distinciones</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;"><em>Formation</em></h2>
     </div>
     <div class="edu-grid">
       <div class="edu-card panel reveal d1">
@@ -1932,11 +1857,11 @@ body.intro-active { overflow: hidden; }
 </section>
 
 <!-- ═══ GALLERY ═══ -->
-<section id="gallery" class="alt z10">
+<section id="gallery" class="z10">
   <div class="container">
     <div class="sec-head reveal">
       <p class="eyebrow" data-es="Momentos y proyectos" data-fr="Moments et projets" data-en="Moments & projects">Momentos y proyectos</p>
-      <h2 class="sec-title" style="margin-top:0.8rem;"><em data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</em></h2>
+      <h2 class="sec-title" style="margin-top:0.8rem;"><em>Galerie</em></h2>
     </div>
     <div class="gallery-grid">
       <!-- ── FOTOS OFICIALES GEMINI ── -->
@@ -2003,7 +1928,7 @@ body.intro-active { overflow: hidden; }
       <!-- Video -->
       <video id="site-video" preload="metadata" playsinline muted
              poster="Gemini_Generated_Image_f6nksgf6nksgf6nk.png">
-        <source src="Miguel Tillero video bienvenida.mp4" type="video/mp4">
+        <source src="Miguel_Tillero_video_bienvenida.mp4" type="video/mp4">
       </video>
 
       <!-- Custom play overlay -->
@@ -2016,255 +1941,6 @@ body.intro-active { overflow: hidden; }
       <span class="vtag">MT · ALLIANCE FRANÇAISE · SCSC</span>
       <span data-es="Clic para reproducir" data-fr="Cliquer pour lire" data-en="Click to play">Clic para reproducir</span>
       <span class="vtag">FLE · GESTIÓN CULTURAL · FORMACIÓN</span>
-    </div>
-  </div>
-</section>
-
-
-<!-- ═══ INSCRIPCIÓN A CLASES ═══ -->
-<section id="inscripcion" class="z10">
-  <div class="container">
-    <div class="sec-head reveal" style="text-align:center;margin-bottom:2.5rem;">
-      <p class="eyebrow" style="justify-content:center"
-         data-es="Comienza tu aprendizaje" data-fr="Commencez votre apprentissage" data-en="Start learning">
-        Comienza tu aprendizaje
-      </p>
-      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;">
-        <em data-es="Inscríbete a tus clases" data-fr="Inscrivez-vous" data-en="Enroll now">Inscríbete a tus clases</em>
-      </h2>
-    </div>
-
-    <div class="insc-intro reveal">
-      <p data-es="Completa este formulario para que pueda conocerte mejor y diseñar un plan de clases a tu medida. Tus respuestas me ayudarán a organizar horarios, adaptar la metodología a tus objetivos y ofrecerte la mejor experiencia de aprendizaje del francés." data-fr="Remplissez ce formulaire pour que je puisse mieux vous connaître et concevoir un plan de cours sur mesure." data-en="Fill out this form so I can get to know you and design a tailored class plan.">Completa este formulario para que pueda conocerte mejor y diseñar un plan de clases a tu medida. Tus respuestas me ayudarán a organizar horarios, adaptar la metodología a tus objetivos y ofrecerte la mejor experiencia de aprendizaje del francés.</p>
-    </div>
-
-    <form class="insc-form reveal" id="inscForm">
-
-      <!-- DATOS PERSONALES -->
-      <div class="insc-group">
-        <div class="insc-legend"><i class="fa fa-user"></i> <span data-es="Datos personales" data-fr="Données personnelles" data-en="Personal details">Datos personales</span></div>
-        <div class="insc-row">
-          <div class="insc-field">
-            <label data-es="Nombre completo" data-fr="Nom complet" data-en="Full name">Nombre completo <span class="req">*</span></label>
-            <input type="text" name="nombre" required placeholder="Tu nombre y apellidos">
-          </div>
-          <div class="insc-field">
-            <label>Email <span class="req">*</span></label>
-            <input type="email" name="email" required placeholder="tu@correo.com">
-          </div>
-        </div>
-        <div class="insc-row">
-          <div class="insc-field">
-            <label data-es="WhatsApp / Teléfono" data-fr="WhatsApp / Téléphone" data-en="WhatsApp / Phone">WhatsApp / Teléfono</label>
-            <input type="tel" name="telefono" placeholder="+52 ...">
-          </div>
-          <div class="insc-field">
-            <label data-es="Edad" data-fr="Âge" data-en="Age">Edad</label>
-            <input type="text" name="edad" placeholder="Opcional">
-          </div>
-        </div>
-        <div class="insc-field">
-          <label data-es="Lugar donde vives (ciudad / zona)" data-fr="Lieu de résidence" data-en="Where you live">Lugar donde vives (ciudad / zona)</label>
-          <input type="text" name="ciudad" placeholder="Ciudad, colonia o zona">
-        </div>
-      </div>
-
-      <!-- NIVEL Y HORAS -->
-      <div class="insc-group">
-        <div class="insc-legend"><i class="fa fa-graduation-cap"></i> <span data-es="Tu nivel y objetivos" data-fr="Niveau et objectifs" data-en="Level & goals">Tu nivel y objetivos</span></div>
-        <div class="insc-row">
-          <div class="insc-field">
-            <label data-es="Nivel actual de francés" data-fr="Niveau actuel" data-en="Current level">Nivel actual de francés</label>
-            <select name="nivel">
-              <option value="" disabled selected>— Selecciona —</option>
-              <option>Principiante total (A0)</option>
-              <option>Básico (A1 - A2)</option>
-              <option>Intermedio (B1 - B2)</option>
-              <option>Avanzado (C1 - C2)</option>
-              <option>No estoy seguro / Necesito evaluación</option>
-            </select>
-          </div>
-          <div class="insc-field">
-            <label data-es="Horas que deseas contratar" data-fr="Heures souhaitées" data-en="Hours wanted">Nº de horas que deseas contratar</label>
-            <select name="horas">
-              <option value="" disabled selected>— Selecciona —</option>
-              <option>Paquete de 10 horas</option>
-              <option>Paquete de 20 horas</option>
-              <option>Paquete de 30 horas</option>
-              <option>Clases semanales continuas</option>
-              <option>Aún no lo sé</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <!-- DISPONIBILIDAD -->
-      <div class="insc-group">
-        <div class="insc-legend"><i class="fa fa-clock"></i> <span data-es="Disponibilidad horaria (marca todas las que apliquen)" data-fr="Disponibilités" data-en="Availability">Disponibilidad horaria — marca todas las que apliquen</span></div>
-        <div class="dispo-grid">
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Lunes a viernes - mañana"> Entre semana · Mañana</label>
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Lunes a viernes - tarde"> Entre semana · Tarde</label>
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Lunes a viernes - noche"> Entre semana · Noche</label>
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Sábado - mañana"> Sábado · Mañana</label>
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Sábado - tarde"> Sábado · Tarde</label>
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Domingo"> Domingo</label>
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Horario flexible"> Horario flexible</label>
-        </div>
-      </div>
-
-      <!-- MOTIVACIÓN Y EXPECTATIVAS -->
-      <div class="insc-group">
-        <div class="insc-legend"><i class="fa fa-heart"></i> <span data-es="Tu motivación" data-fr="Votre motivation" data-en="Your motivation">Tu motivación</span></div>
-        <div class="insc-field">
-          <label data-es="¿Por qué quieres aprender francés? (motivación)" data-fr="Pourquoi le français ?" data-en="Why French?">¿Por qué quieres aprender francés? (motivación)</label>
-          <textarea name="motivacion" placeholder="Trabajo, viaje, estudios, certificación DELF/DALF, cultura, migración..."></textarea>
-        </div>
-        <div class="insc-field">
-          <label data-es="¿Qué esperas lograr con tus clases? (expectativas)" data-fr="Vos attentes" data-en="Expectations">¿Qué esperas lograr con tus clases? (expectativas)</label>
-          <textarea name="expectativas" placeholder="Tus metas a corto y largo plazo..."></textarea>
-        </div>
-        <div class="insc-field">
-          <label data-es="¿Qué NO te gustaría de tus clases?" data-fr="Ce que vous n'aimeriez pas" data-en="What you wouldn't like">¿Qué NO te gustaría de tus clases?</label>
-          <textarea name="no_gusta" placeholder="Para evitar métodos o dinámicas que no funcionan para ti..."></textarea>
-        </div>
-      </div>
-
-      <!-- ENTREVISTA PREVIA -->
-      <div class="insc-group">
-        <div class="insc-legend"><i class="fa fa-comments"></i> <span data-es="Contacto previo" data-fr="Contact préalable" data-en="Previous contact">Contacto previo</span></div>
-        <div class="insc-field">
-          <label data-es="¿Ya has tenido una entrevista o clase de prueba conmigo?" data-fr="Entretien préalable ?" data-en="Previous interview?">¿Ya has tenido una entrevista o clase de prueba conmigo?</label>
-          <div class="radio-row" style="margin-top:0.5rem">
-            <label class="radio-opt"><input type="radio" name="entrevista" value="Sí"> Sí</label>
-            <label class="radio-opt"><input type="radio" name="entrevista" value="No"> No, es la primera vez</label>
-            <label class="radio-opt"><input type="radio" name="entrevista" value="Agendada"> Tengo una agendada</label>
-          </div>
-        </div>
-      </div>
-
-      <!-- COMENTARIOS -->
-      <div class="insc-group">
-        <div class="insc-legend"><i class="fa fa-pen"></i> <span data-es="Cierre" data-fr="Remarques" data-en="Closing">Para cerrar</span></div>
-        <div class="insc-field">
-          <label data-es="Dudas, comentarios y sugerencias" data-fr="Questions et remarques" data-en="Questions & comments">Dudas, comentarios y sugerencias</label>
-          <textarea name="comentarios" placeholder="Lo que quieras agregar..."></textarea>
-        </div>
-      </div>
-
-      <button type="submit" class="insc-submit">
-        <i class="fa fa-paper-plane"></i>&nbsp;
-        <span data-es="Enviar mi inscripción" data-fr="Envoyer mon inscription" data-en="Submit enrollment">Enviar mi inscripción</span>
-      </button>
-
-      <div class="insc-success" id="inscSuccess">
-        ✦ ¡Inscripción recibida! ✦<br>
-        Revisaré tus respuestas y te contactaré pronto para coordinar tu plan de clases.
-      </div>
-    </form>
-  </div>
-</section>
-
-
-<!-- ═══ CONTACT ═══ -->
-<section id="contact" class="z10">
-  <div class="container">
-    <div class="sec-head reveal">
-      <p class="eyebrow" data-es="Hablemos" data-fr="Parlons ensemble" data-en="Let's talk">Hablemos</p>
-      <h2 class="sec-title" style="margin-top:0.8rem;"><em data-es="Contáctame" data-fr="Me contacter" data-en="Get in touch">Contáctame</em></h2>
-    </div>
-    <div class="contact-grid">
-      <div class="reveal d1">
-        <form id="contact-form" novalidate>
-          <div class="form-row">
-            <div class="form-field">
-              <label data-es="Nombre *" data-fr="Nom *" data-en="Name *">Nombre *</label>
-              <input type="text" name="name" id="f-name" placeholder="Tu nombre">
-              <div class="form-error" id="e-name">Campo requerido.</div>
-            </div>
-            <div class="form-field">
-              <label>Email *</label>
-              <input type="email" name="email" id="f-email" placeholder="tu@correo.com">
-              <div class="form-error" id="e-email">Email inválido.</div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-field">
-              <label>WhatsApp / Tel</label>
-              <input type="tel" name="telefono" placeholder="+52 xxx xxx xxxx">
-            </div>
-            <div class="form-field">
-              <label data-es="País / Ciudad" data-fr="Pays / Ville" data-en="Country / City">País / Ciudad</label>
-              <input type="text" name="ciudad" placeholder="Tu ciudad">
-            </div>
-          </div>
-          <div class="form-field">
-            <label data-es="Motivo" data-fr="Objet" data-en="Subject">Motivo</label>
-            <select name="subject_sel">
-              <option value="" disabled selected>— Selecciona —</option>
-              <option>Clases particulares de francés</option>
-              <option>Asesoría pedagógica</option>
-              <option>Gestión y dirección cultural</option>
-              <option>Conferencia o ponencia</option>
-              <option>Traducción / Interpretación</option>
-              <option>Otro</option>
-            </select>
-          </div>
-          <div class="form-field">
-            <label data-es="Mensaje *" data-fr="Message *" data-en="Message *">Mensaje *</label>
-            <textarea name="message" id="f-msg" placeholder="Cuéntame tu proyecto o consulta..." rows="4"></textarea>
-            <div class="form-error" id="e-msg">Campo requerido.</div>
-          </div>
-          <button type="submit" class="btn btn-gold" style="width:100%;justify-content:center;">
-            <i class="fa fa-paper-plane"></i>
-            <span data-es="Enviar mensaje" data-fr="Envoyer" data-en="Send message">Enviar mensaje</span>
-          </button>
-          <div class="form-success" id="form-success">✦ Mensaje enviado. Te respondo pronto. ✦</div>
-        </form>
-      </div>
-
-      <div class="reveal d2">
-        <div class="c-cards">
-          <div class="c-card">
-            <div class="c-icon"><i class="fa fa-envelope"></i></div>
-            <div><div class="c-label">Email</div><div class="c-val"><a href="mailto:migueltillero@gmail.com">migueltillero@gmail.com</a></div></div>
-          </div>
-          <div class="c-card">
-            <div class="c-icon"><i class="fab fa-whatsapp"></i></div>
-            <div>
-              <div class="c-label">WhatsApp (VE)</div>
-              <div class="c-val"><a href="https://wa.me/584122465331" target="_blank" rel="noopener">+58 412 246 5331</a></div>
-            </div>
-          </div>
-          <div class="c-card">
-            <div class="c-icon"><i class="fa fa-phone"></i></div>
-            <div>
-              <div class="c-label">Teléfono (MX)</div>
-              <div class="c-val"><a href="tel:+529673424456">+52 967 342 4456</a></div>
-            </div>
-          </div>
-          <div class="c-card">
-            <div class="c-icon"><i class="fa fa-map-marker-alt"></i></div>
-            <div>
-              <div class="c-label" data-es="Ubicación" data-fr="Localisation" data-en="Location">Ubicación</div>
-              <div class="c-val">San Cristóbal de Las Casas<br>Chiapas · México</div>
-            </div>
-          </div>
-        </div>
-        <div class="cta-btns">
-          <button onclick="openModal('modal-cita')" class="btn btn-ghost" style="flex:1;justify-content:center;">
-            <i class="fa fa-calendar-alt"></i>
-            <span data-es="Agendar cita" data-fr="Rendez-vous" data-en="Book meeting">Agendar cita</span>
-          </button>
-          <button onclick="openModal('modal-clase')" class="btn btn-cyan" style="flex:1;justify-content:center;">
-            <i class="fa fa-graduation-cap"></i>
-            <span data-es="Clase de prueba" data-fr="Cours d'essai" data-en="Trial class">Clase de prueba</span>
-          </button>
-        </div>
-        <div class="socials">
-          <a href="https://linkedin.com" target="_blank" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-          <a href="https://wa.me/584122465331" target="_blank" class="social-btn" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -2420,7 +2096,109 @@ body.intro-active { overflow: hidden; }
   </div>
 </section>
 
-<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Volver arriba"><i class="fa fa-arrow-up"></i></button>
+<!-- ═══ CONTACT ═══ -->
+<section id="contact" class="z10">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow" data-es="Hablemos" data-fr="Parlons" data-en="Let's talk">Hablemos</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;"><em>Contact</em></h2>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal d1">
+        <form id="contact-form" novalidate>
+          <div class="form-row">
+            <div class="form-field">
+              <label data-es="Nombre *" data-fr="Nom *" data-en="Name *">Nombre *</label>
+              <input type="text" name="name" id="f-name" placeholder="Tu nombre">
+              <div class="form-error" id="e-name">Campo requerido.</div>
+            </div>
+            <div class="form-field">
+              <label>Email *</label>
+              <input type="email" name="email" id="f-email" placeholder="tu@correo.com">
+              <div class="form-error" id="e-email">Email inválido.</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label>WhatsApp / Tel</label>
+              <input type="tel" name="telefono" placeholder="+52 xxx xxx xxxx">
+            </div>
+            <div class="form-field">
+              <label data-es="País / Ciudad" data-fr="Pays / Ville" data-en="Country / City">País / Ciudad</label>
+              <input type="text" name="ciudad" placeholder="Tu ciudad">
+            </div>
+          </div>
+          <div class="form-field">
+            <label data-es="Motivo" data-fr="Objet" data-en="Subject">Motivo</label>
+            <select name="subject_sel">
+              <option value="" disabled selected>— Selecciona —</option>
+              <option>Clases particulares de francés</option>
+              <option>Asesoría pedagógica</option>
+              <option>Gestión y dirección cultural</option>
+              <option>Conferencia o ponencia</option>
+              <option>Traducción / Interpretación</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label data-es="Mensaje *" data-fr="Message *" data-en="Message *">Mensaje *</label>
+            <textarea name="message" id="f-msg" placeholder="Cuéntame tu proyecto o consulta..." rows="4"></textarea>
+            <div class="form-error" id="e-msg">Campo requerido.</div>
+          </div>
+          <button type="submit" class="btn btn-gold" style="width:100%;justify-content:center;">
+            <i class="fa fa-paper-plane"></i>
+            <span data-es="Enviar mensaje" data-fr="Envoyer" data-en="Send message">Enviar mensaje</span>
+          </button>
+          <div class="form-success" id="form-success">✦ Mensaje enviado. Te respondo pronto. ✦</div>
+        </form>
+      </div>
+
+      <div class="reveal d2">
+        <div class="c-cards">
+          <div class="c-card">
+            <div class="c-icon"><i class="fa fa-envelope"></i></div>
+            <div><div class="c-label">Email</div><div class="c-val"><a href="mailto:migueltillero@gmail.com">migueltillero@gmail.com</a></div></div>
+          </div>
+          <div class="c-card">
+            <div class="c-icon"><i class="fab fa-whatsapp"></i></div>
+            <div>
+              <div class="c-label">WhatsApp (VE)</div>
+              <div class="c-val"><a href="https://wa.me/584122465331" target="_blank" rel="noopener">+58 412 246 5331</a></div>
+            </div>
+          </div>
+          <div class="c-card">
+            <div class="c-icon"><i class="fa fa-phone"></i></div>
+            <div>
+              <div class="c-label">Teléfono (MX)</div>
+              <div class="c-val"><a href="tel:+529673424456">+52 967 342 4456</a></div>
+            </div>
+          </div>
+          <div class="c-card">
+            <div class="c-icon"><i class="fa fa-map-marker-alt"></i></div>
+            <div>
+              <div class="c-label" data-es="Ubicación" data-fr="Localisation" data-en="Location">Ubicación</div>
+              <div class="c-val">San Cristóbal de Las Casas<br>Chiapas · México</div>
+            </div>
+          </div>
+        </div>
+        <div class="cta-btns">
+          <button onclick="openModal('modal-cita')" class="btn btn-ghost" style="flex:1;justify-content:center;">
+            <i class="fa fa-calendar-alt"></i>
+            <span data-es="Agendar cita" data-fr="Rendez-vous" data-en="Book meeting">Agendar cita</span>
+          </button>
+          <button onclick="openModal('modal-clase')" class="btn btn-cyan" style="flex:1;justify-content:center;">
+            <i class="fa fa-graduation-cap"></i>
+            <span data-es="Clase de prueba" data-fr="Cours d'essai" data-en="Trial class">Clase de prueba</span>
+          </button>
+        </div>
+        <div class="socials">
+          <a href="https://linkedin.com" target="_blank" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://wa.me/584122465331" target="_blank" class="social-btn" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ═══ FOOTER ═══ -->
 <footer id="footer" class="z10">
@@ -2861,18 +2639,6 @@ const bgAudio = document.getElementById('bg-audio');
 const audioBtn = document.getElementById('audio-btn');
 let playing = false;
 bgAudio.volume = 0.4;
-
-/* Activar audio automáticamente después del video de intro */
-function activateAudioBg() {
-  if (!playing && bgAudio) {
-    bgAudio.play().then(() => {
-      playing = true;
-      audioBtn.classList.add('playing');
-      audioBtn.innerHTML = '<i class="fa fa-pause"></i>';
-    }).catch(err => console.warn('Autoplay bloqueado', err));
-  }
-}
-
 audioBtn.addEventListener('click', () => {
   playing ? (bgAudio.pause(), audioBtn.classList.remove('playing'), audioBtn.innerHTML='<i class="fa fa-music"></i>')
           : (bgAudio.play().catch(()=>{}), audioBtn.classList.add('playing'), audioBtn.innerHTML='<i class="fa fa-pause"></i>');
@@ -3000,9 +2766,6 @@ window.addEventListener('DOMContentLoaded', function() {
     /* Animar salida */
     if (introEl) introEl.classList.add('fade-out');
     document.body.classList.remove('intro-active');
-    
-    /* Activar el audio de fondo al salir del intro */
-    activateAudioBg();
 
     /* Ocultar del DOM tras la transición */
     setTimeout(function() {
@@ -3024,61 +2787,35 @@ window.addEventListener('DOMContentLoaded', function() {
   if (!introEl || !introVid) {
     /* Elementos no encontrados → saltar inmediatamente */
     document.body.classList.remove('intro-active');
-    activateAudioBg();
     return;
   }
 
-  /* Intentar reproducir el video */
-  var videoOk = false;
+  /* Intentar reproducir */
   function tryPlay() {
     introVid.play()
-      .then(function() {
-        videoOk = true;
-        introVid.setAttribute('data-loaded', 'true');
-        startProgress();
-      })
+      .then(function() { startProgress(); })
       .catch(function() {
         /* Intentar en mute si autoplay fue bloqueado */
         introVid.muted = true;
         introVid.play()
-          .then(function() {
-            videoOk = true;
-            introVid.setAttribute('data-loaded', 'true');
-            startProgress();
-          })
-          .catch(function() {
-            /* Video no se puede reproducir → mostrar branding igual */
-            videoOk = false;
-          });
+          .then(function() { startProgress(); })
+          .catch(function() { endIntro(); });   /* sin video → saltar */
       });
   }
 
-  /* Si el video carga, reproducirlo */
-  introVid.addEventListener('canplay', tryPlay, { once: true });
+  introVid.addEventListener('canplay',  tryPlay, { once: true });
+  introVid.addEventListener('ended',    endIntro, { once: true });
+  introVid.addEventListener('error',    endIntro, { once: true });
 
-  /* Si el video TERMINA, cerrar el intro */
-  introVid.addEventListener('ended', endIntro, { once: true });
+  /* Seguridad 1: vídeo no carga en 8 segundos */
+  safetyT2 = setTimeout(function() {
+    if (!introDone && introVid.readyState < 2) endIntro();
+  }, 8000);
 
-  /* Si el video FALLA (404, formato), NO cerrar — mostrar branding
-     durante el tiempo mínimo y luego cerrar */
-  introVid.addEventListener('error', function() {
-    videoOk = false;
-    introVid.setAttribute('data-loaded', 'false');
-    /* No llamar endIntro aquí — el timer mínimo se encarga */
-  }, { once: true });
-
-  /* TIEMPO MÍNIMO DE INTRO: 6 segundos garantizados
-     (con branding animado, haya video o no) */
-  setTimeout(function() {
-    /* Si el video está reproduciéndose, dejarlo terminar
-       (su evento 'ended' cerrará). Si no hay video, cerrar ahora. */
-    if (!videoOk) endIntro();
-  }, 6000);
-
-  /* Seguridad: máximo 60 segundos pase lo que pase */
+  /* Seguridad 2: máximo 60 segundos */
   safetyT1 = setTimeout(endIntro, 60000);
 
-  /* Intentar reproducción directa si el video ya está listo */
+  /* Intentar reproducción directa si ya listo */
   if (introVid.readyState >= 3) tryPlay();
 
 }); /* fin DOMContentLoaded */
@@ -3102,110 +2839,6 @@ window.addEventListener('DOMContentLoaded', function() {
   }
   setInterval(next, 5500);
 });
-
-/* ── FORMULARIO DE INSCRIPCIÓN ─────────────── */
-window.addEventListener('DOMContentLoaded', function() {
-  var inscForm = document.getElementById('inscForm');
-  if (!inscForm) return;
-
-  /* Resaltar checkboxes seleccionados */
-  inscForm.querySelectorAll('.dispo-option input').forEach(function(cb) {
-    cb.addEventListener('change', function() {
-      this.closest('.dispo-option').classList.toggle('checked', this.checked);
-    });
-  });
-
-  inscForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    var d = {};
-    var fd = new FormData(inscForm);
-    for (var pair of fd.entries()) { d[pair[0]] = pair[1]; }
-
-    /* Recoger disponibilidad (múltiple) */
-    var dispos = [];
-    inscForm.querySelectorAll('input[name="dispo"]:checked').forEach(function(c) {
-      dispos.push(c.value);
-    });
-
-    /* Validación mínima */
-    if (!d.nombre || !d.email) {
-      alert('Por favor completa al menos tu nombre y email.');
-      return;
-    }
-
-    var btn = inscForm.querySelector('.insc-submit');
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i>&nbsp; Enviando...';
-
-    /* Mensaje formateado */
-    var mensaje =
-      'NUEVA INSCRIPCIÓN — Clases de Francés\n' +
-      '═══════════════════════════════\n\n' +
-      'DATOS PERSONALES\n' +
-      'Nombre: ' + (d.nombre||'-') + '\n' +
-      'Email: ' + (d.email||'-') + '\n' +
-      'Teléfono: ' + (d.telefono||'-') + '\n' +
-      'Edad: ' + (d.edad||'-') + '\n' +
-      'Ciudad/Zona: ' + (d.ciudad||'-') + '\n\n' +
-      'NIVEL Y OBJETIVOS\n' +
-      'Nivel actual: ' + (d.nivel||'-') + '\n' +
-      'Horas a contratar: ' + (d.horas||'-') + '\n\n' +
-      'DISPONIBILIDAD\n' + (dispos.length ? dispos.join(', ') : '-') + '\n\n' +
-      'MOTIVACIÓN\n' + (d.motivacion||'-') + '\n\n' +
-      'EXPECTATIVAS\n' + (d.expectativas||'-') + '\n\n' +
-      'QUÉ NO LE GUSTARÍA\n' + (d.no_gusta||'-') + '\n\n' +
-      'ENTREVISTA PREVIA: ' + (d.entrevista||'-') + '\n\n' +
-      'COMENTARIOS\n' + (d.comentarios||'-');
-
-    /* Enviar con EmailJS (service_k9b1j7y) */
-    function done() {
-      document.getElementById('inscSuccess').classList.add('show');
-      inscForm.reset();
-      inscForm.querySelectorAll('.dispo-option').forEach(function(o){ o.classList.remove('checked'); });
-      btn.style.display = 'none';
-      document.getElementById('inscSuccess').scrollIntoView({behavior:'smooth', block:'center'});
-    }
-
-    try {
-      emailjs.send('service_k9b1j7y', 'TU_TEMPLATE_ID', {
-        subject: '🎓 NUEVA INSCRIPCIÓN — ' + d.nombre,
-        from_name: d.nombre,
-        from_email: d.email,
-        telefono: d.telefono || '-',
-        ciudad: d.ciudad || '-',
-        tipo: 'Inscripción a clases',
-        fecha: new Date().toLocaleDateString('es-MX'),
-        horario: dispos.join(', ') || '-',
-        message: mensaje,
-        to_email: 'migueltillero@gmail.com'
-      }).then(done).catch(function() {
-        /* Fallback mailto */
-        window.open('mailto:migueltillero@gmail.com?subject=' +
-          encodeURIComponent('Nueva inscripción - ' + d.nombre) +
-          '&body=' + encodeURIComponent(mensaje), '_blank');
-        done();
-      });
-    } catch(err) {
-      window.open('mailto:migueltillero@gmail.com?subject=' +
-        encodeURIComponent('Nueva inscripción - ' + d.nombre) +
-        '&body=' + encodeURIComponent(mensaje), '_blank');
-      done();
-    }
-  });
-});
-
-
-/* ── BARRA DE PROGRESO + VOLVER ARRIBA ────── */
-window.addEventListener('scroll', function() {
-  var st = document.documentElement.scrollTop || document.body.scrollTop;
-  var sh = (document.documentElement.scrollHeight || document.body.scrollHeight) - document.documentElement.clientHeight;
-  var pct = sh > 0 ? (st / sh) * 100 : 0;
-  var bar = document.getElementById('scroll-progress');
-  if (bar) bar.style.width = pct + '%';
-  var bt = document.getElementById('back-top');
-  if (bt) bt.classList.toggle('show', st > 600);
-}, { passive: true });
-
 </script>
 
 <!-- CURSOR PERSONALIZADO -->
