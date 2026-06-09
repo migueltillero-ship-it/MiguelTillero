@@ -619,6 +619,33 @@ section.alt { background: rgba(4,16,8,0.65); }
 #lb-close:hover { border-color: var(--gold); color: var(--gold); }
 
 /* ════════════════════════════════════════════════
+   NUEVAS SECCIONES: METHODOLOGY, TESTIMONIALS, FAQ
+════════════════════════════════════════════════ */
+.method-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+.method-card { background: var(--panel); border: 1px solid var(--border); padding: 2.5rem; backdrop-filter: blur(12px); transition: all 0.4s; }
+.method-card:hover { border-color: var(--gold); transform: translateY(-5px); background: var(--goldx); }
+.method-icon { font-size: 2rem; color: var(--gold); margin-bottom: 1.2rem; }
+.method-title { font-family: 'Syne', sans-serif; font-size: 1.1rem; color: var(--white); margin-bottom: 0.8rem; }
+.method-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+.testim-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+.testim-card { padding: 2.5rem 2rem; position: relative; background: var(--deep); border: 1px solid var(--border); transition: border-color 0.3s; }
+.testim-card:hover { border-color: rgba(201,169,110,0.5); }
+.testim-quote { font-size: 2.5rem; color: var(--goldx); position: absolute; top: 1rem; left: 1rem; pointer-events: none; }
+.testim-text { font-style: italic; font-size: 0.9rem; color: var(--text); line-height: 1.8; margin-bottom: 1.5rem; position: relative; z-index: 2; }
+.testim-author { font-family: 'Syne', sans-serif; color: var(--gold); font-size: 0.95rem; }
+.testim-role { font-family: 'Space Mono', monospace; font-size: 0.45rem; letter-spacing: 0.2em; color: var(--cyan); text-transform: uppercase; margin-top: 0.3rem; }
+
+.faq-container { max-width: 800px; margin: 0 auto; }
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-btn { width: 100%; text-align: left; background: none; border: none; padding: 1.5rem 0; font-family: 'Syne', sans-serif; font-size: 1.05rem; color: var(--white); cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: color 0.3s; }
+.faq-btn:hover, .faq-btn.active { color: var(--gold); }
+.faq-btn i { color: var(--gold); transition: transform 0.3s; font-size: 0.8rem; }
+.faq-btn.active i { transform: rotate(180deg); }
+.faq-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+.faq-content p { padding-bottom: 1.5rem; font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+/* ════════════════════════════════════════════════
    CONTACT SECTION
 ════════════════════════════════════════════════ */
 #contact { background: rgba(2,5,16,0.7); }
@@ -1392,32 +1419,23 @@ body.intro-active { overflow: hidden; }
 </head>
 <body>
 
-<!-- 3D BG -->
-<!-- ═══════════════════════════════════════════
-     VIDEO INTRO — Pantalla completa de entrada
-═══════════════════════════════════════════ -->
 <div id="video-intro">
-  <!-- Branding sobre el vídeo -->
   <div class="intro-brand">
     <div class="intro-monogram" id="intro-monogram">MT</div>
     <div class="intro-title" id="intro-title">Miguel Tillero Álvarez</div>
     <div class="intro-sub" id="intro-sub">Director Général · Alliance Française · San Cristóbal de Las Casas</div>
   </div>
 
-  <!-- Logo AF -->
   <div class="intro-logo">Alliance Française · SCSC</div>
 
-  <!-- Botón saltar -->
   <button class="intro-skip" id="intro-skip" onclick="skipIntro()">
     Saltar &nbsp;<i class="fas fa-chevron-right skip-icon"></i>
   </button>
 
-  <!-- Barra de progreso -->
   <div class="intro-progress-bar">
     <div class="intro-progress-fill" id="intro-progress"></div>
   </div>
 
-  <!-- El vídeo -->
   <video id="intro-video" autoplay muted playsinline
          src="Miguel_Tillero_video_bienvenida.mp4"
          preload="auto">
@@ -1426,13 +1444,11 @@ body.intro-active { overflow: hidden; }
 
 <div id="vanta-bg"></div>
 
-<!-- LIGHTBOX -->
 <div id="lightbox" role="dialog" aria-modal="true">
   <button id="lb-close" aria-label="Cerrar"><i class="fa fa-times"></i></button>
   <img id="lb-img" src="" alt="">
 </div>
 
-<!-- AUDIO -->
 <div id="audio-player">
   <button id="audio-btn" aria-label="Música de fondo"><i class="fa fa-music"></i></button>
 </div>
@@ -1440,7 +1456,6 @@ body.intro-active { overflow: hidden; }
   <source src="Arrival_at_the_Terminal (1).mp3" type="audio/mpeg">
 </audio>
 
-<!-- WHATSAPP FLOAT -->
 <div id="wa-float">
   <span id="wa-lbl">WhatsApp · +58 412 246 5331</span>
   <a id="wa-btn" href="https://wa.me/584122465331?text=Hola%20Miguel%2C%20te%20contacto%20desde%20tu%20sitio%20web." target="_blank" rel="noopener" aria-label="WhatsApp">
@@ -1448,17 +1463,15 @@ body.intro-active { overflow: hidden; }
   </a>
 </div>
 
-<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobile-menu">
   <a href="#about" onclick="closeMob()">Sobre mí</a>
   <a href="#services" onclick="closeMob()">Servicios</a>
-  <a href="#timeline" onclick="closeMob()">Trayectoria</a>
-  <a href="#education" onclick="closeMob()">Formación</a>
+  <a href="#methodologie" onclick="closeMob()">Metodología</a>
+  <a href="#temoignages" onclick="closeMob()">Testimonios</a>
   <a href="#gallery" onclick="closeMob()">Galería</a>
   <a href="#contact" onclick="closeMob()">Contacto</a>
 </div>
 
-<!-- NAV -->
 <nav id="nav" class="z10">
   <div class="nav-brand">
     <span class="dot"></span>
@@ -1467,10 +1480,10 @@ body.intro-active { overflow: hidden; }
   <ul class="nav-links">
     <li><a href="#about" data-es="Sobre mí" data-fr="À propos" data-en="About">Sobre mí</a></li>
     <li><a href="#services" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</a></li>
-    <li><a href="#timeline" data-es="Trayectoria" data-fr="Parcours" data-en="Career">Trayectoria</a></li>
-    <li><a href="#education" data-es="Formación" data-fr="Formation" data-en="Education">Formación</a></li>
+    <li><a href="#methodologie" data-es="Metodología" data-fr="Méthodologie" data-en="Methodology">Metodología</a></li>
+    <li><a href="#temoignages" data-es="Testimonios" data-fr="Témoignages" data-en="Testimonials">Testimonios</a></li>
+    <li><a href="#faq" data-es="FAQ" data-fr="FAQ" data-en="FAQ">FAQ</a></li>
     <li><a href="#gallery" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a></li>
-    <li><a href="#video-reel" data-es="Vídeo" data-fr="Vidéo" data-en="Video">Vídeo</a></li>
     <li><a href="#pagos" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a></li>
     <li><a href="#contact" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a></li>
   </ul>
@@ -1482,7 +1495,6 @@ body.intro-active { overflow: hidden; }
   </div>
 </nav>
 
-<!-- ═══ HERO ═══ -->
 <section id="hero" class="z10">
   <div id="hero-marble"></div>
   <div class="hud-corner hud-tl">SYS.INIT / LAT:16.73 / LON:-92.63<br>STATUS: ONLINE · v2025.1</div>
@@ -1522,7 +1534,6 @@ body.intro-active { overflow: hidden; }
         <div class="portrait-hud bracket">
           <div class="portrait-inner" id="portraitCarousel">
             <div class="portrait-scan"></div>
-            <!-- Carrusel de retratos oficiales -->
             <img class="portrait-slide active" src="Gemini_Generated_Image_f6nksgf6nksgf6nk.png" alt="Miguel Tillero — París"
                  onerror="this.src='IMG-20250925-WA0034.jpg'">
             <img class="portrait-slide" src="Gemini_Generated_Image_6kr8rj6kr8rj6kr8(1).png" alt="Miguel Tillero — Director Général"
@@ -1552,7 +1563,6 @@ body.intro-active { overflow: hidden; }
   </div>
 </section>
 
-<!-- ═══ ABOUT ═══ -->
 <section id="about" class="alt z10">
   <div class="container">
     <div class="stats-bar reveal">
@@ -1586,7 +1596,6 @@ body.intro-active { overflow: hidden; }
   </div>
 </section>
 
-<!-- ═══ SERVICES ═══ -->
 <section id="services" class="z10">
   <div class="container">
     <div class="sec-head reveal">
@@ -1628,8 +1637,94 @@ body.intro-active { overflow: hidden; }
   </div>
 </section>
 
-<!-- ═══ TIMELINE ═══ -->
-<section id="timeline" class="alt z10">
+<section id="methodologie" class="alt z10">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow" data-es="Metodología y enfoque" data-fr="Méthodologie et approche" data-en="Methodology & approach">Metodología y enfoque</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;"><em>Méthodologie</em></h2>
+    </div>
+    <div class="method-grid">
+      <div class="method-card reveal d1">
+        <div class="method-icon"><i class="fa-solid fa-comments"></i></div>
+        <h3 class="method-title" data-es="Enfoque Comunicativo" data-fr="Approche Communicative" data-en="Communicative Approach">Enfoque Comunicativo</h3>
+        <p class="method-desc" data-es="Inmersión total desde el primer día. El idioma se vive y se habla, priorizando la fluidez natural y la comprensión auditiva en escenarios reales." data-fr="Immersion totale dès le premier jour. La langue se vit et se parle, en privilégiant la fluidité naturelle dans des scénarios réels." data-en="Total immersion from day one. The language is lived and spoken, prioritizing natural fluency and listening comprehension in real scenarios.">Inmersión total desde el primer día. El idioma se vive y se habla, priorizando la fluidez natural y la comprensión auditiva en escenarios reales.</p>
+      </div>
+      <div class="method-card reveal d2">
+        <div class="method-icon"><i class="fa-solid fa-medal"></i></div>
+        <h3 class="method-title" data-es="Excelencia Certificada" data-fr="Excellence Certifiée" data-en="Certified Excellence">Excelencia Certificada</h3>
+        <p class="method-desc" data-es="Preparación quirúrgica para certificaciones oficiales. Como examinador DELF/DALF, conozco exactamente las exigencias del Ministerio de Educación de Francia." data-fr="Préparation chirurgicale pour les certifications officielles. En tant qu'examinateur DELF/DALF, je connais exactement les exigences du Ministère." data-en="Surgical preparation for official certifications. As a DELF/DALF examiner, I know exactly the requirements of the French Ministry of Education.">Preparación quirúrgica para certificaciones oficiales. Como examinador DELF/DALF, conozco exactamente las exigencias del Ministerio de Educación de Francia.</p>
+      </div>
+      <div class="method-card reveal d3">
+        <div class="method-icon"><i class="fa-solid fa-earth-europe"></i></div>
+        <h3 class="method-title" data-es="Inmersión Cultural" data-fr="Immersion Culturelle" data-en="Cultural Immersion">Inmersión Cultural</h3>
+        <p class="method-desc" data-es="No solo enseñamos gramática; transmitimos la francofonía. Integración de literatura, cine, actualidad y cultura para un aprendizaje orgánico." data-fr="Nous n'enseignons pas que la grammaire; nous transmettons la francophonie. Intégration de littérature, cinéma et actualité pour un apprentissage organique." data-en="We don't just teach grammar; we transmit Francophonie. Integration of literature, cinema, news, and culture for organic learning.">No solo enseñamos gramática; transmitimos la francofonía. Integración de literatura, cine, actualidad y cultura para un aprendizaje orgánico.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="temoignages" class="z10">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow" data-es="Lo que dicen mis estudiantes" data-fr="Ce que disent mes étudiants" data-en="What my students say">Lo que dicen mis estudiantes</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;"><em>Témoignages</em></h2>
+    </div>
+    <div class="testim-grid">
+      <div class="testim-card panel reveal d1">
+        <i class="fa-solid fa-quote-right testim-quote"></i>
+        <p class="testim-text" data-es="La preparación con Miguel fue fundamental para mi DALF C1. Su dominio de la pedagogía y su exigencia me dieron la confianza necesaria para estudiar mi maestría en Francia." data-fr="La préparation avec Miguel a été fondamentale pour mon DALF C1. Sa maîtrise pédagogique m'a donné la confiance nécessaire pour étudier mon master en France." data-en="Preparation with Miguel was fundamental for my DALF C1. His pedagogical mastery and high standards gave me the confidence to study my master's in France.">La preparación con Miguel fue fundamental para mi DALF C1. Su dominio de la pedagogía y su exigencia me dieron la confianza necesaria para estudiar mi maestría en Francia.</p>
+        <div class="testim-author">Elena M.</div>
+        <div class="testim-role" data-es="Candidata DALF C1 · Estudiante de Maestría" data-fr="Candidate DALF C1 · Étudiante en Master" data-en="DALF C1 Candidate · Master's Student">Candidata DALF C1 · Estudiante de Maestría</div>
+      </div>
+      <div class="testim-card panel reveal d2">
+        <i class="fa-solid fa-quote-right testim-quote"></i>
+        <p class="testim-text" data-es="Como director, su visión cultural y liderazgo transformaron nuestra perspectiva del aprendizaje. Las clases son dinámicas, inmersivas y de un nivel excepcional." data-fr="En tant que directeur, sa vision culturelle et son leadership ont transformé notre perspective d'apprentissage. Les cours sont dynamiques et d'un niveau exceptionnel." data-en="As a director, his cultural vision and leadership transformed our perspective on learning. Classes are dynamic, immersive, and of an exceptional level.">Como director, su visión cultural y liderazgo transformaron nuestra perspectiva del aprendizaje. Las clases son dinámicas, inmersivas y de un nivel excepcional.</p>
+        <div class="testim-author">Carlos R.</div>
+        <div class="testim-role" data-es="Profesional Sector Turismo" data-fr="Professionnel du Tourisme" data-en="Tourism Sector Professional">Profesional Sector Turismo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="alt z10">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align: center;">
+      <p class="eyebrow" style="justify-content: center;" data-es="Preguntas Frecuentes" data-fr="Foire aux Questions" data-en="Frequently Asked Questions">Preguntas Frecuentes</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;"><em>FAQ</em></h2>
+    </div>
+    <div class="faq-container">
+      <div class="faq-item reveal d1">
+        <button class="faq-btn">
+          <span data-es="¿Las clases son aptas para principiantes absolutos (A0)?" data-fr="Les cours sont-ils adaptés aux grands débutants (A0) ?" data-en="Are classes suitable for absolute beginners (A0)?">¿Las clases son aptas para principiantes absolutos (A0)?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="faq-content">
+          <p data-es="Absolutamente. Mi metodología está diseñada para guiarte desde tus primeras palabras hasta la fluidez avanzada, adaptando el ritmo a tu estilo de aprendizaje." data-fr="Absolument. Ma méthodologie est conçue pour vous guider de vos premiers mots jusqu'à la fluidité avancée, en adaptant le rythme à votre style." data-en="Absolutely. My methodology is designed to guide you from your first words to advanced fluency, adapting the pace to your learning style.">Absolutamente. Mi metodología está diseñada para guiarte desde tus primeras palabras hasta la fluidez avanzada, adaptando el ritmo a tu estilo de aprendizaje.</p>
+        </div>
+      </div>
+      <div class="faq-item reveal d2">
+        <button class="faq-btn">
+          <span data-es="¿Cómo funciona la preparación específica para DELF/DALF?" data-fr="Comment fonctionne la préparation DELF/DALF ?" data-en="How does the specific DELF/DALF preparation work?">¿Cómo funciona la preparación específica para DELF/DALF?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="faq-content">
+          <p data-es="Realizamos simulacros reales, análisis de criterios de evaluación y entrenamiento intensivo en las cuatro competencias evaluadas, garantizando que llegues al examen con total seguridad." data-fr="Nous effectuons de vraies simulations, une analyse des critères et un entraînement intensif dans les quatre compétences évaluées." data-en="We conduct real simulations, criteria analysis, and intensive training in the four evaluated competencies, ensuring you arrive at the exam with total confidence.">Realizamos simulacros reales, análisis de criterios de evaluación y entrenamiento intensivo en las cuatro competencias evaluadas, garantizando que llegues al examen con total seguridad.</p>
+        </div>
+      </div>
+      <div class="faq-item reveal d3">
+        <button class="faq-btn">
+          <span data-es="¿Qué plataformas se utilizan para las sesiones online?" data-fr="Quelles plateformes sont utilisées pour les sessions en ligne ?" data-en="What platforms are used for online sessions?">¿Qué plataformas se utilizan para las sesiones online?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="faq-content">
+          <p data-es="Las clases se imparten a través de Zoom o Google Meet, utilizando pizarras interactivas y material multimedia de alta definición para una experiencia inmersiva sin interrupciones." data-fr="Les cours sont dispensés via Zoom ou Google Meet, en utilisant des tableaux interactifs et du matériel multimédia HD pour une expérience immersive." data-en="Classes are taught via Zoom or Google Meet, using interactive whiteboards and high-definition multimedia materials for a seamless immersive experience.">Las clases se imparten a través de Zoom o Google Meet, utilizando pizarras interactivas y material multimedia de alta definición para una experiencia inmersiva sin interrupciones.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="timeline" class="z10">
   <div class="container">
     <div class="sec-head reveal">
       <p class="eyebrow" data-es="Experiencia" data-fr="Expérience" data-en="Experience">Experiencia</p>
@@ -1705,8 +1800,7 @@ body.intro-active { overflow: hidden; }
   </div>
 </section>
 
-<!-- ═══ EDUCATION ═══ -->
-<section id="education" class="z10">
+<section id="education" class="alt z10">
   <div class="container">
     <div class="sec-head reveal">
       <p class="eyebrow" data-es="Formación y distinciones" data-fr="Formation et distinctions" data-en="Education & distinctions">Formación y distinciones</p>
@@ -1739,15 +1833,13 @@ body.intro-active { overflow: hidden; }
   </div>
 </section>
 
-<!-- ═══ GALLERY ═══ -->
-<section id="gallery" class="alt z10">
+<section id="gallery" class="z10">
   <div class="container">
     <div class="sec-head reveal">
       <p class="eyebrow" data-es="Momentos y proyectos" data-fr="Moments et projets" data-en="Moments & projects">Momentos y proyectos</p>
       <h2 class="sec-title" style="margin-top:0.8rem;"><em>Galerie</em></h2>
     </div>
     <div class="gallery-grid">
-      <!-- ── FOTOS OFICIALES GEMINI ── -->
       <div class="g-item reveal" onclick="openLB('Gemini_Generated_Image_6kr8rj6kr8rj6kr8(1).png','Director Général · Alliance Française')">
         <img src="Gemini_Generated_Image_6kr8rj6kr8rj6kr8(1).png" alt="Director Général" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
         <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>Direction Générale</span></div>
@@ -1788,7 +1880,187 @@ body.intro-active { overflow: hidden; }
   </div>
 </section>
 
-<!-- ═══ CONTACT ═══ -->
+<section id="video-reel" class="z10">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;margin-bottom:3rem;">
+      <p class="eyebrow" style="justify-content:center"
+         data-es="Presentación audiovisual" data-fr="Présentation audiovisuelle" data-en="Audiovisual presentation">
+        Presentación audiovisual
+      </p>
+      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;">
+        <em data-es="En vídeo" data-fr="En vidéo" data-en="On video">En vídeo</em>
+      </h2>
+    </div>
+
+    <div class="video-wrapper reveal bracket">
+      <div class="v-corner tl"></div>
+      <div class="v-corner tr"></div>
+      <div class="v-corner bl"></div>
+      <div class="v-corner br"></div>
+
+      <video id="site-video" preload="metadata" playsinline muted
+             poster="Gemini_Generated_Image_f6nksgf6nksgf6nk.png">
+        <source src="Miguel_Tillero_video_bienvenida.mp4" type="video/mp4">
+      </video>
+
+      <div class="video-play-overlay" id="video-overlay" onclick="playVideo()">
+        <div class="play-circle"><i class="fa fa-play"></i></div>
+      </div>
+    </div>
+
+    <div class="video-meta reveal">
+      <span class="vtag">MT · ALLIANCE FRANÇAISE · SCSC</span>
+      <span data-es="Clic para reproducir" data-fr="Cliquer pour lire" data-en="Click to play">Clic para reproducir</span>
+      <span class="vtag">FLE · GESTIÓN CULTURAL · FORMACIÓN</span>
+    </div>
+  </div>
+</section>
+
+
+<section id="pagos" class="alt z10">
+  <div class="container">
+
+    <div class="sec-head reveal">
+      <p class="eyebrow" data-es="Para mis estudiantes" data-fr="Pour mes étudiants" data-en="For my students">Para mis estudiantes</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;" data-es="<em>Métodos</em> de pago" data-fr="<em>Moyens</em> de paiement" data-en="Payment <em>methods</em>"><em>Métodos</em> de pago</h2>
+    </div>
+
+    <div class="pagos-intro reveal">
+      <p data-es="Si eres uno de mis estudiantes y deseas realizar el pago de tus clases, aquí encontrarás todas las opciones disponibles. Puedes transferir por CLABE desde cualquier banco mexicano o venezolano, o pagar en efectivo en tiendas de conveniencia con el código OXXO." data-fr="Si vous êtes l'un de mes étudiants, vous trouverez ici toutes les options de paiement disponibles. Vous pouvez transférer via CLABE depuis n'importe quelle banque mexicaine, ou payer en espèces avec le code OXXO." data-en="If you are one of my students and wish to pay for your classes, here are all available options. You can transfer by CLABE from any Mexican bank, or pay cash at convenience stores with the OXXO code.">Si eres uno de mis estudiantes y deseas realizar el pago de tus clases, aquí encontrarás todas las opciones disponibles. Puedes transferir por CLABE desde cualquier banco mexicano, o pagar en efectivo en tiendas de conveniencia con el código OXXO.</p>
+    </div>
+
+    <div class="payment-grid">
+
+      <div class="pay-card reveal d1">
+        <div class="pay-bank-logo">
+          <div class="pay-bank-icon icon-nu">Nu</div>
+          <div>
+            <div class="pay-bank-name">Nu México</div>
+            <div class="pay-bank-sub">Transferencia SPEI · CLABE</div>
+          </div>
+        </div>
+
+        <div class="pay-field">
+          <div class="pay-label">Beneficiario</div>
+          <div class="pay-value" style="color:var(--white); font-size:0.82rem;">Miguel David Tillero Álvarez</div>
+        </div>
+        <div class="pay-field">
+          <div class="pay-label">CLABE Interbancaria</div>
+          <div class="pay-value-row">
+            <div class="pay-value" id="clabe-nu">638180000116253075</div>
+            <button class="copy-btn" onclick="copyVal('clabe-nu', this)" title="Copiar CLABE">
+              <i class="fa fa-copy"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="pay-qr-row">
+          <div class="qr-wrap-pay">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&color=020510&bgcolor=ffffff&data=CLABE%3A638180000116253075%0ABeneficiario%3AMiguel+David+Tillero+%C3%81lvarez%0ABanco%3ANu+M%C3%A9xico"
+                 alt="QR Nu México" loading="lazy">
+          </div>
+          <div class="qr-info">
+            <strong>Escanear para pagar</strong>
+            Banco: Nu México<br>
+            CLABE: 6381 8000 0116 2530 75<br>
+            Referencia: Tu nombre completo
+          </div>
+        </div>
+      </div>
+
+      <div class="pay-card reveal d2">
+        <div class="pay-bank-logo">
+          <div class="pay-bank-icon icon-albo">al</div>
+          <div>
+            <div class="pay-bank-name">albo</div>
+            <div class="pay-bank-sub">Transferencia SPEI · CLABE</div>
+          </div>
+        </div>
+
+        <div class="pay-field">
+          <div class="pay-label">Beneficiario</div>
+          <div class="pay-value" style="color:var(--white); font-size:0.82rem;">Miguel David Tillero Álvarez</div>
+        </div>
+        <div class="pay-field">
+          <div class="pay-label">CLABE Interbancaria</div>
+          <div class="pay-value-row">
+            <div class="pay-value" id="clabe-albo">721180100037915995</div>
+            <button class="copy-btn" onclick="copyVal('clabe-albo', this)" title="Copiar CLABE">
+              <i class="fa fa-copy"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="pay-qr-row">
+          <div class="qr-wrap-pay">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&color=020510&bgcolor=ffffff&data=CLABE%3A721180100037915995%0ABeneficiario%3AMiguel+David+Tillero+%C3%81lvarez%0ABanco%3Aalbo"
+                 alt="QR albo" loading="lazy">
+          </div>
+          <div class="qr-info">
+            <strong>Escanear para pagar</strong>
+            Banco: albo<br>
+            CLABE: 7211 8010 0037 9159 95<br>
+            Referencia: Tu nombre completo
+          </div>
+        </div>
+      </div>
+
+      <div class="pay-card full reveal d3">
+        <div class="pay-bank-logo">
+          <div class="pay-bank-icon icon-oxxo"><i class="fa fa-store"></i></div>
+          <div>
+            <div class="pay-bank-name">Pago en efectivo — Tiendas de conveniencia</div>
+            <div class="pay-bank-sub">Sin tarjeta · Sin cuenta bancaria · Inmediato</div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:start;">
+          <div>
+            <div class="pay-field">
+              <div class="pay-label">Código de depósito (Nu México)</div>
+              <div class="pay-value-row">
+                <div class="pay-value" id="cod-oxxo">5101 2532 3062 6677</div>
+                <button class="copy-btn" onclick="copyVal('cod-oxxo', this)" title="Copiar código">
+                  <i class="fa fa-copy"></i>
+                </button>
+              </div>
+            </div>
+            <div class="pay-field">
+              <div class="pay-label">Disponible en</div>
+              <div class="stores-list">
+                <span class="store-badge">OXXO</span>
+                <span class="store-badge">Soriana</span>
+                <span class="store-badge">Chedraui</span>
+                <span class="store-badge">Kiosko</span>
+                <span class="store-badge">Farmacias del Ahorro</span>
+                <span class="store-badge">Waldo's</span>
+              </div>
+            </div>
+          </div>
+          <div class="pay-qr-row" style="margin-top:0; padding-top:0; border-top:none; justify-content:flex-start;">
+            <div class="qr-wrap-pay">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&color=020510&bgcolor=ffffff&data=Código+OXXO+Nu+México%3A+5101+2532+3062+6677%0AMiguel+David+Tillero+%C3%81lvarez"
+                   alt="QR OXXO" loading="lazy">
+            </div>
+            <div class="qr-info">
+              <strong>Instrucciones OXXO</strong>
+              1. Ve a cualquier caja<br>
+              2. Di "depósito a Nu México"<br>
+              3. Proporciona el código<br>
+              4. Paga en efectivo
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><div class="pay-note reveal" style="margin-top:2rem;">
+      <i class="fa fa-circle-info"></i>
+      <p><strong>Importante:</strong> Al realizar tu pago, incluye tu <strong>nombre completo</strong> en el campo de referencia o concepto para que pueda identificar tu transferencia. Si tienes dudas, escríbeme por <a href="https://wa.me/584122465331" target="_blank" rel="noopener" style="color:var(--cyan)">WhatsApp</a> y te confirmo la recepción.</p>
+    </div>
+
+  </div>
+</section>
+
 <section id="contact" class="z10">
   <div class="container">
     <div class="sec-head reveal">
@@ -1892,199 +2164,6 @@ body.intro-active { overflow: hidden; }
   </div>
 </section>
 
-
-<!-- ═══ VIDEO REEL ═══ -->
-<section id="video-reel" class="z10">
-  <div class="container">
-    <div class="sec-head reveal" style="text-align:center;margin-bottom:3rem;">
-      <p class="eyebrow" style="justify-content:center"
-         data-es="Presentación audiovisual" data-fr="Présentation audiovisuelle" data-en="Audiovisual presentation">
-        Presentación audiovisual
-      </p>
-      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;">
-        <em data-es="En vídeo" data-fr="En vidéo" data-en="On video">En vídeo</em>
-      </h2>
-    </div>
-
-    <div class="video-wrapper reveal bracket">
-      <!-- Corners -->
-      <div class="v-corner tl"></div>
-      <div class="v-corner tr"></div>
-      <div class="v-corner bl"></div>
-      <div class="v-corner br"></div>
-
-      <!-- Video -->
-      <video id="site-video" preload="metadata" playsinline muted
-             poster="Gemini_Generated_Image_f6nksgf6nksgf6nk.png">
-        <source src="Miguel_Tillero_video_bienvenida.mp4" type="video/mp4">
-      </video>
-
-      <!-- Custom play overlay -->
-      <div class="video-play-overlay" id="video-overlay" onclick="playVideo()">
-        <div class="play-circle"><i class="fa fa-play"></i></div>
-      </div>
-    </div>
-
-    <div class="video-meta reveal">
-      <span class="vtag">MT · ALLIANCE FRANÇAISE · SCSC</span>
-      <span data-es="Clic para reproducir" data-fr="Cliquer pour lire" data-en="Click to play">Clic para reproducir</span>
-      <span class="vtag">FLE · GESTIÓN CULTURAL · FORMACIÓN</span>
-    </div>
-  </div>
-</section>
-
-
-<!-- ═══ PAGOS ═══ -->
-<section id="pagos" class="alt z10">
-  <div class="container">
-
-    <div class="sec-head reveal">
-      <p class="eyebrow" data-es="Para mis estudiantes" data-fr="Pour mes étudiants" data-en="For my students">Para mis estudiantes</p>
-      <h2 class="sec-title" style="margin-top:0.8rem;" data-es="<em>Métodos</em> de pago" data-fr="<em>Moyens</em> de paiement" data-en="Payment <em>methods</em>"><em>Métodos</em> de pago</h2>
-    </div>
-
-    <div class="pagos-intro reveal">
-      <p data-es="Si eres uno de mis estudiantes y deseas realizar el pago de tus clases, aquí encontrarás todas las opciones disponibles. Puedes transferir por CLABE desde cualquier banco mexicano o venezolano, o pagar en efectivo en tiendas de conveniencia con el código OXXO." data-fr="Si vous êtes l'un de mes étudiants, vous trouverez ici toutes les options de paiement disponibles. Vous pouvez transférer via CLABE depuis n'importe quelle banque mexicaine, ou payer en espèces avec le code OXXO." data-en="If you are one of my students and wish to pay for your classes, here are all available options. You can transfer by CLABE from any Mexican bank, or pay cash at convenience stores with the OXXO code.">Si eres uno de mis estudiantes y deseas realizar el pago de tus clases, aquí encontrarás todas las opciones disponibles. Puedes transferir por CLABE desde cualquier banco mexicano, o pagar en efectivo en tiendas de conveniencia con el código OXXO.</p>
-    </div>
-
-    <div class="payment-grid">
-
-      <!-- ── Nu México ── -->
-      <div class="pay-card reveal d1">
-        <div class="pay-bank-logo">
-          <div class="pay-bank-icon icon-nu">Nu</div>
-          <div>
-            <div class="pay-bank-name">Nu México</div>
-            <div class="pay-bank-sub">Transferencia SPEI · CLABE</div>
-          </div>
-        </div>
-
-        <div class="pay-field">
-          <div class="pay-label">Beneficiario</div>
-          <div class="pay-value" style="color:var(--white); font-size:0.82rem;">Miguel David Tillero Álvarez</div>
-        </div>
-        <div class="pay-field">
-          <div class="pay-label">CLABE Interbancaria</div>
-          <div class="pay-value-row">
-            <div class="pay-value" id="clabe-nu">638180000116253075</div>
-            <button class="copy-btn" onclick="copyVal('clabe-nu', this)" title="Copiar CLABE">
-              <i class="fa fa-copy"></i>
-            </button>
-          </div>
-        </div>
-
-        <div class="pay-qr-row">
-          <div class="qr-wrap-pay">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&color=020510&bgcolor=ffffff&data=CLABE%3A638180000116253075%0ABeneficiario%3AMiguel+David+Tillero+%C3%81lvarez%0ABanco%3ANu+M%C3%A9xico"
-                 alt="QR Nu México" loading="lazy">
-          </div>
-          <div class="qr-info">
-            <strong>Escanear para pagar</strong>
-            Banco: Nu México<br>
-            CLABE: 6381 8000 0116 2530 75<br>
-            Referencia: Tu nombre completo
-          </div>
-        </div>
-      </div>
-
-      <!-- ── albo ── -->
-      <div class="pay-card reveal d2">
-        <div class="pay-bank-logo">
-          <div class="pay-bank-icon icon-albo">al</div>
-          <div>
-            <div class="pay-bank-name">albo</div>
-            <div class="pay-bank-sub">Transferencia SPEI · CLABE</div>
-          </div>
-        </div>
-
-        <div class="pay-field">
-          <div class="pay-label">Beneficiario</div>
-          <div class="pay-value" style="color:var(--white); font-size:0.82rem;">Miguel David Tillero Álvarez</div>
-        </div>
-        <div class="pay-field">
-          <div class="pay-label">CLABE Interbancaria</div>
-          <div class="pay-value-row">
-            <div class="pay-value" id="clabe-albo">721180100037915995</div>
-            <button class="copy-btn" onclick="copyVal('clabe-albo', this)" title="Copiar CLABE">
-              <i class="fa fa-copy"></i>
-            </button>
-          </div>
-        </div>
-
-        <div class="pay-qr-row">
-          <div class="qr-wrap-pay">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&color=020510&bgcolor=ffffff&data=CLABE%3A721180100037915995%0ABeneficiario%3AMiguel+David+Tillero+%C3%81lvarez%0ABanco%3Aalbo"
-                 alt="QR albo" loading="lazy">
-          </div>
-          <div class="qr-info">
-            <strong>Escanear para pagar</strong>
-            Banco: albo<br>
-            CLABE: 7211 8010 0037 9159 95<br>
-            Referencia: Tu nombre completo
-          </div>
-        </div>
-      </div>
-
-      <!-- ── OXXO / Tiendas ── -->
-      <div class="pay-card full reveal d3">
-        <div class="pay-bank-logo">
-          <div class="pay-bank-icon icon-oxxo"><i class="fa fa-store"></i></div>
-          <div>
-            <div class="pay-bank-name">Pago en efectivo — Tiendas de conveniencia</div>
-            <div class="pay-bank-sub">Sin tarjeta · Sin cuenta bancaria · Inmediato</div>
-          </div>
-        </div>
-
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:start;">
-          <div>
-            <div class="pay-field">
-              <div class="pay-label">Código de depósito (Nu México)</div>
-              <div class="pay-value-row">
-                <div class="pay-value" id="cod-oxxo">5101 2532 3062 6677</div>
-                <button class="copy-btn" onclick="copyVal('cod-oxxo', this)" title="Copiar código">
-                  <i class="fa fa-copy"></i>
-                </button>
-              </div>
-            </div>
-            <div class="pay-field">
-              <div class="pay-label">Disponible en</div>
-              <div class="stores-list">
-                <span class="store-badge">OXXO</span>
-                <span class="store-badge">Soriana</span>
-                <span class="store-badge">Chedraui</span>
-                <span class="store-badge">Kiosko</span>
-                <span class="store-badge">Farmacias del Ahorro</span>
-                <span class="store-badge">Waldo's</span>
-              </div>
-            </div>
-          </div>
-          <div class="pay-qr-row" style="margin-top:0; padding-top:0; border-top:none; justify-content:flex-start;">
-            <div class="qr-wrap-pay">
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&color=020510&bgcolor=ffffff&data=Código+OXXO+Nu+México%3A+5101+2532+3062+6677%0AMiguel+David+Tillero+%C3%81lvarez"
-                   alt="QR OXXO" loading="lazy">
-            </div>
-            <div class="qr-info">
-              <strong>Instrucciones OXXO</strong>
-              1. Ve a cualquier caja<br>
-              2. Di "depósito a Nu México"<br>
-              3. Proporciona el código<br>
-              4. Paga en efectivo
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /payment-grid -->
-
-    <div class="pay-note reveal" style="margin-top:2rem;">
-      <i class="fa fa-circle-info"></i>
-      <p><strong>Importante:</strong> Al realizar tu pago, incluye tu <strong>nombre completo</strong> en el campo de referencia o concepto para que pueda identificar tu transferencia. Si tienes dudas, escríbeme por <a href="https://wa.me/584122465331" target="_blank" rel="noopener" style="color:var(--cyan)">WhatsApp</a> y te confirmo la recepción.</p>
-    </div>
-
-  </div>
-</section>
-
-<!-- ═══ FOOTER ═══ -->
 <footer id="footer" class="z10">
   <div class="container">
     <div class="footer-inner">
@@ -2102,7 +2181,6 @@ body.intro-active { overflow: hidden; }
   </div>
 </footer>
 
-<!-- ═══ MODAL CITA ═══ -->
 <div class="modal-overlay" id="modal-cita" role="dialog" aria-modal="true">
   <div class="modal-box bracket">
     <button class="modal-close" onclick="closeModal('modal-cita')"><i class="fa fa-times"></i></button>
@@ -2155,7 +2233,6 @@ body.intro-active { overflow: hidden; }
   </div>
 </div>
 
-<!-- ═══ MODAL CLASE ═══ -->
 <div class="modal-overlay" id="modal-clase" role="dialog" aria-modal="true">
   <div class="modal-box bracket">
     <button class="modal-close" onclick="closeModal('modal-clase')"><i class="fa fa-times"></i></button>
@@ -2470,7 +2547,7 @@ function animateCursor() {
 animateCursor();
 
 /* Hover states */
-document.querySelectorAll('a, button, .svc-card, .g-item, .lang-pill, .stat-cell, .time-slot').forEach(el => {
+document.querySelectorAll('a, button, .svc-card, .g-item, .lang-pill, .stat-cell, .time-slot, .faq-btn').forEach(el => {
   el.addEventListener('mouseenter', () => curRing.classList.add('hover'));
   el.addEventListener('mouseleave', () => curRing.classList.remove('hover'));
 });
@@ -2566,6 +2643,25 @@ document.addEventListener('DOMContentLoaded', function() {
   vid.addEventListener('click', function() {
     if (vid.paused) { vid.play(); overlay.classList.add('hidden'); }
     else { vid.pause(); }
+  });
+});
+
+
+/* ── ACCORDION FAQ ─────────────────────────── */
+document.querySelectorAll('.faq-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    const answer = button.nextElementSibling;
+    const isActive = button.classList.contains('active');
+    
+    document.querySelectorAll('.faq-btn').forEach(btn => {
+      btn.classList.remove('active');
+      btn.nextElementSibling.style.maxHeight = null;
+    });
+    
+    if (!isActive) {
+      button.classList.add('active');
+      answer.style.maxHeight = answer.scrollHeight + "px";
+    }
   });
 });
 
@@ -2702,7 +2798,6 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<!-- CURSOR PERSONALIZADO -->
 <div id="cursor-dot"></div>
 <div id="cursor-ring"></div>
 
