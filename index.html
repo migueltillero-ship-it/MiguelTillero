@@ -1143,14 +1143,7 @@ a, button, .svc-card, .g-item, .time-slot, .lang-pill, .stat-cell { cursor: poin
 
 
 /* ════ MARBLE TEXTURE ════ */
-#hero-marble {
-  position: absolute; inset: 0; z-index: 1;
-  background-image: url('IMG-20250925-WA0034.jpg');
-  background-size: cover; background-position: center;
-  opacity: 0.04;
-  mix-blend-mode: overlay;
-  pointer-events: none;
-}
+/* hero-marble removed */
 /* Marble accent on section dividers */
 section::after {
   content: ''; display: block;
@@ -1703,6 +1696,47 @@ select:focus-visible, textarea:focus-visible {
 .star-select .st:hover { transform: scale(1.15); }
 .star-select .st.on { color: var(--gold); text-shadow: 0 0 12px rgba(201,160,48,.5); }
 
+
+/* ════ CV DOWNLOAD ════ */
+.cv-download-wrap {
+  display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 2.5rem;
+}
+.cv-btn {
+  display: inline-flex; align-items: center; gap: 0.7rem;
+  padding: 0.8rem 1.8rem; text-decoration: none;
+  border: 1px solid rgba(201,169,110,.45); color: var(--gold2);
+  font-family: 'Space Mono', monospace; font-size: 0.55rem;
+  letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700;
+  transition: all 0.35s; backdrop-filter: blur(8px);
+  background: rgba(201,169,110,.05);
+}
+.cv-btn:hover {
+  border-color: var(--gold); background: rgba(201,169,110,.12);
+  color: var(--white); box-shadow: 0 0 28px rgba(201,169,110,.25);
+  transform: translateY(-2px);
+}
+.cv-btn i { font-size: 0.8rem; }
+.cv-flag { font-size: 0.85rem; }
+
+
+/* ── CV dropdown ── */
+.cv-drop-item {
+  display: flex; align-items: center; gap: .6rem; padding: .65rem 1.2rem;
+  color: rgba(238,248,243,.8); font-family: 'Space Mono', monospace;
+  font-size: .55rem; letter-spacing: .15em; text-decoration: none;
+  transition: background .2s;
+}
+.cv-drop-item:hover { background: rgba(201,169,110,.12); color: var(--gold2); }
+#cv-drop.open { display: block !important; animation: fadeIn .2s ease; }
+
+
+/* ── Galería Drive: placeholder mientras carga ── */
+.g-item img { background: rgba(4,18,9,0.6); }
+.g-item img[src*="drive.google.com"] {
+  opacity: 0; transition: opacity 0.5s ease;
+}
+.g-item img[src*="drive.google.com"].loaded { opacity: 1; }
+
 </style>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
@@ -1717,7 +1751,7 @@ select:focus-visible, textarea:focus-visible {
 <meta property="og:title" content="Miguel David Tillero Álvarez · Director Général · Alliance Française SCSC">
 <meta property="og:description" content="Profesor especialista en FLE, director de Alliance Française, formador y traductor. 13 años de experiencia internacional. Clases de francés, asesorías pedagógicas y gestión cultural.">
 <meta property="og:url" content="https://migueltillero-ship-it.github.io/afsc-direccion/">
-<meta property="og:image" content="https://migueltillero-ship-it.github.io/afsc-direccion/Gemini_Generated_Image_f6nksgf6nksgf6nk.png">
+<meta property="og:image" content="https://migueltillero-ship-it.github.io/afsc-direccion/Copilot_20260607_141209.png">
 <meta property="og:image:alt" content="Miguel Tillero en París, Tour Eiffel">
 <meta property="og:locale" content="es_MX">
 <meta property="og:locale:alternate" content="fr_FR">
@@ -1726,7 +1760,7 @@ select:focus-visible, textarea:focus-visible {
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Miguel David Tillero Álvarez · Spécialiste FLE">
 <meta name="twitter:description" content="Director de Alliance Française · Clases de francés · Asesorías pedagógicas · Traducción ES↔FR">
-<meta name="twitter:image" content="https://migueltillero-ship-it.github.io/afsc-direccion/Gemini_Generated_Image_f6nksgf6nksgf6nk.png">
+<meta name="twitter:image" content="https://migueltillero-ship-it.github.io/afsc-direccion/Copilot_20260607_141209.png">
 
 <!-- Favicon monograma MT -->
 <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="18" fill="%23020c06"/><text x="50" y="68" font-family="Georgia,serif" font-size="52" fill="%23e8be50" text-anchor="middle">MT</text></svg>'>
@@ -1851,7 +1885,6 @@ select:focus-visible, textarea:focus-visible {
 
 <!-- ═══ HERO ═══ -->
 <section id="hero" class="z10">
-  <div id="hero-marble"></div>
   <div class="hud-corner hud-tl">SYS.INIT / LAT:16.73 / LON:-92.63<br>STATUS: ONLINE · v2025.1</div>
   <div class="hud-corner hud-tr">NODE: MT-EDUCATION<br>UPTIME: 13 YRS · 5 COUNTRIES</div>
   <div class="hud-corner hud-bl">LANG: ES / FR / EN · C1 CERTIFIED</div>
@@ -1881,7 +1914,22 @@ select:focus-visible, textarea:focus-visible {
         <div class="hero-cta">
           <a href="#contact" class="btn btn-gold"><i class="fa fa-envelope"></i><span data-es="Escribirme" data-fr="Me contacter" data-en="Contact me">Escribirme</span></a>
           <button onclick="openModal('modal-clase')" class="btn btn-ghost"><i class="fa fa-graduation-cap"></i><span data-es="Clase de prueba" data-fr="Cours d'essai" data-en="Trial class">Clase de prueba</span></button>
-          <a href="CV_Miguel_TILLERO_en_francais_pdf.pdf" class="btn btn-ghost" download><i class="fa fa-download"></i><span data-es="CV" data-fr="CV" data-en="CV">CV</span></a>
+          <!-- CV dropdown -->
+          <div style="position:relative;display:inline-block" id="cv-drop-wrap">
+            <button class="btn btn-ghost" onclick="document.getElementById('cv-drop').classList.toggle('open')" style="gap:.5rem">
+              <i class="fa fa-file-pdf"></i>
+              <span data-es="CV" data-fr="CV" data-en="CV">CV</span>
+              <i class="fa fa-chevron-down" style="font-size:.55rem"></i>
+            </button>
+            <div id="cv-drop" style="display:none;position:absolute;top:110%;left:0;min-width:220px;background:rgba(4,18,9,.95);border:1px solid rgba(201,169,110,.35);backdrop-filter:blur(16px);z-index:200;padding:.5rem 0">
+              <a href="CV Miguel Tillero Espanol.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
+                <span>🇻🇪</span>&nbsp; Español
+              </a>
+              <a href="CVMiguelTilleroFrancais.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
+                <span>🇫🇷</span>&nbsp; Français
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1889,24 +1937,33 @@ select:focus-visible, textarea:focus-visible {
         <div class="portrait-hud bracket">
           <div class="portrait-inner" id="portraitCarousel">
             <div class="portrait-scan"></div>
-            <!-- Carrusel de retratos oficiales -->
-            <img class="portrait-slide active" src="Copilot_20260607_141209.png" alt="Miguel Tillero — París, Tour Eiffel"
+            <!-- Carrusel — set oficial de fotos -->
+            <img class="portrait-slide active"
+                 src="Gemini_Generated_Image_65ewme65ewme65ew.png"
+                 alt="Miguel Tillero — Director Général"
                  style="object-fit:cover;object-position:center top"
                  onerror="this.src='IMG-20250925-WA0034.jpg'">
-            <img class="portrait-slide" src="Gemini_Generated_Image_mxg64vmxg64vmxg6_1_.png" alt="Miguel Tillero — París enhanced"
+            <img class="portrait-slide"
+                 src="Gemini_Generated_Image_hbz6v1hbz6v1hbz6.png"
+                 alt="Miguel Tillero — Pédagogue"
                  style="object-fit:cover;object-position:center top"
                  onerror="this.style.display='none'">
-            <img class="portrait-slide" src="Gemini_Generated_Image_6kr8rj6kr8rj6kr8(1).png" alt="Miguel Tillero — Director Général"
+            <img class="portrait-slide"
+                 src="Gemini_Generated_Image_xmy7mxmy7mxmy7mx.png"
+                 alt="Miguel Tillero — Gestión cultural"
+                 style="object-fit:cover;object-position:center top"
                  onerror="this.style.display='none'">
-            <img class="portrait-slide" src="Gemini_Generated_Image_1i04fk1i04fk1i04.png" alt="Miguel Tillero — Tour Eiffel"
+            <img class="portrait-slide"
+                 src="Gemini_Generated_Image_6kr8rj6kr8rj6kr8.png"
+                 alt="Miguel Tillero — Spécialiste FLE"
+                 style="object-fit:cover;object-position:center top"
                  onerror="this.style.display='none'">
-            <img class="portrait-slide" src="Gemini_Generated_Image_6kr8rj6kr8rj6kr8(1).png" alt="Miguel Tillero"
+            <img class="portrait-slide"
+                 src="Gemini_Generated_Image_lw876ylw876ylw87.png"
+                 alt="Miguel Tillero — Formateur"
+                 style="object-fit:cover;object-position:center top"
                  onerror="this.style.display='none'">
-            <img class="portrait-slide" src="Gemini_Generated_Image_f6nksgf6nksgf6nk.png" alt="Miguel Tillero"
-                 onerror="this.style.display='none'">
-            <img class="portrait-slide" src="Gemini_Generated_Image_1i04fk1i04fk1i04.png" alt="Miguel Tillero"
-                 onerror="this.style.display='none'">
-            <div class="portrait-data">
+                        <div class="portrait-data">
               <div class="name-tag">MIGUEL TILLERO ÁLVAREZ</div>
               <div class="loc"><i class="fa fa-map-marker-alt"></i> Director Général · Alliance Française SCSC</div>
             </div>
@@ -1964,6 +2021,21 @@ select:focus-visible, textarea:focus-visible {
           </div>
         </div>
       </div>
+
+      <!-- ── DESCARGA DE CV ── -->
+      <div class="cv-download-wrap reveal">
+        <a href="CV Miguel Tillero Espanol.pdf" download class="cv-btn" target="_blank" rel="noopener">
+          <span class="cv-flag">🇻🇪</span>
+          <i class="fa fa-file-pdf"></i>
+          <span data-es="Descargar CV en español" data-fr="Télécharger CV en espagnol" data-en="Download CV in Spanish">Descargar CV · Español</span>
+        </a>
+        <a href="CVMiguelTilleroFrancais.pdf" download class="cv-btn" target="_blank" rel="noopener">
+          <span class="cv-flag">🇫🇷</span>
+          <i class="fa fa-file-pdf"></i>
+          <span data-es="Descargar CV en francés" data-fr="Télécharger CV en français" data-en="Download CV in French">Télécharger CV · Français</span>
+        </a>
+      </div>
+
     </div>
   </div>
 </section>
@@ -2148,59 +2220,546 @@ select:focus-visible, textarea:focus-visible {
       <h2 class="sec-title" style="margin-top:0.8rem;"><em data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</em></h2>
     </div>
     <div class="gallery-grid">
-      <!-- ── FOTOS REALES PARÍS 2026 ── -->
-      <div class="g-item reveal" onclick="openLB('Copilot_20260607_141209.png','Miguel Tillero · Paris · Tour Eiffel 2026')">
-        <img loading="lazy" src="Copilot_20260607_141209.png" alt="Miguel Tillero — París, Tour Eiffel"
-             style="object-fit:cover;object-position:center 30%;width:100%;height:100%"
-             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-        <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>Paris · Tour Eiffel</span></div>
-        <div class="g-overlay"><span>Paris · Tour Eiffel · 2026</span></div>
+      <div class="g-item reveal d1" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=19JbqNxq9VM6MdvKCfGPkukGJFCe5djb3')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=19JbqNxq9VM6MdvKCfGPkukGJFCe5djb3&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
       </div>
-      <div class="g-item reveal d1" onclick="openLB('Gemini_Generated_Image_mxg64vmxg64vmxg6_1_.png','Miguel Tillero · Paris · Trocadéro')">
-        <img loading="lazy" src="Gemini_Generated_Image_mxg64vmxg64vmxg6_1_.png" alt="Miguel Tillero — Trocadéro"
-             style="object-fit:cover;object-position:center 25%;width:100%;height:100%"
-             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-        <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>Paris · Trocadéro</span></div>
-        <div class="g-overlay"><span>Paris · Trocadéro enhanced · 2026</span></div>
+      <div class="g-item reveal d2" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1ju4qka0xj3zTpvZAtU151-sn9b07GMsa')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1ju4qka0xj3zTpvZAtU151-sn9b07GMsa&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
       </div>
-
-      <!-- ── FOTOS OFICIALES GEMINI ── -->
-      <div class="g-item reveal d2" onclick="openLB('Gemini_Generated_Image_6kr8rj6kr8rj6kr8(1).png','Director Général · Alliance Française')">
-        <img loading="lazy" src="Gemini_Generated_Image_6kr8rj6kr8rj6kr8(1).png" alt="Director Général" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-        <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>Direction Générale</span></div>
-        <div class="g-overlay"><span>Direction Générale</span></div>
+      <div class="g-item reveal d3" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1RCPCt83EO-5Q4ZxzNoNm4dCM8ZvJPDUK')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1RCPCt83EO-5Q4ZxzNoNm4dCM8ZvJPDUK&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
       </div>
-      <div class="g-item reveal d1" onclick="openLB('Gemini_Generated_Image_f6nksgf6nksgf6nk.png','Portrait officiel')">
-        <img loading="lazy" src="Gemini_Generated_Image_f6nksgf6nksgf6nk.png" alt="Portrait officiel" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-        <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>Portrait officiel</span></div>
-        <div class="g-overlay"><span>Portrait officiel</span></div>
+      <div class="g-item reveal d4" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1uOw2IQvAlWlJVTU_v0_nhWsy1UPSe3GJ')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1uOw2IQvAlWlJVTU_v0_nhWsy1UPSe3GJ&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
       </div>
-      <div class="g-item reveal d2" onclick="openLB('Gemini_Generated_Image_1i04fk1i04fk1i04.png','Pédagogue international')">
-        <img loading="lazy" src="Gemini_Generated_Image_1i04fk1i04fk1i04.png" alt="Pédagogue" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-        <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>Pédagogue</span></div>
-        <div class="g-overlay"><span>Pédagogue international</span></div>
+      <div class="g-item reveal d1" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1vrxrie02W5e2SAzy1WRr4kWidIMJougZ')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1vrxrie02W5e2SAzy1WRr4kWidIMJougZ&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
       </div>
-      <div class="g-item reveal d3" onclick="openLB('Gemini_Generated_Image_6kr8rj6kr8rj6kr8(1).png','Gestión cultural')">
-        <img loading="lazy" src="Gemini_Generated_Image_6kr8rj6kr8rj6kr8(1).png" alt="Gestión cultural" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-        <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>Gestión cultural</span></div>
-        <div class="g-overlay"><span>Gestión cultural</span></div>
+      <div class="g-item reveal d2" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1VlQZmCr4sXQJK2E3IKLI4rHXGfxzcZoq')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1VlQZmCr4sXQJK2E3IKLI4rHXGfxzcZoq&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
       </div>
-      <div class="g-item reveal d1" onclick="openLB('IMG-20250925-WA0034.jpg','Alliance Française SCSC')">
-        <img loading="lazy" src="IMG-20250925-WA0034.jpg" alt="AFSC" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-        <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>Alliance Française</span></div>
-        <div class="g-overlay"><span>Alliance Française SCSC</span></div>
+      <div class="g-item reveal d3" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1nHMpKPvpZvhpxyQrDluo9sozD9xtRnA-')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1nHMpKPvpZvhpxyQrDluo9sozD9xtRnA-&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
       </div>
-      <div class="g-item reveal d2" onclick="openLB('Gemini_Generated_Image_f6nksgf6nksgf6nk.png','Paris · Tour Eiffel')">
-        <img loading="lazy" src="Gemini_Generated_Image_f6nksgf6nksgf6nk.png" alt="París · Tour Eiffel" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="object-position:top center">
-        <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>París · Tour Eiffel</span></div>
-        <div class="g-overlay"><span>Paris · Tour Eiffel</span></div>
+      <div class="g-item reveal d4" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=14SrCOErHmePOImKYgNWNTKIcTKdVzKZf')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=14SrCOErHmePOImKYgNWNTKIcTKdVzKZf&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
       </div>
-      <div class="g-item reveal d3" onclick="openLB('Gemini_Generated_Image_1i04fk1i04fk1i04.png','Paris · Alliance Française')">
-        <img loading="lazy" src="Gemini_Generated_Image_1i04fk1i04fk1i04.png" alt="París — Alliance Française" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="object-position:center">
-        <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>Paris</span></div>
-        <div class="g-overlay"><span>Paris · Alliance Française</span></div>
+      <div class="g-item reveal d1" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1IToQUA-gVezu75L91VyfYekhpRhX2C2c')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1IToQUA-gVezu75L91VyfYekhpRhX2C2c&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
       </div>
-      <div class="g-item reveal d4"><div class="g-placeholder"><i class="fa fa-image"></i><span>Vichy 2026 · Añadir foto</span></div></div>
+      <div class="g-item reveal d2" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1VhZBSAeZIAGSpqWdoXlInaqfapaJf7RF')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1VhZBSAeZIAGSpqWdoXlInaqfapaJf7RF&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d3" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1YNBl-uBgzHcjlLvcOpntMBwWr9wLRkmr')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1YNBl-uBgzHcjlLvcOpntMBwWr9wLRkmr&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d4" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1sDsRlHiS0FfOXPCGkHWrB8Ko5RQd_cNu')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1sDsRlHiS0FfOXPCGkHWrB8Ko5RQd_cNu&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d1" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1MfcV74qm8D9V7ReD2MNotTyL5EZ0SVnz')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1MfcV74qm8D9V7ReD2MNotTyL5EZ0SVnz&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d2" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1KiKI1T_L0FhIb5CpOmItXqrZBQskS_io')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1KiKI1T_L0FhIb5CpOmItXqrZBQskS_io&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d3" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1RfKAm7Qcb4gFQsQeEMTpJs7C1ftKZQGL')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1RfKAm7Qcb4gFQsQeEMTpJs7C1ftKZQGL&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d4" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=12rjhDWs55juZELtDF88-a9uNXLMBv5IO')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=12rjhDWs55juZELtDF88-a9uNXLMBv5IO&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d1" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1c1QpGprPz1C7hHlsrz2UPH3r5rD1PlPj')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1c1QpGprPz1C7hHlsrz2UPH3r5rD1PlPj&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d2" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1jejddePJzIIfBucfeU2-EqEp6n0Pd5cw')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1jejddePJzIIfBucfeU2-EqEp6n0Pd5cw&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d3" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=155IrV4jmkruEV77ZoReXwEivvaAw8HVZ')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=155IrV4jmkruEV77ZoReXwEivvaAw8HVZ&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d4" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1ogdOJy4E0BufCI0ypWRTbiaAVlSvMfFF')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1ogdOJy4E0BufCI0ypWRTbiaAVlSvMfFF&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d1" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1WuMlSnOLNPxFiklnE2c5eIFXMGF9eTGP')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1WuMlSnOLNPxFiklnE2c5eIFXMGF9eTGP&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d2" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1aLCE5tCcrgcjy9C0V6RqX0wiKcOQd2li')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1aLCE5tCcrgcjy9C0V6RqX0wiKcOQd2li&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d3" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1nJmEG4gI9QfTRLVu936h19ieRN7yTSJj')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1nJmEG4gI9QfTRLVu936h19ieRN7yTSJj&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d4" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=150zYARzsWMXg7yrPN760sk0gueAoeRF-')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=150zYARzsWMXg7yrPN760sk0gueAoeRF-&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d1" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=17L2cZJUSaOWQbPDulxCh57HslAHDT51B')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=17L2cZJUSaOWQbPDulxCh57HslAHDT51B&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d2" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1d_pv2jRccFxYcoogvynkF8Ki6O5d6QhB')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1d_pv2jRccFxYcoogvynkF8Ki6O5d6QhB&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d3" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1yu1JVV0_6m9uWkDoQ8NWzjQyOnOG33ch')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1yu1JVV0_6m9uWkDoQ8NWzjQyOnOG33ch&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d4" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1w_KJfPDHSb-_QH07s5GJkA5c4NrdDFUG')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1w_KJfPDHSb-_QH07s5GJkA5c4NrdDFUG&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d1" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1seB92AQhCCnX_Vg_rfp0yP8X77ZU1TF4')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1seB92AQhCCnX_Vg_rfp0yP8X77ZU1TF4&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d2" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1FHzihJC0NVrxTx3dTtpX7-bmW9F3cvAe')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1FHzihJC0NVrxTx3dTtpX7-bmW9F3cvAe&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d3" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1TcIXixJ1j5SW39fxvgxoz-HDNGa9anNC')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1TcIXixJ1j5SW39fxvgxoz-HDNGa9anNC&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d4" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1ERGhEqcw1ibG70Dy956r5Xd6ZbbdWxpj')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1ERGhEqcw1ibG70Dy956r5Xd6ZbbdWxpj&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d1" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1CgEqO-HfeATdED_CXyyMdDz5oNSfq_fR')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1CgEqO-HfeATdED_CXyyMdDz5oNSfq_fR&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d2" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1oy4QWXqw7Xc-hVIQXCBipqcWFVfrr3Sm')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1oy4QWXqw7Xc-hVIQXCBipqcWFVfrr3Sm&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d3" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1Pk4Bb6oYaJu89AprKvBfCiDrDx2jCRF1')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1Pk4Bb6oYaJu89AprKvBfCiDrDx2jCRF1&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d4" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1yy5Is42Uh6vQ2r4GMkGm_DST-kixQ4nA')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1yy5Is42Uh6vQ2r4GMkGm_DST-kixQ4nA&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d1" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1G0JWaL2o4P7JixrflxXvt9MrNZI0Brtp')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1G0JWaL2o4P7JixrflxXvt9MrNZI0Brtp&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d2" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1-wxFLLNefZWXb9X9P3VSBq7ydiTBacET')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1-wxFLLNefZWXb9X9P3VSBq7ydiTBacET&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d3" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1-04JHrUL8SxrEtEbucS0JKFIn2c_QxtK')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1-04JHrUL8SxrEtEbucS0JKFIn2c_QxtK&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d4" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1i8n8tyX-PFx6CoAmrbo7DJTjdOCnTWPE')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1i8n8tyX-PFx6CoAmrbo7DJTjdOCnTWPE&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d1" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1KU8xLiiNJznRTcBsWGg7mUXth-WKHT-M')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1KU8xLiiNJznRTcBsWGg7mUXth-WKHT-M&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d2" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1fJtghycWpRZBMFuW-hwowOwV_dUUOz84')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1fJtghycWpRZBMFuW-hwowOwV_dUUOz84&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d3" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1gObW3L9oI5KiuafL6GcutW13SwKfhxJo')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1gObW3L9oI5KiuafL6GcutW13SwKfhxJo&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d4" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1oeyvzrhWuAE7kJh2DebjPIXy7J0Cz-yy')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1oeyvzrhWuAE7kJh2DebjPIXy7J0Cz-yy&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d1" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1ANuazsbFfDGu983Xvl5Ha1QCmxXn7Yhj')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1ANuazsbFfDGu983Xvl5Ha1QCmxXn7Yhj&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d2" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1lnJnhHnFHXCDKgaO9Rgs4X95ybonlzWr')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1lnJnhHnFHXCDKgaO9Rgs4X95ybonlzWr&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d3" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1WOODU25GiVxUuNJ7YxbfnWjmzlnvKvbq')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1WOODU25GiVxUuNJ7YxbfnWjmzlnvKvbq&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d4" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1BrM3U6Y73ganlMIrYUBzVq7olCxDEaIT')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1BrM3U6Y73ganlMIrYUBzVq7olCxDEaIT&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d1" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1fGCYT7621eeJ4qY5DiDO1fInyevpCAhA')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1fGCYT7621eeJ4qY5DiDO1fInyevpCAhA&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d2" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1WOA5bW-ZBcfEgFgPYdgT1LcOwdJ7xbyt')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1WOA5bW-ZBcfEgFgPYdgT1LcOwdJ7xbyt&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d3" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=15_ceZU-R-yOiqhCZT-DqAqQQciHnpUJ-')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=15_ceZU-R-yOiqhCZT-DqAqQQciHnpUJ-&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d4" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1PQE2sID9zcQxmlmazmglceMSkPma-HRo')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1PQE2sID9zcQxmlmazmglceMSkPma-HRo&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d1" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1MJjRZcpj8vJNmj0btyXvQWrKQpwTBmjM')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1MJjRZcpj8vJNmj0btyXvQWrKQpwTBmjM&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d2" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=14Dc2hofjjiJKil2XvnLoEthbpeRb_hNN')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=14Dc2hofjjiJKil2XvnLoEthbpeRb_hNN&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d3" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1WAeC0pcNgqYjjjDj0FhB6TxR0yS3l1Cz')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1WAeC0pcNgqYjjjDj0FhB6TxR0yS3l1Cz&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d4" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1TUh3cWEPtUpy7XLm3v1dq9Hgju5d9xRL')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1TUh3cWEPtUpy7XLm3v1dq9Hgju5d9xRL&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d1" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1NGElaiRvDQe0wEMgmFGNZa7tL__65-pL')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1NGElaiRvDQe0wEMgmFGNZa7tL__65-pL&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d2" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1hkNRAxov9KpvgunS6dduXsdf4Z9FPtKT')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1hkNRAxov9KpvgunS6dduXsdf4Z9FPtKT&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d3" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1Pj5UuNZafHy8gsqiLBB3LkNjtiA9ghX-')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1Pj5UuNZafHy8gsqiLBB3LkNjtiA9ghX-&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d4" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1rT3IlYR0Hga1gcDwhr8Q_O8oFVquJIn-')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1rT3IlYR0Hga1gcDwhr8Q_O8oFVquJIn-&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d1" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1xU584Uz210CoiRN18jculbZB8vGAR-Xq')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1xU584Uz210CoiRN18jculbZB8vGAR-Xq&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d2" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1nyM4VHC0oldPGyFbYiuKIp0HNmxjlQxe')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1nyM4VHC0oldPGyFbYiuKIp0HNmxjlQxe&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d3" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1eZyjYH1Phgj4Q_jjYv2xSeAdpVatpsQm')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1eZyjYH1Phgj4Q_jjYv2xSeAdpVatpsQm&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d4" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1rPEj478KEYcI2wZd3mFCn6cggh3qSPYk')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1rPEj478KEYcI2wZd3mFCn6cggh3qSPYk&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d1" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1oyHZ1_b8YJKhUlg3U7OtbCCwt4kHCf4u')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1oyHZ1_b8YJKhUlg3U7OtbCCwt4kHCf4u&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d2" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=11c671LLd7xh8IRto8_GF_LXlPWhMgggA')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=11c671LLd7xh8IRto8_GF_LXlPWhMgggA&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d3" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1uXuTtpKPVdEinCj6J0o2bKm9hnvq7qYR')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1uXuTtpKPVdEinCj6J0o2bKm9hnvq7qYR&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d4" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1ASKcH5WVFZoiDVLV-UtkKbtM_MpuUU2O')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1ASKcH5WVFZoiDVLV-UtkKbtM_MpuUU2O&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d1" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1aaxFRfzZ1-wm93f5tfadpdJ2JXFJcXJi')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1aaxFRfzZ1-wm93f5tfadpdJ2JXFJcXJi&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d2" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1ersDSLvhFSXli2KEDGFa4uZtaSgiIN_B')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1ersDSLvhFSXli2KEDGFa4uZtaSgiIN_B&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d3" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1FH_288pgtpZ2GlR7HlUiaYkA70gbodCC')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1FH_288pgtpZ2GlR7HlUiaYkA70gbodCC&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d4" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=16iBGVHa_WCUTNb_f8gd_-Us_0zW0ZpUA')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=16iBGVHa_WCUTNb_f8gd_-Us_0zW0ZpUA&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d1" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1Ze-z8Y8mLxcUgxPOjLeTpXWxJDYJP9J5')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1Ze-z8Y8mLxcUgxPOjLeTpXWxJDYJP9J5&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d2" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1jdKtkTVvJfCy3-0SU0U7oxzRamNT-7mC')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1jdKtkTVvJfCy3-0SU0U7oxzRamNT-7mC&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d3" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1q539gdZUT-zW5Dveruz-IpVDiF1FnJ-Z')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1q539gdZUT-zW5Dveruz-IpVDiF1FnJ-Z&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d4" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1_Jk82HxbxyHYp3hWKg--0W7i0IPSBkdf')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1_Jk82HxbxyHYp3hWKg--0W7i0IPSBkdf&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d1" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1jQDxrzLTdLkxxAo3HdvposULrGmHpEJN')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1jQDxrzLTdLkxxAo3HdvposULrGmHpEJN&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d2" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1d_jziyjx5IC3GQYqdM2G3Fj6mN8IxwXQ')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1d_jziyjx5IC3GQYqdM2G3Fj6mN8IxwXQ&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d3" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1tFgEbVtpiFOXiK--qH4AWNAvcjRCMBXo')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1tFgEbVtpiFOXiK--qH4AWNAvcjRCMBXo&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d4" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1em4BwCSrM67oTTryoHHN2xgim_8QsYPA')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1em4BwCSrM67oTTryoHHN2xgim_8QsYPA&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d1" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1S5sZfysaVif0Fcz4G7ohTsxmlh9NxU5Q')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1S5sZfysaVif0Fcz4G7ohTsxmlh9NxU5Q&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d2" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1dVauNSHWfzwPd3gbLj_QbrQM3DyYgaH-')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1dVauNSHWfzwPd3gbLj_QbrQM3DyYgaH-&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d3" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1_Rm6qTscFkdgJwPk1OWeJb0VoTHY4WUm')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1_Rm6qTscFkdgJwPk1OWeJb0VoTHY4WUm&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d4" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1JEAalJ8aEzDTrA2DAp0QmaMmge6vONDm')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1JEAalJ8aEzDTrA2DAp0QmaMmge6vONDm&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d1" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1k5XP5eUDCt5LtwiEoO2JCaufIAPfYtoe')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1k5XP5eUDCt5LtwiEoO2JCaufIAPfYtoe&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d2" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1xkAaS_tPKpvDRb2UZ8jQ1oF5gz2_8FTK')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1xkAaS_tPKpvDRb2UZ8jQ1oF5gz2_8FTK&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d3" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1gEgYSoqbFnpYzoq4iL9hTyuWA0kAW46z')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1gEgYSoqbFnpYzoq4iL9hTyuWA0kAW46z&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d4" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1dq25IsqQwn0v9rrfzWR0sUdAeiaPhRna')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1dq25IsqQwn0v9rrfzWR0sUdAeiaPhRna&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d1" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=1uA0PmOYZagRklDD_ydz4_Q6qHf-X-7qi')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1uA0PmOYZagRklDD_ydz4_Q6qHf-X-7qi&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
+      <div class="g-item reveal d2" onclick="openLBdrive('https://drive.google.com/uc?export=view&id=14wW_FxEVYnbYkRC8R4f3ARacqn3AxQ5-')">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=14wW_FxEVYnbYkRC8R4f3ARacqn3AxQ5-&sz=w800" alt="Miguel Tillero"
+             style="width:100%;height:100%;object-fit:cover;"
+             onerror="this.closest('.g-item').style.display='none'">
+        <div class="g-overlay"><i class="fa fa-expand"></i></div>
+      </div>
     </div>
   </div>
 </section>
@@ -3630,6 +4189,30 @@ window.submitTesti = function(e) {
   }
   return false;
 };
+
+
+/* CV dropdown — cerrar al clic exterior */
+document.addEventListener('click', function(e){
+  var w = document.getElementById('cv-drop-wrap');
+  var d = document.getElementById('cv-drop');
+  if (w && d && !w.contains(e.target)) d.classList.remove('open');
+});
+
+
+/* ── Lightbox para imágenes de Google Drive ── */
+window.openLBdrive = function(url) {
+  /* Abrir en nueva pestaña — Drive bloquea iframe cross-origin */
+  window.open(url, '_blank', 'noopener');
+};
+
+
+/* ── Fade-in galería Drive ── */
+window.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.g-item img[src*="drive.google.com"]').forEach(function(img) {
+    if (img.complete) { img.classList.add('loaded'); }
+    else { img.addEventListener('load', function(){ img.classList.add('loaded'); }); }
+  });
+});
 
 </script>
 
