@@ -52,7 +52,6 @@ body {
   font-family: 'Syne', sans-serif;
   font-weight: 400;
   overflow-x: hidden;
-  cursor: none;
 }
 ::selection { background: var(--gold); color: var(--void); }
 a { color: inherit; text-decoration: none; }
@@ -831,18 +830,11 @@ section.alt { background: rgba(4,16,8,0.65); }
 
 /* ════ CURSOR PERSONALIZADO ════ */
 #cursor-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--gold);
-  position: fixed; z-index: 99999;
-  pointer-events: none;
-  transform: translate(-50%,-50%);
-  transition: transform 0.1s ease, background 0.3s, width 0.3s, height 0.3s;
-  mix-blend-mode: normal;
-  box-shadow: 0 0 8px var(--gold);
+  display: none;   /* el cursor real del sistema lo reemplaza */
 }
 #cursor-ring {
-  width: 36px; height: 36px; border-radius: 50%;
-  border: 1px solid rgba(201,169,110,0.5);
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid rgba(201,169,110,0.35);
   position: fixed; z-index: 99998;
   pointer-events: none;
   transform: translate(-50%,-50%);
@@ -851,6 +843,8 @@ section.alt { background: rgba(4,16,8,0.65); }
               border-color 0.3s,
               transform 0.12s ease;
 }
+/* En móvil/táctil no se muestra el anillo */
+@media (hover: none) { #cursor-ring { display: none; } }
 #cursor-ring.hover {
   width: 60px; height: 60px;
   border-color: var(--gold);
@@ -861,7 +855,7 @@ section.alt { background: rgba(4,16,8,0.65); }
   border-color: var(--cyan);
   border-width: 2px;
 }
-a, button, .svc-card, .g-item, .time-slot, .lang-pill, .stat-cell { cursor: none; }
+a, button, .svc-card, .g-item, .time-slot, .lang-pill, .stat-cell { cursor: pointer; }
 
 /* ════ TEXT FROSTED GLASS BACKDROPS ════ */
 .text-glass {
@@ -1139,7 +1133,7 @@ a, button, .svc-card, .g-item, .time-slot, .lang-pill, .stat-cell { cursor: none
   display: flex; gap: 1rem; align-items: flex-start;
 }
 .pay-note i { color: var(--cyan); flex-shrink: 0; margin-top: 2px; }
-.pay-note p { font-size: 0.82rem; color: var(--text2); line-height: 1.7; }
+.pay-note p { font-size: 0.82rem; color: var(--text); line-height: 1.7; }
 .pay-note strong { color: var(--cyan); }
 
 /* OXXO card spans full width on large screens */
@@ -1292,16 +1286,7 @@ section::after {
 }
 
 /* El vídeo cubre toda la pantalla */
-#intro-video {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: center;
-  z-index: 2;
-  background: transparent;
-}
-/* Mientras no haya video, mostrar el poster de fondo */
-#intro-video[data-loaded="false"] { opacity: 0; }
+/* (regla base del vídeo movida a sección de fases más abajo) */
 
 /* Vignette oscuro en los bordes */
 #video-intro::before {
@@ -1605,16 +1590,165 @@ body.intro-active { overflow: hidden; }
 .intro-vol-hint.show { opacity: 1; }
 .intro-vol-hint i { color: var(--gold); font-size: 0.6rem; }
 
-/* El vídeo de fondo del intro con leve oscurecimiento */
+/* ── VÍDEO INTRO — 3 FASES DE OPACIDAD ── */
 #video-intro #intro-video {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; object-position: center; z-index: 2;
-  opacity: 0.45; transition: opacity 1s ease;
+  opacity: 1;                          /* FASE 1: pantalla completa, brillo total */
+  transition: opacity 1.4s ease;
 }
-#video-intro.entered #intro-video { opacity: 1; }
+#video-intro.dimmed #intro-video { opacity: 0.42; }   /* FASE 2: atenuado al aparecer monograma */
+#video-intro.entered #intro-video { opacity: 1; }     /* FASE 3: brillo total tras Entrar */
+
+
+/* ════ ACCESIBILIDAD & UX EJECUTIVO ════ */
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+section[id] { scroll-margin-top: 90px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+  #cursor-ring { display: none; }
+}
+a:focus-visible, button:focus-visible, input:focus-visible,
+select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 2px;
+}
+
+
+/* ════ TESTIMONIOS ════ */
+#testimonios { padding: 6rem 0; position: relative; z-index: 10; }
+.testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+.testi-card {
+  background: rgba(4,18,9,.72); backdrop-filter: blur(18px);
+  border: 1px solid rgba(201,169,110,.18); padding: 2rem;
+  position: relative; transition: all .4s;
+}
+.testi-card:hover { border-color: rgba(201,169,110,.45); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.4); }
+.testi-card::before {
+  content: '\201C'; position: absolute; top: 0.6rem; left: 1.2rem;
+  font-family: 'Cormorant Garamond', serif; font-size: 4rem; line-height: 1;
+  color: rgba(201,169,110,.25);
+}
+.testi-text { font-size: .88rem; line-height: 1.8; color: rgba(238,248,243,.78); font-style: italic; margin: 1.2rem 0 1.4rem; }
+.testi-author { display: flex; align-items: center; gap: .9rem; }
+.testi-avatar {
+  width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--emerald, #0d3520), #051a0e);
+  border: 1px solid rgba(201,169,110,.4);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif; color: var(--gold); font-size: 1rem;
+}
+.testi-name { font-size: .8rem; color: var(--text); font-weight: 600; }
+.testi-role { font-family: 'Space Mono', monospace; font-size: .5rem; letter-spacing: .15em; text-transform: uppercase; color: var(--gold); margin-top: .2rem; }
+.testi-stars { color: var(--gold); font-size: .65rem; letter-spacing: .2em; margin-bottom: .6rem; }
+
+/* ════ FAQ ════ */
+#faq { padding: 6rem 0; position: relative; z-index: 10; }
+.faq-list { max-width: 780px; margin: 0 auto; }
+.faq-item {
+  border: 1px solid rgba(201,169,110,.16); background: rgba(4,18,9,.66);
+  backdrop-filter: blur(14px); margin-bottom: .8rem; overflow: hidden; transition: border-color .3s;
+}
+.faq-item[open] { border-color: rgba(201,169,110,.45); }
+.faq-q {
+  list-style: none; cursor: pointer; padding: 1.2rem 1.5rem;
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  font-size: .92rem; color: var(--text); font-weight: 500;
+}
+.faq-q::-webkit-details-marker { display: none; }
+.faq-q::after {
+  content: '+'; font-family: 'Cormorant Garamond', serif; font-size: 1.5rem;
+  color: var(--gold); transition: transform .3s; flex-shrink: 0;
+}
+.faq-item[open] .faq-q::after { transform: rotate(45deg); }
+.faq-a { padding: 0 1.5rem 1.4rem; font-size: .85rem; line-height: 1.8; color: rgba(238,248,243,.65); }
+
+
+/* ════ DEJAR TESTIMONIO ════ */
+.testi-cta-wrap { text-align: center; margin-top: 2.5rem; }
+.testi-cta-btn {
+  display: inline-flex; align-items: center; gap: 0.8rem;
+  background: transparent; border: 1px solid rgba(201,169,110,.45);
+  color: var(--gold2); cursor: pointer; padding: 0.9rem 2.2rem;
+  font-family: 'Space Mono', monospace; font-size: 0.58rem;
+  letter-spacing: 0.28em; text-transform: uppercase; font-weight: 700;
+  transition: all 0.35s; backdrop-filter: blur(8px);
+}
+.testi-cta-btn:hover { border-color: var(--gold); background: rgba(201,169,110,.1); box-shadow: 0 0 30px rgba(201,169,110,.25); }
+#testi-form-panel {
+  display: none; max-width: 640px; margin: 2rem auto 0;
+  background: rgba(4,18,9,.8); backdrop-filter: blur(22px);
+  border: 1px solid rgba(201,169,110,.25); padding: 2.2rem; position: relative;
+}
+#testi-form-panel.open { display: block; animation: fadeIn .4s ease; }
+#testi-form-panel::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold) 45%, var(--cyan) 70%, transparent);
+}
+.testi-note {
+  font-family: 'Space Mono', monospace; font-size: .5rem; letter-spacing: .12em;
+  color: rgba(238,248,243,.45); line-height: 1.9; margin-bottom: 1.4rem;
+  padding: .8rem 1rem; border-left: 2px solid rgba(201,169,110,.4);
+  background: rgba(201,169,110,.05);
+}
+.star-select { display: flex; gap: .5rem; margin: .4rem 0 1.2rem; }
+.star-select .st {
+  font-size: 1.4rem; color: rgba(201,169,110,.25); cursor: pointer; transition: color .2s, transform .2s;
+  background: none; border: none; padding: 0;
+}
+.star-select .st:hover { transform: scale(1.15); }
+.star-select .st.on { color: var(--gold); text-shadow: 0 0 12px rgba(201,160,48,.5); }
 
 </style>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<!-- ═══ SEO EJECUTIVO ═══ -->
+<link rel="canonical" href="https://migueltillero-ship-it.github.io/afsc-direccion/">
+<meta name="theme-color" content="#020c06">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Miguel David Tillero Álvarez">
+
+<!-- Open Graph (WhatsApp / Facebook / LinkedIn) -->
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Miguel David Tillero Álvarez · Director Général · Alliance Française SCSC">
+<meta property="og:description" content="Profesor especialista en FLE, director de Alliance Française, formador y traductor. 13 años de experiencia internacional. Clases de francés, asesorías pedagógicas y gestión cultural.">
+<meta property="og:url" content="https://migueltillero-ship-it.github.io/afsc-direccion/">
+<meta property="og:image" content="https://migueltillero-ship-it.github.io/afsc-direccion/Gemini_Generated_Image_f6nksgf6nksgf6nk.png">
+<meta property="og:image:alt" content="Miguel Tillero en París, Tour Eiffel">
+<meta property="og:locale" content="es_MX">
+<meta property="og:locale:alternate" content="fr_FR">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Miguel David Tillero Álvarez · Spécialiste FLE">
+<meta name="twitter:description" content="Director de Alliance Française · Clases de francés · Asesorías pedagógicas · Traducción ES↔FR">
+<meta name="twitter:image" content="https://migueltillero-ship-it.github.io/afsc-direccion/Gemini_Generated_Image_f6nksgf6nksgf6nk.png">
+
+<!-- Favicon monograma MT -->
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="18" fill="%23020c06"/><text x="50" y="68" font-family="Georgia,serif" font-size="52" fill="%23e8be50" text-anchor="middle">MT</text></svg>'>
+
+<!-- JSON-LD: Person Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Miguel David Tillero Álvarez",
+  "url": "https://migueltillero-ship-it.github.io/afsc-direccion/",
+  "image": "https://migueltillero-ship-it.github.io/afsc-direccion/IMG-20250925-WA0034.jpg",
+  "jobTitle": "Director Général",
+  "worksFor": {"@type": "Organization", "name": "Alliance Française de San Cristóbal de Las Casas"},
+  "address": {"@type": "PostalAddress", "addressLocality": "San Cristóbal de Las Casas", "addressRegion": "Chiapas", "addressCountry": "MX"},
+  "email": "mailto:migueltillero@gmail.com",
+  "knowsLanguage": ["es", "fr", "en"],
+  "description": "Profesor especialista en FLE. Director de Alliance Française, formador, traductor ES-FR y gestor cultural con 13 años de experiencia.",
+  "alumniOf": {"@type": "EducationalOrganization", "name": "Universidad Pedagógica Experimental Libertador (UPEL)"}
+}
+</script>
+
 </head>
 <body>
 
@@ -1624,13 +1758,11 @@ body.intro-active { overflow: hidden; }
 ═══════════════════════════════════════════ -->
 <div id="video-intro">
   <!-- El vídeo de fondo (silencioso en preview) -->
-  <video id="intro-video" muted playsinline loop
+  <video id="intro-video" autoplay muted playsinline loop
          src="Miguel_Tillero_video_bienvenida.mp4"
          preload="auto">
+    <source src="Miguel_Tillero_video_bienvenida.mp4" type="video/mp4">
   </video>
-
-  <!-- Logo AF -->
-  <div class="intro-logo">Alliance Française · SCSC</div>
 
   <!-- Branding central sobre el vídeo -->
   <div class="intro-brand">
@@ -1645,7 +1777,7 @@ body.intro-active { overflow: hidden; }
       <span class="enter-arrow">→</span>
     </button>
     <div class="intro-vol-hint" id="intro-vol-hint">
-      <i class="fa fa-volume-high"></i>
+      <i class="fas fa-volume-high"></i>
       <span data-es="Con audio · sube el volumen" data-fr="Avec audio · montez le son" data-en="With audio · turn up the volume">Con audio · sube el volumen</span>
     </div>
   </div>
@@ -1662,7 +1794,7 @@ body.intro-active { overflow: hidden; }
 <!-- LIGHTBOX -->
 <div id="lightbox" role="dialog" aria-modal="true">
   <button id="lb-close" aria-label="Cerrar"><i class="fa fa-times"></i></button>
-  <img id="lb-img" src="" alt="">
+  <img loading="lazy" id="lb-img" src="" alt="">
 </div>
 
 <!-- AUDIO -->
@@ -1758,8 +1890,12 @@ body.intro-active { overflow: hidden; }
           <div class="portrait-inner" id="portraitCarousel">
             <div class="portrait-scan"></div>
             <!-- Carrusel de retratos oficiales -->
-            <img class="portrait-slide active" src="Gemini_Generated_Image_f6nksgf6nksgf6nk.png" alt="Miguel Tillero — París"
+            <img class="portrait-slide active" src="Copilot_20260607_141209.png" alt="Miguel Tillero — París, Tour Eiffel"
+                 style="object-fit:cover;object-position:center top"
                  onerror="this.src='IMG-20250925-WA0034.jpg'">
+            <img class="portrait-slide" src="Gemini_Generated_Image_mxg64vmxg64vmxg6_1_.png" alt="Miguel Tillero — París enhanced"
+                 style="object-fit:cover;object-position:center top"
+                 onerror="this.style.display='none'">
             <img class="portrait-slide" src="Gemini_Generated_Image_6kr8rj6kr8rj6kr8(1).png" alt="Miguel Tillero — Director Général"
                  onerror="this.style.display='none'">
             <img class="portrait-slide" src="Gemini_Generated_Image_1i04fk1i04fk1i04.png" alt="Miguel Tillero — Tour Eiffel"
@@ -2012,39 +2148,55 @@ body.intro-active { overflow: hidden; }
       <h2 class="sec-title" style="margin-top:0.8rem;"><em data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</em></h2>
     </div>
     <div class="gallery-grid">
+      <!-- ── FOTOS REALES PARÍS 2026 ── -->
+      <div class="g-item reveal" onclick="openLB('Copilot_20260607_141209.png','Miguel Tillero · Paris · Tour Eiffel 2026')">
+        <img loading="lazy" src="Copilot_20260607_141209.png" alt="Miguel Tillero — París, Tour Eiffel"
+             style="object-fit:cover;object-position:center 30%;width:100%;height:100%"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>Paris · Tour Eiffel</span></div>
+        <div class="g-overlay"><span>Paris · Tour Eiffel · 2026</span></div>
+      </div>
+      <div class="g-item reveal d1" onclick="openLB('Gemini_Generated_Image_mxg64vmxg64vmxg6_1_.png','Miguel Tillero · Paris · Trocadéro')">
+        <img loading="lazy" src="Gemini_Generated_Image_mxg64vmxg64vmxg6_1_.png" alt="Miguel Tillero — Trocadéro"
+             style="object-fit:cover;object-position:center 25%;width:100%;height:100%"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>Paris · Trocadéro</span></div>
+        <div class="g-overlay"><span>Paris · Trocadéro enhanced · 2026</span></div>
+      </div>
+
       <!-- ── FOTOS OFICIALES GEMINI ── -->
-      <div class="g-item reveal" onclick="openLB('Gemini_Generated_Image_6kr8rj6kr8rj6kr8(1).png','Director Général · Alliance Française')">
-        <img src="Gemini_Generated_Image_6kr8rj6kr8rj6kr8(1).png" alt="Director Général" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="g-item reveal d2" onclick="openLB('Gemini_Generated_Image_6kr8rj6kr8rj6kr8(1).png','Director Général · Alliance Française')">
+        <img loading="lazy" src="Gemini_Generated_Image_6kr8rj6kr8rj6kr8(1).png" alt="Director Général" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
         <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>Direction Générale</span></div>
         <div class="g-overlay"><span>Direction Générale</span></div>
       </div>
       <div class="g-item reveal d1" onclick="openLB('Gemini_Generated_Image_f6nksgf6nksgf6nk.png','Portrait officiel')">
-        <img src="Gemini_Generated_Image_f6nksgf6nksgf6nk.png" alt="Portrait officiel" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <img loading="lazy" src="Gemini_Generated_Image_f6nksgf6nksgf6nk.png" alt="Portrait officiel" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
         <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>Portrait officiel</span></div>
         <div class="g-overlay"><span>Portrait officiel</span></div>
       </div>
       <div class="g-item reveal d2" onclick="openLB('Gemini_Generated_Image_1i04fk1i04fk1i04.png','Pédagogue international')">
-        <img src="Gemini_Generated_Image_1i04fk1i04fk1i04.png" alt="Pédagogue" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <img loading="lazy" src="Gemini_Generated_Image_1i04fk1i04fk1i04.png" alt="Pédagogue" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
         <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>Pédagogue</span></div>
         <div class="g-overlay"><span>Pédagogue international</span></div>
       </div>
       <div class="g-item reveal d3" onclick="openLB('Gemini_Generated_Image_6kr8rj6kr8rj6kr8(1).png','Gestión cultural')">
-        <img src="Gemini_Generated_Image_6kr8rj6kr8rj6kr8(1).png" alt="Gestión cultural" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <img loading="lazy" src="Gemini_Generated_Image_6kr8rj6kr8rj6kr8(1).png" alt="Gestión cultural" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
         <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>Gestión cultural</span></div>
         <div class="g-overlay"><span>Gestión cultural</span></div>
       </div>
       <div class="g-item reveal d1" onclick="openLB('IMG-20250925-WA0034.jpg','Alliance Française SCSC')">
-        <img src="IMG-20250925-WA0034.jpg" alt="AFSC" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <img loading="lazy" src="IMG-20250925-WA0034.jpg" alt="AFSC" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
         <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>Alliance Française</span></div>
         <div class="g-overlay"><span>Alliance Française SCSC</span></div>
       </div>
       <div class="g-item reveal d2" onclick="openLB('Gemini_Generated_Image_f6nksgf6nksgf6nk.png','Paris · Tour Eiffel')">
-        <img src="Gemini_Generated_Image_f6nksgf6nksgf6nk.png" alt="París · Tour Eiffel" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="object-position:top center">
+        <img loading="lazy" src="Gemini_Generated_Image_f6nksgf6nksgf6nk.png" alt="París · Tour Eiffel" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="object-position:top center">
         <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>París · Tour Eiffel</span></div>
         <div class="g-overlay"><span>Paris · Tour Eiffel</span></div>
       </div>
       <div class="g-item reveal d3" onclick="openLB('Gemini_Generated_Image_1i04fk1i04fk1i04.png','Paris · Alliance Française')">
-        <img src="Gemini_Generated_Image_1i04fk1i04fk1i04.png" alt="París — Alliance Française" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="object-position:center">
+        <img loading="lazy" src="Gemini_Generated_Image_1i04fk1i04fk1i04.png" alt="París — Alliance Française" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="object-position:center">
         <div class="g-placeholder" style="display:none"><i class="fa fa-camera"></i><span>Paris</span></div>
         <div class="g-overlay"><span>Paris · Alliance Française</span></div>
       </div>
@@ -2075,7 +2227,8 @@ body.intro-active { overflow: hidden; }
 
       <!-- Video -->
       <video id="site-video" preload="metadata" playsinline muted
-             poster="Gemini_Generated_Image_f6nksgf6nksgf6nk.png">
+             poster="Copilot_20260607_141209.png">
+        <source src="versión_horizontal_formato_vi.mp4" type="video/mp4">
         <source src="Miguel_Tillero_video_bienvenida.mp4" type="video/mp4">
       </video>
 
@@ -2093,6 +2246,92 @@ body.intro-active { overflow: hidden; }
   </div>
 </section>
 
+
+
+<!-- ═══ TESTIMONIOS ═══ -->
+<section id="testimonios" class="z10">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;margin-bottom:3rem;">
+      <p class="eyebrow" style="justify-content:center" data-es="Lo que dicen de mí" data-fr="Ce qu'ils disent" data-en="What they say">Lo que dicen de mí</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Testimonios" data-fr="Témoignages" data-en="Testimonials">Testimonios</em></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal d1">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text" data-es="Gracias al acompañamiento de Miguel obtuve mi DELF B2 con excelente puntuación. Su método hace que el francés se sienta natural, nunca memorizado." data-fr="Grâce à l'accompagnement de Miguel, j'ai obtenu mon DELF B2 avec une excellente note. Sa méthode rend le français naturel." data-en="Thanks to Miguel's guidance I earned my DELF B2 with an excellent score. His method makes French feel natural.">Gracias al acompañamiento de Miguel obtuve mi DELF B2 con excelente puntuación. Su método hace que el francés se sienta natural, nunca memorizado.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">LG</div>
+          <div><div class="testi-name">Luis Emilio G.</div><div class="testi-role" data-es="DELF Junior B2 · 100/100" data-fr="DELF Junior B2 · 100/100" data-en="DELF Junior B2 · 100/100">DELF Junior B2 · 100/100</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal d2">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text" data-es="Como docente, las asesorías pedagógicas transformaron mi manera de planificar. Miguel domina el MCER como pocos y lo traduce en herramientas prácticas." data-fr="En tant qu'enseignante, ses conseils pédagogiques ont transformé ma façon de planifier. Miguel maîtrise le CECRL comme peu d'experts." data-en="As a teacher, his pedagogical consulting transformed how I plan. Miguel masters the CEFR like few others.">Como docente, las asesorías pedagógicas transformaron mi manera de planificar. Miguel domina el MCER como pocos y lo traduce en herramientas prácticas.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">GR</div>
+          <div><div class="testi-name">Gloria R.</div><div class="testi-role" data-es="Docente FLE · Preparación B1" data-fr="Enseignante FLE · Préparation B1" data-en="FLE Teacher · B1 Prep">Docente FLE · Preparación B1</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal d3">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text" data-es="Llegué sin saber decir bonjour y un año después sostuve mi entrevista migratoria para Quebec completamente en francés. Profesionalismo absoluto." data-fr="Je suis arrivé sans savoir dire bonjour et un an plus tard, j'ai passé mon entretien d'immigration pour le Québec entièrement en français." data-en="I arrived unable to say bonjour, and a year later I held my Quebec immigration interview entirely in French.">Llegué sin saber decir bonjour y un año después sostuve mi entrevista migratoria para Quebec completamente en francés. Profesionalismo absoluto.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">CM</div>
+          <div><div class="testi-name">Carlos M.</div><div class="testi-role" data-es="Proceso migratorio · Quebec" data-fr="Immigration · Québec" data-en="Immigration · Quebec">Proceso migratorio · Quebec</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── DEJAR TESTIMONIO ── -->
+    <div class="testi-cta-wrap reveal">
+      <button class="testi-cta-btn" onclick="toggleTestiForm()">
+        <i class="fa fa-feather"></i>
+        <span data-es="Deja tu testimonio" data-fr="Laissez votre témoignage" data-en="Leave a testimonial">Deja tu testimonio</span>
+      </button>
+
+      <form id="testi-form-panel" onsubmit="return submitTesti(event)">
+        <div class="testi-note" data-es="✦ Tu testimonio será revisado personalmente antes de su publicación. Una vez validado, aparecerá en esta sección. Gracias por compartir tu experiencia." data-fr="✦ Votre témoignage sera relu personnellement avant publication. Une fois validé, il apparaîtra dans cette section. Merci de partager votre expérience." data-en="✦ Your testimonial will be personally reviewed before publication. Once approved, it will appear in this section. Thank you for sharing your experience.">✦ Tu testimonio será revisado personalmente antes de su publicación. Una vez validado, aparecerá en esta sección. Gracias por compartir tu experiencia.</div>
+
+        <div class="insc-row">
+          <div class="insc-field">
+            <label data-es="Tu nombre" data-fr="Votre nom" data-en="Your name">Tu nombre <span class="req">*</span></label>
+            <input type="text" id="tf-name" required placeholder="Nombre o iniciales">
+          </div>
+          <div class="insc-field">
+            <label>Email <span class="req">*</span></label>
+            <input type="email" id="tf-email" required placeholder="tu@correo.com">
+          </div>
+        </div>
+        <div class="insc-field">
+          <label data-es="Curso / servicio recibido" data-fr="Cours / service reçu" data-en="Course / service received">Curso / servicio recibido</label>
+          <input type="text" id="tf-role" placeholder="Ej: DELF B2, clases A1, asesoría pedagógica...">
+        </div>
+        <div class="insc-field">
+          <label data-es="Tu calificación" data-fr="Votre note" data-en="Your rating">Tu calificación</label>
+          <div class="star-select" id="tf-stars">
+            <button type="button" class="st" data-v="1">★</button>
+            <button type="button" class="st" data-v="2">★</button>
+            <button type="button" class="st" data-v="3">★</button>
+            <button type="button" class="st" data-v="4">★</button>
+            <button type="button" class="st" data-v="5">★</button>
+          </div>
+        </div>
+        <div class="insc-field">
+          <label data-es="Tu testimonio" data-fr="Votre témoignage" data-en="Your testimonial">Tu testimonio <span class="req">*</span></label>
+          <textarea id="tf-text" required placeholder="Cuéntanos tu experiencia..." style="min-height:100px"></textarea>
+        </div>
+        <button type="submit" class="insc-submit" id="tf-submit">
+          <i class="fa fa-paper-plane"></i>&nbsp;
+          <span data-es="Enviar para validación" data-fr="Envoyer pour validation" data-en="Submit for review">Enviar para validación</span>
+        </button>
+        <div class="insc-success" id="tf-success">
+          ✦ ¡Testimonio recibido! ✦<br>
+          Lo revisaré personalmente y, una vez validado, aparecerá publicado en esta sección.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
 
 <!-- ═══ INSCRIPCIÓN A CLASES ═══ -->
 <section id="inscripcion" class="z10">
@@ -2237,6 +2476,43 @@ body.intro-active { overflow: hidden; }
   </div>
 </section>
 
+
+
+<!-- ═══ FAQ ═══ -->
+<section id="faq" class="z10">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;margin-bottom:3rem;">
+      <p class="eyebrow" style="justify-content:center" data-es="Resuelve tus dudas" data-fr="Questions fréquentes" data-en="Common questions">Resuelve tus dudas</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Preguntas frecuentes" data-fr="Foire aux questions" data-en="FAQ">Preguntas frecuentes</em></h2>
+    </div>
+    <div class="faq-list reveal">
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Necesito saber algo de francés para empezar?" data-fr="Dois-je connaître le français pour commencer ?" data-en="Do I need any French to start?">¿Necesito saber algo de francés para empezar?</summary>
+        <div class="faq-a" data-es="No. Diseño itinerarios desde el nivel cero absoluto (A0) hasta la maestría (C2). En la primera sesión evalúo tu punto de partida y construyo un plan a tu medida según el Marco Común Europeo de Referencia." data-fr="Non. Je conçois des parcours du niveau zéro absolu (A0) jusqu'à la maîtrise (C2). Lors de la première séance, j'évalue votre niveau et construis un plan sur mesure selon le CECRL." data-en="No. I design learning paths from absolute zero (A0) to mastery (C2). In the first session I assess your starting point and build a tailored plan based on the CEFR.">No. Diseño itinerarios desde el nivel cero absoluto (A0) hasta la maestría (C2). En la primera sesión evalúo tu punto de partida y construyo un plan a tu medida según el Marco Común Europeo de Referencia.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Las clases son presenciales o en línea?" data-fr="Les cours sont-ils en présentiel ou en ligne ?" data-en="Are classes in person or online?">¿Las clases son presenciales o en línea?</summary>
+        <div class="faq-a" data-es="Ambas modalidades. Presenciales en San Cristóbal de Las Casas, Chiapas, y en línea para cualquier parte del mundo, con la misma metodología comunicativa y materiales auténticos." data-fr="Les deux. En présentiel à San Cristóbal de Las Casas, Chiapas, et en ligne partout dans le monde, avec la même méthodologie communicative." data-en="Both. In person in San Cristóbal de Las Casas, Chiapas, and online worldwide, with the same communicative methodology.">Ambas modalidades. Presenciales en San Cristóbal de Las Casas, Chiapas, y en línea para cualquier parte del mundo, con la misma metodología comunicativa y materiales auténticos.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Cuánto tiempo toma alcanzar un nivel B2?" data-fr="Combien de temps pour atteindre le niveau B2 ?" data-en="How long does it take to reach B2?">¿Cuánto tiempo toma alcanzar un nivel B2?</summary>
+        <div class="faq-a" data-es="Depende de tu dedicación y frecuencia. Con 2-3 sesiones semanales más trabajo personal, un estudiante constante suele alcanzar el B2 en 18-24 meses partiendo de cero. Con inmersión intensiva, el camino se acorta considerablemente." data-fr="Cela dépend de votre rythme. Avec 2-3 séances hebdomadaires plus travail personnel, un étudiant régulier atteint le B2 en 18-24 mois en partant de zéro." data-en="It depends on your pace. With 2-3 weekly sessions plus personal work, a consistent student typically reaches B2 in 18-24 months from scratch.">Depende de tu dedicación y frecuencia. Con 2-3 sesiones semanales más trabajo personal, un estudiante constante suele alcanzar el B2 en 18-24 meses partiendo de cero. Con inmersión intensiva, el camino se acorta considerablemente.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Preparas para los exámenes oficiales DELF/DALF?" data-fr="Préparez-vous aux examens DELF/DALF ?" data-en="Do you prepare for DELF/DALF exams?">¿Preparas para los exámenes oficiales DELF/DALF?</summary>
+        <div class="faq-a" data-es="Sí, es una de mis especialidades. He formado candidatos que obtuvieron puntuaciones perfectas (100/100). Trabajo las cuatro competencias con simulacros reales, estrategias de examen y retroalimentación detallada." data-fr="Oui, c'est l'une de mes spécialités. J'ai formé des candidats ayant obtenu des notes parfaites (100/100). Je travaille les quatre compétences avec des examens blancs." data-en="Yes, it's one of my specialties. I've trained candidates who achieved perfect scores (100/100), working all four skills with real mock exams.">Sí, es una de mis especialidades. He formado candidatos que obtuvieron puntuaciones perfectas (100/100). Trabajo las cuatro competencias con simulacros reales, estrategias de examen y retroalimentación detallada.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Ayudas con procesos de migración a Quebec / Francia?" data-fr="Aidez-vous pour l'immigration au Québec / en France ?" data-en="Do you help with Quebec / France immigration?">¿Ayudas con procesos de migración a Quebec / Francia?</summary>
+        <div class="faq-a" data-es="Sí. He asesorado candidatos en procesos migratorios hacia Quebec: preparación lingüística para el TEF/TCF, simulacros de entrevista y acompañamiento cultural para la integración francófona." data-fr="Oui. J'ai accompagné des candidats à l'immigration vers le Québec : préparation au TEF/TCF, simulations d'entretien et accompagnement culturel." data-en="Yes. I've advised candidates on Quebec immigration: TEF/TCF language prep, interview simulations and cultural guidance.">Sí. He asesorado candidatos en procesos migratorios hacia Quebec: preparación lingüística para el TEF/TCF, simulacros de entrevista y acompañamiento cultural para la integración francófona.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Cómo se paga y cuáles son los métodos disponibles?" data-fr="Comment payer et quels sont les moyens disponibles ?" data-en="How do I pay and what methods are available?">¿Cómo se paga y cuáles son los métodos disponibles?</summary>
+        <div class="faq-a" data-es="Transferencia bancaria (Nu, albo), depósito en OXXO o efectivo. Encuentras todos los datos en la sección Métodos de pago de esta misma página. Los paquetes de horas se abonan al inicio de cada ciclo." data-fr="Virement bancaire (Nu, albo), dépôt OXXO ou espèces. Tous les détails figurent dans la section Moyens de paiement de cette page." data-en="Bank transfer (Nu, albo), OXXO deposit or cash. All details are in the Payment methods section of this page.">Transferencia bancaria (Nu, albo), depósito en OXXO o efectivo. Encuentras todos los datos en la sección Métodos de pago de esta misma página. Los paquetes de horas se abonan al inicio de cada ciclo.</div>
+      </details>
+    </div>
+  </div>
+</section>
 
 <!-- ═══ CONTACT ═══ -->
 <section id="contact" class="z10">
@@ -2501,7 +2777,7 @@ body.intro-active { overflow: hidden; }
     <div class="footer-inner">
       <div>
         <div class="footer-brand">Miguel <em>Tillero</em></div>
-        <div class="footer-tag" data-es="Spécialiste FLE · Gestion culturelle · Formation" data-fr="Spécialiste FLE · Gestion culturelle · Formation" data-en="FLE Specialist · Cultural Management · Training">Spécialiste FLE · Gestion culturelle · Formation</div>
+        <div class="footer-tag" data-es="Especialista FLE · Gestión cultural · Formación" data-fr="Spécialiste FLE · Gestion culturelle · Formation" data-en="FLE Specialist · Cultural Management · Training">Especialista FLE · Gestión cultural · Formación</div>
       </div>
       <p class="footer-copy">© 2025 Miguel Tillero · <span data-es="Todos los derechos reservados" data-fr="Tous droits réservés" data-en="All rights reserved">Todos los derechos reservados</span></p>
       <div class="footer-langs">
@@ -2626,16 +2902,44 @@ body.intro-active { overflow: hidden; }
   </div>
 </div>
 
+<!-- CURSOR PERSONALIZADO (antes del script para que no sean null) -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
 <script>
 /* ── VANTA 3D — FONDO OSCURO FUTURISTA ──── */
-VANTA.NET({
-  el: '#vanta-bg',
-  mouseControls: true, touchControls: true, gyroControls: false,
-  minHeight: 200, minWidth: 200, scale: 1.0, scaleMobile: 0.5,
-  color: 0xc9a96e,        /* vetas doradas del mármol */
-  backgroundColor: 0x020c06, /* negro esmeralda */
-  points: 9, maxDistance: 24, spacing: 20, showDots: true
-});
+function initVanta() {
+  if (typeof VANTA === 'undefined' || typeof THREE === 'undefined') {
+    /* CDN aún no cargó → reintentar o usar fallback */
+    return false;
+  }
+  try {
+    VANTA.NET({
+      el: '#vanta-bg',
+      THREE: window.THREE,
+      mouseControls: true, touchControls: true, gyroControls: false,
+      minHeight: 200, minWidth: 200, scale: 1.0, scaleMobile: 0.5,
+      color: 0xc9a96e,        /* vetas doradas del mármol */
+      backgroundColor: 0x020c06, /* negro esmeralda */
+      points: 9, maxDistance: 24, spacing: 20, showDots: true
+    });
+    return true;
+  } catch(e) {
+    /* Fallback: gradiente esmeralda si Vanta falla */
+    var vb = document.getElementById('vanta-bg');
+    if (vb) vb.style.background = 'radial-gradient(ellipse 80% 80% at 50% 40%, #0d3520 0%, #051a0e 50%, #020c06 100%)';
+    return true;
+  }
+}
+/* Intentar inicializar Vanta, reintentando hasta que los CDN carguen */
+(function tryVanta(n) {
+  if (initVanta()) return;
+  if (n > 0) setTimeout(function(){ tryVanta(n-1); }, 250);
+  else {
+    var vb = document.getElementById('vanta-bg');
+    if (vb) vb.style.background = 'radial-gradient(ellipse 80% 80% at 50% 40%, #0d3520 0%, #051a0e 50%, #020c06 100%)';
+  }
+})(20);
 
 /* ── NAV ─────────────────────────────────── */
 window.addEventListener('scroll', () => {
@@ -2647,13 +2951,17 @@ function toggleMob() { document.getElementById('mobile-menu').classList.toggle('
 function closeMob()  { document.getElementById('mobile-menu').classList.remove('open'); }
 
 /* ── LANG ────────────────────────────────── */
+window.addEventListener('DOMContentLoaded', function() {
+  try { var sv = localStorage.getItem('mt_lang'); if (sv && sv !== 'es') setLang(sv); } catch(e){}
+});
 function setLang(lang) {
+  try { localStorage.setItem('mt_lang', lang); } catch(e){}
   document.documentElement.setAttribute('data-lang', lang);
   document.querySelectorAll('[data-' + lang + ']').forEach(el => {
     const v = el.getAttribute('data-' + lang);
     if (['INPUT','TEXTAREA'].includes(el.tagName)) el.placeholder = v;
     else if (el.tagName === 'OPTION') el.text = v;
-    else el.textContent = v;
+    else el.innerHTML = v;
   });
   document.querySelectorAll('.ctrl-btn, .footer-lb').forEach(b =>
     b.classList.toggle('active', b.textContent.toLowerCase() === lang));
@@ -2739,11 +3047,11 @@ document.querySelectorAll('input[type="date"]').forEach(d => d.min = today);
    5. Reemplazar los 3 valores abajo:
 ══════════════════════════════════════════════════════ */
 const EMAILJS_SERVICE  = 'service_k9b1j7y'; // ✅ CONFIGURADO
-const EMAILJS_TEMPLATE = 'TU_TEMPLATE_ID';  // ← reemplazar
-const EMAILJS_KEY      = 'TU_PUBLIC_KEY';   // ← reemplazar
+const EMAILJS_TEMPLATE = 'template_sp4hl5f';  // ← reemplazar
+const EMAILJS_KEY      = '7FPd-e34G4AgVK5YA';   // ← reemplazar
 
 /* Inicializar EmailJS */
-emailjs.init(EMAILJS_KEY);
+if (EMAILJS_KEY && !EMAILJS_KEY.startsWith('TU_')) { try { emailjs.init(EMAILJS_KEY); } catch(e){} }
 
 /* Función de envío unificada */
 async function sendEmail(params, successId, formEl) {
@@ -2866,16 +3174,14 @@ let ringX = 0, ringY = 0;
 
 window.addEventListener('mousemove', e => {
   mouseX = e.clientX; mouseY = e.clientY;
-  curDot.style.left = mouseX + 'px';
-  curDot.style.top  = mouseY + 'px';
+  if (curDot) { curDot.style.left = mouseX + 'px'; curDot.style.top = mouseY + 'px'; }
 });
 
 /* Smooth ring follow */
 function animateCursor() {
   ringX += (mouseX - ringX) * 0.12;
   ringY += (mouseY - ringY) * 0.12;
-  curRing.style.left = ringX + 'px';
-  curRing.style.top  = ringY + 'px';
+  if (curRing) { curRing.style.left = ringX + 'px'; curRing.style.top = ringY + 'px'; }
   requestAnimationFrame(animateCursor);
 }
 animateCursor();
@@ -2982,7 +3288,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 /* ══════════════════════════════════════════════
-   VIDEO INTRO — patrón "Entrar" (audio garantizado)
+   VIDEO INTRO — 3 fases + patrón "Entrar"
+   FASE 1: vídeo pantalla completa, brillo total
+   FASE 2: aparece monograma → vídeo se atenúa
+   FASE 3: clic en Entrar → vídeo brillo total + sonido
 ══════════════════════════════════════════════ */
 window.addEventListener('DOMContentLoaded', function() {
 
@@ -3002,21 +3311,47 @@ window.addEventListener('DOMContentLoaded', function() {
   /* Bloquear scroll mientras el intro está activo */
   document.body.classList.add('intro-active');
 
-  /* Reproducir el vídeo en SILENCIO de fondo (preview) — esto sí lo permite el navegador */
-  if (introVid) {
-    introVid.muted = true;
-    introVid.play().catch(function(){ /* si no carga, el branding se ve igual */ });
+  if (!introEl || !introVid) {
+    document.body.classList.remove('intro-active');
+    return;
   }
 
-  /* Aparición escalonada del branding */
-  setTimeout(function(){ if (monogramEl) monogramEl.classList.add('show'); }, 300);
-  setTimeout(function(){ if (titleEl)    titleEl.classList.add('show'); }, 700);
-  setTimeout(function(){ if (subEl)      subEl.classList.add('show'); }, 1000);
-  setTimeout(function(){ if (dividerEl)  dividerEl.classList.add('show'); }, 1300);
-  setTimeout(function(){ if (enterBtn)   enterBtn.classList.add('show'); }, 1600);
-  setTimeout(function(){ if (volHint)    volHint.classList.add('show'); }, 2000);
+  /* ── REPRODUCCIÓN A PRUEBA DE FALLOS ──
+     Se intenta reproducir en silencio (autoplay permitido) en
+     varios eventos para máxima fiabilidad. */
+  introVid.muted = true;          /* obligatorio para autoplay */
+  introVid.setAttribute('muted', '');
 
-  /* Barra de progreso (se activa tras pulsar Entrar) */
+  function attemptPlay() {
+    var p = introVid.play();
+    if (p && p.catch) {
+      p.catch(function(err) {
+        console.warn('Intro video play falló, reintentando:', err);
+      });
+    }
+  }
+  /* Intentar reproducir en cada evento de carga posible */
+  introVid.addEventListener('loadeddata', attemptPlay);
+  introVid.addEventListener('canplay', attemptPlay);
+  introVid.addEventListener('canplaythrough', attemptPlay);
+  /* Intento inmediato */
+  attemptPlay();
+  /* Intento adicional tras un instante (por si el archivo tarda) */
+  setTimeout(attemptPlay, 300);
+  setTimeout(attemptPlay, 1000);
+
+  /* ── FASE 2: tras 2.6s, atenuar vídeo y mostrar branding ── */
+  setTimeout(function() {
+    if (introEl) introEl.classList.add('dimmed');
+    if (monogramEl) monogramEl.classList.add('show');
+  }, 2600);
+  setTimeout(function(){ if (titleEl)    titleEl.classList.add('show'); }, 3000);
+  setTimeout(function(){ if (subEl)      subEl.classList.add('show'); }, 3300);
+  setTimeout(function(){ if (dividerEl)  dividerEl.classList.add('show'); }, 3600);
+  setTimeout(function(){ if (enterBtn)   enterBtn.classList.add('show'); }, 3900);
+  setTimeout(function(){ if (volHint)    volHint.classList.add('show'); }, 4300);
+
+  /* Barra de progreso (tras pulsar Entrar) */
   var progressStarted = false;
   function startProgress() {
     if (progressStarted) return;
@@ -3040,6 +3375,26 @@ window.addEventListener('DOMContentLoaded', function() {
     if (safetyT1) clearTimeout(safetyT1);
     if (introEl) introEl.classList.add('fade-out');
     document.body.classList.remove('intro-active');
+
+    /* ── AUDIO DE FONDO — arranca DESPUÉS del video (fade-in suave) ── */
+    if (!window._audioStarted) {
+      var bgAudio = document.getElementById('bg-audio');
+      if (bgAudio) {
+        bgAudio.volume = 0;
+        bgAudio.play().then(function() {
+          window._audioStarted = true;
+          var ab = document.getElementById('audio-btn');
+          if (ab) ab.classList.add('playing');
+          /* Fade-in gradual en 3 segundos para no ser abrupto */
+          var vol = 0;
+          var fadeIn = setInterval(function() {
+            vol = Math.min(vol + 0.02, 0.30);
+            bgAudio.volume = vol;
+            if (vol >= 0.30) clearInterval(fadeIn);
+          }, 200);
+        }).catch(function(){});
+      }
+    }
     setTimeout(function() {
       if (introEl) {
         introEl.style.display = 'none';
@@ -3048,60 +3403,44 @@ window.addEventListener('DOMContentLoaded', function() {
     }, 1400);
   }
 
-  /* ── BOTÓN ENTRAR — activa sonido del vídeo + audio de fondo ── */
+  /* ── FASE 3: BOTÓN ENTRAR — sonido del vídeo + audio de fondo ── */
   window.enterSite = function() {
     if (!introVid) { closeIntro(); return; }
 
-    /* Quitar el loop y oscurecimiento — modo cinematográfico */
     introVid.loop = false;
-    if (introEl) introEl.classList.add('entered');
+    if (introEl) { introEl.classList.remove('dimmed'); introEl.classList.add('entered'); }
 
-    /* ACTIVAR SONIDO del vídeo (esto funciona porque viene de un clic) */
+    /* ACTIVAR SONIDO (funciona porque viene de un clic del usuario) */
     introVid.muted = false;
+    introVid.removeAttribute('muted');
     introVid.volume = 1.0;
-    introVid.currentTime = 0;   /* reiniciar para verlo completo con sonido */
+    introVid.currentTime = 0;
     introVid.play();
     startProgress();
 
-    /* Arrancar el audio de fondo de la página (también permitido tras el clic) */
-    var bgAudio = document.getElementById('bg-audio');
-    if (bgAudio) {
-      bgAudio.volume = 0.30;
-      bgAudio.play().then(function() {
-        var ab = document.getElementById('audio-btn');
-        if (ab) ab.classList.add('playing');
-        window._audioStarted = true;
-      }).catch(function(){});
-    }
+    /* ← El audio de fondo arrancará en closeIntro(), DESPUÉS del video */
 
-    /* Ocultar el botón Entrar y el branding (dejar ver el vídeo) */
-    if (enterBtn)  enterBtn.style.display = 'none';
-    if (volHint)   volHint.style.display = 'none';
-    if (monogramEl) monogramEl.style.opacity = '0';
-    if (titleEl)    titleEl.style.opacity = '0';
-    if (subEl)      subEl.style.opacity = '0';
-    if (dividerEl)  dividerEl.style.opacity = '0';
+    /* Ocultar branding para ver el vídeo a pantalla completa */
+    if (enterBtn)   enterBtn.style.display = 'none';
+    if (volHint)    volHint.style.display = 'none';
+    if (monogramEl) { monogramEl.style.transition='opacity .6s'; monogramEl.style.opacity = '0'; }
+    if (titleEl)    { titleEl.style.transition='opacity .6s'; titleEl.style.opacity = '0'; }
+    if (subEl)      { subEl.style.transition='opacity .6s'; subEl.style.opacity = '0'; }
+    if (dividerEl)  { dividerEl.style.transition='opacity .6s'; dividerEl.style.opacity = '0'; }
 
-    /* Cuando el vídeo termina → cerrar intro y entrar */
+    /* Cuando el vídeo termina → cerrar intro */
     introVid.addEventListener('ended', closeIntro, { once: true });
 
-    /* Mostrar un pequeño botón "Saltar" por si quiere entrar antes */
+    /* Botón "Saltar" por si quiere entrar antes */
     var skip = document.createElement('button');
     skip.className = 'intro-skip show';
     skip.innerHTML = 'Saltar &nbsp;<i class="fas fa-chevron-right"></i>';
     skip.onclick = closeIntro;
     if (introEl) introEl.appendChild(skip);
 
-    /* Seguridad: cerrar a los 90s pase lo que pase */
+    /* Seguridad: cerrar a los 90s */
     safetyT1 = setTimeout(closeIntro, 90000);
   };
-
-  /* Si el vídeo no existe / falla, permitir entrar igual con el botón */
-  if (introVid) {
-    introVid.addEventListener('error', function() {
-      /* El botón Entrar sigue funcionando (cerrará el intro) */
-    }, { once: true });
-  }
 
 }); /* fin DOMContentLoaded */
 
@@ -3189,7 +3528,7 @@ window.addEventListener('DOMContentLoaded', function() {
     }
 
     try {
-      emailjs.send('service_k9b1j7y', 'TU_TEMPLATE_ID', {
+      emailjs.send('service_k9b1j7y', 'template_sp4hl5f', {
         subject: '🎓 NUEVA INSCRIPCIÓN — ' + d.nombre,
         from_name: d.nombre,
         from_email: d.email,
@@ -3228,11 +3567,73 @@ window.addEventListener('scroll', function() {
   if (bt) bt.classList.toggle('show', st > 600);
 }, { passive: true });
 
+
+/* ── DEJAR TESTIMONIO (con validación previa) ── */
+window.toggleTestiForm = function() {
+  var p = document.getElementById('testi-form-panel');
+  if (p) p.classList.toggle('open');
+};
+window.addEventListener('DOMContentLoaded', function() {
+  var stars = document.querySelectorAll('#tf-stars .st');
+  var rating = 5;
+  stars.forEach(function(s) {
+    s.addEventListener('click', function() {
+      rating = parseInt(this.getAttribute('data-v'));
+      stars.forEach(function(x) {
+        x.classList.toggle('on', parseInt(x.getAttribute('data-v')) <= rating);
+      });
+    });
+  });
+  /* 5 estrellas por defecto */
+  stars.forEach(function(x){ x.classList.add('on'); });
+  window._tfRating = function(){ return rating; };
+});
+
+window.submitTesti = function(e) {
+  e.preventDefault();
+  var name  = document.getElementById('tf-name').value.trim();
+  var email = document.getElementById('tf-email').value.trim();
+  var role  = document.getElementById('tf-role').value.trim();
+  var text  = document.getElementById('tf-text').value.trim();
+  var stars = (window._tfRating ? window._tfRating() : 5);
+  if (!name || !email || !text) { alert('Completa nombre, email y testimonio.'); return false; }
+
+  var btn = document.getElementById('tf-submit');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i>&nbsp; Enviando...';
+
+  var msg = 'NUEVO TESTIMONIO — PENDIENTE DE VALIDACIÓN\n' +
+            '═══════════════════════════════\n\n' +
+            'Nombre: ' + name + '\nEmail: ' + email + '\n' +
+            'Curso/servicio: ' + (role||'-') + '\n' +
+            'Calificación: ' + '★'.repeat(stars) + ' (' + stars + '/5)\n\n' +
+            'TESTIMONIO:\n' + text + '\n\n' +
+            '— Para publicarlo: añadir una testi-card en la sección #testimonios del index.html —';
+
+  function done() {
+    document.getElementById('tf-success').classList.add('show');
+    btn.style.display = 'none';
+  }
+  try {
+    emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
+      subject: '⭐ NUEVO TESTIMONIO — ' + name,
+      from_name: name, from_email: email,
+      tipo: 'Testimonio para validar',
+      message: msg, to_email: 'migueltillero@gmail.com'
+    }).then(done).catch(function() {
+      window.open('mailto:migueltillero@gmail.com?subject=' + encodeURIComponent('Nuevo testimonio - ' + name) + '&body=' + encodeURIComponent(msg), '_blank');
+      done();
+    });
+  } catch(err) {
+    window.open('mailto:migueltillero@gmail.com?subject=' + encodeURIComponent('Nuevo testimonio - ' + name) + '&body=' + encodeURIComponent(msg), '_blank');
+    done();
+  }
+  return false;
+};
+
 </script>
 
 <!-- CURSOR PERSONALIZADO -->
-<div id="cursor-dot"></div>
-<div id="cursor-ring"></div>
 
 </body>
 </html>
