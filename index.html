@@ -1880,12 +1880,11 @@ select:focus-visible, textarea:focus-visible {
      VIDEO INTRO — Pantalla completa de entrada
 ═══════════════════════════════════════════ -->
 <div id="video-intro">
-  <!-- El vídeo de fondo (silencioso en preview) -->
+  <!-- El vídeo de fondo (silencioso en preview) — fuente elegida por JS según orientación -->
   <video id="intro-video" autoplay muted playsinline loop
-         src="Miguel_Tillero_video_bienvenida.mp4"
-         preload="auto">
-    <source src="Miguel_Tillero_video_bienvenida.mp4" type="video/mp4">
-  </video>
+         data-src-h="Miguel_Tillero_video_bienvenida.mp4"
+         data-src-v="Profesor.%20Miguel%20Tillero.mp4"
+         preload="auto"></video>
 
   <!-- Branding central sobre el vídeo -->
   <div class="intro-brand">
@@ -3442,6 +3441,25 @@ window.addEventListener('DOMContentLoaded', function() {
     document.body.classList.remove('intro-active');
     return;
   }
+
+  /* ── SELECCIÓN DE FUENTE SEGÚN ORIENTACIÓN ──
+     Móviles/tablets en vertical → versión vertical (sin recorte).
+     Resto → versión horizontal original. */
+  var srcH = introVid.getAttribute('data-src-h');
+  var srcV = introVid.getAttribute('data-src-v');
+  var isPortrait = window.matchMedia('(orientation: portrait)').matches
+                || window.innerWidth < 768;
+  introVid.src = (isPortrait && srcV) ? srcV : srcH;
+  /* Si la orientación cambia antes de pulsar Entrar, intercambia la fuente */
+  window.matchMedia('(orientation: portrait)').addEventListener('change', function(ev) {
+    if (introDone) return;
+    var want = (ev.matches || window.innerWidth < 768) ? srcV : srcH;
+    if (want && introVid.src.indexOf(want) === -1) {
+      introVid.src = want;
+      introVid.load();
+      introVid.play().catch(function(){});
+    }
+  });
 
   /* ── REPRODUCCIÓN A PRUEBA DE FALLOS ──
      Se intenta reproducir en silencio (autoplay permitido) en
