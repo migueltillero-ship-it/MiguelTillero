@@ -1333,6 +1333,19 @@ section::after {
   letter-spacing: 0.3em; color: var(--muted); text-transform: uppercase;
 }
 .video-meta .vtag { color: var(--gold); }
+/* Cuadrícula de vídeos institucionales */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem 1.5rem;
+  max-width: 900px; margin: 2.5rem auto 0;
+}
+.video-card .video-wrapper { max-width: none; }
+.video-card .video-wrapper video {
+  aspect-ratio: 16 / 9; object-fit: contain; background: #000;
+}
+.video-card .play-circle { width: 56px; height: 56px; }
+.video-card .video-meta { flex-wrap: wrap; gap: 0.4rem; }
 
 
 /* ════════════════════════════════════════════════
@@ -1840,7 +1853,7 @@ select:focus-visible, textarea:focus-visible {
 <meta property="og:title" content="Miguel David Tillero Álvarez · Director Général · Alliance Française SCSC">
 <meta property="og:description" content="Profesor especialista en FLE, director de Alliance Française, formador y traductor. 13 años de experiencia internacional. Clases de francés, asesorías pedagógicas y gestión cultural.">
 <meta property="og:url" content="https://migueltillero-ship-it.github.io/afsc-direccion/">
-<meta property="og:image" content="https://migueltillero-ship-it.github.io/afsc-direccion/Gemini_Generated_Image_1i04fk1i04fk1i04.png">
+<meta property="og:image" content="https://migueltillero-ship-it.github.io/afsc-direccion/portrait-director-1.jpg">
 <meta property="og:image:alt" content="Miguel Tillero en París, Tour Eiffel">
 <meta property="og:locale" content="es_MX">
 <meta property="og:locale:alternate" content="fr_FR">
@@ -1849,7 +1862,7 @@ select:focus-visible, textarea:focus-visible {
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Miguel David Tillero Álvarez · Spécialiste FLE">
 <meta name="twitter:description" content="Director de Alliance Française · Clases de francés · Asesorías pedagógicas · Traducción ES↔FR">
-<meta name="twitter:image" content="https://migueltillero-ship-it.github.io/afsc-direccion/Gemini_Generated_Image_1i04fk1i04fk1i04.png">
+<meta name="twitter:image" content="https://migueltillero-ship-it.github.io/afsc-direccion/portrait-director-1.jpg">
 
 <!-- Favicon monograma MT -->
 <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="18" fill="%23020c06"/><text x="50" y="68" font-family="Georgia,serif" font-size="52" fill="%23e8be50" text-anchor="middle">MT</text></svg>'>
@@ -1924,7 +1937,7 @@ select:focus-visible, textarea:focus-visible {
   <button id="audio-btn" aria-label="Música de fondo"><i class="fa fa-music"></i></button>
 </div>
 <audio id="bg-audio" loop preload="auto">
-  <source src="Arrival_at_the_Terminal (1).mp3" type="audio/mpeg">
+  <source src="Arrival_at_the_Terminal%20(1).mp3" type="audio/mpeg">
 </audio>
 
 <!-- WHATSAPP FLOAT -->
@@ -2010,7 +2023,7 @@ select:focus-visible, textarea:focus-visible {
               <i class="fa fa-chevron-down" style="font-size:.55rem"></i>
             </button>
             <div id="cv-drop" style="display:none;position:absolute;top:110%;left:0;min-width:220px;background:rgba(4,18,9,.95);border:1px solid rgba(201,169,110,.35);backdrop-filter:blur(16px);z-index:200;padding:.5rem 0">
-              <a href="CV Miguel Tillero Espanol.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
+              <a href="CV%20Miguel%20Tillero%20Espanol.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
                 <span>🇻🇪</span>&nbsp; Español
               </a>
               <a href="CVMiguelTilleroFrancais.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
@@ -2027,17 +2040,17 @@ select:focus-visible, textarea:focus-visible {
             <div class="portrait-scan"></div>
             <!-- Carrusel — set oficial de fotos -->
             <img class="portrait-slide active"
-                 src="Gemini_Generated_Image_1i04fk1i04fk1i04.png"
+                 src="portrait-director-1.jpg"
                  alt="Miguel Tillero — Director Général"
                  style="object-fit:cover;object-position:center top"
                  onerror="this.src='IMG-20250925-WA0034.jpg'">
             <img class="portrait-slide"
-                 src="Gemini_Generated_Image_f6nksgf6nksgf6nk.png"
+                 src="portrait-director-2.jpg"
                  alt="Miguel Tillero — Pédagogue"
                  style="object-fit:cover;object-position:center top"
                  onerror="this.style.display='none'">
             <img class="portrait-slide"
-                 src="Gemini_Generated_Image_6kr8rj6kr8rj6kr8(1).png"
+                 src="portrait-director-3.jpg"
                  alt="Miguel Tillero — Spécialiste FLE"
                  style="object-fit:cover;object-position:center top"
                  onerror="this.style.display='none'">
@@ -2107,7 +2120,7 @@ select:focus-visible, textarea:focus-visible {
 
       <!-- ── DESCARGA DE CV ── -->
       <div class="cv-download-wrap reveal">
-        <a href="CV Miguel Tillero Espanol.pdf" download class="cv-btn" target="_blank" rel="noopener">
+        <a href="CV%20Miguel%20Tillero%20Espanol.pdf" download class="cv-btn" target="_blank" rel="noopener">
           <span class="cv-flag">🇻🇪</span>
           <i class="fa fa-file-pdf"></i>
           <span data-es="Descargar CV en español" data-fr="Télécharger CV en espagnol" data-en="Download CV in Spanish">Descargar CV · Español</span>
@@ -2335,13 +2348,13 @@ select:focus-visible, textarea:focus-visible {
       <div class="v-corner br"></div>
 
       <!-- Video -->
-      <video id="site-video" preload="metadata" playsinline muted
-             poster="Gemini_Generated_Image_1i04fk1i04fk1i04.png">
+      <video id="site-video" preload="metadata" playsinline
+             poster="portrait-director-1.jpg">
         <source src="Miguel_Tillero_video_bienvenida.mp4" type="video/mp4">
       </video>
 
       <!-- Custom play overlay -->
-      <div class="video-play-overlay" id="video-overlay" onclick="playVideo()">
+      <div class="video-play-overlay" id="video-overlay">
         <div class="play-circle"><i class="fa fa-play"></i></div>
       </div>
     </div>
@@ -2350,6 +2363,46 @@ select:focus-visible, textarea:focus-visible {
       <span class="vtag">MT · ALLIANCE FRANÇAISE · SCSC</span>
       <span data-es="Clic para reproducir" data-fr="Cliquer pour lire" data-en="Click to play">Clic para reproducir</span>
       <span class="vtag">FLE · GESTIÓN CULTURAL · FORMACIÓN</span>
+    </div>
+
+    <!-- ── Vídeos institucionales ── -->
+    <div class="video-grid">
+      <div class="video-card reveal d1">
+        <div class="video-wrapper bracket">
+          <div class="v-corner tl"></div>
+          <div class="v-corner tr"></div>
+          <div class="v-corner bl"></div>
+          <div class="v-corner br"></div>
+          <video class="grid-video" preload="metadata" playsinline>
+            <source src="video%20alianza.mp4" type="video/mp4">
+          </video>
+          <div class="video-play-overlay">
+            <div class="play-circle"><i class="fa fa-play"></i></div>
+          </div>
+        </div>
+        <div class="video-meta">
+          <span class="vtag">ALLIANCE FRANÇAISE · SCSC</span>
+          <span data-es="Nuestra Alianza" data-fr="Notre Alliance" data-en="Our Alliance">Nuestra Alianza</span>
+        </div>
+      </div>
+      <div class="video-card reveal d2">
+        <div class="video-wrapper bracket">
+          <div class="v-corner tl"></div>
+          <div class="v-corner tr"></div>
+          <div class="v-corner bl"></div>
+          <div class="v-corner br"></div>
+          <video class="grid-video" preload="metadata" playsinline>
+            <source src="video%20cavilam.mp4" type="video/mp4">
+          </video>
+          <div class="video-play-overlay">
+            <div class="play-circle"><i class="fa fa-play"></i></div>
+          </div>
+        </div>
+        <div class="video-meta">
+          <span class="vtag">CAVILAM · ALLIANCE FRANÇAISE · VICHY</span>
+          <span data-es="Formación en Francia" data-fr="Formation en France" data-en="Training in France">Formación en Francia</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -3389,26 +3442,36 @@ if (audioBtn && bgAudio) {
 })();
 
 
-/* ── VIDEO PLAYER ─────────────────────────── */
+/* ── VIDEO PLAYER — todos los reproductores de la sección ── */
 function playVideo() {
-  var vid = document.getElementById('site-video');
   var overlay = document.getElementById('video-overlay');
-  if (!vid) return;
-  vid.play().then(function() {
-    overlay.classList.add('hidden');
-  }).catch(function(e) {
-    console.warn('Video autoplay blocked:', e);
-  });
+  if (overlay) overlay.click();
 }
 document.addEventListener('DOMContentLoaded', function() {
-  var vid = document.getElementById('site-video');
-  var overlay = document.getElementById('video-overlay');
-  if (!vid || !overlay) return;
-  vid.addEventListener('pause', function() { overlay.classList.remove('hidden'); });
-  vid.addEventListener('ended', function() { overlay.classList.remove('hidden'); });
-  vid.addEventListener('click', function() {
-    if (vid.paused) { vid.play(); overlay.classList.add('hidden'); }
-    else { vid.pause(); }
+  var vids = [];
+  document.querySelectorAll('#video-reel .video-wrapper').forEach(function(w) {
+    var vid = w.querySelector('video');
+    var overlay = w.querySelector('.video-play-overlay');
+    if (!vid || !overlay) return;
+    vids.push(vid);
+    var start = function() {
+      /* pausa los demás vídeos para que no suenen a la vez */
+      vids.forEach(function(v) { if (v !== vid) v.pause(); });
+      vid.muted = false;
+      vid.controls = true;
+      vid.play().then(function() {
+        overlay.classList.add('hidden');
+      }).catch(function(e) {
+        console.warn('Video autoplay blocked:', e);
+      });
+    };
+    var stop = function() {
+      overlay.classList.remove('hidden');
+      vid.controls = false;
+    };
+    overlay.addEventListener('click', start);
+    vid.addEventListener('pause', stop);
+    vid.addEventListener('ended', stop);
   });
 });
 
@@ -3560,7 +3623,8 @@ window.addEventListener('DOMContentLoaded', function() {
     introVid.removeAttribute('muted');
     introVid.volume = 1.0;
     introVid.currentTime = 0;
-    introVid.play();
+    var playP = introVid.play();
+    if (playP && playP.catch) playP.catch(function(){});
     startProgress();
 
     /* ← El audio de fondo arrancará en closeIntro(), DESPUÉS del video */
@@ -3786,28 +3850,20 @@ window.addEventListener('DOMContentLoaded', function() {
   var track = document.getElementById('filmstripTrack');
   if (!track) return;
 
-  /* IDs curados del folder de Drive (omitiendo HEIC/MP4) */
+  /* IDs curados del folder de Drive — solo fotos donde el director
+     es el protagonista (se retiraron grupales lejanas y duplicados) */
   var GALLERY_IDS = [
-    '19JbqNxq9VM6MdvKCfGPkukGJFCe5djb3','1ju4qka0xj3zTpvZAtU151-sn9b07GMsa',
     '1nHMpKPvpZvhpxyQrDluo9sozD9xtRnA-','14SrCOErHmePOImKYgNWNTKIcTKdVzKZf',
-    '1IToQUA-gVezu75L91VyfYekhpRhX2C2c','1VhZBSAeZIAGSpqWdoXlInaqfapaJf7RF',
-    '1sDsRlHiS0FfOXPCGkHWrB8Ko5RQd_cNu','1MfcV74qm8D9V7ReD2MNotTyL5EZ0SVnz',
-    '1KiKI1T_L0FhIb5CpOmItXqrZBQskS_io','1RfKAm7Qcb4gFQsQeEMTpJs7C1ftKZQGL',
-    '12rjhDWs55juZELtDF88-a9uNXLMBv5IO','170UXYtWSjfXzRa7ZQO1w_eFhVC_utYd9',
-    '1c1QpGprPz1C7hHlsrz2UPH3r5rD1PlPj','1jejddePJzIIfBucfeU2-EqEp6n0Pd5cw',
-    '155IrV4jmkruEV77ZoReXwEivvaAw8HVZ','1ogdOJy4E0BufCI0ypWRTbiaAVlSvMfFF',
-    '1nJmEG4gI9QfTRLVu936h19ieRN7yTSJj','11uT25ntwswK905vpWzToYslTlaNjNGo7',
+    '1VhZBSAeZIAGSpqWdoXlInaqfapaJf7RF','1sDsRlHiS0FfOXPCGkHWrB8Ko5RQd_cNu',
+    '1MfcV74qm8D9V7ReD2MNotTyL5EZ0SVnz','1KiKI1T_L0FhIb5CpOmItXqrZBQskS_io',
+    '1RfKAm7Qcb4gFQsQeEMTpJs7C1ftKZQGL','170UXYtWSjfXzRa7ZQO1w_eFhVC_utYd9',
+    '1jejddePJzIIfBucfeU2-EqEp6n0Pd5cw','1ogdOJy4E0BufCI0ypWRTbiaAVlSvMfFF',
     '150zYARzsWMXg7yrPN760sk0gueAoeRF-','17L2cZJUSaOWQbPDulxCh57HslAHDT51B',
     '1d_pv2jRccFxYcoogvynkF8Ki6O5d6QhB','1seB92AQhCCnX_Vg_rfp0yP8X77ZU1TF4',
-    '1FHzihJC0NVrxTx3dTtpX7-bmW9F3cvAe','1CgEqO-HfeATdED_CXyyMdDz5oNSfq_fR',
-    '1Pk4Bb6oYaJu89AprKvBfCiDrDx2jCRF1','1-04JHrUL8SxrEtEbucS0JKFIn2c_QxtK',
-    '1i8n8tyX-PFx6CoAmrbo7DJTjdOCnTWPE','1gObW3L9oI5KiuafL6GcutW13SwKfhxJo',
-    '1ANuazsbFfDGu983Xvl5Ha1QCmxXn7Yhj','1lnJnhHnFHXCDKgaO9Rgs4X95ybonlzWr',
+    '1FHzihJC0NVrxTx3dTtpX7-bmW9F3cvAe','1i8n8tyX-PFx6CoAmrbo7DJTjdOCnTWPE',
+    '1gObW3L9oI5KiuafL6GcutW13SwKfhxJo','1ANuazsbFfDGu983Xvl5Ha1QCmxXn7Yhj',
     '1WOODU25GiVxUuNJ7YxbfnWjmzlnvKvbq','1BrM3U6Y73ganlMIrYUBzVq7olCxDEaIT',
-    '1q539gdZUT-zW5Dveruz-IpVDiF1FnJ-Z','14Dc2hofjjiJKil2XvnLoEthbpeRb_hNN',
-    '1MJjRZcpj8vJNmj0btyXvQWrKQpwTBmjM','1uA0PmOYZagRklDD_ydz4_Q6qHf-X-7qi',
-    '1WAeC0pcNgqYjjjDj0FhB6TxR0yS3l1Cz','1JEAalJ8aEzDTrA2DAp0QmaMmge6vONDm',
-    '1k5XP5eUDCt5LtwiEoO2JCaufIAPfYtoe','1xkAaS_tPKpvDRb2UZ8jQ1oF5gz2_8FTK'
+    '1MJjRZcpj8vJNmj0btyXvQWrKQpwTBmjM','1WAeC0pcNgqYjjjDj0FhB6TxR0yS3l1Cz'
   ];
   var thumb = function(id) { return 'https://drive.google.com/thumbnail?id=' + id + '&sz=w800'; };
   var full  = function(id) { return 'https://lh3.googleusercontent.com/d/' + id + '=w2400'; };
