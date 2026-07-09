@@ -20,15 +20,15 @@
   /* ── MÁRMOL ESMERALDA & ORO ── */
   --void:    #020c06;          /* negro esmeralda profundo */
   --deep:    #041509;          /* verde oscuro profundo */
-  --panel:   rgba(4,16,8,0.84);
+  --panel:   rgba(3,13,7,0.94);
   --gold:    #c9a96e;          /* veta dorada — igual que el mármol */
   --gold2:   #f0cf8e;          /* dorado claro */
   --goldx:   rgba(201,169,110,0.13);
   --cyan:    #4dffc8;          /* esmeralda luminoso (antes cyan azul) */
   --cyanx:   rgba(77,255,200,0.08);
   --white:   #f0f7f2;          /* blanco con tono verde muy suave */
-  --text:    rgba(240,247,242,0.85);
-  --muted:   rgba(240,247,242,0.40);
+  --text:    rgba(240,247,242,0.92);
+  --muted:   rgba(240,247,242,0.64);
   --border:  rgba(201,169,110,0.20);
   --borderx: rgba(77,255,200,0.13);
   --glow:    0 0 40px rgba(201,169,110,0.18), 0 0 80px rgba(201,169,110,0.07);
@@ -60,15 +60,11 @@ a { color: inherit; text-decoration: none; }
 #vanta-bg {
   position: fixed; inset: 0; z-index: 0;
   pointer-events: none;
+  opacity: 0.55; /* red 3D sutil: decora sin competir con el texto */
+  background: radial-gradient(ellipse 80% 80% at 50% 40%, #0d3520 0%, #051a0e 50%, #020c06 100%);
 }
 
-/* ════════ SCANLINE OVERLAY ════════ */
-body::before {
-  content: '';
-  position: fixed; inset: 0; z-index: 2;
-  background: var(--scan);
-  pointer-events: none; opacity: 0.5;
-}
+/* (overlay de líneas CRT retirado — restaba nitidez al texto) */
 
 /* ════════ NOISE GRAIN ════════ */
 body::after {
@@ -107,7 +103,7 @@ body::after {
 
 .hud-label {
   font-family: 'Space Mono', monospace;
-  font-size: 0.5rem; letter-spacing: 0.5em; text-transform: uppercase; color: var(--muted);
+  font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold);
 }
 
 /* ════════════════════════════════════════════════
@@ -302,10 +298,11 @@ body::after {
 
 .hero-tagline {
   font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 400;
-  color: var(--muted); margin: 1.8rem 0;
+  color: var(--text); margin: 1.8rem 0;
   animation: fadeUp 1s 0.5s cubic-bezier(.16,1,.3,1) forwards; opacity: 0;
   border-left: 2px solid var(--gold); padding-left: 1.2rem;
   line-height: 1.6;
+  text-shadow: 0 1px 10px rgba(2,12,6,0.9), 0 0 24px rgba(2,12,6,0.8);
 }
 
 .hero-langs {
@@ -315,7 +312,7 @@ body::after {
 .lang-pill {
   border: 1px solid var(--border); padding: 0.4rem 1rem;
   display: flex; flex-direction: column; align-items: center; gap: 0.15rem;
-  background: var(--goldx); transition: all 0.3s;
+  background: rgba(3,13,7,0.88); transition: all 0.3s;
 }
 .lang-pill:hover { border-color: var(--gold); background: rgba(201,169,110,0.18); }
 .lang-pill .flag { font-size: 1.2rem; }
@@ -345,7 +342,7 @@ body::after {
 }
 .btn-gold:hover { background: var(--gold2); box-shadow: 0 0 50px rgba(201,169,110,0.5); transform: translateY(-2px); }
 .btn-ghost {
-  background: transparent; color: var(--gold);
+  background: rgba(3,13,7,0.88); color: var(--gold);
   border: 1px solid var(--border);
 }
 .btn-ghost:hover { border-color: var(--gold); background: var(--goldx); box-shadow: var(--glow); }
@@ -364,12 +361,7 @@ body::after {
   background: linear-gradient(145deg, var(--deep), var(--em1));
   position: relative; overflow: hidden;
 }
-.portrait-scan {
-  position: absolute; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(77,255,200,0.5), transparent);
-  animation: hud-scan 3s linear infinite;
-  z-index: 5; pointer-events: none;
-}
+.portrait-scan { display: none; }
 .portrait-inner img {
   width: 100%; display: block;
   filter: contrast(105%) saturate(85%);
@@ -453,7 +445,7 @@ section.alt { background: rgba(4,16,8,0.65); }
 
 .skills-panel { padding: 2rem; }
 .skill-row { margin-bottom: 1.5rem; }
-.skill-name { font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text); margin-bottom: 0.5rem; display: flex; justify-content: space-between; }
+.skill-name { font-family: 'Space Mono', monospace; font-size: 0.64rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--white); margin-bottom: 0.5rem; display: flex; justify-content: space-between; }
 .skill-name span { color: var(--gold); }
 .skill-bar { height: 2px; background: rgba(255,255,255,0.06); position: relative; }
 .skill-fill {
@@ -1110,18 +1102,7 @@ a, button, .svc-card, .g-item, .time-slot, .lang-pill, .stat-cell { cursor: poin
 }
 .btn-gold:hover::after { left: 140%; }
 
-/* Gallery item scan line */
-.g-item::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0;
-  height: 2px; z-index: 5;
-  background: linear-gradient(90deg, transparent, rgba(77,217,255,0.4), transparent);
-  transform: translateY(-100%);
-  transition: transform 0s;
-  pointer-events: none;
-}
-.g-item:hover::before {
-  animation: hud-scan 1.2s linear infinite;
-}
+/* (línea de escaneo de la galería retirada — distraía de las fotos) */
 
 
 /* ════ SECCIÓN PAGOS ════ */
@@ -2046,7 +2027,6 @@ select:focus-visible, textarea:focus-visible {
       <div class="hero-portrait-panel">
         <div class="portrait-hud bracket">
           <div class="portrait-inner" id="portraitCarousel">
-            <div class="portrait-scan"></div>
             <!-- Carrusel — set oficial de fotos -->
             <img class="portrait-slide active"
                  src="portrait-director-1.jpg"
@@ -3073,6 +3053,9 @@ select:focus-visible, textarea:focus-visible {
 <script>
 /* ── VANTA 3D — FONDO OSCURO FUTURISTA ──── */
 function initVanta() {
+  /* En móvil la red 3D satura la pantalla y tapa el texto:
+     se usa solo el gradiente esmeralda (ya definido en el CSS de #vanta-bg) */
+  if (window.innerWidth < 768) return true;
   if (typeof VANTA === 'undefined' || typeof THREE === 'undefined') {
     /* CDN aún no cargó → reintentar o usar fallback */
     return false;
@@ -3085,7 +3068,7 @@ function initVanta() {
       minHeight: 200, minWidth: 200, scale: 1.0, scaleMobile: 0.5,
       color: 0xc9a96e,        /* vetas doradas del mármol */
       backgroundColor: 0x020c06, /* negro esmeralda */
-      points: 9, maxDistance: 24, spacing: 20, showDots: true
+      points: 7, maxDistance: 20, spacing: 22, showDots: true
     });
     return true;
   } catch(e) {
