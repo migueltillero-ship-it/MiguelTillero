@@ -320,7 +320,7 @@ body::after {
 .lang-pill:hover { border-color: var(--gold); background: rgba(201,169,110,0.18); }
 .lang-pill .flag { font-size: 1.2rem; }
 .lang-pill .code { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.2em; color: var(--gold); }
-.lang-pill .lvl { font-size: 0.45rem; letter-spacing: 0.2em; color: var(--muted); }
+.lang-pill .lvl { font-size: 0.55rem; letter-spacing: 0.2em; color: var(--muted); }
 
 .hero-cta {
   display: flex; gap: 1rem; flex-wrap: wrap;
@@ -385,7 +385,7 @@ body::after {
   position: absolute; bottom: 0; left: 0; right: 0;
   background: linear-gradient(to top, rgba(2,5,16,0.95) 0%, transparent 100%);
   padding: 1.5rem 1rem 0.8rem;
-  font-family: 'Space Mono', monospace; font-size: 0.45rem;
+  font-family: 'Space Mono', monospace; font-size: 0.55rem;
   letter-spacing: 0.2em; color: var(--gold);
 }
 .portrait-data .name-tag { font-size: 0.65rem; color: var(--white); margin-bottom: 0.2rem; }
@@ -396,7 +396,7 @@ body::after {
   border: 1px solid var(--border);
   padding: 0.8rem;
   font-family: 'Space Mono', monospace;
-  font-size: 0.45rem; letter-spacing: 0.15em; line-height: 2;
+  font-size: 0.55rem; letter-spacing: 0.15em; line-height: 2;
   color: var(--muted);
   background: rgba(4,18,9,0.72); backdrop-filter: blur(12px);
 }
@@ -438,7 +438,7 @@ section.alt { background: rgba(4,16,8,0.65); }
   font-size: 2.8rem; font-weight: 300; color: var(--gold);
   display: block; line-height: 1;
 }
-.stat-lbl { font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); margin-top: 0.4rem; display: block; }
+.stat-lbl { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); margin-top: 0.4rem; display: block; }
 
 /* ════════════════════════════════════════════════
    ABOUT
@@ -759,7 +759,7 @@ section.alt { background: rgba(4,16,8,0.65); }
 }
 .c-card:hover { border-color: rgba(201,169,110,0.4); background: var(--goldx); }
 .c-icon { width: 2rem; height: 2rem; flex-shrink: 0; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 0.7rem; }
-.c-label { font-family: 'Space Mono', monospace; font-size: 0.45rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.2rem; }
+.c-label { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.2rem; }
 .c-val { font-size: 0.82rem; color: var(--text); line-height: 1.5; }
 .c-val a { color: inherit; transition: color 0.3s; }
 .c-val a:hover { color: var(--gold); }
@@ -843,8 +843,8 @@ section.alt { background: rgba(4,16,8,0.65); }
 .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
 .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--white); }
 .footer-brand em { font-style: normal; color: var(--gold); }
-.footer-tag { font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
-.footer-copy { font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.2em; color: var(--muted); text-align: center; }
+.footer-tag { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
+.footer-copy { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.2em; color: var(--muted); text-align: center; }
 .footer-langs { display: flex; gap: 0.4rem; }
 .footer-lb {
   background: none; border: 1px solid var(--border); color: var(--muted);
@@ -869,7 +869,7 @@ section.alt { background: rgba(4,16,8,0.65); }
 }
 #wa-btn:hover { transform: scale(1.1); box-shadow: 0 0 50px rgba(37,211,102,0.6); }
 #wa-lbl {
-  font-family: 'Space Mono', monospace; font-size: 0.45rem; letter-spacing: 0.2em;
+  font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.2em;
   color: #25D366; background: rgba(2,5,16,0.9); padding: 0.35rem 0.7rem;
   backdrop-filter: blur(8px); white-space: nowrap;
   opacity: 0; transform: translateX(8px); pointer-events: none;
@@ -915,6 +915,13 @@ section.alt { background: rgba(4,16,8,0.65); }
   .time-grid { grid-template-columns: repeat(2,1fr); }
   .cta-btns { flex-direction: column; }
   .footer-inner { flex-direction: column; text-align: center; }
+  /* Nav compacto: evita que el logo se encime con ES/FR/EN */
+  #nav { padding: 1rem; }
+  #nav.scrolled { padding: 0.7rem 1rem; }
+  .nav-brand { font-size: 1.02rem; letter-spacing: 0.02em; gap: 0.4rem; }
+  .nav-controls { gap: 0.35rem; }
+  .ctrl-btn { padding: 0.3rem 0.45rem; letter-spacing: 0.1em; }
+  .hamburger { width: 2rem; height: 2rem; }
 }
 
 /* ════ CURSOR PERSONALIZADO ════ */
@@ -1165,10 +1172,10 @@ a, button, .svc-card, .g-item, .time-slot, .lang-pill, .stat-cell { cursor: poin
 .pay-bank-name {
   font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: var(--white);
 }
-.pay-bank-sub { font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.3em; color: var(--muted); text-transform: uppercase; }
+.pay-bank-sub { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.3em; color: var(--muted); text-transform: uppercase; }
 
 .pay-field { margin-bottom: 1.2rem; }
-.pay-label { font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+.pay-label { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
 .pay-value-row { display: flex; align-items: center; gap: 0.6rem; }
 .pay-value {
   font-family: 'Space Mono', monospace; font-size: 0.88rem; letter-spacing: 0.12em;
@@ -1189,11 +1196,13 @@ a, button, .svc-card, .g-item, .time-slot, .lang-pill, .stat-cell { cursor: poin
 .copy-btn.copied { background: rgba(77,217,255,0.15); border-color: var(--cyan); color: var(--cyan); }
 
 /* OXXO stores list */
+.oxxo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+@media (max-width: 600px) { .oxxo-grid { grid-template-columns: 1fr; gap: 1.2rem; } }
 .stores-list {
   display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem;
 }
 .store-badge {
-  font-family: 'Space Mono', monospace; font-size: 0.42rem; letter-spacing: 0.15em;
+  font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.15em;
   text-transform: uppercase; color: var(--muted);
   border: 1px solid rgba(255,255,255,0.07); padding: 0.2rem 0.5rem;
   background: rgba(255,255,255,0.02);
@@ -1210,7 +1219,7 @@ a, button, .svc-card, .g-item, .time-slot, .lang-pill, .stat-cell { cursor: poin
   box-shadow: 0 0 20px rgba(201,169,110,0.1);
 }
 .qr-wrap-pay img { width: 90px; height: 90px; display: block; }
-.qr-info { font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.2em; color: var(--muted); line-height: 2.2; }
+.qr-info { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; color: var(--muted); line-height: 2.2; }
 .qr-info strong { color: var(--gold); display: block; font-size: 0.55rem; margin-bottom: 0.3rem; }
 
 /* Note box */
@@ -1329,7 +1338,7 @@ section::after {
 .video-meta {
   display: flex; justify-content: space-between; align-items: center;
   padding: 0.8rem 1rem 0;
-  font-family: 'Space Mono', monospace; font-size: 0.45rem;
+  font-family: 'Space Mono', monospace; font-size: 0.6rem;
   letter-spacing: 0.3em; color: var(--muted); text-transform: uppercase;
 }
 .video-meta .vtag { color: var(--gold); }
@@ -1517,7 +1526,7 @@ body.intro-active { overflow: hidden; }
 .insc-field { margin-bottom: 1.2rem; }
 .insc-field label {
   display: block; font-family: 'Space Mono', monospace;
-  font-size: 0.48rem; letter-spacing: 0.25em; text-transform: uppercase;
+  font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase;
   color: rgba(238,248,243,.5); margin-bottom: 0.5rem;
 }
 .insc-field label .req { color: var(--gold); }
@@ -1677,7 +1686,7 @@ body.intro-active { overflow: hidden; }
 /* Hint de volumen */
 .intro-vol-hint {
   margin-top: 1.2rem; display: flex; align-items: center; gap: 0.6rem;
-  font-family: 'Space Mono', monospace; font-size: 0.48rem;
+  font-family: 'Space Mono', monospace; font-size: 0.58rem;
   letter-spacing: 0.25em; text-transform: uppercase;
   color: rgba(240,247,242,0.4);
   opacity: 0; transition: opacity 1s ease 0.6s;
@@ -1936,14 +1945,14 @@ select:focus-visible, textarea:focus-visible {
 <div id="audio-player">
   <button id="audio-btn" aria-label="Música de fondo"><i class="fa fa-music"></i></button>
 </div>
-<audio id="bg-audio" loop preload="auto">
+<audio id="bg-audio" loop preload="none">
   <source src="Arrival_at_the_Terminal%20(1).mp3" type="audio/mpeg">
 </audio>
 
 <!-- WHATSAPP FLOAT -->
 <div id="wa-float">
-  <span id="wa-lbl">WhatsApp · +58 412 246 5331</span>
-  <a id="wa-btn" href="https://wa.me/584122465331?text=Hola%20Miguel%2C%20te%20contacto%20desde%20tu%20sitio%20web." target="_blank" rel="noopener" aria-label="WhatsApp">
+  <span id="wa-lbl">WhatsApp · +52 967 342 4456</span>
+  <a id="wa-btn" href="https://wa.me/529673424456?text=Hola%20Miguel%2C%20te%20contacto%20desde%20tu%20sitio%20web." target="_blank" rel="noopener" aria-label="WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
 </div>
@@ -2044,11 +2053,6 @@ select:focus-visible, textarea:focus-visible {
                  alt="Miguel Tillero — Director Général"
                  style="object-fit:cover;object-position:center top"
                  onerror="this.src='IMG-20250925-WA0034.jpg'">
-            <img class="portrait-slide"
-                 src="portrait-director-2.jpg"
-                 alt="Miguel Tillero — Pédagogue"
-                 style="object-fit:cover;object-position:center top"
-                 onerror="this.style.display='none'">
             <img class="portrait-slide"
                  src="portrait-director-3.jpg"
                  alt="Miguel Tillero — Spécialiste FLE"
@@ -2373,7 +2377,7 @@ select:focus-visible, textarea:focus-visible {
           <div class="v-corner tr"></div>
           <div class="v-corner bl"></div>
           <div class="v-corner br"></div>
-          <video class="grid-video" preload="metadata" playsinline>
+          <video class="grid-video" preload="metadata" playsinline poster="poster-alianza.jpg">
             <source src="video%20alianza.mp4" type="video/mp4">
           </video>
           <div class="video-play-overlay">
@@ -2391,7 +2395,7 @@ select:focus-visible, textarea:focus-visible {
           <div class="v-corner tr"></div>
           <div class="v-corner bl"></div>
           <div class="v-corner br"></div>
-          <video class="grid-video" preload="metadata" playsinline>
+          <video class="grid-video" preload="metadata" playsinline poster="poster-cavilam.jpg">
             <source src="video%20cavilam.mp4" type="video/mp4">
           </video>
           <div class="video-play-overlay">
@@ -2741,15 +2745,15 @@ select:focus-visible, textarea:focus-visible {
           <div class="c-card">
             <div class="c-icon"><i class="fab fa-whatsapp"></i></div>
             <div>
-              <div class="c-label">WhatsApp (VE)</div>
-              <div class="c-val"><a href="https://wa.me/584122465331" target="_blank" rel="noopener">+58 412 246 5331</a></div>
+              <div class="c-label">WhatsApp (MX)</div>
+              <div class="c-val"><a href="https://wa.me/529673424456" target="_blank" rel="noopener">+52 967 342 4456</a></div>
             </div>
           </div>
           <div class="c-card">
             <div class="c-icon"><i class="fa fa-phone"></i></div>
             <div>
-              <div class="c-label">Teléfono (MX)</div>
-              <div class="c-val"><a href="tel:+529673424456">+52 967 342 4456</a></div>
+              <div class="c-label">WhatsApp (VE)</div>
+              <div class="c-val"><a href="https://wa.me/584122465331" target="_blank" rel="noopener">+58 412 246 5331</a></div>
             </div>
           </div>
           <div class="c-card">
@@ -2771,8 +2775,7 @@ select:focus-visible, textarea:focus-visible {
           </button>
         </div>
         <div class="socials">
-          <a href="https://linkedin.com" target="_blank" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-          <a href="https://wa.me/584122465331" target="_blank" class="social-btn" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://wa.me/529673424456" target="_blank" class="social-btn" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
       </div>
     </div>
@@ -2881,7 +2884,7 @@ select:focus-visible, textarea:focus-visible {
           </div>
         </div>
 
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:start;">
+        <div class="oxxo-grid">
           <div>
             <div class="pay-field">
               <div class="pay-label">Código de depósito (Nu México)</div>
@@ -2924,7 +2927,7 @@ select:focus-visible, textarea:focus-visible {
 
     <div class="pay-note reveal" style="margin-top:2rem;">
       <i class="fa fa-circle-info"></i>
-      <p><strong>Importante:</strong> Al realizar tu pago, incluye tu <strong>nombre completo</strong> en el campo de referencia o concepto para que pueda identificar tu transferencia. Si tienes dudas, escríbeme por <a href="https://wa.me/584122465331" target="_blank" rel="noopener" style="color:var(--cyan)">WhatsApp</a> y te confirmo la recepción.</p>
+      <p><strong>Importante:</strong> Al realizar tu pago, incluye tu <strong>nombre completo</strong> en el campo de referencia o concepto para que pueda identificar tu transferencia. Si tienes dudas, escríbeme por <a href="https://wa.me/529673424456" target="_blank" rel="noopener" style="color:var(--cyan)">WhatsApp</a> y te confirmo la recepción.</p>
     </div>
 
   </div>
@@ -2940,7 +2943,7 @@ select:focus-visible, textarea:focus-visible {
         <div class="footer-brand">Miguel <em>Tillero</em></div>
         <div class="footer-tag" data-es="Especialista FLE · Gestión cultural · Formación" data-fr="Spécialiste FLE · Gestion culturelle · Formation" data-en="FLE Specialist · Cultural Management · Training">Especialista FLE · Gestión cultural · Formación</div>
       </div>
-      <p class="footer-copy">© 2025 Miguel Tillero · <span data-es="Todos los derechos reservados" data-fr="Tous droits réservés" data-en="All rights reserved">Todos los derechos reservados</span></p>
+      <p class="footer-copy">© 2026 Miguel Tillero · <span data-es="Todos los derechos reservados" data-fr="Tous droits réservés" data-en="All rights reserved">Todos los derechos reservados</span></p>
       <div class="footer-langs">
         <button class="footer-lb active" onclick="setLang('es')">ES</button>
         <button class="footer-lb" onclick="setLang('fr')">FR</button>
@@ -3255,7 +3258,7 @@ async function sendEmail(params, successId, formEl) {
       'Asunto: ' + payload.tipo
     );
     if (confirm('Hubo un problema con el formulario.\n¿Te escribo por WhatsApp?')) {
-      window.open('https://wa.me/584122465331?text=' + msg, '_blank');
+      window.open('https://wa.me/529673424456?text=' + msg, '_blank');
     }
   }
 }
