@@ -1798,6 +1798,7 @@ select:focus-visible, textarea:focus-visible {
 /* ════ CV DOWNLOAD ════ */
 .cv-download-wrap {
   display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 2.5rem;
+  grid-column: 1 / -1; /* ocupa todo el ancho dentro de la cuadrícula "Sobre mí" */
 }
 .cv-btn {
   display: inline-flex; align-items: center; gap: 0.7rem;
@@ -2019,11 +2020,14 @@ select:focus-visible, textarea:focus-visible {
               <i class="fa fa-chevron-down" style="font-size:.55rem"></i>
             </button>
             <div id="cv-drop" style="display:none;position:absolute;top:110%;left:0;min-width:220px;background:rgba(255,255,255,.96);border:1px solid rgba(201,169,110,.35);backdrop-filter:blur(16px);z-index:200;padding:.5rem 0">
-              <a href="CV%20Miguel%20Tillero%20Espanol.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
-                <span>🇻🇪</span>&nbsp; Español
+              <a href="cv-miguel-tillero-es.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
+                <span>🇲🇽</span>&nbsp; Español
               </a>
-              <a href="CVMiguelTilleroFrancais.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
+              <a href="cv-miguel-tillero-fr.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
                 <span>🇫🇷</span>&nbsp; Français
+              </a>
+              <a href="cv-miguel-tillero-en.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
+                <span>🇬🇧</span>&nbsp; English
               </a>
             </div>
           </div>
@@ -2110,15 +2114,35 @@ select:focus-visible, textarea:focus-visible {
 
       <!-- ── DESCARGA DE CV ── -->
       <div class="cv-download-wrap reveal">
-        <a href="CV%20Miguel%20Tillero%20Espanol.pdf" download class="cv-btn" target="_blank" rel="noopener">
-          <span class="cv-flag">🇻🇪</span>
+        <a href="cv-miguel-tillero-es.pdf" download class="cv-btn" target="_blank" rel="noopener">
+          <span class="cv-flag">🇲🇽</span>
           <i class="fa fa-file-pdf"></i>
-          <span data-es="Descargar CV en español" data-fr="Télécharger CV en espagnol" data-en="Download CV in Spanish">Descargar CV · Español</span>
+          <span data-es="CV completo · Español" data-fr="CV complet · Espagnol" data-en="Full CV · Spanish">CV completo · Español</span>
         </a>
-        <a href="CVMiguelTilleroFrancais.pdf" download class="cv-btn" target="_blank" rel="noopener">
+        <a href="cv-miguel-tillero-fr.pdf" download class="cv-btn" target="_blank" rel="noopener">
           <span class="cv-flag">🇫🇷</span>
           <i class="fa fa-file-pdf"></i>
-          <span data-es="Descargar CV en francés" data-fr="Télécharger CV en français" data-en="Download CV in French">Télécharger CV · Français</span>
+          <span data-es="CV completo · Francés" data-fr="CV complet · Français" data-en="Full CV · French">CV completo · Francés</span>
+        </a>
+        <a href="cv-miguel-tillero-en.pdf" download class="cv-btn" target="_blank" rel="noopener">
+          <span class="cv-flag">🇬🇧</span>
+          <i class="fa fa-file-pdf"></i>
+          <span data-es="CV completo · Inglés" data-fr="CV complet · Anglais" data-en="Full CV · English">CV completo · Inglés</span>
+        </a>
+        <a href="resumen-miguel-tillero-es.pdf" download class="cv-btn" target="_blank" rel="noopener">
+          <span class="cv-flag">🇲🇽</span>
+          <i class="fa fa-file-lines"></i>
+          <span data-es="Resumen ejecutivo · Español" data-fr="Résumé · Espagnol" data-en="Executive summary · Spanish">Resumen ejecutivo · Español</span>
+        </a>
+        <a href="resumen-miguel-tillero-fr.pdf" download class="cv-btn" target="_blank" rel="noopener">
+          <span class="cv-flag">🇫🇷</span>
+          <i class="fa fa-file-lines"></i>
+          <span data-es="Resumen ejecutivo · Francés" data-fr="Résumé · Français" data-en="Executive summary · French">Resumen ejecutivo · Francés</span>
+        </a>
+        <a href="resumen-miguel-tillero-en.pdf" download class="cv-btn" target="_blank" rel="noopener">
+          <span class="cv-flag">🇬🇧</span>
+          <i class="fa fa-file-lines"></i>
+          <span data-es="Resumen ejecutivo · Inglés" data-fr="Résumé · Anglais" data-en="Executive summary · English">Resumen ejecutivo · Inglés</span>
         </a>
       </div>
 
