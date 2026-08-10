@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Métodos de pago · Miguel Tillero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Space+Mono&family=Syne:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="i18n/i18n.js"></script>
+<style>
+:root {
+  --void: #f3f7f1; --deep: #e9f1e7; --panel: rgba(255,255,255,0.92);
+  --gold: #a5824a; --gold2: #86673a; --goldx: rgba(201,169,110,0.16);
+  --cyan: #0f8a5f; --white: #12291c;
+  --text: rgba(18,41,28,0.92); --muted: rgba(18,41,28,0.62);
+  --border: rgba(165,130,74,0.38);
+  --glow: 0 0 40px rgba(201,169,110,0.18), 0 0 80px rgba(201,169,110,0.07);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Cormorant Garamond', serif; color: var(--text);
+  background: radial-gradient(ellipse 80% 80% at 50% 40%, #ffffff 0%, #edf5ea 55%, #dfeadd 100%);
+  min-height: 100vh; padding: 2rem 1.5rem 4rem;
+}
+.container { max-width: 980px; margin: 0 auto; }
+.top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem; }
+.back-link {
+  font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--gold); text-decoration: none;
+  border: 1px solid var(--border); padding: 0.6rem 1.1rem; transition: all .3s; background: none; cursor: pointer;
+}
+.back-link:hover { background: var(--goldx); }
+.sec-head { text-align: center; margin-bottom: 2.5rem; }
+.eyebrow { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--cyan); }
+.sec-title { font-size: 2.4rem; font-weight: 300; color: var(--white); }
+.sec-title em { font-style: normal; color: var(--gold); }
+.pagos-intro { max-width: 640px; margin: 0 auto 2.5rem; text-align: center; font-size: 1.05rem; line-height: 1.7; color: var(--muted); }
+.payment-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.pay-card {
+  padding: 2rem;
+  background: rgba(255,255,255,0.86);
+  backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+  border: 1px solid var(--border);
+  position: relative; overflow: hidden;
+  transition: border-color 0.4s, box-shadow 0.4s;
+}
+.pay-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--cyan));
+  transform: scaleX(0); transform-origin: left; transition: transform 0.5s ease;
+}
+.pay-card:hover::before { transform: scaleX(1); }
+.pay-card:hover { border-color: rgba(201,169,110,0.35); box-shadow: var(--glow); }
+
+.pay-bank-logo {
+  display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.5rem;
+}
+.pay-bank-icon {
+  width: 2.5rem; height: 2.5rem; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; flex-shrink: 0; font-weight: 700;
+}
+.icon-nu   { background: #7B2BF9; color: white; }
+.icon-albo { background: #0A84FF; color: white; }
+.icon-oxxo { background: #EC0000; color: white; }
+.pay-bank-name {
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: var(--white);
+}
+.pay-bank-sub { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.3em; color: var(--muted); text-transform: uppercase; }
+
+.pay-field { margin-bottom: 1.2rem; }
+.pay-label { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+.pay-value-row { display: flex; align-items: center; gap: 0.6rem; }
+.pay-value {
+  font-family: 'Space Mono', monospace; font-size: 0.88rem; letter-spacing: 0.12em;
+  color: var(--gold); flex: 1;
+  background: rgba(201,169,110,0.05);
+  padding: 0.6rem 0.8rem;
+  border: 1px solid rgba(201,169,110,0.1);
+  word-break: break-all; line-height: 1.5;
+}
+.copy-btn {
+  width: 2.2rem; height: 2.2rem; flex-shrink: 0;
+  background: var(--goldx); border: 1px solid var(--border);
+  color: var(--gold); font-size: 0.7rem;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.3s;
+}
+.copy-btn:hover { background: rgba(201,169,110,0.2); border-color: var(--gold); }
+.copy-btn.copied { background: rgba(77,217,255,0.15); border-color: var(--cyan); color: var(--cyan); }
+
+/* OXXO stores list */
+.oxxo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+@media (max-width: 600px) { .oxxo-grid { grid-template-columns: 1fr; gap: 1.2rem; } }
+.stores-list {
+  display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem;
+}
+.store-badge {
+  font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--muted);
+  border: 1px solid rgba(18,41,28,0.15); padding: 0.2rem 0.5rem;
+  background: rgba(18,41,28,0.03);
+}
+
+/* QR section */
+.pay-qr-row {
+  display: flex; justify-content: center; margin-top: 1.5rem; padding-top: 1.2rem;
+  border-top: 1px solid rgba(201,169,110,0.08);
+  gap: 2rem; align-items: center; flex-wrap: wrap;
+}
+.qr-wrap-pay {
+  padding: 0.6rem; background: white;
+  box-shadow: 0 0 20px rgba(201,169,110,0.1);
+}
+.qr-wrap-pay img { width: 90px; height: 90px; display: block; }
+.qr-info { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; color: var(--muted); line-height: 2.2; }
+.qr-info strong { color: var(--gold); display: block; font-size: 0.55rem; margin-bottom: 0.3rem; }
+
+/* Note box */
+.pay-note {
+  margin-top: 2.5rem; padding: 1.2rem 1.5rem;
+  border: 1px solid rgba(77,217,255,0.15);
+  background: rgba(13,59,46,0.18);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  display: flex; gap: 1rem; align-items: flex-start;
+}
+.pay-note i { color: var(--cyan); flex-shrink: 0; margin-top: 2px; }
+.pay-note p { font-size: 0.82rem; color: var(--text); line-height: 1.7; }
+.pay-note strong { color: var(--cyan); }
+
+/* OXXO card spans full width on large screens */
+@media (min-width: 768px) {
+  .pay-card.full { grid-column: 1 / -1; }
+}
+
+
+
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="top-bar">
+    <a class="back-link" href="index.html">&larr; <span data-es="Volver al sitio" data-fr="Retour au site" data-en="Back to site">Volver al sitio</span></a>
+    <div style="display:flex;gap:.4rem">
+      <button class="back-link" onclick="setLangSafe('es')">ES</button>
+      <button class="back-link" onclick="setLangSafe('fr')">FR</button>
+      <button class="back-link" onclick="setLangSafe('en')">EN</button>
+    </div>
+  </div>
+<section id="pagos" class="alt z10">
+  <div class="container">
+
+    <div class="sec-head">
+      <p class="eyebrow" data-es="Para mis estudiantes" data-fr="Pour mes étudiants" data-en="For my students">Para mis estudiantes</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;" data-es="<em>Métodos</em> de pago" data-fr="<em>Moyens</em> de paiement" data-en="Payment <em>methods</em>"><em>Métodos</em> de pago</h2>
+    </div>
+
+    <div class="pagos-intro">
+      <p data-es="Si eres uno de mis estudiantes y deseas realizar el pago de tus clases, aquí encontrarás todas las opciones disponibles. Puedes transferir por CLABE desde cualquier banco mexicano o venezolano, o pagar en efectivo en tiendas de conveniencia con el código OXXO." data-fr="Si vous êtes l'un de mes étudiants, vous trouverez ici toutes les options de paiement disponibles. Vous pouvez transférer via CLABE depuis n'importe quelle banque mexicaine, ou payer en espèces avec le code OXXO." data-en="If you are one of my students and wish to pay for your classes, here are all available options. You can transfer by CLABE from any Mexican bank, or pay cash at convenience stores with the OXXO code.">Si eres uno de mis estudiantes y deseas realizar el pago de tus clases, aquí encontrarás todas las opciones disponibles. Puedes transferir por CLABE desde cualquier banco mexicano, o pagar en efectivo en tiendas de conveniencia con el código OXXO.</p>
+    </div>
+
+    <div class="payment-grid">
+
+      <!-- ── Nu México ── -->
+      <div class="pay-card">
+        <div class="pay-bank-logo">
+          <div class="pay-bank-icon icon-nu">Nu</div>
+          <div>
+            <div class="pay-bank-name">Nu México</div>
+            <div class="pay-bank-sub">Transferencia SPEI · CLABE</div>
+          </div>
+        </div>
+
+        <div class="pay-field">
+          <div class="pay-label">Beneficiario</div>
+          <div class="pay-value" style="color:var(--white); font-size:0.82rem;">Miguel David Tillero Álvarez</div>
+        </div>
+        <div class="pay-field">
+          <div class="pay-label">CLABE Interbancaria</div>
+          <div class="pay-value-row">
+            <div class="pay-value" id="clabe-nu">638180000116253075</div>
+            <button class="copy-btn" onclick="copyVal('clabe-nu', this)" title="Copiar CLABE">
+              <i class="fa fa-copy"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="pay-qr-row">
+          <div class="qr-wrap-pay">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&color=020510&bgcolor=ffffff&data=CLABE%3A638180000116253075%0ABeneficiario%3AMiguel+David+Tillero+%C3%81lvarez%0ABanco%3ANu+M%C3%A9xico"
+                 alt="QR Nu México" loading="lazy">
+          </div>
+          <div class="qr-info">
+            <strong>Escanear para pagar</strong>
+            Banco: Nu México<br>
+            CLABE: 6381 8000 0116 2530 75<br>
+            Referencia: Tu nombre completo
+          </div>
+        </div>
+      </div>
+
+      <!-- ── albo ── -->
+      <div class="pay-card">
+        <div class="pay-bank-logo">
+          <div class="pay-bank-icon icon-albo">al</div>
+          <div>
+            <div class="pay-bank-name">albo</div>
+            <div class="pay-bank-sub">Transferencia SPEI · CLABE</div>
+          </div>
+        </div>
+
+        <div class="pay-field">
+          <div class="pay-label">Beneficiario</div>
+          <div class="pay-value" style="color:var(--white); font-size:0.82rem;">Miguel David Tillero Álvarez</div>
+        </div>
+        <div class="pay-field">
+          <div class="pay-label">CLABE Interbancaria</div>
+          <div class="pay-value-row">
+            <div class="pay-value" id="clabe-albo">721180100037915995</div>
+            <button class="copy-btn" onclick="copyVal('clabe-albo', this)" title="Copiar CLABE">
+              <i class="fa fa-copy"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="pay-qr-row">
+          <div class="qr-wrap-pay">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&color=020510&bgcolor=ffffff&data=CLABE%3A721180100037915995%0ABeneficiario%3AMiguel+David+Tillero+%C3%81lvarez%0ABanco%3Aalbo"
+                 alt="QR albo" loading="lazy">
+          </div>
+          <div class="qr-info">
+            <strong>Escanear para pagar</strong>
+            Banco: albo<br>
+            CLABE: 7211 8010 0037 9159 95<br>
+            Referencia: Tu nombre completo
+          </div>
+        </div>
+      </div>
+
+      <!-- ── OXXO / Tiendas ── -->
+      <div class="pay-card full">
+        <div class="pay-bank-logo">
+          <div class="pay-bank-icon icon-oxxo"><i class="fa fa-store"></i></div>
+          <div>
+            <div class="pay-bank-name">Pago en efectivo — Tiendas de conveniencia</div>
+            <div class="pay-bank-sub">Sin tarjeta · Sin cuenta bancaria · Inmediato</div>
+          </div>
+        </div>
+
+        <div class="oxxo-grid">
+          <div>
+            <div class="pay-field">
+              <div class="pay-label">Código de depósito (Nu México)</div>
+              <div class="pay-value-row">
+                <div class="pay-value" id="cod-oxxo">5101 2532 3062 6677</div>
+                <button class="copy-btn" onclick="copyVal('cod-oxxo', this)" title="Copiar código">
+                  <i class="fa fa-copy"></i>
+                </button>
+              </div>
+            </div>
+            <div class="pay-field">
+              <div class="pay-label">Disponible en</div>
+              <div class="stores-list">
+                <span class="store-badge">OXXO</span>
+                <span class="store-badge">Soriana</span>
+                <span class="store-badge">Chedraui</span>
+                <span class="store-badge">Kiosko</span>
+                <span class="store-badge">Farmacias del Ahorro</span>
+                <span class="store-badge">Waldo's</span>
+              </div>
+            </div>
+          </div>
+          <div class="pay-qr-row" style="margin-top:0; padding-top:0; border-top:none; justify-content:flex-start;">
+            <div class="qr-wrap-pay">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&color=020510&bgcolor=ffffff&data=Código+OXXO+Nu+México%3A+5101+2532+3062+6677%0AMiguel+David+Tillero+%C3%81lvarez"
+                   alt="QR OXXO" loading="lazy">
+            </div>
+            <div class="qr-info">
+              <strong>Instrucciones OXXO</strong>
+              1. Ve a cualquier caja<br>
+              2. Di "depósito a Nu México"<br>
+              3. Proporciona el código<br>
+              4. Paga en efectivo
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /payment-grid -->
+
+    <div class="pay-note" style="margin-top:2rem;">
+      <i class="fa fa-circle-info"></i>
+      <p><strong>Importante:</strong> Al realizar tu pago, incluye tu <strong>nombre completo</strong> en el campo de referencia o concepto para que pueda identificar tu transferencia. Si tienes dudas, escríbeme por <a href="https://wa.me/529673424456" target="_blank" rel="noopener" style="color:var(--cyan)">WhatsApp</a> y te confirmo la recepción.</p>
+    </div>
+
+  </div>
+</section>
+
+
+</div>
+<script>
+function setLangSafe(l){ if (window.i18n) window.i18n.setLanguage(l); }
+function copyVal(elId, btn) {
+  var el = document.getElementById(elId);
+  if (!el) return;
+  var txt = el.textContent.replace(/\s+/g, '');
+  (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(function(){
+    btn.classList.add('copied');
+    btn.innerHTML = '<i class="fa fa-check"></i>';
+    setTimeout(function(){ btn.classList.remove('copied'); btn.innerHTML = '<i class="fa fa-copy"></i>'; }, 1600);
+  }).catch(function(){});
+}
+</script>
+</body>
+</html>

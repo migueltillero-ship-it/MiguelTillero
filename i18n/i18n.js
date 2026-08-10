@@ -36,7 +36,7 @@ const i18n = {
    */
   async loadLanguage(lang) {
     try {
-      const response = await fetch(`/i18n/${lang}.json`);
+      const response = await fetch(`${window.I18N_BASE || ''}i18n/${lang}.json`);
       if (!response.ok) {
         throw new Error(`Failed to load ${lang}.json`);
       }
