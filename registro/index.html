@@ -577,10 +577,12 @@ function confirmFlow(){
   var msg = flowSel === 'A'
     ? 'Hola ' + c.name.split(' ')[0] + ' 👋. Tu clase del ' + fmtD(s.date) + ' quedó justificada y NO se descontó de tu saldo. '
       + 'Agendamos la reposición el ' + fmtD(s.resolution.makeupDate) + ' (misma semana). Tu fecha de finalización se mantiene: '
-      + fmtD(c.projectedEnd) + '. Saldo actual: ' + remaining(c) + ' h de ' + c.totalHours + ' h. À bientôt ! — Prof. Miguel Tillero'
+      + fmtD(c.projectedEnd) + '. Saldo actual: ' + remaining(c) + ' h de ' + c.totalHours + ' h. '
+      + 'Consulta tu estado completo aquí: ' + saldoLink(c) + ' À bientôt ! — Prof. Miguel Tillero'
     : 'Hola ' + c.name.split(' ')[0] + ' 👋. Tu clase del ' + fmtD(s.date) + ' quedó justificada y NO se descontó de tu saldo. '
       + 'Como no habrá reposición esta semana, tu calendario se desplaza: nueva fecha estimada de finalización '
-      + fmtD(c.projectedEnd) + ' (antes ' + fmtD(s.resolution.prevEnd) + '). Conservas íntegras tus ' + remaining(c) + ' h. À bientôt ! — Prof. Miguel Tillero';
+      + fmtD(c.projectedEnd) + ' (antes ' + fmtD(s.resolution.prevEnd) + '). Conservas íntegras tus ' + remaining(c) + ' h. '
+      + 'Consulta tu estado completo aquí: ' + saldoLink(c) + ' À bientôt ! — Prof. Miguel Tillero';
   if (confirm('Resolución guardada.\n\n¿Enviar la notificación al alumno por WhatsApp?')) {
     window.open('https://wa.me/' + (c.phone || '') + '?text=' + encodeURIComponent(msg), '_blank');
   }
@@ -588,6 +590,22 @@ function confirmFlow(){
 }
 
 /* ══════════ COMPARTIR ══════════ */
+/* Enlace al estado de cuenta visual (saldo.html): los datos viajan en la URL */
+function b64uEncode(str){
+  var bytes = new TextEncoder().encode(str), bin = '';
+  bytes.forEach(function(b){ bin += String.fromCharCode(b); });
+  return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+function saldoLink(c){
+  var stCode = { present:'p', unjustified_absence:'u', justified_absence:'j', makeup_scheduled:'m' };
+  var ses = c.sessions.slice().sort(function(a,b){ return b.date.localeCompare(a.date); })
+    .slice(0, 8).map(function(s){ return [s.date, stCode[s.status] || s.status, s.dur]; });
+  var payload = {
+    v: 1, name: c.name, total: Number(c.totalHours), cons: consumed(c), rem: remaining(c),
+    start: c.startDate, end: c.projectedEnd, upd: todayISO(), ses: ses
+  };
+  return new URL('saldo.html', location.href).href + '?d=' + b64uEncode(JSON.stringify(payload));
+}
 function summaryText(c){
   var cons = consumed(c), rem = remaining(c);
   var lines = [
@@ -610,7 +628,10 @@ function summaryText(c){
 }
 function shareWA(cid){
   var c = getC(cid);
-  window.open('https://wa.me/' + (c.phone || '') + '?text=' + encodeURIComponent(summaryText(c)), '_blank');
+  var msg = 'Hola ' + c.name.split(' ')[0] + ' 👋. Aquí tienes tu estado de cuenta de clases actualizado — ' +
+            'saldo: ' + remaining(c) + ' h de ' + c.totalHours + ' h. Consúltalo completo aquí: ' + saldoLink(c) +
+            '\n— Prof. Miguel Tillero';
+  window.open('https://wa.me/' + (c.phone || '') + '?text=' + encodeURIComponent(msg), '_blank');
 }
 function copySummary(cid){
   var c = getC(cid);
