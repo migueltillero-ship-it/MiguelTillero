@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" data-lang="es">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -315,8 +315,11 @@ body::after {
   background: rgba(255,255,255,0.85); transition: all 0.3s;
 }
 .lang-pill:hover { border-color: var(--gold); background: rgba(201,169,110,0.18); }
-.lang-pill .flag { font-size: 1.2rem; }
-.lang-pill .code { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.2em; color: var(--gold); }
+.lang-pill .code {
+  font-family: 'Cormorant Garamond', serif; font-weight: 600;
+  font-size: 0.95rem; letter-spacing: 0.12em; color: var(--gold);
+  border: 1px solid rgba(201,169,110,0.45); padding: 0.1rem 0.5rem;
+}
 .lang-pill .lvl { font-size: 0.55rem; letter-spacing: 0.2em; color: var(--muted); }
 
 .hero-cta {
@@ -447,6 +450,17 @@ section.alt { background: rgba(13,89,58,0.05); }
 .skill-row { margin-bottom: 1.5rem; }
 .skill-name { font-family: 'Space Mono', monospace; font-size: 0.64rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--white); margin-bottom: 0.5rem; display: flex; justify-content: space-between; }
 .skill-name span { color: var(--gold); }
+.ach-list { list-style: none; margin: 0 0 1.6rem; padding: 0; }
+.ach-list li {
+  display: flex; gap: 0.7rem; align-items: baseline;
+  padding: 0.65rem 0; border-bottom: 1px solid rgba(18,41,28,0.1);
+  font-size: 0.82rem; line-height: 1.5; color: var(--muted);
+}
+.ach-list li:last-child { border-bottom: none; }
+.ach-list li strong {
+  font-family: 'Cormorant Garamond', serif; font-weight: 600;
+  font-size: 1.05rem; color: var(--gold); white-space: nowrap;
+}
 .skill-bar { height: 2px; background: rgba(18,41,28,0.14); position: relative; }
 .skill-fill {
   position: absolute; top: 0; left: 0; height: 100%;
@@ -1808,7 +1822,11 @@ select:focus-visible, textarea:focus-visible {
   transform: translateY(-2px);
 }
 .cv-btn i { font-size: 0.8rem; }
-.cv-flag { font-size: 0.85rem; }
+.cv-flag {
+  font-family: 'Cormorant Garamond', serif; font-weight: 600;
+  font-size: 0.8rem; letter-spacing: 0.15em; color: var(--gold);
+  border: 1px solid rgba(201,169,110,0.45); padding: 0.05rem 0.4rem;
+}
 
 
 /* ── CV dropdown ── */
@@ -1875,6 +1893,9 @@ select:focus-visible, textarea:focus-visible {
 }
 </script>
 
+<!-- Sistema de Internacionalización (i18n) -->
+<script src="i18n/i18n.js"></script>
+
 </head>
 <body>
 
@@ -1902,8 +1923,7 @@ select:focus-visible, textarea:focus-visible {
       <span class="enter-arrow">→</span>
     </button>
     <div class="intro-vol-hint" id="intro-vol-hint">
-      <i class="fas fa-volume-high"></i>
-      <span data-es="Con audio · sube el volumen" data-fr="Avec audio · montez le son" data-en="With audio · turn up the volume">Con audio · sube el volumen</span>
+      <span data-es="Video de bienvenida · 1 min" data-fr="Vidéo de bienvenue · 1 min" data-en="Welcome video · 1 min">Video de bienvenida · 1 min</span>
     </div>
   </div>
 
@@ -1976,13 +1996,6 @@ select:focus-visible, textarea:focus-visible {
 
 <!-- ═══ HERO ═══ -->
 <section id="hero" class="z10">
-  <div class="hud-corner hud-tl">SYS.INIT / LAT:16.73 / LON:-92.63<br>STATUS: ONLINE · v2025.1</div>
-  <div class="hud-corner hud-tr">NODE: MT-EDUCATION<br>UPTIME: 13 YRS · 5 COUNTRIES</div>
-  <div class="hud-corner hud-bl">LANG: ES / FR / EN · C1 CERTIFIED</div>
-  <div class="hud-corner hud-br">DIRECTOR GÉNÉRAL<br>ALLIANCE FRANÇAISE · SCSC</div>
-  <div class="hud-vline l"></div>
-  <div class="hud-vline r"></div>
-
   <div class="container">
     <div class="hero-inner">
       <div>
@@ -1992,19 +2005,18 @@ select:focus-visible, textarea:focus-visible {
         <h1 class="hero-name">
           Miguel
           <em>Tillero</em>
-          <div class="glitch-layer" aria-hidden="true">Miguel Tillero</div>
         </h1>
         <p class="hero-tagline" data-es="Profesor especialista en la enseñanza del francés como lengua extranjera · FLE · Gestión cultural." data-fr="Spécialiste de l'enseignement du français langue étrangère · FLE · Direction culturelle." data-en="French as a Foreign Language Specialist · FLE Teaching · Cultural Management.">
           Profesor especialista en la enseñanza del francés como lengua extranjera · FLE · Gestión cultural.
         </p>
         <div class="hero-langs">
-          <div class="lang-pill"><span class="flag">🇻🇪</span><span class="code">ES</span><span class="lvl">Nativo</span></div>
-          <div class="lang-pill"><span class="flag">🇫🇷</span><span class="code">FR</span><span class="lvl">C1</span></div>
-          <div class="lang-pill"><span class="flag">🇬🇧</span><span class="code">EN</span><span class="lvl">B1/B2</span></div>
+          <div class="lang-pill"><span class="code">ES</span><span class="lvl" data-es="Nativo" data-fr="Natif" data-en="Native">Nativo</span></div>
+          <div class="lang-pill"><span class="code">FR</span><span class="lvl">C1</span></div>
+          <div class="lang-pill"><span class="code">EN</span><span class="lvl">B1/B2</span></div>
         </div>
         <div class="hero-cta">
-          <a href="#contact" class="btn btn-gold"><i class="fa fa-envelope"></i><span data-es="Escribirme" data-fr="Me contacter" data-en="Contact me">Escribirme</span></a>
-          <button onclick="openModal('modal-clase')" class="btn btn-ghost"><i class="fa fa-graduation-cap"></i><span data-es="Clase de prueba" data-fr="Cours d'essai" data-en="Trial class">Clase de prueba</span></button>
+          <button onclick="openModal('modal-clase')" class="btn btn-gold"><i class="fa fa-graduation-cap"></i><span data-es="Clase de prueba gratuita" data-fr="Cours d'essai gratuit" data-en="Free trial class">Clase de prueba gratuita</span></button>
+          <a href="#contact" class="btn btn-ghost"><i class="fa fa-envelope"></i><span data-es="Escribirme" data-fr="Me contacter" data-en="Contact me">Escribirme</span></a>
           <!-- CV dropdown -->
           <div style="position:relative;display:inline-block" id="cv-drop-wrap">
             <button class="btn btn-ghost" onclick="document.getElementById('cv-drop').classList.toggle('open')" style="gap:.5rem">
@@ -2014,10 +2026,10 @@ select:focus-visible, textarea:focus-visible {
             </button>
             <div id="cv-drop" style="display:none;position:absolute;top:110%;left:0;min-width:220px;background:rgba(255,255,255,.96);border:1px solid rgba(201,169,110,.35);backdrop-filter:blur(16px);z-index:200;padding:.5rem 0">
               <a href="CV%20Miguel%20Tillero%20Espanol.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
-                <span>🇻🇪</span>&nbsp; Español
+                <span class="cv-flag">ES</span>&nbsp; Español
               </a>
               <a href="CVMiguelTilleroFrancais.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
-                <span>🇫🇷</span>&nbsp; Français
+                <span class="cv-flag">FR</span>&nbsp; Français
               </a>
             </div>
           </div>
@@ -2050,10 +2062,9 @@ select:focus-visible, textarea:focus-visible {
           </div>
         </div>
         <div class="hud-data-box">
-          <div class="row"><span>EXP</span><span class="val">13 YRS / 5 COUNTRIES</span></div>
-          <div class="row"><span>STATUS</span><span class="val" style="color:var(--cyan)">● ACTIVE</span></div>
-          <div class="row"><span>CERT</span><span class="val">DELF · DALF · MCL</span></div>
-          <div class="row"><span>CONTACT</span><span class="val">migueltillero@gmail.com</span></div>
+          <div class="row"><span data-es="Experiencia" data-fr="Expérience" data-en="Experience">Experiencia</span><span class="val" data-es="13 años · 5 países" data-fr="13 ans · 5 pays" data-en="13 years · 5 countries">13 años · 5 países</span></div>
+          <div class="row"><span data-es="Certificaciones" data-fr="Certifications" data-en="Certifications">Certificaciones</span><span class="val">DELF · DALF · MCL</span></div>
+          <div class="row"><span data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</span><span class="val">migueltillero@gmail.com</span></div>
         </div>
       </div>
     </div>
@@ -2083,12 +2094,14 @@ select:focus-visible, textarea:focus-visible {
       </div>
       <div class="reveal d2">
         <div class="panel bracket skills-panel">
-          <p class="hud-label" style="margin-bottom:1.5rem;">COMPETENCIAS CLAVE</p>
-          <div class="skill-row"><div class="skill-name">Pédagogie FLE <span>95%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:95%"></div></div></div>
-          <div class="skill-row"><div class="skill-name">Gestion d'équipe <span>88%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:88%"></div></div></div>
-          <div class="skill-row"><div class="skill-name">DELF/DALF <span>100%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:100%"></div></div></div>
-          <div class="skill-row"><div class="skill-name">Direction culturelle <span>90%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:90%"></div></div></div>
-          <div class="skill-row"><div class="skill-name">Traduction ES↔FR <span>92%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:92%"></div></div></div>
+          <p class="hud-label" style="margin-bottom:1.5rem;" data-es="RESULTADOS VERIFICABLES" data-fr="RÉSULTATS VÉRIFIABLES" data-en="VERIFIABLE RESULTS">RESULTADOS VERIFICABLES</p>
+          <ul class="ach-list">
+            <li><strong>+34,7%</strong> <span data-es="de crecimiento de matrícula en 3 años (AF Cuenca)" data-fr="de croissance des effectifs en 3 ans (AF Cuenca)" data-en="enrollment growth in 3 years (AF Cuenca)">de crecimiento de matrícula en 3 años (AF Cuenca)</span></li>
+            <li><strong>13</strong> <span data-es="años de trayectoria docente y directiva en 5 países" data-fr="ans de parcours pédagogique et directif dans 5 pays" data-en="years of teaching and leadership across 5 countries">años de trayectoria docente y directiva en 5 países</span></li>
+            <li><strong>DELF · DALF</strong> <span data-es="examinador-corrector habilitado y coordinador de exámenes oficiales" data-fr="examinateur-correcteur habilité et coordinateur d'examens officiels" data-en="certified examiner and official exam coordinator">examinador-corrector habilitado y coordinador de exámenes oficiales</span></li>
+            <li><strong>Direction Générale</strong> <span data-es="Alliance Française de San Cristóbal de Las Casas" data-fr="Alliance Française de San Cristóbal de Las Casas" data-en="Alliance Française of San Cristóbal de Las Casas">Alliance Française de San Cristóbal de Las Casas</span></li>
+            <li><strong>ES ↔ FR</strong> <span data-es="traductor oficial de obras pedagógicas y documentos institucionales" data-fr="traducteur officiel d'ouvrages pédagogiques et documents institutionnels" data-en="official translator of pedagogical works and institutional documents">traductor oficial de obras pedagógicas y documentos institucionales</span></li>
+          </ul>
           <div class="skill-tags">
             <span class="skill-tag">FLE / ELE</span>
             <span class="skill-tag">DELF · DALF</span>
@@ -2105,12 +2118,12 @@ select:focus-visible, textarea:focus-visible {
       <!-- ── DESCARGA DE CV ── -->
       <div class="cv-download-wrap reveal">
         <a href="CV%20Miguel%20Tillero%20Espanol.pdf" download class="cv-btn" target="_blank" rel="noopener">
-          <span class="cv-flag">🇻🇪</span>
+          <span class="cv-flag">ES</span>
           <i class="fa fa-file-pdf"></i>
           <span data-es="Descargar CV en español" data-fr="Télécharger CV en espagnol" data-en="Download CV in Spanish">Descargar CV · Español</span>
         </a>
         <a href="CVMiguelTilleroFrancais.pdf" download class="cv-btn" target="_blank" rel="noopener">
-          <span class="cv-flag">🇫🇷</span>
+          <span class="cv-flag">FR</span>
           <i class="fa fa-file-pdf"></i>
           <span data-es="Descargar CV en francés" data-fr="Télécharger CV en français" data-en="Download CV in French">Télécharger CV · Français</span>
         </a>
@@ -2503,26 +2516,26 @@ select:focus-visible, textarea:focus-visible {
         <div class="insc-row">
           <div class="insc-field">
             <label data-es="Nombre completo" data-fr="Nom complet" data-en="Full name">Nombre completo <span class="req">*</span></label>
-            <input type="text" name="nombre" required placeholder="Tu nombre y apellidos">
+            <input type="text" name="nombre" required placeholder="Tu nombre y apellidos" data-es="Tu nombre y apellidos" data-fr="Votre nom et prénoms" data-en="Your name and last name">
           </div>
           <div class="insc-field">
             <label>Email <span class="req">*</span></label>
-            <input type="email" name="email" required placeholder="tu@correo.com">
+            <input type="email" name="email" required placeholder="tu@correo.com" data-es="tu@correo.com" data-fr="vous@email.com" data-en="you@email.com">
           </div>
         </div>
         <div class="insc-row">
           <div class="insc-field">
             <label data-es="WhatsApp / Teléfono" data-fr="WhatsApp / Téléphone" data-en="WhatsApp / Phone">WhatsApp / Teléfono</label>
-            <input type="tel" name="telefono" placeholder="+52 ...">
+            <input type="tel" name="telefono" placeholder="+52 ..." data-es="+52 ..." data-fr="+33 ..." data-en="+1 ...">
           </div>
           <div class="insc-field">
             <label data-es="Edad" data-fr="Âge" data-en="Age">Edad</label>
-            <input type="text" name="edad" placeholder="Opcional">
+            <input type="text" name="edad" placeholder="Opcional" data-es="Opcional" data-fr="Optionnel" data-en="Optional">
           </div>
         </div>
         <div class="insc-field">
           <label data-es="Lugar donde vives (ciudad / zona)" data-fr="Lieu de résidence" data-en="Where you live">Lugar donde vives (ciudad / zona)</label>
-          <input type="text" name="ciudad" placeholder="Ciudad, colonia o zona">
+          <input type="text" name="ciudad" placeholder="Ciudad, colonia o zona" data-es="Ciudad, colonia o zona" data-fr="Ville, quartier ou zone" data-en="City, neighborhood or area">
         </div>
       </div>
 
@@ -2533,23 +2546,23 @@ select:focus-visible, textarea:focus-visible {
           <div class="insc-field">
             <label data-es="Nivel actual de francés" data-fr="Niveau actuel" data-en="Current level">Nivel actual de francés</label>
             <select name="nivel">
-              <option value="" disabled selected>— Selecciona —</option>
-              <option>Principiante total (A0)</option>
-              <option>Básico (A1 - A2)</option>
-              <option>Intermedio (B1 - B2)</option>
-              <option>Avanzado (C1 - C2)</option>
-              <option>No estoy seguro / Necesito evaluación</option>
+              <option value="" disabled selected data-es="— Selecciona —" data-fr="— Sélectionner —" data-en="— Select —">— Selecciona —</option>
+              <option data-es="Principiante total (A0)" data-fr="Débutant complet (A0)" data-en="Total beginner (A0)">Principiante total (A0)</option>
+              <option data-es="Básico (A1 - A2)" data-fr="Élémentaire (A1 - A2)" data-en="Elementary (A1 - A2)">Básico (A1 - A2)</option>
+              <option data-es="Intermedio (B1 - B2)" data-fr="Intermédiaire (B1 - B2)" data-en="Intermediate (B1 - B2)">Intermedio (B1 - B2)</option>
+              <option data-es="Avanzado (C1 - C2)" data-fr="Avancé (C1 - C2)" data-en="Advanced (C1 - C2)">Avanzado (C1 - C2)</option>
+              <option data-es="No estoy seguro / Necesito evaluación" data-fr="Pas sûr / Évaluation requise" data-en="Not sure / Need evaluation">No estoy seguro / Necesito evaluación</option>
             </select>
           </div>
           <div class="insc-field">
             <label data-es="Horas que deseas contratar" data-fr="Heures souhaitées" data-en="Hours wanted">Nº de horas que deseas contratar</label>
             <select name="horas">
-              <option value="" disabled selected>— Selecciona —</option>
-              <option>Paquete de 10 horas</option>
-              <option>Paquete de 20 horas</option>
-              <option>Paquete de 30 horas</option>
-              <option>Clases semanales continuas</option>
-              <option>Aún no lo sé</option>
+              <option value="" disabled selected data-es="— Selecciona —" data-fr="— Sélectionner —" data-en="— Select —">— Selecciona —</option>
+              <option data-es="Paquete de 10 horas" data-fr="Forfait de 10 heures" data-en="Package of 10 hours">Paquete de 10 horas</option>
+              <option data-es="Paquete de 20 horas" data-fr="Forfait de 20 heures" data-en="Package of 20 hours">Paquete de 20 horas</option>
+              <option data-es="Paquete de 30 horas" data-fr="Forfait de 30 heures" data-en="Package of 30 hours">Paquete de 30 horas</option>
+              <option data-es="Clases semanales continuas" data-fr="Cours hebdomadaires continus" data-en="Continuous weekly classes">Clases semanales continuas</option>
+              <option data-es="Aún no lo sé" data-fr="Je ne sais pas encore" data-en="I don't know yet">Aún no lo sé</option>
             </select>
           </div>
         </div>
@@ -2559,13 +2572,13 @@ select:focus-visible, textarea:focus-visible {
       <div class="insc-group">
         <div class="insc-legend"><i class="fa fa-clock"></i> <span data-es="Disponibilidad horaria (marca todas las que apliquen)" data-fr="Disponibilités" data-en="Availability">Disponibilidad horaria — marca todas las que apliquen</span></div>
         <div class="dispo-grid">
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Lunes a viernes - mañana"> Entre semana · Mañana</label>
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Lunes a viernes - tarde"> Entre semana · Tarde</label>
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Lunes a viernes - noche"> Entre semana · Noche</label>
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Sábado - mañana"> Sábado · Mañana</label>
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Sábado - tarde"> Sábado · Tarde</label>
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Domingo"> Domingo</label>
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Horario flexible"> Horario flexible</label>
+          <label class="dispo-option"><input type="checkbox" name="dispo" value="Lunes a viernes - mañana"> <span data-es="Entre semana · Mañana" data-fr="Entre semaine · Matin" data-en="Weekday · Morning">Entre semana · Mañana</span></label>
+          <label class="dispo-option"><input type="checkbox" name="dispo" value="Lunes a viernes - tarde"> <span data-es="Entre semana · Tarde" data-fr="Entre semaine · Après-midi" data-en="Weekday · Afternoon">Entre semana · Tarde</span></label>
+          <label class="dispo-option"><input type="checkbox" name="dispo" value="Lunes a viernes - noche"> <span data-es="Entre semana · Noche" data-fr="Entre semaine · Soirée" data-en="Weekday · Evening">Entre semana · Noche</span></label>
+          <label class="dispo-option"><input type="checkbox" name="dispo" value="Sábado - mañana"> <span data-es="Sábado · Mañana" data-fr="Samedi · Matin" data-en="Saturday · Morning">Sábado · Mañana</span></label>
+          <label class="dispo-option"><input type="checkbox" name="dispo" value="Sábado - tarde"> <span data-es="Sábado · Tarde" data-fr="Samedi · Après-midi" data-en="Saturday · Afternoon">Sábado · Tarde</span></label>
+          <label class="dispo-option"><input type="checkbox" name="dispo" value="Domingo"> <span data-es="Domingo" data-fr="Dimanche" data-en="Sunday">Domingo</span></label>
+          <label class="dispo-option"><input type="checkbox" name="dispo" value="Horario flexible"> <span data-es="Horario flexible" data-fr="Horaire flexible" data-en="Flexible schedule">Horario flexible</span></label>
         </div>
       </div>
 
@@ -2574,15 +2587,15 @@ select:focus-visible, textarea:focus-visible {
         <div class="insc-legend"><i class="fa fa-heart"></i> <span data-es="Tu motivación" data-fr="Votre motivation" data-en="Your motivation">Tu motivación</span></div>
         <div class="insc-field">
           <label data-es="¿Por qué quieres aprender francés? (motivación)" data-fr="Pourquoi le français ?" data-en="Why French?">¿Por qué quieres aprender francés? (motivación)</label>
-          <textarea name="motivacion" placeholder="Trabajo, viaje, estudios, certificación DELF/DALF, cultura, migración..."></textarea>
+          <textarea name="motivacion" placeholder="Trabajo, viaje, estudios, certificación DELF/DALF, cultura, migración..." data-es="Trabajo, viaje, estudios, certificación DELF/DALF, cultura, migración..." data-fr="Travail, voyage, études, certification DELF/DALF, culture, migration..." data-en="Work, travel, studies, DELF/DALF certification, culture, migration..."></textarea>
         </div>
         <div class="insc-field">
           <label data-es="¿Qué esperas lograr con tus clases? (expectativas)" data-fr="Vos attentes" data-en="Expectations">¿Qué esperas lograr con tus clases? (expectativas)</label>
-          <textarea name="expectativas" placeholder="Tus metas a corto y largo plazo..."></textarea>
+          <textarea name="expectativas" placeholder="Tus metas a corto y largo plazo..." data-es="Tus metas a corto y largo plazo..." data-fr="Vos objectifs à court et long terme..." data-en="Your short and long-term goals..."></textarea>
         </div>
         <div class="insc-field">
           <label data-es="¿Qué NO te gustaría de tus clases?" data-fr="Ce que vous n'aimeriez pas" data-en="What you wouldn't like">¿Qué NO te gustaría de tus clases?</label>
-          <textarea name="no_gusta" placeholder="Para evitar métodos o dinámicas que no funcionan para ti..."></textarea>
+          <textarea name="no_gusta" placeholder="Para evitar métodos o dinámicas que no funcionan para ti..." data-es="Para evitar métodos o dinámicas que no funcionan para ti..." data-fr="Pour éviter les méthodes ou dynamiques qui ne vous conviennent pas..." data-en="To avoid methods or dynamics that don't work for you..."></textarea>
         </div>
       </div>
 
@@ -2592,9 +2605,9 @@ select:focus-visible, textarea:focus-visible {
         <div class="insc-field">
           <label data-es="¿Ya has tenido una entrevista o clase de prueba conmigo?" data-fr="Entretien préalable ?" data-en="Previous interview?">¿Ya has tenido una entrevista o clase de prueba conmigo?</label>
           <div class="radio-row" style="margin-top:0.5rem">
-            <label class="radio-opt"><input type="radio" name="entrevista" value="Sí"> Sí</label>
-            <label class="radio-opt"><input type="radio" name="entrevista" value="No"> No, es la primera vez</label>
-            <label class="radio-opt"><input type="radio" name="entrevista" value="Agendada"> Tengo una agendada</label>
+            <label class="radio-opt"><input type="radio" name="entrevista" value="Primera entrevista completada"> <span data-es="Ya tuve mi primera entrevista con Miguel" data-fr="J'ai déjà eu mon premier entretien avec Miguel" data-en="I already had my first interview with Miguel">Ya tuve mi primera entrevista con Miguel</span></label>
+            <label class="radio-opt"><input type="radio" name="entrevista" value="No"> <span data-es="No, es la primera vez" data-fr="Non, c'est la première fois" data-en="No, it's the first time">No, es la primera vez</span></label>
+            <label class="radio-opt"><input type="radio" name="entrevista" value="Agendada"> <span data-es="Tengo una agendada" data-fr="J'en ai une programmée" data-en="I have one scheduled">Tengo una agendada</span></label>
           </div>
         </div>
       </div>
@@ -2604,7 +2617,7 @@ select:focus-visible, textarea:focus-visible {
         <div class="insc-legend"><i class="fa fa-pen"></i> <span data-es="Cierre" data-fr="Remarques" data-en="Closing">Para cerrar</span></div>
         <div class="insc-field">
           <label data-es="Dudas, comentarios y sugerencias" data-fr="Questions et remarques" data-en="Questions & comments">Dudas, comentarios y sugerencias</label>
-          <textarea name="comentarios" placeholder="Lo que quieras agregar..."></textarea>
+          <textarea name="comentarios" placeholder="Lo que quieras agregar..." data-es="Lo que quieras agregar..." data-fr="Tout ce que vous voulez ajouter..." data-en="Anything you want to add..."></textarea>
         </div>
       </div>
 
@@ -2614,8 +2627,8 @@ select:focus-visible, textarea:focus-visible {
       </button>
 
       <div class="insc-success" id="inscSuccess">
-        ✦ ¡Inscripción recibida! ✦<br>
-        Revisaré tus respuestas y te contactaré pronto para coordinar tu plan de clases.
+        <span data-es="✦ ¡Inscripción recibida! ✦" data-fr="✦ Inscription reçue ! ✦" data-en="✦ Enrollment received! ✦">✦ ¡Inscripción recibida! ✦</span><br>
+        <span data-es="Revisaré tus respuestas y te contactaré pronto para coordinar tu plan de clases." data-fr="Je vais examiner vos réponses et vous contacterai bientôt pour coordonner votre plan de cours." data-en="I will review your answers and contact you soon to coordinate your class plan.">Revisaré tus respuestas y te contactaré pronto para coordinar tu plan de clases.</span>
       </div>
     </form>
   </div>
@@ -2763,153 +2776,20 @@ select:focus-visible, textarea:focus-visible {
 </section>
 
 
-<!-- ═══ PAGOS ═══ -->
-<section id="pagos" class="alt z10">
+<!-- ═══ PAGOS (enlace discreto — datos bancarios en página privada no indexada) ═══ -->
+<section id="pagos" class="alt z10" style="padding-top:4rem;padding-bottom:4rem;">
   <div class="container">
-
     <div class="sec-head reveal">
       <p class="eyebrow" data-es="Para mis estudiantes" data-fr="Pour mes étudiants" data-en="For my students">Para mis estudiantes</p>
-      <h2 class="sec-title" style="margin-top:0.8rem;" data-es="<em>Métodos</em> de pago" data-fr="<em>Moyens</em> de paiement" data-en="Payment <em>methods</em>"><em>Métodos</em> de pago</h2>
+      <h2 class="sec-title" style="margin-top:0.8rem;"><em data-es="Métodos de pago" data-fr="Moyens de paiement" data-en="Payment methods">Métodos de pago</em></h2>
     </div>
-
-    <div class="pagos-intro reveal">
-      <p data-es="Si eres uno de mis estudiantes y deseas realizar el pago de tus clases, aquí encontrarás todas las opciones disponibles. Puedes transferir por CLABE desde cualquier banco mexicano o venezolano, o pagar en efectivo en tiendas de conveniencia con el código OXXO." data-fr="Si vous êtes l'un de mes étudiants, vous trouverez ici toutes les options de paiement disponibles. Vous pouvez transférer via CLABE depuis n'importe quelle banque mexicaine, ou payer en espèces avec le code OXXO." data-en="If you are one of my students and wish to pay for your classes, here are all available options. You can transfer by CLABE from any Mexican bank, or pay cash at convenience stores with the OXXO code.">Si eres uno de mis estudiantes y deseas realizar el pago de tus clases, aquí encontrarás todas las opciones disponibles. Puedes transferir por CLABE desde cualquier banco mexicano, o pagar en efectivo en tiendas de conveniencia con el código OXXO.</p>
+    <div class="pagos-intro reveal" style="text-align:center;max-width:560px;margin:0 auto;">
+      <p data-es="Por seguridad, los datos bancarios (CLABE, código OXXO) están en una página reservada para mis estudiantes." data-fr="Par sécurité, les coordonnées bancaires (CLABE, code OXXO) se trouvent sur une page réservée à mes étudiants." data-en="For security, banking details (CLABE, OXXO code) are on a page reserved for my students.">Por seguridad, los datos bancarios (CLABE, código OXXO) están en una página reservada para mis estudiantes.</p>
+      <div style="margin-top:1.5rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href="pagos.html" class="btn btn-ghost" rel="nofollow"><i class="fa fa-lock"></i><span data-es="Ver métodos de pago" data-fr="Voir les moyens de paiement" data-en="View payment methods">Ver métodos de pago</span></a>
+        <a href="https://wa.me/529673424456?text=Hola%20Miguel%2C%20%C2%BFme%20compartes%20los%20datos%20de%20pago%3F" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fab fa-whatsapp"></i><span data-es="Pedirlos por WhatsApp" data-fr="Les demander par WhatsApp" data-en="Request via WhatsApp">Pedirlos por WhatsApp</span></a>
+      </div>
     </div>
-
-    <div class="payment-grid">
-
-      <!-- ── Nu México ── -->
-      <div class="pay-card reveal d1">
-        <div class="pay-bank-logo">
-          <div class="pay-bank-icon icon-nu">Nu</div>
-          <div>
-            <div class="pay-bank-name">Nu México</div>
-            <div class="pay-bank-sub">Transferencia SPEI · CLABE</div>
-          </div>
-        </div>
-
-        <div class="pay-field">
-          <div class="pay-label">Beneficiario</div>
-          <div class="pay-value" style="color:var(--white); font-size:0.82rem;">Miguel David Tillero Álvarez</div>
-        </div>
-        <div class="pay-field">
-          <div class="pay-label">CLABE Interbancaria</div>
-          <div class="pay-value-row">
-            <div class="pay-value" id="clabe-nu">638180000116253075</div>
-            <button class="copy-btn" onclick="copyVal('clabe-nu', this)" title="Copiar CLABE">
-              <i class="fa fa-copy"></i>
-            </button>
-          </div>
-        </div>
-
-        <div class="pay-qr-row">
-          <div class="qr-wrap-pay">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&color=020510&bgcolor=ffffff&data=CLABE%3A638180000116253075%0ABeneficiario%3AMiguel+David+Tillero+%C3%81lvarez%0ABanco%3ANu+M%C3%A9xico"
-                 alt="QR Nu México" loading="lazy">
-          </div>
-          <div class="qr-info">
-            <strong>Escanear para pagar</strong>
-            Banco: Nu México<br>
-            CLABE: 6381 8000 0116 2530 75<br>
-            Referencia: Tu nombre completo
-          </div>
-        </div>
-      </div>
-
-      <!-- ── albo ── -->
-      <div class="pay-card reveal d2">
-        <div class="pay-bank-logo">
-          <div class="pay-bank-icon icon-albo">al</div>
-          <div>
-            <div class="pay-bank-name">albo</div>
-            <div class="pay-bank-sub">Transferencia SPEI · CLABE</div>
-          </div>
-        </div>
-
-        <div class="pay-field">
-          <div class="pay-label">Beneficiario</div>
-          <div class="pay-value" style="color:var(--white); font-size:0.82rem;">Miguel David Tillero Álvarez</div>
-        </div>
-        <div class="pay-field">
-          <div class="pay-label">CLABE Interbancaria</div>
-          <div class="pay-value-row">
-            <div class="pay-value" id="clabe-albo">721180100037915995</div>
-            <button class="copy-btn" onclick="copyVal('clabe-albo', this)" title="Copiar CLABE">
-              <i class="fa fa-copy"></i>
-            </button>
-          </div>
-        </div>
-
-        <div class="pay-qr-row">
-          <div class="qr-wrap-pay">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&color=020510&bgcolor=ffffff&data=CLABE%3A721180100037915995%0ABeneficiario%3AMiguel+David+Tillero+%C3%81lvarez%0ABanco%3Aalbo"
-                 alt="QR albo" loading="lazy">
-          </div>
-          <div class="qr-info">
-            <strong>Escanear para pagar</strong>
-            Banco: albo<br>
-            CLABE: 7211 8010 0037 9159 95<br>
-            Referencia: Tu nombre completo
-          </div>
-        </div>
-      </div>
-
-      <!-- ── OXXO / Tiendas ── -->
-      <div class="pay-card full reveal d3">
-        <div class="pay-bank-logo">
-          <div class="pay-bank-icon icon-oxxo"><i class="fa fa-store"></i></div>
-          <div>
-            <div class="pay-bank-name">Pago en efectivo — Tiendas de conveniencia</div>
-            <div class="pay-bank-sub">Sin tarjeta · Sin cuenta bancaria · Inmediato</div>
-          </div>
-        </div>
-
-        <div class="oxxo-grid">
-          <div>
-            <div class="pay-field">
-              <div class="pay-label">Código de depósito (Nu México)</div>
-              <div class="pay-value-row">
-                <div class="pay-value" id="cod-oxxo">5101 2532 3062 6677</div>
-                <button class="copy-btn" onclick="copyVal('cod-oxxo', this)" title="Copiar código">
-                  <i class="fa fa-copy"></i>
-                </button>
-              </div>
-            </div>
-            <div class="pay-field">
-              <div class="pay-label">Disponible en</div>
-              <div class="stores-list">
-                <span class="store-badge">OXXO</span>
-                <span class="store-badge">Soriana</span>
-                <span class="store-badge">Chedraui</span>
-                <span class="store-badge">Kiosko</span>
-                <span class="store-badge">Farmacias del Ahorro</span>
-                <span class="store-badge">Waldo's</span>
-              </div>
-            </div>
-          </div>
-          <div class="pay-qr-row" style="margin-top:0; padding-top:0; border-top:none; justify-content:flex-start;">
-            <div class="qr-wrap-pay">
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&color=020510&bgcolor=ffffff&data=Código+OXXO+Nu+México%3A+5101+2532+3062+6677%0AMiguel+David+Tillero+%C3%81lvarez"
-                   alt="QR OXXO" loading="lazy">
-            </div>
-            <div class="qr-info">
-              <strong>Instrucciones OXXO</strong>
-              1. Ve a cualquier caja<br>
-              2. Di "depósito a Nu México"<br>
-              3. Proporciona el código<br>
-              4. Paga en efectivo
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /payment-grid -->
-
-    <div class="pay-note reveal" style="margin-top:2rem;">
-      <i class="fa fa-circle-info"></i>
-      <p><strong>Importante:</strong> Al realizar tu pago, incluye tu <strong>nombre completo</strong> en el campo de referencia o concepto para que pueda identificar tu transferencia. Si tienes dudas, escríbeme por <a href="https://wa.me/529673424456" target="_blank" rel="noopener" style="color:var(--cyan)">WhatsApp</a> y te confirmo la recepción.</p>
-    </div>
-
   </div>
 </section>
 
@@ -3101,20 +2981,14 @@ function toggleMob() { document.getElementById('mobile-menu').classList.toggle('
 function closeMob()  { document.getElementById('mobile-menu').classList.remove('open'); }
 
 /* ── LANG ────────────────────────────────── */
-window.addEventListener('DOMContentLoaded', function() {
-  try { var sv = localStorage.getItem('mt_lang'); if (sv && sv !== 'es') setLang(sv); } catch(e){}
-});
-function setLang(lang) {
-  try { localStorage.setItem('mt_lang', lang); } catch(e){}
-  document.documentElement.setAttribute('data-lang', lang);
-  document.querySelectorAll('[data-' + lang + ']').forEach(el => {
-    const v = el.getAttribute('data-' + lang);
-    if (['INPUT','TEXTAREA'].includes(el.tagName)) el.placeholder = v;
-    else if (el.tagName === 'OPTION') el.text = v;
-    else el.innerHTML = v;
-  });
-  document.querySelectorAll('.ctrl-btn, .footer-lb').forEach(b =>
-    b.classList.toggle('active', b.textContent.toLowerCase() === lang));
+/* Sistema i18n cargado automáticamente desde i18n.js */
+/* setLang es delegado al sistema i18n */
+if (!window.setLang) {
+  window.setLang = function(lang) {
+    if (window.i18n) {
+      window.i18n.setLanguage(lang);
+    }
+  };
 }
 
 /* ── REVEAL ──────────────────────────────── */
@@ -3573,25 +3447,7 @@ window.addEventListener('DOMContentLoaded', function() {
     if (introEl) introEl.classList.add('fade-out');
     document.body.classList.remove('intro-active');
 
-    /* ── AUDIO DE FONDO — arranca DESPUÉS del video (fade-in suave) ── */
-    if (!window._audioStarted) {
-      var bgAudio = document.getElementById('bg-audio');
-      if (bgAudio) {
-        bgAudio.volume = 0;
-        bgAudio.play().then(function() {
-          window._audioStarted = true;
-          var ab = document.getElementById('audio-btn');
-          if (ab) ab.classList.add('playing');
-          /* Fade-in gradual en 3 segundos para no ser abrupto */
-          var vol = 0;
-          var fadeIn = setInterval(function() {
-            vol = Math.min(vol + 0.02, 0.30);
-            bgAudio.volume = vol;
-            if (vol >= 0.30) clearInterval(fadeIn);
-          }, 200);
-        }).catch(function(){});
-      }
-    }
+    /* La música de fondo NUNCA arranca sola: solo con el botón ♪ (opt-in). */
     setTimeout(function() {
       if (introEl) {
         introEl.style.display = 'none';
