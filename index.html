@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" data-lang="es">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1875,6 +1875,9 @@ select:focus-visible, textarea:focus-visible {
 }
 </script>
 
+<!-- Sistema de Internacionalización (i18n) -->
+<script src="/i18n/i18n.js"></script>
+
 </head>
 <body>
 
@@ -3101,20 +3104,14 @@ function toggleMob() { document.getElementById('mobile-menu').classList.toggle('
 function closeMob()  { document.getElementById('mobile-menu').classList.remove('open'); }
 
 /* ── LANG ────────────────────────────────── */
-window.addEventListener('DOMContentLoaded', function() {
-  try { var sv = localStorage.getItem('mt_lang'); if (sv && sv !== 'es') setLang(sv); } catch(e){}
-});
-function setLang(lang) {
-  try { localStorage.setItem('mt_lang', lang); } catch(e){}
-  document.documentElement.setAttribute('data-lang', lang);
-  document.querySelectorAll('[data-' + lang + ']').forEach(el => {
-    const v = el.getAttribute('data-' + lang);
-    if (['INPUT','TEXTAREA'].includes(el.tagName)) el.placeholder = v;
-    else if (el.tagName === 'OPTION') el.text = v;
-    else el.innerHTML = v;
-  });
-  document.querySelectorAll('.ctrl-btn, .footer-lb').forEach(b =>
-    b.classList.toggle('active', b.textContent.toLowerCase() === lang));
+/* Sistema i18n cargado automáticamente desde i18n.js */
+/* setLang es delegado al sistema i18n */
+if (!window.setLang) {
+  window.setLang = function(lang) {
+    if (window.i18n) {
+      window.i18n.setLanguage(lang);
+    }
+  };
 }
 
 /* ── REVEAL ──────────────────────────────── */

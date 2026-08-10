@@ -1,0 +1,91 @@
+{
+  "nav": {
+    "about": "Acerca de",
+    "services": "Servicios",
+    "experience": "Experiencia",
+    "testimonials": "Testimonios",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "pre": "Especialista en FLE",
+    "name": "Miguel David Tillero",
+    "lastname": "Álvarez",
+    "tagline": "Director General de la Alliance Française de San Cristóbal de Las Casas. Profesor especialista en Francés Lengua Extranjera (FLE), gestión cultural y formación. Con experiencia en Venezuela, Ecuador, México y Francia.",
+    "cta_primary": "Ver Portafolio",
+    "cta_secondary": "Descargar CV"
+  },
+  "langs": {
+    "es": "Español",
+    "en": "English",
+    "fr": "Français"
+  },
+  "stats": {
+    "years": "Años de experiencia",
+    "students": "Estudiantes formados",
+    "projects": "Proyectos ejecutados",
+    "certifications": "Certificaciones"
+  },
+  "about": {
+    "title": "Acerca de mí",
+    "intro": "Soy Miguel David Tillero Álvarez, profesor especialista en Francés Lengua Extranjera (FLE) con más de 15 años de experiencia en educación superior y formación continua.",
+    "description": "Mi formación multidisciplinaria combina pedagogía, lingüística aplicada y gestión cultural. He trabajado en instituciones educativas en Venezuela, Ecuador, México y Francia, desarrollando programas innovadores de enseñanza del francés y gestión cultural.",
+    "focus": "Mi enfoque se centra en crear experiencias de aprendizaje significativas, combinando metodologías tradicionales con tecnología educativa."
+  },
+  "skills": {
+    "title": "Competencias",
+    "teaching": "Docencia FLE",
+    "management": "Gestión Cultural",
+    "training": "Formación",
+    "technology": "Tecnología Educativa"
+  },
+  "services": {
+    "title": "Servicios",
+    "training_label": "Formación",
+    "training_desc": "Programas especializados en francés, gestión cultural y formación de formadores.",
+    "consulting_label": "Consultoría",
+    "consulting_desc": "Asesoramiento en proyectos educativos y gestión cultural.",
+    "teaching_label": "Docencia",
+    "teaching_desc": "Clases particulares y grupales de francés para todos los niveles.",
+    "cultural_label": "Eventos Culturales",
+    "cultural_desc": "Organización y dirección de eventos culturales y actividades francófonas."
+  },
+  "timeline": {
+    "title": "Experiencia",
+    "roles": {
+      "director": "Director General",
+      "professor": "Profesor",
+      "coordinator": "Coordinador"
+    }
+  },
+  "education": {
+    "title": "Educación y Certificaciones",
+    "degree_label": "Título",
+    "institution_label": "Institución",
+    "year_label": "Año"
+  },
+  "contact": {
+    "title": "Contacto",
+    "subtitle": "¿Interesado en trabajar juntos?",
+    "form_name": "Nombre",
+    "form_email": "Correo electrónico",
+    "form_phone": "Teléfono",
+    "form_city": "Ciudad",
+    "form_subject": "Asunto",
+    "form_message": "Mensaje",
+    "form_submit": "Enviar mensaje",
+    "email": "migueltillero@gmail.com",
+    "whatsapp": "WhatsApp",
+    "location": "San Cristóbal de Las Casas, Chiapas, México"
+  },
+  "footer": {
+    "copyright": "© 2024 Miguel Tillero. Todos los derechos reservados.",
+    "tagline": "Educador · Especialista en FLE · Gestor Cultural"
+  },
+  "validation": {
+    "name_required": "El nombre es requerido",
+    "email_required": "El correo electrónico es requerido",
+    "email_invalid": "Correo electrónico inválido",
+    "message_required": "El mensaje es requerido",
+    "success": "¡Mensaje enviado exitosamente!"
+  }
+}
