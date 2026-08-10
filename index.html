@@ -2506,26 +2506,26 @@ select:focus-visible, textarea:focus-visible {
         <div class="insc-row">
           <div class="insc-field">
             <label data-es="Nombre completo" data-fr="Nom complet" data-en="Full name">Nombre completo <span class="req">*</span></label>
-            <input type="text" name="nombre" required placeholder="Tu nombre y apellidos">
+            <input type="text" name="nombre" required placeholder="Tu nombre y apellidos" data-es="Tu nombre y apellidos" data-fr="Votre nom et prénoms" data-en="Your name and last name">
           </div>
           <div class="insc-field">
             <label>Email <span class="req">*</span></label>
-            <input type="email" name="email" required placeholder="tu@correo.com">
+            <input type="email" name="email" required placeholder="tu@correo.com" data-es="tu@correo.com" data-fr="vous@email.com" data-en="you@email.com">
           </div>
         </div>
         <div class="insc-row">
           <div class="insc-field">
             <label data-es="WhatsApp / Teléfono" data-fr="WhatsApp / Téléphone" data-en="WhatsApp / Phone">WhatsApp / Teléfono</label>
-            <input type="tel" name="telefono" placeholder="+52 ...">
+            <input type="tel" name="telefono" placeholder="+52 ..." data-es="+52 ..." data-fr="+33 ..." data-en="+1 ...">
           </div>
           <div class="insc-field">
             <label data-es="Edad" data-fr="Âge" data-en="Age">Edad</label>
-            <input type="text" name="edad" placeholder="Opcional">
+            <input type="text" name="edad" placeholder="Opcional" data-es="Opcional" data-fr="Optionnel" data-en="Optional">
           </div>
         </div>
         <div class="insc-field">
           <label data-es="Lugar donde vives (ciudad / zona)" data-fr="Lieu de résidence" data-en="Where you live">Lugar donde vives (ciudad / zona)</label>
-          <input type="text" name="ciudad" placeholder="Ciudad, colonia o zona">
+          <input type="text" name="ciudad" placeholder="Ciudad, colonia o zona" data-es="Ciudad, colonia o zona" data-fr="Ville, quartier ou zone" data-en="City, neighborhood or area">
         </div>
       </div>
 
@@ -2536,23 +2536,23 @@ select:focus-visible, textarea:focus-visible {
           <div class="insc-field">
             <label data-es="Nivel actual de francés" data-fr="Niveau actuel" data-en="Current level">Nivel actual de francés</label>
             <select name="nivel">
-              <option value="" disabled selected>— Selecciona —</option>
-              <option>Principiante total (A0)</option>
-              <option>Básico (A1 - A2)</option>
-              <option>Intermedio (B1 - B2)</option>
-              <option>Avanzado (C1 - C2)</option>
-              <option>No estoy seguro / Necesito evaluación</option>
+              <option value="" disabled selected data-es="— Selecciona —" data-fr="— Sélectionner —" data-en="— Select —">— Selecciona —</option>
+              <option data-es="Principiante total (A0)" data-fr="Débutant complet (A0)" data-en="Total beginner (A0)">Principiante total (A0)</option>
+              <option data-es="Básico (A1 - A2)" data-fr="Élémentaire (A1 - A2)" data-en="Elementary (A1 - A2)">Básico (A1 - A2)</option>
+              <option data-es="Intermedio (B1 - B2)" data-fr="Intermédiaire (B1 - B2)" data-en="Intermediate (B1 - B2)">Intermedio (B1 - B2)</option>
+              <option data-es="Avanzado (C1 - C2)" data-fr="Avancé (C1 - C2)" data-en="Advanced (C1 - C2)">Avanzado (C1 - C2)</option>
+              <option data-es="No estoy seguro / Necesito evaluación" data-fr="Pas sûr / Évaluation requise" data-en="Not sure / Need evaluation">No estoy seguro / Necesito evaluación</option>
             </select>
           </div>
           <div class="insc-field">
             <label data-es="Horas que deseas contratar" data-fr="Heures souhaitées" data-en="Hours wanted">Nº de horas que deseas contratar</label>
             <select name="horas">
-              <option value="" disabled selected>— Selecciona —</option>
-              <option>Paquete de 10 horas</option>
-              <option>Paquete de 20 horas</option>
-              <option>Paquete de 30 horas</option>
-              <option>Clases semanales continuas</option>
-              <option>Aún no lo sé</option>
+              <option value="" disabled selected data-es="— Selecciona —" data-fr="— Sélectionner —" data-en="— Select —">— Selecciona —</option>
+              <option data-es="Paquete de 10 horas" data-fr="Forfait de 10 heures" data-en="Package of 10 hours">Paquete de 10 horas</option>
+              <option data-es="Paquete de 20 horas" data-fr="Forfait de 20 heures" data-en="Package of 20 hours">Paquete de 20 horas</option>
+              <option data-es="Paquete de 30 horas" data-fr="Forfait de 30 heures" data-en="Package of 30 hours">Paquete de 30 horas</option>
+              <option data-es="Clases semanales continuas" data-fr="Cours hebdomadaires continus" data-en="Continuous weekly classes">Clases semanales continuas</option>
+              <option data-es="Aún no lo sé" data-fr="Je ne sais pas encore" data-en="I don't know yet">Aún no lo sé</option>
             </select>
           </div>
         </div>
@@ -2562,13 +2562,13 @@ select:focus-visible, textarea:focus-visible {
       <div class="insc-group">
         <div class="insc-legend"><i class="fa fa-clock"></i> <span data-es="Disponibilidad horaria (marca todas las que apliquen)" data-fr="Disponibilités" data-en="Availability">Disponibilidad horaria — marca todas las que apliquen</span></div>
         <div class="dispo-grid">
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Lunes a viernes - mañana"> Entre semana · Mañana</label>
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Lunes a viernes - tarde"> Entre semana · Tarde</label>
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Lunes a viernes - noche"> Entre semana · Noche</label>
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Sábado - mañana"> Sábado · Mañana</label>
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Sábado - tarde"> Sábado · Tarde</label>
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Domingo"> Domingo</label>
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Horario flexible"> Horario flexible</label>
+          <label class="dispo-option"><input type="checkbox" name="dispo" value="Lunes a viernes - mañana"> <span data-es="Entre semana · Mañana" data-fr="Entre semaine · Matin" data-en="Weekday · Morning">Entre semana · Mañana</span></label>
+          <label class="dispo-option"><input type="checkbox" name="dispo" value="Lunes a viernes - tarde"> <span data-es="Entre semana · Tarde" data-fr="Entre semaine · Après-midi" data-en="Weekday · Afternoon">Entre semana · Tarde</span></label>
+          <label class="dispo-option"><input type="checkbox" name="dispo" value="Lunes a viernes - noche"> <span data-es="Entre semana · Noche" data-fr="Entre semaine · Soirée" data-en="Weekday · Evening">Entre semana · Noche</span></label>
+          <label class="dispo-option"><input type="checkbox" name="dispo" value="Sábado - mañana"> <span data-es="Sábado · Mañana" data-fr="Samedi · Matin" data-en="Saturday · Morning">Sábado · Mañana</span></label>
+          <label class="dispo-option"><input type="checkbox" name="dispo" value="Sábado - tarde"> <span data-es="Sábado · Tarde" data-fr="Samedi · Après-midi" data-en="Saturday · Afternoon">Sábado · Tarde</span></label>
+          <label class="dispo-option"><input type="checkbox" name="dispo" value="Domingo"> <span data-es="Domingo" data-fr="Dimanche" data-en="Sunday">Domingo</span></label>
+          <label class="dispo-option"><input type="checkbox" name="dispo" value="Horario flexible"> <span data-es="Horario flexible" data-fr="Horaire flexible" data-en="Flexible schedule">Horario flexible</span></label>
         </div>
       </div>
 
@@ -2577,15 +2577,15 @@ select:focus-visible, textarea:focus-visible {
         <div class="insc-legend"><i class="fa fa-heart"></i> <span data-es="Tu motivación" data-fr="Votre motivation" data-en="Your motivation">Tu motivación</span></div>
         <div class="insc-field">
           <label data-es="¿Por qué quieres aprender francés? (motivación)" data-fr="Pourquoi le français ?" data-en="Why French?">¿Por qué quieres aprender francés? (motivación)</label>
-          <textarea name="motivacion" placeholder="Trabajo, viaje, estudios, certificación DELF/DALF, cultura, migración..."></textarea>
+          <textarea name="motivacion" placeholder="Trabajo, viaje, estudios, certificación DELF/DALF, cultura, migración..." data-es="Trabajo, viaje, estudios, certificación DELF/DALF, cultura, migración..." data-fr="Travail, voyage, études, certification DELF/DALF, culture, migration..." data-en="Work, travel, studies, DELF/DALF certification, culture, migration..."></textarea>
         </div>
         <div class="insc-field">
           <label data-es="¿Qué esperas lograr con tus clases? (expectativas)" data-fr="Vos attentes" data-en="Expectations">¿Qué esperas lograr con tus clases? (expectativas)</label>
-          <textarea name="expectativas" placeholder="Tus metas a corto y largo plazo..."></textarea>
+          <textarea name="expectativas" placeholder="Tus metas a corto y largo plazo..." data-es="Tus metas a corto y largo plazo..." data-fr="Vos objectifs à court et long terme..." data-en="Your short and long-term goals..."></textarea>
         </div>
         <div class="insc-field">
           <label data-es="¿Qué NO te gustaría de tus clases?" data-fr="Ce que vous n'aimeriez pas" data-en="What you wouldn't like">¿Qué NO te gustaría de tus clases?</label>
-          <textarea name="no_gusta" placeholder="Para evitar métodos o dinámicas que no funcionan para ti..."></textarea>
+          <textarea name="no_gusta" placeholder="Para evitar métodos o dinámicas que no funcionan para ti..." data-es="Para evitar métodos o dinámicas que no funcionan para ti..." data-fr="Pour éviter les méthodes ou dynamiques qui ne vous conviennent pas..." data-en="To avoid methods or dynamics that don't work for you..."></textarea>
         </div>
       </div>
 
@@ -2595,9 +2595,9 @@ select:focus-visible, textarea:focus-visible {
         <div class="insc-field">
           <label data-es="¿Ya has tenido una entrevista o clase de prueba conmigo?" data-fr="Entretien préalable ?" data-en="Previous interview?">¿Ya has tenido una entrevista o clase de prueba conmigo?</label>
           <div class="radio-row" style="margin-top:0.5rem">
-            <label class="radio-opt"><input type="radio" name="entrevista" value="Sí"> Sí</label>
-            <label class="radio-opt"><input type="radio" name="entrevista" value="No"> No, es la primera vez</label>
-            <label class="radio-opt"><input type="radio" name="entrevista" value="Agendada"> Tengo una agendada</label>
+            <label class="radio-opt"><input type="radio" name="entrevista" value="Sí"> <span data-es="Sí" data-fr="Oui" data-en="Yes">Sí</span></label>
+            <label class="radio-opt"><input type="radio" name="entrevista" value="No"> <span data-es="No, es la primera vez" data-fr="Non, c'est la première fois" data-en="No, it's the first time">No, es la primera vez</span></label>
+            <label class="radio-opt"><input type="radio" name="entrevista" value="Agendada"> <span data-es="Tengo una agendada" data-fr="J'en ai une programmée" data-en="I have one scheduled">Tengo una agendada</span></label>
           </div>
         </div>
       </div>
@@ -2607,7 +2607,7 @@ select:focus-visible, textarea:focus-visible {
         <div class="insc-legend"><i class="fa fa-pen"></i> <span data-es="Cierre" data-fr="Remarques" data-en="Closing">Para cerrar</span></div>
         <div class="insc-field">
           <label data-es="Dudas, comentarios y sugerencias" data-fr="Questions et remarques" data-en="Questions & comments">Dudas, comentarios y sugerencias</label>
-          <textarea name="comentarios" placeholder="Lo que quieras agregar..."></textarea>
+          <textarea name="comentarios" placeholder="Lo que quieras agregar..." data-es="Lo que quieras agregar..." data-fr="Tout ce que vous voulez ajouter..." data-en="Anything you want to add..."></textarea>
         </div>
       </div>
 
@@ -2617,8 +2617,8 @@ select:focus-visible, textarea:focus-visible {
       </button>
 
       <div class="insc-success" id="inscSuccess">
-        ✦ ¡Inscripción recibida! ✦<br>
-        Revisaré tus respuestas y te contactaré pronto para coordinar tu plan de clases.
+        <span data-es="✦ ¡Inscripción recibida! ✦" data-fr="✦ Inscription reçue ! ✦" data-en="✦ Enrollment received! ✦">✦ ¡Inscripción recibida! ✦</span><br>
+        <span data-es="Revisaré tus respuestas y te contactaré pronto para coordinar tu plan de clases." data-fr="Je vais examiner vos réponses et vous contacterai bientôt pour coordonner votre plan de cours." data-en="I will review your answers and contact you soon to coordinate your class plan.">Revisaré tus respuestas y te contactaré pronto para coordinar tu plan de clases.</span>
       </div>
     </form>
   </div>
