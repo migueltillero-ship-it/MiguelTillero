@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Ficha de inscripción · Prof. Miguel Tillero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Space+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script>window.I18N_BASE = '../';</script>
+<script src="../i18n/i18n.js"></script>
+<style>
+:root {
+  --gold: #a5824a; --gold2: #86673a; --goldx: rgba(201,169,110,0.16);
+  --cyan: #0f8a5f; --ink: #12291c;
+  --text: rgba(18,41,28,0.92); --muted: rgba(18,41,28,0.62);
+  --border: rgba(165,130,74,0.38);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Cormorant Garamond', serif; color: var(--text);
+  background: radial-gradient(ellipse 80% 80% at 50% 30%, #ffffff 0%, #edf5ea 55%, #dfeadd 100%);
+  min-height: 100vh; padding: 2rem 1rem 4rem;
+}
+.wrap { max-width: 560px; margin: 0 auto; }
+.mono { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
+h1 { font-weight: 300; font-size: 1.8rem; color: var(--ink); margin: 0.3rem 0 0.4rem; }
+h1 em { font-style: normal; color: var(--gold); }
+.lead { font-size: 0.95rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.6rem; }
+.panel { background: rgba(255,255,255,0.92); border: 1px solid var(--border); padding: 1.6rem; }
+label { display: block; font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin: 1rem 0 0.3rem; }
+input, select, textarea {
+  width: 100%; padding: 0.65rem 0.7rem; font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem; color: var(--ink); border: 1px solid rgba(18,41,28,0.2);
+  background: rgba(255,255,255,0.85);
+}
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--gold); }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1rem; }
+@media (max-width: 520px) { .grid2 { grid-template-columns: 1fr; } }
+.btn {
+  font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.18em;
+  text-transform: uppercase; border: 1px solid var(--border); background: none;
+  color: var(--gold2); padding: 0.7rem 1.2rem; cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 0.5rem; transition: all .25s;
+}
+.btn:hover { background: var(--goldx); }
+.btn.solid { background: var(--gold); color: #fff; border-color: var(--gold); }
+.btn.solid:hover { background: var(--gold2); }
+.langs { display: flex; gap: 0.4rem; justify-content: flex-end; margin-bottom: 1rem; }
+.langs button { padding: 0.35rem 0.7rem; font-size: 0.55rem; }
+.hidden { display: none !important; }
+.done-box { text-align: center; }
+.done-box i.big { font-size: 2.2rem; color: var(--cyan); margin-bottom: 0.8rem; }
+.note { font-size: 0.82rem; color: var(--muted); line-height: 1.55; border-left: 2px solid var(--gold); padding-left: 0.8rem; margin-top: 1.2rem; text-align: left; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="langs">
+    <button class="btn" onclick="setLangSafe('es')">ES</button>
+    <button class="btn" onclick="setLangSafe('fr')">FR</button>
+    <button class="btn" onclick="setLangSafe('en')">EN</button>
+  </div>
+
+  <p class="mono" data-es="Clases de francés · Prof. Miguel Tillero" data-fr="Cours de français · Prof. Miguel Tillero" data-en="French classes · Prof. Miguel Tillero">Clases de francés · Prof. Miguel Tillero</p>
+  <h1><em data-es="Ficha de inscripción" data-fr="Fiche d'inscription" data-en="Enrollment form">Ficha de inscripción</em></h1>
+  <p class="lead" data-es="Completa tus datos y el paquete de horas acordado. Al enviar, se abrirá WhatsApp con tu ficha lista para mandársela a Miguel: con un solo clic él te dará de alta en su registro de clases." data-fr="Complète tes informations et le forfait d'heures convenu. À l'envoi, WhatsApp s'ouvrira avec ta fiche prête à être envoyée à Miguel : en un clic il t'inscrira dans son registre de cours." data-en="Fill in your details and the agreed hours package. On submit, WhatsApp opens with your form ready to send to Miguel: with one click he will add you to his class register.">Completa tus datos y el paquete de horas acordado. Al enviar, se abrirá WhatsApp con tu ficha lista para mandársela a Miguel: con un solo clic él te dará de alta en su registro de clases.</p>
+
+  <form class="panel" id="alta-form">
+    <label data-es="Nombre completo *" data-fr="Nom complet *" data-en="Full name *">Nombre completo *</label>
+    <input id="a-name" required data-es-ph="Tu nombre y apellidos" data-fr-ph="Ton nom et prénom" data-en-ph="Your full name" placeholder="Tu nombre y apellidos">
+
+    <div class="grid2">
+      <div>
+        <label data-es="WhatsApp (con lada) *" data-fr="WhatsApp (avec indicatif) *" data-en="WhatsApp (with country code) *">WhatsApp (con lada) *</label>
+        <input id="a-phone" required inputmode="numeric" placeholder="52 967 123 4567">
+      </div>
+      <div>
+        <label data-es="Correo (opcional)" data-fr="E-mail (facultatif)" data-en="Email (optional)">Correo (opcional)</label>
+        <input id="a-email" type="email" placeholder="tu@correo.com">
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div>
+        <label data-es="Paquete de horas *" data-fr="Forfait d'heures *" data-en="Hours package *">Paquete de horas *</label>
+        <select id="a-hours">
+          <option value="10">10 h</option>
+          <option value="20" selected>20 h</option>
+          <option value="30">30 h</option>
+          <option value="40">40 h</option>
+        </select>
+      </div>
+      <div>
+        <label data-es="Clases por semana *" data-fr="Cours par semaine *" data-en="Classes per week *">Clases por semana *</label>
+        <select id="a-freq">
+          <option value="1">1</option>
+          <option value="2" selected>2</option>
+          <option value="3">3</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div>
+        <label data-es="Duración por clase *" data-fr="Durée par cours *" data-en="Duration per class *">Duración por clase *</label>
+        <select id="a-dur">
+          <option value="1" selected>1 h</option>
+          <option value="1.5">1.5 h</option>
+          <option value="2">2 h</option>
+        </select>
+      </div>
+      <div>
+        <label data-es="Fecha deseada de inicio" data-fr="Date de début souhaitée" data-en="Preferred start date">Fecha deseada de inicio</label>
+        <input id="a-start" type="date">
+      </div>
+    </div>
+
+    <label data-es="Comentario (nivel, horarios, objetivo…)" data-fr="Commentaire (niveau, horaires, objectif…)" data-en="Comment (level, schedule, goal…)">Comentario (nivel, horarios, objetivo…)</label>
+    <textarea id="a-notes" rows="3" data-es-ph="Opcional" data-fr-ph="Facultatif" data-en-ph="Optional" placeholder="Opcional"></textarea>
+
+    <button type="submit" class="btn solid" style="margin-top:1.4rem;width:100%;justify-content:center">
+      <i class="fab fa-whatsapp"></i>
+      <span data-es="Enviar mi ficha a Miguel" data-fr="Envoyer ma fiche à Miguel" data-en="Send my form to Miguel">Enviar mi ficha a Miguel</span>
+    </button>
+  </form>
+
+  <!-- Confirmación tras generar el enlace -->
+  <div class="panel done-box hidden" id="done">
+    <i class="fa fa-circle-check big"></i>
+    <h1 style="font-size:1.4rem" data-es="¡Ficha lista!" data-fr="Fiche prête !" data-en="Form ready!">¡Ficha lista!</h1>
+    <p class="lead" style="margin-bottom:1rem" data-es="Se abrió WhatsApp con tu ficha. Si no se abrió, usa los botones:" data-fr="WhatsApp s'est ouvert avec ta fiche. Sinon, utilise les boutons :" data-en="WhatsApp opened with your form. If it didn't, use the buttons:">Se abrió WhatsApp con tu ficha. Si no se abrió, usa los botones:</p>
+    <div style="display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap">
+      <a class="btn solid" id="wa-again" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> <span data-es="Abrir WhatsApp" data-fr="Ouvrir WhatsApp" data-en="Open WhatsApp">Abrir WhatsApp</span></a>
+      <button class="btn" onclick="copyLink()"><i class="fa fa-copy"></i> <span data-es="Copiar enlace" data-fr="Copier le lien" data-en="Copy link">Copiar enlace</span></button>
+    </div>
+    <p class="note" data-es="Tu ficha viaja dentro del enlace: no se guarda en ningún servidor. Miguel confirmará tu alta al abrirlo." data-fr="Ta fiche voyage dans le lien : rien n'est stocké sur un serveur. Miguel confirmera ton inscription en l'ouvrant." data-en="Your form travels inside the link: nothing is stored on any server. Miguel confirms your enrollment when he opens it.">Tu ficha viaja dentro del enlace: no se guarda en ningún servidor. Miguel confirmará tu alta al abrirlo.</p>
+  </div>
+</div>
+
+<script>
+var MIGUEL_WA = '529673424456';
+function setLangSafe(l){ if (window.i18n) window.i18n.setLanguage(l); }
+
+/* Los placeholders usan data-*-ph para no chocar con el i18n de texto */
+window.addEventListener('languageChanged', applyPh);
+window.addEventListener('DOMContentLoaded', applyPh);
+function applyPh(){
+  var lang = (window.i18n && window.i18n.currentLang) || 'es';
+  document.querySelectorAll('[data-' + lang + '-ph]').forEach(function(el){
+    el.placeholder = el.getAttribute('data-' + lang + '-ph');
+  });
+}
+
+function b64uEncode(str){
+  var bytes = new TextEncoder().encode(str), bin = '';
+  bytes.forEach(function(b){ bin += String.fromCharCode(b); });
+  return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+var lastLink = '';
+document.getElementById('alta-form').addEventListener('submit', function(e){
+  e.preventDefault();
+  var payload = {
+    v: 1,
+    name:  document.getElementById('a-name').value.trim(),
+    phone: document.getElementById('a-phone').value.replace(/\D/g, ''),
+    email: document.getElementById('a-email').value.trim(),
+    hours: Number(document.getElementById('a-hours').value),
+    freq:  Number(document.getElementById('a-freq').value),
+    dur:   Number(document.getElementById('a-dur').value),
+    start: document.getElementById('a-start').value,
+    notes: document.getElementById('a-notes').value.trim().slice(0, 300)
+  };
+  if (!payload.name || !payload.phone) return;
+
+  var panelUrl = new URL('index.html', location.href);
+  lastLink = panelUrl.href + '?alta=' + b64uEncode(JSON.stringify(payload));
+
+  var msg = 'Hola Miguel 👋, soy ' + payload.name + '. Completé mi ficha de inscripción (' +
+            payload.hours + ' h · ' + payload.freq + '×/semana). Ábrela aquí para darme de alta: ' + lastLink;
+  var wa = 'https://wa.me/' + MIGUEL_WA + '?text=' + encodeURIComponent(msg);
+
+  document.getElementById('wa-again').href = wa;
+  document.getElementById('alta-form').classList.add('hidden');
+  document.getElementById('done').classList.remove('hidden');
+  window.open(wa, '_blank');
+});
+
+function copyLink(){
+  navigator.clipboard.writeText(lastLink).then(function(){ alert('Enlace copiado.'); });
+}
+</script>
+</body>
+</html>
