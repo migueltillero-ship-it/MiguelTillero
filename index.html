@@ -39,6 +39,7 @@
   --em1:     #0d3b2e;          /* esmeralda medio */
   --em2:     #1a5c45;          /* esmeralda claro */
   --em3:     rgba(13,59,46,0.6);
+  --bg-grad: radial-gradient(ellipse 80% 80% at 50% 40%, #c5e0d3 0%, #b8d9ca 55%, #a5cdbf 100%);
 }
 
 /* ════════════════════════════════════════════════
@@ -61,7 +62,7 @@ a { color: inherit; text-decoration: none; }
   position: fixed; inset: 0; z-index: 0;
   pointer-events: none;
   opacity: 0.8; /* red 3D visible: los paneles blancos protegen el texto */
-  background: radial-gradient(ellipse 80% 80% at 50% 40%, #c5e0d3 0%, #b8d9ca 55%, #a5cdbf 100%);
+  background: var(--bg-grad);
 }
 
 /* (overlay de líneas CRT retirado — restaba nitidez al texto) */
@@ -229,7 +230,7 @@ body::after {
 /* Mobile */
 .mobile-menu {
   display:none; position:fixed; inset:0; z-index:950;
-  background:rgba(243,248,242,0.97); backdrop-filter:blur(30px);
+  background:rgba(255,255,255,0.97); backdrop-filter:blur(30px);
   flex-direction:column; align-items:center; justify-content:center; gap:3rem;
 }
 .mobile-menu.open { display:flex; }
@@ -1364,12 +1365,12 @@ section::after {
   background:
     linear-gradient(127deg,
       transparent 28%,
-      rgba(201,160,48,0.04) 30%, rgba(232,190,80,0.22) 31.5%,
+      rgba(201,169,110,0.04) 30%, rgba(232,190,80,0.22) 31.5%,
       rgba(248,216,120,0.3) 32%, rgba(232,190,80,0.18) 32.8%,
-      rgba(201,160,48,0.05) 34%, transparent 36%,
+      rgba(201,169,110,0.05) 34%, transparent 36%,
       transparent 60%,
-      rgba(201,160,48,0.03) 62%, rgba(232,190,80,0.16) 63%,
-      rgba(201,160,48,0.08) 64%, transparent 66%);
+      rgba(201,169,110,0.03) 62%, rgba(232,190,80,0.16) 63%,
+      rgba(201,169,110,0.08) 64%, transparent 66%);
   pointer-events: none; z-index: 1;
   animation: vein-shift 10s ease-in-out infinite alternate;
 }
@@ -1407,7 +1408,7 @@ section::after {
   background: linear-gradient(135deg, #c9a030 0%, #e8be50 35%, #f8d870 55%, #e8be50 75%, #c9a030 100%);
   background-size: 300% auto;
   -webkit-background-clip: text; background-clip: text;
-  filter: drop-shadow(0 4px 50px rgba(201,160,48,0.6));
+  filter: drop-shadow(0 4px 50px rgba(201,169,110,0.6));
   animation: shimmer 5s linear infinite;
   line-height: 1; letter-spacing: 0.08em;
   opacity: 0; transition: opacity 1s ease;
@@ -1473,7 +1474,7 @@ section::after {
 /* Logo AF esquina superior izquierda */
 .intro-logo {
   position: absolute; top: 2rem; left: 2rem; z-index: 10;
-  font-family: 'Cinzel', 'Cormorant Garamond', serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase;
   color: rgba(201,169,110,0.55);
   opacity: 0; animation: fadeIn 0.6s ease 0.5s forwards;
@@ -1506,7 +1507,7 @@ body.intro-active { overflow: hidden; }
   font-family: 'Space Mono', monospace; font-size: 0.6rem; font-weight: 700;
   letter-spacing: 0.35em; text-transform: uppercase; color: #0d3b2e;
   margin-bottom: 1rem; padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(201,160,48,.15);
+  border-bottom: 1px solid rgba(201,169,110,.15);
   display: flex; align-items: center; gap: 0.6rem;
 }
 .insc-legend i { font-size: 0.7rem; }
@@ -1520,7 +1521,7 @@ body.intro-active { overflow: hidden; }
 .insc-field label .req { color: var(--gold); }
 .insc-field input, .insc-field textarea, .insc-field select {
   width: 100%; background: rgba(18,41,28,.04);
-  border: none; border-bottom: 1px solid rgba(201,160,48,.2);
+  border: none; border-bottom: 1px solid rgba(201,169,110,.2);
   padding: 0.7rem 0; color: var(--white);
   font-family: 'Syne', sans-serif; font-size: 0.88rem;
   outline: none; transition: border-color 0.3s; -webkit-appearance: none;
@@ -1528,7 +1529,7 @@ body.intro-active { overflow: hidden; }
 .insc-field select { cursor: pointer; }
 .insc-field select option { background: #ffffff; color: var(--white); }
 .insc-field input:focus, .insc-field textarea:focus, .insc-field select:focus {
-  border-color: var(--gold); background: rgba(201,160,48,.03);
+  border-color: var(--gold); background: rgba(201,169,110,.03);
 }
 .insc-field textarea { resize: vertical; min-height: 80px; }
 .insc-field input::placeholder, .insc-field textarea::placeholder { color: rgba(18,41,28,.38); }
@@ -1537,13 +1538,13 @@ body.intro-active { overflow: hidden; }
 .dispo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 0.6rem; }
 .dispo-option {
   display: flex; align-items: center; gap: 0.6rem;
-  padding: 0.7rem 1rem; border: 1px solid rgba(201,160,48,.18);
+  padding: 0.7rem 1rem; border: 1px solid rgba(201,169,110,.18);
   background: rgba(255,255,255,.02); cursor: pointer; transition: all 0.3s;
   font-size: 0.78rem; color: rgba(18,41,28,.85);
 }
-.dispo-option:hover { border-color: var(--gold); background: rgba(201,160,48,.06); }
+.dispo-option:hover { border-color: var(--gold); background: rgba(201,169,110,.06); }
 .dispo-option input { width: auto; margin: 0; accent-color: var(--gold); cursor: pointer; }
-.dispo-option.checked { border-color: var(--gold); background: rgba(201,160,48,.12); }
+.dispo-option.checked { border-color: var(--gold); background: rgba(201,169,110,.12); }
 
 /* Radio inline */
 .radio-row { display: flex; gap: 1.5rem; flex-wrap: wrap; }
@@ -1558,10 +1559,10 @@ body.intro-active { overflow: hidden; }
   letter-spacing: 0.35em; text-transform: uppercase; font-weight: 700;
   transition: all 0.3s; position: relative; overflow: hidden;
 }
-.insc-submit:hover { box-shadow: 0 0 40px rgba(201,160,48,.4); transform: translateY(-2px); }
+.insc-submit:hover { box-shadow: 0 0 40px rgba(201,169,110,.4); transform: translateY(-2px); }
 .insc-success {
   display: none; margin-top: 1.5rem; padding: 1.5rem;
-  border: 1px solid rgba(201,160,48,.4); background: rgba(201,160,48,.08);
+  border: 1px solid rgba(201,169,110,.4); background: rgba(201,169,110,.08);
   text-align: center; font-family: 'Space Mono', monospace;
   font-size: 0.6rem; letter-spacing: 0.2em; color: var(--gold-lt); line-height: 1.8;
 }
@@ -1574,7 +1575,7 @@ body.intro-active { overflow: hidden; }
   position: fixed; top: 0; left: 0; height: 3px; width: 0%;
   background: linear-gradient(90deg, var(--gold), var(--gold2), var(--cyan));
   z-index: 9000; transition: width 0.1s ease;
-  box-shadow: 0 0 12px rgba(201,160,48,0.5);
+  box-shadow: 0 0 12px rgba(201,169,110,0.5);
 }
 /* ════ DIVISOR DE SECCIÓN ════ */
 .sec-divider {
@@ -1584,15 +1585,15 @@ body.intro-active { overflow: hidden; }
 }
 .sec-divider .line {
   flex: 1; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(201,160,48,0.4));
+  background: linear-gradient(90deg, transparent, rgba(201,169,110,0.4));
 }
 .sec-divider .line.right {
-  background: linear-gradient(90deg, rgba(201,160,48,0.4), transparent);
+  background: linear-gradient(90deg, rgba(201,169,110,0.4), transparent);
 }
 .sec-divider .diamond {
   width: 8px; height: 8px; transform: rotate(45deg);
   background: var(--gold); flex-shrink: 0;
-  box-shadow: 0 0 12px rgba(201,160,48,0.5);
+  box-shadow: 0 0 12px rgba(201,169,110,0.5);
 }
 /* ════ BOTÓN VOLVER ARRIBA ════ */
 #back-top {
@@ -1605,7 +1606,7 @@ body.intro-active { overflow: hidden; }
   transition: all 0.4s; box-shadow: 0 4px 20px rgba(30,60,40,0.15);
 }
 #back-top.show { opacity: 1; pointer-events: auto; }
-#back-top:hover { background: rgba(201,160,48,0.15); border-color: var(--gold); transform: translateY(-3px); }
+#back-top:hover { background: rgba(201,169,110,0.15); border-color: var(--gold); transform: translateY(-3px); }
 
 
 /* ── SKILL TAGS ── */
@@ -1793,7 +1794,7 @@ select:focus-visible, textarea:focus-visible {
   background: none; border: none; padding: 0;
 }
 .star-select .st:hover { transform: scale(1.15); }
-.star-select .st.on { color: var(--gold); text-shadow: 0 0 12px rgba(201,160,48,.5); }
+.star-select .st.on { color: var(--gold); text-shadow: 0 0 12px rgba(201,169,110,.5); }
 
 
 /* ════ CV DOWNLOAD ════ */
@@ -1842,7 +1843,7 @@ select:focus-visible, textarea:focus-visible {
 
 <!-- ═══ SEO EJECUTIVO ═══ -->
 <link rel="canonical" href="https://migueltillero-ship-it.github.io/MiguelTillero/">
-<meta name="theme-color" content="#b9dcc7">
+<meta name="theme-color" content="#bcdcc9">
 <meta name="robots" content="index, follow">
 <meta name="author" content="Miguel David Tillero Álvarez">
 
@@ -2470,21 +2471,21 @@ select:focus-visible, textarea:focus-visible {
 
         <div class="insc-row">
           <div class="insc-field">
-            <label data-es="Tu nombre" data-fr="Votre nom" data-en="Your name">Tu nombre <span class="req">*</span></label>
+            <label for="tf-name" data-es="Tu nombre" data-fr="Votre nom" data-en="Your name">Tu nombre <span class="req">*</span></label>
             <input type="text" id="tf-name" required placeholder="Nombre o iniciales">
           </div>
           <div class="insc-field">
-            <label>Email <span class="req">*</span></label>
+            <label for="tf-email">Email <span class="req">*</span></label>
             <input type="email" id="tf-email" required placeholder="tu@correo.com">
           </div>
         </div>
         <div class="insc-field">
-          <label data-es="Curso / servicio recibido" data-fr="Cours / service reçu" data-en="Course / service received">Curso / servicio recibido</label>
+          <label for="tf-role" data-es="Curso / servicio recibido" data-fr="Cours / service reçu" data-en="Course / service received">Curso / servicio recibido</label>
           <input type="text" id="tf-role" placeholder="Ej: DELF B2, clases A1, asesoría pedagógica...">
         </div>
         <div class="insc-field">
-          <label data-es="Tu calificación" data-fr="Votre note" data-en="Your rating">Tu calificación</label>
-          <div class="star-select" id="tf-stars">
+          <label id="lbl-rating" data-es="Tu calificación" data-fr="Votre note" data-en="Your rating">Tu calificación</label>
+          <div role="group" aria-labelledby="lbl-rating" class="star-select" id="tf-stars">
             <button type="button" class="st" data-v="1">★</button>
             <button type="button" class="st" data-v="2">★</button>
             <button type="button" class="st" data-v="3">★</button>
@@ -2493,7 +2494,7 @@ select:focus-visible, textarea:focus-visible {
           </div>
         </div>
         <div class="insc-field">
-          <label data-es="Tu testimonio" data-fr="Votre témoignage" data-en="Your testimonial">Tu testimonio <span class="req">*</span></label>
+          <label for="tf-text" data-es="Tu testimonio" data-fr="Votre témoignage" data-en="Your testimonial">Tu testimonio <span class="req">*</span></label>
           <textarea id="tf-text" required placeholder="Cuéntanos tu experiencia..." style="min-height:100px"></textarea>
         </div>
         <button type="submit" class="insc-submit" id="tf-submit">
@@ -2533,27 +2534,27 @@ select:focus-visible, textarea:focus-visible {
         <div class="insc-legend"><i class="fa fa-user"></i> <span data-es="Datos personales" data-fr="Données personnelles" data-en="Personal details">Datos personales</span></div>
         <div class="insc-row">
           <div class="insc-field">
-            <label data-es="Nombre completo" data-fr="Nom complet" data-en="Full name">Nombre completo <span class="req">*</span></label>
-            <input type="text" name="nombre" required placeholder="Tu nombre y apellidos">
+            <label for="f-nombre" data-es="Nombre completo" data-fr="Nom complet" data-en="Full name">Nombre completo <span class="req">*</span></label>
+            <input id="f-nombre" type="text" name="nombre" required placeholder="Tu nombre y apellidos">
           </div>
           <div class="insc-field">
-            <label>Email <span class="req">*</span></label>
-            <input type="email" name="email" required placeholder="tu@correo.com">
+            <label for="f-email-2">Email <span class="req">*</span></label>
+            <input id="f-email-2" type="email" name="email" required placeholder="tu@correo.com">
           </div>
         </div>
         <div class="insc-row">
           <div class="insc-field">
-            <label data-es="WhatsApp / Teléfono" data-fr="WhatsApp / Téléphone" data-en="WhatsApp / Phone">WhatsApp / Teléfono</label>
-            <input type="tel" name="telefono" placeholder="+52 ...">
+            <label for="f-telefono" data-es="WhatsApp / Teléfono" data-fr="WhatsApp / Téléphone" data-en="WhatsApp / Phone">WhatsApp / Teléfono</label>
+            <input id="f-telefono" type="tel" name="telefono" placeholder="+52 ...">
           </div>
           <div class="insc-field">
-            <label data-es="Edad" data-fr="Âge" data-en="Age">Edad</label>
-            <input type="text" name="edad" placeholder="Opcional">
+            <label for="f-edad" data-es="Edad" data-fr="Âge" data-en="Age">Edad</label>
+            <input id="f-edad" type="text" name="edad" placeholder="Opcional">
           </div>
         </div>
         <div class="insc-field">
-          <label data-es="Lugar donde vives (ciudad / zona)" data-fr="Lieu de résidence" data-en="Where you live">Lugar donde vives (ciudad / zona)</label>
-          <input type="text" name="ciudad" placeholder="Ciudad, colonia o zona">
+          <label for="f-ciudad" data-es="Lugar donde vives (ciudad / zona)" data-fr="Lieu de résidence" data-en="Where you live">Lugar donde vives (ciudad / zona)</label>
+          <input id="f-ciudad" type="text" name="ciudad" placeholder="Ciudad, colonia o zona">
         </div>
       </div>
 
@@ -2562,8 +2563,8 @@ select:focus-visible, textarea:focus-visible {
         <div class="insc-legend"><i class="fa fa-graduation-cap"></i> <span data-es="Tu nivel y objetivos" data-fr="Niveau et objectifs" data-en="Level & goals">Tu nivel y objetivos</span></div>
         <div class="insc-row">
           <div class="insc-field">
-            <label data-es="Nivel actual de francés" data-fr="Niveau actuel" data-en="Current level">Nivel actual de francés</label>
-            <select name="nivel">
+            <label for="f-nivel" data-es="Nivel actual de francés" data-fr="Niveau actuel" data-en="Current level">Nivel actual de francés</label>
+            <select id="f-nivel" name="nivel">
               <option value="" disabled selected>— Selecciona —</option>
               <option>Principiante total (A0)</option>
               <option>Básico (A1 - A2)</option>
@@ -2573,8 +2574,8 @@ select:focus-visible, textarea:focus-visible {
             </select>
           </div>
           <div class="insc-field">
-            <label data-es="Horas que deseas contratar" data-fr="Heures souhaitées" data-en="Hours wanted">Nº de horas que deseas contratar</label>
-            <select name="horas">
+            <label for="f-horas" data-es="Horas que deseas contratar" data-fr="Heures souhaitées" data-en="Hours wanted">Nº de horas que deseas contratar</label>
+            <select id="f-horas" name="horas">
               <option value="" disabled selected>— Selecciona —</option>
               <option>Paquete de 10 horas</option>
               <option>Paquete de 20 horas</option>
@@ -2604,16 +2605,16 @@ select:focus-visible, textarea:focus-visible {
       <div class="insc-group">
         <div class="insc-legend"><i class="fa fa-heart"></i> <span data-es="Tu motivación" data-fr="Votre motivation" data-en="Your motivation">Tu motivación</span></div>
         <div class="insc-field">
-          <label data-es="¿Por qué quieres aprender francés? (motivación)" data-fr="Pourquoi le français ?" data-en="Why French?">¿Por qué quieres aprender francés? (motivación)</label>
-          <textarea name="motivacion" placeholder="Trabajo, viaje, estudios, certificación DELF/DALF, cultura, migración..."></textarea>
+          <label for="f-motivacion" data-es="¿Por qué quieres aprender francés? (motivación)" data-fr="Pourquoi le français ?" data-en="Why French?">¿Por qué quieres aprender francés? (motivación)</label>
+          <textarea id="f-motivacion" name="motivacion" placeholder="Trabajo, viaje, estudios, certificación DELF/DALF, cultura, migración..."></textarea>
         </div>
         <div class="insc-field">
-          <label data-es="¿Qué esperas lograr con tus clases? (expectativas)" data-fr="Vos attentes" data-en="Expectations">¿Qué esperas lograr con tus clases? (expectativas)</label>
-          <textarea name="expectativas" placeholder="Tus metas a corto y largo plazo..."></textarea>
+          <label for="f-expectativas" data-es="¿Qué esperas lograr con tus clases? (expectativas)" data-fr="Vos attentes" data-en="Expectations">¿Qué esperas lograr con tus clases? (expectativas)</label>
+          <textarea id="f-expectativas" name="expectativas" placeholder="Tus metas a corto y largo plazo..."></textarea>
         </div>
         <div class="insc-field">
-          <label data-es="¿Qué NO te gustaría de tus clases?" data-fr="Ce que vous n'aimeriez pas" data-en="What you wouldn't like">¿Qué NO te gustaría de tus clases?</label>
-          <textarea name="no_gusta" placeholder="Para evitar métodos o dinámicas que no funcionan para ti..."></textarea>
+          <label for="f-no_gusta" data-es="¿Qué NO te gustaría de tus clases?" data-fr="Ce que vous n'aimeriez pas" data-en="What you wouldn't like">¿Qué NO te gustaría de tus clases?</label>
+          <textarea id="f-no_gusta" name="no_gusta" placeholder="Para evitar métodos o dinámicas que no funcionan para ti..."></textarea>
         </div>
       </div>
 
@@ -2621,8 +2622,8 @@ select:focus-visible, textarea:focus-visible {
       <div class="insc-group">
         <div class="insc-legend"><i class="fa fa-comments"></i> <span data-es="Contacto previo" data-fr="Contact préalable" data-en="Previous contact">Contacto previo</span></div>
         <div class="insc-field">
-          <label data-es="¿Ya has tenido una entrevista o clase de prueba conmigo?" data-fr="Entretien préalable ?" data-en="Previous interview?">¿Ya has tenido una entrevista o clase de prueba conmigo?</label>
-          <div class="radio-row" style="margin-top:0.5rem">
+          <label id="lbl-entrevista" data-es="¿Ya has tenido una entrevista o clase de prueba conmigo?" data-fr="Entretien préalable ?" data-en="Previous interview?">¿Ya has tenido una entrevista o clase de prueba conmigo?</label>
+          <div role="group" aria-labelledby="lbl-entrevista" class="radio-row" style="margin-top:0.5rem">
             <label class="radio-opt"><input type="radio" name="entrevista" value="Sí"> Sí</label>
             <label class="radio-opt"><input type="radio" name="entrevista" value="No"> No, es la primera vez</label>
             <label class="radio-opt"><input type="radio" name="entrevista" value="Agendada"> Tengo una agendada</label>
@@ -2634,8 +2635,8 @@ select:focus-visible, textarea:focus-visible {
       <div class="insc-group">
         <div class="insc-legend"><i class="fa fa-pen"></i> <span data-es="Cierre" data-fr="Remarques" data-en="Closing">Para cerrar</span></div>
         <div class="insc-field">
-          <label data-es="Dudas, comentarios y sugerencias" data-fr="Questions et remarques" data-en="Questions & comments">Dudas, comentarios y sugerencias</label>
-          <textarea name="comentarios" placeholder="Lo que quieras agregar..."></textarea>
+          <label for="f-comentarios" data-es="Dudas, comentarios y sugerencias" data-fr="Questions et remarques" data-en="Questions & comments">Dudas, comentarios y sugerencias</label>
+          <textarea id="f-comentarios" name="comentarios" placeholder="Lo que quieras agregar..."></textarea>
         </div>
       </div>
 
@@ -2702,29 +2703,29 @@ select:focus-visible, textarea:focus-visible {
         <form id="contact-form" novalidate>
           <div class="form-row">
             <div class="form-field">
-              <label data-es="Nombre *" data-fr="Nom *" data-en="Name *">Nombre *</label>
+              <label for="f-name" data-es="Nombre *" data-fr="Nom *" data-en="Name *">Nombre *</label>
               <input type="text" name="name" id="f-name" placeholder="Tu nombre">
               <div class="form-error" id="e-name">Campo requerido.</div>
             </div>
             <div class="form-field">
-              <label>Email *</label>
+              <label for="f-email">Email *</label>
               <input type="email" name="email" id="f-email" placeholder="tu@correo.com">
               <div class="form-error" id="e-email">Email inválido.</div>
             </div>
           </div>
           <div class="form-row">
             <div class="form-field">
-              <label>WhatsApp / Tel</label>
-              <input type="tel" name="telefono" placeholder="+52 xxx xxx xxxx">
+              <label for="f-telefono-2">WhatsApp / Tel</label>
+              <input id="f-telefono-2" type="tel" name="telefono" placeholder="+52 xxx xxx xxxx">
             </div>
             <div class="form-field">
-              <label data-es="País / Ciudad" data-fr="Pays / Ville" data-en="Country / City">País / Ciudad</label>
-              <input type="text" name="ciudad" placeholder="Tu ciudad">
+              <label for="f-ciudad-2" data-es="País / Ciudad" data-fr="Pays / Ville" data-en="Country / City">País / Ciudad</label>
+              <input id="f-ciudad-2" type="text" name="ciudad" placeholder="Tu ciudad">
             </div>
           </div>
           <div class="form-field">
-            <label data-es="Motivo" data-fr="Objet" data-en="Subject">Motivo</label>
-            <select name="subject_sel">
+            <label for="f-subject_sel" data-es="Motivo" data-fr="Objet" data-en="Subject">Motivo</label>
+            <select id="f-subject_sel" name="subject_sel">
               <option value="" disabled selected>— Selecciona —</option>
               <option>Clases particulares de francés</option>
               <option>Asesoría pedagógica</option>
@@ -2735,7 +2736,7 @@ select:focus-visible, textarea:focus-visible {
             </select>
           </div>
           <div class="form-field">
-            <label data-es="Mensaje *" data-fr="Message *" data-en="Message *">Mensaje *</label>
+            <label for="f-msg" data-es="Mensaje *" data-fr="Message *" data-en="Message *">Mensaje *</label>
             <textarea name="message" id="f-msg" placeholder="Cuéntame tu proyecto o consulta..." rows="4"></textarea>
             <div class="form-error" id="e-msg">Campo requerido.</div>
           </div>
@@ -2973,16 +2974,16 @@ select:focus-visible, textarea:focus-visible {
     <div class="modal-rule"></div>
     <form id="form-cita" novalidate>
       <div class="form-row">
-        <div class="form-field"><label>Nombre *</label><input type="text" name="nombre" placeholder="Tu nombre" required></div>
-        <div class="form-field"><label>Email *</label><input type="email" name="email" placeholder="tu@correo.com" required></div>
+        <div class="form-field"><label for="f-nombre-2">Nombre *</label><input id="f-nombre-2" type="text" name="nombre" placeholder="Tu nombre" required></div>
+        <div class="form-field"><label for="f-email-3">Email *</label><input id="f-email-3" type="email" name="email" placeholder="tu@correo.com" required></div>
       </div>
       <div class="form-row">
-        <div class="form-field"><label>WhatsApp / Tel</label><input type="tel" name="telefono" placeholder="+xx xxx xxx xxxx"></div>
-        <div class="form-field"><label>País / Ciudad</label><input type="text" name="ciudad" placeholder="Tu ciudad"></div>
+        <div class="form-field"><label for="f-telefono-3">WhatsApp / Tel</label><input id="f-telefono-3" type="tel" name="telefono" placeholder="+xx xxx xxx xxxx"></div>
+        <div class="form-field"><label for="f-ciudad-3">País / Ciudad</label><input id="f-ciudad-3" type="text" name="ciudad" placeholder="Tu ciudad"></div>
       </div>
       <div class="form-field">
-        <label>Motivo *</label>
-        <select name="motivo" required>
+        <label for="f-motivo">Motivo *</label>
+        <select id="f-motivo" name="motivo" required>
           <option value="" disabled selected>— Selecciona —</option>
           <option>Asesoría pedagógica FLE</option>
           <option>Consultoría para centro cultural</option>
@@ -2993,14 +2994,14 @@ select:focus-visible, textarea:focus-visible {
         </select>
       </div>
       <div class="form-row">
-        <div class="form-field"><label>Fecha preferida *</label><input type="date" name="fecha" required></div>
-        <div class="form-field"><label>Modalidad</label>
-          <select name="modalidad"><option>Videollamada (Zoom/Meet)</option><option>Llamada telefónica</option><option>Presencial (San Cristóbal)</option></select>
+        <div class="form-field"><label for="f-fecha">Fecha preferida *</label><input id="f-fecha" type="date" name="fecha" required></div>
+        <div class="form-field"><label for="f-modalidad">Modalidad</label>
+          <select id="f-modalidad" name="modalidad"><option>Videollamada (Zoom/Meet)</option><option>Llamada telefónica</option><option>Presencial (San Cristóbal)</option></select>
         </div>
       </div>
       <div class="form-field">
-        <label>Horario preferido</label>
-        <div class="time-grid" id="cita-slots">
+        <label id="lbl-horario-cita">Horario preferido</label>
+        <div role="group" aria-labelledby="lbl-horario-cita" class="time-grid" id="cita-slots">
           <button type="button" class="time-slot" onclick="pickTime(this,'cita-val')">09:00–10:00</button>
           <button type="button" class="time-slot" onclick="pickTime(this,'cita-val')">10:00–11:00</button>
           <button type="button" class="time-slot" onclick="pickTime(this,'cita-val')">11:00–12:00</button>
@@ -3010,7 +3011,7 @@ select:focus-visible, textarea:focus-visible {
         </div>
         <input type="hidden" name="horario" id="cita-val">
       </div>
-      <div class="form-field"><label>Mensaje adicional</label><textarea name="mensaje" placeholder="Contexto de tu solicitud..." rows="3"></textarea></div>
+      <div class="form-field"><label for="f-mensaje">Mensaje adicional</label><textarea id="f-mensaje" name="mensaje" placeholder="Contexto de tu solicitud..." rows="3"></textarea></div>
       <button type="submit" class="btn btn-gold" style="width:100%;justify-content:center;margin-top:0.5rem;"><i class="fa fa-calendar-check"></i>&nbsp;Solicitar cita</button>
       <div class="confirm-badge" id="cita-ok"><i class="fa fa-check-circle"></i><p><strong>¡Solicitud recibida!</strong><br>Te confirmaré la cita por email en las próximas 24 h. También puedes escribirme al WhatsApp.</p></div>
     </form>
@@ -3026,17 +3027,17 @@ select:focus-visible, textarea:focus-visible {
     <div class="modal-rule"></div>
     <form id="form-clase" novalidate>
       <div class="form-row">
-        <div class="form-field"><label>Nombre *</label><input type="text" name="nombre" placeholder="Tu nombre" required></div>
-        <div class="form-field"><label>Email *</label><input type="email" name="email" placeholder="tu@correo.com" required></div>
+        <div class="form-field"><label for="f-nombre-3">Nombre *</label><input id="f-nombre-3" type="text" name="nombre" placeholder="Tu nombre" required></div>
+        <div class="form-field"><label for="f-email-4">Email *</label><input id="f-email-4" type="email" name="email" placeholder="tu@correo.com" required></div>
       </div>
       <div class="form-row">
-        <div class="form-field"><label>WhatsApp / Tel</label><input type="tel" name="telefono" placeholder="+xx xxx xxx xxxx"></div>
-        <div class="form-field"><label>País / Ciudad</label><input type="text" name="ciudad" placeholder="Tu ciudad"></div>
+        <div class="form-field"><label for="f-telefono-4">WhatsApp / Tel</label><input id="f-telefono-4" type="tel" name="telefono" placeholder="+xx xxx xxx xxxx"></div>
+        <div class="form-field"><label for="f-ciudad-4">País / Ciudad</label><input id="f-ciudad-4" type="text" name="ciudad" placeholder="Tu ciudad"></div>
       </div>
       <div class="form-row">
         <div class="form-field">
-          <label>Nivel francés *</label>
-          <select name="nivel" required>
+          <label for="f-nivel-2">Nivel francés *</label>
+          <select id="f-nivel-2" name="nivel" required>
             <option value="" disabled selected>— Selecciona —</option>
             <option>Principiante (A0)</option><option>Básico (A1–A2)</option>
             <option>Intermedio (B1–B2)</option><option>Avanzado (C1–C2)</option>
@@ -3044,23 +3045,23 @@ select:focus-visible, textarea:focus-visible {
           </select>
         </div>
         <div class="form-field">
-          <label>Objetivo</label>
-          <select name="objetivo">
+          <label for="f-objetivo">Objetivo</label>
+          <select id="f-objetivo" name="objetivo">
             <option>Conversación general</option><option>Certificación DELF/DALF</option>
             <option>Viaje / Inmersión</option><option>Profesional / Académico</option><option>Otro</option>
           </select>
         </div>
       </div>
       <div class="form-row">
-        <div class="form-field"><label>Fecha preferida *</label><input type="date" name="fecha" required></div>
+        <div class="form-field"><label for="f-fecha-2">Fecha preferida *</label><input id="f-fecha-2" type="date" name="fecha" required></div>
         <div class="form-field">
-          <label>Plataforma</label>
-          <select name="plataforma"><option>Zoom</option><option>Google Meet</option><option>WhatsApp Video</option><option>Skype</option></select>
+          <label for="f-plataforma">Plataforma</label>
+          <select id="f-plataforma" name="plataforma"><option>Zoom</option><option>Google Meet</option><option>WhatsApp Video</option><option>Skype</option></select>
         </div>
       </div>
       <div class="form-field">
-        <label>Horario (hora México)</label>
-        <div class="time-grid" id="clase-slots">
+        <label id="lbl-horario-clase">Horario (hora México)</label>
+        <div role="group" aria-labelledby="lbl-horario-clase" class="time-grid" id="clase-slots">
           <button type="button" class="time-slot" onclick="pickTime(this,'clase-val')">09:00–09:45</button>
           <button type="button" class="time-slot" onclick="pickTime(this,'clase-val')">10:00–10:45</button>
           <button type="button" class="time-slot" onclick="pickTime(this,'clase-val')">11:00–11:45</button>
@@ -3070,7 +3071,7 @@ select:focus-visible, textarea:focus-visible {
         </div>
         <input type="hidden" name="horario" id="clase-val">
       </div>
-      <div class="form-field"><label>¿Algo más?</label><textarea name="notas" placeholder="Experiencias previas, dificultades, objetivos..." rows="3"></textarea></div>
+      <div class="form-field"><label for="f-notas">¿Algo más?</label><textarea id="f-notas" name="notas" placeholder="Experiencias previas, dificultades, objetivos..." rows="3"></textarea></div>
       <button type="submit" class="btn btn-gold" style="width:100%;justify-content:center;margin-top:0.5rem;"><i class="fa fa-graduation-cap"></i>&nbsp;Reservar clase de prueba</button>
       <div class="confirm-badge" id="clase-ok"><i class="fa fa-check-circle"></i><p><strong>¡Reserva confirmada!</strong><br>Recibirás un email con el enlace de la videollamada. Si no llega en 24 h, escríbeme por WhatsApp.</p></div>
     </form>
@@ -3108,7 +3109,7 @@ function initVanta() {
   } catch(e) {
     /* Fallback: gradiente esmeralda si Vanta falla */
     var vb = document.getElementById('vanta-bg');
-    if (vb) vb.style.background = 'radial-gradient(ellipse 80% 80% at 50% 40%, #c5e0d3 0%, #b8d9ca 55%, #a5cdbf 100%)';
+    if (vb) vb.style.background = 'var(--bg-grad)';
     return true;
   }
 }
@@ -3118,7 +3119,7 @@ function initVanta() {
   if (n > 0) setTimeout(function(){ tryVanta(n-1); }, 250);
   else {
     var vb = document.getElementById('vanta-bg');
-    if (vb) vb.style.background = 'radial-gradient(ellipse 80% 80% at 50% 40%, #c5e0d3 0%, #b8d9ca 55%, #a5cdbf 100%)';
+    if (vb) vb.style.background = 'var(--bg-grad)';
   }
 })(20);
 
