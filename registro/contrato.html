@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Contrato de clases · Prof. Miguel Tillero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Space+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script>window.I18N_BASE = '../';</script>
+<script src="../i18n/i18n.js"></script>
+<style>
+:root {
+  --gold: #a5824a; --gold2: #86673a; --goldx: rgba(201,169,110,0.16);
+  --cyan: #0f8a5f; --ink: #12291c; --red: #b3402e;
+  --text: rgba(18,41,28,0.92); --muted: rgba(18,41,28,0.62);
+  --border: rgba(165,130,74,0.38);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Cormorant Garamond', serif; color: var(--text);
+  background: radial-gradient(ellipse 80% 80% at 50% 20%, #ffffff 0%, #edf5ea 55%, #dfeadd 100%);
+  min-height: 100vh; padding: 1.5rem 1rem 4rem; line-height: 1.6;
+}
+.wrap { max-width: 720px; margin: 0 auto; }
+.mono { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--muted); }
+h1 { font-weight: 300; font-size: 1.9rem; color: var(--ink); margin: 0.3rem 0; }
+h1 em { font-style: normal; color: var(--gold); }
+h2 { font-weight: 600; font-size: 1.15rem; color: var(--ink); margin: 1.6rem 0 0.4rem; }
+.panel { background: rgba(255,255,255,0.95); border: 1px solid var(--border); padding: 1.8rem; margin-top: 1.2rem; }
+.langs { display: flex; gap: 0.4rem; justify-content: flex-end; margin-bottom: 0.8rem; }
+.btn {
+  font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.16em;
+  text-transform: uppercase; border: 1px solid var(--border); background: none;
+  color: var(--gold2); padding: 0.85rem 1.2rem; cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all .25s;
+}
+.btn:hover { background: var(--goldx); }
+.langs .btn { padding: 0.3rem 0.65rem; font-size: 0.52rem; }
+.langs .btn.active { background: var(--gold); color: #fff; border-color: var(--gold); }
+.btn.solid { background: var(--gold); border-color: var(--gold); color: #fff; }
+.btn.solid:hover { background: var(--gold2); }
+.btn.wa { background: #1faa59; border-color: #1faa59; color: #fff; }
+.btn.wa:hover { background: #178a48; }
+.btn.big { width: 100%; padding: 1rem; font-size: 0.7rem; }
+
+/* ficha de datos */
+.data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0 1.4rem; }
+.d-row { display: flex; justify-content: space-between; gap: .8rem; padding: 0.5rem 0; border-bottom: 1px solid rgba(18,41,28,0.08); }
+.d-row .k { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); align-self: center; }
+.d-row .v { font-weight: 600; color: var(--ink); text-align: right; }
+.total-box {
+  margin-top: 1.2rem; padding: 1rem 1.2rem; background: var(--goldx); border: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;
+}
+.total-box b { font-size: 1.6rem; color: var(--gold2); font-weight: 600; }
+
+/* clausulas */
+.clause { margin-bottom: 1.1rem; }
+.clause h3 { font-size: 1rem; font-weight: 600; color: var(--gold2); margin-bottom: 0.15rem; }
+.clause p, .clause li { font-size: 0.95rem; }
+.clause ul { margin: 0.3rem 0 0 1.2rem; }
+.highlight { background: rgba(201,169,110,.18); padding: 0 .2rem; }
+
+/* aceptacion */
+label { display: block; font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin: 1rem 0 0.3rem; }
+input[type=text] {
+  width: 100%; padding: 0.85rem 0.8rem; font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem; color: var(--ink); border: 1px solid rgba(18,41,28,0.2); background: #fff;
+}
+input[type=text]:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px var(--goldx); }
+.check-row { display: flex; gap: 0.7rem; align-items: flex-start; margin-top: 1rem; font-size: 0.93rem; cursor: pointer; }
+.check-row input { width: 1.15rem; height: 1.15rem; flex-shrink: 0; margin-top: .15rem; accent-color: var(--gold); }
+.err { color: var(--red); font-size: 0.88rem; min-height: 1.2em; margin-top: .5rem; }
+.sig-box { margin-top: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.sig { border-top: 1px solid var(--ink); padding-top: .4rem; font-size: 0.8rem; color: var(--muted); text-align: center; }
+.stamp {
+  margin-top: 1.4rem; padding: 1rem 1.2rem; border: 1px solid rgba(15,138,95,.4);
+  background: rgba(15,138,95,.07); font-size: 0.9rem;
+}
+.stamp b { color: var(--cyan); }
+.note { font-size: 0.82rem; color: var(--muted); border-left: 2px solid var(--gold); padding-left: 0.8rem; margin-top: 1.2rem; }
+.hidden { display: none !important; }
+#invalid { text-align: center; padding: 3rem 1rem; }
+
+@media print {
+  body { background: #fff; padding: 0; }
+  .langs, .no-print, #accept-panel .btn { display: none !important; }
+  #t-note-total { display: none !important; }
+  .panel { border: none; padding: 0 0 1rem; background: none; }
+  .wrap { max-width: 100%; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="langs">
+    <button class="btn" data-lang-btn="es" onclick="setLangSafe('es')">ES</button>
+    <button class="btn" data-lang-btn="fr" onclick="setLangSafe('fr')">FR</button>
+    <button class="btn" data-lang-btn="en" onclick="setLangSafe('en')">EN</button>
+  </div>
+
+  <div id="content" class="hidden">
+    <p class="mono" id="hdr-sub">Servicios educativos independientes · Clases de francés (FLE)</p>
+    <h1><em id="hdr-title">Contrato de prestación de servicios</em></h1>
+    <p class="mono" id="hdr-place">San Cristóbal de Las Casas, Chiapas, México</p>
+
+    <!-- Datos del acuerdo -->
+    <div class="panel">
+      <h2 id="t-parties">Partes y condiciones acordadas</h2>
+      <div class="data-grid" id="data-grid"></div>
+      <div class="total-box">
+        <span class="mono" id="t-total">Total del paquete</span>
+        <b id="total-val"></b>
+      </div>
+      <p class="note" id="t-note-total">El importe corresponde únicamente a las horas de clase acordadas. No aplica matrícula ni cuota de inscripción.</p>
+    </div>
+
+    <!-- Cláusulas -->
+    <div class="panel">
+      <div id="clauses"></div>
+      <p class="note" id="t-ref"></p>
+    </div>
+
+    <!-- Aceptación -->
+    <div class="panel" id="accept-panel">
+      <h2 id="t-accept">Aceptación digital</h2>
+      <p id="t-accept-intro" style="font-size:.95rem;color:var(--muted)">Escribe tu nombre completo tal como aparece arriba y marca la casilla para aceptar este contrato y el reglamento.</p>
+      <label id="t-signer-lbl">Nombre completo de quien acepta</label>
+      <input type="text" id="signer" autocomplete="name">
+      <label class="check-row" for="agree">
+        <input type="checkbox" id="agree">
+        <span id="t-agree">Declaro haber leído y aceptado el reglamento y las cláusulas de este contrato, y confirmo las condiciones de horas, tarifa y calendario indicadas.</span>
+      </label>
+      <p class="err" id="err"></p>
+      <button class="btn wa big" style="margin-top:1rem" onclick="sendAcceptance()">
+        <i class="fab fa-whatsapp"></i> <span id="t-send">Aceptar y enviar a Miguel</span>
+      </button>
+      <button class="btn big" style="margin-top:.6rem" onclick="window.print()">
+        <i class="fa fa-print"></i> <span id="t-print">Imprimir o guardar en PDF</span>
+      </button>
+    </div>
+
+    <!-- Sello tras aceptar -->
+    <div class="stamp hidden" id="stamp"></div>
+
+    <div class="sig-box">
+      <div class="sig" id="sig-student">Estudiante o representante legal</div>
+      <div class="sig">Miguel David Tillero Álvarez<br><span style="font-size:.7rem">Docente de Lengua Francesa · FLE</span></div>
+    </div>
+  </div>
+
+  <div id="invalid" class="hidden">
+    <p style="font-size:2rem;margin-bottom:.6rem">📄</p>
+    <p id="t-invalid">Este enlace no contiene un contrato válido. Pídele a Miguel que te lo reenvíe.</p>
+  </div>
+</div>
+
+<script>
+var MIGUEL_WA = '529673424456';
+function setLangSafe(l){ if (window.i18n) window.i18n.setLanguage(l); }
+function fmtD(iso){ if (!iso) return '—'; var p = String(iso).split('-'); return p[2] + '/' + p[1] + '/' + p[0]; }
+function esc(s){ return String(s).replace(/[<>&"]/g, function(c){ return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]; }); }
+function b64uDecode(s){
+  s = String(s).replace(/-/g,'+').replace(/_/g,'/'); while (s.length % 4) s += '=';
+  var bin = atob(s), by = new Uint8Array(bin.length);
+  for (var i=0;i<bin.length;i++) by[i] = bin.charCodeAt(i);
+  return new TextDecoder().decode(by);
+}
+function b64uEncode(str){
+  var by = new TextEncoder().encode(str), bin = '';
+  by.forEach(function(b){ bin += String.fromCharCode(b); });
+  return btoa(bin).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+}
+
+var DAYS = {
+  es: ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'],
+  fr: ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'],
+  en: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+};
+
+var T = {
+  es: {
+    sub: 'Servicios educativos independientes · Clases de francés (FLE)',
+    title: 'Contrato de prestación de servicios',
+    place: 'San Cristóbal de Las Casas, Chiapas, México',
+    parties: 'Partes y condiciones acordadas',
+    total: 'Total del paquete', noteTotal: 'El importe corresponde únicamente a las horas de clase acordadas. No aplica matrícula ni cuota de inscripción.',
+    accept: 'Aceptación digital',
+    acceptIntro: 'Escribe tu nombre completo tal como aparece arriba y marca la casilla para aceptar este contrato y el reglamento.',
+    signerLbl: 'Nombre completo de quien acepta',
+    agree: 'Declaro haber leído y aceptado el reglamento y las cláusulas de este contrato, y confirmo las condiciones de horas, tarifa y calendario indicadas.',
+    send: 'Aceptar y enviar a Miguel', print: 'Imprimir o guardar en PDF',
+    sigStudent: 'Estudiante o representante legal',
+    ref: 'Versión de referencia: este contrato se redacta en español; las versiones en francés e inglés son traducciones de cortesía para facilitar su lectura.',
+    invalid: 'Este enlace no contiene un contrato válido. Pídele a Miguel que te lo reenvíe.',
+    errName: 'Escribe tu nombre completo (mínimo 3 letras).',
+    errCheck: 'Marca la casilla de aceptación para continuar.',
+    keys: { teacher:'Docente', student:'Estudiante', contact:'Contacto', hours:'Horas contratadas', dur:'Duración por clase', freq:'Clases por semana', sched:'Días y hora', mod:'Modalidad', start:'Inicio', end:'Fin previsto', rate:'Tarifa por hora' },
+    stamp: function(n, d){ return '<b>Contrato aceptado.</b> Aceptado digitalmente por <b>' + esc(n) + '</b> el ' + d + '. Se envió la confirmación a Miguel por WhatsApp; conserva esta página o su versión en PDF como comprobante.'; },
+    clauses: [
+      ['Primera — Objeto', '<p>Formalizar la prestación de servicios profesionales de enseñanza particular e independiente del idioma francés (FLE), conforme a un plan académico personalizado y de acuerdo con las directrices del Marco Común Europeo de Referencia para las Lenguas (MCER/CECRL).</p>'],
+      ['Segunda — Modalidad, lugar y calendario', '<p>La modalidad, los días, el horario y la fecha de inicio son los indicados en el cuadro de condiciones de este contrato, acordados individualmente entre las partes.</p>'],
+      ['Tercera — Honorarios y pago', '<ul><li>Tarifa por hora de clase según el cuadro de condiciones.</li><li>El servicio se contabiliza y liquida por <span class="highlight">bloques de horas prepagadas</span>.</li><li>Se lleva una bitácora detallada del total de horas impartidas.</li><li>Al acercarse el fin del bloque se notificará con anticipación para coordinar la renovación sin interrumpir la continuidad.</li><li>No aplica matrícula ni cuota de inscripción.</li></ul>'],
+      ['Cuarta — Reprogramación, cancelación y tolerancia', '<ul><li>Las horas contratadas deben consumirse dentro del ciclo acordado.</li><li>Para reprogramar se debe notificar con un mínimo de <span class="highlight">24 horas</span> de anticipación.</li><li>Las ausencias no notificadas dentro de ese plazo se contabilizan como clase impartida.</li><li>Se otorga una tolerancia de <span class="highlight">15 minutos</span> al inicio de cada sesión.</li><li><b>Garantía de continuidad:</b> si una clase se contabiliza por falta de aviso, se enviará igualmente un resumen de contenidos y una guía de trabajo autónomo equivalente.</li></ul>'],
+      ['Quinta — Ausencias justificadas', '<p>Cuando una ausencia se justifique conforme a la cláusula anterior, las horas <b>no se descuentan</b> y se compensan de una de estas dos formas, acordada en el momento:</p><ul><li><b>Reposición semanal:</b> la clase se repone dentro de la misma semana y la fecha de finalización del paquete no cambia.</li><li><b>Desplazamiento del calendario:</b> no hay reposición y la fecha prevista de finalización se extiende para conservar íntegras las horas contratadas.</li></ul>'],
+      ['Sexta — Cámara y participación', '<p>Mantener la cámara encendida favorece la corrección de la pronunciación y la interacción real, como parte natural de una clase de idiomas en línea. Si surge un inconveniente puntual, basta con avisarlo antes de iniciar.</p><p>En caso de estudiantes menores de edad, el padre, la madre o el representante legal puede acompañar o supervisar cualquier sesión en el momento que lo desee, sin necesidad de aviso previo.</p>'],
+      ['Séptima — Seguimiento y evaluación', '<p>El Docente adaptará la metodología a los ritmos, objetivos y nivel del Estudiante, con bitácoras de sesión, evaluaciones formativas periódicas y comunicación directa sobre avances y áreas de mejora.</p>'],
+      ['Octava — Confidencialidad', '<p>Los datos proporcionados se utilizarán exclusivamente para la gestión académica y la comunicación directa entre las partes. No se compartirán con terceros.</p>'],
+      ['Novena — Aceptación', '<p>La aceptación de este contrato se formaliza de manera digital mediante el registro de nombre y fecha en este documento, o de forma impresa y firmada. Ambas modalidades tienen el mismo valor entre las partes.</p>']
+    ]
+  },
+  fr: {
+    sub: 'Services éducatifs indépendants · Cours de français (FLE)',
+    title: 'Contrat de prestation de services',
+    place: 'San Cristóbal de Las Casas, Chiapas, Mexique',
+    parties: 'Parties et conditions convenues',
+    total: 'Total du forfait', noteTotal: 'Le montant correspond uniquement aux heures de cours convenues. Aucuns frais d\'inscription ne s\'appliquent.',
+    accept: 'Acceptation numérique',
+    acceptIntro: 'Écris ton nom complet tel qu\'il apparaît ci-dessus et coche la case pour accepter ce contrat et le règlement.',
+    signerLbl: 'Nom complet de la personne qui accepte',
+    agree: 'Je déclare avoir lu et accepté le règlement et les clauses de ce contrat, et je confirme les conditions d\'heures, de tarif et de calendrier indiquées.',
+    send: 'Accepter et envoyer à Miguel', print: 'Imprimer ou enregistrer en PDF',
+    sigStudent: 'Étudiant·e ou représentant légal',
+    ref: 'Version de référence : ce contrat est rédigé en espagnol ; les versions française et anglaise sont des traductions de courtoisie destinées à en faciliter la lecture.',
+    invalid: 'Ce lien ne contient pas de contrat valide. Demande à Miguel de te le renvoyer.',
+    errName: 'Écris ton nom complet (3 lettres minimum).',
+    errCheck: 'Coche la case d\'acceptation pour continuer.',
+    keys: { teacher:'Enseignant', student:'Étudiant·e', contact:'Contact', hours:'Heures convenues', dur:'Durée par cours', freq:'Cours par semaine', sched:'Jours et heure', mod:'Modalité', start:'Début', end:'Fin prévue', rate:'Tarif horaire' },
+    stamp: function(n, d){ return '<b>Contrat accepté.</b> Accepté numériquement par <b>' + esc(n) + '</b> le ' + d + '. La confirmation a été envoyée à Miguel par WhatsApp ; conserve cette page ou sa version PDF comme justificatif.'; },
+    clauses: [
+      ['Première — Objet', '<p>Formaliser la prestation de services professionnels d\'enseignement particulier et indépendant du français (FLE), selon un plan pédagogique personnalisé et conformément au Cadre européen commun de référence pour les langues (CECRL).</p>'],
+      ['Deuxième — Modalité, lieu et calendrier', '<p>La modalité, les jours, l\'horaire et la date de début sont ceux indiqués dans le tableau des conditions de ce contrat, convenus individuellement entre les parties.</p>'],
+      ['Troisième — Honoraires et paiement', '<ul><li>Tarif par heure de cours selon le tableau des conditions.</li><li>Le service est comptabilisé et réglé par <span class="highlight">blocs d\'heures prépayées</span>.</li><li>Un registre détaillé du total des heures dispensées est tenu.</li><li>À l\'approche de la fin du bloc, un avis sera envoyé pour coordonner le renouvellement sans interrompre la continuité.</li><li>Aucuns frais d\'inscription ne s\'appliquent.</li></ul>'],
+      ['Quatrième — Report, annulation et tolérance', '<ul><li>Les heures convenues doivent être consommées pendant le cycle convenu.</li><li>Pour reporter un cours, il faut prévenir au minimum <span class="highlight">24 heures</span> à l\'avance.</li><li>Les absences non signalées dans ce délai sont comptabilisées comme cours dispensé.</li><li>Une tolérance de <span class="highlight">15 minutes</span> est accordée au début de chaque séance.</li><li><b>Garantie de continuité :</b> si un cours est comptabilisé faute d\'avis, un résumé des contenus et un guide de travail autonome équivalent seront tout de même envoyés.</li></ul>'],
+      ['Cinquième — Absences justifiées', '<p>Lorsqu\'une absence est justifiée conformément à la clause précédente, les heures <b>ne sont pas décomptées</b> et sont compensées de l\'une de ces deux façons, convenue sur le moment :</p><ul><li><b>Rattrapage hebdomadaire :</b> le cours est rattrapé dans la même semaine et la date de fin du forfait ne change pas.</li><li><b>Décalage du calendrier :</b> il n\'y a pas de rattrapage et la date de fin prévue est prolongée afin de conserver l\'intégralité des heures convenues.</li></ul>'],
+      ['Sixième — Caméra et participation', '<p>Garder la caméra allumée favorise la correction de la prononciation et l\'interaction réelle, comme partie naturelle d\'un cours de langue en ligne. En cas d\'inconvénient ponctuel, il suffit de le signaler avant de commencer.</p><p>Pour les étudiants mineurs, le père, la mère ou le représentant légal peut accompagner ou superviser toute séance à tout moment, sans avis préalable.</p>'],
+      ['Septième — Suivi et évaluation', '<p>L\'Enseignant adaptera la méthodologie aux rythmes, objectifs et niveau de l\'Étudiant·e, avec des comptes rendus de séance, des évaluations formatives régulières et une communication directe sur les progrès et les axes d\'amélioration.</p>'],
+      ['Huitième — Confidentialité', '<p>Les données fournies seront utilisées exclusivement pour la gestion pédagogique et la communication directe entre les parties. Elles ne seront pas partagées avec des tiers.</p>'],
+      ['Neuvième — Acceptation', '<p>L\'acceptation de ce contrat se formalise numériquement par l\'enregistrement du nom et de la date dans ce document, ou par impression et signature. Les deux modalités ont la même valeur entre les parties.</p>']
+    ]
+  },
+  en: {
+    sub: 'Independent educational services · French classes (FLE)',
+    title: 'Service agreement',
+    place: 'San Cristóbal de Las Casas, Chiapas, Mexico',
+    parties: 'Parties and agreed terms',
+    total: 'Package total', noteTotal: 'The amount covers only the agreed class hours. No registration or enrollment fee applies.',
+    accept: 'Digital acceptance',
+    acceptIntro: 'Type your full name exactly as shown above and tick the box to accept this agreement and the class rules.',
+    signerLbl: 'Full name of the person accepting',
+    agree: 'I declare that I have read and accepted the class rules and the clauses of this agreement, and I confirm the hours, rate and schedule stated above.',
+    send: 'Accept and send to Miguel', print: 'Print or save as PDF',
+    sigStudent: 'Student or legal guardian',
+    ref: 'Reference version: this agreement is drafted in Spanish; the French and English versions are courtesy translations provided for ease of reading.',
+    invalid: 'This link does not contain a valid agreement. Please ask Miguel to resend it.',
+    errName: 'Please type your full name (at least 3 letters).',
+    errCheck: 'Please tick the acceptance box to continue.',
+    keys: { teacher:'Teacher', student:'Student', contact:'Contact', hours:'Contracted hours', dur:'Length per class', freq:'Classes per week', sched:'Days and time', mod:'Format', start:'Start', end:'Expected end', rate:'Hourly rate' },
+    stamp: function(n, d){ return '<b>Agreement accepted.</b> Digitally accepted by <b>' + esc(n) + '</b> on ' + d + '. Confirmation was sent to Miguel via WhatsApp; keep this page or its PDF version as your record.'; },
+    clauses: [
+      ['First — Purpose', '<p>To formalize the provision of professional, independent private tuition in French as a Foreign Language (FLE), following a personalized academic plan and aligned with the Common European Framework of Reference for Languages (CEFR).</p>'],
+      ['Second — Format, place and schedule', '<p>The format, days, time and start date are those stated in the terms table of this agreement, agreed individually between the parties.</p>'],
+      ['Third — Fees and payment', '<ul><li>Hourly rate as stated in the terms table.</li><li>The service is tracked and settled in <span class="highlight">prepaid blocks of hours</span>.</li><li>A detailed log of all hours taught is kept.</li><li>As the block nears its end, notice will be given to arrange renewal without interrupting continuity.</li><li>No registration or enrollment fee applies.</li></ul>'],
+      ['Fourth — Rescheduling, cancellation and grace period', '<ul><li>Contracted hours must be used within the agreed cycle.</li><li>Rescheduling requires at least <span class="highlight">24 hours</span> notice.</li><li>Absences not reported within that window count as a class taught.</li><li>A <span class="highlight">15-minute</span> grace period is granted at the start of each session.</li><li><b>Continuity guarantee:</b> if a class is counted due to lack of notice, a summary of contents and an equivalent self-study guide will still be sent.</li></ul>'],
+      ['Fifth — Justified absences', '<p>When an absence is justified under the previous clause, the hours are <b>not deducted</b> and are compensated in one of these two ways, agreed at the time:</p><ul><li><b>Weekly make-up:</b> the class is made up within the same week and the package end date does not change.</li><li><b>Calendar shift:</b> there is no make-up class and the expected end date is extended so all contracted hours are preserved.</li></ul>'],
+      ['Sixth — Camera and participation', '<p>Keeping the camera on supports pronunciation correction and genuine interaction, as a natural part of an online language class. If an occasional issue arises, simply mention it before starting.</p><p>For students who are minors, the parent or legal guardian may attend or supervise any session at any time, with no prior notice needed.</p>'],
+      ['Seventh — Progress tracking and assessment', '<p>The Teacher will adapt the methodology to the Student\'s pace, goals and level, with session logs, periodic formative assessments and direct communication on progress and priority areas for development.</p>'],
+      ['Eighth — Confidentiality', '<p>The data provided will be used exclusively for academic management and direct communication between the parties. It will not be shared with third parties.</p>'],
+      ['Ninth — Acceptance', '<p>Acceptance of this agreement is formalized digitally by recording a name and date in this document, or in printed and signed form. Both have equal value between the parties.</p>']
+    ]
+  }
+};
+
+var d = null, accepted = null;
+
+function lang(){ return (window.i18n && window.i18n.currentLang) || 'es'; }
+
+function render(){
+  if (!d) return;
+  var L = T[lang()] || T.es, K = L.keys;
+
+  document.getElementById('hdr-sub').textContent = L.sub;
+  document.getElementById('hdr-title').textContent = L.title;
+  document.getElementById('hdr-place').textContent = L.place;
+  document.getElementById('t-parties').textContent = L.parties;
+  document.getElementById('t-total').textContent = L.total;
+  document.getElementById('t-note-total').textContent = L.noteTotal;
+  document.getElementById('t-accept').textContent = L.accept;
+  document.getElementById('t-accept-intro').textContent = L.acceptIntro;
+  document.getElementById('t-signer-lbl').textContent = L.signerLbl;
+  document.getElementById('t-agree').textContent = L.agree;
+  document.getElementById('t-send').textContent = L.send;
+  document.getElementById('t-print').textContent = L.print;
+  document.getElementById('sig-student').textContent = L.sigStudent;
+  document.getElementById('t-ref').textContent = L.ref;
+  document.getElementById('t-invalid').textContent = L.invalid;
+
+  var dn = DAYS[lang()] || DAYS.es;
+  var sched = (d.days && d.days.length ? d.days.map(function(x){ return dn[x]; }).join(', ') : '—') + (d.time ? ' · ' + d.time : '');
+  var rows = [
+    [K.teacher, 'Miguel David Tillero Álvarez'],
+    [K.student, esc(d.name)],
+    [K.contact, (d.phone ? '+' + d.phone : '') + (d.email ? '<br>' + esc(d.email) : '') || '—'],
+    [K.hours, d.hours + ' h'],
+    [K.dur, d.dur + ' h'],
+    [K.freq, d.freq + '×'],
+    [K.sched, sched],
+    [K.mod, esc(d.modality || '—')],
+    [K.start, fmtD(d.start)],
+    [K.end, fmtD(d.end)],
+    [K.rate, d.rate ? d.rate + ' ' + (d.currency || 'MXN') : '—']
+  ];
+  document.getElementById('data-grid').innerHTML = rows.map(function(r){
+    return '<div class="d-row"><span class="k">' + r[0] + '</span><span class="v">' + r[1] + '</span></div>';
+  }).join('');
+  document.getElementById('total-val').textContent = d.rate
+    ? (d.hours * d.rate).toLocaleString('es-MX') + ' ' + (d.currency || 'MXN')
+    : '—';
+
+  document.getElementById('clauses').innerHTML = L.clauses.map(function(c){
+    return '<div class="clause"><h3>' + c[0] + '</h3>' + c[1] + '</div>';
+  }).join('');
+
+  if (accepted) showStamp();
+}
+
+function showStamp(){
+  var L = T[lang()] || T.es;
+  var el = document.getElementById('stamp');
+  el.innerHTML = L.stamp(accepted.signer, fmtD(accepted.date));
+  el.classList.remove('hidden');
+  document.getElementById('signer').value = accepted.signer;
+  document.getElementById('signer').disabled = true;
+  document.getElementById('agree').checked = true;
+  document.getElementById('agree').disabled = true;
+}
+
+function sendAcceptance(){
+  var L = T[lang()] || T.es;
+  var name = document.getElementById('signer').value.trim();
+  var chk = document.getElementById('agree').checked;
+  var e = document.getElementById('err');
+  if (name.length < 3) { e.textContent = L.errName; return; }
+  if (!chk) { e.textContent = L.errCheck; return; }
+  e.textContent = '';
+
+  accepted = { signer: name, date: new Date().toISOString().slice(0,10) };
+  try { localStorage.setItem('mt_contrato_' + (d.cid || d.name), JSON.stringify(accepted)); } catch(err){}
+  showStamp();
+
+  /* enlace de vuelta para que Miguel registre la aceptación en su panel */
+  var back = new URL('index.html', location.href).href + '?firma=' +
+    b64uEncode(JSON.stringify({ v:1, cid: d.cid || '', name: d.name, signer: name, date: accepted.date }));
+
+  var msg = {
+    es: 'Hola Miguel, acepto el contrato de clases. Nombre: ' + name + '. Fecha: ' + fmtD(accepted.date) +
+        '. Registra mi aceptación aquí: ' + back,
+    fr: 'Bonjour Miguel, j\'accepte le contrat de cours. Nom : ' + name + '. Date : ' + fmtD(accepted.date) +
+        '. Enregistre mon acceptation ici : ' + back,
+    en: 'Hi Miguel, I accept the class agreement. Name: ' + name + '. Date: ' + fmtD(accepted.date) +
+        '. Register my acceptance here: ' + back
+  }[lang()];
+
+  window.open('https://wa.me/' + MIGUEL_WA + '?text=' + encodeURIComponent(msg), '_blank');
+}
+
+window.addEventListener('languageChanged', render);
+window.addEventListener('DOMContentLoaded', function(){
+  var code = new URLSearchParams(location.search).get('d');
+  try {
+    d = JSON.parse(b64uDecode(code));
+    if (!d || d.v !== 1 || !d.name) throw new Error('bad');
+    try {
+      var prev = localStorage.getItem('mt_contrato_' + (d.cid || d.name));
+      if (prev) accepted = JSON.parse(prev);
+    } catch(e){}
+    document.getElementById('content').classList.remove('hidden');
+    render();
+  } catch(e){
+    document.getElementById('invalid').classList.remove('hidden');
+  }
+});
+</script>
+</body>
+</html>

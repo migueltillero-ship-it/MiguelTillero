@@ -89,6 +89,63 @@ td { padding: 0.55rem 0.6rem; border-bottom: 1px solid rgba(18,41,28,0.08); vert
 .note { font-size: 0.82rem; color: var(--muted); line-height: 1.55; border-left: 2px solid var(--gold); padding-left: 0.8rem; margin-top: 1rem; }
 .hidden { display: none !important; }
 
+/* selector de días */
+.day-pick { display: flex; gap: 0.35rem; flex-wrap: wrap; margin-top: 0.35rem; }
+.day-pick span {
+  font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em;
+  padding: 0.5rem 0.55rem; border: 1px solid rgba(18,41,28,0.2); cursor: pointer;
+  user-select: none; color: var(--muted); transition: all .2s;
+}
+.day-pick span.on { background: var(--gold); border-color: var(--gold); color: #fff; }
+
+/* agenda de hoy y pendientes */
+#today-box, #todo-box { margin-bottom: 1.5rem; }
+.box-head { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.5rem; }
+.today-row {
+  background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--gold);
+  padding: 0.9rem 1rem; margin-bottom: 0.6rem;
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+}
+.today-row.done { border-left-color: var(--cyan); opacity: .72; }
+.today-who { flex: 1; min-width: 150px; }
+.today-who b { font-size: 1.1rem; color: var(--ink); font-weight: 600; display: block; }
+.today-who span { font-size: 0.85rem; color: var(--muted); }
+.tap-row { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.tap {
+  font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.7rem 0.9rem; border: 1px solid var(--border); background: rgba(255,255,255,.7);
+  cursor: pointer; transition: all .2s; white-space: nowrap;
+}
+.tap.p { color: var(--cyan); border-color: rgba(15,138,95,.45); }
+.tap.p:hover { background: rgba(15,138,95,.12); }
+.tap.j { color: var(--gold2); }
+.tap.j:hover { background: var(--goldx); }
+.tap.u { color: var(--red); border-color: rgba(179,64,46,.4); }
+.tap.u:hover { background: rgba(179,64,46,.1); }
+.todo-item {
+  background: rgba(179,64,46,.06); border: 1px solid rgba(179,64,46,.3);
+  padding: 0.75rem 1rem; margin-bottom: 0.5rem; display: flex; align-items: center;
+  gap: 0.8rem; flex-wrap: wrap; font-size: 0.9rem;
+}
+.todo-item.mk { background: var(--goldx); border-color: var(--border); }
+.todo-item span { flex: 1; min-width: 160px; }
+#undo-bar {
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  background: rgba(15,138,95,.08); border: 1px solid rgba(15,138,95,.3);
+  padding: 0.7rem 1rem; margin-bottom: 1.2rem; font-size: 0.9rem;
+}
+#undo-bar span { flex: 1; color: var(--ink); }
+
+/* estado del contrato */
+.stamp-ok, .stamp-pend {
+  margin-top: 1rem; padding: 0.85rem 1.1rem; font-size: 0.9rem;
+  display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;
+}
+.stamp-ok { border: 1px solid rgba(15,138,95,.4); background: rgba(15,138,95,.07); }
+.stamp-ok i, .stamp-ok b { color: var(--cyan); }
+.stamp-pend { border: 1px solid var(--border); background: var(--goldx); }
+.stamp-pend i, .stamp-pend b { color: var(--gold2); }
+
 /* print statement */
 #print-area { display: none; }
 @media print {
@@ -133,6 +190,17 @@ td { padding: 0.55rem 0.6rem; border-bottom: 1px solid rgba(18,41,28,0.08); vert
 
   <!-- Lista de alumnos -->
   <div id="view-list">
+    <!-- Bandeja de pendientes (faltas sin resolver + reposiciones) -->
+    <div id="todo-box" class="hidden"></div>
+
+    <!-- AGENDA DE HOY — asistencia de un toque -->
+    <div id="today-box" class="hidden"></div>
+
+    <div id="undo-bar" class="hidden">
+      <span id="undo-txt"></span>
+      <button class="btn small" onclick="undoLast()"><i class="fa fa-rotate-left"></i> Deshacer</button>
+    </div>
+
     <div class="stu-list" id="stu-list"></div>
     <p id="empty-msg" class="note" style="margin-top:2rem">Aún no hay alumnos registrados. Crea el primero con «Nuevo alumno»: se registra su paquete de horas, frecuencia semanal y fecha de inicio, y el sistema calcula automáticamente el saldo y la fecha proyectada de finalización.</p>
   </div>
@@ -160,7 +228,17 @@ td { padding: 0.55rem 0.6rem; border-bottom: 1px solid rgba(18,41,28,0.08); vert
     </div>
     <div class="grid2">
       <div><label>Fecha de inicio</label><input id="f-start" type="date"></div>
-      <div><label>Tarifa por hora (opcional, MXN)</label><input id="f-rate" type="number" min="0" step="10" placeholder="—"></div>
+      <div><label>Hora habitual de clase</label><input id="f-time" type="time"></div>
+    </div>
+    <label>Días de clase (para la agenda de hoy)</label>
+    <div class="day-pick" id="f-days">
+      <span data-d="1">Lun</span><span data-d="2">Mar</span><span data-d="3">Mié</span>
+      <span data-d="4">Jue</span><span data-d="5">Vie</span><span data-d="6">Sáb</span><span data-d="0">Dom</span>
+    </div>
+    <div class="grid3">
+      <div><label>Tarifa por hora</label><input id="f-rate" type="number" min="0" step="5" placeholder="225"></div>
+      <div><label>Moneda</label><select id="f-cur"><option>MXN</option><option>USD</option><option>EUR</option><option>CAD</option></select></div>
+      <div><label>Modalidad</label><select id="f-mod"><option>En línea</option><option>Presencial (SCC)</option><option>Mixta</option></select></div>
     </div>
     <button class="btn solid" style="margin-top:1.4rem" onclick="saveStudent()"><i class="fa fa-check"></i> Guardar</button>
   </div>
@@ -180,7 +258,7 @@ td { padding: 0.55rem 0.6rem; border-bottom: 1px solid rgba(18,41,28,0.08); vert
     <label>Asistencia</label>
     <select id="s-status">
       <option value="present">Presente — descuenta horas</option>
-      <option value="unjustified_absence">Falta injustificada (sin aviso 12 h antes) — descuenta horas</option>
+      <option value="unjustified_absence">Falta injustificada (sin aviso 24 h antes) — descuenta horas</option>
       <option value="justified_absence">Falta justificada — NO descuenta · elegir Flujo A o B</option>
     </select>
     <button class="btn solid" style="margin-top:1.4rem" onclick="saveSession()"><i class="fa fa-check"></i> Registrar</button>
@@ -280,7 +358,7 @@ function unlock(){
   document.getElementById('gate').classList.remove('open');
   document.getElementById('app').style.visibility = 'visible';
   renderList();
-  cloudSyncOnStart(function(){ checkIncomingAlta(); });
+  cloudSyncOnStart(function(){ checkIncomingAlta(); checkIncomingFirma(); });
 }
 
 /* ══════════ NUBE (Google Drive vía Apps Script) ══════════ */
@@ -424,6 +502,7 @@ function checkIncomingAlta(){
   document.getElementById('f-dur').value = p.dur || 1;
   document.getElementById('f-freq').value = p.freq || 2;
   document.getElementById('f-start').value = p.start || todayISO();
+  setDays(p.days || []);
   if (p.notes) alert(head);
 }
 
@@ -475,8 +554,115 @@ function recalcEnd(c){
   return addDays(base, weeksNeeded * 7);
 }
 
+/* ══════════ AGENDA DE HOY · ASISTENCIA DE UN TOQUE ══════════ */
+var DAY_NAMES = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+
+/* ¿tiene clase hoy? por días configurados; si no hay días, no aparece en la agenda */
+function hasClassToday(c){
+  var dow = new Date().getDay();
+  return c.status !== 'done' && remaining(c) > 0 && Array.isArray(c.days) && c.days.indexOf(dow) !== -1;
+}
+function sessionOn(c, iso){
+  return c.sessions.filter(function(s){ return s.date === iso && s.status !== 'makeup_scheduled'; })[0];
+}
+
+function renderToday(){
+  var box = document.getElementById('today-box');
+  var t = todayISO();
+  var due = db.contracts.filter(hasClassToday)
+    .sort(function(a,b){ return (a.time || '99').localeCompare(b.time || '99'); });
+
+  if (!due.length) { box.classList.add('hidden'); box.innerHTML = ''; return; }
+
+  box.classList.remove('hidden');
+  box.innerHTML = '<p class="box-head"><i class="fa fa-calendar-day" style="color:var(--gold)"></i> Hoy, ' +
+      DAY_NAMES[new Date().getDay()] + ' ' + fmtD(t) + ' · ' + due.length + ' clase(s)</p>' +
+    due.map(function(c){
+      var ya = sessionOn(c, t);
+      var pend = pendingResolutions(c).length;
+      if (ya) {
+        var lbl = { present: 'Presente', unjustified_absence: 'Falta injustificada', justified_absence: 'Falta justificada' }[ya.status];
+        return '<div class="today-row done"><div class="today-who"><b>' + esc(c.name) + '</b>' +
+          '<span><i class="fa fa-check" style="color:var(--cyan)"></i> Registrado hoy: ' + lbl + ' (' + ya.dur + ' h)</span></div>' +
+          '<div class="tap-row"><button class="tap" onclick="openDetail(\'' + c.id + '\')">Ver ficha</button></div></div>';
+      }
+      if (pend) {
+        return '<div class="today-row"><div class="today-who"><b>' + esc(c.name) + '</b>' +
+          '<span style="color:var(--red)">Resuelve su falta justificada antes de registrar</span></div>' +
+          '<div class="tap-row"><button class="tap u" onclick="openDetail(\'' + c.id + '\')">Resolver</button></div></div>';
+      }
+      return '<div class="today-row"><div class="today-who"><b>' + esc(c.name) + '</b>' +
+          '<span>' + (c.time ? c.time + ' · ' : '') + c.sessionDur + ' h · saldo ' + remaining(c) + ' h</span></div>' +
+        '<div class="tap-row">' +
+          '<button class="tap p" onclick="quickMark(\'' + c.id + '\',\'present\')"><i class="fa fa-check"></i> Presente</button>' +
+          '<button class="tap j" onclick="quickMark(\'' + c.id + '\',\'justified_absence\')">Falta justif.</button>' +
+          '<button class="tap u" onclick="quickMark(\'' + c.id + '\',\'unjustified_absence\')">Sin aviso</button>' +
+        '</div></div>';
+    }).join('');
+}
+
+/* Registro en un toque: fecha de hoy y duración habitual del contrato */
+var lastAction = null;
+function quickMark(cid, status){
+  var c = getC(cid); if (!c) return;
+  if (pendingResolutions(c).length) { openDetail(cid); return; }
+  var s = { id: uid(), date: todayISO(), dur: Number(c.sessionDur) || 1, status: status };
+  c.sessions.push(s);
+  save();
+  lastAction = { cid: cid, sid: s.id, name: c.name, status: status };
+  if (status === 'justified_absence') { renderList(); openFlow(cid, s.id); return; }
+  renderList();
+  showUndo();
+}
+function showUndo(){
+  if (!lastAction) return;
+  var lbl = { present: 'Presente', unjustified_absence: 'Falta sin aviso', justified_absence: 'Falta justificada' }[lastAction.status];
+  document.getElementById('undo-txt').innerHTML = '<b>' + esc(lastAction.name) + '</b> — ' + lbl + ' registrado hoy.';
+  document.getElementById('undo-bar').classList.remove('hidden');
+  clearTimeout(showUndo._t);
+  showUndo._t = setTimeout(function(){ document.getElementById('undo-bar').classList.add('hidden'); lastAction = null; }, 12000);
+}
+function undoLast(){
+  if (!lastAction) return;
+  var c = getC(lastAction.cid);
+  if (c) {
+    var s = c.sessions.find(function(x){ return x.id === lastAction.sid; });
+    if (s && s.resolution && s.resolution.flow === 'B') c.projectedEnd = s.resolution.prevEnd;
+    c.sessions = c.sessions.filter(function(x){ return x.id !== lastAction.sid && x.makeupOf !== lastAction.sid; });
+    save();
+  }
+  lastAction = null;
+  document.getElementById('undo-bar').classList.add('hidden');
+  renderList();
+}
+
+/* ══════════ BANDEJA DE PENDIENTES ══════════ */
+function renderTodo(){
+  var box = document.getElementById('todo-box');
+  var items = [];
+  db.contracts.forEach(function(c){
+    pendingResolutions(c).forEach(function(s){
+      items.push('<div class="todo-item"><span><b>' + esc(c.name) + '</b> — falta justificada del ' + fmtD(s.date) + ' sin resolver</span>' +
+        '<button class="btn small danger" onclick="openFlow(\'' + c.id + '\',\'' + s.id + '\')">Elegir Flujo A o B</button></div>');
+    });
+    pendingMakeups(c).forEach(function(s){
+      items.push('<div class="todo-item mk"><span><b>' + esc(c.name) + '</b> — reposición prevista el ' + fmtD(s.date) + '</span>' +
+        '<button class="btn small" onclick="makeupDone(\'' + c.id + '\',\'' + s.id + '\')">Marcar impartida</button></div>');
+    });
+    if (remaining(c) > 0 && remaining(c) <= Number(c.sessionDur) * 2 && c.sessions.length) {
+      items.push('<div class="todo-item mk"><span><b>' + esc(c.name) + '</b> — saldo bajo: ' + remaining(c) + ' h restantes</span>' +
+        '<button class="btn small" onclick="shareWA(\'' + c.id + '\')">Avisar renovación</button></div>');
+    }
+  });
+  if (!items.length) { box.classList.add('hidden'); box.innerHTML = ''; return; }
+  box.classList.remove('hidden');
+  box.innerHTML = '<p class="box-head"><i class="fa fa-bell" style="color:var(--red)"></i> Requieren tu atención (' + items.length + ')</p>' + items.join('');
+}
+
 /* ══════════ VISTA: LISTA ══════════ */
 function renderList(){
+  renderTodo();
+  renderToday();
   var list = document.getElementById('stu-list');
   var cs = db.contracts.slice().sort(function(a,b){ return a.name.localeCompare(b.name); });
   document.getElementById('empty-msg').style.display = cs.length ? 'none' : 'block';
@@ -534,16 +720,39 @@ function openDetail(cid){
     ? '<p class="note" style="border-color:var(--red)"><b>' + pend.length + ' falta(s) justificada(s) sin resolver.</b> El reglamento exige elegir Flujo A (reposición en la misma semana) o Flujo B (desplazar el calendario) antes de registrar nuevas clases.</p>'
     : '';
 
+  /* asistencia rápida de hoy dentro de la ficha */
+  var yaHoy = sessionOn(c, todayISO());
+  var quick = pend.length ? ''
+    : yaHoy
+      ? '<div class="today-row done" style="margin-top:1rem"><div class="today-who"><b>Hoy ya registrado</b>' +
+        '<span>' + ({ present:'Presente', unjustified_absence:'Falta injustificada', justified_absence:'Falta justificada' }[yaHoy.status]) + ' · ' + yaHoy.dur + ' h</span></div></div>'
+      : '<div class="today-row" style="margin-top:1rem"><div class="today-who"><b>Registrar la clase de hoy</b>' +
+        '<span>' + fmtD(todayISO()) + ' · ' + c.sessionDur + ' h por defecto</span></div><div class="tap-row">' +
+        '<button class="tap p" onclick="quickMark(\'' + c.id + '\',\'present\')"><i class="fa fa-check"></i> Presente</button>' +
+        '<button class="tap j" onclick="quickMark(\'' + c.id + '\',\'justified_absence\')">Falta justif.</button>' +
+        '<button class="tap u" onclick="quickMark(\'' + c.id + '\',\'unjustified_absence\')">Sin aviso</button>' +
+        '</div></div>';
+
+  /* estado del contrato */
+  var ct = c.contract && c.contract.acceptedAt
+    ? '<div class="stamp-ok"><i class="fa fa-file-signature"></i> <b>Contrato aceptado</b> por ' + esc(c.contract.signer) +
+      ' el ' + fmtD(c.contract.acceptedAt) + '. <button class="btn small" onclick="window.open(contratoLink(getC(\'' + c.id + '\')),\'_blank\')">Ver contrato</button></div>'
+    : '<div class="stamp-pend"><i class="fa fa-file-circle-exclamation"></i> <b>Contrato pendiente de aceptación.</b> ' +
+      '<button class="btn small" onclick="sendContrato(\'' + c.id + '\')"><i class="fab fa-whatsapp"></i> Enviar contrato</button> ' +
+      '<button class="btn small" onclick="copyContrato(\'' + c.id + '\')"><i class="fa fa-copy"></i> Copiar enlace</button></div>';
+
   document.getElementById('view-detail').innerHTML =
     '<button class="btn" onclick="renderList()"><i class="fa fa-arrow-left"></i> Alumnos</button>' +
     '<div class="panel" style="margin-top:1.2rem">' +
       '<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;align-items:start">' +
         '<div><h1 style="font-size:1.6rem">' + esc(c.name) + '</h1>' +
         '<p class="stu-meta">' + c.totalHours + ' h contratadas · sesiones de ' + c.sessionDur + ' h · ' + c.weeklyFreq + '×/semana' +
-        (c.rate ? ' · $' + c.rate + '/h' : '') + '</p>' +
+        (c.rate ? ' · ' + c.rate + ' ' + (c.currency || 'MXN') + '/h' : '') +
+        (c.days && c.days.length ? ' · ' + c.days.map(function(x){ return ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'][x]; }).join('/') : '') +
+        (c.time ? ' ' + c.time : '') + '</p>' +
         '<p class="stu-meta">Inicio: ' + fmtD(c.startDate) + ' · Fin original: ' + fmtD(c.originalEnd) + ' · <b style="color:var(--gold2)">Fin proyectado: ' + fmtD(c.projectedEnd) + '</b></p></div>' +
         '<div style="display:flex;gap:.5rem;flex-wrap:wrap">' +
-          '<button class="btn solid" onclick="openSession(\'' + c.id + '\')"' + (pend.length ? ' disabled style="opacity:.4;cursor:not-allowed" title="Resuelve primero las faltas justificadas"' : '') + '><i class="fa fa-plus"></i> Registrar clase</button>' +
+          '<button class="btn solid" onclick="openSession(\'' + c.id + '\')"' + (pend.length ? ' disabled style="opacity:.4;cursor:not-allowed" title="Resuelve primero las faltas justificadas"' : '') + '><i class="fa fa-calendar-plus"></i> Otra fecha</button>' +
           '<button class="btn" onclick="shareWA(\'' + c.id + '\')"><i class="fab fa-whatsapp"></i> Compartir saldo</button>' +
           '<button class="btn" onclick="copySummary(\'' + c.id + '\')"><i class="fa fa-copy"></i> Copiar resumen</button>' +
           '<button class="btn" onclick="printStatement(\'' + c.id + '\')"><i class="fa fa-print"></i> Estado de cuenta</button>' +
@@ -556,7 +765,7 @@ function openDetail(cid){
         '<div class="bal"><b>' + cons + '</b><span>consumidas</span></div>' +
         '<div class="bal"><b style="color:var(--cyan)">' + rem + '</b><span>restantes</span></div>' +
       '</div>' +
-      alert +
+      alert + quick + ct +
     '</div>' +
     '<div class="panel"><p class="mono" style="margin-bottom:.8rem">Historial de sesiones</p>' +
       (c.sessions.length ? '<div style="overflow-x:auto"><table><tr><th>Fecha</th><th>Asistencia</th><th>Horas</th><th>Resolución</th><th></th></tr>' + rows + '</table></div>'
@@ -569,13 +778,30 @@ function getC(id){ return db.contracts.find(function(c){ return c.id === id; });
 function esc(s){ return String(s).replace(/[<>&"]/g, function(ch){ return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[ch]; }); }
 
 /* ══════════ ALUMNOS ══════════ */
+/* selector de días de clase */
+document.getElementById('f-days').addEventListener('click', function(e){
+  if (e.target.tagName === 'SPAN') e.target.classList.toggle('on');
+});
+function setDays(arr){
+  document.querySelectorAll('#f-days span').forEach(function(el){
+    el.classList.toggle('on', (arr || []).indexOf(Number(el.getAttribute('data-d'))) !== -1);
+  });
+}
+function getDays(){
+  return Array.from(document.querySelectorAll('#f-days span.on')).map(function(el){ return Number(el.getAttribute('data-d')); });
+}
+
 function openNewStudent(){
   document.getElementById('stu-modal-title').textContent = 'Nuevo alumno';
-  ['f-id','f-name','f-phone','f-email','f-rate'].forEach(function(i){ document.getElementById(i).value=''; });
+  ['f-id','f-name','f-phone','f-email','f-time'].forEach(function(i){ document.getElementById(i).value=''; });
   document.getElementById('f-total').value = 20;
   document.getElementById('f-dur').value = 1;
   document.getElementById('f-freq').value = 2;
+  document.getElementById('f-rate').value = 225;
+  document.getElementById('f-cur').value = 'MXN';
+  document.getElementById('f-mod').value = 'En línea';
   document.getElementById('f-start').value = todayISO();
+  setDays([]);
   openM('m-student');
 }
 function editStudent(cid){
@@ -590,6 +816,10 @@ function editStudent(cid){
   document.getElementById('f-freq').value = c.weeklyFreq;
   document.getElementById('f-start').value = c.startDate;
   document.getElementById('f-rate').value = c.rate || '';
+  document.getElementById('f-cur').value = c.currency || 'MXN';
+  document.getElementById('f-mod').value = c.modality || 'En línea';
+  document.getElementById('f-time').value = c.time || '';
+  setDays(c.days);
   openM('m-student');
 }
 function saveStudent(){
@@ -604,7 +834,11 @@ function saveStudent(){
     sessionDur: Number(document.getElementById('f-dur').value) || 1,
     weeklyFreq: Number(document.getElementById('f-freq').value) || 1,
     startDate: document.getElementById('f-start').value || todayISO(),
-    rate: Number(document.getElementById('f-rate').value) || 0
+    rate: Number(document.getElementById('f-rate').value) || 0,
+    currency: document.getElementById('f-cur').value,
+    modality: document.getElementById('f-mod').value,
+    time: document.getElementById('f-time').value,
+    days: getDays()
   };
   if (id) {
     var c = getC(id); Object.assign(c, vals);
@@ -742,6 +976,57 @@ function b64uEncode(str){
   bytes.forEach(function(b){ bin += String.fromCharCode(b); });
   return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
+/* ══════════ CONTRATO ══════════ */
+function contratoLink(c){
+  var payload = {
+    v: 1, cid: c.id, name: c.name, phone: c.phone || '', email: c.email || '',
+    hours: Number(c.totalHours), dur: Number(c.sessionDur), freq: Number(c.weeklyFreq),
+    days: c.days || [], time: c.time || '', modality: c.modality || 'En línea',
+    rate: Number(c.rate) || 0, currency: c.currency || 'MXN',
+    start: c.startDate, end: c.projectedEnd
+  };
+  return new URL('contrato.html', location.href).href + '?d=' + b64uEncode(JSON.stringify(payload));
+}
+function sendContrato(cid){
+  var c = getC(cid); if (!c) return;
+  var faltan = [];
+  if (!c.rate) faltan.push('la tarifa por hora');
+  if (!c.days || !c.days.length) faltan.push('los días de clase');
+  if (faltan.length && !confirm('Falta ' + faltan.join(' y ') + ' en la ficha del alumno.\n\nEl contrato saldrá incompleto. ¿Enviarlo de todas formas?')) {
+    editStudent(cid); return;
+  }
+  var link = contratoLink(c);
+  var msg = 'Hola ' + c.name.split(' ')[0] + ', aquí tienes tu contrato de clases con las condiciones que acordamos ('
+    + c.totalHours + ' h · ' + c.weeklyFreq + '×/semana'
+    + (c.rate ? ' · ' + c.rate + ' ' + (c.currency || 'MXN') + '/h' : '') + '). '
+    + 'Puedes leerlo en español, francés o inglés, y aceptarlo desde la misma página: ' + link
+    + ' — Prof. Miguel Tillero';
+  window.open('https://wa.me/' + (c.phone || '') + '?text=' + encodeURIComponent(msg), '_blank');
+}
+function copyContrato(cid){
+  navigator.clipboard.writeText(contratoLink(getC(cid))).then(function(){
+    alert('Enlace del contrato copiado.');
+  });
+}
+/* El alumno acepta → nos llega ?firma=… → se registra la aceptación */
+function checkIncomingFirma(){
+  var code = new URLSearchParams(location.search).get('firma');
+  if (!code) return;
+  history.replaceState(null, '', location.pathname);
+  var f;
+  try { f = JSON.parse(b64uDecode(code)); } catch(e){ alert('El enlace de aceptación no es válido.'); return; }
+  if (!f || f.v !== 1 || !f.signer) { alert('El enlace de aceptación no es válido.'); return; }
+
+  var c = getC(f.cid) || db.contracts.find(function(x){ return x.name.toLowerCase() === String(f.name).toLowerCase(); });
+  if (!c) { alert('Aceptación de «' + f.name + '», pero ese alumno no existe en este dispositivo.\nDa de alta al alumno primero y vuelve a abrir el enlace.'); return; }
+  if (c.contract && c.contract.acceptedAt) { alert('Este contrato ya estaba registrado como aceptado el ' + fmtD(c.contract.acceptedAt) + '.'); openDetail(c.id); return; }
+
+  c.contract = { signer: f.signer, acceptedAt: f.date || todayISO(), validatedAt: todayISO() };
+  save();
+  alert('Contrato aceptado por ' + f.signer + ' el ' + fmtD(c.contract.acceptedAt) + '.\nQueda registrado en la ficha del alumno.');
+  openDetail(c.id);
+}
+
 function saldoLink(c){
   var stCode = { present:'p', unjustified_absence:'u', justified_absence:'j', makeup_scheduled:'m' };
   var ses = c.sessions.slice().sort(function(a,b){ return b.date.localeCompare(a.date); })
