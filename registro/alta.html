@@ -80,6 +80,15 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g
 .pick.sel { border-color: var(--gold); background: var(--goldx); box-shadow: 0 0 0 2px var(--goldx); }
 .pick.sel b { color: var(--gold2); }
 
+/* selector de días */
+.day-pick { display: flex; gap: 0.35rem; flex-wrap: wrap; margin-top: 0.4rem; }
+.day-pick span {
+  font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em;
+  padding: 0.6rem 0.6rem; border: 1px solid rgba(18,41,28,0.2); cursor: pointer;
+  user-select: none; color: var(--muted); transition: all .2s;
+}
+.day-pick span.on { background: var(--gold); border-color: var(--gold); color: #fff; }
+
 .nav-row { display: flex; gap: 0.6rem; margin-top: 1.5rem; }
 .nav-row .btn { flex: 1; }
 .err { color: #b3402e; font-size: 0.85rem; margin-top: 0.6rem; min-height: 1.1em; }
@@ -156,6 +165,17 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g
       <div class="pick" data-v="2"><b>2 h</b><span>&nbsp;</span></div>
     </div>
 
+    <label data-es="Días que prefieres (opcional)" data-fr="Jours que tu préfères (facultatif)" data-en="Days you prefer (optional)">Días que prefieres (opcional)</label>
+    <div class="day-pick" id="a-days">
+      <span data-d="1" data-es="Lun" data-fr="Lun" data-en="Mon">Lun</span>
+      <span data-d="2" data-es="Mar" data-fr="Mar" data-en="Tue">Mar</span>
+      <span data-d="3" data-es="Mié" data-fr="Mer" data-en="Wed">Mié</span>
+      <span data-d="4" data-es="Jue" data-fr="Jeu" data-en="Thu">Jue</span>
+      <span data-d="5" data-es="Vie" data-fr="Ven" data-en="Fri">Vie</span>
+      <span data-d="6" data-es="Sáb" data-fr="Sam" data-en="Sat">Sáb</span>
+      <span data-d="0" data-es="Dom" data-fr="Dim" data-en="Sun">Dom</span>
+    </div>
+
     <label data-es="¿Cuándo te gustaría empezar?" data-fr="Quand veux-tu commencer ?" data-en="When would you like to start?">¿Cuándo te gustaría empezar?</label>
     <input id="a-start" type="date">
 
@@ -217,6 +237,14 @@ function applyPh(){
 });
 function picked(id){ return document.querySelector('#' + id + ' .pick.sel').getAttribute('data-v'); }
 
+/* días preferidos */
+document.getElementById('a-days').addEventListener('click', function(e){
+  if (e.target.tagName === 'SPAN') e.target.classList.toggle('on');
+});
+function pickedDays(){
+  return Array.from(document.querySelectorAll('#a-days span.on')).map(function(el){ return Number(el.getAttribute('data-d')); });
+}
+
 /* navegación entre pasos */
 var STEP_LBL = {
   1: { es: 'Paso 1 de 3 · Tus datos', fr: 'Étape 1 sur 3 · Tes coordonnées', en: 'Step 1 of 3 · Your details' },
@@ -263,6 +291,7 @@ function payload(){
     freq:  Number(picked('pick-freq')),
     dur:   Number(picked('pick-dur')),
     start: document.getElementById('a-start').value,
+    days:  pickedDays(),
     notes: document.getElementById('a-notes').value.trim().slice(0, 300)
   };
 }
@@ -270,15 +299,20 @@ function buildSummary(){
   var p = payload();
   var lang = (window.i18n && window.i18n.currentLang) || 'es';
   var K = {
-    es: { name:'Nombre', wa:'WhatsApp', mail:'Correo', pack:'Paquete', rhythm:'Ritmo', dur:'Duración', start:'Inicio deseado', notes:'Nota', wk:'/semana' },
-    fr: { name:'Nom', wa:'WhatsApp', mail:'E-mail', pack:'Forfait', rhythm:'Rythme', dur:'Durée', start:'Début souhaité', notes:'Note', wk:'/semaine' },
-    en: { name:'Name', wa:'WhatsApp', mail:'Email', pack:'Package', rhythm:'Pace', dur:'Duration', start:'Preferred start', notes:'Note', wk:'/week' }
+    es: { name:'Nombre', wa:'WhatsApp', mail:'Correo', pack:'Paquete', rhythm:'Ritmo', dur:'Duración', days:'Días', start:'Inicio deseado', notes:'Nota', wk:'/semana',
+          dn:['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'] },
+    fr: { name:'Nom', wa:'WhatsApp', mail:'E-mail', pack:'Forfait', rhythm:'Rythme', dur:'Durée', days:'Jours', start:'Début souhaité', notes:'Note', wk:'/semaine',
+          dn:['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'] },
+    en: { name:'Name', wa:'WhatsApp', mail:'Email', pack:'Package', rhythm:'Pace', dur:'Duration', days:'Days', start:'Preferred start', notes:'Note', wk:'/week',
+          dn:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'] }
   }[lang];
   function row(k, v){ return v ? '<div class="sum-row"><span class="k">' + k + '</span><span class="v">' + esc(v) + '</span></div>' : ''; }
   document.getElementById('summary').innerHTML =
     row(K.name, p.name) + row(K.wa, '+' + p.phone) + row(K.mail, p.email) +
     row(K.pack, p.hours + ' h') + row(K.rhythm, p.freq + '×' + K.wk) +
-    row(K.dur, p.dur + ' h') + row(K.start, p.start ? fmtD(p.start) : '') + row(K.notes, p.notes);
+    row(K.dur, p.dur + ' h') +
+    row(K.days, p.days.length ? p.days.map(function(x){ return K.dn[x]; }).join(', ') : '') +
+    row(K.start, p.start ? fmtD(p.start) : '') + row(K.notes, p.notes);
 }
 function esc(s){ return String(s).replace(/[<>&"]/g, function(ch){ return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[ch]; }); }
 function fmtD(iso){ var p = iso.split('-'); return p[2] + '/' + p[1] + '/' + p[0]; }
