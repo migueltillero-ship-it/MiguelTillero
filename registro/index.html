@@ -110,7 +110,7 @@ td { padding: 0.55rem 0.6rem; border-bottom: 1px solid rgba(18,41,28,0.08); vert
     <p id="gate-sub" style="font-size:.9rem;color:var(--muted);margin-top:.4rem"></p>
     <input type="password" id="gate-pin" placeholder="PIN" inputmode="numeric" style="text-align:center;letter-spacing:.5em;margin-top:1.2rem">
     <button class="btn solid" style="margin-top:1rem;width:100%;justify-content:center" onclick="gateSubmit()">Entrar</button>
-    <p class="note" style="text-align:left">Este candado es solo disuasorio (funciona en tu navegador). Los datos se guardan únicamente en este dispositivo; usa «Exportar respaldo» con regularidad.</p>
+    <p class="note" style="text-align:left">Este candado es solo disuasorio (funciona en tu navegador). Activa el botón «Nube» para que todo se respalde automáticamente en tu Google Drive y puedas usar el panel desde varios dispositivos; «Exportar respaldo» queda como segunda red de seguridad.</p>
   </div>
 </div>
 
@@ -123,6 +123,7 @@ td { padding: 0.55rem 0.6rem; border-bottom: 1px solid rgba(18,41,28,0.08); vert
     <div style="display:flex;gap:.5rem;flex-wrap:wrap">
       <button class="btn" onclick="openNewStudent()"><i class="fa fa-user-plus"></i> Nuevo alumno</button>
       <button class="btn" onclick="copyAltaLink()" title="Enlace de la ficha que el alumno llena para inscribirse"><i class="fa fa-link"></i> Ficha para alumnos</button>
+      <button class="btn" id="cloud-btn" onclick="openCloud()"><i class="fa fa-cloud" id="cloud-ico"></i> <span id="cloud-lbl">Nube</span></button>
       <button class="btn" onclick="exportData()"><i class="fa fa-download"></i> Exportar respaldo</button>
       <button class="btn" onclick="document.getElementById('imp-file').click()"><i class="fa fa-upload"></i> Importar</button>
       <input type="file" id="imp-file" accept=".json" class="hidden" onchange="importData(this)">
@@ -212,14 +213,51 @@ td { padding: 0.55rem 0.6rem; border-bottom: 1px solid rgba(18,41,28,0.08); vert
   </div>
 </div>
 
+<!-- ══ MODAL: respaldo en la nube (Google Drive) ══ -->
+<div class="overlay" id="m-cloud">
+  <div class="modal">
+    <button class="x" onclick="closeM('m-cloud')"><i class="fa fa-times"></i></button>
+    <h3>Respaldo en la nube</h3>
+    <p class="mono">Google Drive · sincronización automática</p>
+    <p id="cloud-status" style="font-size:.9rem;color:var(--muted);margin-top:.6rem"></p>
+
+    <label>URL de tu aplicación web (termina en /exec)</label>
+    <input id="cloud-url" placeholder="https://script.google.com/macros/s/…/exec">
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem">
+      <button class="btn solid" onclick="saveCloudUrl()"><i class="fa fa-check"></i> Guardar y probar</button>
+      <button class="btn" onclick="cloudRestore()"><i class="fa fa-cloud-arrow-down"></i> Restaurar desde la nube</button>
+      <button class="btn danger" onclick="clearCloudUrl()"><i class="fa fa-unlink"></i> Desconectar</button>
+    </div>
+
+    <p class="note">
+      <b>Configuración (una sola vez, ~5 min):</b><br>
+      1. Crea una hoja de cálculo en <b>sheets.new</b> y nómbrala «Registro de clases».<br>
+      2. Menú <b>Extensiones → Apps Script</b>, borra lo que haya y pega el código del script
+      (<a href="apps-script.gs" download style="color:var(--cyan)">descargar código</a> o
+      <a href="#" onclick="copyScriptUrl(event)" style="color:var(--cyan)">copiar enlace al archivo</a>). Guarda.<br>
+      3. <b>Implementar → Nueva implementación → Aplicación web</b>: ejecutar como <b>tú</b>,
+      acceso <b>cualquier persona</b>. Autoriza.<br>
+      4. Copia la <b>URL /exec</b> y pégala arriba.<br><br>
+      Con esto, cada cambio se guarda solo en tu Drive (pestañas «Alumnos» y «Clases» legibles),
+      y puedes usar el panel desde varios dispositivos: en cada uno creas tu PIN, pegas esta misma
+      URL y pulsas «Restaurar desde la nube». La URL es tu llave: no la compartas.
+    </p>
+  </div>
+</div>
+
 <div id="print-area"></div>
 
 <script>
 /* ══════════ ALMACENAMIENTO ══════════ */
-var DB_KEY = 'mt_registro_v1', PIN_KEY = 'mt_registro_pin';
+var DB_KEY = 'mt_registro_v1', PIN_KEY = 'mt_registro_pin', CLOUD_KEY = 'mt_registro_cloud';
 var db = load();
 function load(){ try { return JSON.parse(localStorage.getItem(DB_KEY)) || { contracts: [] }; } catch(e){ return { contracts: [] }; } }
-function save(){ localStorage.setItem(DB_KEY, JSON.stringify(db)); }
+function saveLocal(){ try { localStorage.setItem(DB_KEY, JSON.stringify(db)); } catch(e){} }
+function save(){
+  db.updatedAt = new Date().toISOString();
+  saveLocal();
+  scheduleCloudPush();
+}
 function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
 
 /* ══════════ PIN GATE (disuasorio) ══════════ */
@@ -242,8 +280,116 @@ function unlock(){
   document.getElementById('gate').classList.remove('open');
   document.getElementById('app').style.visibility = 'visible';
   renderList();
-  checkIncomingAlta();
+  cloudSyncOnStart(function(){ checkIncomingAlta(); });
 }
+
+/* ══════════ NUBE (Google Drive vía Apps Script) ══════════ */
+function cloudUrl(){ try { return localStorage.getItem(CLOUD_KEY) || ''; } catch(e){ return ''; } }
+var cloudPushT = null, cloudPending = false;
+
+function setCloudUI(state, detail){
+  var ico = document.getElementById('cloud-ico');
+  var lbl = document.getElementById('cloud-lbl');
+  if (!ico || !lbl) return;
+  var map = {
+    off:  ['fa fa-cloud',                'Nube',            'var(--muted)'],
+    sync: ['fa fa-cloud-arrow-up',       'Guardando…',      'var(--gold2)'],
+    ok:   ['fa fa-cloud',                'Nube ✓',          'var(--cyan)'],
+    err:  ['fa fa-triangle-exclamation', 'Nube ⚠',          'var(--red)']
+  };
+  var m = map[state] || map.off;
+  ico.className = m[0]; lbl.textContent = m[1];
+  document.getElementById('cloud-btn').style.color = m[2];
+  var st = document.getElementById('cloud-status');
+  if (st) st.textContent = detail || (
+    state === 'off' ? 'Sin configurar: los datos solo viven en este dispositivo.' :
+    state === 'ok'  ? 'Conectado. Cada cambio se respalda automáticamente en tu Drive.' :
+    state === 'err' ? 'No se pudo contactar el script. Revisa la URL o tu conexión; se reintentará al próximo cambio.' : '');
+}
+
+function scheduleCloudPush(){
+  if (!cloudUrl()) { setCloudUI('off'); return; }
+  cloudPending = true;
+  clearTimeout(cloudPushT);
+  cloudPushT = setTimeout(cloudPush, 1200);
+}
+function cloudPush(cb){
+  var url = cloudUrl();
+  if (!url) { setCloudUI('off'); return; }
+  setCloudUI('sync');
+  /* sin cabeceras personalizadas → sin preflight CORS (Apps Script no lo soporta) */
+  fetch(url, { method: 'POST', body: JSON.stringify(db) })
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      if (j && j.ok) { cloudPending = false; setCloudUI('ok', 'Último respaldo: ' + new Date().toLocaleTimeString()); if (cb) cb(true); }
+      else { setCloudUI('err', 'El script respondió con error: ' + (j && j.error || '?')); if (cb) cb(false); }
+    })
+    .catch(function(){ setCloudUI('err'); if (cb) cb(false); });
+}
+function cloudSyncOnStart(done){
+  done = done || function(){};
+  var url = cloudUrl();
+  if (!url) { setCloudUI('off'); done(); return; }
+  setCloudUI('sync');
+  fetch(url)
+    .then(function(r){ return r.json(); })
+    .then(function(remote){
+      if (remote && remote.contracts) {
+        var rT = remote.updatedAt || '', lT = db.updatedAt || '';
+        if (rT > lT && remote.contracts.length) {
+          /* la nube es más reciente → adoptarla (sin bump para conservar su fecha) */
+          db = remote; saveLocal(); renderList();
+        } else if (lT > rT && db.contracts.length) {
+          cloudPush();
+        }
+      }
+      setCloudUI('ok');
+      done();
+    })
+    .catch(function(){ setCloudUI('err'); done(); });
+}
+function openCloud(){
+  document.getElementById('cloud-url').value = cloudUrl();
+  setCloudUI(cloudUrl() ? 'ok' : 'off');
+  openM('m-cloud');
+}
+function saveCloudUrl(){
+  var v = document.getElementById('cloud-url').value.trim();
+  if (!/^https:\/\/script\.google(usercontent)?\.com\/.+/.test(v)) {
+    alert('Pega la URL completa de la aplicación web (empieza con https://script.google.com/… y termina en /exec).');
+    return;
+  }
+  try { localStorage.setItem(CLOUD_KEY, v); } catch(e){}
+  cloudPush(function(ok){
+    alert(ok ? 'Conexión correcta. A partir de ahora cada cambio se respalda solo en tu Drive.'
+             : 'No se pudo conectar. Verifica que la implementación tenga acceso «Cualquier persona» y que la URL termine en /exec.');
+  });
+}
+function clearCloudUrl(){
+  if (!confirm('¿Desconectar el respaldo en la nube? Los datos de tu Drive no se borran; este dispositivo dejará de sincronizar.')) return;
+  try { localStorage.removeItem(CLOUD_KEY); } catch(e){}
+  setCloudUI('off');
+}
+function cloudRestore(){
+  var url = cloudUrl() || document.getElementById('cloud-url').value.trim();
+  if (!url) { alert('Primero guarda la URL del script.'); return; }
+  fetch(url).then(function(r){ return r.json(); }).then(function(remote){
+    if (!remote || !remote.contracts) { alert('La nube no contiene datos válidos todavía.'); return; }
+    if (!confirm('Restaurar ' + remote.contracts.length + ' alumno(s) desde la nube reemplaza los datos de este dispositivo. ¿Continuar?')) return;
+    db = remote; saveLocal(); renderList(); closeM('m-cloud');
+    setCloudUI('ok', 'Restaurado desde la nube.');
+  }).catch(function(){ alert('No se pudo leer la nube. Revisa la URL y tu conexión.'); });
+}
+function copyScriptUrl(ev){
+  ev.preventDefault();
+  var u = new URL('apps-script.gs', location.href).href;
+  navigator.clipboard.writeText(u).then(function(){ alert('Enlace copiado:\n' + u + '\n\nÁbrelo para ver el código y pegarlo en Apps Script.'); });
+}
+/* reintento al recuperar conexión y aviso si hay cambios sin subir */
+window.addEventListener('online', function(){ if (cloudPending) cloudPush(); });
+window.addEventListener('beforeunload', function(e){
+  if (cloudPending && cloudUrl()) { e.preventDefault(); e.returnValue = ''; }
+});
 
 /* ══════════ ALTA REMOTA (?alta=…) — ficha enviada por el alumno ══════════ */
 function b64uDecode(s){
