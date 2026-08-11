@@ -44,6 +44,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g
   display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all .25s;
 }
 .btn:hover { background: var(--goldx); }
+.langs .btn.active { background: var(--gold); color: #fff; border-color: var(--gold); }
 .btn.solid { background: var(--gold); color: #fff; border-color: var(--gold); }
 .btn.solid:hover { background: var(--gold2); }
 .btn.big { width: 100%; font-size: 0.72rem; padding: 1.05rem 1.3rem; }
@@ -96,9 +97,9 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g
 <body>
 <div class="wrap">
   <div class="langs">
-    <button class="btn" onclick="setLangSafe('es')">ES</button>
-    <button class="btn" onclick="setLangSafe('fr')">FR</button>
-    <button class="btn" onclick="setLangSafe('en')">EN</button>
+    <button class="btn" data-lang-btn="es" onclick="setLangSafe('es')">ES</button>
+    <button class="btn" data-lang-btn="fr" onclick="setLangSafe('fr')">FR</button>
+    <button class="btn" data-lang-btn="en" onclick="setLangSafe('en')">EN</button>
   </div>
 
   <p class="mono" data-es="Clases de francés · Prof. Miguel Tillero" data-fr="Cours de français · Prof. Miguel Tillero" data-en="French classes · Prof. Miguel Tillero">Clases de francés · Prof. Miguel Tillero</p>

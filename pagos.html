@@ -32,6 +32,7 @@ body {
   border: 1px solid var(--border); padding: 0.6rem 1.1rem; transition: all .3s; background: none; cursor: pointer;
 }
 .back-link:hover { background: var(--goldx); }
+.back-link.active { background: var(--gold); color: #fff; border-color: var(--gold); }
 .sec-head { text-align: center; margin-bottom: 2.5rem; }
 .eyebrow { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--cyan); }
 .sec-title { font-size: 2.4rem; font-weight: 300; color: var(--white); }
@@ -148,9 +149,9 @@ body {
   <div class="top-bar">
     <a class="back-link" href="index.html">&larr; <span data-es="Volver al sitio" data-fr="Retour au site" data-en="Back to site">Volver al sitio</span></a>
     <div style="display:flex;gap:.4rem">
-      <button class="back-link" onclick="setLangSafe('es')">ES</button>
-      <button class="back-link" onclick="setLangSafe('fr')">FR</button>
-      <button class="back-link" onclick="setLangSafe('en')">EN</button>
+      <button class="back-link" data-lang-btn="es" onclick="setLangSafe('es')">ES</button>
+      <button class="back-link" data-lang-btn="fr" onclick="setLangSafe('fr')">FR</button>
+      <button class="back-link" data-lang-btn="en" onclick="setLangSafe('en')">EN</button>
     </div>
   </div>
 <section id="pagos" class="alt z10">
