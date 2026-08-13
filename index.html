@@ -1865,6 +1865,209 @@ select:focus-visible, textarea:focus-visible {
 }
 .g-item img[src*="drive.google.com"].loaded { opacity: 1; }
 
+/* ═══════════════════════════════════════════════════════════════
+   BLOQUE ALLIANCE FRANÇAISE
+   Cursos · Exámenes oficiales · Niveles MCER · Test de
+   posicionamiento · Agenda cultural · Red AF · Recursos
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Elementos compartidos ── */
+.af-intro {
+  max-width: 760px; margin: -1.5rem auto 3.2rem; text-align: center;
+  font-size: 0.9rem; line-height: 1.95; color: var(--text);
+}
+.af-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+.af-chip {
+  font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.18em;
+  text-transform: uppercase; padding: 0.32rem 0.6rem; white-space: nowrap;
+  border: 1px solid var(--border); color: var(--gold2); background: rgba(255,255,255,0.55);
+}
+.af-chip.em { border-color: var(--borderx); color: var(--cyan); }
+.af-note {
+  max-width: 820px; margin: 2.6rem auto 0; padding: 1.1rem 1.4rem;
+  border-left: 2px solid var(--gold); background: rgba(255,255,255,0.6);
+  font-size: 0.76rem; line-height: 1.85; color: var(--muted);
+}
+.af-note i { color: var(--gold); margin-right: 0.5rem; }
+.af-cta { text-align: center; margin-top: 3rem; }
+
+/* ── Cursos y modalidades ── */
+.crs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+.crs-card {
+  position: relative; overflow: hidden; padding: 1.9rem 1.5rem;
+  background: var(--glass); border: 1px solid var(--borderx);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  transition: transform 0.45s cubic-bezier(.16,1,.3,1), border-color 0.4s, box-shadow 0.4s;
+}
+.crs-card::before {
+  content: ''; position: absolute; left: 0; top: 0; width: 2px; height: 0;
+  background: linear-gradient(180deg, var(--gold), var(--cyan)); transition: height 0.5s ease;
+}
+.crs-card:hover { transform: translateY(-6px); border-color: var(--border); box-shadow: var(--glow); }
+.crs-card:hover::before { height: 100%; }
+.crs-icon { font-size: 1.2rem; color: var(--gold); display: block; margin-bottom: 1rem; }
+.crs-title { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 0.55rem; }
+.crs-desc { font-size: 0.78rem; line-height: 1.75; color: var(--muted); }
+
+/* ── Exámenes oficiales ── */
+.exam-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.4rem; }
+.exam-card {
+  position: relative; padding: 2rem 1.9rem; background: var(--panel);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  transition: transform 0.45s cubic-bezier(.16,1,.3,1), box-shadow 0.4s;
+}
+.exam-card:hover { transform: translateY(-5px); box-shadow: var(--glow); }
+.exam-sigla { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 700; line-height: 1; color: var(--gold); }
+.exam-full {
+  font-family: 'Space Mono', monospace; font-size: 0.54rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--muted); margin: 0.55rem 0 0.2rem; line-height: 1.7;
+}
+.exam-rows { list-style: none; margin-top: 1.3rem; }
+.exam-rows li {
+  display: grid; grid-template-columns: 92px 1fr; gap: 0.9rem;
+  padding: 0.6rem 0; border-top: 1px solid rgba(165,130,74,0.16);
+  font-size: 0.78rem; line-height: 1.65; color: var(--text);
+}
+.exam-rows b {
+  font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gold2); font-weight: 400; padding-top: 0.28rem;
+}
+
+/* ── ¿Qué examen elegir? ── */
+.pick-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 2.5rem; }
+.pick-card {
+  padding: 1.6rem 1.4rem; background: rgba(255,255,255,0.62);
+  border: 1px solid var(--borderx); border-top: 2px solid var(--cyan);
+  transition: transform 0.4s cubic-bezier(.16,1,.3,1), background 0.4s;
+}
+.pick-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.9); }
+.pick-goal {
+  font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--cyan); margin-bottom: 0.7rem;
+}
+.pick-ans { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 0.5rem; }
+.pick-why { font-size: 0.76rem; line-height: 1.7; color: var(--muted); }
+
+/* ── Escala de niveles MCER ── */
+.lvl-scale { display: grid; gap: 0.7rem; max-width: 940px; margin: 0 auto; }
+.lvl-row {
+  display: grid; grid-template-columns: 62px 1fr 130px; align-items: center; gap: 1.3rem;
+  padding: 1.15rem 1.4rem; background: var(--glass); border: 1px solid var(--borderx);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  transition: border-color 0.35s, transform 0.35s cubic-bezier(.16,1,.3,1);
+}
+.lvl-row:hover { border-color: var(--border); transform: translateX(5px); }
+.lvl-code { font-family: 'Syne', sans-serif; font-size: 1.35rem; font-weight: 700; color: var(--gold); }
+.lvl-txt strong { display: block; font-family: 'Syne', sans-serif; font-size: 0.86rem; font-weight: 600; color: var(--white); margin-bottom: 0.28rem; }
+.lvl-txt span { font-size: 0.77rem; line-height: 1.7; color: var(--muted); }
+.lvl-meter { text-align: right; }
+.lvl-meter i {
+  display: block; height: 3px; margin-left: auto; margin-bottom: 0.45rem;
+  background: linear-gradient(90deg, var(--gold), var(--cyan));
+}
+.lvl-meter span { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); }
+
+/* ── Test de posicionamiento ── */
+.pt-wrap {
+  max-width: 720px; margin: 3.4rem auto 0; padding: 2.4rem 2.1rem;
+  background: var(--panel); border: 1px solid var(--border);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: var(--glow);
+}
+.pt-title { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--white); text-align: center; }
+.pt-sub { text-align: center; font-size: 0.78rem; line-height: 1.75; color: var(--muted); margin: 0.6rem 0 1.8rem; }
+.pt-progress { height: 2px; background: rgba(165,130,74,0.16); margin-bottom: 1.6rem; }
+.pt-progress i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--gold), var(--cyan)); transition: width 0.45s cubic-bezier(.16,1,.3,1); }
+.pt-count { font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+.pt-prompt { font-family: 'Syne', sans-serif; font-size: 1.05rem; line-height: 1.55; color: var(--white); margin: 0.75rem 0 1.4rem; }
+.pt-opts { display: grid; gap: 0.6rem; }
+.pt-opt {
+  text-align: left; padding: 0.85rem 1.1rem; cursor: pointer;
+  background: rgba(255,255,255,0.6); border: 1px solid var(--borderx);
+  font-family: inherit; font-size: 0.86rem; color: var(--text); transition: all 0.25s;
+}
+.pt-opt:hover { border-color: var(--gold); background: #fff; transform: translateX(4px); }
+.pt-stage { animation: ptIn 0.45s cubic-bezier(.16,1,.3,1); }
+@keyframes ptIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.pt-result { display: none; text-align: center; }
+.pt-result.on { display: block; animation: ptIn 0.5s cubic-bezier(.16,1,.3,1); }
+.pt-badge { font-family: 'Syne', sans-serif; font-size: 3.2rem; font-weight: 700; line-height: 1; color: var(--gold); }
+.pt-lbl { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--cyan); margin: 0.8rem 0 1rem; }
+.pt-msg { font-size: 0.83rem; line-height: 1.85; color: var(--text); max-width: 480px; margin: 0 auto 1.8rem; }
+.pt-actions { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
+.pt-reset {
+  background: none; border: none; cursor: pointer; font-family: 'Space Mono', monospace;
+  font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--muted); margin-top: 1.4rem; transition: color 0.3s;
+}
+.pt-reset:hover { color: var(--gold); }
+
+/* ── Agenda cultural ── */
+.cul-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+.cul-card {
+  position: relative; padding: 1.9rem 1.5rem; background: rgba(255,255,255,0.62);
+  border: 1px solid var(--borderx); transition: transform 0.45s cubic-bezier(.16,1,.3,1), box-shadow 0.4s, background 0.4s;
+}
+.cul-card:hover { transform: translateY(-6px); background: rgba(255,255,255,0.92); box-shadow: var(--glow); }
+.cul-icon { font-size: 1.15rem; color: var(--cyan); display: block; margin-bottom: 0.95rem; }
+.cul-title { font-family: 'Syne', sans-serif; font-size: 0.92rem; font-weight: 600; color: var(--white); margin-bottom: 0.5rem; }
+.cul-desc { font-size: 0.77rem; line-height: 1.75; color: var(--muted); }
+
+/* ── Red Alliance Française ── */
+.red-panel {
+  padding: 2.6rem 2.4rem; background: var(--panel); border: 1px solid var(--border);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+}
+.red-lead { font-size: 0.88rem; line-height: 2; color: var(--text); }
+.red-lead em { color: var(--gold2); font-style: italic; }
+.red-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4rem; margin-top: 2.4rem; }
+.red-sub {
+  font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+}
+.red-list { list-style: none; }
+.red-list li { position: relative; padding-left: 1.4rem; margin-bottom: 0.85rem; font-size: 0.8rem; line-height: 1.75; color: var(--muted); }
+.red-list li::before { content: '›'; position: absolute; left: 0; top: -0.05rem; color: var(--gold); font-size: 1rem; }
+.red-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin-top: 2.6rem; background: var(--borderx); border: 1px solid var(--borderx); }
+.red-stat { padding: 1.5rem 1rem; text-align: center; background: rgba(255,255,255,0.72); }
+.red-stat b { display: block; font-family: 'Syne', sans-serif; font-size: 1.7rem; font-weight: 700; color: var(--gold); line-height: 1; }
+.red-stat span { display: block; font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-top: 0.6rem; line-height: 1.6; }
+
+/* ── Recursos / mediateca ── */
+.res-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
+.res-card {
+  display: block; padding: 1.6rem 1.4rem; background: var(--glass);
+  border: 1px solid var(--borderx); text-decoration: none;
+  transition: transform 0.4s cubic-bezier(.16,1,.3,1), border-color 0.35s, box-shadow 0.4s;
+}
+.res-card:hover { transform: translateY(-5px); border-color: var(--border); box-shadow: var(--glow); }
+.res-name { display: flex; align-items: center; gap: 0.6rem; font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 600; color: var(--white); margin-bottom: 0.5rem; }
+.res-name i { color: var(--gold); font-size: 0.9rem; }
+.res-desc { font-size: 0.75rem; line-height: 1.7; color: var(--muted); }
+.res-go { display: inline-block; margin-top: 0.9rem; font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan); }
+
+/* ── Responsive del bloque AF ── */
+.nav-links a { white-space: nowrap; }
+@media (max-width: 1400px) { .nav-links { gap: 1.4rem; } }
+@media (max-width: 1280px) {
+  .nav-links { gap: 1.15rem; }
+  .nav-links a { letter-spacing: 0.18em; }
+  .nav-links li.nav-sec { display: none; }
+}
+@media (max-width: 960px) {
+  .crs-grid, .cul-grid, .res-grid, .pick-grid { grid-template-columns: repeat(2, 1fr); }
+  .exam-grid, .red-cols { grid-template-columns: 1fr; }
+  .red-stats { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .crs-grid, .cul-grid, .res-grid, .pick-grid { grid-template-columns: 1fr; }
+  .lvl-row { grid-template-columns: 50px 1fr; }
+  .lvl-meter { grid-column: 2; text-align: left; }
+  .lvl-meter i { margin-left: 0; }
+  .red-panel, .pt-wrap { padding: 1.8rem 1.3rem; }
+  .exam-rows li { grid-template-columns: 1fr; gap: 0.2rem; }
+}
+
 </style>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
@@ -1908,6 +2111,70 @@ select:focus-visible, textarea:focus-visible {
   "knowsLanguage": ["es", "fr", "en"],
   "description": "Profesor especialista en FLE. Director de Alliance Française, formador, traductor ES-FR y gestor cultural con 13 años de experiencia.",
   "alumniOf": {"@type": "EducationalOrganization", "name": "Universidad Pedagógica Experimental Libertador (UPEL)"}
+}
+</script>
+
+<!-- JSON-LD: oferta formativa de francés (cursos y preparación de exámenes) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Cursos de francés y preparación de exámenes oficiales",
+  "itemListElement": [
+    {
+      "@type": "ListItem", "position": 1,
+      "item": {
+        "@type": "Course",
+        "name": "Curso general de francés (A1 a C2)",
+        "description": "Itinerario completo de francés lengua extranjera según el Marco Común Europeo de Referencia, del nivel A1 al C2, con metodología comunicativa y accional.",
+        "inLanguage": "fr",
+        "teaches": "Francés lengua extranjera (FLE)",
+        "educationalLevel": "A1, A2, B1, B2, C1, C2",
+        "provider": {"@type": "Person", "name": "Miguel David Tillero Álvarez"},
+        "hasCourseInstance": {
+          "@type": "CourseInstance",
+          "courseMode": ["Onsite", "Online"],
+          "location": {"@type": "Place", "address": {"@type": "PostalAddress", "addressLocality": "San Cristóbal de Las Casas", "addressRegion": "Chiapas", "addressCountry": "MX"}}
+        }
+      }
+    },
+    {
+      "@type": "ListItem", "position": 2,
+      "item": {
+        "@type": "Course",
+        "name": "Preparación DELF y DALF",
+        "description": "Entrenamiento específico para los diplomas oficiales DELF (A1-B2) y DALF (C1-C2) del Ministerio francés de Educación Nacional: estrategias por prueba, simulacros y retroalimentación según los criterios oficiales.",
+        "inLanguage": "fr",
+        "teaches": "Preparación a los diplomas DELF y DALF",
+        "provider": {"@type": "Person", "name": "Miguel David Tillero Álvarez"},
+        "hasCourseInstance": {"@type": "CourseInstance", "courseMode": ["Onsite", "Online"]}
+      }
+    },
+    {
+      "@type": "ListItem", "position": 3,
+      "item": {
+        "@type": "Course",
+        "name": "Preparación TCF y TEF para migración",
+        "description": "Preparación lingüística para los tests oficiales TCF y TEF en sus versiones de migración a Canadá y Quebec y de integración, residencia y nacionalidad francesa.",
+        "inLanguage": "fr",
+        "teaches": "Preparación a los tests TCF y TEF",
+        "provider": {"@type": "Person", "name": "Miguel David Tillero Álvarez"},
+        "hasCourseInstance": {"@type": "CourseInstance", "courseMode": ["Onsite", "Online"]}
+      }
+    },
+    {
+      "@type": "ListItem", "position": 4,
+      "item": {
+        "@type": "Course",
+        "name": "Francés profesional y para empresas",
+        "description": "Francés sobre objetivos específicos para equipos e instituciones: turismo, hostelería, negocios, salud y cooperación internacional, con diagnóstico previo y programa a medida.",
+        "inLanguage": "fr",
+        "teaches": "Francés sobre objetivos específicos (FOS)",
+        "provider": {"@type": "Person", "name": "Miguel David Tillero Álvarez"},
+        "hasCourseInstance": {"@type": "CourseInstance", "courseMode": ["Onsite", "Online"]}
+      }
+    }
+  ]
 }
 </script>
 
@@ -1980,9 +2247,15 @@ select:focus-visible, textarea:focus-visible {
 <div class="mobile-menu" id="mobile-menu">
   <a href="#about" onclick="closeMob()" data-es="Perfil" data-fr="Profil" data-en="Profile">Perfil</a>
   <a href="#services" onclick="closeMob()" data-es="Expertise" data-fr="Expertise" data-en="Expertise">Expertise</a>
+  <a href="#modalidades" onclick="closeMob()" data-es="Cursos" data-fr="Cours" data-en="Courses">Cursos</a>
+  <a href="#certificaciones" onclick="closeMob()" data-es="Exámenes" data-fr="Examens" data-en="Exams">Exámenes</a>
+  <a href="#niveles" onclick="closeMob()" data-es="Mi nivel" data-fr="Mon niveau" data-en="My level">Mi nivel</a>
   <a href="#timeline" onclick="closeMob()" data-es="Trayectoria" data-fr="Parcours" data-en="Career">Trayectoria</a>
   <a href="#education" onclick="closeMob()" data-es="Formación" data-fr="Formation" data-en="Education">Formación</a>
   <a href="#gallery" onclick="closeMob()" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a>
+  <a href="#cultura" onclick="closeMob()" data-es="Cultura" data-fr="Culture" data-en="Culture">Cultura</a>
+  <a href="#red" onclick="closeMob()" data-es="La red AF" data-fr="Le réseau AF" data-en="AF network">La red AF</a>
+  <a href="#recursos" onclick="closeMob()" data-es="Recursos" data-fr="Ressources" data-en="Resources">Recursos</a>
   <a href="#inscripcion" onclick="closeMob()" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a>
   <a href="#contact" onclick="closeMob()" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a>
 </div>
@@ -1996,10 +2269,13 @@ select:focus-visible, textarea:focus-visible {
   <ul class="nav-links">
     <li><a href="#about" data-es="Sobre mí" data-fr="À propos" data-en="About">Sobre mí</a></li>
     <li><a href="#services" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</a></li>
-    <li><a href="#timeline" data-es="Trayectoria" data-fr="Parcours" data-en="Career">Trayectoria</a></li>
-    <li><a href="#education" data-es="Formación" data-fr="Formation" data-en="Education">Formación</a></li>
-    <li><a href="#gallery" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a></li>
-    <li><a href="#video-reel" data-es="Vídeo" data-fr="Vidéo" data-en="Video">Vídeo</a></li>
+    <li><a href="#modalidades" data-es="Cursos" data-fr="Cours" data-en="Courses">Cursos</a></li>
+    <li><a href="#certificaciones" data-es="Exámenes" data-fr="Examens" data-en="Exams">Exámenes</a></li>
+    <li class="nav-sec"><a href="#timeline" data-es="Trayectoria" data-fr="Parcours" data-en="Career">Trayectoria</a></li>
+    <li class="nav-sec"><a href="#education" data-es="Formación" data-fr="Formation" data-en="Education">Formación</a></li>
+    <li class="nav-sec"><a href="#gallery" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a></li>
+    <li class="nav-sec"><a href="#video-reel" data-es="Vídeo" data-fr="Vidéo" data-en="Video">Vídeo</a></li>
+    <li><a href="#cultura" data-es="Cultura" data-fr="Culture" data-en="Culture">Cultura</a></li>
     <li><a href="#pagos" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a></li>
     <li><a href="#inscripcion" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a></li>
     <li><a href="#contact" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a></li>
@@ -2208,6 +2484,253 @@ select:focus-visible, textarea:focus-visible {
         <p class="svc-desc" data-es="Intervenciones dinámicas sobre francophonie, interculturalidad, pedagogía innovadora y cooperación educativa internacional. Talleres y formaciones a medida para instituciones educativas y culturales." data-fr="Interventions sur la francophonie, l'interculturalité, la pédagogie innovante et la coopération éducative. Ateliers et formations sur mesure pour institutions." data-en="Talks on francophonie, interculturality, innovative pedagogy and educational cooperation. Tailored workshops and training for institutions.">Intervenciones dinámicas sobre francophonie, interculturalidad, pedagogía innovadora y cooperación educativa internacional. Talleres y formaciones a medida para instituciones educativas y culturales.</p>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CURSOS Y MODALIDADES ═══ -->
+<section id="modalidades" class="alt z10">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;">
+      <p class="eyebrow" style="justify-content:center" data-es="Nuestra oferta para aprender francés" data-fr="Notre offre pour apprendre le français" data-en="Our offer to learn French">Nuestra oferta para aprender francés</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Cursos y modalidades" data-fr="Cours et formats" data-en="Courses & formats">Cursos y modalidades</em></h2>
+    </div>
+
+    <p class="af-intro reveal" data-es="Mucho más que cursos: una inmersión en la lengua, la cultura francesa y el mundo francófono, con un acompañamiento personalizado. Cada itinerario se construye sobre el Marco Común Europeo de Referencia (MCER) y avanza del A1 al C2 con objetivos claros en cada etapa." data-fr="Bien plus que des cours : une immersion dans la langue, la culture française et le monde francophone, avec un accompagnement personnalisé. Chaque parcours s'appuie sur le CECRL et progresse de A1 à C2 avec des objectifs clairs à chaque étape." data-en="Much more than courses: an immersion in the language, French culture and the francophone world, with personalised guidance. Every path is built on the CEFR and moves from A1 to C2 with clear goals at each stage.">Mucho más que cursos: una inmersión en la lengua, la cultura francesa y el mundo francófono, con un acompañamiento personalizado. Cada itinerario se construye sobre el Marco Común Europeo de Referencia (MCER) y avanza del A1 al C2 con objetivos claros en cada etapa.</p>
+
+    <div class="crs-grid">
+
+      <div class="crs-card reveal d1">
+        <i class="fa fa-calendar-week crs-icon"></i>
+        <h3 class="crs-title" data-es="Curso general extensivo" data-fr="Cours général extensif" data-en="General extensive course">Curso general extensivo</h3>
+        <p class="crs-desc" data-es="El itinerario clásico: dos a cuatro horas por semana, progresión continua y trabajo equilibrado de las cuatro competencias — comprensión oral y escrita, producción oral y escrita." data-fr="Le parcours classique : deux à quatre heures par semaine, progression continue et travail équilibré des quatre compétences." data-en="The classic path: two to four hours a week, continuous progression and balanced work on all four skills.">El itinerario clásico: dos a cuatro horas por semana, progresión continua y trabajo equilibrado de las cuatro competencias — comprensión oral y escrita, producción oral y escrita.</p>
+        <div class="af-chips">
+          <span class="af-chip">A1 → C2</span>
+          <span class="af-chip em" data-es="2–4 h / semana" data-fr="2–4 h / semaine" data-en="2–4 h / week">2–4 h / semana</span>
+        </div>
+      </div>
+
+      <div class="crs-card reveal d2">
+        <i class="fa fa-bolt crs-icon"></i>
+        <h3 class="crs-title" data-es="Intensivo e inmersión" data-fr="Intensif et immersion" data-en="Intensive & immersion">Intensivo e inmersión</h3>
+        <p class="crs-desc" data-es="Para quien necesita avanzar rápido: de diez a veinte horas semanales, con ritmo sostenido y uso exclusivo del francés en el aula. Ideal antes de un examen, una beca o una mudanza." data-fr="Pour progresser vite : de dix à vingt heures par semaine, rythme soutenu et français exclusif en classe. Idéal avant un examen, une bourse ou un départ." data-en="For fast progress: ten to twenty hours a week, sustained pace and French only in class. Ideal before an exam, a scholarship or a move abroad.">Para quien necesita avanzar rápido: de diez a veinte horas semanales, con ritmo sostenido y uso exclusivo del francés en el aula. Ideal antes de un examen, una beca o una mudanza.</p>
+        <div class="af-chips">
+          <span class="af-chip">A1 → C1</span>
+          <span class="af-chip em" data-es="10–20 h / semana" data-fr="10–20 h / semaine" data-en="10–20 h / week">10–20 h / semana</span>
+        </div>
+      </div>
+
+      <div class="crs-card reveal d3">
+        <i class="fa fa-user crs-icon"></i>
+        <h3 class="crs-title" data-es="Clases individuales" data-fr="Cours particuliers" data-en="One-to-one classes">Clases individuales</h3>
+        <p class="crs-desc" data-es="Un programa hecho solo para ti: contenidos, horarios y ritmo definidos a partir de tu objetivo concreto. La fórmula más eficaz cuando el tiempo es corto o la meta es muy específica." data-fr="Un programme conçu pour vous seul : contenus, horaires et rythme définis selon votre objectif. La formule la plus efficace quand le temps est compté." data-en="A programme built for you alone: content, schedule and pace defined by your goal. The most efficient format when time is short.">Un programa hecho solo para ti: contenidos, horarios y ritmo definidos a partir de tu objetivo concreto. La fórmula más eficaz cuando el tiempo es corto o la meta es muy específica.</p>
+        <div class="af-chips">
+          <span class="af-chip">A0 → C2</span>
+          <span class="af-chip em" data-es="A medida" data-fr="Sur mesure" data-en="Tailor-made">A medida</span>
+        </div>
+      </div>
+
+      <div class="crs-card reveal d4">
+        <i class="fa fa-user-group crs-icon"></i>
+        <h3 class="crs-title" data-es="Dúo y grupo reducido" data-fr="Duo et petit groupe" data-en="Duo & small group">Dúo y grupo reducido</h3>
+        <p class="crs-desc" data-es="De dos a seis participantes del mismo nivel. Se conserva la atención personalizada y se gana lo que solo aporta el grupo: interacción real, debate y trabajo colaborativo." data-fr="De deux à six participants de même niveau. On garde l'attention personnalisée et on gagne l'interaction réelle, le débat et le travail collaboratif." data-en="Two to six participants at the same level. You keep personalised attention and gain what only a group brings: real interaction, debate and collaboration.">De dos a seis participantes del mismo nivel. Se conserva la atención personalizada y se gana lo que solo aporta el grupo: interacción real, debate y trabajo colaborativo.</p>
+        <div class="af-chips">
+          <span class="af-chip">A1 → C1</span>
+          <span class="af-chip em" data-es="2 a 6 personas" data-fr="2 à 6 personnes" data-en="2 to 6 people">2 a 6 personas</span>
+        </div>
+      </div>
+
+      <div class="crs-card reveal d5">
+        <i class="fa fa-comments crs-icon"></i>
+        <h3 class="crs-title" data-es="Taller de comunicación oral" data-fr="Atelier de communication orale" data-en="Oral communication workshop">Taller de comunicación oral</h3>
+        <p class="crs-desc" data-es="Hablar, hablar y hablar. Un espacio para desbloquear la expresión: debates, juegos de rol, presentaciones y situaciones de la vida real, con corrección inmediata y sin miedo al error." data-fr="Parler, parler, parler. Un espace pour débloquer l'expression : débats, jeux de rôle, exposés et situations réelles, avec correction immédiate." data-en="Speak, speak, speak. A space to unlock expression: debates, role-play, presentations and real-life situations, with immediate feedback.">Hablar, hablar y hablar. Un espacio para desbloquear la expresión: debates, juegos de rol, presentaciones y situaciones de la vida real, con corrección inmediata y sin miedo al error.</p>
+        <div class="af-chips">
+          <span class="af-chip">A1 → B2</span>
+          <span class="af-chip em" data-es="Taller temático" data-fr="Atelier thématique" data-en="Thematic workshop">Taller temático</span>
+        </div>
+      </div>
+
+      <div class="crs-card reveal d6">
+        <i class="fa fa-pen-nib crs-icon"></i>
+        <h3 class="crs-title" data-es="Taller de gramática" data-fr="Atelier de grammaire" data-en="Grammar workshop">Taller de gramática</h3>
+        <p class="crs-desc" data-es="Los puntos que siempre se atraviesan: subjuntivo, pronombres, concordancias, tiempos del pasado y conectores. Explicación clara, práctica intensiva y aplicación inmediata al uso real." data-fr="Les points qui résistent toujours : subjonctif, pronoms, accords, temps du passé et connecteurs. Explication claire, pratique intensive, application immédiate." data-en="The points that always get in the way: subjunctive, pronouns, agreements, past tenses and connectors. Clear explanation, intensive practice, immediate use.">Los puntos que siempre se atraviesan: subjuntivo, pronombres, concordancias, tiempos del pasado y conectores. Explicación clara, práctica intensiva y aplicación inmediata al uso real.</p>
+        <div class="af-chips">
+          <span class="af-chip">A1 → B2</span>
+          <span class="af-chip em" data-es="Taller temático" data-fr="Atelier thématique" data-en="Thematic workshop">Taller temático</span>
+        </div>
+      </div>
+
+      <div class="crs-card reveal d1">
+        <i class="fa fa-wave-square crs-icon"></i>
+        <h3 class="crs-title" data-es="Fonética y corrección fonética" data-fr="Phonétique et correction phonétique" data-en="Phonetics & pronunciation">Fonética y corrección fonética</h3>
+        <p class="crs-desc" data-es="Las vocales nasales, la <em>r</em> francesa, el ritmo y la entonación. Trabajo sistemático del acento con grabaciones, escucha comparada y ejercicios de discriminación auditiva." data-fr="Les voyelles nasales, le <em>r</em> français, le rythme et l'intonation. Travail systématique de l'accent avec enregistrements et discrimination auditive." data-en="Nasal vowels, the French <em>r</em>, rhythm and intonation. Systematic accent work with recordings, comparative listening and auditory discrimination.">Las vocales nasales, la <em>r</em> francesa, el ritmo y la entonación. Trabajo sistemático del acento con grabaciones, escucha comparada y ejercicios de discriminación auditiva.</p>
+        <div class="af-chips">
+          <span class="af-chip">A2 → C1</span>
+          <span class="af-chip em" data-es="Individual o grupal" data-fr="Individuel ou collectif" data-en="Individual or group">Individual o grupal</span>
+        </div>
+      </div>
+
+      <div class="crs-card reveal d2">
+        <i class="fa fa-masks-theater crs-icon"></i>
+        <h3 class="crs-title" data-es="Francés por el teatro" data-fr="Le français par le théâtre" data-en="French through theatre">Francés por el teatro</h3>
+        <p class="crs-desc" data-es="Aprender el idioma poniéndolo en el cuerpo. Técnicas teatrales aplicadas al aula: improvisación, lectura dramatizada, voz y gesto para ganar soltura, memoria y confianza al hablar." data-fr="Apprendre la langue en la mettant dans le corps. Techniques théâtrales en classe : improvisation, lecture à voix haute, voix et geste pour gagner en aisance." data-en="Learning the language by putting it in the body. Theatre techniques in class: improvisation, dramatic reading, voice and gesture to gain fluency and confidence.">Aprender el idioma poniéndolo en el cuerpo. Técnicas teatrales aplicadas al aula: improvisación, lectura dramatizada, voz y gesto para ganar soltura, memoria y confianza al hablar.</p>
+        <div class="af-chips">
+          <span class="af-chip">B1 → C1</span>
+          <span class="af-chip em" data-es="Taller creativo" data-fr="Atelier créatif" data-en="Creative workshop">Taller creativo</span>
+        </div>
+      </div>
+
+      <div class="crs-card reveal d3">
+        <i class="fa fa-award crs-icon"></i>
+        <h3 class="crs-title" data-es="Preparación DELF · DALF · TCF · TEF" data-fr="Préparation DELF · DALF · TCF · TEF" data-en="DELF · DALF · TCF · TEF preparation">Preparación DELF · DALF · TCF · TEF</h3>
+        <p class="crs-desc" data-es="Entrenamiento específico para el día del examen: estrategias por prueba, gestión del tiempo, simulacros completos en condiciones reales y retroalimentación detallada según los criterios oficiales." data-fr="Entraînement spécifique au jour J : stratégies par épreuve, gestion du temps, examens blancs en conditions réelles et retour détaillé selon les critères officiels." data-en="Targeted training for exam day: strategies per paper, time management, full mock exams in real conditions and detailed feedback against official criteria.">Entrenamiento específico para el día del examen: estrategias por prueba, gestión del tiempo, simulacros completos en condiciones reales y retroalimentación detallada según los criterios oficiales.</p>
+        <div class="af-chips">
+          <span class="af-chip">A1 → C2</span>
+          <span class="af-chip em" data-es="Certificación oficial" data-fr="Certification officielle" data-en="Official certification">Certificación oficial</span>
+        </div>
+      </div>
+
+      <div class="crs-card reveal d4">
+        <i class="fa fa-briefcase crs-icon"></i>
+        <h3 class="crs-title" data-es="Francés profesional y empresas" data-fr="Français professionnel et entreprises" data-en="Professional & corporate French">Francés profesional y empresas</h3>
+        <p class="crs-desc" data-es="Francés sobre objetivos específicos para equipos e instituciones: turismo, hostelería, negocios, salud, cooperación internacional. Diagnóstico previo, programa a medida e informe de progreso." data-fr="Français sur objectifs spécifiques pour équipes et institutions : tourisme, hôtellerie, affaires, santé, coopération. Diagnostic préalable, programme sur mesure et bilan." data-en="French for specific purposes for teams and institutions: tourism, hospitality, business, health, cooperation. Prior assessment, tailored programme and progress report.">Francés sobre objetivos específicos para equipos e instituciones: turismo, hostelería, negocios, salud, cooperación internacional. Diagnóstico previo, programa a medida e informe de progreso.</p>
+        <div class="af-chips">
+          <span class="af-chip">A2 → C1</span>
+          <span class="af-chip em" data-es="Empresas e instituciones" data-fr="Entreprises et institutions" data-en="Companies & institutions">Empresas e instituciones</span>
+        </div>
+      </div>
+
+      <div class="crs-card reveal d5">
+        <i class="fa fa-children crs-icon"></i>
+        <h3 class="crs-title" data-es="Niños y adolescentes" data-fr="Enfants et adolescents" data-en="Children & teenagers">Niños y adolescentes</h3>
+        <p class="crs-desc" data-es="Francés jugando, cantando y creando. Grupos por edad con actividades lúdicas, proyectos colectivos y una ruta natural hacia el DELF Prim y el DELF Junior." data-fr="Le français en jouant, en chantant et en créant. Groupes par âge, activités ludiques, projets collectifs et chemin naturel vers le DELF Prim et le DELF Junior." data-en="French through play, song and creation. Age-based groups, playful activities, collective projects and a natural path towards DELF Prim and DELF Junior.">Francés jugando, cantando y creando. Grupos por edad con actividades lúdicas, proyectos colectivos y una ruta natural hacia el DELF Prim y el DELF Junior.</p>
+        <div class="af-chips">
+          <span class="af-chip" data-es="7 a 17 años" data-fr="7 à 17 ans" data-en="Ages 7 to 17">7 a 17 años</span>
+          <span class="af-chip em">DELF Prim · Junior</span>
+        </div>
+      </div>
+
+      <div class="crs-card reveal d6">
+        <i class="fa fa-passport crs-icon"></i>
+        <h3 class="crs-title" data-es="Francés para migración" data-fr="Français pour l'immigration" data-en="French for immigration">Francés para migración</h3>
+        <p class="crs-desc" data-es="Acompañamiento completo para quien emigra a Quebec, Canadá o Francia: preparación lingüística del TCF o TEF, simulacros de entrevista y claves culturales para la integración francófona." data-fr="Accompagnement complet vers le Québec, le Canada ou la France : préparation au TCF ou TEF, simulations d'entretien et clés culturelles pour l'intégration." data-en="Full support for moving to Quebec, Canada or France: TCF or TEF language preparation, interview simulations and cultural keys for francophone integration.">Acompañamiento completo para quien emigra a Quebec, Canadá o Francia: preparación lingüística del TCF o TEF, simulacros de entrevista y claves culturales para la integración francófona.</p>
+        <div class="af-chips">
+          <span class="af-chip">TCF · TEF</span>
+          <span class="af-chip em" data-es="Quebec · Canadá · Francia" data-fr="Québec · Canada · France" data-en="Quebec · Canada · France">Quebec · Canadá · Francia</span>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="af-note reveal">
+      <i class="fa fa-circle-info"></i>
+      <span data-es="Todas las modalidades están disponibles en presencial en San Cristóbal de Las Casas y en línea desde cualquier parte del mundo, con la misma metodología comunicativa y accional. ¿No sabes cuál te conviene? Escríbeme y lo definimos juntos en una sesión de orientación sin costo." data-fr="Tous les formats existent en présentiel à San Cristóbal de Las Casas et en ligne partout dans le monde, avec la même approche communicative et actionnelle. Vous hésitez ? Écrivez-moi : nous en décidons ensemble lors d'un entretien d'orientation gratuit." data-en="Every format is available in person in San Cristóbal de Las Casas and online worldwide, with the same communicative, action-based method. Not sure which suits you? Write to me and we'll decide together in a free orientation session.">Todas las modalidades están disponibles en presencial en San Cristóbal de Las Casas y en línea desde cualquier parte del mundo, con la misma metodología comunicativa y accional. ¿No sabes cuál te conviene? Escríbeme y lo definimos juntos en una sesión de orientación sin costo.</span>
+    </p>
+
+    <div class="af-cta reveal">
+      <a href="#inscripcion" class="btn btn-gold" data-es="Solicitar mi curso" data-fr="Demander mon cours" data-en="Request my course">Solicitar mi curso</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EXÁMENES Y CERTIFICACIONES ═══ -->
+<section id="certificaciones" class="z10">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;">
+      <p class="eyebrow" style="justify-content:center" data-es="Certifica tu francés" data-fr="Certifiez votre français" data-en="Certify your French">Certifica tu francés</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Exámenes oficiales" data-fr="Examens officiels" data-en="Official exams">Exámenes oficiales</em></h2>
+    </div>
+
+    <p class="af-intro reveal" data-es="Los diplomas y tests oficiales de francés son la prueba internacionalmente reconocida de tu nivel: abren la puerta a universidades francófonas, a procesos de migración y a empleos cualificados. Te preparo para todos ellos y te ayudo a elegir el que realmente corresponde a tu proyecto." data-fr="Les diplômes et tests officiels de français constituent la preuve internationalement reconnue de votre niveau : ils ouvrent l'accès aux universités francophones, aux démarches d'immigration et aux emplois qualifiés. Je vous prépare à chacun d'eux et vous aide à choisir celui qui correspond vraiment à votre projet." data-en="Official French diplomas and tests are the internationally recognised proof of your level: they open the door to francophone universities, immigration procedures and qualified jobs. I prepare you for all of them and help you choose the one that truly fits your project.">Los diplomas y tests oficiales de francés son la prueba internacionalmente reconocida de tu nivel: abren la puerta a universidades francófonas, a procesos de migración y a empleos cualificados. Te preparo para todos ellos y te ayudo a elegir el que realmente corresponde a tu proyecto.</p>
+
+    <div class="exam-grid">
+
+      <!-- DELF -->
+      <div class="exam-card reveal d1">
+        <div class="exam-sigla">DELF</div>
+        <p class="exam-full" data-es="Diplôme d'Études en Langue Française · Ministerio francés de Educación Nacional" data-fr="Diplôme d'Études en Langue Française · Ministère français de l'Éducation nationale" data-en="Diplôme d'Études en Langue Française · French Ministry of National Education">Diplôme d'Études en Langue Française · Ministerio francés de Educación Nacional</p>
+        <div class="af-chips"><span class="af-chip">A1</span><span class="af-chip">A2</span><span class="af-chip">B1</span><span class="af-chip">B2</span></div>
+        <ul class="exam-rows">
+          <li><b data-es="Para qué" data-fr="À quoi ça sert" data-en="What for">Para qué</b><span data-es="Acreditar tu nivel ante universidades y empresas francófonas, estudiar en Francia y respaldar trámites migratorios." data-fr="Attester votre niveau auprès des universités et entreprises francophones, étudier en France et appuyer vos démarches d'immigration." data-en="Prove your level to francophone universities and employers, study in France and support immigration procedures.">Acreditar tu nivel ante universidades y empresas francófonas, estudiar en Francia y respaldar trámites migratorios.</span></li>
+          <li><b data-es="Validez" data-fr="Validité" data-en="Validity">Validez</b><span data-es="De por vida. El diploma no caduca nunca." data-fr="À vie. Le diplôme n'expire jamais." data-en="Lifetime. The diploma never expires.">De por vida. El diploma no caduca nunca.</span></li>
+          <li><b data-es="Estructura" data-fr="Structure" data-en="Structure">Estructura</b><span data-es="Cuatro pruebas independientes: comprensión oral, comprensión escrita, producción escrita y producción oral. Cada nivel es un diploma completo y autónomo." data-fr="Quatre épreuves : compréhension orale, compréhension écrite, production écrite et production orale. Chaque niveau est un diplôme complet." data-en="Four papers: listening, reading, writing and speaking. Each level is a complete, standalone diploma.">Cuatro pruebas independientes: comprensión oral, comprensión escrita, producción escrita y producción oral. Cada nivel es un diploma completo y autónomo.</span></li>
+          <li><b data-es="Versiones" data-fr="Versions" data-en="Versions">Versiones</b><span data-es="DELF Prim (niños), DELF Junior y Scolaire (adolescentes), DELF Tous Publics (adultos) y DELF Pro (ámbito profesional)." data-fr="DELF Prim (enfants), DELF Junior et Scolaire (adolescents), DELF Tous Publics (adultes) et DELF Pro (monde professionnel)." data-en="DELF Prim (children), DELF Junior and Scolaire (teenagers), DELF Tous Publics (adults) and DELF Pro (workplace).">DELF Prim (niños), DELF Junior y Scolaire (adolescentes), DELF Tous Publics (adultos) y DELF Pro (ámbito profesional).</span></li>
+        </ul>
+      </div>
+
+      <!-- DALF -->
+      <div class="exam-card reveal d2">
+        <div class="exam-sigla">DALF</div>
+        <p class="exam-full" data-es="Diplôme Approfondi de Langue Française · Ministerio francés de Educación Nacional" data-fr="Diplôme Approfondi de Langue Française · Ministère français de l'Éducation nationale" data-en="Diplôme Approfondi de Langue Française · French Ministry of National Education">Diplôme Approfondi de Langue Française · Ministerio francés de Educación Nacional</p>
+        <div class="af-chips"><span class="af-chip">C1</span><span class="af-chip">C2</span></div>
+        <ul class="exam-rows">
+          <li><b data-es="Para qué" data-fr="À quoi ça sert" data-en="What for">Para qué</b><span data-es="Estudios superiores en Francia, carreras internacionales y empleos cualificados. Dispensa de la prueba lingüística de acceso a las universidades francesas." data-fr="Études supérieures en France, carrières internationales et emplois qualifiés. Dispense du test linguistique d'accès aux universités françaises." data-en="Higher education in France, international careers and qualified jobs. Exempts you from the language test for entry to French universities.">Estudios superiores en Francia, carreras internacionales y empleos cualificados. Dispensa de la prueba lingüística de acceso a las universidades francesas.</span></li>
+          <li><b data-es="Validez" data-fr="Validité" data-en="Validity">Validez</b><span data-es="De por vida. El diploma no caduca nunca." data-fr="À vie. Le diplôme n'expire jamais." data-en="Lifetime. The diploma never expires.">De por vida. El diploma no caduca nunca.</span></li>
+          <li><b data-es="Estructura" data-fr="Structure" data-en="Structure">Estructura</b><span data-es="Las cuatro competencias en tareas largas y complejas: síntesis de documentos, ensayo argumentado y exposición oral con debate." data-fr="Les quatre compétences sur des tâches longues : synthèse de documents, essai argumenté et exposé oral suivi d'un débat." data-en="All four skills on long, complex tasks: document synthesis, argumentative essay and oral presentation followed by debate.">Las cuatro competencias en tareas largas y complejas: síntesis de documentos, ensayo argumentado y exposición oral con debate.</span></li>
+          <li><b data-es="Público" data-fr="Public" data-en="Audience">Público</b><span data-es="Usuarios avanzados: investigadores, docentes, profesionales y candidatos a posgrados francófonos." data-fr="Utilisateurs avancés : chercheurs, enseignants, professionnels et candidats à des masters francophones." data-en="Advanced users: researchers, teachers, professionals and candidates for francophone graduate programmes.">Usuarios avanzados: investigadores, docentes, profesionales y candidatos a posgrados francófonos.</span></li>
+        </ul>
+      </div>
+
+      <!-- TCF -->
+      <div class="exam-card reveal d3">
+        <div class="exam-sigla">TCF</div>
+        <p class="exam-full" data-es="Test de Connaissance du Français · France Éducation international" data-fr="Test de Connaissance du Français · France Éducation international" data-en="Test de Connaissance du Français · France Éducation international">Test de Connaissance du Français · France Éducation international</p>
+        <div class="af-chips"><span class="af-chip">A1 → C2</span></div>
+        <ul class="exam-rows">
+          <li><b data-es="Para qué" data-fr="À quoi ça sert" data-en="What for">Para qué</b><span data-es="Situar tu nivel de forma rápida y oficial. Existen versiones para migración a Canadá y Quebec, para trámites de residencia y nacionalidad francesa y para el acceso a la universidad francesa (TCF DAP)." data-fr="Situer votre niveau rapidement et officiellement. Il existe des versions pour l'immigration au Canada et au Québec, pour la résidence et la nationalité françaises et pour l'accès à l'université (TCF DAP)." data-en="Place your level quickly and officially. Versions exist for immigration to Canada and Quebec, for French residence and nationality, and for French university admission (TCF DAP).">Situar tu nivel de forma rápida y oficial. Existen versiones para migración a Canadá y Quebec, para trámites de residencia y nacionalidad francesa y para el acceso a la universidad francesa (TCF DAP).</span></li>
+          <li><b data-es="Validez" data-fr="Validité" data-en="Validity">Validez</b><span data-es="Dos años. Es un test de nivel, no un diploma: se renueva presentándolo de nuevo." data-fr="Deux ans. C'est un test de niveau, pas un diplôme : il se renouvelle en le repassant." data-en="Two years. It is a level test, not a diploma: you renew it by sitting it again.">Dos años. Es un test de nivel, no un diploma: se renueva presentándolo de nuevo.</span></li>
+          <li><b data-es="Estructura" data-fr="Structure" data-en="Structure">Estructura</b><span data-es="Pruebas obligatorias de comprensión oral, dominio de las estructuras de la lengua y comprensión escrita, más pruebas complementarias de expresión oral y escrita según la versión." data-fr="Épreuves obligatoires de compréhension orale, maîtrise des structures de la langue et compréhension écrite, plus des épreuves complémentaires d'expression selon la version." data-en="Compulsory listening, language structures and reading papers, plus optional speaking and writing papers depending on the version.">Pruebas obligatorias de comprensión oral, dominio de las estructuras de la lengua y comprensión escrita, más pruebas complementarias de expresión oral y escrita según la versión.</span></li>
+          <li><b data-es="Resultado" data-fr="Résultat" data-en="Result">Resultado</b><span data-es="No se aprueba ni se reprueba: se obtiene una puntuación que corresponde a un nivel del MCER, del A1 al C2." data-fr="On ne réussit ni n'échoue : on obtient un score correspondant à un niveau du CECRL, de A1 à C2." data-en="There is no pass or fail: you get a score matching a CEFR level, from A1 to C2.">No se aprueba ni se reprueba: se obtiene una puntuación que corresponde a un nivel del MCER, del A1 al C2.</span></li>
+        </ul>
+      </div>
+
+      <!-- TEF -->
+      <div class="exam-card reveal d4">
+        <div class="exam-sigla">TEF</div>
+        <p class="exam-full" data-es="Test d'Évaluation de Français · Cámara de Comercio e Industria de París Île-de-France" data-fr="Test d'Évaluation de Français · Chambre de commerce et d'industrie de Paris Île-de-France" data-en="Test d'Évaluation de Français · Paris Île-de-France Chamber of Commerce and Industry">Test d'Évaluation de Français · Cámara de Comercio e Industria de París Île-de-France</p>
+        <div class="af-chips"><span class="af-chip">A1 → C2</span></div>
+        <ul class="exam-rows">
+          <li><b data-es="Para qué" data-fr="À quoi ça sert" data-en="What for">Para qué</b><span data-es="Migración económica a Canadá y Quebec (TEF Canada, TEF Québec), trámites de integración, residencia y nacionalidad ante el Ministerio del Interior francés (TEF IRN) y admisión a estudios (TEF Études)." data-fr="Immigration économique au Canada et au Québec (TEF Canada, TEF Québec), démarches d'intégration, résidence et nationalité auprès du ministère de l'Intérieur (TEF IRN) et admission aux études (TEF Études)." data-en="Economic immigration to Canada and Quebec (TEF Canada, TEF Québec), integration, residence and nationality procedures with the French Ministry of the Interior (TEF IRN), and study admission (TEF Études).">Migración económica a Canadá y Quebec (TEF Canada, TEF Québec), trámites de integración, residencia y nacionalidad ante el Ministerio del Interior francés (TEF IRN) y admisión a estudios (TEF Études).</span></li>
+          <li><b data-es="Validez" data-fr="Validité" data-en="Validity">Validez</b><span data-es="Dos años a partir de la fecha del examen." data-fr="Deux ans à compter de la date de l'examen." data-en="Two years from the exam date.">Dos años a partir de la fecha del examen.</span></li>
+          <li><b data-es="Estructura" data-fr="Structure" data-en="Structure">Estructura</b><span data-es="Módulos de comprensión oral y escrita, expresión oral y escrita. Se presentan solo los módulos que exige tu trámite; en varias versiones el examen es digital y se resuelve en un solo día." data-fr="Modules de compréhension et d'expression, orales et écrites. On ne passe que les modules exigés par la démarche ; plusieurs versions sont numériques et se déroulent en une journée." data-en="Listening, reading, speaking and writing modules. You sit only the modules your procedure requires; several versions are computer-based and completed in a single day.">Módulos de comprensión oral y escrita, expresión oral y escrita. Se presentan solo los módulos que exige tu trámite; en varias versiones el examen es digital y se resuelve en un solo día.</span></li>
+          <li><b data-es="Resultado" data-fr="Résultat" data-en="Result">Resultado</b><span data-es="Puntuación por competencia con su equivalencia en el MCER, entregada en pocas semanas." data-fr="Score par compétence avec son équivalence CECRL, remis en quelques semaines." data-en="A score per skill with its CEFR equivalence, delivered within a few weeks.">Puntuación por competencia con su equivalencia en el MCER, entregada en pocas semanas.</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- ¿Qué examen elegir? -->
+    <div class="sec-head reveal" style="text-align:center;margin:4.5rem 0 0;">
+      <p class="eyebrow" style="justify-content:center" data-es="Guía rápida" data-fr="Guide rapide" data-en="Quick guide">Guía rápida</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;font-size:clamp(1.5rem,3vw,2.2rem);"><em data-es="¿Qué examen elegir?" data-fr="Quel examen choisir ?" data-en="Which exam should I choose?">¿Qué examen elegir?</em></h2>
+    </div>
+
+    <div class="pick-grid">
+      <div class="pick-card reveal d1">
+        <div class="pick-goal" data-es="Quiero estudiar en Francia" data-fr="Je veux étudier en France" data-en="I want to study in France">Quiero estudiar en Francia</div>
+        <div class="pick-ans">DELF B2 · DALF C1</div>
+        <p class="pick-why" data-es="Es el nivel que solicitan la mayoría de las universidades francesas. Al ser un diploma vitalicio, lo obtienes una vez y te sirve para siempre. Alternativa aceptada: TCF DAP." data-fr="C'est le niveau demandé par la plupart des universités françaises. Diplôme à vie : obtenu une fois, valable toujours. Alternative acceptée : TCF DAP." data-en="This is the level most French universities ask for. Being a lifetime diploma, you earn it once and keep it forever. Accepted alternative: TCF DAP.">Es el nivel que solicitan la mayoría de las universidades francesas. Al ser un diploma vitalicio, lo obtienes una vez y te sirve para siempre. Alternativa aceptada: TCF DAP.</p>
+      </div>
+      <div class="pick-card reveal d2">
+        <div class="pick-goal" data-es="Quiero emigrar a Canadá o Quebec" data-fr="Je veux immigrer au Canada ou au Québec" data-en="I want to move to Canada or Quebec">Quiero emigrar a Canadá o Quebec</div>
+        <div class="pick-ans">TEF Canada · TCF Canada</div>
+        <p class="pick-why" data-es="Son los tests aceptados por las autoridades canadienses y quebequenses para los programas de inmigración. Puntúan cada competencia por separado, lo que permite optimizar el perfil migratorio." data-fr="Ce sont les tests acceptés par les autorités canadiennes et québécoises pour les programmes d'immigration. Chaque compétence est notée séparément." data-en="These are the tests accepted by Canadian and Quebec authorities for immigration programmes. Each skill is scored separately, which lets you optimise your profile.">Son los tests aceptados por las autoridades canadienses y quebequenses para los programas de inmigración. Puntúan cada competencia por separado, lo que permite optimizar el perfil migratorio.</p>
+      </div>
+      <div class="pick-card reveal d3">
+        <div class="pick-goal" data-es="Quiero la residencia o la nacionalidad francesa" data-fr="Je veux la résidence ou la nationalité française" data-en="I want French residence or citizenship">Quiero la residencia o la nacionalidad francesa</div>
+        <div class="pick-ans">TEF IRN · TCF IRN</div>
+        <p class="pick-why" data-es="Versiones reconocidas por el Ministerio del Interior francés para los expedientes de integración, residencia y naturalización. El DELF también es admitido en la mayoría de los casos." data-fr="Versions reconnues par le ministère de l'Intérieur pour les dossiers d'intégration, de résidence et de naturalisation. Le DELF est également admis dans la plupart des cas." data-en="Versions recognised by the French Ministry of the Interior for integration, residence and naturalisation files. DELF is also accepted in most cases.">Versiones reconocidas por el Ministerio del Interior francés para los expedientes de integración, residencia y naturalización. El DELF también es admitido en la mayoría de los casos.</p>
+      </div>
+    </div>
+
+    <p class="af-note reveal">
+      <i class="fa fa-triangle-exclamation"></i>
+      <span data-es="El nivel exigido por cada trámite migratorio o académico depende de la normativa vigente y puede cambiar de un año a otro. Antes de inscribirte a un examen, verifica siempre el requisito actual con la institución que lo solicita — y escríbeme: te oriento según tu caso concreto y el calendario de sesiones más cercano." data-fr="Le niveau exigé par chaque démarche dépend de la réglementation en vigueur et peut évoluer d'une année à l'autre. Avant de vous inscrire, vérifiez toujours l'exigence actuelle auprès de l'institution concernée — et écrivez-moi : je vous oriente selon votre situation et le calendrier de sessions le plus proche." data-en="The level required by each immigration or academic procedure depends on current regulations and can change from year to year. Before registering for an exam, always check the current requirement with the institution requesting it — and write to me: I'll advise you based on your case and the nearest session calendar.">El nivel exigido por cada trámite migratorio o académico depende de la normativa vigente y puede cambiar de un año a otro. Antes de inscribirte a un examen, verifica siempre el requisito actual con la institución que lo solicita — y escríbeme: te oriento según tu caso concreto y el calendario de sesiones más cercano.</span>
+    </p>
+
+    <div class="af-cta reveal">
+      <a href="#inscripcion" class="btn btn-gold" data-es="Preparar mi examen" data-fr="Préparer mon examen" data-en="Prepare my exam">Preparar mi examen</a>
+      <a href="#niveles" class="btn btn-ghost" data-es="Conocer mi nivel" data-fr="Connaître mon niveau" data-en="Find my level">Conocer mi nivel</a>
     </div>
   </div>
 </section>
@@ -2424,6 +2947,192 @@ select:focus-visible, textarea:focus-visible {
 
 
 
+<!-- ═══ AGENDA CULTURAL ═══ -->
+<section id="cultura" class="alt z10">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;">
+      <p class="eyebrow" style="justify-content:center" data-es="Vivir la francofonía" data-fr="Vivre la francophonie" data-en="Living francophonie">Vivir la francofonía</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Programación cultural" data-fr="Programmation culturelle" data-en="Cultural programme">Programación cultural</em></h2>
+    </div>
+
+    <p class="af-intro reveal" data-es="Una lengua no se aprende solo en el aula. Estos son los ejes de la programación cultural que impulso: encuentros abiertos al público y actividades para estudiantes, pensados para que el francés se escuche, se coma, se cante y se discuta fuera del pizarrón." data-fr="Une langue ne s'apprend pas qu'en classe. Voici les axes de la programmation culturelle que j'anime : des rendez-vous ouverts au public et des activités pour les étudiants, pour que le français s'écoute, se goûte, se chante et se discute hors du tableau." data-en="A language is not learned in the classroom alone. These are the strands of the cultural programme I run: public events and student activities, so that French is heard, tasted, sung and debated beyond the blackboard.">Una lengua no se aprende solo en el aula. Estos son los ejes de la programación cultural que impulso: encuentros abiertos al público y actividades para estudiantes, pensados para que el francés se escuche, se coma, se cante y se discuta fuera del pizarrón.</p>
+
+    <div class="cul-grid">
+
+      <div class="cul-card reveal d1">
+        <i class="fa fa-film cul-icon"></i>
+        <h3 class="cul-title" data-es="Ciné-club francófono" data-fr="Ciné-club francophone" data-en="Francophone film club">Ciné-club francófono</h3>
+        <p class="cul-desc" data-es="Proyecciones de cine francés, quebequense y africano francófono, con presentación previa y conversación al final. Subtítulos disponibles: no hace falta ser bilingüe para entrar." data-fr="Projections de cinéma français, québécois et africain francophone, avec présentation et échange à la fin. Sous-titres disponibles : nul besoin d'être bilingue." data-en="Screenings of French, Quebec and francophone African cinema, with an introduction and discussion afterwards. Subtitles available: you don't need to be bilingual.">Proyecciones de cine francés, quebequense y africano francófono, con presentación previa y conversación al final. Subtítulos disponibles: no hace falta ser bilingüe para entrar.</p>
+      </div>
+
+      <div class="cul-card reveal d2">
+        <i class="fa fa-book-open cul-icon"></i>
+        <h3 class="cul-title" data-es="Café littéraire" data-fr="Café littéraire" data-en="Literary café">Café littéraire</h3>
+        <p class="cul-desc" data-es="Encuentros literarios alrededor de un texto: lectura compartida, discusión y, cuando es posible, la voz del propio autor o de sus traductores al español." data-fr="Rencontres littéraires autour d'un texte : lecture partagée, discussion et, quand c'est possible, la voix de l'auteur ou de ses traducteurs." data-en="Literary meetings around a text: shared reading, discussion and, when possible, the voice of the author or their translators.">Encuentros literarios alrededor de un texto: lectura compartida, discusión y, cuando es posible, la voz del propio autor o de sus traductores al español.</p>
+      </div>
+
+      <div class="cul-card reveal d3">
+        <i class="fa fa-palette cul-icon"></i>
+        <h3 class="cul-title" data-es="Exposiciones" data-fr="Expositions" data-en="Exhibitions">Exposiciones</h3>
+        <p class="cul-desc" data-es="Artes visuales, fotografía e ilustración que ponen en diálogo la creación francófona con la de Chiapas y el sureste mexicano. Entrada libre." data-fr="Arts visuels, photographie et illustration mettant en dialogue la création francophone et celle du Chiapas. Entrée libre." data-en="Visual arts, photography and illustration putting francophone creation in dialogue with that of Chiapas. Free entry.">Artes visuales, fotografía e ilustración que ponen en diálogo la creación francófona con la de Chiapas y el sureste mexicano. Entrada libre.</p>
+      </div>
+
+      <div class="cul-card reveal d4">
+        <i class="fa fa-globe cul-icon"></i>
+        <h3 class="cul-title" data-es="Fiesta de la Francofonía" data-fr="Fête de la Francophonie" data-en="Francophonie Festival">Fiesta de la Francofonía</h3>
+        <p class="cul-desc" data-es="Cada marzo, la gran celebración de los países que comparten el francés: música, gastronomía, dictado, concursos y una programación que reúne a toda la comunidad." data-fr="Chaque mois de mars, la grande célébration des pays qui partagent le français : musique, gastronomie, dictée, concours et toute une communauté réunie." data-en="Every March, the great celebration of countries that share French: music, food, dictation, contests and a programme that brings the whole community together.">Cada marzo, la gran celebración de los países que comparten el francés: música, gastronomía, dictado, concursos y una programación que reúne a toda la comunidad.</p>
+      </div>
+
+      <div class="cul-card reveal d5">
+        <i class="fa fa-music cul-icon"></i>
+        <h3 class="cul-title" data-es="Música francófona" data-fr="Musique francophone" data-en="Francophone music">Música francófona</h3>
+        <p class="cul-desc" data-es="Conciertos, escuchas comentadas y talleres de canción: de la chanson française al rap de Marsella, del jazz al zouk y a los ritmos del África occidental." data-fr="Concerts, écoutes commentées et ateliers chanson : de la chanson française au rap marseillais, du jazz au zouk et aux rythmes d'Afrique de l'Ouest." data-en="Concerts, guided listening and song workshops: from chanson française to Marseille rap, from jazz to zouk and West African rhythms.">Conciertos, escuchas comentadas y talleres de canción: de la chanson française al rap de Marsella, del jazz al zouk y a los ritmos del África occidental.</p>
+      </div>
+
+      <div class="cul-card reveal d6">
+        <i class="fa fa-utensils cul-icon"></i>
+        <h3 class="cul-title" data-es="Talleres de gastronomía" data-fr="Ateliers gastronomie" data-en="Gastronomy workshops">Talleres de gastronomía</h3>
+        <p class="cul-desc" data-es="Cocinar en francés: crêpes, quiche, ratatouille o macarons mientras se aprende el vocabulario, los imperativos y las cantidades. La lengua entra también por la mesa." data-fr="Cuisiner en français : crêpes, quiche, ratatouille ou macarons tout en apprenant le vocabulaire, l'impératif et les quantités." data-en="Cooking in French: crêpes, quiche, ratatouille or macarons while learning vocabulary, imperatives and quantities. The language comes in through the table too.">Cocinar en francés: crêpes, quiche, ratatouille o macarons mientras se aprende el vocabulario, los imperativos y las cantidades. La lengua entra también por la mesa.</p>
+      </div>
+
+      <div class="cul-card reveal d1">
+        <i class="fa fa-mug-hot cul-icon"></i>
+        <h3 class="cul-title" data-es="Café des langues" data-fr="Café des langues" data-en="Language café">Café des langues</h3>
+        <p class="cul-desc" data-es="Intercambio lingüístico informal entre hispanohablantes y francófonos de paso por San Cristóbal. Media hora en francés, media hora en español, sin corrección ni examen." data-fr="Échange linguistique informel entre hispanophones et francophones de passage. Une demi-heure en français, une demi-heure en espagnol, sans correction ni examen." data-en="Informal language exchange between Spanish speakers and francophones passing through. Half an hour in French, half in Spanish, no corrections, no exams.">Intercambio lingüístico informal entre hispanohablantes y francófonos de paso por San Cristóbal. Media hora en francés, media hora en español, sin corrección ni examen.</p>
+      </div>
+
+      <div class="cul-card reveal d2">
+        <i class="fa fa-microphone-lines cul-icon"></i>
+        <h3 class="cul-title" data-es="Conferencias y mesas redondas" data-fr="Conférences et tables rondes" data-en="Talks & round tables">Conferencias y mesas redondas</h3>
+        <p class="cul-desc" data-es="Encuentros sobre interculturalidad, cooperación educativa, traducción y diversidad lingüística, con invitados del mundo académico, diplomático y cultural." data-fr="Rencontres sur l'interculturalité, la coopération éducative, la traduction et la diversité linguistique, avec des invités du monde académique et diplomatique." data-en="Meetings on interculturality, educational cooperation, translation and linguistic diversity, with guests from academic, diplomatic and cultural circles.">Encuentros sobre interculturalidad, cooperación educativa, traducción y diversidad lingüística, con invitados del mundo académico, diplomático y cultural.</p>
+      </div>
+
+      <div class="cul-card reveal d3">
+        <i class="fa fa-champagne-glasses cul-icon"></i>
+        <h3 class="cul-title" data-es="Calendario francés" data-fr="Calendrier français" data-en="French calendar">Calendario francés</h3>
+        <p class="cul-desc" data-es="Las citas que marcan el año: la Galette des Rois en enero, la Chandeleur en febrero, el 14 de julio y el Beaujolais nouveau en noviembre. Tradición, lengua y convivencia." data-fr="Les rendez-vous qui rythment l'année : la Galette des Rois, la Chandeleur, le 14 juillet et le Beaujolais nouveau. Tradition, langue et convivialité." data-en="The dates that shape the year: Galette des Rois in January, Chandeleur in February, the 14th of July and Beaujolais nouveau in November. Tradition, language and conviviality.">Las citas que marcan el año: la Galette des Rois en enero, la Chandeleur en febrero, el 14 de julio y el Beaujolais nouveau en noviembre. Tradición, lengua y convivencia.</p>
+      </div>
+
+    </div>
+
+    <p class="af-note reveal">
+      <i class="fa fa-envelope-open-text"></i>
+      <span data-es="La programación se anuncia por temporadas. Si quieres recibir las fechas de las próximas actividades, escríbeme por WhatsApp o desde el formulario de contacto y te aviso antes de cada convocatoria." data-fr="La programmation est annoncée par saisons. Pour recevoir les dates des prochaines activités, écrivez-moi par WhatsApp ou via le formulaire de contact." data-en="The programme is announced season by season. To receive the dates of upcoming activities, write to me on WhatsApp or through the contact form.">La programación se anuncia por temporadas. Si quieres recibir las fechas de las próximas actividades, escríbeme por WhatsApp o desde el formulario de contacto y te aviso antes de cada convocatoria.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ═══ LA RED ALLIANCE FRANÇAISE ═══ -->
+<section id="red" class="z10">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;">
+      <p class="eyebrow" style="justify-content:center" data-es="Una institución con 140 años" data-fr="Une institution de 140 ans" data-en="A 140-year-old institution">Una institución con 140 años</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="La red Alliance Française" data-fr="Le réseau Alliance Française" data-en="The Alliance Française network">La red Alliance Française</em></h2>
+    </div>
+
+    <div class="red-panel reveal">
+      <p class="red-lead" data-es="La Alliance Française nació en París en <em>1883</em>, impulsada por Paul Cambon y Pierre Foncin y apoyada desde el primer día por figuras como Julio Verne, Louis Pasteur, Ferdinand de Lesseps, Ernest Renan y Armand Colin. Es una asociación de derecho francés reconocida de utilidad pública, independiente de toda consideración política, religiosa o ideológica, y hoy coordina —a través de la Fondation des Alliances Françaises— una red mundial de más de <em>800 establecimientos en 133 países</em>. La Alianza Francesa de San Cristóbal de Las Casas forma parte de esa red: el mismo proyecto cultural, arraigado en los Altos de Chiapas." data-fr="L'Alliance Française est née à Paris en <em>1883</em>, à l'initiative de Paul Cambon et Pierre Foncin, soutenue dès le premier jour par Jules Verne, Louis Pasteur, Ferdinand de Lesseps, Ernest Renan et Armand Colin. Association de droit français reconnue d'utilité publique, indépendante de toute considération politique, religieuse ou idéologique, elle coordonne aujourd'hui — via la Fondation des Alliances Françaises — un réseau mondial de plus de <em>800 établissements dans 133 pays</em>. L'Alliance Française de San Cristóbal de Las Casas fait partie de ce réseau : le même projet culturel, enraciné dans les Altos du Chiapas." data-en="The Alliance Française was founded in Paris in <em>1883</em> by Paul Cambon and Pierre Foncin, backed from day one by Jules Verne, Louis Pasteur, Ferdinand de Lesseps, Ernest Renan and Armand Colin. A French association recognised as being of public utility, independent of any political, religious or ideological consideration, it coordinates today — through the Fondation des Alliances Françaises — a worldwide network of over <em>800 establishments in 133 countries</em>. The Alliance Française of San Cristóbal de Las Casas is part of that network: the same cultural project, rooted in the highlands of Chiapas.">La Alliance Française nació en París en <em>1883</em>, impulsada por Paul Cambon y Pierre Foncin y apoyada desde el primer día por figuras como Julio Verne, Louis Pasteur, Ferdinand de Lesseps, Ernest Renan y Armand Colin. Es una asociación de derecho francés reconocida de utilidad pública, independiente de toda consideración política, religiosa o ideológica, y hoy coordina —a través de la Fondation des Alliances Françaises— una red mundial de más de <em>800 establecimientos en 133 países</em>. La Alianza Francesa de San Cristóbal de Las Casas forma parte de esa red: el mismo proyecto cultural, arraigado en los Altos de Chiapas.</p>
+
+      <div class="red-cols">
+        <div>
+          <div class="red-sub" data-es="Las tres misiones" data-fr="Les trois missions" data-en="The three missions">Las tres misiones</div>
+          <ul class="red-list">
+            <li data-es="Ofrecer cursos de francés en Francia y en el mundo, para todos los públicos y todos los niveles." data-fr="Proposer des cours de français en France et dans le monde, pour tous les publics et tous les niveaux." data-en="Offer French courses in France and worldwide, for all audiences and all levels.">Ofrecer cursos de francés en Francia y en el mundo, para todos los públicos y todos los niveles.</li>
+            <li data-es="Dar a conocer las culturas francesas y francófonas en toda su diversidad." data-fr="Faire connaître les cultures françaises et francophones dans toute leur diversité." data-en="Make French and francophone cultures known in all their diversity.">Dar a conocer las culturas francesas y francófonas en toda su diversidad.</li>
+            <li data-es="Promover la diversidad cultural y el diálogo entre las lenguas y los pueblos." data-fr="Promouvoir la diversité culturelle et le dialogue entre les langues et les peuples." data-en="Promote cultural diversity and dialogue between languages and peoples.">Promover la diversidad cultural y el diálogo entre las lenguas y los pueblos.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="red-sub" data-es="Los valores que la sostienen" data-fr="Les valeurs qui la portent" data-en="The values behind it">Los valores que la sostienen</div>
+          <ul class="red-list">
+            <li data-es="<strong>Diversidad</strong> — ninguna cultura vale más que otra; el francés es una lengua de muchos continentes." data-fr="<strong>Diversité</strong> — aucune culture ne vaut plus qu'une autre ; le français est une langue de plusieurs continents." data-en="<strong>Diversity</strong> — no culture is worth more than another; French is a language of many continents."><strong>Diversidad</strong> — ninguna cultura vale más que otra; el francés es una lengua de muchos continentes.</li>
+            <li data-es="<strong>Solidaridad</strong> — cada alianza es una asociación local, sin ánimo de lucro, al servicio de su comunidad." data-fr="<strong>Solidarité</strong> — chaque alliance est une association locale, à but non lucratif, au service de sa communauté." data-en="<strong>Solidarity</strong> — each alliance is a local, non-profit association serving its community."><strong>Solidaridad</strong> — cada alianza es una asociación local, sin ánimo de lucro, al servicio de su comunidad.</li>
+            <li data-es="<strong>Tolerancia</strong> — un espacio abierto, independiente de toda filiación política o religiosa." data-fr="<strong>Tolérance</strong> — un espace ouvert, indépendant de toute appartenance politique ou religieuse." data-en="<strong>Tolerance</strong> — an open space, independent of any political or religious affiliation."><strong>Tolerancia</strong> — un espacio abierto, independiente de toda filiación política o religiosa.</li>
+            <li data-es="<strong>Interculturalidad</strong> — aprender francés sin dejar de ser de aquí: el encuentro, nunca la sustitución." data-fr="<strong>Interculturalité</strong> — apprendre le français sans cesser d'être d'ici : la rencontre, jamais la substitution." data-en="<strong>Interculturality</strong> — learning French without ceasing to be from here: encounter, never replacement."><strong>Interculturalidad</strong> — aprender francés sin dejar de ser de aquí: el encuentro, nunca la sustitución.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="red-stats">
+        <div class="red-stat"><b>1883</b><span data-es="Fundación en París" data-fr="Fondation à Paris" data-en="Founded in Paris">Fundación en París</span></div>
+        <div class="red-stat"><b>800+</b><span data-es="Alianzas en el mundo" data-fr="Alliances dans le monde" data-en="Alliances worldwide">Alianzas en el mundo</span></div>
+        <div class="red-stat"><b>133</b><span data-es="Países" data-fr="Pays" data-en="Countries">Países</span></div>
+        <div class="red-stat"><b>1901</b><span data-es="Asociación de utilidad pública" data-fr="Association d'utilité publique" data-en="Public-utility association">Asociación de utilidad pública</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RECURSOS / MEDIATECA ═══ -->
+<section id="recursos" class="alt z10">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;">
+      <p class="eyebrow" style="justify-content:center" data-es="Mediateca abierta" data-fr="Médiathèque ouverte" data-en="Open media library">Mediateca abierta</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Recursos para practicar" data-fr="Ressources pour pratiquer" data-en="Resources to practise">Recursos para practicar</em></h2>
+    </div>
+
+    <p class="af-intro reveal" data-es="Entre una clase y la siguiente pasan muchos días. Esta es la selección de recursos gratuitos y de acceso abierto que recomiendo a mis estudiantes para mantener el oído despierto y la lengua en movimiento." data-fr="Entre deux cours, il se passe beaucoup de jours. Voici la sélection de ressources gratuites et en accès libre que je recommande à mes étudiants pour garder l'oreille éveillée." data-en="A lot of days go by between one class and the next. Here is the selection of free, open-access resources I recommend to my students to keep their ear sharp and their French moving.">Entre una clase y la siguiente pasan muchos días. Esta es la selección de recursos gratuitos y de acceso abierto que recomiendo a mis estudiantes para mantener el oído despierto y la lengua en movimiento.</p>
+
+    <div class="res-grid">
+
+      <a class="res-card reveal d1" href="https://apprendre.tv5monde.com/" target="_blank" rel="noopener">
+        <div class="res-name"><i class="fa fa-tv"></i> TV5MONDE · Apprendre</div>
+        <p class="res-desc" data-es="Cientos de ejercicios interactivos a partir de vídeos auténticos, clasificados de A1 a B2. La mejor puerta de entrada para trabajar la comprensión oral." data-fr="Des centaines d'exercices interactifs à partir de vidéos authentiques, classés de A1 à B2. La meilleure porte d'entrée pour la compréhension orale." data-en="Hundreds of interactive exercises built on authentic videos, graded A1 to B2. The best gateway for listening practice.">Cientos de ejercicios interactivos a partir de vídeos auténticos, clasificados de A1 a B2. La mejor puerta de entrada para trabajar la comprensión oral.</p>
+        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
+      </a>
+
+      <a class="res-card reveal d2" href="https://francaisfacile.rfi.fr/" target="_blank" rel="noopener">
+        <div class="res-name"><i class="fa fa-radio"></i> RFI · Français Facile</div>
+        <p class="res-desc" data-es="El noticiero en francés fácil de Radio France Internationale, con transcripción y ejercicios diarios. Diez minutos al día cambian un nivel en un semestre." data-fr="Le journal en français facile de RFI, avec transcription et exercices quotidiens. Dix minutes par jour changent un niveau en un semestre." data-en="RFI's news in easy French, with transcript and daily exercises. Ten minutes a day changes a level in a semester.">El noticiero en francés fácil de Radio France Internationale, con transcripción y ejercicios diarios. Diez minutos al día cambian un nivel en un semestre.</p>
+        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
+      </a>
+
+      <a class="res-card reveal d3" href="https://www.france-education-international.fr/" target="_blank" rel="noopener">
+        <div class="res-name"><i class="fa fa-certificate"></i> France Éducation international</div>
+        <p class="res-desc" data-es="La institución que diseña el DELF, el DALF y el TCF. Aquí encuentras las muestras oficiales de examen, la estructura de cada prueba y los criterios de evaluación." data-fr="L'institution qui conçoit le DELF, le DALF et le TCF. Sujets d'exemple officiels, structure des épreuves et critères d'évaluation." data-en="The institution that designs DELF, DALF and TCF. Official sample papers, exam structure and assessment criteria.">La institución que diseña el DELF, el DALF y el TCF. Aquí encuentras las muestras oficiales de examen, la estructura de cada prueba y los criterios de evaluación.</p>
+        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
+      </a>
+
+      <a class="res-card reveal d4" href="https://www.campusfrance.org/es" target="_blank" rel="noopener">
+        <div class="res-name"><i class="fa fa-graduation-cap"></i> Campus France</div>
+        <p class="res-desc" data-es="La agencia oficial para estudiar en Francia: catálogo de programas, becas, procedimiento de admisión y trámite de visa de estudiante, en español." data-fr="L'agence officielle pour étudier en France : programmes, bourses, procédure d'admission et démarches de visa étudiant." data-en="The official agency for studying in France: programme catalogue, scholarships, admission procedure and student visa steps.">La agencia oficial para estudiar en Francia: catálogo de programas, becas, procedimiento de admisión y trámite de visa de estudiante, en español.</p>
+        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
+      </a>
+
+      <a class="res-card reveal d5" href="https://www.culturetheque.com/" target="_blank" rel="noopener">
+        <div class="res-name"><i class="fa fa-book-open-reader"></i> Culturethèque</div>
+        <p class="res-desc" data-es="La biblioteca digital del Institut français: libros, cómics, prensa, música y películas en francés, disponibles en línea desde cualquier lugar." data-fr="La bibliothèque numérique de l'Institut français : livres, BD, presse, musique et films en français, en ligne." data-en="The Institut français digital library: books, comics, press, music and films in French, available online from anywhere.">La biblioteca digital del Institut français: libros, cómics, prensa, música y películas en francés, disponibles en línea desde cualquier lugar.</p>
+        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
+      </a>
+
+      <a class="res-card reveal d6" href="https://www.lepointdufle.net/" target="_blank" rel="noopener">
+        <div class="res-name"><i class="fa fa-list-check"></i> Le Point du FLE</div>
+        <p class="res-desc" data-es="El directorio más completo de ejercicios de francés en línea, ordenado por punto gramatical, competencia y nivel. Un clásico entre los profesores de FLE." data-fr="Le répertoire le plus complet d'exercices de français en ligne, classés par point de grammaire, compétence et niveau." data-en="The most complete directory of online French exercises, sorted by grammar point, skill and level. A classic among FLE teachers.">El directorio más completo de ejercicios de francés en línea, ordenado por punto gramatical, competencia y nivel. Un clásico entre los profesores de FLE.</p>
+        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
+      </a>
+
+      <a class="res-card reveal d1" href="https://www.cnrtl.fr/definition/" target="_blank" rel="noopener">
+        <div class="res-name"><i class="fa fa-spell-check"></i> CNRTL</div>
+        <p class="res-desc" data-es="El diccionario de referencia del francés: definiciones, etimología, sinónimos y ejemplos literarios. Indispensable a partir del nivel B1." data-fr="Le dictionnaire de référence du français : définitions, étymologie, synonymes et exemples littéraires. Indispensable dès le B1." data-en="The reference dictionary of French: definitions, etymology, synonyms and literary examples. Essential from B1 onwards.">El diccionario de referencia del francés: definiciones, etimología, sinónimos y ejemplos literarios. Indispensable a partir del nivel B1.</p>
+        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
+      </a>
+
+      <a class="res-card reveal d2" href="https://www.radiofrance.fr/franceculture" target="_blank" rel="noopener">
+        <div class="res-name"><i class="fa fa-podcast"></i> France Culture</div>
+        <p class="res-desc" data-es="Pódcasts de historia, filosofía, ciencia y literatura en francés real, sin adaptar. El salto natural cuando ya estás en B2 y quieres llegar a C1." data-fr="Podcasts d'histoire, de philosophie, de sciences et de littérature en français non adapté. Le saut naturel entre B2 et C1." data-en="Podcasts on history, philosophy, science and literature in unadapted French. The natural jump when you're at B2 and heading for C1.">Pódcasts de historia, filosofía, ciencia y literatura en francés real, sin adaptar. El salto natural cuando ya estás en B2 y quieres llegar a C1.</p>
+        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
+      </a>
+
+      <a class="res-card reveal d3" href="https://www.alliancefr.org/es/" target="_blank" rel="noopener">
+        <div class="res-name"><i class="fa fa-landmark"></i> Alliance Française de Paris</div>
+        <p class="res-desc" data-es="La casa madre de la red: oferta de cursos, estancias lingüísticas en París, formación de profesores de FLE y programación cultural, disponible en español." data-fr="La maison mère du réseau : offre de cours, séjours linguistiques à Paris, formation de professeurs de FLE et programmation culturelle." data-en="The network's mother house: course offer, language stays in Paris, FLE teacher training and cultural programme.">La casa madre de la red: oferta de cursos, estancias lingüísticas en París, formación de profesores de FLE y programación cultural, disponible en español.</p>
+        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
 <!-- ═══ TESTIMONIOS ═══ -->
 <section id="testimonios" class="z10">
   <div class="container">
@@ -2508,6 +3217,249 @@ select:focus-visible, textarea:focus-visible {
     </div>
   </div>
 </section>
+
+<!-- ═══ NIVELES MCER + TEST DE POSICIONAMIENTO ═══ -->
+<section id="niveles" class="alt z10">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;">
+      <p class="eyebrow" style="justify-content:center" data-es="Marco Común Europeo de Referencia" data-fr="Cadre européen commun de référence" data-en="Common European Framework of Reference">Marco Común Europeo de Referencia</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="¿En qué nivel estás?" data-fr="Où en êtes-vous ?" data-en="What's your level?">¿En qué nivel estás?</em></h2>
+    </div>
+
+    <p class="af-intro reveal" data-es="Todos los cursos y exámenes de francés se ordenan según los seis niveles del MCER. Saber en cuál estás es el primer paso para elegir bien: define tu curso, tu examen y el tiempo realista que necesitas. Las horas indicadas son orientativas y acumuladas desde cero." data-fr="Tous les cours et examens de français s'organisent selon les six niveaux du CECRL. Savoir où vous en êtes est le premier pas : cela détermine votre cours, votre examen et le temps réaliste nécessaire. Les heures indiquées sont indicatives et cumulées depuis zéro." data-en="All French courses and exams are organised around the six CEFR levels. Knowing where you stand is the first step: it determines your course, your exam and the realistic time you need. Hours shown are indicative and cumulative from scratch.">Todos los cursos y exámenes de francés se ordenan según los seis niveles del MCER. Saber en cuál estás es el primer paso para elegir bien: define tu curso, tu examen y el tiempo realista que necesitas. Las horas indicadas son orientativas y acumuladas desde cero.</p>
+
+    <div class="lvl-scale reveal">
+      <div class="lvl-row">
+        <div class="lvl-code">A1</div>
+        <div class="lvl-txt">
+          <strong data-es="Descubrimiento" data-fr="Découverte" data-en="Breakthrough">Descubrimiento</strong>
+          <span data-es="Me presento, saludo, pido y doy información sencilla sobre mí y mi entorno, si la otra persona habla despacio y con claridad." data-fr="Je me présente, je salue, je demande et donne des informations simples sur moi et mon entourage, si l'on parle lentement." data-en="I introduce myself, greet, ask for and give simple information about myself and my surroundings, if the other person speaks slowly.">Me presento, saludo, pido y doy información sencilla sobre mí y mi entorno, si la otra persona habla despacio y con claridad.</span>
+        </div>
+        <div class="lvl-meter"><i style="width:20%"></i><span>60 – 100 h</span></div>
+      </div>
+      <div class="lvl-row">
+        <div class="lvl-code">A2</div>
+        <div class="lvl-txt">
+          <strong data-es="Supervivencia" data-fr="Survie" data-en="Waystage">Supervivencia</strong>
+          <span data-es="Me desenvuelvo en situaciones cotidianas —compras, transporte, restaurante, trabajo— y describo con frases simples mi pasado y mi entorno." data-fr="Je me débrouille dans les situations courantes — courses, transports, restaurant, travail — et je décris simplement mon passé et mon environnement." data-en="I get by in everyday situations — shopping, transport, restaurants, work — and describe my past and surroundings in simple sentences.">Me desenvuelvo en situaciones cotidianas —compras, transporte, restaurante, trabajo— y describo con frases simples mi pasado y mi entorno.</span>
+        </div>
+        <div class="lvl-meter"><i style="width:35%"></i><span>150 – 200 h</span></div>
+      </div>
+      <div class="lvl-row">
+        <div class="lvl-code">B1</div>
+        <div class="lvl-txt">
+          <strong data-es="Umbral" data-fr="Seuil" data-en="Threshold">Umbral</strong>
+          <span data-es="Viajo solo por un país francófono sin depender de nadie, cuento experiencias, explico mis planes y defiendo brevemente una opinión." data-fr="Je voyage seul dans un pays francophone, je raconte des expériences, j'explique mes projets et je défends brièvement une opinion." data-en="I travel alone in a French-speaking country, recount experiences, explain my plans and briefly defend an opinion.">Viajo solo por un país francófono sin depender de nadie, cuento experiencias, explico mis planes y defiendo brevemente una opinión.</span>
+        </div>
+        <div class="lvl-meter"><i style="width:52%"></i><span>300 – 400 h</span></div>
+      </div>
+      <div class="lvl-row">
+        <div class="lvl-code">B2</div>
+        <div class="lvl-txt">
+          <strong data-es="Avanzado" data-fr="Avancé" data-en="Vantage">Avanzado</strong>
+          <span data-es="Sigo una discusión técnica de mi especialidad, me expreso con fluidez y argumento con matices. Es el nivel que piden la mayoría de las universidades francesas." data-fr="Je suis une discussion technique de ma spécialité, je m'exprime avec aisance et j'argumente avec nuance. C'est le niveau demandé par la plupart des universités françaises." data-en="I follow a technical discussion in my field, express myself fluently and argue with nuance. This is the level most French universities ask for.">Sigo una discusión técnica de mi especialidad, me expreso con fluidez y argumento con matices. Es el nivel que piden la mayoría de las universidades francesas.</span>
+        </div>
+        <div class="lvl-meter"><i style="width:68%"></i><span>500 – 650 h</span></div>
+      </div>
+      <div class="lvl-row">
+        <div class="lvl-code">C1</div>
+        <div class="lvl-txt">
+          <strong data-es="Autónomo" data-fr="Autonome" data-en="Effective proficiency">Autónomo</strong>
+          <span data-es="Uso la lengua de forma flexible y eficaz en la vida social, académica y profesional. Produzco textos largos, claros y bien estructurados sobre temas complejos." data-fr="J'utilise la langue de façon souple et efficace dans la vie sociale, académique et professionnelle. Je produis des textes longs, clairs et structurés." data-en="I use the language flexibly and effectively for social, academic and professional life. I produce long, clear, well-structured texts on complex topics.">Uso la lengua de forma flexible y eficaz en la vida social, académica y profesional. Produzco textos largos, claros y bien estructurados sobre temas complejos.</span>
+        </div>
+        <div class="lvl-meter"><i style="width:84%"></i><span>700 – 900 h</span></div>
+      </div>
+      <div class="lvl-row">
+        <div class="lvl-code">C2</div>
+        <div class="lvl-txt">
+          <strong data-es="Maestría" data-fr="Maîtrise" data-en="Mastery">Maestría</strong>
+          <span data-es="Comprendo sin esfuerzo prácticamente todo lo que leo y escucho, y me expreso con precisión, espontaneidad y matiz incluso en situaciones complejas." data-fr="Je comprends sans effort pratiquement tout ce que je lis et entends, et je m'exprime avec précision, spontanéité et nuance." data-en="I understand virtually everything I read and hear with ease, and express myself precisely, spontaneously and with nuance.">Comprendo sin esfuerzo prácticamente todo lo que leo y escucho, y me expreso con precisión, espontaneidad y matiz incluso en situaciones complejas.</span>
+        </div>
+        <div class="lvl-meter"><i style="width:100%"></i><span>1 000 h +</span></div>
+      </div>
+    </div>
+
+    <!-- ── TEST DE POSICIONAMIENTO ── -->
+    <div class="pt-wrap reveal" id="pt-wrap">
+      <h3 class="pt-title" data-es="Test de posicionamiento rápido" data-fr="Test de positionnement rapide" data-en="Quick placement test">Test de posicionamiento rápido</h3>
+      <p class="pt-sub" data-es="Diez preguntas, dos minutos. Te dará una estimación de tu nivel para orientar la primera clase." data-fr="Dix questions, deux minutes. Vous obtiendrez une estimation de votre niveau pour orienter le premier cours." data-en="Ten questions, two minutes. You'll get an estimate of your level to guide the first class.">Diez preguntas, dos minutos. Te dará una estimación de tu nivel para orientar la primera clase.</p>
+
+      <div class="pt-progress"><i id="pt-bar"></i></div>
+
+      <div id="pt-stage" class="pt-stage"></div>
+
+      <div class="pt-result" id="pt-result">
+        <div class="pt-badge" id="pt-badge">B1</div>
+        <div class="pt-lbl" id="pt-lbl"></div>
+        <p class="pt-msg" id="pt-msg"></p>
+        <div class="pt-actions">
+          <a href="#inscripcion" class="btn btn-gold" id="pt-go" data-es="Inscribirme con este nivel" data-fr="M'inscrire à ce niveau" data-en="Enrol at this level">Inscribirme con este nivel</a>
+          <a href="#certificaciones" class="btn btn-ghost" data-es="Ver los exámenes" data-fr="Voir les examens" data-en="See the exams">Ver los exámenes</a>
+        </div>
+        <button class="pt-reset" id="pt-reset" data-es="Repetir el test" data-fr="Refaire le test" data-en="Retake the test">Repetir el test</button>
+      </div>
+    </div>
+
+    <p class="af-note reveal">
+      <i class="fa fa-circle-info"></i>
+      <span data-es="Este test es orientativo y solo evalúa gramática y léxico. La evaluación real incluye siempre comprensión oral y producción oral: la hacemos juntos, sin costo, en la primera sesión." data-fr="Ce test est indicatif et n'évalue que la grammaire et le lexique. L'évaluation réelle inclut toujours la compréhension et la production orales : nous la faisons ensemble, gratuitement, lors de la première séance." data-en="This test is indicative and only assesses grammar and vocabulary. A real assessment always includes listening and speaking: we do it together, free of charge, in the first session.">Este test es orientativo y solo evalúa gramática y léxico. La evaluación real incluye siempre comprensión oral y producción oral: la hacemos juntos, sin costo, en la primera sesión.</span>
+    </p>
+  </div>
+</section>
+
+<script>
+/* ═══ TEST DE POSICIONAMIENTO ═══ */
+(function () {
+  var PT_Q = [
+    { q: "Bonjour ! Comment ___-vous ?",                              o: ["allez", "allons", "vont"],                       a: 0 },
+    { q: "Elle ___ deux frères et une sœur.",                         o: ["a", "est", "as"],                                a: 0 },
+    { q: "Hier, nous ___ au cinéma avec des amis.",                   o: ["sommes allés", "allons", "irons"],               a: 0 },
+    { q: "Je voudrais ___ pain, s'il vous plaît.",                    o: ["du", "le", "une"],                               a: 0 },
+    { q: "Si j'avais plus de temps, je ___ davantage.",               o: ["voyagerais", "voyagerai", "voyage"],             a: 0 },
+    { q: "C'est le livre ___ je t'ai parlé la semaine dernière.",     o: ["dont", "que", "qui"],                            a: 0 },
+    { q: "Bien qu'il ___ très fatigué, il a terminé le rapport.",     o: ["soit", "est", "était"],                          a: 0 },
+    { q: "Il s'est fait ___ par un collègue.",                        o: ["aider", "aidé", "aidant"],                       a: 0 },
+    { q: "Elle est partie ___ que personne ne s'en aperçoive.",       o: ["sans", "bien", "pour"],                          a: 0 },
+    { q: "___ qu'il en soit, la décision est déjà prise.",            o: ["Quoi", "Quel", "Que"],                           a: 0 }
+  ];
+
+  /* Niveles: [código, índice del <select> de inscripción] */
+  var PT_LEVELS = [
+    { code: "A1", sel: 1 }, { code: "A2", sel: 2 }, { code: "B1", sel: 3 },
+    { code: "B2", sel: 3 }, { code: "C1", sel: 4 }, { code: "C2", sel: 4 }
+  ];
+
+  var PT_TXT = {
+    es: {
+      count: "Pregunta %1 de %2",
+      lbl: { A1: "Nivel descubrimiento", A2: "Nivel supervivencia", B1: "Nivel umbral", B2: "Nivel avanzado", C1: "Nivel autónomo", C2: "Nivel maestría" },
+      msg: {
+        A1: "Estás empezando, y ese es el mejor momento para construir buenas bases. Te recomiendo el curso general desde A1 o clases individuales si quieres avanzar más rápido.",
+        A2: "Ya te defiendes en lo cotidiano. El siguiente paso es ganar autonomía: curso general A2 y taller de comunicación oral para soltar la lengua.",
+        B1: "Tienes una base sólida. Es el momento ideal para apuntar al DELF B1 y empezar a trabajar la argumentación y los matices.",
+        B2: "Muy buen nivel. Estás en el umbral que piden las universidades francesas: te recomiendo la preparación DELF B2 y el taller de gramática avanzada.",
+        C1: "Nivel avanzado. Puedes apuntar directamente al DALF C1 y trabajar la precisión, el registro y la síntesis de documentos.",
+        C2: "Excelente. Estás en el rango del DALF C2: pulimos el estilo, la retórica y la expresión idiomática."
+      }
+    },
+    fr: {
+      count: "Question %1 sur %2",
+      lbl: { A1: "Niveau découverte", A2: "Niveau survie", B1: "Niveau seuil", B2: "Niveau avancé", C1: "Niveau autonome", C2: "Niveau maîtrise" },
+      msg: {
+        A1: "Vous débutez, et c'est le meilleur moment pour bâtir de bonnes bases. Je recommande le cours général à partir de A1 ou des cours particuliers pour aller plus vite.",
+        A2: "Vous vous débrouillez déjà au quotidien. L'étape suivante : gagner en autonomie avec le cours général A2 et l'atelier de communication orale.",
+        B1: "Vous avez une base solide. C'est le moment idéal pour viser le DELF B1 et travailler l'argumentation et les nuances.",
+        B2: "Très bon niveau. Vous êtes au seuil demandé par les universités françaises : préparation DELF B2 et atelier de grammaire avancée.",
+        C1: "Niveau avancé. Vous pouvez viser directement le DALF C1 et travailler la précision, le registre et la synthèse de documents.",
+        C2: "Excellent. Vous êtes dans la zone du DALF C2 : nous affinons le style, la rhétorique et l'expression idiomatique."
+      }
+    },
+    en: {
+      count: "Question %1 of %2",
+      lbl: { A1: "Breakthrough level", A2: "Waystage level", B1: "Threshold level", B2: "Vantage level", C1: "Effective proficiency", C2: "Mastery level" },
+      msg: {
+        A1: "You're starting out, and that's the best moment to build solid foundations. I recommend the general course from A1, or one-to-one classes to move faster.",
+        A2: "You already get by day to day. The next step is autonomy: general A2 course plus the oral communication workshop.",
+        B1: "You have a solid base. This is the ideal moment to aim for DELF B1 and start working on argument and nuance.",
+        B2: "Very good level. You're at the threshold French universities ask for: DELF B2 preparation and the advanced grammar workshop.",
+        C1: "Advanced level. You can aim straight for DALF C1 and work on precision, register and document synthesis.",
+        C2: "Excellent. You're in DALF C2 territory: we polish style, rhetoric and idiomatic expression."
+      }
+    }
+  };
+
+  var idx = 0, score = 0, order = [];
+
+  function lang() {
+    var l = (window.i18n && window.i18n.currentLang) || document.documentElement.lang || 'es';
+    return PT_TXT[l] ? l : 'es';
+  }
+
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  function render() {
+    var stage = document.getElementById('pt-stage');
+    var bar = document.getElementById('pt-bar');
+    if (!stage) return;
+    bar.style.width = (idx / PT_Q.length * 100) + '%';
+
+    if (idx >= PT_Q.length) { finish(); return; }
+
+    var t = PT_TXT[lang()];
+    var q = PT_Q[idx];
+    var opts = order[idx];
+    var html = '<div class="pt-count">' + t.count.replace('%1', idx + 1).replace('%2', PT_Q.length) + '</div>' +
+               '<p class="pt-prompt">' + q.q + '</p><div class="pt-opts">';
+    for (var i = 0; i < opts.length; i++) {
+      html += '<button type="button" class="pt-opt" data-correct="' + (opts[i] === q.o[q.a] ? '1' : '0') + '">' + opts[i] + '</button>';
+    }
+    stage.innerHTML = html + '</div>';
+    stage.classList.remove('pt-stage');
+    void stage.offsetWidth;
+    stage.classList.add('pt-stage');
+
+    Array.prototype.forEach.call(stage.querySelectorAll('.pt-opt'), function (btn) {
+      btn.addEventListener('click', function () {
+        if (btn.getAttribute('data-correct') === '1') score++;
+        idx++;
+        render();
+      });
+    });
+  }
+
+  function finish() {
+    var t = PT_TXT[lang()];
+    var lvl = PT_LEVELS[Math.min(5, Math.floor(score / 2))];
+    document.getElementById('pt-bar').style.width = '100%';
+    document.getElementById('pt-stage').innerHTML = '';
+    document.getElementById('pt-badge').textContent = lvl.code;
+    document.getElementById('pt-lbl').textContent = t.lbl[lvl.code];
+    document.getElementById('pt-msg').textContent = t.msg[lvl.code];
+    document.getElementById('pt-result').classList.add('on');
+
+    var go = document.getElementById('pt-go');
+    go.onclick = function () {
+      var sel = document.querySelector('#inscForm select[name="nivel"]');
+      if (sel) {
+        sel.selectedIndex = lvl.sel;
+        sel.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    };
+  }
+
+  function start() {
+    idx = 0; score = 0;
+    order = PT_Q.map(function (q) { return shuffle(q.o); });
+    var res = document.getElementById('pt-result');
+    if (res) res.classList.remove('on');
+    render();
+  }
+
+  function init() {
+    if (!document.getElementById('pt-stage')) return;
+    document.getElementById('pt-reset').addEventListener('click', start);
+    /* Rehacer la vista al cambiar de idioma */
+    Array.prototype.forEach.call(document.querySelectorAll('.ctrl-btn, .footer-lb'), function (b) {
+      b.addEventListener('click', function () {
+        setTimeout(function () {
+          if (document.getElementById('pt-result').classList.contains('on')) finish(); else render();
+        }, 120);
+      });
+    });
+    start();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
 
 <!-- ═══ INSCRIPCIÓN A CLASES ═══ -->
 <section id="inscripcion" class="z10">
@@ -2687,6 +3639,18 @@ select:focus-visible, textarea:focus-visible {
       <details class="faq-item">
         <summary class="faq-q" data-es="¿Ayudas con procesos de migración a Quebec / Francia?" data-fr="Aidez-vous pour l'immigration au Québec / en France ?" data-en="Do you help with Quebec / France immigration?">¿Ayudas con procesos de migración a Quebec / Francia?</summary>
         <div class="faq-a" data-es="Sí. He asesorado candidatos en procesos migratorios hacia Quebec: preparación lingüística para el TEF/TCF, simulacros de entrevista y acompañamiento cultural para la integración francófona." data-fr="Oui. J'ai accompagné des candidats à l'immigration vers le Québec : préparation au TEF/TCF, simulations d'entretien et accompagnement culturel." data-en="Yes. I've advised candidates on Quebec immigration: TEF/TCF language prep, interview simulations and cultural guidance.">Sí. He asesorado candidatos en procesos migratorios hacia Quebec: preparación lingüística para el TEF/TCF, simulacros de entrevista y acompañamiento cultural para la integración francófona.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Qué diferencia hay entre el DELF, el TCF y el TEF?" data-fr="Quelle différence entre le DELF, le TCF et le TEF ?" data-en="What's the difference between DELF, TCF and TEF?">¿Qué diferencia hay entre el DELF, el TCF y el TEF?</summary>
+        <div class="faq-a" data-es="El DELF (y su continuación, el DALF) es un <strong>diploma</strong>: se aprueba o no, corresponde a un solo nivel y no caduca jamás. El TCF y el TEF son <strong>tests de nivel</strong>: no se aprueban ni se reprueban, sitúan tu francés en algún punto entre el A1 y el C2 y caducan a los dos años. Regla práctica: para estudios y para acreditar tu nivel de por vida, DELF o DALF; para trámites migratorios hacia Canadá, Quebec o Francia, TCF o TEF en la versión que exija tu expediente." data-fr="Le DELF (et sa suite, le DALF) est un <strong>diplôme</strong> : on l'obtient ou non, il correspond à un seul niveau et n'expire jamais. Le TCF et le TEF sont des <strong>tests de niveau</strong> : ils situent votre français entre A1 et C2 et sont valables deux ans. En pratique : pour les études et une attestation à vie, DELF ou DALF ; pour l'immigration vers le Canada, le Québec ou la France, TCF ou TEF dans la version exigée." data-en="DELF (and its continuation, DALF) is a <strong>diploma</strong>: you pass or you don't, it maps to a single level and never expires. TCF and TEF are <strong>level tests</strong>: there's no pass or fail, they place your French somewhere between A1 and C2 and expire after two years. Rule of thumb: for studies and lifelong proof, DELF or DALF; for immigration to Canada, Quebec or France, TCF or TEF in whichever version your file requires.">El DELF (y su continuación, el DALF) es un <strong>diploma</strong>: se aprueba o no, corresponde a un solo nivel y no caduca jamás. El TCF y el TEF son <strong>tests de nivel</strong>: no se aprueban ni se reprueban, sitúan tu francés en algún punto entre el A1 y el C2 y caducan a los dos años. Regla práctica: para estudios y para acreditar tu nivel de por vida, DELF o DALF; para trámites migratorios hacia Canadá, Quebec o Francia, TCF o TEF en la versión que exija tu expediente.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Dónde puedo presentar el examen oficial?" data-fr="Où puis-je passer l'examen officiel ?" data-en="Where can I sit the official exam?">¿Dónde puedo presentar el examen oficial?</summary>
+        <div class="faq-a" data-es="Los exámenes se aplican únicamente en centros acreditados, con un calendario de sesiones fijado con meses de antelación y plazos de inscripción que cierran mucho antes de la fecha. Yo te preparo y te acompaño en la logística: identificamos el centro autorizado más cercano a ti, revisamos el calendario y los requisitos, y planificamos la preparación hacia atrás desde el día del examen para que llegues listo." data-fr="Les examens se déroulent uniquement dans des centres agréés, avec un calendrier fixé des mois à l'avance et des inscriptions qui ferment bien avant la date. Je vous prépare et je vous accompagne dans la logistique : identification du centre agréé le plus proche, vérification du calendrier et des conditions, et planification de la préparation à rebours depuis le jour J." data-en="Exams are only administered at accredited centres, on a session calendar set months in advance with registration deadlines that close well before the date. I prepare you and help with the logistics: finding the nearest authorised centre, checking the calendar and requirements, and planning your preparation backwards from exam day.">Los exámenes se aplican únicamente en centros acreditados, con un calendario de sesiones fijado con meses de antelación y plazos de inscripción que cierran mucho antes de la fecha. Yo te preparo y te acompaño en la logística: identificamos el centro autorizado más cercano a ti, revisamos el calendario y los requisitos, y planificamos la preparación hacia atrás desde el día del examen para que llegues listo.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Qué es el MCER y por qué importa mi nivel?" data-fr="Qu'est-ce que le CECRL et pourquoi mon niveau compte-t-il ?" data-en="What is the CEFR and why does my level matter?">¿Qué es el MCER y por qué importa mi nivel?</summary>
+        <div class="faq-a" data-es="El Marco Común Europeo de Referencia divide el aprendizaje de cualquier lengua en seis niveles, del A1 al C2, descritos por lo que eres capaz de <em>hacer</em> con el idioma, no por cuántas reglas memorizaste. Es el lenguaje común de universidades, empleadores y autoridades migratorias: saber tu nivel te dice qué curso te corresponde, a qué examen puedes presentarte y cuánto tiempo necesitas realmente. Puedes estimarlo ahora mismo con el test de posicionamiento de esta página." data-fr="Le Cadre européen commun de référence divise l'apprentissage d'une langue en six niveaux, de A1 à C2, décrits par ce que vous savez <em>faire</em> avec la langue. C'est le langage commun des universités, des employeurs et des autorités migratoires : connaître votre niveau indique le cours qui vous convient, l'examen visé et le temps nécessaire. Vous pouvez l'estimer tout de suite avec le test de positionnement de cette page." data-en="The Common European Framework of Reference splits language learning into six levels, A1 to C2, described by what you can <em>do</em> with the language rather than how many rules you memorised. It's the shared language of universities, employers and immigration authorities: knowing your level tells you which course fits, which exam you can sit and how much time you really need. You can estimate it right now with the placement test on this page.">El Marco Común Europeo de Referencia divide el aprendizaje de cualquier lengua en seis niveles, del A1 al C2, descritos por lo que eres capaz de <em>hacer</em> con el idioma, no por cuántas reglas memorizaste. Es el lenguaje común de universidades, empleadores y autoridades migratorias: saber tu nivel te dice qué curso te corresponde, a qué examen puedes presentarte y cuánto tiempo necesitas realmente. Puedes estimarlo ahora mismo con el test de posicionamiento de esta página.</div>
       </details>
       <details class="faq-item">
         <summary class="faq-q" data-es="¿Cómo se paga y cuáles son los métodos disponibles?" data-fr="Comment payer et quels sont les moyens disponibles ?" data-en="How do I pay and what methods are available?">¿Cómo se paga y cuáles son los métodos disponibles?</summary>
