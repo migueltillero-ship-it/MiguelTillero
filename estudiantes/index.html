@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#bcdcc9">
+<meta name="robots" content="noindex">
+<title>Espacio estudiantil · Vive el francés</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/estilo.css">
+<style>
+/* ── Acceso ─────────────────────────────────────────────── */
+#acceso{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem 1rem}
+.caja{max-width:430px;width:100%}
+.caja header{text-align:center;margin-bottom:1.6rem}
+.caja h1{font-size:2.1rem;margin:.4rem 0 .3rem}
+.pestanas{display:flex;gap:.3rem;background:#f2f8f4;padding:.3rem;border-radius:5px;margin-bottom:1.4rem}
+.pestanas button{
+  flex:1;font-family:var(--mono);font-size:.7rem;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;padding:.65rem;border:0;border-radius:3px;background:transparent;
+  color:var(--muted);cursor:pointer}
+.pestanas button.on{background:#fff;color:var(--em1);box-shadow:0 2px 6px rgba(13,59,46,.10)}
+.btn-google{
+  width:100%;display:flex;align-items:center;justify-content:center;gap:.6rem;
+  background:#fff;color:#3c4043;border:1px solid var(--line);border-radius:4px;
+  padding:.85rem;font-family:var(--sans);font-size:.95rem;font-weight:600;cursor:pointer;
+  transition:box-shadow .18s ease}
+.btn-google:hover{box-shadow:0 4px 14px rgba(13,59,46,.14)}
+.btn-google svg{width:19px;height:19px;flex-shrink:0}
+.o{display:flex;align-items:center;gap:.9rem;margin:1.3rem 0;color:var(--tenue);font-size:.78rem}
+.o::before,.o::after{content:'';flex:1;height:1px;background:var(--line)}
+.enlace{background:none;border:0;color:var(--gold);font-family:inherit;font-size:.85rem;
+  cursor:pointer;text-decoration:underline;padding:0}
+#msg{margin-bottom:1rem;display:none}
+
+/* ── Portal ─────────────────────────────────────────────── */
+#portal{display:none}
+.hola{padding:2.4rem 0 1.4rem}
+.hola h1{font-size:clamp(1.7rem,4vw,2.4rem)}
+.avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--em-hondo),var(--em2));
+  color:var(--gold-claro);display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:1.15rem;font-weight:600;flex-shrink:0;overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover}
+
+.mosaico{display:grid;gap:1.1rem;grid-template-columns:repeat(auto-fit,minmax(265px,1fr))}
+.tarjeta{
+  background:#fff;border:1px solid var(--line);border-radius:6px;box-shadow:var(--sombra);
+  padding:1.5rem;display:flex;flex-direction:column;gap:.7rem;
+  transition:transform .18s ease,box-shadow .18s ease}
+a.tarjeta:hover{transform:translateY(-3px);box-shadow:var(--sombra-alta)}
+.tarjeta .icono{
+  width:40px;height:40px;border-radius:5px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--em-hondo),var(--em2));color:var(--gold-claro);
+  font-size:1.05rem}
+.tarjeta h3{font-size:1.15rem}
+.tarjeta p{font-size:.88rem;color:var(--muted);flex:1}
+.tarjeta .pie{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold)}
+
+.dato{display:flex;justify-content:space-between;gap:1rem;padding:.6rem 0;
+  border-bottom:1px solid var(--line);font-size:.9rem}
+.dato:last-child{border-bottom:0}
+.dato span:first-child{color:var(--muted)}
+.dato span:last-child{font-weight:600;text-align:right}
+
+dialog{border:0;border-radius:8px;padding:0;max-width:560px;width:calc(100% - 2rem);
+  box-shadow:0 24px 70px rgba(13,59,46,.30)}
+dialog::backdrop{background:rgba(11,51,39,.55);backdrop-filter:blur(3px)}
+.modal{padding:1.8rem}
+.modal h2{margin-bottom:.3rem}
+.cerrar{position:absolute;top:.9rem;right:1.1rem;background:none;border:0;font-size:1.5rem;
+  line-height:1;color:var(--muted);cursor:pointer}
+.cerrar:hover{color:var(--ink)}
+#demo-aviso{margin:1rem 0}
+</style>
+</head>
+<body>
+
+<!-- ════════ ACCESO ════════ -->
+<div id="acceso">
+  <div class="caja">
+    <header>
+      <div class="eyebrow">Vive el francés</div>
+      <h1>Espacio estudiantil</h1>
+      <p class="muted chico">Tus clases, tus pagos y tus documentos, en un solo lugar.</p>
+    </header>
+
+    <div class="card">
+      <div id="msg" class="aviso"></div>
+
+      <button class="btn-google" id="btn-google">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+        Continuar con Google
+      </button>
+
+      <div class="o">o con tu correo</div>
+
+      <div class="pestanas" role="tablist">
+        <button id="t-entrar" class="on" role="tab" aria-selected="true">Ya tengo cuenta</button>
+        <button id="t-crear" role="tab" aria-selected="false">Crear cuenta</button>
+      </div>
+
+      <form id="form-acceso" novalidate>
+        <div class="campo" id="c-nombre" style="display:none">
+          <label for="a-nombre">Nombre completo</label>
+          <input id="a-nombre" autocomplete="name" placeholder="Como aparece en tus documentos">
+          <div class="error">Escribe tu nombre.</div>
+        </div>
+        <div class="campo" id="c-correo">
+          <label for="a-correo">Correo electrónico</label>
+          <input id="a-correo" type="email" autocomplete="email" placeholder="tu@correo.com">
+          <div class="error">Ese correo no parece válido.</div>
+        </div>
+        <div class="campo" id="c-clave">
+          <label for="a-clave">Contraseña</label>
+          <input id="a-clave" type="password" autocomplete="current-password" placeholder="Al menos 6 caracteres">
+          <div class="error">La contraseña necesita al menos 6 caracteres.</div>
+        </div>
+        <button type="submit" class="btn btn-ancho" id="btn-enviar">Entrar</button>
+      </form>
+
+      <div class="centro" style="margin-top:1rem">
+        <button class="enlace" id="btn-olvide">Olvidé mi contraseña</button>
+      </div>
+    </div>
+
+    <p class="centro chico muted" style="margin-top:1.2rem">
+      ¿Aún no eres estudiante? <a href="../index.html" style="color:var(--gold);text-decoration:underline">Conoce los cursos</a>
+    </p>
+  </div>
+</div>
+
+<!-- ════════ PORTAL ════════ -->
+<div id="portal">
+  <div class="barra">
+    <div class="barra-in">
+      <div class="marca">Vive el <b>francés</b></div>
+      <div class="linea">
+        <div class="avatar" id="p-avatar">?</div>
+        <div>
+          <div style="font-size:.88rem;font-weight:600" id="p-nombre">—</div>
+          <div class="chico muted" id="p-correo">—</div>
+        </div>
+        <button class="btn btn-claro" id="btn-salir" style="padding:.6rem 1rem">Salir</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="hola">
+      <div class="eyebrow">Tu espacio</div>
+      <h1 id="p-saludo">Bonjour</h1>
+      <p class="muted" id="p-sub">Aquí tienes todo lo de tu curso.</p>
+      <div id="demo-aviso" class="aviso" style="display:none">
+        <b>Modo demostración.</b> Estás viendo el portal con datos de ejemplo.
+        En cuanto se conecte Firebase, cada estudiante verá los suyos.
+      </div>
+    </div>
+
+    <div class="mosaico" style="padding-bottom:1.2rem">
+
+      <div class="tarjeta">
+        <div class="icono">📅</div>
+        <h3>Mi clase</h3>
+        <div>
+          <div class="dato"><span>Grupo</span><span id="d-grupo">—</span></div>
+          <div class="dato"><span>Nivel</span><span id="d-nivel">—</span></div>
+          <div class="dato"><span>Horario</span><span id="d-horario">—</span></div>
+          <div class="dato"><span>Próxima clase</span><span id="d-proxima">—</span></div>
+        </div>
+      </div>
+
+      <a class="tarjeta" href="b2/index.html">
+        <div class="icono">📖</div>
+        <h3>Material del curso</h3>
+        <p>Dossier de repaso B2: cinco módulos de gramática y evaluación final,
+           con tu progreso guardado.</p>
+        <div class="pie">Abrir el dossier →</div>
+      </a>
+
+      <div class="tarjeta">
+        <div class="icono">💳</div>
+        <h3>Mis pagos</h3>
+        <div>
+          <div class="dato"><span>Estado</span><span id="d-estado"><span class="pastilla pastilla-bien">Al corriente</span></span></div>
+          <div class="dato"><span>Próximo pago</span><span id="d-vence">—</span></div>
+          <div class="dato"><span>Importe</span><span id="d-importe">—</span></div>
+        </div>
+        <a class="btn btn-ancho" href="../index.html#pagos" style="margin-top:.4rem">Realizar un pago</a>
+      </div>
+
+      <button class="tarjeta" data-modal="m-constancia" style="text-align:left;border-width:1px;cursor:pointer;font:inherit;color:inherit">
+        <div class="icono">📜</div>
+        <h3>Constancia de estudio</h3>
+        <p>Solicita tu constancia oficial para trabajo, beca, universidad o trámite migratorio.</p>
+        <div class="pie">Solicitar →</div>
+      </button>
+
+      <button class="tarjeta" data-modal="m-agendar" style="text-align:left;border-width:1px;cursor:pointer;font:inherit;color:inherit">
+        <div class="icono">🗓️</div>
+        <h3>Clases particulares</h3>
+        <p>Agenda una sesión individual para reforzar un tema o preparar tu examen.</p>
+        <div class="pie">Agendar →</div>
+      </button>
+
+      <button class="tarjeta" data-modal="m-contrato" style="text-align:left;border-width:1px;cursor:pointer;font:inherit;color:inherit">
+        <div class="icono">📄</div>
+        <h3>Mi contrato</h3>
+        <p>Condiciones de tu inscripción: duración, importes, asistencia y certificación.</p>
+        <div class="pie">Ver contrato →</div>
+      </button>
+
+      <button class="tarjeta" data-modal="m-reglamento" style="text-align:left;border-width:1px;cursor:pointer;font:inherit;color:inherit">
+        <div class="icono">⚖️</div>
+        <h3>Reglamento</h3>
+        <p>Asistencia, puntualidad, evaluaciones, reposiciones y política de cancelación.</p>
+        <div class="pie">Leer →</div>
+      </button>
+
+      <a class="tarjeta" href="ficha.html">
+        <div class="icono">🧾</div>
+        <h3>Mi ficha estudiantil</h3>
+        <p>Revisa o actualiza tus datos personales, tu nivel y tus objetivos.</p>
+        <div class="pie">Actualizar →</div>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<!-- ════════ VENTANAS ════════ -->
+<dialog id="m-constancia"><div class="modal">
+  <button class="cerrar" data-cerrar aria-label="Cerrar">×</button>
+  <h2>Constancia de estudio</h2>
+  <p class="muted chico">Se emite en dos o tres días hábiles y llega a tu correo firmada.</p>
+  <div class="sep"></div>
+  <form data-envia="Constancia de estudio">
+    <div class="campo">
+      <label for="co-para">¿Para qué institución la necesitas?</label>
+      <input id="co-para" name="Institución" placeholder="Universidad, empresa, consulado...">
+    </div>
+    <div class="campo">
+      <label for="co-doc">Documento de identidad</label>
+      <input id="co-doc" name="Documento" placeholder="CURP, pasaporte o cédula">
+    </div>
+    <div class="campo">
+      <label for="co-notas">¿Debe incluir algo en particular?</label>
+      <textarea id="co-notas" name="Detalles" placeholder="Horas cursadas, nivel alcanzado, fechas..."></textarea>
+    </div>
+    <button class="btn btn-ancho">Solicitar constancia</button>
+  </form>
+</div></dialog>
+
+<dialog id="m-agendar"><div class="modal">
+  <button class="cerrar" data-cerrar aria-label="Cerrar">×</button>
+  <h2>Agendar clase particular</h2>
+  <p class="muted chico">Te confirmo la cita por WhatsApp en cuanto la reciba.</p>
+  <div class="sep"></div>
+  <form data-envia="Clase particular">
+    <div class="fila">
+      <div class="campo">
+        <label for="ag-fecha">Fecha preferida</label>
+        <input id="ag-fecha" name="Fecha" type="date">
+      </div>
+      <div class="campo">
+        <label for="ag-hora">Hora</label>
+        <select id="ag-hora" name="Hora">
+          <option>09:00</option><option>10:00</option><option>11:00</option>
+          <option>16:00</option><option>17:00</option><option>18:00</option><option>19:00</option>
+        </select>
+      </div>
+    </div>
+    <div class="campo">
+      <label for="ag-tema">¿Qué quieres trabajar?</label>
+      <textarea id="ag-tema" name="Tema" placeholder="Subjuntivo, comprensión oral, simulacro DELF..."></textarea>
+    </div>
+    <button class="btn btn-ancho">Solicitar cita</button>
+  </form>
+</div></dialog>
+
+<dialog id="m-contrato"><div class="modal">
+  <button class="cerrar" data-cerrar aria-label="Cerrar">×</button>
+  <h2>Mi contrato</h2>
+  <p class="muted chico">Condiciones aceptadas al inscribirte.</p>
+  <div class="sep"></div>
+  <div class="dato"><span>Curso</span><span id="k-grupo">—</span></div>
+  <div class="dato"><span>Modalidad</span><span id="k-modalidad">—</span></div>
+  <div class="dato"><span>Inicio</span><span id="k-inicio">—</span></div>
+  <div class="dato"><span>Importe</span><span id="k-importe">—</span></div>
+  <div class="sep"></div>
+  <p class="chico muted">El contrato firmado completo se envía a tu correo al inscribirte.
+     Si necesitas otra copia, pídemela desde aquí.</p>
+  <form data-envia="Copia del contrato" style="margin-top:1rem">
+    <button class="btn btn-claro btn-ancho">Pedir copia por correo</button>
+  </form>
+</div></dialog>
+
+<dialog id="m-reglamento"><div class="modal">
+  <button class="cerrar" data-cerrar aria-label="Cerrar">×</button>
+  <h2>Reglamento del curso</h2>
+  <div class="sep"></div>
+  <div class="pila chico">
+    <p><b>Asistencia.</b> Se requiere un 80% de asistencia para recibir constancia
+       con nivel alcanzado. Las faltas justificadas se avisan con antelación.</p>
+    <p><b>Puntualidad.</b> La clase comienza a la hora indicada. Pasados 15 minutos
+       se registra retardo; tres retardos equivalen a una falta.</p>
+    <p><b>Evaluaciones.</b> Hay una evaluación por módulo y una final. La calificación
+       mínima para promover de nivel es 70.</p>
+    <p><b>Reposiciones.</b> Las clases particulares canceladas con menos de 24 horas
+       de aviso se consideran impartidas.</p>
+    <p><b>Pagos.</b> La colegiatura se cubre dentro de los primeros cinco días de cada
+       periodo. El retraso suspende el acceso al material hasta regularizarlo.</p>
+    <p><b>Convivencia.</b> El aula, presencial o en línea, es un espacio de respeto.
+       Se espera participación activa y trato cordial entre compañeros.</p>
+  </div>
+</div></dialog>
+
+<script src="../assets/firebase-config.js"></script>
+<script src="../assets/auth.js"></script>
+<script>
+/* ── Datos del grupo de prueba ────────────────────────────
+   Mientras no haya Firebase, el portal muestra este grupo para
+   poder recorrerlo entero. Al conectar Firebase, estos datos
+   se leerán de Firestore por estudiante. */
+var GRUPO_DEMO = {
+  grupo:'B2 Adultos Sábado', nivel:'B2', horario:'Sábados de 09:00 a 11:00',
+  proxima:'sábado 22 de agosto, 09:00', modalidad:'En línea', inicio:'7 de febrero de 2026',
+  importe:'$1,200 MXN al mes', vence:'5 de septiembre de 2026'
+};
+var WHATSAPP='529673424456';
+
+var acceso=document.getElementById('acceso'), portal=document.getElementById('portal');
+var msg=document.getElementById('msg'), form=document.getElementById('form-acceso');
+var modo='entrar';
+
+function aviso(texto, tipo){
+  msg.textContent=texto;
+  msg.className='aviso'+(tipo==='bien'?' aviso-bien':tipo==='mal'?' aviso-mal':'');
+  msg.style.display='block';
+}
+function limpiaAviso(){ msg.style.display='none'; }
+
+/* ── Pestañas entrar / crear cuenta ── */
+function ponModo(m){
+  modo=m;
+  var crear=m==='crear';
+  document.getElementById('t-entrar').classList.toggle('on',!crear);
+  document.getElementById('t-crear').classList.toggle('on',crear);
+  document.getElementById('t-entrar').setAttribute('aria-selected',String(!crear));
+  document.getElementById('t-crear').setAttribute('aria-selected',String(crear));
+  document.getElementById('c-nombre').style.display=crear?'block':'none';
+  document.getElementById('btn-enviar').textContent=crear?'Crear mi cuenta':'Entrar';
+  document.getElementById('a-clave').setAttribute('autocomplete',crear?'new-password':'current-password');
+  limpiaAviso();
+}
+document.getElementById('t-entrar').onclick=function(){ponModo('entrar')};
+document.getElementById('t-crear').onclick=function(){ponModo('crear')};
+
+function marca(id, ok){
+  var c=document.getElementById(id).closest('.campo');
+  c.classList.toggle('malo',!ok); return ok;
+}
+function validaAcceso(){
+  var correo=document.getElementById('a-correo').value.trim();
+  var clave=document.getElementById('a-clave').value;
+  var ok=marca('a-correo',/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo));
+  ok=marca('a-clave',clave.length>=6)&&ok;
+  if(modo==='crear') ok=marca('a-nombre',document.getElementById('a-nombre').value.trim().length>1)&&ok;
+  return ok;
+}
+
+function ocupado(b,si,txt){ b.disabled=si; if(si){b.dataset.t=b.textContent;b.textContent=txt||'Un momento…'}
+  else b.textContent=b.dataset.t||b.textContent; }
+
+form.addEventListener('submit',function(e){
+  e.preventDefault(); limpiaAviso();
+  if(!validaAcceso()) return;
+  var b=document.getElementById('btn-enviar'); ocupado(b,true);
+  var correo=document.getElementById('a-correo').value.trim();
+  var clave=document.getElementById('a-clave').value;
+  var p = modo==='crear'
+    ? Auth.crearCuenta(correo,clave,document.getElementById('a-nombre').value.trim())
+    : Auth.entrar(correo,clave);
+  p.catch(function(err){ aviso(Auth.mensaje(err),'mal'); })
+   .finally(function(){ ocupado(b,false); });
+});
+
+document.getElementById('btn-google').addEventListener('click',function(){
+  limpiaAviso(); var b=this; ocupado(b,true,'Conectando…');
+  Auth.conGoogle().catch(function(err){ aviso(Auth.mensaje(err),'mal'); })
+    .finally(function(){ ocupado(b,false); b.innerHTML=b.dataset.html||b.innerHTML; });
+});
+document.getElementById('btn-google').dataset.html=document.getElementById('btn-google').innerHTML;
+
+document.getElementById('btn-olvide').addEventListener('click',function(){
+  var correo=document.getElementById('a-correo').value.trim();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)){
+    marca('a-correo',false); aviso('Escribe primero tu correo y vuelve a pulsar.','mal'); return;
+  }
+  Auth.recuperar(correo)
+    .then(function(){ aviso('Te envié un correo para restablecer la contraseña.','bien'); })
+    .catch(function(err){ aviso(Auth.mensaje(err),'mal'); });
+});
+
+form.addEventListener('input',function(e){
+  var c=e.target.closest('.campo'); if(c) c.classList.remove('malo');
+});
+
+document.getElementById('btn-salir').addEventListener('click',function(){ Auth.salir(); });
+
+/* ── Pintar el portal ── */
+function pinta(u){
+  var nombre=u.displayName||u.email.split('@')[0];
+  document.getElementById('p-nombre').textContent=nombre;
+  document.getElementById('p-correo').textContent=u.email;
+  document.getElementById('p-saludo').textContent='Bonjour, '+nombre.split(' ')[0];
+  var av=document.getElementById('p-avatar');
+  av.innerHTML = u.photoURL ? '<img src="'+u.photoURL+'" alt="">' : nombre.charAt(0).toUpperCase();
+
+  var g=GRUPO_DEMO;
+  document.getElementById('d-grupo').textContent=g.grupo;
+  document.getElementById('d-nivel').textContent=g.nivel;
+  document.getElementById('d-horario').textContent=g.horario;
+  document.getElementById('d-proxima').textContent=g.proxima;
+  document.getElementById('d-vence').textContent=g.vence;
+  document.getElementById('d-importe').textContent=g.importe;
+  document.getElementById('k-grupo').textContent=g.grupo;
+  document.getElementById('k-modalidad').textContent=g.modalidad;
+  document.getElementById('k-inicio').textContent=g.inicio;
+  document.getElementById('k-importe').textContent=g.importe;
+
+  document.getElementById('demo-aviso').style.display = Auth.hayFirebase()?'none':'block';
+}
+
+Auth.alCambiar(function(u){
+  if(u){ acceso.style.display='none'; portal.style.display='block'; pinta(u); }
+  else  { acceso.style.display='flex'; portal.style.display='none';
+          form.reset(); ponModo('entrar'); }
+});
+Auth.iniciar();
+
+/* ── Ventanas ── */
+document.querySelectorAll('[data-modal]').forEach(function(b){
+  b.addEventListener('click',function(){ document.getElementById(b.dataset.modal).showModal(); });
+});
+document.querySelectorAll('[data-cerrar]').forEach(function(b){
+  b.addEventListener('click',function(){ b.closest('dialog').close(); });
+});
+document.querySelectorAll('dialog').forEach(function(d){
+  d.addEventListener('click',function(e){ if(e.target===d) d.close(); });
+});
+
+/* ── Solicitudes: llegan por WhatsApp mientras no haya backend ── */
+document.querySelectorAll('form[data-envia]').forEach(function(f){
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var u=Auth.usuario()||{};
+    var l=[f.dataset.envia.toUpperCase(),'',
+           'Estudiante: '+(u.displayName||'—'), 'Correo: '+(u.email||'—'),
+           'Grupo: '+GRUPO_DEMO.grupo];
+    f.querySelectorAll('input,select,textarea').forEach(function(c){
+      if(c.value.trim()) l.push((c.name||c.id)+': '+c.value.trim());
+    });
+    window.open('https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(l.join('\n')),'_blank');
+    f.closest('dialog').close(); f.reset();
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+/* ═══════════════════════════════════════════════════════════
+   VIVE EL FRANCÉS — sistema visual compartido
+   Mármol esmeralda y oro. Mismos valores que la página pública,
+   para que los tres espacios se reconozcan como uno solo.
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --void:#cfe6d9;
+  --bg-grad:radial-gradient(ellipse 80% 80% at 50% 40%,#c5e0d3 0%,#b8d9ca 55%,#a5cdbf 100%);
+  --gold:#a5824a; --gold2:#86673a; --gold-claro:#e8c87a;
+  --em1:#0d3b2e; --em2:#1a5c45; --em-hondo:#0b3327;
+  --ink:#12291c; --muted:rgba(18,41,28,.62); --tenue:rgba(18,41,28,.45);
+  --line:rgba(13,59,46,.14);
+  --sombra:0 8px 26px rgba(13,59,46,.10);
+  --sombra-alta:0 14px 40px rgba(13,59,46,.16);
+  --serif:'Cormorant Garamond',serif;
+  --sans:'Syne',sans-serif;
+  --mono:'Space Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans); color:var(--ink); line-height:1.6;
+  background:var(--void); background-image:var(--bg-grad); background-attachment:fixed;
+  min-height:100vh; -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--gold);color:#fff}
+
+/* ── Tipografía ─────────────────────────────────────────── */
+.serif{font-family:var(--serif)} .mono{font-family:var(--mono)}
+.eyebrow{
+  font-family:var(--mono); font-size:.68rem; font-weight:700; letter-spacing:.3em;
+  text-transform:uppercase; color:#8f6b2e;
+}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.15}
+h1{font-size:clamp(2rem,5vw,2.9rem)}
+h2{font-size:clamp(1.5rem,3vw,2rem)}
+h3{font-size:1.2rem}
+
+/* ── Estructura ─────────────────────────────────────────── */
+.wrap{max-width:1120px;margin:0 auto;padding:0 1.5rem}
+.wrap-sm{max-width:760px;margin:0 auto;padding:0 1.5rem}
+.seccion{padding:3rem 0}
+
+/* ── Superficies: todo texto va sobre blanco opaco ──────── */
+.card{
+  background:#fff; border:1px solid var(--line); border-radius:6px;
+  box-shadow:var(--sombra); padding:1.8rem;
+}
+.card-tight{padding:1.2rem}
+.rejilla{display:grid;gap:1.2rem}
+.rejilla-2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.rejilla-3{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+
+/* ── Botones ────────────────────────────────────────────── */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:.55rem;
+  font-family:var(--mono); font-size:.78rem; font-weight:700; letter-spacing:.14em;
+  text-transform:uppercase; padding:.9rem 1.5rem; border-radius:4px; cursor:pointer;
+  border:1px solid var(--em1); background:linear-gradient(135deg,var(--em-hondo),#14503e);
+  color:var(--gold-claro); box-shadow:0 6px 18px rgba(13,59,46,.28);
+  transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.btn:hover{background:linear-gradient(135deg,#0e4030,var(--em2));
+  box-shadow:0 10px 26px rgba(13,59,46,.38); transform:translateY(-2px)}
+.btn:active{transform:translateY(0)}
+.btn[disabled]{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-claro{background:#fff;color:var(--em1);box-shadow:none}
+.btn-claro:hover{background:#f2f8f4;box-shadow:0 6px 16px rgba(13,59,46,.14)}
+.btn-oro{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;
+  border-color:var(--gold2)}
+.btn-oro:hover{background:linear-gradient(135deg,var(--gold2),#6d5330)}
+.btn-ancho{width:100%}
+
+/* ── Formularios ────────────────────────────────────────── */
+.campo{margin-bottom:1.1rem}
+.fila{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+@media(max-width:640px){.fila{grid-template-columns:1fr}}
+label{display:block;font-size:.82rem;font-weight:600;margin-bottom:.4rem}
+input,select,textarea{
+  width:100%; font-family:inherit; font-size:.95rem; color:var(--ink); background:#fff;
+  border:1px solid var(--line); border-radius:4px; padding:.7rem .85rem;
+}
+textarea{min-height:92px;resize:vertical}
+input:focus,select:focus,textarea:focus{
+  outline:2px solid var(--gold); outline-offset:1px; border-color:var(--gold);
+}
+.req{color:#a03030}
+.error{color:#a03030;font-size:.82rem;margin-top:.35rem;display:none}
+.campo.malo input,.campo.malo select,.campo.malo textarea{border-color:#a03030}
+.campo.malo .error{display:block}
+
+/* ── Avisos ─────────────────────────────────────────────── */
+.aviso{border-left:3px solid var(--gold);background:#fffaf2;padding:.9rem 1.1rem;
+  font-size:.88rem;border-radius:0 4px 4px 0}
+.aviso-bien{border-left-color:var(--em2);background:#f1f8f4}
+.aviso-mal{border-left-color:#a03030;background:#fdf4f4}
+
+/* ── Etiquetas de estado ────────────────────────────────── */
+.pastilla{
+  display:inline-flex;align-items:center;gap:.35rem;font-family:var(--mono);
+  font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:.3rem .65rem;border-radius:3px;border:1px solid var(--line);
+}
+.pastilla-bien{background:#eaf6ef;color:#1a5c45;border-color:rgba(26,92,69,.3)}
+.pastilla-espera{background:#fff8e8;color:#8f6b2e;border-color:rgba(165,130,74,.35)}
+.pastilla-mal{background:#fbeced;color:#a03030;border-color:rgba(160,48,48,.3)}
+
+/* ── Cabecera común de los espacios privados ────────────── */
+.barra{
+  position:sticky;top:0;z-index:50;background:rgba(255,255,255,.97);
+  backdrop-filter:blur(20px);border-bottom:1px solid var(--line);
+}
+.barra-in{max-width:1120px;margin:0 auto;padding:.9rem 1.5rem;
+  display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.marca{font-family:var(--serif);font-size:1.25rem;font-weight:600;margin-right:auto}
+.marca b{color:var(--gold)}
+.barra nav{display:flex;gap:.3rem;flex-wrap:wrap}
+.barra nav a{
+  font-family:var(--mono);font-size:.7rem;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;padding:.5rem .8rem;border-radius:3px;color:var(--muted);
+}
+.barra nav a:hover{background:#f2f8f4;color:var(--em1)}
+.barra nav a.on{background:var(--em1);color:var(--gold-claro)}
+
+/* ── Utilidades ─────────────────────────────────────────── */
+.centro{text-align:center}
+.muted{color:var(--muted)}
+.chico{font-size:.86rem}
+.oculto{display:none !important}
+.pila{display:flex;flex-direction:column;gap:.8rem}
+.linea{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
+.sep{height:1px;background:var(--line);margin:1.4rem 0}
+.cargando{opacity:.5;pointer-events:none}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;transition-duration:.01ms !important}
+  html{scroll-behavior:auto}
+}
