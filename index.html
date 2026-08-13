@@ -2014,26 +2014,6 @@ select:focus-visible, textarea:focus-visible {
 .cul-title { font-family: 'Syne', sans-serif; font-size: 0.92rem; font-weight: 600; color: var(--white); margin-bottom: 0.5rem; }
 .cul-desc { font-size: 0.77rem; line-height: 1.75; color: var(--muted); }
 
-/* ── Red Alliance Française ── */
-.red-panel {
-  padding: 2.6rem 2.4rem; background: var(--panel); border: 1px solid var(--border);
-  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
-}
-.red-lead { font-size: 0.88rem; line-height: 2; color: var(--text); }
-.red-lead em { color: var(--gold2); font-style: italic; }
-.red-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4rem; margin-top: 2.4rem; }
-.red-sub {
-  font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.22em;
-  text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
-}
-.red-list { list-style: none; }
-.red-list li { position: relative; padding-left: 1.4rem; margin-bottom: 0.85rem; font-size: 0.8rem; line-height: 1.75; color: var(--muted); }
-.red-list li::before { content: '›'; position: absolute; left: 0; top: -0.05rem; color: var(--gold); font-size: 1rem; }
-.red-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin-top: 2.6rem; background: var(--borderx); border: 1px solid var(--borderx); }
-.red-stat { padding: 1.5rem 1rem; text-align: center; background: rgba(255,255,255,0.72); }
-.red-stat b { display: block; font-family: 'Syne', sans-serif; font-size: 1.7rem; font-weight: 700; color: var(--gold); line-height: 1; }
-.red-stat span { display: block; font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-top: 0.6rem; line-height: 1.6; }
-
 /* ── Recursos / mediateca ── */
 .res-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
 .res-card {
@@ -2057,15 +2037,14 @@ select:focus-visible, textarea:focus-visible {
 }
 @media (max-width: 960px) {
   .crs-grid, .cul-grid, .res-grid, .pick-grid { grid-template-columns: repeat(2, 1fr); }
-  .exam-grid, .red-cols { grid-template-columns: 1fr; }
-  .red-stats { grid-template-columns: repeat(2, 1fr); }
+  .exam-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
   .crs-grid, .cul-grid, .res-grid, .pick-grid { grid-template-columns: 1fr; }
   .lvl-row { grid-template-columns: 50px 1fr; }
   .lvl-meter { grid-column: 2; text-align: left; }
   .lvl-meter i { margin-left: 0; }
-  .red-panel, .pt-wrap { padding: 1.8rem 1.3rem; }
+  .pt-wrap { padding: 1.8rem 1.3rem; }
   .exam-rows li { grid-template-columns: 1fr; gap: 0.2rem; }
 }
 
@@ -2254,8 +2233,7 @@ select:focus-visible, textarea:focus-visible {
   <a href="#timeline" onclick="closeMob()" data-es="Trayectoria" data-fr="Parcours" data-en="Career">Trayectoria</a>
   <a href="#education" onclick="closeMob()" data-es="Formación" data-fr="Formation" data-en="Education">Formación</a>
   <a href="#gallery" onclick="closeMob()" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a>
-  <a href="#cultura" onclick="closeMob()" data-es="Cultura" data-fr="Culture" data-en="Culture">Cultura</a>
-  <a href="#red" onclick="closeMob()" data-es="La red AF" data-fr="Le réseau AF" data-en="AF network">La red AF</a>
+  <a href="#cultura" onclick="closeMob()" data-es="Actividades" data-fr="Activités" data-en="Activities">Actividades</a>
   <a href="#recursos" onclick="closeMob()" data-es="Recursos" data-fr="Ressources" data-en="Resources">Recursos</a>
   <a href="#inscripcion" onclick="closeMob()" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a>
   <a href="reglamento.html" onclick="closeMob()" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a>
@@ -2278,7 +2256,7 @@ select:focus-visible, textarea:focus-visible {
     <li class="nav-sec"><a href="#education" data-es="Formación" data-fr="Formation" data-en="Education">Formación</a></li>
     <li class="nav-sec"><a href="#gallery" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a></li>
     <li class="nav-sec"><a href="#video-reel" data-es="Vídeo" data-fr="Vidéo" data-en="Video">Vídeo</a></li>
-    <li><a href="#cultura" data-es="Cultura" data-fr="Culture" data-en="Culture">Cultura</a></li>
+    <li><a href="#cultura" data-es="Actividades" data-fr="Activités" data-en="Activities">Actividades</a></li>
     <li><a href="#pagos" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a></li>
     <li><a href="#inscripcion" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a></li>
     <li><a href="reglamento.html" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a></li>
@@ -2501,7 +2479,7 @@ select:focus-visible, textarea:focus-visible {
       <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Cursos y modalidades" data-fr="Cours et formats" data-en="Courses & formats">Cursos y modalidades</em></h2>
     </div>
 
-    <p class="af-intro reveal" data-es="Mucho más que cursos: una inmersión en la lengua, la cultura francesa y el mundo francófono, con un acompañamiento personalizado. Cada itinerario se construye sobre el Marco Común Europeo de Referencia (MCER) y avanza del A1 al C2 con objetivos claros en cada etapa." data-fr="Bien plus que des cours : une immersion dans la langue, la culture française et le monde francophone, avec un accompagnement personnalisé. Chaque parcours s'appuie sur le CECRL et progresse de A1 à C2 avec des objectifs clairs à chaque étape." data-en="Much more than courses: an immersion in the language, French culture and the francophone world, with personalised guidance. Every path is built on the CEFR and moves from A1 to C2 with clear goals at each stage.">Mucho más que cursos: una inmersión en la lengua, la cultura francesa y el mundo francófono, con un acompañamiento personalizado. Cada itinerario se construye sobre el Marco Común Europeo de Referencia (MCER) y avanza del A1 al C2 con objetivos claros en cada etapa.</p>
+    <p class="af-intro reveal" data-es="No trabajo con un método enlatado: construimos juntos un itinerario según tu objetivo, tu ritmo y el tiempo del que dispones realmente. Todos los formatos siguen el Marco Común Europeo de Referencia (MCER) y avanzan del A1 al C2 con metas claras en cada etapa." data-fr="Je ne travaille pas avec une méthode toute faite : nous construisons ensemble un parcours selon votre objectif, votre rythme et le temps dont vous disposez vraiment. Tous les formats suivent le CECRL et progressent de A1 à C2 avec des objectifs clairs à chaque étape." data-en="I don't work from an off-the-shelf method: we build a path together around your goal, your pace and the time you actually have. Every format follows the CEFR and moves from A1 to C2 with clear targets at each stage.">No trabajo con un método enlatado: construimos juntos un itinerario según tu objetivo, tu ritmo y el tiempo del que dispones realmente. Todos los formatos siguen el Marco Común Europeo de Referencia (MCER) y avanzan del A1 al C2 con metas claras en cada etapa.</p>
 
     <div class="crs-grid">
 
@@ -2956,18 +2934,18 @@ select:focus-visible, textarea:focus-visible {
 <section id="cultura" class="alt z10">
   <div class="container">
     <div class="sec-head reveal" style="text-align:center;">
-      <p class="eyebrow" style="justify-content:center" data-es="Vivir la francofonía" data-fr="Vivre la francophonie" data-en="Living francophonie">Vivir la francofonía</p>
-      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Programación cultural" data-fr="Programmation culturelle" data-en="Cultural programme">Programación cultural</em></h2>
+      <p class="eyebrow" style="justify-content:center" data-es="Más allá del aula" data-fr="Au-delà de la salle de classe" data-en="Beyond the classroom">Más allá del aula</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Actividades con mis estudiantes" data-fr="Activités avec mes étudiants" data-en="Activities with my students">Actividades con mis estudiantes</em></h2>
     </div>
 
-    <p class="af-intro reveal" data-es="Una lengua no se aprende solo en el aula. Estos son los ejes de la programación cultural que impulso: encuentros abiertos al público y actividades para estudiantes, pensados para que el francés se escuche, se coma, se cante y se discuta fuera del pizarrón." data-fr="Une langue ne s'apprend pas qu'en classe. Voici les axes de la programmation culturelle que j'anime : des rendez-vous ouverts au public et des activités pour les étudiants, pour que le français s'écoute, se goûte, se chante et se discute hors du tableau." data-en="A language is not learned in the classroom alone. These are the strands of the cultural programme I run: public events and student activities, so that French is heard, tasted, sung and debated beyond the blackboard.">Una lengua no se aprende solo en el aula. Estos son los ejes de la programación cultural que impulso: encuentros abiertos al público y actividades para estudiantes, pensados para que el francés se escuche, se coma, se cante y se discuta fuera del pizarrón.</p>
+    <p class="af-intro reveal" data-es="Una lengua no se aprende solo con ejercicios. Estas son las actividades que propongo a mis grupos a lo largo del año para que el francés se escuche, se coma, se cante y se discuta fuera del cuaderno. Se organizan según el nivel y los intereses de cada grupo." data-fr="Une langue ne s'apprend pas qu'avec des exercices. Voici les activités que je propose à mes groupes tout au long de l'année, pour que le français s'écoute, se goûte, se chante et se discute hors du cahier. Elles s'organisent selon le niveau et les intérêts de chaque groupe." data-en="A language is not learned through exercises alone. These are the activities I offer my groups through the year, so that French is heard, tasted, sung and debated away from the notebook. They are arranged around each group's level and interests.">Una lengua no se aprende solo con ejercicios. Estas son las actividades que propongo a mis grupos a lo largo del año para que el francés se escuche, se coma, se cante y se discuta fuera del cuaderno. Se organizan según el nivel y los intereses de cada grupo.</p>
 
     <div class="cul-grid">
 
       <div class="cul-card reveal d1">
         <i class="fa fa-film cul-icon"></i>
         <h3 class="cul-title" data-es="Ciné-club francófono" data-fr="Ciné-club francophone" data-en="Francophone film club">Ciné-club francófono</h3>
-        <p class="cul-desc" data-es="Proyecciones de cine francés, quebequense y africano francófono, con presentación previa y conversación al final. Subtítulos disponibles: no hace falta ser bilingüe para entrar." data-fr="Projections de cinéma français, québécois et africain francophone, avec présentation et échange à la fin. Sous-titres disponibles : nul besoin d'être bilingue." data-en="Screenings of French, Quebec and francophone African cinema, with an introduction and discussion afterwards. Subtitles available: you don't need to be bilingual.">Proyecciones de cine francés, quebequense y africano francófono, con presentación previa y conversación al final. Subtítulos disponibles: no hace falta ser bilingüe para entrar.</p>
+        <p class="cul-desc" data-es="Vemos cine francés, quebequense y africano francófono, con una presentación antes y conversación después. Con subtítulos: no hace falta ser bilingüe para participar desde el primer nivel." data-fr="Nous regardons du cinéma français, québécois et africain francophone, avec une présentation avant et un échange après. Sous-titré : nul besoin d'être bilingue pour participer." data-en="We watch French, Quebec and francophone African cinema, with an introduction before and a discussion after. Subtitled: you don't need to be bilingual to join from the first level.">Vemos cine francés, quebequense y africano francófono, con una presentación antes y conversación después. Con subtítulos: no hace falta ser bilingüe para participar desde el primer nivel.</p>
       </div>
 
       <div class="cul-card reveal d2">
@@ -2977,15 +2955,15 @@ select:focus-visible, textarea:focus-visible {
       </div>
 
       <div class="cul-card reveal d3">
-        <i class="fa fa-palette cul-icon"></i>
-        <h3 class="cul-title" data-es="Exposiciones" data-fr="Expositions" data-en="Exhibitions">Exposiciones</h3>
-        <p class="cul-desc" data-es="Artes visuales, fotografía e ilustración que ponen en diálogo la creación francófona con la de Chiapas y el sureste mexicano. Entrada libre." data-fr="Arts visuels, photographie et illustration mettant en dialogue la création francophone et celle du Chiapas. Entrée libre." data-en="Visual arts, photography and illustration putting francophone creation in dialogue with that of Chiapas. Free entry.">Artes visuales, fotografía e ilustración que ponen en diálogo la creación francófona con la de Chiapas y el sureste mexicano. Entrada libre.</p>
+        <i class="fa fa-map-location-dot cul-icon"></i>
+        <h3 class="cul-title" data-es="Salidas en francés" data-fr="Sorties en français" data-en="Outings in French">Salidas en francés</h3>
+        <p class="cul-desc" data-es="Clase fuera del aula: recorrer el mercado, un museo o el centro de San Cristóbal describiendo, preguntando y negociando únicamente en francés. La gramática se fija cuando se usa de verdad." data-fr="Cours hors les murs : parcourir le marché, un musée ou le centre de San Cristóbal en décrivant, questionnant et négociant uniquement en français." data-en="Class outside the classroom: walking the market, a museum or downtown San Cristóbal while describing, asking and bargaining only in French.">Clase fuera del aula: recorrer el mercado, un museo o el centro de San Cristóbal describiendo, preguntando y negociando únicamente en francés. La gramática se fija cuando se usa de verdad.</p>
       </div>
 
       <div class="cul-card reveal d4">
         <i class="fa fa-globe cul-icon"></i>
         <h3 class="cul-title" data-es="Fiesta de la Francofonía" data-fr="Fête de la Francophonie" data-en="Francophonie Festival">Fiesta de la Francofonía</h3>
-        <p class="cul-desc" data-es="Cada marzo, la gran celebración de los países que comparten el francés: música, gastronomía, dictado, concursos y una programación que reúne a toda la comunidad." data-fr="Chaque mois de mars, la grande célébration des pays qui partagent le français : musique, gastronomie, dictée, concours et toute une communauté réunie." data-en="Every March, the great celebration of countries that share French: music, food, dictation, contests and a programme that brings the whole community together.">Cada marzo, la gran celebración de los países que comparten el francés: música, gastronomía, dictado, concursos y una programación que reúne a toda la comunidad.</p>
+        <p class="cul-desc" data-es="Cada marzo celebramos con los grupos a los países que comparten el francés: música, cocina, dictado, concursos y un recorrido por acentos y culturas que van de Quebec a Senegal." data-fr="Chaque mois de mars, nous célébrons avec les groupes les pays qui partagent le français : musique, cuisine, dictée, concours et un tour des accents, du Québec au Sénégal." data-en="Every March we celebrate with the groups the countries that share French: music, cooking, dictation, contests and a tour of accents from Quebec to Senegal.">Cada marzo celebramos con los grupos a los países que comparten el francés: música, cocina, dictado, concursos y un recorrido por acentos y culturas que van de Quebec a Senegal.</p>
       </div>
 
       <div class="cul-card reveal d5">
@@ -3008,8 +2986,8 @@ select:focus-visible, textarea:focus-visible {
 
       <div class="cul-card reveal d2">
         <i class="fa fa-microphone-lines cul-icon"></i>
-        <h3 class="cul-title" data-es="Conferencias y mesas redondas" data-fr="Conférences et tables rondes" data-en="Talks & round tables">Conferencias y mesas redondas</h3>
-        <p class="cul-desc" data-es="Encuentros sobre interculturalidad, cooperación educativa, traducción y diversidad lingüística, con invitados del mundo académico, diplomático y cultural." data-fr="Rencontres sur l'interculturalité, la coopération éducative, la traduction et la diversité linguistique, avec des invités du monde académique et diplomatique." data-en="Meetings on interculturality, educational cooperation, translation and linguistic diversity, with guests from academic, diplomatic and cultural circles.">Encuentros sobre interculturalidad, cooperación educativa, traducción y diversidad lingüística, con invitados del mundo académico, diplomático y cultural.</p>
+        <h3 class="cul-title" data-es="Invitados francófonos" data-fr="Invités francophones" data-en="Francophone guests">Invitados francófonos</h3>
+        <p class="cul-desc" data-es="Sesiones de conversación con hablantes nativos de distintos países: escuchar otro acento, otra forma de decir las cosas y comprobar que se entiende a alguien que no es tu profesor." data-fr="Séances de conversation avec des locuteurs natifs de différents pays : entendre un autre accent, une autre façon de dire les choses, et constater qu'on comprend quelqu'un d'autre que son professeur." data-en="Conversation sessions with native speakers from different countries: hearing another accent, another way of putting things, and proving you can understand someone other than your teacher.">Sesiones de conversación con hablantes nativos de distintos países: escuchar otro acento, otra forma de decir las cosas y comprobar que se entiende a alguien que no es tu profesor.</p>
       </div>
 
       <div class="cul-card reveal d3">
@@ -3022,54 +3000,13 @@ select:focus-visible, textarea:focus-visible {
 
     <p class="af-note reveal">
       <i class="fa fa-envelope-open-text"></i>
-      <span data-es="La programación se anuncia por temporadas. Si quieres recibir las fechas de las próximas actividades, escríbeme por WhatsApp o desde el formulario de contacto y te aviso antes de cada convocatoria." data-fr="La programmation est annoncée par saisons. Pour recevoir les dates des prochaines activités, écrivez-moi par WhatsApp ou via le formulaire de contact." data-en="The programme is announced season by season. To receive the dates of upcoming activities, write to me on WhatsApp or through the contact form.">La programación se anuncia por temporadas. Si quieres recibir las fechas de las próximas actividades, escríbeme por WhatsApp o desde el formulario de contacto y te aviso antes de cada convocatoria.</span>
+      <span data-es="Las actividades se arman según el grupo y la temporada, y se avisan con antelación a quienes toman clases conmigo. Si quieres saber cuáles están en marcha ahora mismo, escríbeme por WhatsApp o desde el formulario de contacto." data-fr="Les activités se montent selon le groupe et la saison, et sont annoncées à l'avance à mes étudiants. Pour savoir lesquelles sont en cours, écrivez-moi par WhatsApp ou via le formulaire de contact." data-en="Activities are built around the group and the season, and announced in advance to those taking classes with me. To find out which ones are running right now, write to me on WhatsApp or through the contact form.">Las actividades se arman según el grupo y la temporada, y se avisan con antelación a quienes toman clases conmigo. Si quieres saber cuáles están en marcha ahora mismo, escríbeme por WhatsApp o desde el formulario de contacto.</span>
     </p>
   </div>
 </section>
 
-<!-- ═══ LA RED ALLIANCE FRANÇAISE ═══ -->
-<section id="red" class="z10">
-  <div class="container">
-    <div class="sec-head reveal" style="text-align:center;">
-      <p class="eyebrow" style="justify-content:center" data-es="Una institución con 140 años" data-fr="Une institution de 140 ans" data-en="A 140-year-old institution">Una institución con 140 años</p>
-      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="La red Alliance Française" data-fr="Le réseau Alliance Française" data-en="The Alliance Française network">La red Alliance Française</em></h2>
-    </div>
-
-    <div class="red-panel reveal">
-      <p class="red-lead" data-es="La Alliance Française nació en París en <em>1883</em>, impulsada por Paul Cambon y Pierre Foncin y apoyada desde el primer día por figuras como Julio Verne, Louis Pasteur, Ferdinand de Lesseps, Ernest Renan y Armand Colin. Es una asociación de derecho francés reconocida de utilidad pública, independiente de toda consideración política, religiosa o ideológica, y hoy coordina —a través de la Fondation des Alliances Françaises— una red mundial de más de <em>800 establecimientos en 133 países</em>. La Alianza Francesa de San Cristóbal de Las Casas forma parte de esa red: el mismo proyecto cultural, arraigado en los Altos de Chiapas." data-fr="L'Alliance Française est née à Paris en <em>1883</em>, à l'initiative de Paul Cambon et Pierre Foncin, soutenue dès le premier jour par Jules Verne, Louis Pasteur, Ferdinand de Lesseps, Ernest Renan et Armand Colin. Association de droit français reconnue d'utilité publique, indépendante de toute considération politique, religieuse ou idéologique, elle coordonne aujourd'hui — via la Fondation des Alliances Françaises — un réseau mondial de plus de <em>800 établissements dans 133 pays</em>. L'Alliance Française de San Cristóbal de Las Casas fait partie de ce réseau : le même projet culturel, enraciné dans les Altos du Chiapas." data-en="The Alliance Française was founded in Paris in <em>1883</em> by Paul Cambon and Pierre Foncin, backed from day one by Jules Verne, Louis Pasteur, Ferdinand de Lesseps, Ernest Renan and Armand Colin. A French association recognised as being of public utility, independent of any political, religious or ideological consideration, it coordinates today — through the Fondation des Alliances Françaises — a worldwide network of over <em>800 establishments in 133 countries</em>. The Alliance Française of San Cristóbal de Las Casas is part of that network: the same cultural project, rooted in the highlands of Chiapas.">La Alliance Française nació en París en <em>1883</em>, impulsada por Paul Cambon y Pierre Foncin y apoyada desde el primer día por figuras como Julio Verne, Louis Pasteur, Ferdinand de Lesseps, Ernest Renan y Armand Colin. Es una asociación de derecho francés reconocida de utilidad pública, independiente de toda consideración política, religiosa o ideológica, y hoy coordina —a través de la Fondation des Alliances Françaises— una red mundial de más de <em>800 establecimientos en 133 países</em>. La Alianza Francesa de San Cristóbal de Las Casas forma parte de esa red: el mismo proyecto cultural, arraigado en los Altos de Chiapas.</p>
-
-      <div class="red-cols">
-        <div>
-          <div class="red-sub" data-es="Las tres misiones" data-fr="Les trois missions" data-en="The three missions">Las tres misiones</div>
-          <ul class="red-list">
-            <li data-es="Ofrecer cursos de francés en Francia y en el mundo, para todos los públicos y todos los niveles." data-fr="Proposer des cours de français en France et dans le monde, pour tous les publics et tous les niveaux." data-en="Offer French courses in France and worldwide, for all audiences and all levels.">Ofrecer cursos de francés en Francia y en el mundo, para todos los públicos y todos los niveles.</li>
-            <li data-es="Dar a conocer las culturas francesas y francófonas en toda su diversidad." data-fr="Faire connaître les cultures françaises et francophones dans toute leur diversité." data-en="Make French and francophone cultures known in all their diversity.">Dar a conocer las culturas francesas y francófonas en toda su diversidad.</li>
-            <li data-es="Promover la diversidad cultural y el diálogo entre las lenguas y los pueblos." data-fr="Promouvoir la diversité culturelle et le dialogue entre les langues et les peuples." data-en="Promote cultural diversity and dialogue between languages and peoples.">Promover la diversidad cultural y el diálogo entre las lenguas y los pueblos.</li>
-          </ul>
-        </div>
-        <div>
-          <div class="red-sub" data-es="Los valores que la sostienen" data-fr="Les valeurs qui la portent" data-en="The values behind it">Los valores que la sostienen</div>
-          <ul class="red-list">
-            <li data-es="<strong>Diversidad</strong> — ninguna cultura vale más que otra; el francés es una lengua de muchos continentes." data-fr="<strong>Diversité</strong> — aucune culture ne vaut plus qu'une autre ; le français est une langue de plusieurs continents." data-en="<strong>Diversity</strong> — no culture is worth more than another; French is a language of many continents."><strong>Diversidad</strong> — ninguna cultura vale más que otra; el francés es una lengua de muchos continentes.</li>
-            <li data-es="<strong>Solidaridad</strong> — cada alianza es una asociación local, sin ánimo de lucro, al servicio de su comunidad." data-fr="<strong>Solidarité</strong> — chaque alliance est une association locale, à but non lucratif, au service de sa communauté." data-en="<strong>Solidarity</strong> — each alliance is a local, non-profit association serving its community."><strong>Solidaridad</strong> — cada alianza es una asociación local, sin ánimo de lucro, al servicio de su comunidad.</li>
-            <li data-es="<strong>Tolerancia</strong> — un espacio abierto, independiente de toda filiación política o religiosa." data-fr="<strong>Tolérance</strong> — un espace ouvert, indépendant de toute appartenance politique ou religieuse." data-en="<strong>Tolerance</strong> — an open space, independent of any political or religious affiliation."><strong>Tolerancia</strong> — un espacio abierto, independiente de toda filiación política o religiosa.</li>
-            <li data-es="<strong>Interculturalidad</strong> — aprender francés sin dejar de ser de aquí: el encuentro, nunca la sustitución." data-fr="<strong>Interculturalité</strong> — apprendre le français sans cesser d'être d'ici : la rencontre, jamais la substitution." data-en="<strong>Interculturality</strong> — learning French without ceasing to be from here: encounter, never replacement."><strong>Interculturalidad</strong> — aprender francés sin dejar de ser de aquí: el encuentro, nunca la sustitución.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="red-stats">
-        <div class="red-stat"><b>1883</b><span data-es="Fundación en París" data-fr="Fondation à Paris" data-en="Founded in Paris">Fundación en París</span></div>
-        <div class="red-stat"><b>800+</b><span data-es="Alianzas en el mundo" data-fr="Alliances dans le monde" data-en="Alliances worldwide">Alianzas en el mundo</span></div>
-        <div class="red-stat"><b>133</b><span data-es="Países" data-fr="Pays" data-en="Countries">Países</span></div>
-        <div class="red-stat"><b>1901</b><span data-es="Asociación de utilidad pública" data-fr="Association d'utilité publique" data-en="Public-utility association">Asociación de utilidad pública</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ═══ RECURSOS / MEDIATECA ═══ -->
-<section id="recursos" class="alt z10">
+<section id="recursos" class="z10">
   <div class="container">
     <div class="sec-head reveal" style="text-align:center;">
       <p class="eyebrow" style="justify-content:center" data-es="Mediateca abierta" data-fr="Médiathèque ouverte" data-en="Open media library">Mediateca abierta</p>
@@ -3128,9 +3065,9 @@ select:focus-visible, textarea:focus-visible {
         <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
       </a>
 
-      <a class="res-card reveal d3" href="https://www.alliancefr.org/es/" target="_blank" rel="noopener">
-        <div class="res-name"><i class="fa fa-landmark"></i> Alliance Française de Paris</div>
-        <p class="res-desc" data-es="La casa madre de la red: oferta de cursos, estancias lingüísticas en París, formación de profesores de FLE y programación cultural, disponible en español." data-fr="La maison mère du réseau : offre de cours, séjours linguistiques à Paris, formation de professeurs de FLE et programmation culturelle." data-en="The network's mother house: course offer, language stays in Paris, FLE teacher training and cultural programme.">La casa madre de la red: oferta de cursos, estancias lingüísticas en París, formación de profesores de FLE y programación cultural, disponible en español.</p>
+      <a class="res-card reveal d3" href="https://www.bonjourdefrance.com/" target="_blank" rel="noopener">
+        <div class="res-name"><i class="fa fa-pen-to-square"></i> Bonjour de France</div>
+        <p class="res-desc" data-es="Revista en línea de ejercicios de francés, gratuita y clasificada por nivel: gramática, vocabulario, comprensión y fichas de civilización para practicar por tu cuenta." data-fr="Magazine en ligne d'exercices de français, gratuit et classé par niveau : grammaire, vocabulaire, compréhension et fiches de civilisation." data-en="Free online magazine of French exercises sorted by level: grammar, vocabulary, comprehension and culture sheets to practise on your own.">Revista en línea de ejercicios de francés, gratuita y clasificada por nivel: gramática, vocabulario, comprensión y fichas de civilización para practicar por tu cuenta.</p>
         <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
       </a>
 
