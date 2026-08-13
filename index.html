@@ -1935,7 +1935,25 @@ select:focus-visible, textarea:focus-visible {
   text-transform: uppercase; color: var(--gold2); font-weight: 400; padding-top: 0.28rem;
 }
 
-/* ── ¿Qué examen elegir? ── */
+/* ── Reparto de papeles: preparación vs. sede oficial ── */
+.role-panel {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  max-width: 940px; margin: 0 auto 3.6rem;
+  background: var(--borderx); border: 1px solid var(--border);
+}
+.role-col { padding: 1.9rem 1.7rem; background: rgba(255,255,255,0.82); }
+.role-tag {
+  display: flex; align-items: center; gap: 0.55rem; margin-bottom: 0.9rem;
+  font-family: 'Space Mono', monospace; font-size: 0.5rem;
+  letter-spacing: 0.22em; text-transform: uppercase;
+}
+.role-col.mine .role-tag { color: var(--cyan); }
+.role-col.yours .role-tag { color: var(--gold); }
+.role-h { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 0.6rem; }
+.role-p { font-size: 0.8rem; line-height: 1.85; color: var(--muted); }
+.role-p + .role-p { margin-top: 0.8rem; }
+
+/* ── ¿Cuál te conviene? ── */
 .pick-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 2.5rem; }
 .pick-card {
   padding: 1.6rem 1.4rem; background: rgba(255,255,255,0.62);
@@ -2027,6 +2045,46 @@ select:focus-visible, textarea:focus-visible {
 .res-desc { font-size: 0.75rem; line-height: 1.7; color: var(--muted); }
 .res-go { display: inline-block; margin-top: 0.9rem; font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan); }
 
+/* ── Barra de pestañas del área de estudiantes ── */
+#studybar {
+  position: fixed; top: 58px; left: 0; right: 0; z-index: 880;
+  display: flex; justify-content: center;
+  pointer-events: none; opacity: 0;
+  transform: translateY(-14px);
+  transition: opacity 0.45s cubic-bezier(.16,1,.3,1), transform 0.45s cubic-bezier(.16,1,.3,1);
+}
+#studybar.on { opacity: 1; transform: none; pointer-events: auto; }
+.studybar-inner {
+  display: flex; gap: 0.3rem; align-items: center;
+  padding: 0.38rem; max-width: calc(100vw - 2rem); overflow-x: auto;
+  background: rgba(255,255,255,0.82); border: 1px solid var(--border);
+  backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+  box-shadow: 0 8px 34px rgba(30,60,40,0.14);
+  scrollbar-width: none;
+}
+.studybar-inner::-webkit-scrollbar { display: none; }
+.studybar-inner a {
+  position: relative; white-space: nowrap; text-decoration: none;
+  padding: 0.5rem 0.95rem;
+  font-family: 'Space Mono', monospace; font-size: 0.52rem;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted);
+  transition: color 0.3s, background 0.3s;
+}
+.studybar-inner a::after {
+  content: ''; position: absolute; left: 0.95rem; right: 0.95rem; bottom: 0.28rem;
+  height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: left;
+  transition: transform 0.35s cubic-bezier(.16,1,.3,1);
+}
+.studybar-inner a:hover { color: var(--gold); }
+.studybar-inner a:hover::after { transform: scaleX(1); }
+.studybar-inner a.active { color: var(--white); background: var(--goldx); }
+.studybar-inner a.active::after { transform: scaleX(1); }
+@media (max-width: 600px) {
+  #studybar { top: 52px; justify-content: flex-start; }
+  .studybar-inner { margin: 0 0.6rem; }
+  .studybar-inner a { padding: 0.45rem 0.7rem; letter-spacing: 0.14em; }
+}
+
 /* ── Responsive del bloque AF ── */
 .nav-links a { white-space: nowrap; }
 @media (max-width: 1400px) { .nav-links { gap: 1.4rem; } }
@@ -2037,7 +2095,7 @@ select:focus-visible, textarea:focus-visible {
 }
 @media (max-width: 960px) {
   .crs-grid, .cul-grid, .res-grid, .pick-grid { grid-template-columns: repeat(2, 1fr); }
-  .exam-grid { grid-template-columns: 1fr; }
+  .exam-grid, .role-panel { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
   .crs-grid, .cul-grid, .res-grid, .pick-grid { grid-template-columns: 1fr; }
@@ -2270,6 +2328,18 @@ select:focus-visible, textarea:focus-visible {
     <button class="hamburger" onclick="toggleMob()" aria-label="Menú"><i class="fa fa-bars"></i></button>
   </div>
 </nav>
+
+<!-- ═══ BARRA DE PESTAÑAS · ÁREA DE ESTUDIANTES ═══ -->
+<div id="studybar" aria-label="Secciones para estudiantes">
+  <div class="studybar-inner">
+    <a href="#modalidades" data-es="Cursos" data-fr="Cours" data-en="Courses">Cursos</a>
+    <a href="#certificaciones" data-es="Exámenes" data-fr="Examens" data-en="Exams">Exámenes</a>
+    <a href="#niveles" data-es="Mi nivel" data-fr="Mon niveau" data-en="My level">Mi nivel</a>
+    <a href="#cultura" data-es="Actividades" data-fr="Activités" data-en="Activities">Actividades</a>
+    <a href="#recursos" data-es="Recursos" data-fr="Ressources" data-en="Resources">Recursos</a>
+    <a href="#inscripcion" data-es="Inscríbete" data-fr="Inscription" data-en="Enrol">Inscríbete</a>
+  </div>
+</div>
 
 <!-- ═══ HERO ═══ -->
 <section id="hero" class="z10">
@@ -2624,7 +2694,22 @@ select:focus-visible, textarea:focus-visible {
       <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Exámenes oficiales" data-fr="Examens officiels" data-en="Official exams">Exámenes oficiales</em></h2>
     </div>
 
-    <p class="af-intro reveal" data-es="Los diplomas y tests oficiales de francés son la prueba internacionalmente reconocida de tu nivel: abren la puerta a universidades francófonas, a procesos de migración y a empleos cualificados. Te preparo para todos ellos y te ayudo a elegir el que realmente corresponde a tu proyecto." data-fr="Les diplômes et tests officiels de français constituent la preuve internationalement reconnue de votre niveau : ils ouvrent l'accès aux universités francophones, aux démarches d'immigration et aux emplois qualifiés. Je vous prépare à chacun d'eux et vous aide à choisir celui qui correspond vraiment à votre projet." data-en="Official French diplomas and tests are the internationally recognised proof of your level: they open the door to francophone universities, immigration procedures and qualified jobs. I prepare you for all of them and help you choose the one that truly fits your project.">Los diplomas y tests oficiales de francés son la prueba internacionalmente reconocida de tu nivel: abren la puerta a universidades francófonas, a procesos de migración y a empleos cualificados. Te preparo para todos ellos y te ayudo a elegir el que realmente corresponde a tu proyecto.</p>
+    <p class="af-intro reveal" data-es="Decir «hablo francés» en un currículum no vale nada; un diploma o un test oficial sí. Es el único documento que una universidad, un consulado o un empleador aceptan como medida de tu nivel. Aquí te explico qué hay disponible, en qué se diferencia cada prueba y cuál pide realmente tu proyecto — porque presentarse al examen equivocado cuesta tiempo y dinero." data-fr="Écrire « je parle français » sur un CV ne vaut rien ; un diplôme ou un test officiel, si. C'est le seul document qu'une université, un consulat ou un employeur acceptent comme mesure de votre niveau. Voici ce qui existe, ce qui distingue chaque épreuve et laquelle votre projet exige vraiment — car se tromper d'examen coûte du temps et de l'argent." data-en="Writing “I speak French” on a CV counts for nothing; an official diploma or test does. It is the only document a university, a consulate or an employer will accept as a measure of your level. Here is what exists, what sets each test apart and which one your project actually calls for — because sitting the wrong exam costs time and money.">Decir «hablo francés» en un currículum no vale nada; un diploma o un test oficial sí. Es el único documento que una universidad, un consulado o un empleador aceptan como medida de tu nivel. Aquí te explico qué hay disponible, en qué se diferencia cada prueba y cuál pide realmente tu proyecto — porque presentarse al examen equivocado cuesta tiempo y dinero.</p>
+
+    <div class="role-panel reveal">
+      <div class="role-col mine">
+        <div class="role-tag"><i class="fa fa-chalkboard-user"></i> <span data-es="Mi parte" data-fr="Ma part" data-en="My part">Mi parte</span></div>
+        <div class="role-h" data-es="Yo te preparo para la prueba" data-fr="Je vous prépare à l'épreuve" data-en="I prepare you for the test">Yo te preparo para la prueba</div>
+        <p class="role-p" data-es="Entreno contigo las cuatro competencias con simulacros completos en condiciones reales, estrategias específicas para cada prueba, gestión del tiempo y corrección detallada siguiendo los criterios de evaluación oficiales." data-fr="Je vous entraîne sur les quatre compétences avec des examens blancs en conditions réelles, des stratégies propres à chaque épreuve, la gestion du temps et une correction détaillée suivant les critères officiels." data-en="I train you across all four skills with full mock exams in real conditions, paper-specific strategies, time management and detailed marking against the official assessment criteria.">Entreno contigo las cuatro competencias con simulacros completos en condiciones reales, estrategias específicas para cada prueba, gestión del tiempo y corrección detallada siguiendo los criterios de evaluación oficiales.</p>
+        <p class="role-p" data-es="También te ayudo a decidir qué examen y qué nivel corresponden a tu objetivo, y a planificar la preparación hacia atrás desde la fecha en que quieras presentarte." data-fr="Je vous aide aussi à décider quel examen et quel niveau correspondent à votre objectif, et à planifier la préparation à rebours depuis la date visée." data-en="I also help you decide which exam and level match your goal, and plan the preparation backwards from the date you want to sit it.">También te ayudo a decidir qué examen y qué nivel corresponden a tu objetivo, y a planificar la preparación hacia atrás desde la fecha en que quieras presentarte.</p>
+      </div>
+      <div class="role-col yours">
+        <div class="role-tag"><i class="fa fa-location-dot"></i> <span data-es="Tu parte" data-fr="Votre part" data-en="Your part">Tu parte</span></div>
+        <div class="role-h" data-es="La sede oficial depende de dónde estés" data-fr="Le centre officiel dépend d'où vous êtes" data-en="The official centre depends on where you are">La sede oficial depende de dónde estés</div>
+        <p class="role-p" data-es="Estas pruebas solo se aplican en centros acreditados por el organismo que las emite, y ese organismo cambia según el país e incluso la ciudad. Yo imparto la preparación; la inscripción y la aplicación del examen se hacen siempre ante la institución oficial que corresponda a tu lugar de residencia." data-fr="Ces épreuves ne se passent que dans des centres agréés par l'organisme qui les délivre, et cet organisme change selon le pays, voire la ville. J'assure la préparation ; l'inscription et le passage de l'examen se font toujours auprès de l'institution officielle de votre lieu de résidence." data-en="These tests are only administered at centres accredited by the awarding body, and that body differs by country and even by city. I provide the preparation; registration and sitting the exam always happen through the official institution for where you live.">Estas pruebas solo se aplican en centros acreditados por el organismo que las emite, y ese organismo cambia según el país e incluso la ciudad. Yo imparto la preparación; la inscripción y la aplicación del examen se hacen siempre ante la institución oficial que corresponda a tu lugar de residencia.</p>
+        <p class="role-p" data-es="Antes de comprometerte con una fecha, localiza el centro autorizado de tu zona y confirma con él calendario, costo y requisitos vigentes. Dime dónde vives y te oriento para identificarlo." data-fr="Avant de vous engager sur une date, identifiez le centre agréé de votre région et vérifiez auprès de lui le calendrier, le coût et les conditions en vigueur. Dites-moi où vous habitez et je vous aide à le repérer." data-en="Before committing to a date, find the authorised centre in your area and confirm its calendar, cost and current requirements. Tell me where you live and I'll help you identify it.">Antes de comprometerte con una fecha, localiza el centro autorizado de tu zona y confirma con él calendario, costo y requisitos vigentes. Dime dónde vives y te oriento para identificarlo.</p>
+      </div>
+    </div>
 
     <div class="exam-grid">
 
@@ -2634,7 +2719,7 @@ select:focus-visible, textarea:focus-visible {
         <p class="exam-full" data-es="Diplôme d'Études en Langue Française · Ministerio francés de Educación Nacional" data-fr="Diplôme d'Études en Langue Française · Ministère français de l'Éducation nationale" data-en="Diplôme d'Études en Langue Française · French Ministry of National Education">Diplôme d'Études en Langue Française · Ministerio francés de Educación Nacional</p>
         <div class="af-chips"><span class="af-chip">A1</span><span class="af-chip">A2</span><span class="af-chip">B1</span><span class="af-chip">B2</span></div>
         <ul class="exam-rows">
-          <li><b data-es="Para qué" data-fr="À quoi ça sert" data-en="What for">Para qué</b><span data-es="Acreditar tu nivel ante universidades y empresas francófonas, estudiar en Francia y respaldar trámites migratorios." data-fr="Attester votre niveau auprès des universités et entreprises francophones, étudier en France et appuyer vos démarches d'immigration." data-en="Prove your level to francophone universities and employers, study in France and support immigration procedures.">Acreditar tu nivel ante universidades y empresas francófonas, estudiar en Francia y respaldar trámites migratorios.</span></li>
+          <li><b data-es="Para qué" data-fr="À quoi ça sert" data-en="What for">Para qué</b><span data-es="Demostrar tu francés con un papel que no caduca. Sirve para inscribirte en una universidad, sumar puntos en un expediente migratorio o cerrar una entrevista de trabajo sin que nadie ponga en duda tu nivel." data-fr="Prouver votre français avec un papier qui n'expire pas : inscription universitaire, points dans un dossier d'immigration ou entretien d'embauche où personne ne remettra votre niveau en question." data-en="Prove your French with a document that never expires: university applications, points on an immigration file, or a job interview where nobody questions your level.">Demostrar tu francés con un papel que no caduca. Sirve para inscribirte en una universidad, sumar puntos en un expediente migratorio o cerrar una entrevista de trabajo sin que nadie ponga en duda tu nivel.</span></li>
           <li><b data-es="Validez" data-fr="Validité" data-en="Validity">Validez</b><span data-es="De por vida. El diploma no caduca nunca." data-fr="À vie. Le diplôme n'expire jamais." data-en="Lifetime. The diploma never expires.">De por vida. El diploma no caduca nunca.</span></li>
           <li><b data-es="Estructura" data-fr="Structure" data-en="Structure">Estructura</b><span data-es="Cuatro pruebas independientes: comprensión oral, comprensión escrita, producción escrita y producción oral. Cada nivel es un diploma completo y autónomo." data-fr="Quatre épreuves : compréhension orale, compréhension écrite, production écrite et production orale. Chaque niveau est un diplôme complet." data-en="Four papers: listening, reading, writing and speaking. Each level is a complete, standalone diploma.">Cuatro pruebas independientes: comprensión oral, comprensión escrita, producción escrita y producción oral. Cada nivel es un diploma completo y autónomo.</span></li>
           <li><b data-es="Versiones" data-fr="Versions" data-en="Versions">Versiones</b><span data-es="DELF Prim (niños), DELF Junior y Scolaire (adolescentes), DELF Tous Publics (adultos) y DELF Pro (ámbito profesional)." data-fr="DELF Prim (enfants), DELF Junior et Scolaire (adolescents), DELF Tous Publics (adultes) et DELF Pro (monde professionnel)." data-en="DELF Prim (children), DELF Junior and Scolaire (teenagers), DELF Tous Publics (adults) and DELF Pro (workplace).">DELF Prim (niños), DELF Junior y Scolaire (adolescentes), DELF Tous Publics (adultos) y DELF Pro (ámbito profesional).</span></li>
@@ -2647,7 +2732,7 @@ select:focus-visible, textarea:focus-visible {
         <p class="exam-full" data-es="Diplôme Approfondi de Langue Française · Ministerio francés de Educación Nacional" data-fr="Diplôme Approfondi de Langue Française · Ministère français de l'Éducation nationale" data-en="Diplôme Approfondi de Langue Française · French Ministry of National Education">Diplôme Approfondi de Langue Française · Ministerio francés de Educación Nacional</p>
         <div class="af-chips"><span class="af-chip">C1</span><span class="af-chip">C2</span></div>
         <ul class="exam-rows">
-          <li><b data-es="Para qué" data-fr="À quoi ça sert" data-en="What for">Para qué</b><span data-es="Estudios superiores en Francia, carreras internacionales y empleos cualificados. Dispensa de la prueba lingüística de acceso a las universidades francesas." data-fr="Études supérieures en France, carrières internationales et emplois qualifiés. Dispense du test linguistique d'accès aux universités françaises." data-en="Higher education in France, international careers and qualified jobs. Exempts you from the language test for entry to French universities.">Estudios superiores en Francia, carreras internacionales y empleos cualificados. Dispensa de la prueba lingüística de acceso a las universidades francesas.</span></li>
+          <li><b data-es="Para qué" data-fr="À quoi ça sert" data-en="What for">Para qué</b><span data-es="El techo de la escala. Es lo que pide un posgrado francófono, una plaza docente o un puesto donde el francés no sea un extra sino la herramienta de trabajo. En la mayoría de las universidades francesas te exime de la prueba de idioma." data-fr="Le haut de l'échelle : ce qu'exigent un master francophone, un poste d'enseignant ou un emploi où le français n'est pas un plus mais l'outil de travail. Dans la plupart des universités françaises, il dispense du test de langue." data-en="The top of the scale: what a francophone master's, a teaching post or a job where French is the working tool — not a bonus — will ask for. At most French universities it exempts you from the language test.">El techo de la escala. Es lo que pide un posgrado francófono, una plaza docente o un puesto donde el francés no sea un extra sino la herramienta de trabajo. En la mayoría de las universidades francesas te exime de la prueba de idioma.</span></li>
           <li><b data-es="Validez" data-fr="Validité" data-en="Validity">Validez</b><span data-es="De por vida. El diploma no caduca nunca." data-fr="À vie. Le diplôme n'expire jamais." data-en="Lifetime. The diploma never expires.">De por vida. El diploma no caduca nunca.</span></li>
           <li><b data-es="Estructura" data-fr="Structure" data-en="Structure">Estructura</b><span data-es="Las cuatro competencias en tareas largas y complejas: síntesis de documentos, ensayo argumentado y exposición oral con debate." data-fr="Les quatre compétences sur des tâches longues : synthèse de documents, essai argumenté et exposé oral suivi d'un débat." data-en="All four skills on long, complex tasks: document synthesis, argumentative essay and oral presentation followed by debate.">Las cuatro competencias en tareas largas y complejas: síntesis de documentos, ensayo argumentado y exposición oral con debate.</span></li>
           <li><b data-es="Público" data-fr="Public" data-en="Audience">Público</b><span data-es="Usuarios avanzados: investigadores, docentes, profesionales y candidatos a posgrados francófonos." data-fr="Utilisateurs avancés : chercheurs, enseignants, professionnels et candidats à des masters francophones." data-en="Advanced users: researchers, teachers, professionals and candidates for francophone graduate programmes.">Usuarios avanzados: investigadores, docentes, profesionales y candidatos a posgrados francófonos.</span></li>
@@ -2684,8 +2769,8 @@ select:focus-visible, textarea:focus-visible {
 
     <!-- ¿Qué examen elegir? -->
     <div class="sec-head reveal" style="text-align:center;margin:4.5rem 0 0;">
-      <p class="eyebrow" style="justify-content:center" data-es="Guía rápida" data-fr="Guide rapide" data-en="Quick guide">Guía rápida</p>
-      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;font-size:clamp(1.5rem,3vw,2.2rem);"><em data-es="¿Qué examen elegir?" data-fr="Quel examen choisir ?" data-en="Which exam should I choose?">¿Qué examen elegir?</em></h2>
+      <p class="eyebrow" style="justify-content:center" data-es="Orientación" data-fr="Orientation" data-en="Guidance">Orientación</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;font-size:clamp(1.5rem,3vw,2.2rem);"><em data-es="¿Cuál te conviene?" data-fr="Lequel vous convient ?" data-en="Which one suits you?">¿Cuál te conviene?</em></h2>
     </div>
 
     <div class="pick-grid">
@@ -2708,7 +2793,7 @@ select:focus-visible, textarea:focus-visible {
 
     <p class="af-note reveal">
       <i class="fa fa-triangle-exclamation"></i>
-      <span data-es="El nivel exigido por cada trámite migratorio o académico depende de la normativa vigente y puede cambiar de un año a otro. Antes de inscribirte a un examen, verifica siempre el requisito actual con la institución que lo solicita — y escríbeme: te oriento según tu caso concreto y el calendario de sesiones más cercano." data-fr="Le niveau exigé par chaque démarche dépend de la réglementation en vigueur et peut évoluer d'une année à l'autre. Avant de vous inscrire, vérifiez toujours l'exigence actuelle auprès de l'institution concernée — et écrivez-moi : je vous oriente selon votre situation et le calendrier de sessions le plus proche." data-en="The level required by each immigration or academic procedure depends on current regulations and can change from year to year. Before registering for an exam, always check the current requirement with the institution requesting it — and write to me: I'll advise you based on your case and the nearest session calendar.">El nivel exigido por cada trámite migratorio o académico depende de la normativa vigente y puede cambiar de un año a otro. Antes de inscribirte a un examen, verifica siempre el requisito actual con la institución que lo solicita — y escríbeme: te oriento según tu caso concreto y el calendario de sesiones más cercano.</span>
+      <span data-es="Las cifras y los niveles exigidos por cada trámite migratorio o académico dependen de la normativa vigente y cambian de un año a otro. Toma esta guía como una orientación de partida y confirma siempre el requisito actual con la institución que te lo pide antes de pagar una inscripción." data-fr="Les niveaux exigés par chaque démarche dépendent de la réglementation en vigueur et évoluent d'une année à l'autre. Prenez ce guide comme un point de départ et vérifiez toujours l'exigence actuelle auprès de l'institution concernée avant de payer une inscription." data-en="The levels required by each immigration or academic procedure depend on current regulations and change from year to year. Treat this guide as a starting point and always confirm the current requirement with the institution asking for it before paying any registration fee.">Las cifras y los niveles exigidos por cada trámite migratorio o académico dependen de la normativa vigente y cambian de un año a otro. Toma esta guía como una orientación de partida y confirma siempre el requisito actual con la institución que te lo pide antes de pagar una inscripción.</span>
     </p>
 
     <div class="af-cta reveal">
@@ -3235,8 +3320,8 @@ select:focus-visible, textarea:focus-visible {
         <div class="pt-lbl" id="pt-lbl"></div>
         <p class="pt-msg" id="pt-msg"></p>
         <div class="pt-actions">
-          <a href="#inscripcion" class="btn btn-gold" id="pt-go" data-es="Inscribirme con este nivel" data-fr="M'inscrire à ce niveau" data-en="Enrol at this level">Inscribirme con este nivel</a>
-          <a href="#certificaciones" class="btn btn-ghost" data-es="Ver los exámenes" data-fr="Voir les examens" data-en="See the exams">Ver los exámenes</a>
+          <button type="button" class="btn btn-gold" id="pt-book"><i class="fa fa-calendar-check"></i><span data-es="Agendar prueba de ubicación con Miguel" data-fr="Réserver un test de niveau avec Miguel" data-en="Book a placement test with Miguel">Agendar prueba de ubicación con Miguel</span></button>
+          <a href="#inscripcion" class="btn btn-ghost" id="pt-go" data-es="Inscribirme con este nivel" data-fr="M'inscrire à ce niveau" data-en="Enrol at this level">Inscribirme con este nivel</a>
         </div>
         <button class="pt-reset" id="pt-reset" data-es="Repetir el test" data-fr="Refaire le test" data-en="Retake the test">Repetir el test</button>
       </div>
@@ -3244,8 +3329,12 @@ select:focus-visible, textarea:focus-visible {
 
     <p class="af-note reveal">
       <i class="fa fa-circle-info"></i>
-      <span data-es="Este test es orientativo y solo evalúa gramática y léxico. La evaluación real incluye siempre comprensión oral y producción oral: la hacemos juntos, sin costo, en la primera sesión." data-fr="Ce test est indicatif et n'évalue que la grammaire et le lexique. L'évaluation réelle inclut toujours la compréhension et la production orales : nous la faisons ensemble, gratuitement, lors de la première séance." data-en="This test is indicative and only assesses grammar and vocabulary. A real assessment always includes listening and speaking: we do it together, free of charge, in the first session.">Este test es orientativo y solo evalúa gramática y léxico. La evaluación real incluye siempre comprensión oral y producción oral: la hacemos juntos, sin costo, en la primera sesión.</span>
+      <span data-es="Este test es orientativo y solo mide gramática y léxico. Una ubicación seria necesita además escucharte y hacerte hablar: eso lo hago yo contigo en una prueba de ubicación de 45 minutos, sin costo y sin compromiso, al término de la cual sabrás exactamente en qué nivel empiezas." data-fr="Ce test est indicatif et ne mesure que la grammaire et le lexique. Un vrai positionnement exige aussi de vous écouter et de vous faire parler : c'est ce que je fais lors d'un test de niveau de 45 minutes, gratuit et sans engagement, à l'issue duquel vous saurez exactement où vous commencez." data-en="This test is indicative and only measures grammar and vocabulary. A serious placement also needs to hear you speak: that's what I do in a 45-minute placement session, free and with no commitment, after which you'll know exactly where you start.">Este test es orientativo y solo mide gramática y léxico. Una ubicación seria necesita además escucharte y hacerte hablar: eso lo hago yo contigo en una prueba de ubicación de 45 minutos, sin costo y sin compromiso, al término de la cual sabrás exactamente en qué nivel empiezas.</span>
     </p>
+
+    <div class="af-cta reveal">
+      <button type="button" class="btn btn-gold" onclick="openModal('modal-clase')"><i class="fa fa-calendar-check"></i><span data-es="Agendar mi prueba de ubicación" data-fr="Réserver mon test de niveau" data-en="Book my placement test">Agendar mi prueba de ubicación</span></button>
+    </div>
   </div>
 </section>
 
@@ -3366,13 +3455,23 @@ select:focus-visible, textarea:focus-visible {
     document.getElementById('pt-msg').textContent = t.msg[lvl.code];
     document.getElementById('pt-result').classList.add('on');
 
-    var go = document.getElementById('pt-go');
-    go.onclick = function () {
+    /* Inscripción: precarga el nivel estimado en el formulario */
+    document.getElementById('pt-go').onclick = function () {
       var sel = document.querySelector('#inscForm select[name="nivel"]');
       if (sel) {
         sel.selectedIndex = lvl.sel;
         sel.dispatchEvent(new Event('change', { bubbles: true }));
       }
+    };
+
+    /* Prueba de ubicación con Miguel: abre la agenda con el nivel ya puesto */
+    document.getElementById('pt-book').onclick = function () {
+      var sel = document.querySelector('#form-clase select[name="nivel"]');
+      if (sel) {
+        sel.selectedIndex = lvl.sel;
+        sel.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      if (typeof openModal === 'function') openModal('modal-clase');
     };
   }
 
@@ -3920,6 +4019,41 @@ if (!window.setLang) {
     }
   };
 }
+
+/* ── BARRA DE PESTAÑAS · ÁREA DE ESTUDIANTES ── */
+(function () {
+  var bar = document.getElementById('studybar');
+  if (!bar) return;
+  var links = Array.prototype.slice.call(bar.querySelectorAll('a'));
+  var ids = ['modalidades', 'certificaciones', 'niveles', 'cultura', 'recursos'];
+  var zone = ids.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+  if (!zone.length) return;
+
+  function update() {
+    var first = zone[0].getBoundingClientRect();
+    var last = zone[zone.length - 1].getBoundingClientRect();
+    /* La barra vive mientras el bloque del estudiante ocupa la pantalla */
+    bar.classList.toggle('on', first.top < 140 && last.bottom > 160);
+
+    var active = null, mid = window.innerHeight * 0.38;
+    zone.forEach(function (sec) {
+      var r = sec.getBoundingClientRect();
+      if (r.top <= mid && r.bottom > mid) active = sec.id;
+    });
+    links.forEach(function (a) {
+      a.classList.toggle('active', active !== null && a.getAttribute('href') === '#' + active);
+    });
+  }
+
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () { update(); ticking = false; });
+  }, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
+})();
 
 /* ── REVEAL ──────────────────────────────── */
 const ro = new IntersectionObserver(entries => {
