@@ -78,18 +78,46 @@ def parte_es_nivel(p):
     return bool(re.fullmatch(r"[ABC][12](\.[0-9])?", p.strip().upper()))
 
 
+def parte_es_menor(p):
+    return clave(p) in ("menor", "menor de edad", "es menor", "es menor de edad")
+
+
+def parte_es_representante(p):
+    """'representante: Santiago Mena' o 'papá Santiago Mena' -> el nombre."""
+    k = clave(p)
+    for pref in ("representante legal", "representante", "tutora", "tutor",
+                 "responsable", "mama", "madre", "papa", "padre"):
+        if k.startswith(pref):
+            resto = p[len(pref):].lstrip(" :-·.")
+            return resto.strip() or None
+    return None
+
+
 def leer_estudiante(linea):
     partes = [p.strip() for p in linea.split(",") if p.strip()]
     if not partes:
         return None
-    f = {"nombre": partes[0], "correo": "", "telefono": "", "nivel": ""}
+    f = {"nombre": partes[0], "correo": "", "telefono": "", "nivel": "",
+         "menor": False, "representante": "", "tel_representante": ""}
     for p in partes[1:]:
-        if parte_es_correo(p) and not f["correo"]:
+        rep = parte_es_representante(p)
+        if parte_es_menor(p):
+            f["menor"] = True
+        elif rep is not None:
+            f["representante"] = rep
+            f["menor"] = True          # tener representante implica ser menor
+        elif parte_es_correo(p) and not f["correo"]:
             f["correo"] = p
         elif parte_es_nivel(p) and not f["nivel"]:
             f["nivel"] = p.strip().upper()
-        elif parte_es_telefono(p) and not f["telefono"]:
-            f["telefono"] = p
+        elif parte_es_telefono(p):
+            # el primer teléfono es del estudiante; el segundo, del representante
+            if not f["telefono"] and not f["representante"]:
+                f["telefono"] = p
+            elif f["representante"] and not f["tel_representante"]:
+                f["tel_representante"] = p
+            elif not f["telefono"]:
+                f["telefono"] = p
         else:
             f["nombre"] += ", " + p
     return f
@@ -274,7 +302,8 @@ def main():
             e["id"] = id_desde(e["nombre"], usados)
             e["grupo"], e["grupo_id"] = g["grupo"], g["id"]
             e["nivel"] = e["nivel"] or g["nivel"]
-            e["ficha_completa"] = bool(e["correo"] and e["telefono"])
+            contacto = bool(e["correo"] and e["telefono"])
+            e["ficha_completa"] = contacto and (not e["menor"] or bool(e["representante"]))
             estudiantes.append(e)
 
     os.makedirs(SALIDA, exist_ok=True)
@@ -306,6 +335,13 @@ def main():
         for e in faltan:
             f = [c for c in ("correo", "telefono") if not e[c]]
             print(f"  · {e['nombre']} ({e['grupo']}): falta {' y '.join(f)}")
+
+    menores = [e for e in estudiantes if e["menor"]]
+    if menores:
+        print(f"\nMenores de edad ({len(menores)}) — el contrato va a nombre del representante:")
+        for e in menores:
+            rep = e["representante"] or "SIN REPRESENTANTE REGISTRADO"
+            print(f"  · {e['nombre']} ({e['grupo']}) → {rep}")
 
     if avisos:
         print(f"\nNo pude interpretar {len(avisos)} línea(s):")

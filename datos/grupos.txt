@@ -65,7 +65,7 @@ TOMADAS: 6
 NOTAS: sin días fijos — se agenda por la mañana según disponibilidad de
        la estudiante, así que no se puede calcular fecha de cierre
 ESTUDIANTES:
-- Annette Alfaro, +52 1 961 880 1359
+- Annette Alfaro, +52 1 961 880 1359, menor, representante: Mamá de Annette Alfaro
 
 
 # ─────────────── CURSOS ───────────────
@@ -79,11 +79,11 @@ INICIO: 2026-08-11
 PAQUETE: 16 horas
 TOMADAS: 2
 MODALIDAD: híbrido
+NOTAS: Santiago Mena está en el chat como papá de Isaac, no es estudiante
 ESTUDIANTES:
-- Isaac
+- Isaac, menor, representante: Santiago Mena
 - Ricardo Gadiel
-- Annette Alfaro, +52 1 961 880 1359, A1
-- Santiago Mena
+- Annette Alfaro, +52 1 961 880 1359, A1, menor, representante: Mamá de Annette Alfaro
 
 
 GRUPO: B2 Virtual
