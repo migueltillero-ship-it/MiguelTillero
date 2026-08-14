@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#bcdcc9">
+<meta name="robots" content="noindex">
+<title>Ficha estudiantil · Vive el francés</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#cfe6d9; --gold:#a5824a; --em1:#0d3b2e; --em2:#1a5c45;
+  --ink:#12291c; --muted:rgba(18,41,28,.62); --line:rgba(13,59,46,.14);
+  --bg-grad:radial-gradient(ellipse 80% 80% at 50% 40%,#c5e0d3 0%,#b8d9ca 55%,#a5cdbf 100%);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Syne',sans-serif;color:var(--ink);background:var(--void);
+  background-image:var(--bg-grad);background-attachment:fixed;line-height:1.6;
+  padding:2rem 1rem 4rem}
+.wrap{max-width:760px;margin:0 auto}
+
+header{text-align:center;margin-bottom:2rem}
+.eyebrow{font-family:'Space Mono',monospace;font-size:.68rem;font-weight:700;
+  letter-spacing:.3em;text-transform:uppercase;color:#8f6b2e;margin-bottom:.6rem}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,2.8rem);
+  font-weight:600;line-height:1.1}
+.sub{color:var(--muted);margin-top:.5rem;font-size:.95rem}
+
+.card{background:#fff;border:1px solid var(--line);border-radius:6px;
+  box-shadow:0 8px 26px rgba(13,59,46,.10);padding:1.8rem;margin-bottom:1.3rem}
+.card > h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;
+  margin-bottom:.3rem}
+.card > .hint{color:var(--muted);font-size:.86rem;margin-bottom:1.2rem}
+
+.field{margin-bottom:1.1rem}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+@media(max-width:640px){.row{grid-template-columns:1fr}}
+label{display:block;font-size:.82rem;font-weight:600;letter-spacing:.02em;
+  margin-bottom:.4rem}
+.req{color:#a03030}
+input,select,textarea{width:100%;font-family:inherit;font-size:.95rem;color:var(--ink);
+  background:#fff;border:1px solid var(--line);border-radius:4px;padding:.7rem .85rem}
+textarea{min-height:92px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--gold);outline-offset:1px;
+  border-color:var(--gold)}
+.opts{display:flex;flex-wrap:wrap;gap:.6rem}
+.opt{display:flex;align-items:center;gap:.45rem;border:1px solid var(--line);
+  border-radius:4px;padding:.55rem .8rem;font-size:.88rem;cursor:pointer}
+.opt:hover{border-color:var(--gold)}
+.opt input{width:auto}
+
+.acepta{display:flex;gap:.6rem;align-items:flex-start;font-size:.9rem}
+.acepta input{width:auto;margin-top:.3rem}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  font-family:'Space Mono',monospace;font-size:.8rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;padding:.95rem 1.6rem;border:1px solid var(--em1);border-radius:4px;
+  cursor:pointer;background:linear-gradient(135deg,#0b3327,#14503e);color:#e8c87a;
+  box-shadow:0 6px 18px rgba(13,59,46,.28)}
+.btn:hover{background:linear-gradient(135deg,#0e4030,#1a5c45);transform:translateY(-2px)}
+.btn[disabled]{opacity:.55;cursor:not-allowed;transform:none}
+.btn-2{background:#fff;color:var(--em1);box-shadow:none}
+.btn-2:hover{background:#f2f8f4}
+.acciones{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;margin-top:.4rem}
+
+.aviso{border-left:3px solid var(--gold);background:#fffaf2;padding:.9rem 1.1rem;
+  font-size:.88rem;border-radius:0 4px 4px 0;margin-bottom:1.2rem}
+.error{color:#a03030;font-size:.82rem;margin-top:.35rem;display:none}
+.field.malo input,.field.malo select,.field.malo textarea{border-color:#a03030}
+.field.malo .error{display:block}
+#resumen{display:none}
+#resumen pre{font-family:'Space Mono',monospace;font-size:.78rem;white-space:pre-wrap;
+  background:#f4f8f5;border:1px solid var(--line);border-radius:4px;padding:1rem;
+  max-height:340px;overflow:auto;margin:1rem 0}
+footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:2rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Vive el francés</div>
+  <h1>Ficha estudiantil</h1>
+  <p class="sub">Con el profesor Miguel Tillero · San Cristóbal de Las Casas</p>
+</header>
+
+<form id="ficha" novalidate>
+
+  <div class="card">
+    <div class="aviso">
+      Toma unos tres minutos. Los campos marcados con <span class="req">*</span> son
+      necesarios para abrir tu espacio estudiantil; el resto puedes dejarlo en blanco.
+    </div>
+
+    <h2>Tus datos</h2>
+    <p class="hint">Como aparecerán en tus constancias y tu contrato.</p>
+
+    <div class="field">
+      <label for="nombre">Nombre completo <span class="req">*</span></label>
+      <input id="nombre" name="nombre" required autocomplete="name"
+             placeholder="Nombres y apellidos, como en tu documento oficial">
+      <div class="error">Escribe tu nombre completo.</div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="correo">Correo electrónico <span class="req">*</span></label>
+        <input id="correo" name="correo" type="email" required autocomplete="email"
+               placeholder="tu@correo.com">
+        <div class="error">Revisa tu correo: parece incompleto.</div>
+      </div>
+      <div class="field">
+        <label for="telefono">WhatsApp <span class="req">*</span></label>
+        <input id="telefono" name="telefono" type="tel" required autocomplete="tel"
+               placeholder="+52 967 000 0000">
+        <div class="error">Escribe un número con al menos 8 dígitos.</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="nacimiento">Fecha de nacimiento</label>
+        <input id="nacimiento" name="nacimiento" type="date">
+      </div>
+      <div class="field">
+        <label for="ciudad">Ciudad y país de residencia</label>
+        <input id="ciudad" name="ciudad" placeholder="San Cristóbal de Las Casas, México">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="documento">Documento de identidad (CURP, pasaporte o cédula)</label>
+      <input id="documento" name="documento" placeholder="Necesario solo para constancias oficiales">
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Tu francés</h2>
+    <p class="hint">Si no sabes tu nivel, elige «No estoy seguro» y lo vemos juntos.</p>
+
+    <div class="row">
+      <div class="field">
+        <label for="nivel">Nivel actual</label>
+        <select id="nivel" name="nivel">
+          <option value="">No estoy seguro</option>
+          <option>A1</option><option>A2</option><option>B1</option>
+          <option>B2</option><option>C1</option><option>C2</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="grupo">Grupo o curso al que asistes</label>
+        <input id="grupo" name="grupo" placeholder="Ej: B2 Adultos Sábado">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="experiencia">¿Has estudiado francés antes? ¿Dónde y por cuánto tiempo?</label>
+      <textarea id="experiencia" name="experiencia"
+                placeholder="Cuéntame brevemente tu recorrido con el idioma."></textarea>
+    </div>
+
+    <div class="field">
+      <label id="lbl-objetivo">¿Cuál es tu objetivo?</label>
+      <div class="opts" role="group" aria-labelledby="lbl-objetivo">
+        <label class="opt"><input type="checkbox" name="objetivo" value="Certificación DELF/DALF"> Certificación DELF/DALF</label>
+        <label class="opt"><input type="checkbox" name="objetivo" value="Estudios en el extranjero"> Estudios en el extranjero</label>
+        <label class="opt"><input type="checkbox" name="objetivo" value="Trabajo"> Trabajo</label>
+        <label class="opt"><input type="checkbox" name="objetivo" value="Viaje"> Viaje</label>
+        <label class="opt"><input type="checkbox" name="objetivo" value="Migración"> Migración</label>
+        <label class="opt"><input type="checkbox" name="objetivo" value="Interés personal"> Interés personal</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label id="lbl-dispo">¿Cuándo puedes tomar clase?</label>
+      <div class="opts" role="group" aria-labelledby="lbl-dispo">
+        <label class="opt"><input type="checkbox" name="dispo" value="Entre semana · mañana"> Entre semana · mañana</label>
+        <label class="opt"><input type="checkbox" name="dispo" value="Entre semana · tarde"> Entre semana · tarde</label>
+        <label class="opt"><input type="checkbox" name="dispo" value="Entre semana · noche"> Entre semana · noche</label>
+        <label class="opt"><input type="checkbox" name="dispo" value="Sábado"> Sábado</label>
+        <label class="opt"><input type="checkbox" name="dispo" value="Domingo"> Domingo</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Para tu constancia de estudio</h2>
+    <p class="hint">Solo si la vas a necesitar. Puedes dejarlo en blanco y pedirla después.</p>
+
+    <div class="row">
+      <div class="field">
+        <label for="constancia_para">¿Quién la solicita?</label>
+        <input id="constancia_para" name="constancia_para"
+               placeholder="Universidad, empresa, consulado...">
+      </div>
+      <div class="field">
+        <label for="emergencia">Contacto de emergencia</label>
+        <input id="emergencia" name="emergencia" placeholder="Nombre y teléfono">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="notas">¿Algo más que deba saber?</label>
+      <textarea id="notas" name="notas"
+                placeholder="Necesidades particulares, horarios difíciles, dudas..."></textarea>
+    </div>
+
+    <div class="field">
+      <label class="acepta" for="acepto">
+        <input id="acepto" name="acepto" type="checkbox" required>
+        <span>Autorizo el uso de estos datos para gestionar mi inscripción, mis clases
+        y mis documentos académicos. <span class="req">*</span></span>
+      </label>
+      <div class="error">Necesito tu autorización para poder abrir tu espacio.</div>
+    </div>
+  </div>
+
+  <div class="acciones">
+    <button type="submit" class="btn">Enviar mi ficha por WhatsApp</button>
+    <button type="button" class="btn btn-2" id="copiar">Copiar y enviar por correo</button>
+  </div>
+</form>
+
+<div class="card" id="resumen">
+  <h2>Esto es lo que se envía</h2>
+  <p class="hint">Si WhatsApp no se abrió solo, copia este texto y mándamelo.</p>
+  <pre id="resumen-texto"></pre>
+  <div class="acciones">
+    <button type="button" class="btn" id="reabrir">Abrir WhatsApp</button>
+    <button type="button" class="btn btn-2" id="copiar-2">Copiar al portapapeles</button>
+  </div>
+</div>
+
+<footer>Vive el francés · Con el profesor Miguel Tillero</footer>
+</div>
+
+<script>
+/* ── Configuración ───────────────────────────────────────────
+   WHATSAPP: número que recibe las fichas (formato internacional, sin +).
+   ENDPOINT: si algún día se conecta un backend (Apps Script, Formspree…),
+   basta con poner aquí la URL y la ficha se enviará también por ahí.
+   Mientras esté vacío, la ficha funciona igualmente vía WhatsApp/correo. */
+var WHATSAPP = '529673424456';
+var CORREO   = 'direccionsancristobal@alianzafr.edu.mx';
+var ENDPOINT = '';
+
+var form = document.getElementById('ficha');
+var ETIQUETAS = {
+  nombre:'Nombre', correo:'Correo', telefono:'WhatsApp', nacimiento:'Nacimiento',
+  ciudad:'Ciudad', documento:'Documento', nivel:'Nivel', grupo:'Grupo',
+  experiencia:'Experiencia previa', objetivo:'Objetivos', dispo:'Disponibilidad',
+  constancia_para:'Constancia para', emergencia:'Contacto de emergencia', notas:'Notas'
+};
+
+function recoger() {
+  var d = {};
+  Object.keys(ETIQUETAS).forEach(function(k) {
+    var campos = form.querySelectorAll('[name="' + k + '"]');
+    if (campos.length && campos[0].type === 'checkbox') {
+      var marcados = [].filter.call(campos, function(c){ return c.checked; })
+                       .map(function(c){ return c.value; });
+      if (marcados.length) d[k] = marcados.join(', ');
+    } else if (campos.length && campos[0].value.trim()) {
+      d[k] = campos[0].value.trim();
+    }
+  });
+  return d;
+}
+
+function comoTexto(d) {
+  var l = ['FICHA ESTUDIANTIL — Vive el francés', ''];
+  Object.keys(ETIQUETAS).forEach(function(k) {
+    if (d[k]) l.push(ETIQUETAS[k] + ': ' + d[k]);
+  });
+  l.push('', 'Enviada el ' + new Date().toLocaleDateString('es-MX', {
+    day: 'numeric', month: 'long', year: 'numeric' }));
+  return l.join('\n');
+}
+
+/* Validación propia: `novalidate` desactiva la del navegador para poder
+   mostrar los mensajes en español y marcar el campo exacto. */
+function validar() {
+  var malos = [];
+  function revisar(id, ok) {
+    var campo = document.getElementById(id).closest('.field');
+    campo.classList.toggle('malo', !ok);
+    if (!ok) malos.push(campo);
+  }
+  var correo = document.getElementById('correo').value.trim();
+  var tel = document.getElementById('telefono').value.replace(/\D/g, '');
+  revisar('nombre', document.getElementById('nombre').value.trim().length > 2);
+  revisar('correo', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo));
+  revisar('telefono', tel.length >= 8);
+  revisar('acepto', document.getElementById('acepto').checked);
+  if (malos.length) {
+    malos[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    var foco = malos[0].querySelector('input,select,textarea');
+    if (foco) foco.focus({ preventScroll: true });
+  }
+  return malos.length === 0;
+}
+
+var ultimoTexto = '';
+
+function mostrarResumen(texto) {
+  ultimoTexto = texto;
+  document.getElementById('resumen-texto').textContent = texto;
+  document.getElementById('resumen').style.display = 'block';
+  document.getElementById('resumen').scrollIntoView({ behavior: 'smooth' });
+}
+
+function abrirWhatsApp() {
+  window.open('https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(ultimoTexto), '_blank');
+}
+
+async function copiar(texto, boton) {
+  var original = boton.textContent;
+  try {
+    await navigator.clipboard.writeText(texto);
+    boton.textContent = 'Copiado ✓';
+  } catch (e) {
+    /* Sin permiso de portapapeles (o sin HTTPS): el resumen queda visible
+       para copiarlo a mano, que es la salida que siempre funciona. */
+    boton.textContent = 'Cópialo del recuadro';
+  }
+  setTimeout(function(){ boton.textContent = original; }, 2600);
+}
+
+form.addEventListener('submit', function(ev) {
+  ev.preventDefault();
+  if (!validar()) return;
+  var texto = comoTexto(recoger());
+  mostrarResumen(texto);
+  if (ENDPOINT) {
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(recoger())
+    }).catch(function(){ /* el envío por WhatsApp sigue siendo válido */ });
+  }
+  abrirWhatsApp();
+});
+
+document.getElementById('copiar').addEventListener('click', function() {
+  if (!validar()) return;
+  var texto = comoTexto(recoger());
+  mostrarResumen(texto);
+  copiar(texto, this);
+  window.location.href = 'mailto:' + CORREO +
+    '?subject=' + encodeURIComponent('Ficha estudiantil — ' + (recoger().nombre || '')) +
+    '&body=' + encodeURIComponent(texto);
+});
+
+document.getElementById('reabrir').addEventListener('click', abrirWhatsApp);
+document.getElementById('copiar-2').addEventListener('click', function() {
+  copiar(ultimoTexto, this);
+});
+
+/* Al corregir un campo marcado, se le quita la marca de error. */
+form.addEventListener('input', function(ev) {
+  var campo = ev.target.closest('.field');
+  if (campo) campo.classList.remove('malo');
+});
+</script>
+</body>
+</html>

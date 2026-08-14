@@ -1,0 +1,55 @@
+{
+  "generado": "2026-08-13",
+  "estudiantes": [
+    {
+      "nombre": "Ana López Martínez",
+      "correo": "ana.lopez@correo.com",
+      "telefono": "+52 967 123 4567",
+      "nivel": "B2",
+      "id": "ana-lopez-martinez",
+      "grupo": "B2 Adultos Sábado",
+      "grupo_id": "b2-adultos-sabado",
+      "ficha_completa": true
+    },
+    {
+      "nombre": "Luis Pérez Gómez",
+      "correo": "luis.perez@correo.com",
+      "telefono": "+52 967 234 5678",
+      "nivel": "B2",
+      "id": "luis-perez-gomez",
+      "grupo": "B2 Adultos Sábado",
+      "grupo_id": "b2-adultos-sabado",
+      "ficha_completa": true
+    },
+    {
+      "nombre": "Sofía Hernández",
+      "correo": "sofia.h@correo.com",
+      "telefono": "",
+      "nivel": "B2",
+      "id": "sofia-hernandez",
+      "grupo": "B2 Adultos Sábado",
+      "grupo_id": "b2-adultos-sabado",
+      "ficha_completa": false
+    },
+    {
+      "nombre": "Carlos Ramírez",
+      "correo": "carlos.r@correo.com",
+      "telefono": "+52 967 345 6789",
+      "nivel": "A1",
+      "id": "carlos-ramirez",
+      "grupo": "A1 Intensivo Entre Semana",
+      "grupo_id": "a1-intensivo-entre-semana",
+      "ficha_completa": true
+    },
+    {
+      "nombre": "María Fernanda Ruiz",
+      "correo": "mfruiz@correo.com",
+      "telefono": "",
+      "nivel": "A1",
+      "id": "maria-fernanda-ruiz",
+      "grupo": "A1 Intensivo Entre Semana",
+      "grupo_id": "a1-intensivo-entre-semana",
+      "ficha_completa": false
+    }
+  ]
+}

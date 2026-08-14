@@ -1,0 +1,46 @@
+# ═══════════════════════════════════════════════════════════
+#  GRUPOS Y ESTUDIANTES — archivo para dictar
+# ═══════════════════════════════════════════════════════════
+#
+#  Cómo usarlo: dicta o escribe siguiendo el patrón de abajo.
+#  El formato es tolerante: no importan mayúsculas, acentos ni
+#  espacios de más. Lo único que importa es que cada dato vaya
+#  en su línea y los estudiantes empiecen con guion (-).
+#
+#  Las líneas que empiezan con # son notas y se ignoran.
+#
+#  Datos de un estudiante, en este orden y separados por comas:
+#     - Nombre completo, correo, teléfono, nivel
+#  Solo el nombre es obligatorio. Puedes omitir lo que no tengas:
+#     - Ana López
+#     - Ana López, ana@correo.com
+#     - Ana López, ana@correo.com, +52 967 123 4567, B2
+#
+#  Después de dictar, se generan las fichas con:
+#     python3 herramientas/generar_fichas.py
+#
+# ═══════════════════════════════════════════════════════════
+
+
+# ─────────── EJEMPLO (bórralo y pon los tuyos) ───────────
+
+GRUPO: B2 Adultos Sábado
+NIVEL: B2
+HORARIO: sábados de 09:00 a 11:00
+MODALIDAD: en línea
+INICIO: 2026-02-07
+NOTAS: grupo de preparación al DELF B2
+ESTUDIANTES:
+- Ana López Martínez, ana.lopez@correo.com, +52 967 123 4567, B2
+- Luis Pérez Gómez, luis.perez@correo.com, +52 967 234 5678, B2
+- Sofía Hernández, sofia.h@correo.com
+
+
+GRUPO: A1 Intensivo Entre Semana
+NIVEL: A1
+HORARIO: lunes, miércoles y viernes de 18:00 a 19:30
+MODALIDAD: presencial
+INICIO: 2026-01-19
+ESTUDIANTES:
+- Carlos Ramírez, carlos.r@correo.com, +52 967 345 6789
+- María Fernanda Ruiz, mfruiz@correo.com
