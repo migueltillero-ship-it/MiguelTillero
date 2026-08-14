@@ -1,79 +1,525 @@
 {
-  "generado": "2026-08-13",
+  "generado": "2026-08-14",
   "grupos": [
     {
-      "grupo": "B2 Adultos Sábado",
-      "nivel": "B2",
-      "horario": "sábados de 09:00 a 11:00",
+      "grupo": "Clases particulares · Harleen Kaur",
+      "tipo": "particular",
+      "nivel": "",
+      "dias": "lunes, miércoles",
+      "hora": "10:00-11:00",
+      "inicio": "2026-08-14",
+      "primera": "2026-08-14",
+      "desde": "",
+      "paquete": "10 horas",
+      "tomadas": "1",
       "modalidad": "en línea",
-      "inicio": "2026-02-07",
       "fin": "",
-      "notas": "grupo de preparación al DELF B2",
+      "notas": "arranque excepcional en viernes; a partir de ahí lunes y miércoles",
       "estudiantes": [
         {
-          "nombre": "Ana López Martínez",
-          "correo": "ana.lopez@correo.com",
-          "telefono": "+52 967 123 4567",
-          "nivel": "B2",
-          "id": "ana-lopez-martinez",
-          "grupo": "B2 Adultos Sábado",
-          "grupo_id": "b2-adultos-sabado",
-          "ficha_completa": true
-        },
-        {
-          "nombre": "Luis Pérez Gómez",
-          "correo": "luis.perez@correo.com",
-          "telefono": "+52 967 234 5678",
-          "nivel": "B2",
-          "id": "luis-perez-gomez",
-          "grupo": "B2 Adultos Sábado",
-          "grupo_id": "b2-adultos-sabado",
-          "ficha_completa": true
-        },
-        {
-          "nombre": "Sofía Hernández",
-          "correo": "sofia.h@correo.com",
-          "telefono": "",
-          "nivel": "B2",
-          "id": "sofia-hernandez",
-          "grupo": "B2 Adultos Sábado",
-          "grupo_id": "b2-adultos-sabado",
+          "nombre": "Harleen Kaur",
+          "correo": "",
+          "telefono": "+1 778 881 6584",
+          "nivel": "",
+          "id": "harleen-kaur",
+          "grupo": "Clases particulares · Harleen Kaur",
+          "grupo_id": "clases-particulares-harleen-kaur",
           "ficha_completa": false
         }
       ],
-      "id": "b2-adultos-sabado"
+      "id": "clases-particulares-harleen-kaur",
+      "sesiones": [
+        {
+          "fecha": "2026-08-14",
+          "en_letra": "viernes 14 de agosto de 2026",
+          "horas": 1.0,
+          "acumulado": 1.0,
+          "suelta": true,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-08-17",
+          "en_letra": "lunes 17 de agosto de 2026",
+          "horas": 1.0,
+          "acumulado": 2.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-08-19",
+          "en_letra": "miércoles 19 de agosto de 2026",
+          "horas": 1.0,
+          "acumulado": 3.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-08-24",
+          "en_letra": "lunes 24 de agosto de 2026",
+          "horas": 1.0,
+          "acumulado": 4.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-08-26",
+          "en_letra": "miércoles 26 de agosto de 2026",
+          "horas": 1.0,
+          "acumulado": 5.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-08-31",
+          "en_letra": "lunes 31 de agosto de 2026",
+          "horas": 1.0,
+          "acumulado": 6.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-02",
+          "en_letra": "miércoles 2 de septiembre de 2026",
+          "horas": 1.0,
+          "acumulado": 7.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-07",
+          "en_letra": "lunes 7 de septiembre de 2026",
+          "horas": 1.0,
+          "acumulado": 8.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-09",
+          "en_letra": "miércoles 9 de septiembre de 2026",
+          "horas": 1.0,
+          "acumulado": 9.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-14",
+          "en_letra": "lunes 14 de septiembre de 2026",
+          "horas": 1.0,
+          "acumulado": 10.0,
+          "suelta": false,
+          "pasada": false
+        }
+      ],
+      "cierre": "2026-09-14",
+      "cierre_letra": "lunes 14 de septiembre de 2026",
+      "motivo_sin_calendario": "",
+      "horas_total": 10.0,
+      "horas_tomadas": 1.0,
+      "horas_restantes": 9.0
     },
     {
-      "grupo": "A1 Intensivo Entre Semana",
+      "grupo": "Clases particulares · Camila Robledo",
+      "tipo": "particular",
+      "nivel": "",
+      "dias": "martes, jueves",
+      "hora": "14:00-16:00",
+      "inicio": "",
+      "primera": "",
+      "desde": "",
+      "paquete": "10 horas",
+      "tomadas": "3",
+      "modalidad": "",
+      "fin": "",
+      "notas": "de las 3 horas ya tomadas, una sesión fue de 1 h y otra de 2 h",
+      "estudiantes": [
+        {
+          "nombre": "Camila Robledo",
+          "correo": "",
+          "telefono": "+52 1 962 215 8903",
+          "nivel": "",
+          "id": "camila-robledo",
+          "grupo": "Clases particulares · Camila Robledo",
+          "grupo_id": "clases-particulares-camila-robledo",
+          "ficha_completa": false
+        }
+      ],
+      "id": "clases-particulares-camila-robledo",
+      "sesiones": [],
+      "cierre": "",
+      "cierre_letra": "",
+      "motivo_sin_calendario": "falta la fecha de inicio (INICIO) o de reanudación (DESDE)",
+      "horas_total": 10.0,
+      "horas_tomadas": 3.0,
+      "horas_restantes": 7.0
+    },
+    {
+      "grupo": "Clases particulares · Annette Alfaro",
+      "tipo": "particular",
+      "nivel": "",
+      "dias": "",
+      "hora": "11:00-12:00",
+      "inicio": "",
+      "primera": "",
+      "desde": "",
+      "paquete": "10 horas",
+      "tomadas": "6",
+      "modalidad": "",
+      "fin": "",
+      "notas": "sin días fijos — se agenda por la mañana según disponibilidad de la estudiante, así que no se puede calcular fecha de cierre",
+      "estudiantes": [
+        {
+          "nombre": "Annette Alfaro",
+          "correo": "",
+          "telefono": "+52 1 961 880 1359",
+          "nivel": "",
+          "id": "annette-alfaro",
+          "grupo": "Clases particulares · Annette Alfaro",
+          "grupo_id": "clases-particulares-annette-alfaro",
+          "ficha_completa": false
+        }
+      ],
+      "id": "clases-particulares-annette-alfaro",
+      "sesiones": [],
+      "cierre": "",
+      "cierre_letra": "",
+      "motivo_sin_calendario": "falta la fecha de inicio (INICIO) o de reanudación (DESDE)",
+      "horas_total": 10.0,
+      "horas_tomadas": 6.0,
+      "horas_restantes": 4.0
+    },
+    {
+      "grupo": "Francés A1.4 Híbrido",
+      "tipo": "grupo",
       "nivel": "A1",
-      "horario": "lunes, miércoles y viernes de 18:00 a 19:30",
-      "modalidad": "presencial",
-      "inicio": "2026-01-19",
+      "dias": "martes, jueves",
+      "hora": "19:00-20:00",
+      "inicio": "2026-08-11",
+      "primera": "",
+      "desde": "",
+      "paquete": "16 horas",
+      "tomadas": "2",
+      "modalidad": "híbrido",
       "fin": "",
       "notas": "",
       "estudiantes": [
         {
-          "nombre": "Carlos Ramírez",
-          "correo": "carlos.r@correo.com",
-          "telefono": "+52 967 345 6789",
-          "nivel": "A1",
-          "id": "carlos-ramirez",
-          "grupo": "A1 Intensivo Entre Semana",
-          "grupo_id": "a1-intensivo-entre-semana",
-          "ficha_completa": true
-        },
-        {
-          "nombre": "María Fernanda Ruiz",
-          "correo": "mfruiz@correo.com",
+          "nombre": "Isaac",
+          "correo": "",
           "telefono": "",
           "nivel": "A1",
-          "id": "maria-fernanda-ruiz",
-          "grupo": "A1 Intensivo Entre Semana",
-          "grupo_id": "a1-intensivo-entre-semana",
+          "id": "isaac",
+          "grupo": "Francés A1.4 Híbrido",
+          "grupo_id": "frances-a1-4-hibrido",
+          "ficha_completa": false
+        },
+        {
+          "nombre": "Ricardo Gadiel",
+          "correo": "",
+          "telefono": "",
+          "nivel": "A1",
+          "id": "ricardo-gadiel",
+          "grupo": "Francés A1.4 Híbrido",
+          "grupo_id": "frances-a1-4-hibrido",
+          "ficha_completa": false
+        },
+        {
+          "nombre": "Annette Alfaro",
+          "correo": "",
+          "telefono": "+52 1 961 880 1359",
+          "nivel": "A1",
+          "id": "annette-alfaro-2",
+          "grupo": "Francés A1.4 Híbrido",
+          "grupo_id": "frances-a1-4-hibrido",
+          "ficha_completa": false
+        },
+        {
+          "nombre": "Santiago Mena",
+          "correo": "",
+          "telefono": "",
+          "nivel": "A1",
+          "id": "santiago-mena",
+          "grupo": "Francés A1.4 Híbrido",
+          "grupo_id": "frances-a1-4-hibrido",
           "ficha_completa": false
         }
       ],
-      "id": "a1-intensivo-entre-semana"
+      "id": "frances-a1-4-hibrido",
+      "sesiones": [
+        {
+          "fecha": "2026-08-11",
+          "en_letra": "martes 11 de agosto de 2026",
+          "horas": 1.0,
+          "acumulado": 1.0,
+          "suelta": false,
+          "pasada": true
+        },
+        {
+          "fecha": "2026-08-13",
+          "en_letra": "jueves 13 de agosto de 2026",
+          "horas": 1.0,
+          "acumulado": 2.0,
+          "suelta": false,
+          "pasada": true
+        },
+        {
+          "fecha": "2026-08-18",
+          "en_letra": "martes 18 de agosto de 2026",
+          "horas": 1.0,
+          "acumulado": 3.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-08-20",
+          "en_letra": "jueves 20 de agosto de 2026",
+          "horas": 1.0,
+          "acumulado": 4.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-08-25",
+          "en_letra": "martes 25 de agosto de 2026",
+          "horas": 1.0,
+          "acumulado": 5.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-08-27",
+          "en_letra": "jueves 27 de agosto de 2026",
+          "horas": 1.0,
+          "acumulado": 6.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-01",
+          "en_letra": "martes 1 de septiembre de 2026",
+          "horas": 1.0,
+          "acumulado": 7.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-03",
+          "en_letra": "jueves 3 de septiembre de 2026",
+          "horas": 1.0,
+          "acumulado": 8.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-08",
+          "en_letra": "martes 8 de septiembre de 2026",
+          "horas": 1.0,
+          "acumulado": 9.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-10",
+          "en_letra": "jueves 10 de septiembre de 2026",
+          "horas": 1.0,
+          "acumulado": 10.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-15",
+          "en_letra": "martes 15 de septiembre de 2026",
+          "horas": 1.0,
+          "acumulado": 11.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-17",
+          "en_letra": "jueves 17 de septiembre de 2026",
+          "horas": 1.0,
+          "acumulado": 12.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-22",
+          "en_letra": "martes 22 de septiembre de 2026",
+          "horas": 1.0,
+          "acumulado": 13.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-24",
+          "en_letra": "jueves 24 de septiembre de 2026",
+          "horas": 1.0,
+          "acumulado": 14.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-29",
+          "en_letra": "martes 29 de septiembre de 2026",
+          "horas": 1.0,
+          "acumulado": 15.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-10-01",
+          "en_letra": "jueves 1 de octubre de 2026",
+          "horas": 1.0,
+          "acumulado": 16.0,
+          "suelta": false,
+          "pasada": false
+        }
+      ],
+      "cierre": "2026-10-01",
+      "cierre_letra": "jueves 1 de octubre de 2026",
+      "motivo_sin_calendario": "",
+      "horas_total": 16.0,
+      "horas_tomadas": 2.0,
+      "horas_restantes": 14.0
+    },
+    {
+      "grupo": "B2 Virtual",
+      "tipo": "grupo",
+      "nivel": "B2",
+      "dias": "",
+      "hora": "",
+      "inicio": "",
+      "primera": "",
+      "desde": "",
+      "paquete": "",
+      "tomadas": "",
+      "modalidad": "en línea",
+      "fin": "",
+      "notas": "faltan días, horario y total de horas del ciclo",
+      "estudiantes": [
+        {
+          "nombre": "Melissa Rico",
+          "correo": "",
+          "telefono": "",
+          "nivel": "B2",
+          "id": "melissa-rico",
+          "grupo": "B2 Virtual",
+          "grupo_id": "b2-virtual",
+          "ficha_completa": false
+        },
+        {
+          "nombre": "Montserrat Álvarez",
+          "correo": "",
+          "telefono": "",
+          "nivel": "B2",
+          "id": "montserrat-alvarez",
+          "grupo": "B2 Virtual",
+          "grupo_id": "b2-virtual",
+          "ficha_completa": false
+        },
+        {
+          "nombre": "Alejandra Morgan",
+          "correo": "",
+          "telefono": "",
+          "nivel": "B2",
+          "id": "alejandra-morgan",
+          "grupo": "B2 Virtual",
+          "grupo_id": "b2-virtual",
+          "ficha_completa": false
+        },
+        {
+          "nombre": "Sebastián Paniagua",
+          "correo": "",
+          "telefono": "",
+          "nivel": "B2",
+          "id": "sebastian-paniagua",
+          "grupo": "B2 Virtual",
+          "grupo_id": "b2-virtual",
+          "ficha_completa": false
+        },
+        {
+          "nombre": "Rothman Paniagua",
+          "correo": "",
+          "telefono": "",
+          "nivel": "B2",
+          "id": "rothman-paniagua",
+          "grupo": "B2 Virtual",
+          "grupo_id": "b2-virtual",
+          "ficha_completa": false
+        }
+      ],
+      "id": "b2-virtual",
+      "sesiones": [],
+      "cierre": "",
+      "cierre_letra": "",
+      "motivo_sin_calendario": "falta el total de horas del ciclo (PAQUETE)",
+      "horas_total": 0,
+      "horas_tomadas": 0.0,
+      "horas_restantes": 0
+    },
+    {
+      "grupo": "Club de conversación",
+      "tipo": "club",
+      "nivel": "",
+      "dias": "viernes",
+      "hora": "18:00-19:30",
+      "inicio": "",
+      "primera": "",
+      "desde": "",
+      "paquete": "",
+      "tomadas": "",
+      "modalidad": "",
+      "fin": "",
+      "notas": "falta el total de horas del ciclo y la fecha de inicio",
+      "estudiantes": [
+        {
+          "nombre": "Lucetty Bass",
+          "correo": "",
+          "telefono": "",
+          "nivel": "",
+          "id": "lucetty-bass",
+          "grupo": "Club de conversación",
+          "grupo_id": "club-de-conversacion",
+          "ficha_completa": false
+        },
+        {
+          "nombre": "Lucia Fernandez",
+          "correo": "",
+          "telefono": "",
+          "nivel": "",
+          "id": "lucia-fernandez",
+          "grupo": "Club de conversación",
+          "grupo_id": "club-de-conversacion",
+          "ficha_completa": false
+        },
+        {
+          "nombre": "Jonathan Guevara",
+          "correo": "",
+          "telefono": "",
+          "nivel": "",
+          "id": "jonathan-guevara",
+          "grupo": "Club de conversación",
+          "grupo_id": "club-de-conversacion",
+          "ficha_completa": false
+        },
+        {
+          "nombre": "Corina Olavarrieta",
+          "correo": "",
+          "telefono": "",
+          "nivel": "",
+          "id": "corina-olavarrieta",
+          "grupo": "Club de conversación",
+          "grupo_id": "club-de-conversacion",
+          "ficha_completa": false
+        }
+      ],
+      "id": "club-de-conversacion",
+      "sesiones": [],
+      "cierre": "",
+      "cierre_letra": "",
+      "motivo_sin_calendario": "falta el total de horas del ciclo (PAQUETE)",
+      "horas_total": 0,
+      "horas_tomadas": 0.0,
+      "horas_restantes": 0
     }
   ]
 }
