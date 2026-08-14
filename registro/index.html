@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Registro · Control de asistencia y horas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Space+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root {
+  --gold: #a5824a; --gold2: #86673a; --goldx: rgba(201,169,110,0.16);
+  --cyan: #0f8a5f; --ink: #12291c;
+  --text: rgba(18,41,28,0.92); --muted: rgba(18,41,28,0.62);
+  --border: rgba(165,130,74,0.38);
+  --red: #b3402e; --panel: rgba(255,255,255,0.92);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Cormorant Garamond', serif; color: var(--text);
+  background: radial-gradient(ellipse 80% 80% at 50% 30%, #ffffff 0%, #edf5ea 55%, #dfeadd 100%);
+  min-height: 100vh; padding: 1.5rem 1rem 4rem;
+}
+.wrap { max-width: 1060px; margin: 0 auto; }
+h1 { font-weight: 300; font-size: 1.9rem; color: var(--ink); }
+h1 em { font-style: normal; color: var(--gold); }
+.mono { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
+.topbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 2rem; }
+.btn {
+  font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.18em;
+  text-transform: uppercase; border: 1px solid var(--border); background: none;
+  color: var(--gold2); padding: 0.55rem 1rem; cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 0.45rem; transition: all .25s;
+}
+.btn:hover { background: var(--goldx); }
+.btn.solid { background: var(--gold); color: #fff; border-color: var(--gold); }
+.btn.solid:hover { background: var(--gold2); }
+.btn.danger { color: var(--red); border-color: rgba(179,64,46,.4); }
+.btn.small { padding: 0.35rem 0.7rem; font-size: 0.55rem; }
+.panel {
+  background: var(--panel); border: 1px solid var(--border);
+  padding: 1.5rem; margin-bottom: 1.5rem;
+}
+label { display: block; font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin: 0.9rem 0 0.3rem; }
+input, select {
+  width: 100%; padding: 0.6rem 0.7rem; font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem; color: var(--ink); border: 1px solid rgba(18,41,28,0.2);
+  background: rgba(255,255,255,0.8);
+}
+input:focus, select:focus { outline: none; border-color: var(--gold); }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.2rem; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 1.2rem; }
+@media (max-width: 640px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
+
+/* student cards */
+.stu-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.2rem; }
+.stu-card { background: var(--panel); border: 1px solid var(--border); padding: 1.3rem; cursor: pointer; transition: box-shadow .3s, border-color .3s; }
+.stu-card:hover { border-color: var(--gold); box-shadow: 0 0 30px rgba(201,169,110,0.18); }
+.stu-name { font-size: 1.25rem; font-weight: 600; color: var(--ink); }
+.stu-meta { font-size: 0.85rem; color: var(--muted); margin-top: 0.15rem; }
+.bal-row { display: flex; gap: 1rem; margin-top: 0.9rem; }
+.bal { flex: 1; text-align: center; border: 1px solid rgba(18,41,28,0.12); padding: 0.5rem 0.2rem; }
+.bal b { display: block; font-size: 1.25rem; color: var(--gold2); font-weight: 600; }
+.bal span { font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+.hours-bar { height: 4px; background: rgba(18,41,28,0.1); margin-top: 0.9rem; }
+.hours-bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--gold), var(--cyan)); }
+.badge { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.15rem 0.5rem; border: 1px solid; }
+.badge.ok { color: var(--cyan); border-color: rgba(15,138,95,.4); }
+.badge.warn { color: var(--red); border-color: rgba(179,64,46,.4); }
+.badge.gold { color: var(--gold2); border-color: var(--border); }
+
+/* session table */
+table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+th { font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-align: left; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--border); }
+td { padding: 0.55rem 0.6rem; border-bottom: 1px solid rgba(18,41,28,0.08); vertical-align: middle; }
+.st-present { color: var(--cyan); } .st-uabs { color: var(--red); } .st-jabs { color: var(--gold2); } .st-makeup { color: var(--muted); }
+
+/* modal */
+.overlay { position: fixed; inset: 0; background: rgba(18,41,28,0.45); display: none; align-items: center; justify-content: center; z-index: 50; padding: 1rem; }
+.overlay.open { display: flex; }
+.modal { background: #fbfdfa; border: 1px solid var(--border); max-width: 560px; width: 100%; max-height: 92vh; overflow-y: auto; padding: 1.8rem; position: relative; }
+.modal h3 { font-weight: 600; font-size: 1.4rem; color: var(--ink); margin-bottom: 0.2rem; }
+.x { position: absolute; top: 0.8rem; right: 0.9rem; border: none; background: none; font-size: 1rem; color: var(--muted); cursor: pointer; }
+.flow-opt { border: 1px solid var(--border); padding: 1rem 1.1rem; margin-top: 0.9rem; cursor: pointer; transition: all .25s; }
+.flow-opt:hover, .flow-opt.sel { border-color: var(--gold); background: var(--goldx); }
+.flow-opt h4 { font-size: 1.05rem; color: var(--gold2); }
+.flow-opt p { font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin-top: 0.2rem; }
+.note { font-size: 0.82rem; color: var(--muted); line-height: 1.55; border-left: 2px solid var(--gold); padding-left: 0.8rem; margin-top: 1rem; }
+.hidden { display: none !important; }
+
+/* selector de días */
+.day-pick { display: flex; gap: 0.35rem; flex-wrap: wrap; margin-top: 0.35rem; }
+.day-pick span {
+  font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em;
+  padding: 0.5rem 0.55rem; border: 1px solid rgba(18,41,28,0.2); cursor: pointer;
+  user-select: none; color: var(--muted); transition: all .2s;
+}
+.day-pick span.on { background: var(--gold); border-color: var(--gold); color: #fff; }
+
+/* agenda de hoy y pendientes */
+#today-box, #todo-box { margin-bottom: 1.5rem; }
+.box-head { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.5rem; }
+.today-row {
+  background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--gold);
+  padding: 0.9rem 1rem; margin-bottom: 0.6rem;
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+}
+.today-row.done { border-left-color: var(--cyan); opacity: .72; }
+.today-who { flex: 1; min-width: 150px; }
+.today-who b { font-size: 1.1rem; color: var(--ink); font-weight: 600; display: block; }
+.today-who span { font-size: 0.85rem; color: var(--muted); }
+.tap-row { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.tap {
+  font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.7rem 0.9rem; border: 1px solid var(--border); background: rgba(255,255,255,.7);
+  cursor: pointer; transition: all .2s; white-space: nowrap;
+}
+.tap.p { color: var(--cyan); border-color: rgba(15,138,95,.45); }
+.tap.p:hover { background: rgba(15,138,95,.12); }
+.tap.j { color: var(--gold2); }
+.tap.j:hover { background: var(--goldx); }
+.tap.u { color: var(--red); border-color: rgba(179,64,46,.4); }
+.tap.u:hover { background: rgba(179,64,46,.1); }
+.todo-item {
+  background: rgba(179,64,46,.06); border: 1px solid rgba(179,64,46,.3);
+  padding: 0.75rem 1rem; margin-bottom: 0.5rem; display: flex; align-items: center;
+  gap: 0.8rem; flex-wrap: wrap; font-size: 0.9rem;
+}
+.todo-item.mk { background: var(--goldx); border-color: var(--border); }
+.todo-item span { flex: 1; min-width: 160px; }
+#undo-bar {
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  background: rgba(15,138,95,.08); border: 1px solid rgba(15,138,95,.3);
+  padding: 0.7rem 1rem; margin-bottom: 1.2rem; font-size: 0.9rem;
+}
+#undo-bar span { flex: 1; color: var(--ink); }
+
+/* estado del contrato */
+.stamp-ok, .stamp-pend {
+  margin-top: 1rem; padding: 0.85rem 1.1rem; font-size: 0.9rem;
+  display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;
+}
+.stamp-ok { border: 1px solid rgba(15,138,95,.4); background: rgba(15,138,95,.07); }
+.stamp-ok i, .stamp-ok b { color: var(--cyan); }
+.stamp-pend { border: 1px solid var(--border); background: var(--goldx); }
+.stamp-pend i, .stamp-pend b { color: var(--gold2); }
+
+/* print statement */
+#print-area { display: none; }
+@media print {
+  body > .wrap, .overlay { display: none !important; }
+  #print-area { display: block; font-family: Georgia, serif; color: #111; }
+  #print-area h2 { margin-bottom: 0.2rem; }
+  #print-area table { width: 100%; border-collapse: collapse; margin-top: 0.8rem; }
+  #print-area th, #print-area td { border: 1px solid #999; padding: 5px 8px; font-size: 12px; text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ PIN GATE ══ -->
+<div class="overlay open" id="gate">
+  <div class="modal" style="max-width:420px;text-align:center">
+    <p class="mono" style="margin-bottom:.6rem">Acceso privado</p>
+    <h3 id="gate-title">Registro de asistencia</h3>
+    <p id="gate-sub" style="font-size:.9rem;color:var(--muted);margin-top:.4rem"></p>
+    <input type="password" id="gate-pin" placeholder="PIN" inputmode="numeric" style="text-align:center;letter-spacing:.5em;margin-top:1.2rem">
+    <button class="btn solid" style="margin-top:1rem;width:100%;justify-content:center" onclick="gateSubmit()">Entrar</button>
+    <p class="note" style="text-align:left">Este candado es solo disuasorio (funciona en tu navegador). Activa el botón «Nube» para que todo se respalde automáticamente en tu Google Drive y puedas usar el panel desde varios dispositivos; «Exportar respaldo» queda como segunda red de seguridad.</p>
+  </div>
+</div>
+
+<div class="wrap" style="visibility:hidden" id="app">
+  <div class="topbar">
+    <div>
+      <p class="mono">Panel privado · Prof. Miguel Tillero</p>
+      <h1>Control de <em>asistencia y horas</em></h1>
+    </div>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+      <button class="btn" onclick="openNewStudent()"><i class="fa fa-user-plus"></i> Nuevo alumno</button>
+      <button class="btn" onclick="copyAltaLink()" title="Enlace de la ficha que el alumno llena para inscribirse"><i class="fa fa-link"></i> Ficha para alumnos</button>
+      <button class="btn" id="cloud-btn" onclick="openCloud()"><i class="fa fa-cloud" id="cloud-ico"></i> <span id="cloud-lbl">Nube</span></button>
+      <button class="btn" onclick="exportData()"><i class="fa fa-download"></i> Exportar respaldo</button>
+      <button class="btn" onclick="document.getElementById('imp-file').click()"><i class="fa fa-upload"></i> Importar</button>
+      <input type="file" id="imp-file" accept=".json" class="hidden" onchange="importData(this)">
+      <a class="btn" href="../index.html"><i class="fa fa-arrow-left"></i> Sitio</a>
+    </div>
+  </div>
+
+  <!-- Lista de alumnos -->
+  <div id="view-list">
+    <!-- Bandeja de pendientes (faltas sin resolver + reposiciones) -->
+    <div id="todo-box" class="hidden"></div>
+
+    <!-- AGENDA DE HOY — asistencia de un toque -->
+    <div id="today-box" class="hidden"></div>
+
+    <div id="undo-bar" class="hidden">
+      <span id="undo-txt"></span>
+      <button class="btn small" onclick="undoLast()"><i class="fa fa-rotate-left"></i> Deshacer</button>
+    </div>
+
+    <div class="stu-list" id="stu-list"></div>
+    <p id="empty-msg" class="note" style="margin-top:2rem">Aún no hay alumnos registrados. Crea el primero con «Nuevo alumno»: se registra su paquete de horas, frecuencia semanal y fecha de inicio, y el sistema calcula automáticamente el saldo y la fecha proyectada de finalización.</p>
+  </div>
+
+  <!-- Detalle de un alumno -->
+  <div id="view-detail" class="hidden"></div>
+</div>
+
+<!-- ══ MODAL: alumno nuevo / editar ══ -->
+<div class="overlay" id="m-student">
+  <div class="modal">
+    <button class="x" onclick="closeM('m-student')"><i class="fa fa-times"></i></button>
+    <h3 id="stu-modal-title">Nuevo alumno</h3>
+    <p class="mono">Contrato / paquete de horas</p>
+    <input type="hidden" id="f-id">
+    <label>Nombre completo</label><input id="f-name" placeholder="Nombre y apellidos">
+    <div class="grid2">
+      <div><label>WhatsApp (con lada, ej. 52967...)</label><input id="f-phone" placeholder="529671234567"></div>
+      <div><label>Correo (opcional)</label><input id="f-email" type="email" placeholder="alumno@correo.com"></div>
+    </div>
+    <div class="grid3">
+      <div><label>Horas contratadas</label><input id="f-total" type="number" min="1" step="0.5" value="20"></div>
+      <div><label>Duración por sesión (h)</label><input id="f-dur" type="number" min="0.5" step="0.5" value="1"></div>
+      <div><label>Sesiones por semana</label><input id="f-freq" type="number" min="1" step="1" value="2"></div>
+    </div>
+    <div class="grid2">
+      <div><label>Fecha de inicio</label><input id="f-start" type="date"></div>
+      <div><label>Hora habitual de clase</label><input id="f-time" type="time"></div>
+    </div>
+    <label>Días de clase (para la agenda de hoy)</label>
+    <div class="day-pick" id="f-days">
+      <span data-d="1">Lun</span><span data-d="2">Mar</span><span data-d="3">Mié</span>
+      <span data-d="4">Jue</span><span data-d="5">Vie</span><span data-d="6">Sáb</span><span data-d="0">Dom</span>
+    </div>
+    <div class="grid3">
+      <div><label>Tarifa por hora</label><input id="f-rate" type="number" min="0" step="5" placeholder="225"></div>
+      <div><label>Moneda</label><select id="f-cur"><option>MXN</option><option>USD</option><option>EUR</option><option>CAD</option></select></div>
+      <div><label>Modalidad</label><select id="f-mod"><option>En línea</option><option>Presencial (SCC)</option><option>Mixta</option></select></div>
+    </div>
+    <button class="btn solid" style="margin-top:1.4rem" onclick="saveStudent()"><i class="fa fa-check"></i> Guardar</button>
+  </div>
+</div>
+
+<!-- ══ MODAL: registrar sesión ══ -->
+<div class="overlay" id="m-session">
+  <div class="modal">
+    <button class="x" onclick="closeM('m-session')"><i class="fa fa-times"></i></button>
+    <h3>Registrar clase</h3>
+    <p class="mono" id="ses-stu-name"></p>
+    <input type="hidden" id="s-cid">
+    <div class="grid2">
+      <div><label>Fecha</label><input id="s-date" type="date"></div>
+      <div><label>Duración (horas)</label><input id="s-dur" type="number" min="0.5" step="0.5"></div>
+    </div>
+    <label>Asistencia</label>
+    <select id="s-status">
+      <option value="present">Presente — descuenta horas</option>
+      <option value="unjustified_absence">Falta injustificada (sin aviso 24 h antes) — descuenta horas</option>
+      <option value="justified_absence">Falta justificada — NO descuenta · elegir Flujo A o B</option>
+    </select>
+    <button class="btn solid" style="margin-top:1.4rem" onclick="saveSession()"><i class="fa fa-check"></i> Registrar</button>
+  </div>
+</div>
+
+<!-- ══ MODAL: selector Flujo A / B (obligatorio en falta justificada) ══ -->
+<div class="overlay" id="m-flow">
+  <div class="modal">
+    <h3>Falta justificada — elige el flujo</h3>
+    <p style="font-size:.9rem;color:var(--muted);margin-top:.3rem">Las horas <b>no se descontaron</b>. Para mantener el contrato coherente debes elegir cómo se compensa esta clase. Este paso es obligatorio.</p>
+    <input type="hidden" id="fl-cid"><input type="hidden" id="fl-sid">
+
+    <div class="flow-opt" onclick="pickFlow('A')" id="opt-A">
+      <h4>Flujo A · Reposición semanal</h4>
+      <p>La clase se repone <b>dentro de la misma semana</b>. La fecha de finalización del paquete <b>no cambia</b>.</p>
+      <div id="flowA-fields" class="hidden">
+        <label>Fecha de la reposición (misma semana)</label>
+        <input type="date" id="fl-makeup-date">
+      </div>
+    </div>
+
+    <div class="flow-opt" onclick="pickFlow('B')" id="opt-B">
+      <h4>Flujo B · Desplazamiento del calendario</h4>
+      <p>No hay reposición esta semana: la <b>fecha proyectada de finalización se recorre automáticamente</b> para conservar las horas contratadas.</p>
+      <p id="flowB-preview" style="color:var(--gold2)"></p>
+    </div>
+
+    <button class="btn solid" style="margin-top:1.4rem" onclick="confirmFlow()"><i class="fa fa-check"></i> Confirmar</button>
+  </div>
+</div>
+
+<!-- ══ MODAL: respaldo en la nube (Google Drive) ══ -->
+<div class="overlay" id="m-cloud">
+  <div class="modal">
+    <button class="x" onclick="closeM('m-cloud')"><i class="fa fa-times"></i></button>
+    <h3>Respaldo en la nube</h3>
+    <p class="mono">Google Drive · sincronización automática</p>
+    <p id="cloud-status" style="font-size:.9rem;color:var(--muted);margin-top:.6rem"></p>
+
+    <label>URL de tu aplicación web (termina en /exec)</label>
+    <input id="cloud-url" placeholder="https://script.google.com/macros/s/…/exec">
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem">
+      <button class="btn solid" onclick="saveCloudUrl()"><i class="fa fa-check"></i> Guardar y probar</button>
+      <button class="btn" onclick="cloudRestore()"><i class="fa fa-cloud-arrow-down"></i> Restaurar desde la nube</button>
+      <button class="btn danger" onclick="clearCloudUrl()"><i class="fa fa-unlink"></i> Desconectar</button>
+    </div>
+
+    <p class="note">
+      <b>Configuración (una sola vez, ~5 min):</b><br>
+      1. Crea una hoja de cálculo en <b>sheets.new</b> y nómbrala «Registro de clases».<br>
+      2. Menú <b>Extensiones → Apps Script</b>, borra lo que haya y pega el código del script
+      (<a href="apps-script.gs" download style="color:var(--cyan)">descargar código</a> o
+      <a href="#" onclick="copyScriptUrl(event)" style="color:var(--cyan)">copiar enlace al archivo</a>). Guarda.<br>
+      3. <b>Implementar → Nueva implementación → Aplicación web</b>: ejecutar como <b>tú</b>,
+      acceso <b>cualquier persona</b>. Autoriza.<br>
+      4. Copia la <b>URL /exec</b> y pégala arriba.<br><br>
+      Con esto, cada cambio se guarda solo en tu Drive (pestañas «Alumnos» y «Clases» legibles),
+      y puedes usar el panel desde varios dispositivos: en cada uno creas tu PIN, pegas esta misma
+      URL y pulsas «Restaurar desde la nube». La URL es tu llave: no la compartas.
+    </p>
+  </div>
+</div>
+
+<div id="print-area"></div>
+
+<script>
+/* ══════════ ALMACENAMIENTO ══════════ */
+var DB_KEY = 'mt_registro_v1', PIN_KEY = 'mt_registro_pin', CLOUD_KEY = 'mt_registro_cloud';
+var db = load();
+function load(){ try { return JSON.parse(localStorage.getItem(DB_KEY)) || { contracts: [] }; } catch(e){ return { contracts: [] }; } }
+function saveLocal(){ try { localStorage.setItem(DB_KEY, JSON.stringify(db)); } catch(e){} }
+function save(){
+  db.updatedAt = new Date().toISOString();
+  saveLocal();
+  scheduleCloudPush();
+}
+function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+
+/* ══════════ PIN GATE (disuasorio) ══════════ */
+(function(){
+  var stored = localStorage.getItem(PIN_KEY);
+  document.getElementById('gate-sub').textContent = stored
+    ? 'Introduce tu PIN para continuar.'
+    : 'Primera visita: crea un PIN de acceso (guárdalo bien).';
+  document.getElementById('gate-pin').addEventListener('keydown', function(e){ if (e.key === 'Enter') gateSubmit(); });
+})();
+function gateSubmit(){
+  var v = document.getElementById('gate-pin').value.trim();
+  if (!v) return;
+  var stored = localStorage.getItem(PIN_KEY);
+  if (!stored) { localStorage.setItem(PIN_KEY, btoa(v)); unlock(); }
+  else if (btoa(v) === stored) unlock();
+  else { document.getElementById('gate-pin').value=''; document.getElementById('gate-pin').placeholder='PIN incorrecto'; }
+}
+function unlock(){
+  document.getElementById('gate').classList.remove('open');
+  document.getElementById('app').style.visibility = 'visible';
+  renderList();
+  cloudSyncOnStart(function(){ checkIncomingAlta(); checkIncomingFirma(); });
+}
+
+/* ══════════ NUBE (Google Drive vía Apps Script) ══════════ */
+function cloudUrl(){ try { return localStorage.getItem(CLOUD_KEY) || ''; } catch(e){ return ''; } }
+var cloudPushT = null, cloudPending = false;
+
+function setCloudUI(state, detail){
+  var ico = document.getElementById('cloud-ico');
+  var lbl = document.getElementById('cloud-lbl');
+  if (!ico || !lbl) return;
+  var map = {
+    off:  ['fa fa-cloud',                'Nube',            'var(--muted)'],
+    sync: ['fa fa-cloud-arrow-up',       'Guardando…',      'var(--gold2)'],
+    ok:   ['fa fa-cloud',                'Nube ✓',          'var(--cyan)'],
+    err:  ['fa fa-triangle-exclamation', 'Nube ⚠',          'var(--red)']
+  };
+  var m = map[state] || map.off;
+  ico.className = m[0]; lbl.textContent = m[1];
+  document.getElementById('cloud-btn').style.color = m[2];
+  var st = document.getElementById('cloud-status');
+  if (st) st.textContent = detail || (
+    state === 'off' ? 'Sin configurar: los datos solo viven en este dispositivo.' :
+    state === 'ok'  ? 'Conectado. Cada cambio se respalda automáticamente en tu Drive.' :
+    state === 'err' ? 'No se pudo contactar el script. Revisa la URL o tu conexión; se reintentará al próximo cambio.' : '');
+}
+
+function scheduleCloudPush(){
+  if (!cloudUrl()) { setCloudUI('off'); return; }
+  cloudPending = true;
+  clearTimeout(cloudPushT);
+  cloudPushT = setTimeout(cloudPush, 1200);
+}
+function cloudPush(cb){
+  var url = cloudUrl();
+  if (!url) { setCloudUI('off'); return; }
+  setCloudUI('sync');
+  /* sin cabeceras personalizadas → sin preflight CORS (Apps Script no lo soporta) */
+  fetch(url, { method: 'POST', body: JSON.stringify(db) })
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      if (j && j.ok) { cloudPending = false; setCloudUI('ok', 'Último respaldo: ' + new Date().toLocaleTimeString()); if (cb) cb(true); }
+      else { setCloudUI('err', 'El script respondió con error: ' + (j && j.error || '?')); if (cb) cb(false); }
+    })
+    .catch(function(){ setCloudUI('err'); if (cb) cb(false); });
+}
+function cloudSyncOnStart(done){
+  done = done || function(){};
+  var url = cloudUrl();
+  if (!url) { setCloudUI('off'); done(); return; }
+  setCloudUI('sync');
+  fetch(url)
+    .then(function(r){ return r.json(); })
+    .then(function(remote){
+      if (remote && remote.contracts) {
+        var rT = remote.updatedAt || '', lT = db.updatedAt || '';
+        if (rT > lT && remote.contracts.length) {
+          /* la nube es más reciente → adoptarla (sin bump para conservar su fecha) */
+          db = remote; saveLocal(); renderList();
+        } else if (lT > rT && db.contracts.length) {
+          cloudPush();
+        }
+      }
+      setCloudUI('ok');
+      done();
+    })
+    .catch(function(){ setCloudUI('err'); done(); });
+}
+function openCloud(){
+  document.getElementById('cloud-url').value = cloudUrl();
+  setCloudUI(cloudUrl() ? 'ok' : 'off');
+  openM('m-cloud');
+}
+function saveCloudUrl(){
+  var v = document.getElementById('cloud-url').value.trim();
+  if (!/^https:\/\/script\.google(usercontent)?\.com\/.+/.test(v)) {
+    alert('Pega la URL completa de la aplicación web (empieza con https://script.google.com/… y termina en /exec).');
+    return;
+  }
+  try { localStorage.setItem(CLOUD_KEY, v); } catch(e){}
+  cloudPush(function(ok){
+    alert(ok ? 'Conexión correcta. A partir de ahora cada cambio se respalda solo en tu Drive.'
+             : 'No se pudo conectar. Verifica que la implementación tenga acceso «Cualquier persona» y que la URL termine en /exec.');
+  });
+}
+function clearCloudUrl(){
+  if (!confirm('¿Desconectar el respaldo en la nube? Los datos de tu Drive no se borran; este dispositivo dejará de sincronizar.')) return;
+  try { localStorage.removeItem(CLOUD_KEY); } catch(e){}
+  setCloudUI('off');
+}
+function cloudRestore(){
+  var url = cloudUrl() || document.getElementById('cloud-url').value.trim();
+  if (!url) { alert('Primero guarda la URL del script.'); return; }
+  fetch(url).then(function(r){ return r.json(); }).then(function(remote){
+    if (!remote || !remote.contracts) { alert('La nube no contiene datos válidos todavía.'); return; }
+    if (!confirm('Restaurar ' + remote.contracts.length + ' alumno(s) desde la nube reemplaza los datos de este dispositivo. ¿Continuar?')) return;
+    db = remote; saveLocal(); renderList(); closeM('m-cloud');
+    setCloudUI('ok', 'Restaurado desde la nube.');
+  }).catch(function(){ alert('No se pudo leer la nube. Revisa la URL y tu conexión.'); });
+}
+function copyScriptUrl(ev){
+  ev.preventDefault();
+  var u = new URL('apps-script.gs', location.href).href;
+  navigator.clipboard.writeText(u).then(function(){ alert('Enlace copiado:\n' + u + '\n\nÁbrelo para ver el código y pegarlo en Apps Script.'); });
+}
+/* reintento al recuperar conexión y aviso si hay cambios sin subir */
+window.addEventListener('online', function(){ if (cloudPending) cloudPush(); });
+window.addEventListener('beforeunload', function(e){
+  if (cloudPending && cloudUrl()) { e.preventDefault(); e.returnValue = ''; }
+});
+
+/* ══════════ ALTA REMOTA (?alta=…) — ficha enviada por el alumno ══════════ */
+function b64uDecode(s){
+  s = s.replace(/-/g, '+').replace(/_/g, '/');
+  while (s.length % 4) s += '=';
+  var bin = atob(s), bytes = new Uint8Array(bin.length);
+  for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return new TextDecoder().decode(bytes);
+}
+function checkIncomingAlta(){
+  var code = new URLSearchParams(location.search).get('alta');
+  if (!code) return;
+  /* limpiar la URL para que un refresco no lo repita */
+  history.replaceState(null, '', location.pathname);
+  var p;
+  try { p = JSON.parse(b64uDecode(code)); } catch(e){ alert('El enlace de inscripción no es válido o está incompleto.'); return; }
+  if (!p || p.v !== 1 || !p.name) { alert('El enlace de inscripción no es válido.'); return; }
+
+  var dup = db.contracts.find(function(c){ return c.name.toLowerCase() === String(p.name).toLowerCase(); });
+  var head = 'Ficha de inscripción recibida:\n\n' +
+    '· ' + p.name + '\n· WhatsApp: ' + (p.phone || '—') + '\n· ' + p.hours + ' h, ' +
+    p.freq + '×/semana, sesiones de ' + p.dur + ' h\n· Inicio deseado: ' + (p.start ? fmtD(p.start) : '—') +
+    (p.notes ? '\n· Nota: ' + p.notes : '');
+  if (dup && !confirm(head + '\n\n⚠ Ya existe un alumno con este nombre. ¿Abrir la ficha de todos modos?')) return;
+
+  openNewStudent();
+  document.getElementById('stu-modal-title').textContent = 'Alta recibida — revisar y guardar';
+  document.getElementById('f-name').value = p.name;
+  document.getElementById('f-phone').value = p.phone || '';
+  document.getElementById('f-email').value = p.email || '';
+  document.getElementById('f-total').value = p.hours || 20;
+  document.getElementById('f-dur').value = p.dur || 1;
+  document.getElementById('f-freq').value = p.freq || 2;
+  document.getElementById('f-start').value = p.start || todayISO();
+  setDays(p.days || []);
+  if (p.notes) alert(head);
+}
+
+/* ══════════ CÁLCULOS ══════════ */
+function consumed(c){
+  return c.sessions.reduce(function(t,s){
+    return t + ((s.status === 'present' || s.status === 'unjustified_absence') ? Number(s.dur) : 0);
+  }, 0);
+}
+function remaining(c){ return Math.max(0, Number(c.totalHours) - consumed(c)); }
+function pendingResolutions(c){
+  return c.sessions.filter(function(s){ return s.status === 'justified_absence' && !s.resolution; });
+}
+function pendingMakeups(c){
+  return c.sessions.filter(function(s){ return s.status === 'makeup_scheduled'; });
+}
+function fmtD(iso){
+  if (!iso) return '—';
+  var p = iso.split('-');
+  return p[2] + '/' + p[1] + '/' + p[0];
+}
+function addDays(iso, n){
+  var d = new Date(iso + 'T12:00:00');
+  d.setDate(d.getDate() + n);
+  return d.toISOString().slice(0,10);
+}
+function todayISO(){ return new Date().toISOString().slice(0,10); }
+function isoWeek(iso){
+  var d = new Date(iso + 'T12:00:00');
+  var day = (d.getDay() + 6) % 7;            /* lunes=0 */
+  d.setDate(d.getDate() - day + 3);          /* jueves de la semana */
+  var jan4 = new Date(d.getFullYear(), 0, 4);
+  return d.getFullYear() + '-' + Math.round(1 + ((d - jan4) / 86400000 - 3 + ((jan4.getDay()+6)%7)) / 7);
+}
+/* Fin proyectado inicial: semanas necesarias para impartir todas las horas */
+function initialEnd(c){
+  var weeks = Math.ceil((Number(c.totalHours) / Number(c.sessionDur)) / Number(c.weeklyFreq));
+  return addDays(c.startDate, weeks * 7);
+}
+/* Recalculo (Flujo B): desde la última clase impartida (o hoy), semanas para las horas restantes */
+function recalcEnd(c){
+  var rem = remaining(c);
+  if (rem <= 0) return c.projectedEnd;
+  var sessionsNeeded = Math.ceil(rem / Number(c.sessionDur));
+  var weeksNeeded = Math.ceil(sessionsNeeded / Number(c.weeklyFreq));
+  var lastTaught = c.sessions.filter(function(s){ return s.status === 'present'; })
+                             .map(function(s){ return s.date; }).sort().pop() || c.startDate;
+  var base = lastTaught > todayISO() ? lastTaught : todayISO();
+  return addDays(base, weeksNeeded * 7);
+}
+
+/* ══════════ AGENDA DE HOY · ASISTENCIA DE UN TOQUE ══════════ */
+var DAY_NAMES = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+
+/* ¿tiene clase hoy? por días configurados; si no hay días, no aparece en la agenda */
+function hasClassToday(c){
+  var dow = new Date().getDay();
+  return c.status !== 'done' && remaining(c) > 0 && Array.isArray(c.days) && c.days.indexOf(dow) !== -1;
+}
+function sessionOn(c, iso){
+  return c.sessions.filter(function(s){ return s.date === iso && s.status !== 'makeup_scheduled'; })[0];
+}
+
+function renderToday(){
+  var box = document.getElementById('today-box');
+  var t = todayISO();
+  var due = db.contracts.filter(hasClassToday)
+    .sort(function(a,b){ return (a.time || '99').localeCompare(b.time || '99'); });
+
+  if (!due.length) { box.classList.add('hidden'); box.innerHTML = ''; return; }
+
+  box.classList.remove('hidden');
+  box.innerHTML = '<p class="box-head"><i class="fa fa-calendar-day" style="color:var(--gold)"></i> Hoy, ' +
+      DAY_NAMES[new Date().getDay()] + ' ' + fmtD(t) + ' · ' + due.length + ' clase(s)</p>' +
+    due.map(function(c){
+      var ya = sessionOn(c, t);
+      var pend = pendingResolutions(c).length;
+      if (ya) {
+        var lbl = { present: 'Presente', unjustified_absence: 'Falta injustificada', justified_absence: 'Falta justificada' }[ya.status];
+        return '<div class="today-row done"><div class="today-who"><b>' + esc(c.name) + '</b>' +
+          '<span><i class="fa fa-check" style="color:var(--cyan)"></i> Registrado hoy: ' + lbl + ' (' + ya.dur + ' h)</span></div>' +
+          '<div class="tap-row"><button class="tap" onclick="openDetail(\'' + c.id + '\')">Ver ficha</button></div></div>';
+      }
+      if (pend) {
+        return '<div class="today-row"><div class="today-who"><b>' + esc(c.name) + '</b>' +
+          '<span style="color:var(--red)">Resuelve su falta justificada antes de registrar</span></div>' +
+          '<div class="tap-row"><button class="tap u" onclick="openDetail(\'' + c.id + '\')">Resolver</button></div></div>';
+      }
+      return '<div class="today-row"><div class="today-who"><b>' + esc(c.name) + '</b>' +
+          '<span>' + (c.time ? c.time + ' · ' : '') + c.sessionDur + ' h · saldo ' + remaining(c) + ' h</span></div>' +
+        '<div class="tap-row">' +
+          '<button class="tap p" onclick="quickMark(\'' + c.id + '\',\'present\')"><i class="fa fa-check"></i> Presente</button>' +
+          '<button class="tap j" onclick="quickMark(\'' + c.id + '\',\'justified_absence\')">Falta justif.</button>' +
+          '<button class="tap u" onclick="quickMark(\'' + c.id + '\',\'unjustified_absence\')">Sin aviso</button>' +
+        '</div></div>';
+    }).join('');
+}
+
+/* Registro en un toque: fecha de hoy y duración habitual del contrato */
+var lastAction = null;
+function quickMark(cid, status){
+  var c = getC(cid); if (!c) return;
+  if (pendingResolutions(c).length) { openDetail(cid); return; }
+  var s = { id: uid(), date: todayISO(), dur: Number(c.sessionDur) || 1, status: status };
+  c.sessions.push(s);
+  save();
+  lastAction = { cid: cid, sid: s.id, name: c.name, status: status };
+  if (status === 'justified_absence') { renderList(); openFlow(cid, s.id); return; }
+  renderList();
+  showUndo();
+}
+function showUndo(){
+  if (!lastAction) return;
+  var lbl = { present: 'Presente', unjustified_absence: 'Falta sin aviso', justified_absence: 'Falta justificada' }[lastAction.status];
+  document.getElementById('undo-txt').innerHTML = '<b>' + esc(lastAction.name) + '</b> — ' + lbl + ' registrado hoy.';
+  document.getElementById('undo-bar').classList.remove('hidden');
+  clearTimeout(showUndo._t);
+  showUndo._t = setTimeout(function(){ document.getElementById('undo-bar').classList.add('hidden'); lastAction = null; }, 12000);
+}
+function undoLast(){
+  if (!lastAction) return;
+  var c = getC(lastAction.cid);
+  if (c) {
+    var s = c.sessions.find(function(x){ return x.id === lastAction.sid; });
+    if (s && s.resolution && s.resolution.flow === 'B') c.projectedEnd = s.resolution.prevEnd;
+    c.sessions = c.sessions.filter(function(x){ return x.id !== lastAction.sid && x.makeupOf !== lastAction.sid; });
+    save();
+  }
+  lastAction = null;
+  document.getElementById('undo-bar').classList.add('hidden');
+  renderList();
+}
+
+/* ══════════ BANDEJA DE PENDIENTES ══════════ */
+function renderTodo(){
+  var box = document.getElementById('todo-box');
+  var items = [];
+  db.contracts.forEach(function(c){
+    pendingResolutions(c).forEach(function(s){
+      items.push('<div class="todo-item"><span><b>' + esc(c.name) + '</b> — falta justificada del ' + fmtD(s.date) + ' sin resolver</span>' +
+        '<button class="btn small danger" onclick="openFlow(\'' + c.id + '\',\'' + s.id + '\')">Elegir Flujo A o B</button></div>');
+    });
+    pendingMakeups(c).forEach(function(s){
+      items.push('<div class="todo-item mk"><span><b>' + esc(c.name) + '</b> — reposición prevista el ' + fmtD(s.date) + '</span>' +
+        '<button class="btn small" onclick="makeupDone(\'' + c.id + '\',\'' + s.id + '\')">Marcar impartida</button></div>');
+    });
+    if (remaining(c) > 0 && remaining(c) <= Number(c.sessionDur) * 2 && c.sessions.length) {
+      items.push('<div class="todo-item mk"><span><b>' + esc(c.name) + '</b> — saldo bajo: ' + remaining(c) + ' h restantes</span>' +
+        '<button class="btn small" onclick="shareWA(\'' + c.id + '\')">Avisar renovación</button></div>');
+    }
+  });
+  if (!items.length) { box.classList.add('hidden'); box.innerHTML = ''; return; }
+  box.classList.remove('hidden');
+  box.innerHTML = '<p class="box-head"><i class="fa fa-bell" style="color:var(--red)"></i> Requieren tu atención (' + items.length + ')</p>' + items.join('');
+}
+
+/* ══════════ VISTA: LISTA ══════════ */
+function renderList(){
+  renderTodo();
+  renderToday();
+  var list = document.getElementById('stu-list');
+  var cs = db.contracts.slice().sort(function(a,b){ return a.name.localeCompare(b.name); });
+  document.getElementById('empty-msg').style.display = cs.length ? 'none' : 'block';
+  list.innerHTML = cs.map(function(c){
+    var cons = consumed(c), rem = remaining(c);
+    var pct = Math.min(100, (cons / c.totalHours) * 100);
+    var pend = pendingResolutions(c).length;
+    var badge = rem <= 0 ? '<span class="badge gold">Completado</span>'
+              : pend ? '<span class="badge warn">' + pend + ' falta(s) sin resolver</span>'
+              : '<span class="badge ok">Activo</span>';
+    return '<div class="stu-card" onclick="openDetail(\'' + c.id + '\')">' +
+      '<div style="display:flex;justify-content:space-between;align-items:start;gap:.5rem">' +
+        '<div><div class="stu-name">' + esc(c.name) + '</div>' +
+        '<div class="stu-meta">' + c.totalHours + ' h · ' + c.weeklyFreq + '×/sem · desde ' + fmtD(c.startDate) + '</div></div>' +
+        badge + '</div>' +
+      '<div class="bal-row">' +
+        '<div class="bal"><b>' + cons + '</b><span>consumidas</span></div>' +
+        '<div class="bal"><b>' + rem + '</b><span>restantes</span></div>' +
+        '<div class="bal"><b>' + fmtD(c.projectedEnd) + '</b><span>fin proyectado</span></div>' +
+      '</div>' +
+      '<div class="hours-bar"><i style="width:' + pct + '%"></i></div>' +
+    '</div>';
+  }).join('');
+  document.getElementById('view-list').classList.remove('hidden');
+  document.getElementById('view-detail').classList.add('hidden');
+}
+
+/* ══════════ VISTA: DETALLE ══════════ */
+var STATUS_LBL = {
+  present: '<td class="st-present"><i class="fa fa-check"></i> Presente</td>',
+  unjustified_absence: '<td class="st-uabs"><i class="fa fa-times"></i> Falta injustificada</td>',
+  justified_absence: '<td class="st-jabs"><i class="fa fa-file-circle-check"></i> Falta justificada</td>',
+  makeup_scheduled: '<td class="st-makeup"><i class="fa fa-rotate-left"></i> Reposición pendiente</td>'
+};
+function openDetail(cid){
+  var c = getC(cid); if (!c) return;
+  var cons = consumed(c), rem = remaining(c);
+  var pend = pendingResolutions(c);
+  var rows = c.sessions.slice().sort(function(a,b){ return b.date.localeCompare(a.date); }).map(function(s){
+    var res = '';
+    if (s.status === 'justified_absence') {
+      res = s.resolution
+        ? (s.resolution.flow === 'A' ? 'Flujo A · repos. ' + fmtD(s.resolution.makeupDate)
+                                     : 'Flujo B · fin ' + fmtD(s.resolution.prevEnd) + ' → ' + fmtD(s.resolution.newEnd))
+        : '<button class="btn small danger" onclick="openFlow(\'' + c.id + '\',\'' + s.id + '\')">Resolver A/B</button>';
+    }
+    if (s.status === 'makeup_scheduled') {
+      res = '<button class="btn small" onclick="makeupDone(\'' + c.id + '\',\'' + s.id + '\')">Marcar impartida</button>';
+    }
+    return '<tr><td>' + fmtD(s.date) + '</td>' + STATUS_LBL[s.status] + '<td>' + s.dur + ' h</td><td>' + res + '</td>' +
+      '<td><button class="btn small danger" title="Eliminar" onclick="delSession(\'' + c.id + '\',\'' + s.id + '\')"><i class="fa fa-trash"></i></button></td></tr>';
+  }).join('');
+
+  var alert = pend.length
+    ? '<p class="note" style="border-color:var(--red)"><b>' + pend.length + ' falta(s) justificada(s) sin resolver.</b> El reglamento exige elegir Flujo A (reposición en la misma semana) o Flujo B (desplazar el calendario) antes de registrar nuevas clases.</p>'
+    : '';
+
+  /* asistencia rápida de hoy dentro de la ficha */
+  var yaHoy = sessionOn(c, todayISO());
+  var quick = pend.length ? ''
+    : yaHoy
+      ? '<div class="today-row done" style="margin-top:1rem"><div class="today-who"><b>Hoy ya registrado</b>' +
+        '<span>' + ({ present:'Presente', unjustified_absence:'Falta injustificada', justified_absence:'Falta justificada' }[yaHoy.status]) + ' · ' + yaHoy.dur + ' h</span></div></div>'
+      : '<div class="today-row" style="margin-top:1rem"><div class="today-who"><b>Registrar la clase de hoy</b>' +
+        '<span>' + fmtD(todayISO()) + ' · ' + c.sessionDur + ' h por defecto</span></div><div class="tap-row">' +
+        '<button class="tap p" onclick="quickMark(\'' + c.id + '\',\'present\')"><i class="fa fa-check"></i> Presente</button>' +
+        '<button class="tap j" onclick="quickMark(\'' + c.id + '\',\'justified_absence\')">Falta justif.</button>' +
+        '<button class="tap u" onclick="quickMark(\'' + c.id + '\',\'unjustified_absence\')">Sin aviso</button>' +
+        '</div></div>';
+
+  /* estado del contrato */
+  var ct = c.contract && c.contract.acceptedAt
+    ? '<div class="stamp-ok"><i class="fa fa-file-signature"></i> <b>Contrato aceptado</b> por ' + esc(c.contract.signer) +
+      ' el ' + fmtD(c.contract.acceptedAt) + '. <button class="btn small" onclick="window.open(contratoLink(getC(\'' + c.id + '\')),\'_blank\')">Ver contrato</button></div>'
+    : '<div class="stamp-pend"><i class="fa fa-file-circle-exclamation"></i> <b>Contrato pendiente de aceptación.</b> ' +
+      '<button class="btn small" onclick="sendContrato(\'' + c.id + '\')"><i class="fab fa-whatsapp"></i> Enviar contrato</button> ' +
+      '<button class="btn small" onclick="copyContrato(\'' + c.id + '\')"><i class="fa fa-copy"></i> Copiar enlace</button></div>';
+
+  document.getElementById('view-detail').innerHTML =
+    '<button class="btn" onclick="renderList()"><i class="fa fa-arrow-left"></i> Alumnos</button>' +
+    '<div class="panel" style="margin-top:1.2rem">' +
+      '<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;align-items:start">' +
+        '<div><h1 style="font-size:1.6rem">' + esc(c.name) + '</h1>' +
+        '<p class="stu-meta">' + c.totalHours + ' h contratadas · sesiones de ' + c.sessionDur + ' h · ' + c.weeklyFreq + '×/semana' +
+        (c.rate ? ' · ' + c.rate + ' ' + (c.currency || 'MXN') + '/h' : '') +
+        (c.days && c.days.length ? ' · ' + c.days.map(function(x){ return ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'][x]; }).join('/') : '') +
+        (c.time ? ' ' + c.time : '') + '</p>' +
+        '<p class="stu-meta">Inicio: ' + fmtD(c.startDate) + ' · Fin original: ' + fmtD(c.originalEnd) + ' · <b style="color:var(--gold2)">Fin proyectado: ' + fmtD(c.projectedEnd) + '</b></p></div>' +
+        '<div style="display:flex;gap:.5rem;flex-wrap:wrap">' +
+          '<button class="btn solid" onclick="openSession(\'' + c.id + '\')"' + (pend.length ? ' disabled style="opacity:.4;cursor:not-allowed" title="Resuelve primero las faltas justificadas"' : '') + '><i class="fa fa-calendar-plus"></i> Otra fecha</button>' +
+          '<button class="btn" onclick="shareWA(\'' + c.id + '\')"><i class="fab fa-whatsapp"></i> Compartir saldo</button>' +
+          '<button class="btn" onclick="copySummary(\'' + c.id + '\')"><i class="fa fa-copy"></i> Copiar resumen</button>' +
+          '<button class="btn" onclick="printStatement(\'' + c.id + '\')"><i class="fa fa-print"></i> Estado de cuenta</button>' +
+          '<button class="btn" onclick="editStudent(\'' + c.id + '\')"><i class="fa fa-pen"></i> Editar</button>' +
+          '<button class="btn danger" onclick="delStudent(\'' + c.id + '\')"><i class="fa fa-trash"></i></button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="bal-row" style="max-width:520px">' +
+        '<div class="bal"><b>' + c.totalHours + '</b><span>contratadas</span></div>' +
+        '<div class="bal"><b>' + cons + '</b><span>consumidas</span></div>' +
+        '<div class="bal"><b style="color:var(--cyan)">' + rem + '</b><span>restantes</span></div>' +
+      '</div>' +
+      alert + quick + ct +
+    '</div>' +
+    '<div class="panel"><p class="mono" style="margin-bottom:.8rem">Historial de sesiones</p>' +
+      (c.sessions.length ? '<div style="overflow-x:auto"><table><tr><th>Fecha</th><th>Asistencia</th><th>Horas</th><th>Resolución</th><th></th></tr>' + rows + '</table></div>'
+                         : '<p class="note">Sin sesiones registradas todavía.</p>') +
+    '</div>';
+  document.getElementById('view-list').classList.add('hidden');
+  document.getElementById('view-detail').classList.remove('hidden');
+}
+function getC(id){ return db.contracts.find(function(c){ return c.id === id; }); }
+function esc(s){ return String(s).replace(/[<>&"]/g, function(ch){ return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[ch]; }); }
+
+/* ══════════ ALUMNOS ══════════ */
+/* selector de días de clase */
+document.getElementById('f-days').addEventListener('click', function(e){
+  if (e.target.tagName === 'SPAN') e.target.classList.toggle('on');
+});
+function setDays(arr){
+  document.querySelectorAll('#f-days span').forEach(function(el){
+    el.classList.toggle('on', (arr || []).indexOf(Number(el.getAttribute('data-d'))) !== -1);
+  });
+}
+function getDays(){
+  return Array.from(document.querySelectorAll('#f-days span.on')).map(function(el){ return Number(el.getAttribute('data-d')); });
+}
+
+function openNewStudent(){
+  document.getElementById('stu-modal-title').textContent = 'Nuevo alumno';
+  ['f-id','f-name','f-phone','f-email','f-time'].forEach(function(i){ document.getElementById(i).value=''; });
+  document.getElementById('f-total').value = 20;
+  document.getElementById('f-dur').value = 1;
+  document.getElementById('f-freq').value = 2;
+  document.getElementById('f-rate').value = 225;
+  document.getElementById('f-cur').value = 'MXN';
+  document.getElementById('f-mod').value = 'En línea';
+  document.getElementById('f-start').value = todayISO();
+  setDays([]);
+  openM('m-student');
+}
+function editStudent(cid){
+  var c = getC(cid); if (!c) return;
+  document.getElementById('stu-modal-title').textContent = 'Editar alumno';
+  document.getElementById('f-id').value = c.id;
+  document.getElementById('f-name').value = c.name;
+  document.getElementById('f-phone').value = c.phone || '';
+  document.getElementById('f-email').value = c.email || '';
+  document.getElementById('f-total').value = c.totalHours;
+  document.getElementById('f-dur').value = c.sessionDur;
+  document.getElementById('f-freq').value = c.weeklyFreq;
+  document.getElementById('f-start').value = c.startDate;
+  document.getElementById('f-rate').value = c.rate || '';
+  document.getElementById('f-cur').value = c.currency || 'MXN';
+  document.getElementById('f-mod').value = c.modality || 'En línea';
+  document.getElementById('f-time').value = c.time || '';
+  setDays(c.days);
+  openM('m-student');
+}
+function saveStudent(){
+  var name = document.getElementById('f-name').value.trim();
+  if (!name) { alert('El nombre es obligatorio'); return; }
+  var id = document.getElementById('f-id').value;
+  var vals = {
+    name: name,
+    phone: document.getElementById('f-phone').value.replace(/\D/g,''),
+    email: document.getElementById('f-email').value.trim(),
+    totalHours: Number(document.getElementById('f-total').value) || 1,
+    sessionDur: Number(document.getElementById('f-dur').value) || 1,
+    weeklyFreq: Number(document.getElementById('f-freq').value) || 1,
+    startDate: document.getElementById('f-start').value || todayISO(),
+    rate: Number(document.getElementById('f-rate').value) || 0,
+    currency: document.getElementById('f-cur').value,
+    modality: document.getElementById('f-mod').value,
+    time: document.getElementById('f-time').value,
+    days: getDays()
+  };
+  if (id) {
+    var c = getC(id); Object.assign(c, vals);
+    /* si cambian los parámetros, re-proyectar el fin conservando el original */
+    c.projectedEnd = recalcEnd(c);
+  } else {
+    var c2 = Object.assign({ id: uid(), sessions: [] }, vals);
+    c2.originalEnd = initialEnd(c2);
+    c2.projectedEnd = c2.originalEnd;
+    db.contracts.push(c2);
+  }
+  save(); closeM('m-student');
+  id ? openDetail(id) : renderList();
+}
+function delStudent(cid){
+  var c = getC(cid);
+  if (!confirm('¿Eliminar a ' + c.name + ' y todo su historial? Esta acción no se puede deshacer.')) return;
+  db.contracts = db.contracts.filter(function(x){ return x.id !== cid; });
+  save(); renderList();
+}
+
+/* ══════════ SESIONES ══════════ */
+function openSession(cid){
+  var c = getC(cid);
+  if (pendingResolutions(c).length) return;
+  document.getElementById('s-cid').value = cid;
+  document.getElementById('ses-stu-name').textContent = c.name;
+  document.getElementById('s-date').value = todayISO();
+  document.getElementById('s-dur').value = c.sessionDur;
+  document.getElementById('s-status').value = 'present';
+  openM('m-session');
+}
+function saveSession(){
+  var cid = document.getElementById('s-cid').value;
+  var c = getC(cid); if (!c) return;
+  var s = {
+    id: uid(),
+    date: document.getElementById('s-date').value || todayISO(),
+    dur: Number(document.getElementById('s-dur').value) || c.sessionDur,
+    status: document.getElementById('s-status').value
+  };
+  c.sessions.push(s);
+  save(); closeM('m-session');
+  /* TRIGGER: la falta justificada obliga a elegir Flujo A o B */
+  if (s.status === 'justified_absence') openFlow(cid, s.id);
+  else openDetail(cid);
+}
+function delSession(cid, sid){
+  if (!confirm('¿Eliminar este registro?')) return;
+  var c = getC(cid);
+  var s = c.sessions.find(function(x){ return x.id === sid; });
+  /* si era una justificada resuelta con Flujo B, restaurar la fecha previa */
+  if (s && s.resolution && s.resolution.flow === 'B') c.projectedEnd = s.resolution.prevEnd;
+  /* si era justificada con Flujo A, eliminar también su reposición pendiente */
+  if (s && s.resolution && s.resolution.flow === 'A') {
+    c.sessions = c.sessions.filter(function(x){ return x.makeupOf !== sid || x.status !== 'makeup_scheduled'; });
+  }
+  c.sessions = c.sessions.filter(function(x){ return x.id !== sid; });
+  save(); openDetail(cid);
+}
+function makeupDone(cid, sid){
+  var c = getC(cid);
+  var s = c.sessions.find(function(x){ return x.id === sid; });
+  if (s) { s.status = 'present'; }
+  save(); openDetail(cid);
+}
+
+/* ══════════ FLUJO A / B ══════════ */
+var flowSel = null;
+function openFlow(cid, sid){
+  flowSel = null;
+  document.getElementById('fl-cid').value = cid;
+  document.getElementById('fl-sid').value = sid;
+  document.getElementById('opt-A').classList.remove('sel');
+  document.getElementById('opt-B').classList.remove('sel');
+  document.getElementById('flowA-fields').classList.add('hidden');
+  var c = getC(cid);
+  var s = c.sessions.find(function(x){ return x.id === sid; });
+  document.getElementById('fl-makeup-date').value = s.date;
+  /* preview del recálculo B */
+  document.getElementById('flowB-preview').textContent =
+    'Nueva fecha proyectada: ' + fmtD(recalcEnd(c)) + ' (actual: ' + fmtD(c.projectedEnd) + ')';
+  openM('m-flow');
+}
+function pickFlow(f){
+  flowSel = f;
+  document.getElementById('opt-A').classList.toggle('sel', f === 'A');
+  document.getElementById('opt-B').classList.toggle('sel', f === 'B');
+  document.getElementById('flowA-fields').classList.toggle('hidden', f !== 'A');
+}
+function confirmFlow(){
+  if (!flowSel) { alert('Selecciona Flujo A o Flujo B'); return; }
+  var cid = document.getElementById('fl-cid').value;
+  var sid = document.getElementById('fl-sid').value;
+  var c = getC(cid);
+  var s = c.sessions.find(function(x){ return x.id === sid; });
+  if (!c || !s) return;
+
+  if (flowSel === 'A') {
+    var md = document.getElementById('fl-makeup-date').value;
+    if (!md) { alert('Indica la fecha de la reposición'); return; }
+    if (isoWeek(md) !== isoWeek(s.date)) {
+      alert('El Flujo A exige que la reposición sea dentro de la MISMA semana (' + fmtD(s.date) + '). Para otra semana usa el Flujo B.');
+      return;
+    }
+    s.resolution = { flow: 'A', makeupDate: md, resolvedAt: todayISO() };
+    c.sessions.push({ id: uid(), date: md, dur: s.dur, status: 'makeup_scheduled', makeupOf: s.id });
+  } else {
+    var prev = c.projectedEnd, next = recalcEnd(c);
+    s.resolution = { flow: 'B', prevEnd: prev, newEnd: next, resolvedAt: todayISO() };
+    c.projectedEnd = next;
+  }
+  save(); closeM('m-flow');
+
+  /* Plantilla de comunicación lista para enviar */
+  var msg = flowSel === 'A'
+    ? 'Hola ' + c.name.split(' ')[0] + ' 👋. Tu clase del ' + fmtD(s.date) + ' quedó justificada y NO se descontó de tu saldo. '
+      + 'Agendamos la reposición el ' + fmtD(s.resolution.makeupDate) + ' (misma semana). Tu fecha de finalización se mantiene: '
+      + fmtD(c.projectedEnd) + '. Saldo actual: ' + remaining(c) + ' h de ' + c.totalHours + ' h. '
+      + 'Consulta tu estado completo aquí: ' + saldoLink(c) + ' À bientôt ! — Prof. Miguel Tillero'
+    : 'Hola ' + c.name.split(' ')[0] + ' 👋. Tu clase del ' + fmtD(s.date) + ' quedó justificada y NO se descontó de tu saldo. '
+      + 'Como no habrá reposición esta semana, tu calendario se desplaza: nueva fecha estimada de finalización '
+      + fmtD(c.projectedEnd) + ' (antes ' + fmtD(s.resolution.prevEnd) + '). Conservas íntegras tus ' + remaining(c) + ' h. '
+      + 'Consulta tu estado completo aquí: ' + saldoLink(c) + ' À bientôt ! — Prof. Miguel Tillero';
+  if (confirm('Resolución guardada.\n\n¿Enviar la notificación al alumno por WhatsApp?')) {
+    window.open('https://wa.me/' + (c.phone || '') + '?text=' + encodeURIComponent(msg), '_blank');
+  }
+  openDetail(cid);
+}
+
+/* ══════════ COMPARTIR ══════════ */
+/* Enlace al estado de cuenta visual (saldo.html): los datos viajan en la URL */
+function b64uEncode(str){
+  var bytes = new TextEncoder().encode(str), bin = '';
+  bytes.forEach(function(b){ bin += String.fromCharCode(b); });
+  return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+/* ══════════ CONTRATO ══════════ */
+function contratoLink(c){
+  var payload = {
+    v: 1, cid: c.id, name: c.name, phone: c.phone || '', email: c.email || '',
+    hours: Number(c.totalHours), dur: Number(c.sessionDur), freq: Number(c.weeklyFreq),
+    days: c.days || [], time: c.time || '', modality: c.modality || 'En línea',
+    rate: Number(c.rate) || 0, currency: c.currency || 'MXN',
+    start: c.startDate, end: c.projectedEnd
+  };
+  return new URL('contrato.html', location.href).href + '?d=' + b64uEncode(JSON.stringify(payload));
+}
+function sendContrato(cid){
+  var c = getC(cid); if (!c) return;
+  var faltan = [];
+  if (!c.rate) faltan.push('la tarifa por hora');
+  if (!c.days || !c.days.length) faltan.push('los días de clase');
+  if (faltan.length && !confirm('Falta ' + faltan.join(' y ') + ' en la ficha del alumno.\n\nEl contrato saldrá incompleto. ¿Enviarlo de todas formas?')) {
+    editStudent(cid); return;
+  }
+  var link = contratoLink(c);
+  var msg = 'Hola ' + c.name.split(' ')[0] + ', aquí tienes tu contrato de clases con las condiciones que acordamos ('
+    + c.totalHours + ' h · ' + c.weeklyFreq + '×/semana'
+    + (c.rate ? ' · ' + c.rate + ' ' + (c.currency || 'MXN') + '/h' : '') + '). '
+    + 'Puedes leerlo en español, francés o inglés, y aceptarlo desde la misma página: ' + link
+    + ' — Prof. Miguel Tillero';
+  window.open('https://wa.me/' + (c.phone || '') + '?text=' + encodeURIComponent(msg), '_blank');
+}
+function copyContrato(cid){
+  navigator.clipboard.writeText(contratoLink(getC(cid))).then(function(){
+    alert('Enlace del contrato copiado.');
+  });
+}
+/* El alumno acepta → nos llega ?firma=… → se registra la aceptación */
+function checkIncomingFirma(){
+  var code = new URLSearchParams(location.search).get('firma');
+  if (!code) return;
+  history.replaceState(null, '', location.pathname);
+  var f;
+  try { f = JSON.parse(b64uDecode(code)); } catch(e){ alert('El enlace de aceptación no es válido.'); return; }
+  if (!f || f.v !== 1 || !f.signer) { alert('El enlace de aceptación no es válido.'); return; }
+
+  var c = getC(f.cid) || db.contracts.find(function(x){ return x.name.toLowerCase() === String(f.name).toLowerCase(); });
+  if (!c) { alert('Aceptación de «' + f.name + '», pero ese alumno no existe en este dispositivo.\nDa de alta al alumno primero y vuelve a abrir el enlace.'); return; }
+  if (c.contract && c.contract.acceptedAt) { alert('Este contrato ya estaba registrado como aceptado el ' + fmtD(c.contract.acceptedAt) + '.'); openDetail(c.id); return; }
+
+  c.contract = { signer: f.signer, acceptedAt: f.date || todayISO(), validatedAt: todayISO() };
+  save();
+  alert('Contrato aceptado por ' + f.signer + ' el ' + fmtD(c.contract.acceptedAt) + '.\nQueda registrado en la ficha del alumno.');
+  openDetail(c.id);
+}
+
+function saldoLink(c){
+  var stCode = { present:'p', unjustified_absence:'u', justified_absence:'j', makeup_scheduled:'m' };
+  var ses = c.sessions.slice().sort(function(a,b){ return b.date.localeCompare(a.date); })
+    .slice(0, 8).map(function(s){ return [s.date, stCode[s.status] || s.status, s.dur]; });
+  var payload = {
+    v: 1, name: c.name, total: Number(c.totalHours), cons: consumed(c), rem: remaining(c),
+    start: c.startDate, end: c.projectedEnd, upd: todayISO(), ses: ses
+  };
+  return new URL('saldo.html', location.href).href + '?d=' + b64uEncode(JSON.stringify(payload));
+}
+function summaryText(c){
+  var cons = consumed(c), rem = remaining(c);
+  var lines = [
+    '📘 ESTADO DE TU PAQUETE DE CLASES — Prof. Miguel Tillero',
+    '',
+    'Alumno: ' + c.name,
+    'Horas contratadas: ' + c.totalHours + ' h',
+    'Horas consumidas: ' + cons + ' h',
+    'Saldo disponible: ' + rem + ' h',
+    'Inicio: ' + fmtD(c.startDate),
+    'Fin proyectado: ' + fmtD(c.projectedEnd),
+    '',
+    'Últimas clases:'
+  ];
+  c.sessions.slice().sort(function(a,b){ return b.date.localeCompare(a.date); }).slice(0,6).forEach(function(s){
+    var lbl = { present:'Presente', unjustified_absence:'Falta injustificada', justified_absence:'Falta justificada', makeup_scheduled:'Reposición pendiente' }[s.status];
+    lines.push('· ' + fmtD(s.date) + ' — ' + lbl + ' (' + s.dur + ' h)');
+  });
+  return lines.join('\n');
+}
+function shareWA(cid){
+  var c = getC(cid);
+  var msg = 'Hola ' + c.name.split(' ')[0] + ' 👋. Aquí tienes tu estado de cuenta de clases actualizado — ' +
+            'saldo: ' + remaining(c) + ' h de ' + c.totalHours + ' h. Consúltalo completo aquí: ' + saldoLink(c) +
+            '\n— Prof. Miguel Tillero';
+  window.open('https://wa.me/' + (c.phone || '') + '?text=' + encodeURIComponent(msg), '_blank');
+}
+function copySummary(cid){
+  var c = getC(cid);
+  navigator.clipboard.writeText(summaryText(c)).then(function(){ alert('Resumen copiado. Pégalo donde quieras compartirlo.'); });
+}
+function printStatement(cid){
+  var c = getC(cid);
+  var cons = consumed(c), rem = remaining(c);
+  var rows = c.sessions.slice().sort(function(a,b){ return a.date.localeCompare(b.date); }).map(function(s){
+    var lbl = { present:'Presente', unjustified_absence:'Falta injustificada', justified_absence:'Falta justificada', makeup_scheduled:'Reposición pendiente' }[s.status];
+    var res = s.resolution ? (s.resolution.flow === 'A' ? 'Flujo A — reposición ' + fmtD(s.resolution.makeupDate) : 'Flujo B — fin desplazado a ' + fmtD(s.resolution.newEnd)) : '';
+    return '<tr><td>' + fmtD(s.date) + '</td><td>' + lbl + '</td><td>' + s.dur + ' h</td><td>' + res + '</td></tr>';
+  }).join('');
+  document.getElementById('print-area').innerHTML =
+    '<h2>Estado de cuenta de clases</h2>' +
+    '<p>Prof. Miguel Tillero · Clases de francés — emitido el ' + fmtD(todayISO()) + '</p>' +
+    '<p><b>Alumno:</b> ' + esc(c.name) + '<br>' +
+    '<b>Horas contratadas:</b> ' + c.totalHours + ' h · <b>Consumidas:</b> ' + cons + ' h · <b>Saldo:</b> ' + rem + ' h<br>' +
+    '<b>Inicio:</b> ' + fmtD(c.startDate) + ' · <b>Fin original:</b> ' + fmtD(c.originalEnd) + ' · <b>Fin proyectado:</b> ' + fmtD(c.projectedEnd) + '</p>' +
+    '<table><tr><th>Fecha</th><th>Asistencia</th><th>Horas</th><th>Resolución</th></tr>' + rows + '</table>';
+  window.print();
+}
+
+/* ══════════ RESPALDO ══════════ */
+function exportData(){
+  var blob = new Blob([JSON.stringify(db, null, 2)], { type: 'application/json' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'registro-asistencia-' + todayISO() + '.json';
+  a.click();
+}
+function importData(input){
+  var f = input.files[0]; if (!f) return;
+  var r = new FileReader();
+  r.onload = function(){
+    try {
+      var data = JSON.parse(r.result);
+      if (!data.contracts) throw new Error('formato');
+      if (!confirm('Esto reemplaza los datos actuales por el respaldo (' + data.contracts.length + ' alumnos). ¿Continuar?')) return;
+      db = data; save(); renderList();
+    } catch(e){ alert('Archivo no válido.'); }
+  };
+  r.readAsText(f);
+  input.value = '';
+}
+
+/* Enlace de la ficha pública que llena el alumno */
+function copyAltaLink(){
+  var url = new URL('alta.html', location.href).href;
+  navigator.clipboard.writeText(url).then(function(){
+    alert('Enlace copiado:\n' + url + '\n\nCompártelo con el alumno; al llenarlo, te llegará su ficha por WhatsApp y con un clic quedará dado de alta aquí.');
+  });
+}
+
+/* ══════════ MODALES ══════════ */
+function openM(id){ document.getElementById(id).classList.add('open'); }
+function closeM(id){ document.getElementById(id).classList.remove('open'); }
+</script>
+</body>
+</html>

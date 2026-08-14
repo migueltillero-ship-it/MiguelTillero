@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Inscripción · Prof. Miguel Tillero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Space+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script>window.I18N_BASE = '../';</script>
+<script src="../i18n/i18n.js"></script>
+<style>
+:root {
+  --gold: #a5824a; --gold2: #86673a; --goldx: rgba(201,169,110,0.16);
+  --cyan: #0f8a5f; --ink: #12291c;
+  --text: rgba(18,41,28,0.92); --muted: rgba(18,41,28,0.62);
+  --border: rgba(165,130,74,0.38);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Cormorant Garamond', serif; color: var(--text);
+  background: radial-gradient(ellipse 80% 80% at 50% 30%, #ffffff 0%, #edf5ea 55%, #dfeadd 100%);
+  min-height: 100vh; padding: 1.5rem 1rem 4rem;
+}
+.wrap { max-width: 480px; margin: 0 auto; }
+.mono { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); }
+h1 { font-weight: 300; font-size: 1.7rem; color: var(--ink); margin: 0.2rem 0 0.3rem; }
+h1 em { font-style: normal; color: var(--gold); }
+h2 { font-weight: 600; font-size: 1.35rem; color: var(--ink); margin-bottom: 0.3rem; }
+.lead { font-size: 0.95rem; color: var(--muted); line-height: 1.55; }
+.panel { background: rgba(255,255,255,0.94); border: 1px solid var(--border); padding: 1.5rem; margin-top: 1.2rem; }
+label { display: block; font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin: 1rem 0 0.3rem; }
+input, select, textarea {
+  width: 100%; padding: 0.85rem 0.8rem; font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem; color: var(--ink); border: 1px solid rgba(18,41,28,0.2);
+  background: rgba(255,255,255,0.9); border-radius: 2px;
+}
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px var(--goldx); }
+.btn {
+  font-family: 'Space Mono', monospace; font-size: 0.66rem; letter-spacing: 0.16em;
+  text-transform: uppercase; border: 1px solid var(--border); background: none;
+  color: var(--gold2); padding: 0.95rem 1.3rem; cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all .25s;
+}
+.btn:hover { background: var(--goldx); }
+.langs .btn.active { background: var(--gold); color: #fff; border-color: var(--gold); }
+.btn.solid { background: var(--gold); color: #fff; border-color: var(--gold); }
+.btn.solid:hover { background: var(--gold2); }
+.btn.big { width: 100%; font-size: 0.72rem; padding: 1.05rem 1.3rem; }
+.btn.wa { background: #1faa59; border-color: #1faa59; color: #fff; }
+.btn.wa:hover { background: #178a48; }
+.langs { display: flex; gap: 0.4rem; justify-content: flex-end; margin-bottom: 0.8rem; }
+.langs button { padding: 0.3rem 0.65rem; font-size: 0.52rem; }
+.hidden { display: none !important; }
+
+/* pasos */
+.steps { display: flex; align-items: center; gap: 0.45rem; margin: 1.1rem 0 0.2rem; }
+.step-dot {
+  width: 2rem; height: 2rem; border-radius: 50%; border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--muted);
+  background: rgba(255,255,255,0.8); transition: all .3s;
+}
+.step-dot.on { background: var(--gold); border-color: var(--gold); color: #fff; }
+.step-dot.done { background: var(--cyan); border-color: var(--cyan); color: #fff; }
+.step-line { flex: 1; height: 1px; background: var(--border); }
+.step-lbl { font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-top: 0.4rem; }
+
+/* tarjetas seleccionables */
+.pick-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; margin-top: 0.4rem; }
+.pick-grid.c3 { grid-template-columns: repeat(3, 1fr); }
+.pick {
+  border: 1px solid rgba(18,41,28,0.18); background: rgba(255,255,255,0.85);
+  padding: 0.85rem 0.5rem; text-align: center; cursor: pointer; transition: all .2s;
+  border-radius: 2px; user-select: none;
+}
+.pick b { display: block; font-size: 1.3rem; font-weight: 600; color: var(--ink); }
+.pick span { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.pick.sel { border-color: var(--gold); background: var(--goldx); box-shadow: 0 0 0 2px var(--goldx); }
+.pick.sel b { color: var(--gold2); }
+
+/* selector de días */
+.day-pick { display: flex; gap: 0.35rem; flex-wrap: wrap; margin-top: 0.4rem; }
+.day-pick span {
+  font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em;
+  padding: 0.6rem 0.6rem; border: 1px solid rgba(18,41,28,0.2); cursor: pointer;
+  user-select: none; color: var(--muted); transition: all .2s;
+}
+.day-pick span.on { background: var(--gold); border-color: var(--gold); color: #fff; }
+
+.nav-row { display: flex; gap: 0.6rem; margin-top: 1.5rem; }
+.nav-row .btn { flex: 1; }
+.err { color: #b3402e; font-size: 0.85rem; margin-top: 0.6rem; min-height: 1.1em; }
+
+/* resumen */
+.sum-row { display: flex; justify-content: space-between; gap: 1rem; padding: 0.55rem 0; border-bottom: 1px solid rgba(18,41,28,0.08); font-size: 1rem; }
+.sum-row:last-child { border-bottom: none; }
+.sum-row .k { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); align-self: center; }
+.sum-row .v { color: var(--ink); font-weight: 600; text-align: right; }
+.note { font-size: 0.82rem; color: var(--muted); line-height: 1.55; border-left: 2px solid var(--gold); padding-left: 0.8rem; margin-top: 1.2rem; }
+.done-box { text-align: center; }
+.done-box i.big { font-size: 2.4rem; color: var(--cyan); margin-bottom: 0.8rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="langs">
+    <button class="btn" data-lang-btn="es" onclick="setLangSafe('es')">ES</button>
+    <button class="btn" data-lang-btn="fr" onclick="setLangSafe('fr')">FR</button>
+    <button class="btn" data-lang-btn="en" onclick="setLangSafe('en')">EN</button>
+  </div>
+
+  <p class="mono" data-es="Clases de francés · Prof. Miguel Tillero" data-fr="Cours de français · Prof. Miguel Tillero" data-en="French classes · Prof. Miguel Tillero">Clases de francés · Prof. Miguel Tillero</p>
+  <h1><em data-es="Inscripción" data-fr="Inscription" data-en="Enrollment">Inscripción</em></h1>
+  <p class="lead" data-es="Tres pasos y listo. Al final se abre WhatsApp con tu ficha para Miguel." data-fr="Trois étapes et c'est tout. À la fin, WhatsApp s'ouvre avec ta fiche pour Miguel." data-en="Three steps and you're done. At the end, WhatsApp opens with your form for Miguel.">Tres pasos y listo. Al final se abre WhatsApp con tu ficha para Miguel.</p>
+
+  <div class="steps" id="steps">
+    <div class="step-dot on" data-step="1">1</div>
+    <div class="step-line"></div>
+    <div class="step-dot" data-step="2">2</div>
+    <div class="step-line"></div>
+    <div class="step-dot" data-step="3">3</div>
+  </div>
+  <div class="step-lbl" id="step-lbl" data-es="Paso 1 de 3 · Tus datos" data-fr="Étape 1 sur 3 · Tes coordonnées" data-en="Step 1 of 3 · Your details">Paso 1 de 3 · Tus datos</div>
+
+  <!-- ── PASO 1: datos ── -->
+  <div class="panel" id="p1">
+    <h2 data-es="¿Cómo te contactamos?" data-fr="Comment te contacter ?" data-en="How do we reach you?">¿Cómo te contactamos?</h2>
+    <label data-es="Nombre completo" data-fr="Nom complet" data-en="Full name">Nombre completo</label>
+    <input id="a-name" autocomplete="name" data-es-ph="Tu nombre y apellidos" data-fr-ph="Ton nom et prénom" data-en-ph="Your full name" placeholder="Tu nombre y apellidos">
+    <label data-es="WhatsApp (con lada, ej. 52 967…)" data-fr="WhatsApp (avec indicatif)" data-en="WhatsApp (with country code)">WhatsApp (con lada, ej. 52 967…)</label>
+    <input id="a-phone" inputmode="tel" autocomplete="tel" placeholder="52 967 123 4567">
+    <label data-es="Correo (opcional)" data-fr="E-mail (facultatif)" data-en="Email (optional)">Correo (opcional)</label>
+    <input id="a-email" type="email" autocomplete="email" placeholder="tu@correo.com">
+    <p class="err" id="err1"></p>
+    <div class="nav-row">
+      <button class="btn solid big" onclick="goStep(2)"><span data-es="Continuar" data-fr="Continuer" data-en="Continue">Continuar</span> <i class="fa fa-arrow-right"></i></button>
+    </div>
+  </div>
+
+  <!-- ── PASO 2: paquete ── -->
+  <div class="panel hidden" id="p2">
+    <h2 data-es="Tu paquete de clases" data-fr="Ton forfait de cours" data-en="Your class package">Tu paquete de clases</h2>
+
+    <label data-es="Horas del paquete" data-fr="Heures du forfait" data-en="Package hours">Horas del paquete</label>
+    <div class="pick-grid" id="pick-hours">
+      <div class="pick" data-v="10"><b>10 h</b><span data-es="básico" data-fr="basique" data-en="basic">básico</span></div>
+      <div class="pick sel" data-v="20"><b>20 h</b><span data-es="popular" data-fr="populaire" data-en="popular">popular</span></div>
+      <div class="pick" data-v="30"><b>30 h</b><span data-es="intensivo" data-fr="intensif" data-en="intensive">intensivo</span></div>
+      <div class="pick" data-v="40"><b>40 h</b><span data-es="inmersión" data-fr="immersion" data-en="immersion">inmersión</span></div>
+    </div>
+
+    <label data-es="Clases por semana" data-fr="Cours par semaine" data-en="Classes per week">Clases por semana</label>
+    <div class="pick-grid c3" id="pick-freq">
+      <div class="pick" data-v="1"><b>1</b><span data-es="a mi ritmo" data-fr="à mon rythme" data-en="my pace">a mi ritmo</span></div>
+      <div class="pick sel" data-v="2"><b>2</b><span data-es="constante" data-fr="régulier" data-en="steady">constante</span></div>
+      <div class="pick" data-v="3"><b>3</b><span data-es="acelerado" data-fr="accéléré" data-en="fast">acelerado</span></div>
+    </div>
+
+    <label data-es="Duración de cada clase" data-fr="Durée de chaque cours" data-en="Length of each class">Duración de cada clase</label>
+    <div class="pick-grid c3" id="pick-dur">
+      <div class="pick sel" data-v="1"><b>1 h</b><span>&nbsp;</span></div>
+      <div class="pick" data-v="1.5"><b>1.5 h</b><span>&nbsp;</span></div>
+      <div class="pick" data-v="2"><b>2 h</b><span>&nbsp;</span></div>
+    </div>
+
+    <label data-es="Días que prefieres (opcional)" data-fr="Jours que tu préfères (facultatif)" data-en="Days you prefer (optional)">Días que prefieres (opcional)</label>
+    <div class="day-pick" id="a-days">
+      <span data-d="1" data-es="Lun" data-fr="Lun" data-en="Mon">Lun</span>
+      <span data-d="2" data-es="Mar" data-fr="Mar" data-en="Tue">Mar</span>
+      <span data-d="3" data-es="Mié" data-fr="Mer" data-en="Wed">Mié</span>
+      <span data-d="4" data-es="Jue" data-fr="Jeu" data-en="Thu">Jue</span>
+      <span data-d="5" data-es="Vie" data-fr="Ven" data-en="Fri">Vie</span>
+      <span data-d="6" data-es="Sáb" data-fr="Sam" data-en="Sat">Sáb</span>
+      <span data-d="0" data-es="Dom" data-fr="Dim" data-en="Sun">Dom</span>
+    </div>
+
+    <label data-es="¿Cuándo te gustaría empezar?" data-fr="Quand veux-tu commencer ?" data-en="When would you like to start?">¿Cuándo te gustaría empezar?</label>
+    <input id="a-start" type="date">
+
+    <label data-es="Algo que Miguel deba saber (opcional)" data-fr="Quelque chose à signaler à Miguel ? (facultatif)" data-en="Anything Miguel should know? (optional)">Algo que Miguel deba saber (opcional)</label>
+    <textarea id="a-notes" rows="2" data-es-ph="Nivel, horarios, objetivo…" data-fr-ph="Niveau, horaires, objectif…" data-en-ph="Level, schedule, goal…" placeholder="Nivel, horarios, objetivo…"></textarea>
+
+    <div class="nav-row">
+      <button class="btn" onclick="goStep(1)"><i class="fa fa-arrow-left"></i></button>
+      <button class="btn solid big" onclick="goStep(3)"><span data-es="Revisar" data-fr="Vérifier" data-en="Review">Revisar</span> <i class="fa fa-arrow-right"></i></button>
+    </div>
+  </div>
+
+  <!-- ── PASO 3: confirmar ── -->
+  <div class="panel hidden" id="p3">
+    <h2 data-es="Confirma tu ficha" data-fr="Confirme ta fiche" data-en="Confirm your form">Confirma tu ficha</h2>
+    <div id="summary"></div>
+    <div class="nav-row">
+      <button class="btn" onclick="goStep(2)"><i class="fa fa-arrow-left"></i></button>
+      <button class="btn wa big" onclick="sendFicha()"><i class="fab fa-whatsapp"></i> <span data-es="Enviar a Miguel" data-fr="Envoyer à Miguel" data-en="Send to Miguel">Enviar a Miguel</span></button>
+    </div>
+    <p class="note" data-es="Tu ficha viaja dentro del enlace de WhatsApp: no se guarda en ningún servidor." data-fr="Ta fiche voyage dans le lien WhatsApp : rien n'est stocké sur un serveur." data-en="Your form travels inside the WhatsApp link: nothing is stored on any server.">Tu ficha viaja dentro del enlace de WhatsApp: no se guarda en ningún servidor.</p>
+  </div>
+
+  <!-- ── LISTO ── -->
+  <div class="panel done-box hidden" id="done">
+    <i class="fa fa-circle-check big"></i>
+    <h2 data-es="¡Ficha enviada!" data-fr="Fiche envoyée !" data-en="Form sent!">¡Ficha enviada!</h2>
+    <p class="lead" style="margin-bottom:1rem" data-es="Se abrió WhatsApp con tu ficha. Si no se abrió, usa los botones:" data-fr="WhatsApp s'est ouvert avec ta fiche. Sinon, utilise les boutons :" data-en="WhatsApp opened with your form. If it didn't, use the buttons:">Se abrió WhatsApp con tu ficha. Si no se abrió, usa los botones:</p>
+    <div style="display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap">
+      <a class="btn wa" id="wa-again" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> <span data-es="Abrir WhatsApp" data-fr="Ouvrir WhatsApp" data-en="Open WhatsApp">Abrir WhatsApp</span></a>
+      <button class="btn" onclick="copyLink()"><i class="fa fa-copy"></i> <span data-es="Copiar enlace" data-fr="Copier le lien" data-en="Copy link">Copiar enlace</span></button>
+    </div>
+    <p class="note" style="text-align:left" data-es="Miguel confirmará tu alta al abrir tu ficha. ¡À bientôt!" data-fr="Miguel confirmera ton inscription en ouvrant ta fiche. À bientôt !" data-en="Miguel will confirm your enrollment when he opens your form. À bientôt!">Miguel confirmará tu alta al abrir tu ficha. ¡À bientôt!</p>
+  </div>
+</div>
+
+<script>
+var MIGUEL_WA = '529673424456';
+function setLangSafe(l){ if (window.i18n) window.i18n.setLanguage(l); }
+
+/* placeholders traducibles */
+window.addEventListener('languageChanged', applyPh);
+window.addEventListener('DOMContentLoaded', applyPh);
+function applyPh(){
+  var lang = (window.i18n && window.i18n.currentLang) || 'es';
+  document.querySelectorAll('[data-' + lang + '-ph]').forEach(function(el){
+    el.placeholder = el.getAttribute('data-' + lang + '-ph');
+  });
+}
+
+/* tarjetas seleccionables */
+['pick-hours','pick-freq','pick-dur'].forEach(function(id){
+  document.getElementById(id).addEventListener('click', function(e){
+    var p = e.target.closest('.pick');
+    if (!p) return;
+    this.querySelectorAll('.pick').forEach(function(x){ x.classList.remove('sel'); });
+    p.classList.add('sel');
+  });
+});
+function picked(id){ return document.querySelector('#' + id + ' .pick.sel').getAttribute('data-v'); }
+
+/* días preferidos */
+document.getElementById('a-days').addEventListener('click', function(e){
+  if (e.target.tagName === 'SPAN') e.target.classList.toggle('on');
+});
+function pickedDays(){
+  return Array.from(document.querySelectorAll('#a-days span.on')).map(function(el){ return Number(el.getAttribute('data-d')); });
+}
+
+/* navegación entre pasos */
+var STEP_LBL = {
+  1: { es: 'Paso 1 de 3 · Tus datos', fr: 'Étape 1 sur 3 · Tes coordonnées', en: 'Step 1 of 3 · Your details' },
+  2: { es: 'Paso 2 de 3 · Tu paquete', fr: 'Étape 2 sur 3 · Ton forfait', en: 'Step 2 of 3 · Your package' },
+  3: { es: 'Paso 3 de 3 · Confirmar', fr: 'Étape 3 sur 3 · Confirmer', en: 'Step 3 of 3 · Confirm' }
+};
+function goStep(n){
+  if (n >= 2 && !validStep1()) return;
+  if (n === 3) buildSummary();
+  [1,2,3].forEach(function(i){ document.getElementById('p' + i).classList.toggle('hidden', i !== n); });
+  document.querySelectorAll('.step-dot').forEach(function(d){
+    var s = Number(d.getAttribute('data-step'));
+    d.classList.toggle('on', s === n);
+    d.classList.toggle('done', s < n);
+    d.innerHTML = s < n ? '<i class="fa fa-check"></i>' : s;
+  });
+  var lang = (window.i18n && window.i18n.currentLang) || 'es';
+  var lbl = document.getElementById('step-lbl');
+  lbl.textContent = STEP_LBL[n][lang];
+  ['es','fr','en'].forEach(function(l){ lbl.setAttribute('data-' + l, STEP_LBL[n][l]); });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function validStep1(){
+  var name = document.getElementById('a-name').value.trim();
+  var phone = document.getElementById('a-phone').value.replace(/\D/g, '');
+  var lang = (window.i18n && window.i18n.currentLang) || 'es';
+  var msgs = {
+    es: 'Escribe tu nombre y un WhatsApp válido (10 dígitos o más).',
+    fr: 'Indique ton nom et un WhatsApp valide (10 chiffres ou plus).',
+    en: 'Enter your name and a valid WhatsApp number (10+ digits).'
+  };
+  var ok = name.length >= 3 && phone.length >= 10;
+  document.getElementById('err1').textContent = ok ? '' : msgs[lang];
+  return ok;
+}
+
+function payload(){
+  return {
+    v: 1,
+    name:  document.getElementById('a-name').value.trim(),
+    phone: document.getElementById('a-phone').value.replace(/\D/g, ''),
+    email: document.getElementById('a-email').value.trim(),
+    hours: Number(picked('pick-hours')),
+    freq:  Number(picked('pick-freq')),
+    dur:   Number(picked('pick-dur')),
+    start: document.getElementById('a-start').value,
+    days:  pickedDays(),
+    notes: document.getElementById('a-notes').value.trim().slice(0, 300)
+  };
+}
+function buildSummary(){
+  var p = payload();
+  var lang = (window.i18n && window.i18n.currentLang) || 'es';
+  var K = {
+    es: { name:'Nombre', wa:'WhatsApp', mail:'Correo', pack:'Paquete', rhythm:'Ritmo', dur:'Duración', days:'Días', start:'Inicio deseado', notes:'Nota', wk:'/semana',
+          dn:['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'] },
+    fr: { name:'Nom', wa:'WhatsApp', mail:'E-mail', pack:'Forfait', rhythm:'Rythme', dur:'Durée', days:'Jours', start:'Début souhaité', notes:'Note', wk:'/semaine',
+          dn:['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'] },
+    en: { name:'Name', wa:'WhatsApp', mail:'Email', pack:'Package', rhythm:'Pace', dur:'Duration', days:'Days', start:'Preferred start', notes:'Note', wk:'/week',
+          dn:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'] }
+  }[lang];
+  function row(k, v){ return v ? '<div class="sum-row"><span class="k">' + k + '</span><span class="v">' + esc(v) + '</span></div>' : ''; }
+  document.getElementById('summary').innerHTML =
+    row(K.name, p.name) + row(K.wa, '+' + p.phone) + row(K.mail, p.email) +
+    row(K.pack, p.hours + ' h') + row(K.rhythm, p.freq + '×' + K.wk) +
+    row(K.dur, p.dur + ' h') +
+    row(K.days, p.days.length ? p.days.map(function(x){ return K.dn[x]; }).join(', ') : '') +
+    row(K.start, p.start ? fmtD(p.start) : '') + row(K.notes, p.notes);
+}
+function esc(s){ return String(s).replace(/[<>&"]/g, function(ch){ return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[ch]; }); }
+function fmtD(iso){ var p = iso.split('-'); return p[2] + '/' + p[1] + '/' + p[0]; }
+
+function b64uEncode(str){
+  var bytes = new TextEncoder().encode(str), bin = '';
+  bytes.forEach(function(b){ bin += String.fromCharCode(b); });
+  return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+var lastLink = '';
+function sendFicha(){
+  var p = payload();
+  if (!p.name || !p.phone) { goStep(1); return; }
+  var panelUrl = new URL('index.html', location.href);
+  lastLink = panelUrl.href + '?alta=' + b64uEncode(JSON.stringify(p));
+  var msg = 'Hola Miguel 👋, soy ' + p.name + '. Completé mi ficha de inscripción (' +
+            p.hours + ' h · ' + p.freq + '×/semana). Ábrela aquí para darme de alta: ' + lastLink;
+  var wa = 'https://wa.me/' + MIGUEL_WA + '?text=' + encodeURIComponent(msg);
+  document.getElementById('wa-again').href = wa;
+  ['p1','p2','p3'].forEach(function(i){ document.getElementById(i).classList.add('hidden'); });
+  document.getElementById('steps').classList.add('hidden');
+  document.getElementById('step-lbl').classList.add('hidden');
+  document.getElementById('done').classList.remove('hidden');
+  window.open(wa, '_blank');
+}
+function copyLink(){
+  navigator.clipboard.writeText(lastLink).then(function(){ alert('Enlace copiado.'); });
+}
+</script>
+</body>
+</html>
