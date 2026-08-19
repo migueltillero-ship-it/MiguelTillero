@@ -32,6 +32,7 @@ CAMPOS = {
     "desde": "desde", "reanuda": "desde", "retoma": "desde",
     "sesiones": "sesiones", "fechas": "sesiones",
     "estado": "estado", "situacion": "estado",
+    "renueva": "renueva", "renovacion": "renueva",
     "paquete": "paquete", "total": "paquete", "horas": "paquete",
     "tomadas": "tomadas", "impartidas": "tomadas", "cursadas": "tomadas",
     "fin": "fin", "fecha de fin": "fin", "termina": "fin",
@@ -282,7 +283,7 @@ def analizar(texto):
             actual = {"grupo": valor, "tipo": "", "nivel": "", "dias": "", "hora": "",
                       "inicio": "", "primera": "", "desde": "", "sesiones_fijas": "",
                       "paquete": "", "tomadas": "", "modalidad": "", "fin": "",
-                      "estado": "", "notas": "", "estudiantes": []}
+                      "estado": "", "renueva": "", "notas": "", "estudiantes": []}
             grupos.append(actual)
             en_est = False
         elif actual is None:
@@ -313,6 +314,14 @@ def main():
         g["cierre"] = ses[-1]["fecha"] if ses and not motivo else ""
         g["cierre_letra"] = ses[-1]["en_letra"] if ses and not motivo else ""
         g["motivo_sin_calendario"] = motivo or ""
+        g["proximo_ciclo"] = []
+        if ses and not motivo and clave(g.get("renueva", "")).startswith("mensual"):
+            sig = dict(g)
+            sig["inicio"] = (leer_fecha(ses[-1]["fecha"]) + timedelta(days=1)).isoformat()
+            sig["tomadas"] = ""
+            sig["renueva"] = ""          # solo se abre un ciclo por delante
+            prox, _ = calendario(sig)
+            g["proximo_ciclo"] = prox
         if motivo:
             sin_calendario.append((g["grupo"], motivo))
         total = leer_horas(g.get("paquete"))
@@ -350,6 +359,10 @@ def main():
             print(f"      cierre: {g['cierre_letra']}  ({len(g['sesiones'])} sesiones)")
         elif g["motivo_sin_calendario"]:
             print(f"      sin calendario: {g['motivo_sin_calendario']}")
+        if g.get("proximo_ciclo"):
+            p0, p1 = g["proximo_ciclo"][0], g["proximo_ciclo"][-1]
+            print(f"      siguiente ciclo: {p0['en_letra']} → {p1['en_letra']}"
+                  f"  ({len(g['proximo_ciclo'])} sesiones)")
 
     faltan = [e for e in estudiantes if not e["ficha_completa"]]
     if faltan:

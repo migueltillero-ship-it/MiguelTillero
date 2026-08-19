@@ -93,8 +93,9 @@ GRUPO: B2 Virtual
 TIPO: grupo
 NIVEL: B2
 DIAS: lunes, miércoles
+HORA: 19:00-20:30
 MODALIDAD: en línea
-NOTAS: faltan la hora de la clase y el total de horas del ciclo
+NOTAS: faltan la fecha de inicio del ciclo y su total de horas
 ESTUDIANTES:
 - Melissa Rico
 - Montserrat Álvarez
@@ -110,6 +111,7 @@ HORA: 18:00-19:30
 INICIO: 2026-07-31
 PAQUETE: 6 horas
 TOMADAS: 4.5
+RENUEVA: mensual
 NOTAS: primer mes: cuatro viernes desde el 31 de julio, 6 h en total,
        que se cumplen el viernes 21 de agosto. Falta confirmar si el
        ciclo se renueva cada mes para abrir el siguiente

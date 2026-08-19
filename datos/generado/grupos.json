@@ -16,6 +16,7 @@
       "modalidad": "en línea",
       "fin": "",
       "estado": "",
+      "renueva": "",
       "notas": "arranque excepcional en viernes; a partir de ahí lunes y miércoles",
       "estudiantes": [
         {
@@ -118,6 +119,7 @@
       "cierre": "2026-09-14",
       "cierre_letra": "lunes 14 de septiembre de 2026",
       "motivo_sin_calendario": "",
+      "proximo_ciclo": [],
       "horas_total": 10.0,
       "horas_tomadas": 3.0,
       "horas_restantes": 7.0
@@ -137,6 +139,7 @@
       "modalidad": "",
       "fin": "",
       "estado": "standby",
+      "renueva": "",
       "notas": "no se ha comunicado; se retoma cuando avise. De las 3 horas ya tomadas, una sesión fue de 1 h y otra de 2 h",
       "estudiantes": [
         {
@@ -158,6 +161,7 @@
       "cierre": "",
       "cierre_letra": "",
       "motivo_sin_calendario": "en standby: el grupo no tiene fechas mientras no se reanude",
+      "proximo_ciclo": [],
       "horas_total": 10.0,
       "horas_tomadas": 3.0,
       "horas_restantes": 7.0
@@ -177,6 +181,7 @@
       "modalidad": "",
       "fin": "",
       "estado": "",
+      "renueva": "",
       "notas": "sin días fijos; se agenda por la mañana según disponibilidad. Las 4 horas que faltan quedan repartidas en estas fechas",
       "estudiantes": [
         {
@@ -231,6 +236,7 @@
       "cierre": "2026-08-24",
       "cierre_letra": "lunes 24 de agosto de 2026",
       "motivo_sin_calendario": "",
+      "proximo_ciclo": [],
       "horas_total": 10.0,
       "horas_tomadas": 6.0,
       "horas_restantes": 4.0
@@ -250,6 +256,7 @@
       "modalidad": "híbrido",
       "fin": "",
       "estado": "",
+      "renueva": "",
       "notas": "Santiago Mena está en el chat como papá de Isaac, no es estudiante",
       "estudiantes": [
         {
@@ -426,6 +433,7 @@
       "cierre": "2026-10-01",
       "cierre_letra": "jueves 1 de octubre de 2026",
       "motivo_sin_calendario": "",
+      "proximo_ciclo": [],
       "horas_total": 16.0,
       "horas_tomadas": 3.0,
       "horas_restantes": 13.0
@@ -435,7 +443,7 @@
       "tipo": "grupo",
       "nivel": "B2",
       "dias": "lunes, miércoles",
-      "hora": "",
+      "hora": "19:00-20:30",
       "inicio": "",
       "primera": "",
       "desde": "",
@@ -445,7 +453,8 @@
       "modalidad": "en línea",
       "fin": "",
       "estado": "",
-      "notas": "faltan la hora de la clase y el total de horas del ciclo",
+      "renueva": "",
+      "notas": "faltan la fecha de inicio del ciclo y su total de horas",
       "estudiantes": [
         {
           "nombre": "Melissa Rico",
@@ -518,6 +527,7 @@
       "cierre": "",
       "cierre_letra": "",
       "motivo_sin_calendario": "falta el total de horas del ciclo (PAQUETE)",
+      "proximo_ciclo": [],
       "horas_total": 0,
       "horas_tomadas": 0.0,
       "horas_restantes": 0
@@ -537,6 +547,7 @@
       "modalidad": "",
       "fin": "",
       "estado": "",
+      "renueva": "mensual",
       "notas": "primer mes: cuatro viernes desde el 31 de julio, 6 h en total, que se cumplen el viernes 21 de agosto. Falta confirmar si el ciclo se renueva cada mes para abrir el siguiente",
       "estudiantes": [
         {
@@ -630,6 +641,40 @@
       "cierre": "2026-08-21",
       "cierre_letra": "viernes 21 de agosto de 2026",
       "motivo_sin_calendario": "",
+      "proximo_ciclo": [
+        {
+          "fecha": "2026-08-28",
+          "en_letra": "viernes 28 de agosto de 2026",
+          "horas": 1.5,
+          "acumulado": 1.5,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-04",
+          "en_letra": "viernes 4 de septiembre de 2026",
+          "horas": 1.5,
+          "acumulado": 3.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-11",
+          "en_letra": "viernes 11 de septiembre de 2026",
+          "horas": 1.5,
+          "acumulado": 4.5,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-18",
+          "en_letra": "viernes 18 de septiembre de 2026",
+          "horas": 1.5,
+          "acumulado": 6.0,
+          "suelta": false,
+          "pasada": false
+        }
+      ],
       "horas_total": 6.0,
       "horas_tomadas": 4.5,
       "horas_restantes": 1.5
