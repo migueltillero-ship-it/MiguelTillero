@@ -2,45 +2,119 @@
 #  GRUPOS Y ESTUDIANTES — archivo para dictar
 # ═══════════════════════════════════════════════════════════
 #
-#  Cómo usarlo: dicta o escribe siguiendo el patrón de abajo.
-#  El formato es tolerante: no importan mayúsculas, acentos ni
-#  espacios de más. Lo único que importa es que cada dato vaya
-#  en su línea y los estudiantes empiecen con guion (-).
+#  Formato tolerante: no importan mayúsculas, acentos ni
+#  espacios de más. Las líneas con # son notas y se ignoran.
 #
-#  Las líneas que empiezan con # son notas y se ignoran.
+#  Campos de un grupo (todos opcionales salvo GRUPO):
+#     GRUPO      nombre del curso o del alumno particular
+#     TIPO       particular · grupo · club
+#     NIVEL      A1, A2, B1, B2...
+#     DIAS       lunes, miércoles     (días de clase habituales)
+#     HORA       10:00-11:00          (de aquí sale la duración)
+#     INICIO     2026-08-14           (primer día del ciclo)
+#     PRIMERA    2026-08-14           (sesión suelta fuera de los DIAS)
+#     PAQUETE    10 horas             (total contratado)
+#     TOMADAS    3                    (horas ya impartidas)
+#     MODALIDAD  presencial · en línea · híbrido
+#     NOTAS      lo que haga falta recordar
 #
-#  Datos de un estudiante, en este orden y separados por comas:
+#  Con DIAS + HORA + INICIO + PAQUETE se calcula solo el
+#  calendario de sesiones y la FECHA DE CIERRE del contrato.
+#
+#  Estudiantes, uno por línea empezando con guion:
 #     - Nombre completo, correo, teléfono, nivel
-#  Solo el nombre es obligatorio. Puedes omitir lo que no tengas:
-#     - Ana López
-#     - Ana López, ana@correo.com
-#     - Ana López, ana@correo.com, +52 967 123 4567, B2
+#  Solo el nombre es obligatorio; el orden del resto da igual.
 #
-#  Después de dictar, se generan las fichas con:
-#     python3 herramientas/generar_fichas.py
+#  Después de dictar:  python3 herramientas/generar_fichas.py
 #
 # ═══════════════════════════════════════════════════════════
 
 
-# ─────────── EJEMPLO (bórralo y pon los tuyos) ───────────
+# ─────────────── CLASES PARTICULARES ───────────────
 
-GRUPO: B2 Adultos Sábado
-NIVEL: B2
-HORARIO: sábados de 09:00 a 11:00
+GRUPO: Clases particulares · Harleen Kaur
+TIPO: particular
+DIAS: lunes, miércoles
+HORA: 10:00-11:00
+PRIMERA: 2026-08-14
+INICIO: 2026-08-14
+PAQUETE: 10 horas
+TOMADAS: 3
 MODALIDAD: en línea
-INICIO: 2026-02-07
-NOTAS: grupo de preparación al DELF B2
+NOTAS: arranque excepcional en viernes; a partir de ahí lunes y miércoles
 ESTUDIANTES:
-- Ana López Martínez, ana.lopez@correo.com, +52 967 123 4567, B2
-- Luis Pérez Gómez, luis.perez@correo.com, +52 967 234 5678, B2
-- Sofía Hernández, sofia.h@correo.com
+- Harleen Kaur, +1 778 881 6584
 
 
-GRUPO: A1 Intensivo Entre Semana
+GRUPO: Clases particulares · Camila Robledo
+TIPO: particular
+DIAS: martes, jueves
+HORA: 14:00-16:00
+PAQUETE: 10 horas
+TOMADAS: 3
+ESTADO: standby
+NOTAS: no se ha comunicado; se retoma cuando avise. De las 3 horas ya
+       tomadas, una sesión fue de 1 h y otra de 2 h
+ESTUDIANTES:
+- Camila Robledo, +52 1 962 215 8903
+
+
+GRUPO: Clases particulares · Annette Alfaro
+TIPO: particular
+HORA: 11:00-12:00
+PAQUETE: 10 horas
+TOMADAS: 6
+SESIONES: 2026-08-19, 2026-08-20, 2026-08-21, 2026-08-24
+NOTAS: sin días fijos; se agenda por la mañana según disponibilidad. Las
+       4 horas que faltan quedan repartidas en estas fechas
+ESTUDIANTES:
+- Annette Alfaro, +52 1 961 880 1359, menor, representante: Mamá de Annette Alfaro
+
+
+# ─────────────── CURSOS ───────────────
+
+GRUPO: Francés A1.4 Híbrido
+TIPO: grupo
 NIVEL: A1
-HORARIO: lunes, miércoles y viernes de 18:00 a 19:30
-MODALIDAD: presencial
-INICIO: 2026-01-19
+DIAS: martes, jueves
+HORA: 19:00-20:00
+INICIO: 2026-08-11
+PAQUETE: 16 horas
+TOMADAS: 3
+MODALIDAD: híbrido
+NOTAS: Santiago Mena está en el chat como papá de Isaac, no es estudiante
 ESTUDIANTES:
-- Carlos Ramírez, carlos.r@correo.com, +52 967 345 6789
-- María Fernanda Ruiz, mfruiz@correo.com
+- Isaac, menor, representante: Santiago Mena
+- Ricardo Gadiel
+- Annette Alfaro, +52 1 961 880 1359, A1, menor, representante: Mamá de Annette Alfaro
+
+
+GRUPO: B2 Virtual
+TIPO: grupo
+NIVEL: B2
+DIAS: lunes, miércoles
+MODALIDAD: en línea
+NOTAS: faltan la hora de la clase y el total de horas del ciclo
+ESTUDIANTES:
+- Melissa Rico
+- Montserrat Álvarez
+- Alejandra Morgan
+- Sebastián Paniagua
+- Rothman Paniagua
+
+
+GRUPO: Club de conversación
+TIPO: club
+DIAS: viernes
+HORA: 18:00-19:30
+INICIO: 2026-07-31
+PAQUETE: 6 horas
+TOMADAS: 4.5
+NOTAS: primer mes: cuatro viernes desde el 31 de julio, 6 h en total,
+       que se cumplen el viernes 21 de agosto. Falta confirmar si el
+       ciclo se renueva cada mes para abrir el siguiente
+ESTUDIANTES:
+- Lucetty Bass
+- Lucia Fernandez
+- Jonathan Guevara
+- Corina Olavarrieta
