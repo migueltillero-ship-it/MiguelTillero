@@ -39,7 +39,7 @@ HORA: 10:00-11:00
 PRIMERA: 2026-08-14
 INICIO: 2026-08-14
 PAQUETE: 10 horas
-TOMADAS: 1
+TOMADAS: 3
 MODALIDAD: en línea
 NOTAS: arranque excepcional en viernes; a partir de ahí lunes y miércoles
 ESTUDIANTES:
@@ -52,7 +52,9 @@ DIAS: martes, jueves
 HORA: 14:00-16:00
 PAQUETE: 10 horas
 TOMADAS: 3
-NOTAS: de las 3 horas ya tomadas, una sesión fue de 1 h y otra de 2 h
+ESTADO: standby
+NOTAS: no se ha comunicado; se retoma cuando avise. De las 3 horas ya
+       tomadas, una sesión fue de 1 h y otra de 2 h
 ESTUDIANTES:
 - Camila Robledo, +52 1 962 215 8903
 
@@ -62,8 +64,9 @@ TIPO: particular
 HORA: 11:00-12:00
 PAQUETE: 10 horas
 TOMADAS: 6
-NOTAS: sin días fijos — se agenda por la mañana según disponibilidad de
-       la estudiante, así que no se puede calcular fecha de cierre
+SESIONES: 2026-08-19, 2026-08-20, 2026-08-21, 2026-08-24
+NOTAS: sin días fijos; se agenda por la mañana según disponibilidad. Las
+       4 horas que faltan quedan repartidas en estas fechas
 ESTUDIANTES:
 - Annette Alfaro, +52 1 961 880 1359, menor, representante: Mamá de Annette Alfaro
 
@@ -77,7 +80,7 @@ DIAS: martes, jueves
 HORA: 19:00-20:00
 INICIO: 2026-08-11
 PAQUETE: 16 horas
-TOMADAS: 2
+TOMADAS: 3
 MODALIDAD: híbrido
 NOTAS: Santiago Mena está en el chat como papá de Isaac, no es estudiante
 ESTUDIANTES:
@@ -89,8 +92,9 @@ ESTUDIANTES:
 GRUPO: B2 Virtual
 TIPO: grupo
 NIVEL: B2
+DIAS: lunes, miércoles
 MODALIDAD: en línea
-NOTAS: faltan días, horario y total de horas del ciclo
+NOTAS: faltan la hora de la clase y el total de horas del ciclo
 ESTUDIANTES:
 - Melissa Rico
 - Montserrat Álvarez
@@ -103,7 +107,12 @@ GRUPO: Club de conversación
 TIPO: club
 DIAS: viernes
 HORA: 18:00-19:30
-NOTAS: falta el total de horas del ciclo y la fecha de inicio
+INICIO: 2026-07-31
+PAQUETE: 6 horas
+TOMADAS: 4.5
+NOTAS: primer mes: cuatro viernes desde el 31 de julio, 6 h en total,
+       que se cumplen el viernes 21 de agosto. Falta confirmar si el
+       ciclo se renueva cada mes para abrir el siguiente
 ESTUDIANTES:
 - Lucetty Bass
 - Lucia Fernandez

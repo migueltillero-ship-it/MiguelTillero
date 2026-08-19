@@ -1,5 +1,5 @@
 {
-  "generado": "2026-08-14",
+  "generado": "2026-08-19",
   "grupos": [
     {
       "grupo": "Clases particulares · Harleen Kaur",
@@ -10,10 +10,12 @@
       "inicio": "2026-08-14",
       "primera": "2026-08-14",
       "desde": "",
+      "sesiones_fijas": "",
       "paquete": "10 horas",
-      "tomadas": "1",
+      "tomadas": "3",
       "modalidad": "en línea",
       "fin": "",
+      "estado": "",
       "notas": "arranque excepcional en viernes; a partir de ahí lunes y miércoles",
       "estudiantes": [
         {
@@ -38,7 +40,7 @@
           "horas": 1.0,
           "acumulado": 1.0,
           "suelta": true,
-          "pasada": false
+          "pasada": true
         },
         {
           "fecha": "2026-08-17",
@@ -46,7 +48,7 @@
           "horas": 1.0,
           "acumulado": 2.0,
           "suelta": false,
-          "pasada": false
+          "pasada": true
         },
         {
           "fecha": "2026-08-19",
@@ -117,8 +119,8 @@
       "cierre_letra": "lunes 14 de septiembre de 2026",
       "motivo_sin_calendario": "",
       "horas_total": 10.0,
-      "horas_tomadas": 1.0,
-      "horas_restantes": 9.0
+      "horas_tomadas": 3.0,
+      "horas_restantes": 7.0
     },
     {
       "grupo": "Clases particulares · Camila Robledo",
@@ -129,11 +131,13 @@
       "inicio": "",
       "primera": "",
       "desde": "",
+      "sesiones_fijas": "",
       "paquete": "10 horas",
       "tomadas": "3",
       "modalidad": "",
       "fin": "",
-      "notas": "de las 3 horas ya tomadas, una sesión fue de 1 h y otra de 2 h",
+      "estado": "standby",
+      "notas": "no se ha comunicado; se retoma cuando avise. De las 3 horas ya tomadas, una sesión fue de 1 h y otra de 2 h",
       "estudiantes": [
         {
           "nombre": "Camila Robledo",
@@ -153,7 +157,7 @@
       "sesiones": [],
       "cierre": "",
       "cierre_letra": "",
-      "motivo_sin_calendario": "falta la fecha de inicio (INICIO) o de reanudación (DESDE)",
+      "motivo_sin_calendario": "en standby: el grupo no tiene fechas mientras no se reanude",
       "horas_total": 10.0,
       "horas_tomadas": 3.0,
       "horas_restantes": 7.0
@@ -167,11 +171,13 @@
       "inicio": "",
       "primera": "",
       "desde": "",
+      "sesiones_fijas": "2026-08-19, 2026-08-20, 2026-08-21, 2026-08-24",
       "paquete": "10 horas",
       "tomadas": "6",
       "modalidad": "",
       "fin": "",
-      "notas": "sin días fijos — se agenda por la mañana según disponibilidad de la estudiante, así que no se puede calcular fecha de cierre",
+      "estado": "",
+      "notas": "sin días fijos; se agenda por la mañana según disponibilidad. Las 4 horas que faltan quedan repartidas en estas fechas",
       "estudiantes": [
         {
           "nombre": "Annette Alfaro",
@@ -188,10 +194,43 @@
         }
       ],
       "id": "clases-particulares-annette-alfaro",
-      "sesiones": [],
-      "cierre": "",
-      "cierre_letra": "",
-      "motivo_sin_calendario": "falta la fecha de inicio (INICIO) o de reanudación (DESDE)",
+      "sesiones": [
+        {
+          "fecha": "2026-08-19",
+          "en_letra": "miércoles 19 de agosto de 2026",
+          "horas": 1.0,
+          "acumulado": 7.0,
+          "suelta": true,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-08-20",
+          "en_letra": "jueves 20 de agosto de 2026",
+          "horas": 1.0,
+          "acumulado": 8.0,
+          "suelta": true,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-08-21",
+          "en_letra": "viernes 21 de agosto de 2026",
+          "horas": 1.0,
+          "acumulado": 9.0,
+          "suelta": true,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-08-24",
+          "en_letra": "lunes 24 de agosto de 2026",
+          "horas": 1.0,
+          "acumulado": 10.0,
+          "suelta": true,
+          "pasada": false
+        }
+      ],
+      "cierre": "2026-08-24",
+      "cierre_letra": "lunes 24 de agosto de 2026",
+      "motivo_sin_calendario": "",
       "horas_total": 10.0,
       "horas_tomadas": 6.0,
       "horas_restantes": 4.0
@@ -205,10 +244,12 @@
       "inicio": "2026-08-11",
       "primera": "",
       "desde": "",
+      "sesiones_fijas": "",
       "paquete": "16 horas",
-      "tomadas": "2",
+      "tomadas": "3",
       "modalidad": "híbrido",
       "fin": "",
+      "estado": "",
       "notas": "Santiago Mena está en el chat como papá de Isaac, no es estudiante",
       "estudiantes": [
         {
@@ -275,7 +316,7 @@
           "horas": 1.0,
           "acumulado": 3.0,
           "suelta": false,
-          "pasada": false
+          "pasada": true
         },
         {
           "fecha": "2026-08-20",
@@ -386,23 +427,25 @@
       "cierre_letra": "jueves 1 de octubre de 2026",
       "motivo_sin_calendario": "",
       "horas_total": 16.0,
-      "horas_tomadas": 2.0,
-      "horas_restantes": 14.0
+      "horas_tomadas": 3.0,
+      "horas_restantes": 13.0
     },
     {
       "grupo": "B2 Virtual",
       "tipo": "grupo",
       "nivel": "B2",
-      "dias": "",
+      "dias": "lunes, miércoles",
       "hora": "",
       "inicio": "",
       "primera": "",
       "desde": "",
+      "sesiones_fijas": "",
       "paquete": "",
       "tomadas": "",
       "modalidad": "en línea",
       "fin": "",
-      "notas": "faltan días, horario y total de horas del ciclo",
+      "estado": "",
+      "notas": "faltan la hora de la clase y el total de horas del ciclo",
       "estudiantes": [
         {
           "nombre": "Melissa Rico",
@@ -485,14 +528,16 @@
       "nivel": "",
       "dias": "viernes",
       "hora": "18:00-19:30",
-      "inicio": "",
+      "inicio": "2026-07-31",
       "primera": "",
       "desde": "",
-      "paquete": "",
-      "tomadas": "",
+      "sesiones_fijas": "",
+      "paquete": "6 horas",
+      "tomadas": "4.5",
       "modalidad": "",
       "fin": "",
-      "notas": "falta el total de horas del ciclo y la fecha de inicio",
+      "estado": "",
+      "notas": "primer mes: cuatro viernes desde el 31 de julio, 6 h en total, que se cumplen el viernes 21 de agosto. Falta confirmar si el ciclo se renueva cada mes para abrir el siguiente",
       "estudiantes": [
         {
           "nombre": "Lucetty Bass",
@@ -548,13 +593,46 @@
         }
       ],
       "id": "club-de-conversacion",
-      "sesiones": [],
-      "cierre": "",
-      "cierre_letra": "",
-      "motivo_sin_calendario": "falta el total de horas del ciclo (PAQUETE)",
-      "horas_total": 0,
-      "horas_tomadas": 0.0,
-      "horas_restantes": 0
+      "sesiones": [
+        {
+          "fecha": "2026-07-31",
+          "en_letra": "viernes 31 de julio de 2026",
+          "horas": 1.5,
+          "acumulado": 1.5,
+          "suelta": false,
+          "pasada": true
+        },
+        {
+          "fecha": "2026-08-07",
+          "en_letra": "viernes 7 de agosto de 2026",
+          "horas": 1.5,
+          "acumulado": 3.0,
+          "suelta": false,
+          "pasada": true
+        },
+        {
+          "fecha": "2026-08-14",
+          "en_letra": "viernes 14 de agosto de 2026",
+          "horas": 1.5,
+          "acumulado": 4.5,
+          "suelta": false,
+          "pasada": true
+        },
+        {
+          "fecha": "2026-08-21",
+          "en_letra": "viernes 21 de agosto de 2026",
+          "horas": 1.5,
+          "acumulado": 6.0,
+          "suelta": false,
+          "pasada": false
+        }
+      ],
+      "cierre": "2026-08-21",
+      "cierre_letra": "viernes 21 de agosto de 2026",
+      "motivo_sin_calendario": "",
+      "horas_total": 6.0,
+      "horas_tomadas": 4.5,
+      "horas_restantes": 1.5
     }
   ]
 }

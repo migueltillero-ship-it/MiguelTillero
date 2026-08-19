@@ -1,6 +1,26 @@
 {
-  "generado": "2026-08-14",
+  "generado": "2026-08-19",
   "calendario": [
+    {
+      "fecha": "2026-07-31",
+      "en_letra": "viernes 31 de julio de 2026",
+      "horas": 1.5,
+      "acumulado": 1.5,
+      "suelta": false,
+      "pasada": true,
+      "grupo": "Club de conversación",
+      "grupo_id": "club-de-conversacion"
+    },
+    {
+      "fecha": "2026-08-07",
+      "en_letra": "viernes 7 de agosto de 2026",
+      "horas": 1.5,
+      "acumulado": 3.0,
+      "suelta": false,
+      "pasada": true,
+      "grupo": "Club de conversación",
+      "grupo_id": "club-de-conversacion"
+    },
     {
       "fecha": "2026-08-11",
       "en_letra": "martes 11 de agosto de 2026",
@@ -27,9 +47,19 @@
       "horas": 1.0,
       "acumulado": 1.0,
       "suelta": true,
-      "pasada": false,
+      "pasada": true,
       "grupo": "Clases particulares · Harleen Kaur",
       "grupo_id": "clases-particulares-harleen-kaur"
+    },
+    {
+      "fecha": "2026-08-14",
+      "en_letra": "viernes 14 de agosto de 2026",
+      "horas": 1.5,
+      "acumulado": 4.5,
+      "suelta": false,
+      "pasada": true,
+      "grupo": "Club de conversación",
+      "grupo_id": "club-de-conversacion"
     },
     {
       "fecha": "2026-08-17",
@@ -37,7 +67,7 @@
       "horas": 1.0,
       "acumulado": 2.0,
       "suelta": false,
-      "pasada": false,
+      "pasada": true,
       "grupo": "Clases particulares · Harleen Kaur",
       "grupo_id": "clases-particulares-harleen-kaur"
     },
@@ -47,7 +77,7 @@
       "horas": 1.0,
       "acumulado": 3.0,
       "suelta": false,
-      "pasada": false,
+      "pasada": true,
       "grupo": "Francés A1.4 Híbrido",
       "grupo_id": "frances-a1-4-hibrido"
     },
@@ -62,6 +92,26 @@
       "grupo_id": "clases-particulares-harleen-kaur"
     },
     {
+      "fecha": "2026-08-19",
+      "en_letra": "miércoles 19 de agosto de 2026",
+      "horas": 1.0,
+      "acumulado": 7.0,
+      "suelta": true,
+      "pasada": false,
+      "grupo": "Clases particulares · Annette Alfaro",
+      "grupo_id": "clases-particulares-annette-alfaro"
+    },
+    {
+      "fecha": "2026-08-20",
+      "en_letra": "jueves 20 de agosto de 2026",
+      "horas": 1.0,
+      "acumulado": 8.0,
+      "suelta": true,
+      "pasada": false,
+      "grupo": "Clases particulares · Annette Alfaro",
+      "grupo_id": "clases-particulares-annette-alfaro"
+    },
+    {
       "fecha": "2026-08-20",
       "en_letra": "jueves 20 de agosto de 2026",
       "horas": 1.0,
@@ -72,6 +122,26 @@
       "grupo_id": "frances-a1-4-hibrido"
     },
     {
+      "fecha": "2026-08-21",
+      "en_letra": "viernes 21 de agosto de 2026",
+      "horas": 1.0,
+      "acumulado": 9.0,
+      "suelta": true,
+      "pasada": false,
+      "grupo": "Clases particulares · Annette Alfaro",
+      "grupo_id": "clases-particulares-annette-alfaro"
+    },
+    {
+      "fecha": "2026-08-21",
+      "en_letra": "viernes 21 de agosto de 2026",
+      "horas": 1.5,
+      "acumulado": 6.0,
+      "suelta": false,
+      "pasada": false,
+      "grupo": "Club de conversación",
+      "grupo_id": "club-de-conversacion"
+    },
+    {
       "fecha": "2026-08-24",
       "en_letra": "lunes 24 de agosto de 2026",
       "horas": 1.0,
@@ -80,6 +150,16 @@
       "pasada": false,
       "grupo": "Clases particulares · Harleen Kaur",
       "grupo_id": "clases-particulares-harleen-kaur"
+    },
+    {
+      "fecha": "2026-08-24",
+      "en_letra": "lunes 24 de agosto de 2026",
+      "horas": 1.0,
+      "acumulado": 10.0,
+      "suelta": true,
+      "pasada": false,
+      "grupo": "Clases particulares · Annette Alfaro",
+      "grupo_id": "clases-particulares-annette-alfaro"
     },
     {
       "fecha": "2026-08-25",

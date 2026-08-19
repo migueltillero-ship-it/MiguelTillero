@@ -30,6 +30,8 @@ CAMPOS = {
     "inicio": "inicio", "fecha de inicio": "inicio", "comienza": "inicio",
     "primera": "primera", "primera sesion": "primera",
     "desde": "desde", "reanuda": "desde", "retoma": "desde",
+    "sesiones": "sesiones", "fechas": "sesiones",
+    "estado": "estado", "situacion": "estado",
     "paquete": "paquete", "total": "paquete", "horas": "paquete",
     "tomadas": "tomadas", "impartidas": "tomadas", "cursadas": "tomadas",
     "fin": "fin", "fecha de fin": "fin", "termina": "fin",
@@ -164,6 +166,24 @@ def calendario(g, hoy=None):
     si falta un dato, lo nombra para poder pedirlo.
     """
     hoy = hoy or date.today()
+
+    if clave(g.get("estado", "")).startswith("standby"):
+        return [], "en standby: el grupo no tiene fechas mientras no se reanude"
+
+    fijas = [leer_fecha(t) for t in (g.get("sesiones_fijas") or "").split(",")]
+    fijas = sorted(f for f in fijas if f)
+    if fijas:
+        dur = leer_duracion(g.get("hora"))
+        if dur is None:
+            return [], "falta el horario con hora de inicio y fin (HORA)"
+        tomadas = leer_horas(g.get("tomadas")) or 0.0
+        ses, acum = [], tomadas
+        for f in fijas:
+            acum += dur
+            ses.append({"fecha": f.isoformat(), "en_letra": en_letra(f), "horas": dur,
+                        "acumulado": round(acum, 2), "suelta": True, "pasada": f < hoy})
+        return ses, None
+
     total = leer_horas(g.get("paquete"))
     if total is None:
         return [], "falta el total de horas del ciclo (PAQUETE)"
@@ -254,13 +274,15 @@ def analizar(texto):
             else:
                 avisos.append(f"línea {n}: etiqueta desconocida '{etiqueta.strip()}'")
             continue
+        if campo == "sesiones":
+            campo = "sesiones_fijas"
         if campo == "nivel" and parte_es_nivel(valor):
             valor = valor.strip().upper()
         if campo == "grupo":
             actual = {"grupo": valor, "tipo": "", "nivel": "", "dias": "", "hora": "",
-                      "inicio": "", "primera": "", "desde": "", "paquete": "",
-                      "tomadas": "", "modalidad": "", "fin": "", "notas": "",
-                      "estudiantes": []}
+                      "inicio": "", "primera": "", "desde": "", "sesiones_fijas": "",
+                      "paquete": "", "tomadas": "", "modalidad": "", "fin": "",
+                      "estado": "", "notas": "", "estudiantes": []}
             grupos.append(actual)
             en_est = False
         elif actual is None:
