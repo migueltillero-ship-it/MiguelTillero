@@ -2270,7 +2270,7 @@ select:focus-visible, textarea:focus-visible {
   <button id="audio-btn" aria-label="Música de fondo"><i class="fa fa-music"></i></button>
 </div>
 <audio id="bg-audio" loop preload="none">
-  <source src="Arrival_at_the_Terminal%20(1).mp3" type="audio/mpeg">
+  <source src="Une_Promenade_en_Soleil.mp3" type="audio/mpeg">
 </audio>
 
 <!-- WHATSAPP FLOAT -->
@@ -4348,6 +4348,26 @@ if (audioBtn && bgAudio) {
   });
 }
 
+/* Arranque automático de la música al terminar el vídeo de intro.
+   Se permite porque la cadena viene del clic en «Entrar». */
+window.startBgMusic = function() {
+  if (!bgAudio || playing) return;
+  var p = bgAudio.play();
+  playing = true;
+  if (audioBtn) {
+    audioBtn.classList.add('playing');
+    audioBtn.innerHTML = '<i class="fa fa-pause"></i>';
+  }
+  /* Si el navegador lo bloquea, dejamos el botón listo para un clic manual */
+  if (p && p.catch) p.catch(function() {
+    playing = false;
+    if (audioBtn) {
+      audioBtn.classList.remove('playing');
+      audioBtn.innerHTML = '<i class="fa fa-music"></i>';
+    }
+  });
+};
+
 /* ── PORTRAIT CAROUSEL ─────────────────────── */
 (function(){
   var slides = document.querySelectorAll('.portrait-slide');
@@ -4511,7 +4531,9 @@ window.addEventListener('DOMContentLoaded', function() {
     if (introEl) introEl.classList.add('fade-out');
     document.body.classList.remove('intro-active');
 
-    /* La música de fondo NUNCA arranca sola: solo con el botón ♪ (opt-in). */
+    /* La música de fondo entra sola en cuanto termina el vídeo de intro. */
+    if (typeof window.startBgMusic === 'function') window.startBgMusic();
+
     setTimeout(function() {
       if (introEl) {
         introEl.style.display = 'none';
@@ -4536,7 +4558,8 @@ window.addEventListener('DOMContentLoaded', function() {
     if (playP && playP.catch) playP.catch(function(){});
     startProgress();
 
-    /* ← El audio de fondo arrancará en closeIntro(), DESPUÉS del video */
+    /* Precargamos la música mientras corre el vídeo para que entre sin corte */
+    if (bgAudio) { bgAudio.preload = 'auto'; try { bgAudio.load(); } catch (e) {} }
 
     /* Ocultar branding para ver el vídeo a pantalla completa */
     if (enterBtn)   enterBtn.style.display = 'none';
