@@ -2171,6 +2171,141 @@ select:focus-visible, textarea:focus-visible {
   .exam-rows li { grid-template-columns: 1fr; gap: 0.2rem; }
 }
 
+/* Acceso a la ficha exprés desde la sección de inscripción */
+.btn-express { font-size: 0.6rem; }
+
+
+/* ══════════════════════════════════════════════════════════
+   ERGONOMÍA MÓVIL
+   Objetivos táctiles de 44 px mínimo y texto legible en
+   teléfono. Solo afecta pantallas de hasta 640 px: el diseño
+   de escritorio queda intacto.
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+
+  /* ── Selectores de idioma y menú: eran de 28×21 px ── */
+  .nav-controls .ctrl-btn {
+    min-width: 44px; min-height: 44px;
+    font-size: 0.72rem; letter-spacing: 0.1em;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .nav-controls .hamburger {
+    min-width: 44px; min-height: 44px; font-size: 1.05rem;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .footer-langs .footer-lb {
+    min-width: 44px; min-height: 44px;
+    font-size: 0.72rem; letter-spacing: 0.1em;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+
+  /* ── Campos de formulario ──
+     16 px evita que iOS haga zoom automático al enfocar. */
+  .form-field input,
+  .form-field select,
+  .form-field textarea,
+  .insc-form input,
+  .insc-form select,
+  .insc-form textarea,
+  .modal-box input,
+  .modal-box select,
+  .modal-box textarea {
+    font-size: 16px;
+    min-height: 48px;
+    padding: 0.85rem 0.8rem;
+  }
+  .form-field textarea,
+  .insc-form textarea,
+  .modal-box textarea { min-height: 96px; }
+
+  /* Etiquetas de los campos: eran de 9.3 px */
+  .form-field label,
+  .insc-form label,
+  .modal-box label,
+  .insc-label { font-size: 0.72rem; letter-spacing: 0.14em; line-height: 1.5; }
+
+  /* ── Casillas, opciones y franjas horarias ── */
+  .dispo-option,
+  .radio-opt {
+    min-height: 48px; align-items: center;
+    font-size: 0.95rem; padding: 0.55rem 0.8rem;
+  }
+  .dispo-option input,
+  .radio-opt input { width: 1.25rem; height: 1.25rem; }
+  .time-slot {
+    min-height: 44px; font-size: 0.72rem; letter-spacing: 0.08em;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+
+  /* ── Botones: pasan de 39–42 px a 48 px ── */
+  .btn, .cv-btn, .testi-cta-btn, .social-btn {
+    min-height: 48px; font-size: 0.68rem;
+  }
+  .social-btn { min-width: 48px; }
+  .cta-btns .btn { flex: 1 1 100%; }
+
+  /* ── Texto que era ilegible (8–9.6 px) ── */
+  .eyebrow            { font-size: 0.72rem; letter-spacing: 0.22em; }
+  .skill-tag          { font-size: 0.7rem; padding: 0.3rem 0.6rem; }
+  .tl-org             { font-size: 0.72rem; letter-spacing: 0.12em; }
+  .tl-date            { font-size: 0.72rem; letter-spacing: 0.1em; }
+  .edu-year           { font-size: 0.72rem; letter-spacing: 0.1em; }
+  .stat-lbl           { font-size: 0.68rem; letter-spacing: 0.12em; }
+  .vtag               { font-size: 0.7rem; }
+  .testi-role         { font-size: 0.72rem; letter-spacing: 0.1em; }
+  .testi-note         { font-size: 0.75rem; line-height: 1.6; }
+  .c-label            { font-size: 0.7rem; letter-spacing: 0.16em; }
+  .modal-sub          { font-size: 0.65rem; letter-spacing: 0.2em; }
+  .hud-label          { font-size: 0.7rem; letter-spacing: 0.2em; }
+  .name-tag           { font-size: 0.78rem; }
+  .portrait-data .loc { font-size: 0.75rem; }
+  .hud-data-box .row  { font-size: 0.75rem; }
+  .hud-data-box .row span,
+  .hud-data-box .row .val { font-size: 0.72rem; }
+  .lang-pill .lvl     { font-size: 0.7rem; }
+  .footer-copy, .footer-tag { font-size: 0.78rem; }
+  .pay-label, .pay-bank-sub, .store-badge, .qr-info { font-size: 0.7rem; }
+
+  /* Los mensajes de error deben leerse sin esfuerzo */
+  .form-error { font-size: 0.8rem; line-height: 1.5; }
+
+  /* Enlaces de texto suelto: área táctil cómoda */
+  .cv-drop-item { min-height: 48px; display: flex; align-items: center; font-size: 0.9rem; }
+
+  /* ── Segunda pasada: rótulos que seguían por debajo de 11 px ── */
+  .btn, .cv-btn, .testi-cta-btn, .insc-submit { font-size: 0.74rem; }
+  .btn span, .cv-btn span, .testi-cta-btn span, .insc-submit span { font-size: inherit; }
+  .insc-legend, .insc-legend span { font-size: 0.72rem; letter-spacing: 0.16em; }
+  .insc-field label { font-size: 0.72rem; letter-spacing: 0.14em; }
+  .stat-lbl { font-size: 0.74rem; }
+  .video-meta, .video-meta span { font-size: 0.72rem; letter-spacing: 0.12em; }
+  .filmstrip-hint, .filmstrip-hint span { font-size: 0.72rem; letter-spacing: 0.14em; }
+  .hero-pre, .hero-pre span { font-size: 0.74rem; letter-spacing: 0.16em; }
+  .insc-success, .insc-success span,
+  .form-success, .form-success span { font-size: 0.85rem; line-height: 1.6; }
+  .modal-sub { font-size: 0.7rem; }
+  .portrait-data .name-tag { font-size: 0.8rem; }
+  #wa-lbl { font-size: 0.78rem; }
+
+  /* Correo y teléfonos: eran de 15 px de alto, imposibles de acertar */
+  .c-val a {
+    display: inline-flex; align-items: center;
+    min-height: 44px; font-size: 0.95rem;
+  }
+
+  /* Barra de estudio: enlaces de 24 px de alto */
+  .studybar-inner a {
+    min-height: 44px; display: inline-flex; align-items: center;
+    font-size: 0.74rem; padding: 0 0.35rem;
+  }
+
+  /* Cerrar modal: era de 32×32 px */
+  .modal-close {
+    min-width: 44px; min-height: 44px; font-size: 1.05rem;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+
+}
 </style>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
@@ -3634,7 +3769,7 @@ select:focus-visible, textarea:focus-visible {
     <div class="insc-intro reveal">
       <p data-es="Completa este formulario para que pueda conocerte mejor y diseñar un plan de clases a tu medida. Tus respuestas me ayudarán a organizar horarios, adaptar la metodología a tus objetivos y ofrecerte la mejor experiencia de aprendizaje del francés." data-fr="Remplissez ce formulaire pour que je puisse mieux vous connaître et concevoir un plan de cours sur mesure." data-en="Fill out this form so I can get to know you and design a tailored class plan.">Completa este formulario para que pueda conocerte mejor y diseñar un plan de clases a tu medida. Tus respuestas me ayudarán a organizar horarios, adaptar la metodología a tus objetivos y ofrecerte la mejor experiencia de aprendizaje del francés.</p>
       <p style="text-align:center;margin-top:1.2rem">
-        <a href="registro/alta.html" class="btn btn-ghost" style="font-size:.6rem">
+        <a href="registro/alta.html" class="btn btn-ghost btn-express">
           <i class="fa fa-bolt"></i>
           <span data-es="¿Ya hablaste con Miguel? Ficha exprés en 3 pasos" data-fr="Déjà en contact avec Miguel ? Fiche express en 3 étapes" data-en="Already talked to Miguel? Express form in 3 steps">¿Ya hablaste con Miguel? Ficha exprés en 3 pasos</span>
         </a>

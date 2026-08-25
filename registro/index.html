@@ -155,6 +155,26 @@ td { padding: 0.55rem 0.6rem; border-bottom: 1px solid rgba(18,41,28,0.08); vert
   #print-area table { width: 100%; border-collapse: collapse; margin-top: 0.8rem; }
   #print-area th, #print-area td { border: 1px solid #999; padding: 5px 8px; font-size: 12px; text-align: left; }
 }
+
+/* ── ERGONOMÍA MÓVIL: el panel también se usa desde el teléfono ── */
+@media (max-width: 640px) {
+  .btn { min-height: 46px; font-size: 0.66rem; }
+  .btn.small { min-height: 40px; font-size: 0.6rem; padding: 0.45rem 0.8rem; }
+  .tap { min-height: 52px; font-size: 0.64rem; padding: 0.8rem 1rem; }
+  input, select { font-size: 16px; min-height: 48px; }
+  .day-pick span { min-width: 46px; min-height: 46px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.68rem; }
+  .x { min-width: 44px; min-height: 44px; }
+  .flow-opt { padding: 1.1rem; }
+  .modal { padding: 1.5rem 1.2rem; }
+  th, td { font-size: 0.88rem; }
+  .topbar { gap: 0.6rem; }
+  .btn { font-size: 0.72rem; }
+  .mono { font-size: 0.72rem; letter-spacing: 0.2em; }
+  label { font-size: 0.72rem; letter-spacing: 0.14em; }
+  .box-head { font-size: 0.72rem; }
+  .bal span { font-size: 0.66rem; }
+  .badge { font-size: 0.66rem; }
+}
 </style>
 </head>
 <body>
