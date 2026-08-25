@@ -1,0 +1,84 @@
+═══════════════════════════════════════════════════════════════
+ REGLAS DE SEGURIDAD DE FIRESTORE
+═══════════════════════════════════════════════════════════════
+
+ Estas reglas son lo que de verdad protege los datos. Las claves
+ de assets/firebase-config.js son públicas por diseño y no
+ protegen nada: sin estas reglas, cualquiera podría leer las
+ fichas de todos los estudiantes.
+
+ Cómo aplicarlas:
+   1. Consola de Firebase → Compilación → Firestore Database
+   2. Pestaña «Reglas»
+   3. Sustituye todo el contenido por el bloque de abajo
+   4. Pulsa «Publicar»
+
+ Qué establecen:
+   · Cada estudiante lee y escribe únicamente su propia ficha.
+   · Nadie puede leer la ficha de otro.
+   · Solo los correos de la lista ADMIN pueden ver y editar todo.
+   · Las solicitudes (constancias, citas) las crea el estudiante,
+     pero solo el administrador puede modificarlas o borrarlas.
+
+ IMPORTANTE: cambia el correo de la función esAdmin() si algún
+ día administras desde otra cuenta. Debe coincidir con la lista
+ window.ADMINS de assets/firebase-config.js.
+
+═══════════════════════════════════════════════════════════════
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function autenticado() {
+      return request.auth != null;
+    }
+
+    function esAdmin() {
+      return autenticado() && request.auth.token.email in [
+        'direccionsancristobal@alianzafr.edu.mx'
+      ];
+    }
+
+    function esDueno(uid) {
+      return autenticado() && request.auth.uid == uid;
+    }
+
+    // Ficha de cada estudiante
+    match /estudiantes/{uid} {
+      allow read, update: if esDueno(uid) || esAdmin();
+      allow create: if esDueno(uid);
+      allow delete: if esAdmin();
+    }
+
+    // Grupos: los lee cualquier estudiante identificado; solo el
+    // administrador los crea o modifica.
+    match /grupos/{grupoId} {
+      allow read: if autenticado();
+      allow write: if esAdmin();
+    }
+
+    // Solicitudes: constancias, citas, copias de contrato.
+    match /solicitudes/{id} {
+      allow create: if autenticado()
+                    && request.resource.data.uid == request.auth.uid;
+      allow read: if esAdmin()
+                  || (autenticado() && resource.data.uid == request.auth.uid);
+      allow update, delete: if esAdmin();
+    }
+
+    // Pagos: los registra el administrador; el estudiante solo
+    // consulta los suyos.
+    match /pagos/{id} {
+      allow read: if esAdmin()
+                  || (autenticado() && resource.data.uid == request.auth.uid);
+      allow write: if esAdmin();
+    }
+
+    // Todo lo demás queda cerrado.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
