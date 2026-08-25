@@ -75,6 +75,16 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--gold);outline-of
   background:#f4f8f5;border:1px solid var(--line);border-radius:4px;padding:1rem;
   max-height:340px;overflow:auto;margin:1rem 0}
 footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:2rem}
+
+/* ── ERGONOMÍA MÓVIL: campos cómodos y sin zoom en iOS ── */
+@media (max-width: 640px) {
+  .field input, .field select, .field textarea,
+  input, select, textarea { font-size: 16px; min-height: 48px; }
+  textarea { min-height: 96px; }
+  .eyebrow { font-size: 0.74rem; }
+  .row { grid-template-columns: 1fr; }
+  button, .boton { min-height: 48px; }
+}
 </style>
 </head>
 <body>

@@ -74,6 +74,17 @@ dialog::backdrop{background:rgba(11,51,39,.55);backdrop-filter:blur(3px)}
   line-height:1;color:var(--muted);cursor:pointer}
 .cerrar:hover{color:var(--ink)}
 #demo-aviso{margin:1rem 0}
+
+/* ── ERGONOMÍA MÓVIL: objetivos táctiles de 44 px ── */
+@media (max-width: 640px) {
+  .pestanas button { min-height: 48px; font-size: 0.9rem; }
+  .campo input, .campo select, .campo textarea,
+  input, select, textarea { font-size: 16px; min-height: 48px; }
+  .enlace { min-height: 44px; padding: 0.5rem 0.2rem; }
+  .chico a, p a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.15rem; }
+  .eyebrow { font-size: 0.74rem; }
+  .boton, button.principal { min-height: 48px; }
+}
 </style>
 </head>
 <body>

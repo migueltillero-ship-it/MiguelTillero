@@ -436,6 +436,26 @@ footer#footer { padding: 3rem 0; border-top:1px solid rgba(165,130,74,.2); }
   .sec-title, .hero-title-doc, h4, .firma-name { color:#111 !important; }
   .sec-title em, .hero-title-doc em { color:#333 !important; }
 }
+
+/* ── ERGONOMÍA MÓVIL: objetivos táctiles de 44 px y texto legible ── */
+@media (max-width: 640px) {
+  .nav-brand, .nav-back, .footer-back,
+  .doc-anchor-nav a, .footer-contact a {
+    min-height: 44px; display: inline-flex; align-items: center;
+  }
+  .nav-back, .footer-back { font-size: 0.74rem; }
+  .doc-anchor-nav a { font-size: 0.74rem; padding: 0.6rem 0.8rem; }
+  .btn-print { min-height: 48px; font-size: 0.74rem; }
+  #back-top, .back-top { min-width: 46px; min-height: 46px; }
+  .clause-tag { font-size: 0.74rem; }
+  .eyebrow { font-size: 0.74rem; letter-spacing: 0.2em; }
+  .firma-role { font-size: 0.74rem; }
+  .unit { font-size: 0.74rem; }
+  .footer-tag { font-size: 0.78rem; }
+  .footer-contact a, .doc-anchor-nav a { letter-spacing: 0.1em; }
+  .price-tag .unit { font-size: 0.76rem; }
+  .footer-contact a { font-size: 0.76rem; }
+}
 </style>
 </head>
 <body>

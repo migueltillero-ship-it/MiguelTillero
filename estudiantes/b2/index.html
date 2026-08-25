@@ -96,7 +96,13 @@
         .btn-reinitialiser:hover { background: var(--gris-doux); }
 
         footer { text-align: center; padding: 5rem 1rem 3rem; color: #888; font-size: 0.95rem; }
-    </style>
+    
+/* ── ERGONOMÍA MÓVIL ── */
+@media (max-width: 640px) {
+  .btn-reinitialiser, button { min-height: 48px; }
+  input, select, textarea { font-size: 16px; }
+}
+</style>
 </head>
 <body>
     <div id="progress-bar-container"><div id="progress-bar"></div></div>
