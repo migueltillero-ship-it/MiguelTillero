@@ -1,5 +1,5 @@
 {
-  "generado": "2026-08-19",
+  "generado": "2026-08-25",
   "calendario": [
     {
       "fecha": "2026-07-31",
@@ -87,7 +87,7 @@
       "horas": 1.0,
       "acumulado": 3.0,
       "suelta": false,
-      "pasada": false,
+      "pasada": true,
       "grupo": "Clases particulares · Harleen Kaur",
       "grupo_id": "clases-particulares-harleen-kaur"
     },
@@ -97,7 +97,7 @@
       "horas": 1.0,
       "acumulado": 7.0,
       "suelta": true,
-      "pasada": false,
+      "pasada": true,
       "grupo": "Clases particulares · Annette Alfaro",
       "grupo_id": "clases-particulares-annette-alfaro"
     },
@@ -107,7 +107,7 @@
       "horas": 1.0,
       "acumulado": 8.0,
       "suelta": true,
-      "pasada": false,
+      "pasada": true,
       "grupo": "Clases particulares · Annette Alfaro",
       "grupo_id": "clases-particulares-annette-alfaro"
     },
@@ -117,7 +117,7 @@
       "horas": 1.0,
       "acumulado": 4.0,
       "suelta": false,
-      "pasada": false,
+      "pasada": true,
       "grupo": "Francés A1.4 Híbrido",
       "grupo_id": "frances-a1-4-hibrido"
     },
@@ -127,7 +127,7 @@
       "horas": 1.0,
       "acumulado": 9.0,
       "suelta": true,
-      "pasada": false,
+      "pasada": true,
       "grupo": "Clases particulares · Annette Alfaro",
       "grupo_id": "clases-particulares-annette-alfaro"
     },
@@ -137,7 +137,7 @@
       "horas": 1.5,
       "acumulado": 6.0,
       "suelta": false,
-      "pasada": false,
+      "pasada": true,
       "grupo": "Club de conversación",
       "grupo_id": "club-de-conversacion"
     },
@@ -147,7 +147,7 @@
       "horas": 1.0,
       "acumulado": 4.0,
       "suelta": false,
-      "pasada": false,
+      "pasada": true,
       "grupo": "Clases particulares · Harleen Kaur",
       "grupo_id": "clases-particulares-harleen-kaur"
     },
@@ -157,7 +157,7 @@
       "horas": 1.0,
       "acumulado": 10.0,
       "suelta": true,
-      "pasada": false,
+      "pasada": true,
       "grupo": "Clases particulares · Annette Alfaro",
       "grupo_id": "clases-particulares-annette-alfaro"
     },
@@ -202,6 +202,16 @@
       "grupo_id": "clases-particulares-harleen-kaur"
     },
     {
+      "fecha": "2026-08-31",
+      "en_letra": "lunes 31 de agosto de 2026",
+      "horas": 1.5,
+      "acumulado": 1.5,
+      "suelta": false,
+      "pasada": false,
+      "grupo": "B2 Virtual",
+      "grupo_id": "b2-virtual"
+    },
+    {
       "fecha": "2026-09-01",
       "en_letra": "martes 1 de septiembre de 2026",
       "horas": 1.0,
@@ -220,6 +230,16 @@
       "pasada": false,
       "grupo": "Clases particulares · Harleen Kaur",
       "grupo_id": "clases-particulares-harleen-kaur"
+    },
+    {
+      "fecha": "2026-09-02",
+      "en_letra": "miércoles 2 de septiembre de 2026",
+      "horas": 1.5,
+      "acumulado": 3.0,
+      "suelta": false,
+      "pasada": false,
+      "grupo": "B2 Virtual",
+      "grupo_id": "b2-virtual"
     },
     {
       "fecha": "2026-09-03",
@@ -242,6 +262,16 @@
       "grupo_id": "clases-particulares-harleen-kaur"
     },
     {
+      "fecha": "2026-09-07",
+      "en_letra": "lunes 7 de septiembre de 2026",
+      "horas": 1.5,
+      "acumulado": 4.5,
+      "suelta": false,
+      "pasada": false,
+      "grupo": "B2 Virtual",
+      "grupo_id": "b2-virtual"
+    },
+    {
       "fecha": "2026-09-08",
       "en_letra": "martes 8 de septiembre de 2026",
       "horas": 1.0,
@@ -260,6 +290,16 @@
       "pasada": false,
       "grupo": "Clases particulares · Harleen Kaur",
       "grupo_id": "clases-particulares-harleen-kaur"
+    },
+    {
+      "fecha": "2026-09-09",
+      "en_letra": "miércoles 9 de septiembre de 2026",
+      "horas": 1.5,
+      "acumulado": 6.0,
+      "suelta": false,
+      "pasada": false,
+      "grupo": "B2 Virtual",
+      "grupo_id": "b2-virtual"
     },
     {
       "fecha": "2026-09-10",
@@ -282,6 +322,16 @@
       "grupo_id": "clases-particulares-harleen-kaur"
     },
     {
+      "fecha": "2026-09-14",
+      "en_letra": "lunes 14 de septiembre de 2026",
+      "horas": 1.5,
+      "acumulado": 7.5,
+      "suelta": false,
+      "pasada": false,
+      "grupo": "B2 Virtual",
+      "grupo_id": "b2-virtual"
+    },
+    {
       "fecha": "2026-09-15",
       "en_letra": "martes 15 de septiembre de 2026",
       "horas": 1.0,
@@ -290,6 +340,16 @@
       "pasada": false,
       "grupo": "Francés A1.4 Híbrido",
       "grupo_id": "frances-a1-4-hibrido"
+    },
+    {
+      "fecha": "2026-09-16",
+      "en_letra": "miércoles 16 de septiembre de 2026",
+      "horas": 1.5,
+      "acumulado": 9.0,
+      "suelta": false,
+      "pasada": false,
+      "grupo": "B2 Virtual",
+      "grupo_id": "b2-virtual"
     },
     {
       "fecha": "2026-09-17",
@@ -302,6 +362,16 @@
       "grupo_id": "frances-a1-4-hibrido"
     },
     {
+      "fecha": "2026-09-21",
+      "en_letra": "lunes 21 de septiembre de 2026",
+      "horas": 1.5,
+      "acumulado": 10.5,
+      "suelta": false,
+      "pasada": false,
+      "grupo": "B2 Virtual",
+      "grupo_id": "b2-virtual"
+    },
+    {
       "fecha": "2026-09-22",
       "en_letra": "martes 22 de septiembre de 2026",
       "horas": 1.0,
@@ -310,6 +380,16 @@
       "pasada": false,
       "grupo": "Francés A1.4 Híbrido",
       "grupo_id": "frances-a1-4-hibrido"
+    },
+    {
+      "fecha": "2026-09-23",
+      "en_letra": "miércoles 23 de septiembre de 2026",
+      "horas": 1.5,
+      "acumulado": 12.0,
+      "suelta": false,
+      "pasada": false,
+      "grupo": "B2 Virtual",
+      "grupo_id": "b2-virtual"
     },
     {
       "fecha": "2026-09-24",
@@ -322,6 +402,16 @@
       "grupo_id": "frances-a1-4-hibrido"
     },
     {
+      "fecha": "2026-09-28",
+      "en_letra": "lunes 28 de septiembre de 2026",
+      "horas": 1.5,
+      "acumulado": 13.5,
+      "suelta": false,
+      "pasada": false,
+      "grupo": "B2 Virtual",
+      "grupo_id": "b2-virtual"
+    },
+    {
       "fecha": "2026-09-29",
       "en_letra": "martes 29 de septiembre de 2026",
       "horas": 1.0,
@@ -332,6 +422,16 @@
       "grupo_id": "frances-a1-4-hibrido"
     },
     {
+      "fecha": "2026-09-30",
+      "en_letra": "miércoles 30 de septiembre de 2026",
+      "horas": 1.5,
+      "acumulado": 15.0,
+      "suelta": false,
+      "pasada": false,
+      "grupo": "B2 Virtual",
+      "grupo_id": "b2-virtual"
+    },
+    {
       "fecha": "2026-10-01",
       "en_letra": "jueves 1 de octubre de 2026",
       "horas": 1.0,
@@ -340,6 +440,16 @@
       "pasada": false,
       "grupo": "Francés A1.4 Híbrido",
       "grupo_id": "frances-a1-4-hibrido"
+    },
+    {
+      "fecha": "2026-10-05",
+      "en_letra": "lunes 5 de octubre de 2026",
+      "horas": 1.0,
+      "acumulado": 16.0,
+      "suelta": false,
+      "pasada": false,
+      "grupo": "B2 Virtual",
+      "grupo_id": "b2-virtual"
     }
   ]
 }

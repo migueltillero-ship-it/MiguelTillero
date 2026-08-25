@@ -1,5 +1,5 @@
 {
-  "generado": "2026-08-19",
+  "generado": "2026-08-25",
   "grupos": [
     {
       "grupo": "Clases particulares · Harleen Kaur",
@@ -57,7 +57,7 @@
           "horas": 1.0,
           "acumulado": 3.0,
           "suelta": false,
-          "pasada": false
+          "pasada": true
         },
         {
           "fecha": "2026-08-24",
@@ -65,7 +65,7 @@
           "horas": 1.0,
           "acumulado": 4.0,
           "suelta": false,
-          "pasada": false
+          "pasada": true
         },
         {
           "fecha": "2026-08-26",
@@ -206,7 +206,7 @@
           "horas": 1.0,
           "acumulado": 7.0,
           "suelta": true,
-          "pasada": false
+          "pasada": true
         },
         {
           "fecha": "2026-08-20",
@@ -214,7 +214,7 @@
           "horas": 1.0,
           "acumulado": 8.0,
           "suelta": true,
-          "pasada": false
+          "pasada": true
         },
         {
           "fecha": "2026-08-21",
@@ -222,7 +222,7 @@
           "horas": 1.0,
           "acumulado": 9.0,
           "suelta": true,
-          "pasada": false
+          "pasada": true
         },
         {
           "fecha": "2026-08-24",
@@ -230,7 +230,7 @@
           "horas": 1.0,
           "acumulado": 10.0,
           "suelta": true,
-          "pasada": false
+          "pasada": true
         }
       ],
       "cierre": "2026-08-24",
@@ -331,7 +331,7 @@
           "horas": 1.0,
           "acumulado": 4.0,
           "suelta": false,
-          "pasada": false
+          "pasada": true
         },
         {
           "fecha": "2026-08-25",
@@ -444,17 +444,17 @@
       "nivel": "B2",
       "dias": "lunes, miércoles",
       "hora": "19:00-20:30",
-      "inicio": "",
+      "inicio": "2026-08-31",
       "primera": "",
       "desde": "",
       "sesiones_fijas": "",
-      "paquete": "",
-      "tomadas": "",
+      "paquete": "16 horas",
+      "tomadas": "0",
       "modalidad": "en línea",
       "fin": "",
       "estado": "",
       "renueva": "",
-      "notas": "faltan la fecha de inicio del ciclo y su total de horas",
+      "notas": "ciclo nuevo. El lunes se hace repaso general y reparto de horarios; el miércoles, evaluación de competencias y entrega del plan de estudios. Inicio deducido de la carta al grupo: pendiente de confirmar si el ciclo arranca ese lunes o tras la evaluación",
       "estudiantes": [
         {
           "nombre": "Melissa Rico",
@@ -523,14 +523,103 @@
         }
       ],
       "id": "b2-virtual",
-      "sesiones": [],
-      "cierre": "",
-      "cierre_letra": "",
-      "motivo_sin_calendario": "falta el total de horas del ciclo (PAQUETE)",
+      "sesiones": [
+        {
+          "fecha": "2026-08-31",
+          "en_letra": "lunes 31 de agosto de 2026",
+          "horas": 1.5,
+          "acumulado": 1.5,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-02",
+          "en_letra": "miércoles 2 de septiembre de 2026",
+          "horas": 1.5,
+          "acumulado": 3.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-07",
+          "en_letra": "lunes 7 de septiembre de 2026",
+          "horas": 1.5,
+          "acumulado": 4.5,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-09",
+          "en_letra": "miércoles 9 de septiembre de 2026",
+          "horas": 1.5,
+          "acumulado": 6.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-14",
+          "en_letra": "lunes 14 de septiembre de 2026",
+          "horas": 1.5,
+          "acumulado": 7.5,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-16",
+          "en_letra": "miércoles 16 de septiembre de 2026",
+          "horas": 1.5,
+          "acumulado": 9.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-21",
+          "en_letra": "lunes 21 de septiembre de 2026",
+          "horas": 1.5,
+          "acumulado": 10.5,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-23",
+          "en_letra": "miércoles 23 de septiembre de 2026",
+          "horas": 1.5,
+          "acumulado": 12.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-28",
+          "en_letra": "lunes 28 de septiembre de 2026",
+          "horas": 1.5,
+          "acumulado": 13.5,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-09-30",
+          "en_letra": "miércoles 30 de septiembre de 2026",
+          "horas": 1.5,
+          "acumulado": 15.0,
+          "suelta": false,
+          "pasada": false
+        },
+        {
+          "fecha": "2026-10-05",
+          "en_letra": "lunes 5 de octubre de 2026",
+          "horas": 1.0,
+          "acumulado": 16.0,
+          "suelta": false,
+          "pasada": false
+        }
+      ],
+      "cierre": "2026-10-05",
+      "cierre_letra": "lunes 5 de octubre de 2026",
+      "motivo_sin_calendario": "",
       "proximo_ciclo": [],
-      "horas_total": 0,
+      "horas_total": 16.0,
       "horas_tomadas": 0.0,
-      "horas_restantes": 0
+      "horas_restantes": 16.0
     },
     {
       "grupo": "Club de conversación",
@@ -635,7 +724,7 @@
           "horas": 1.5,
           "acumulado": 6.0,
           "suelta": false,
-          "pasada": false
+          "pasada": true
         }
       ],
       "cierre": "2026-08-21",
