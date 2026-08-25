@@ -2045,6 +2045,71 @@ select:focus-visible, textarea:focus-visible {
 .res-desc { font-size: 0.75rem; line-height: 1.7; color: var(--muted); }
 .res-go { display: inline-block; margin-top: 0.9rem; font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan); }
 
+/* ── Portada: accesos a las páginas ── */
+.portal-head {
+  display: flex; align-items: center; justify-content: center; gap: 1.2rem;
+  margin: 5.5rem auto 2.4rem; max-width: 720px;
+}
+.portal-head .eyebrow { margin: 0; white-space: nowrap; }
+.portal-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
+
+.portal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
+.portal-card {
+  position: relative; overflow: hidden; display: block; text-decoration: none;
+  padding: 2rem 1.7rem 1.7rem;
+  background: var(--glass); border: 1px solid var(--borderx);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  transition: transform 0.45s cubic-bezier(.16,1,.3,1), border-color 0.4s, box-shadow 0.4s, background 0.4s;
+}
+.portal-card::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+  background: linear-gradient(180deg, var(--gold), var(--cyan));
+  transform: scaleY(0); transform-origin: top; transition: transform 0.5s cubic-bezier(.16,1,.3,1);
+}
+.portal-card:hover {
+  transform: translateY(-7px); border-color: var(--border);
+  background: rgba(255,255,255,0.94); box-shadow: var(--glow);
+}
+.portal-card:hover::before { transform: scaleY(1); }
+/* La entrada principal se distingue por tratamiento, no por tamaño:
+   así la rejilla queda en dos filas exactas de tres. */
+.portal-card.feature {
+  background: rgba(255,255,255,0.94);
+  border-color: var(--border);
+  box-shadow: 0 6px 30px rgba(30,60,40,0.09);
+}
+.portal-card.feature::before { transform: scaleY(1); }
+.portal-card.feature .portal-num { opacity: 0.75; }
+.portal-num {
+  position: absolute; top: 1.1rem; right: 1.3rem;
+  font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em;
+  color: var(--gold); opacity: 0.4;
+}
+.portal-icon { display: block; font-size: 1.35rem; color: var(--gold); margin-bottom: 1.1rem; }
+.portal-title { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 600; color: var(--white); margin-bottom: 0.6rem; }
+.portal-desc { font-size: 0.79rem; line-height: 1.75; color: var(--muted); }
+.portal-go {
+  display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.2rem;
+  font-family: 'Space Mono', monospace; font-size: 0.52rem;
+  letter-spacing: 0.24em; text-transform: uppercase; color: var(--cyan);
+}
+.portal-go::after { content: '→'; transition: transform 0.35s cubic-bezier(.16,1,.3,1); }
+.portal-card:hover .portal-go::after { transform: translateX(6px); }
+
+/* Enlace activo de la página en curso */
+.nav-links a.active { color: var(--gold); }
+.nav-links a.active::after { transform: scaleX(1); }
+.mobile-menu a.active { color: var(--gold); }
+
+@media (max-width: 900px) {
+  .portal-grid { grid-template-columns: repeat(2, 1fr); }
+  .portal-head { margin-top: 4rem; }
+}
+@media (max-width: 600px) {
+  .portal-grid { grid-template-columns: 1fr; }
+  .portal-head .eyebrow { white-space: normal; text-align: center; }
+}
+
 /* ── Barra de pestañas del área de estudiantes ── */
 #studybar {
   position: fixed; top: 58px; left: 0; right: 0; z-index: 880;
@@ -2283,20 +2348,16 @@ select:focus-visible, textarea:focus-visible {
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobile-menu">
-  <a href="#about" onclick="closeMob()" data-es="Perfil" data-fr="Profil" data-en="Profile">Perfil</a>
-  <a href="#services" onclick="closeMob()" data-es="Expertise" data-fr="Expertise" data-en="Expertise">Expertise</a>
-  <a href="#modalidades" onclick="closeMob()" data-es="Cursos" data-fr="Cours" data-en="Courses">Cursos</a>
-  <a href="#certificaciones" onclick="closeMob()" data-es="Exámenes" data-fr="Examens" data-en="Exams">Exámenes</a>
-  <a href="#niveles" onclick="closeMob()" data-es="Mi nivel" data-fr="Mon niveau" data-en="My level">Mi nivel</a>
-  <a href="#timeline" onclick="closeMob()" data-es="Trayectoria" data-fr="Parcours" data-en="Career">Trayectoria</a>
-  <a href="#education" onclick="closeMob()" data-es="Formación" data-fr="Formation" data-en="Education">Formación</a>
-  <a href="#gallery" onclick="closeMob()" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a>
-  <a href="#cultura" onclick="closeMob()" data-es="Actividades" data-fr="Activités" data-en="Activities">Actividades</a>
-  <a href="#recursos" onclick="closeMob()" data-es="Recursos" data-fr="Ressources" data-en="Resources">Recursos</a>
-  <a href="#inscripcion" onclick="closeMob()" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a>
+  <a href="#inicio" data-route="inicio" data-es="Inicio" data-fr="Accueil" data-en="Home">Inicio</a>
+  <a href="#perfil" data-route="perfil" data-es="Perfil" data-fr="Profil" data-en="Profile">Perfil</a>
+  <a href="#servicios" data-route="servicios" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</a>
+  <a href="#estudiantes" data-route="estudiantes" data-es="Cursos y exámenes" data-fr="Cours et examens" data-en="Courses & exams">Cursos y exámenes</a>
+  <a href="#galeria" data-route="galeria" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a>
+  <a href="#contacto" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a>
+  <a href="#inscripcion" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a>
+  <a href="#pagos" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a>
   <a href="reglamento.html" onclick="closeMob()" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a>
   <a href="estudiantes/" onclick="closeMob()" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a>
-  <a href="#contact" onclick="closeMob()" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a>
 </div>
 
 <!-- NAV -->
@@ -2306,20 +2367,16 @@ select:focus-visible, textarea:focus-visible {
     Miguel <span>Tillero</span>
   </div>
   <ul class="nav-links">
-    <li><a href="#about" data-es="Sobre mí" data-fr="À propos" data-en="About">Sobre mí</a></li>
-    <li><a href="#services" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</a></li>
-    <li><a href="#modalidades" data-es="Cursos" data-fr="Cours" data-en="Courses">Cursos</a></li>
-    <li><a href="#certificaciones" data-es="Exámenes" data-fr="Examens" data-en="Exams">Exámenes</a></li>
-    <li class="nav-sec"><a href="#timeline" data-es="Trayectoria" data-fr="Parcours" data-en="Career">Trayectoria</a></li>
-    <li class="nav-sec"><a href="#education" data-es="Formación" data-fr="Formation" data-en="Education">Formación</a></li>
-    <li class="nav-sec"><a href="#gallery" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a></li>
-    <li class="nav-sec"><a href="#video-reel" data-es="Vídeo" data-fr="Vidéo" data-en="Video">Vídeo</a></li>
-    <li><a href="#cultura" data-es="Actividades" data-fr="Activités" data-en="Activities">Actividades</a></li>
-    <li><a href="#pagos" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a></li>
-    <li><a href="#inscripcion" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a></li>
-    <li><a href="reglamento.html" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a></li>
+    <li><a href="#inicio" data-route="inicio" data-es="Inicio" data-fr="Accueil" data-en="Home">Inicio</a></li>
+    <li><a href="#perfil" data-route="perfil" data-es="Perfil" data-fr="Profil" data-en="Profile">Perfil</a></li>
+    <li><a href="#servicios" data-route="servicios" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</a></li>
+    <li><a href="#estudiantes" data-route="estudiantes" data-es="Cursos y exámenes" data-fr="Cours et examens" data-en="Courses &amp; exams">Cursos y exámenes</a></li>
+    <li><a href="#galeria" data-route="galeria" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a></li>
+    <li><a href="#contacto" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a></li>
+    <li class="nav-sec"><a href="#pagos" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a></li>
+    <li class="nav-sec"><a href="reglamento.html" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a></li>
     <li><a href="estudiantes/" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a></li>
-    <li><a href="#contact" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a></li>
+    <li><a href="#inscripcion" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a></li>
   </ul>
   <div class="nav-controls">
     <button class="ctrl-btn active" onclick="setLang('es')">ES</button>
@@ -2342,7 +2399,7 @@ select:focus-visible, textarea:focus-visible {
 </div>
 
 <!-- ═══ HERO ═══ -->
-<section id="hero" class="z10">
+<section id="hero" class="z10" data-page="inicio">
   <div class="container">
     <div class="hero-inner">
       <div>
@@ -2415,11 +2472,68 @@ select:focus-visible, textarea:focus-visible {
         </div>
       </div>
     </div>
+
+    <!-- ── ACCESOS A LAS PÁGINAS ── -->
+    <div class="portal-head reveal">
+      <span class="portal-line"></span>
+      <p class="eyebrow" data-es="Elige por dónde empezar" data-fr="Choisissez par où commencer" data-en="Choose where to start">Elige por dónde empezar</p>
+      <span class="portal-line"></span>
+    </div>
+
+    <div class="portal-grid">
+      <a href="#estudiantes" class="portal-card feature reveal d1">
+        <span class="portal-num">01</span>
+        <i class="fa fa-graduation-cap portal-icon"></i>
+        <h3 class="portal-title" data-es="Cursos y exámenes" data-fr="Cours et examens" data-en="Courses & exams">Cursos y exámenes</h3>
+        <p class="portal-desc" data-es="Las modalidades de clase, los diplomas oficiales DELF y DALF, los tests TCF y TEF, la escala de niveles con test de ubicación, las actividades y los recursos para practicar." data-fr="Les formats de cours, les diplômes DELF et DALF, les tests TCF et TEF, l'échelle des niveaux avec test de positionnement, les activités et les ressources." data-en="Class formats, the official DELF and DALF diplomas, the TCF and TEF tests, the level scale with a placement test, activities and practice resources.">Las modalidades de clase, los diplomas oficiales DELF y DALF, los tests TCF y TEF, la escala de niveles con test de ubicación, las actividades y los recursos para practicar.</p>
+        <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
+      </a>
+
+      <a href="#servicios" class="portal-card reveal d2">
+        <span class="portal-num">02</span>
+        <i class="fa fa-briefcase portal-icon"></i>
+        <h3 class="portal-title" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</h3>
+        <p class="portal-desc" data-es="Clases, asesoría pedagógica, proyectos educativos, gestión cultural, traducción e interpretación y formación a medida." data-fr="Cours, conseil pédagogique, projets éducatifs, direction culturelle, traduction et formation sur mesure." data-en="Classes, pedagogical consulting, educational projects, cultural management, translation and tailored training.">Clases, asesoría pedagógica, proyectos educativos, gestión cultural, traducción e interpretación y formación a medida.</p>
+        <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
+      </a>
+
+      <a href="#perfil" class="portal-card reveal d3">
+        <span class="portal-num">03</span>
+        <i class="fa fa-user portal-icon"></i>
+        <h3 class="portal-title" data-es="Perfil" data-fr="Profil" data-en="Profile">Perfil</h3>
+        <p class="portal-desc" data-es="Quién soy, mi trayectoria por Venezuela, Ecuador, México y Francia, y la formación que respalda mi trabajo." data-fr="Qui je suis, mon parcours entre le Venezuela, l'Équateur, le Mexique et la France, et ma formation." data-en="Who I am, my path through Venezuela, Ecuador, Mexico and France, and the training behind my work.">Quién soy, mi trayectoria por Venezuela, Ecuador, México y Francia, y la formación que respalda mi trabajo.</p>
+        <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
+      </a>
+
+      <a href="#galeria" class="portal-card reveal d4">
+        <span class="portal-num">04</span>
+        <i class="fa fa-photo-film portal-icon"></i>
+        <h3 class="portal-title" data-es="Galería y vídeo" data-fr="Galerie et vidéo" data-en="Gallery & video">Galería y vídeo</h3>
+        <p class="portal-desc" data-es="Imágenes del aula y de los proyectos, y los vídeos donde me presento y cuento cómo trabajo." data-fr="Images de la classe et des projets, et les vidéos où je me présente et explique ma façon de travailler." data-en="Images from the classroom and projects, plus the videos where I introduce myself and how I work.">Imágenes del aula y de los proyectos, y los vídeos donde me presento y cuento cómo trabajo.</p>
+        <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
+      </a>
+
+      <a href="#inscripcion" class="portal-card reveal d5">
+        <span class="portal-num">05</span>
+        <i class="fa fa-pen-to-square portal-icon"></i>
+        <h3 class="portal-title" data-es="Inscripción" data-fr="Inscription" data-en="Enrolment">Inscripción</h3>
+        <p class="portal-desc" data-es="El formulario para empezar clases, con tu nivel, tus horarios y tus objetivos. También los testimonios de quienes ya pasaron por aquí." data-fr="Le formulaire pour commencer les cours, avec votre niveau, vos horaires et vos objectifs, ainsi que les témoignages." data-en="The form to start classes, with your level, schedule and goals — plus testimonials from past students.">El formulario para empezar clases, con tu nivel, tus horarios y tus objetivos. También los testimonios de quienes ya pasaron por aquí.</p>
+        <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
+      </a>
+
+      <a href="#contacto" class="portal-card reveal d6">
+        <span class="portal-num">06</span>
+        <i class="fa fa-envelope portal-icon"></i>
+        <h3 class="portal-title" data-es="Contacto y pagos" data-fr="Contact et paiements" data-en="Contact & payments">Contacto y pagos</h3>
+        <p class="portal-desc" data-es="Escríbeme, agenda una cita o una clase de prueba, resuelve las preguntas frecuentes y consulta los métodos de pago." data-fr="Écrivez-moi, réservez un rendez-vous ou un cours d'essai, consultez la FAQ et les moyens de paiement." data-en="Write to me, book an appointment or a trial class, check the FAQ and the payment methods.">Escríbeme, agenda una cita o una clase de prueba, resuelve las preguntas frecuentes y consulta los métodos de pago.</p>
+        <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
+      </a>
+    </div>
   </div>
 </section>
 
 <!-- ═══ ABOUT ═══ -->
-<section id="about" class="alt z10">
+<section id="about" class="alt z10" data-page="perfil">
   <div class="container">
     <div class="stats-bar reveal">
       <div class="stat-cell"><span class="stat-num">13</span><span class="stat-lbl" data-es="Años exp." data-fr="Ans d'exp." data-en="Years exp.">Años exp.</span></div>
@@ -2481,7 +2595,7 @@ select:focus-visible, textarea:focus-visible {
 </section>
 
 <!-- ═══ SERVICES ═══ -->
-<section id="services" class="z10">
+<section id="services" class="z10" data-page="servicios">
   <div class="container">
     <div class="sec-head reveal">
       <p class="eyebrow" data-es="Mis áreas de especialidad" data-fr="Mes domaines d'expertise" data-en="My areas of expertise">Mis áreas de especialidad</p>
@@ -2542,7 +2656,7 @@ select:focus-visible, textarea:focus-visible {
 </section>
 
 <!-- ═══ CURSOS Y MODALIDADES ═══ -->
-<section id="modalidades" class="alt z10">
+<section id="modalidades" class="alt z10" data-page="estudiantes">
   <div class="container">
     <div class="sec-head reveal" style="text-align:center;">
       <p class="eyebrow" style="justify-content:center" data-es="Nuestra oferta para aprender francés" data-fr="Notre offre pour apprendre le français" data-en="Our offer to learn French">Nuestra oferta para aprender francés</p>
@@ -2687,7 +2801,7 @@ select:focus-visible, textarea:focus-visible {
 </section>
 
 <!-- ═══ EXÁMENES Y CERTIFICACIONES ═══ -->
-<section id="certificaciones" class="z10">
+<section id="certificaciones" class="z10" data-page="estudiantes">
   <div class="container">
     <div class="sec-head reveal" style="text-align:center;">
       <p class="eyebrow" style="justify-content:center" data-es="Certifica tu francés" data-fr="Certifiez votre français" data-en="Certify your French">Certifica tu francés</p>
@@ -2803,450 +2917,8 @@ select:focus-visible, textarea:focus-visible {
   </div>
 </section>
 
-<!-- ═══ TIMELINE ═══ -->
-<section id="timeline" class="alt z10">
-  <div class="container">
-    <div class="sec-head reveal">
-      <p class="eyebrow" data-es="Mi trayectoria" data-fr="Mon parcours" data-en="My career">Mi trayectoria</p>
-      <h2 class="sec-title" style="margin-top:0.8rem;"><em data-es="Trayectoria profesional" data-fr="Parcours professionnel" data-en="Professional path">Trayectoria profesional</em></h2>
-    </div>
-    <div class="tl">
-      <div class="tl-item reveal d1">
-        <div class="tl-date-col"><div class="tl-date">Oct 2024<br>Présent</div></div>
-        <div class="tl-dot"></div>
-        <div class="tl-body">
-          <div class="tl-role" data-es="Director General" data-fr="Directeur général" data-en="General Director">Director General</div>
-          <div class="tl-org">Alliance Française · San Cristóbal de Las Casas, MX</div>
-          <ul class="tl-list">
-            <li data-es="Pilotaje del plan de relance institucional: diagnóstico estratégico y relance financiero." data-fr="Pilotage du plan de relance institutionnel : diagnostic stratégique et relance financière." data-en="Leading the institutional recovery plan: strategic diagnosis and financial relaunch.">Pilotaje del plan de relance institucional: diagnóstico estratégico y relance financiero.</li>
-            <li data-es="Implementación de protocolos administrativos, financieros y de RRHH." data-fr="Mise en œuvre de protocoles administratifs, financiers et RH." data-en="Implementation of administrative, financial and HR protocols.">Implementación de protocolos administrativos, financieros y de RRHH.</li>
-            <li data-es="Lanzamiento del proyecto STAFE «Potager Innovant»: agricultura urbana y educación culinaria." data-fr="Lancement du projet STAFE «Potager Innovant»." data-en="Launch of the STAFE «Potager Innovant» project.">Lanzamiento del proyecto STAFE «Potager Innovant»: agricultura urbana y educación culinaria.</li>
-            <li data-es="Alianzas con Institut Parmentier y Colegio La Salle." data-fr="Partenariats avec l'Institut Parmentier et le Colegio La Salle." data-en="Alliances with Institut Parmentier and Colegio La Salle.">Alianzas con Institut Parmentier y Colegio La Salle.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="tl-item reveal d1">
-        <div class="tl-date-col"><div class="tl-date">2019<br>2022</div></div>
-        <div class="tl-dot"></div>
-        <div class="tl-body">
-          <div class="tl-role" data-es="Director Pedagógico" data-fr="Directeur pédagogique" data-en="Pedagogical Director">Director Pedagógico</div>
-          <div class="tl-org">Alliance Française de Cuenca · Ecuador</div>
-          <ul class="tl-list">
-            <li data-es="Crecimiento del 34,7% en matrícula bajo su dirección." data-fr="Hausse de 34,7 % du nombre d'étudiants sur la période." data-en="34.7% student enrollment growth under his leadership.">Crecimiento del 34,7% en matrícula.</li>
-            <li data-es="Gestión de equipo de 12 docentes con formación individualizada." data-fr="Gestion d'une équipe de 12 enseignants." data-en="Management of a team of 12 teachers.">Gestión de equipo de 12 docentes.</li>
-            <li data-es="Organización de exámenes oficiales DELF y traducciones oficiales." data-fr="Organisation des examens DELF et traductions officielles." data-en="DELF examinations organization and official translations.">Organización DELF y traducciones oficiales.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="tl-item reveal d1">
-        <div class="tl-date-col"><div class="tl-date">2013<br>2017 · 2023</div></div>
-        <div class="tl-dot"></div>
-        <div class="tl-body">
-          <div class="tl-role" data-es="Profesor y Coordinador Pedagógico" data-fr="Professeur et coordinateur pédagogique" data-en="Teacher & Pedagogical Coordinator">Profesor y Coordinador Pedagógico</div>
-          <div class="tl-org">Lycée Français de Caracas · Venezuela</div>
-          <ul class="tl-list">
-            <li>Enseñanza FLE / ELE. Coordinación DELF escolar. Acompañamiento DIL.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="tl-item reveal d1">
-        <div class="tl-date-col"><div class="tl-date">2010<br>2012</div></div>
-        <div class="tl-dot"></div>
-        <div class="tl-body">
-          <div class="tl-role">Collaborateur — Campus France</div>
-          <div class="tl-org">Embajada de Francia · Venezuela</div>
-          <ul class="tl-list"><li>Formaciones regionales. Gestión de redes y contenidos institucionales.</li></ul>
-        </div>
-      </div>
-      <div class="tl-item reveal d1">
-        <div class="tl-date-col"><div class="tl-date">2011<br>2014</div></div>
-        <div class="tl-dot"></div>
-        <div class="tl-body">
-          <div class="tl-role">Conseiller Migration · Dir. Pédagogique</div>
-          <div class="tl-org">Centro Cultural Canadiense · Caracas</div>
-          <ul class="tl-list"><li>Asesoría migración Quebec. Eventos orientación universitaria.</li></ul>
-        </div>
-      </div>
-      <div class="tl-item reveal d1">
-        <div class="tl-date-col"><div class="tl-date">2010<br>2017</div></div>
-        <div class="tl-dot"></div>
-        <div class="tl-body">
-          <div class="tl-role">Formateur & Enseignant LE</div>
-          <div class="tl-org">Venezuela · France (Millau)</div>
-          <ul class="tl-list"><li>Enseñanza FR/EN/ES todos los niveles. Asistanato lingüístico Millau, Francia.</li></ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ EDUCATION ═══ -->
-<section id="education" class="z10">
-  <div class="container">
-    <div class="sec-head reveal">
-      <p class="eyebrow" data-es="Mi formación académica" data-fr="Ma formation" data-en="My education">Mi formación académica</p>
-      <h2 class="sec-title" style="margin-top:0.8rem;"><em data-es="Formación y distinciones" data-fr="Formation et distinctions" data-en="Education & distinctions">Formación y distinciones</em></h2>
-    </div>
-    <div class="edu-grid">
-      <div class="edu-card panel reveal d1">
-        <div class="edu-year">2017</div>
-        <div class="edu-deg" data-es="Diploma de Especialización en Enseñanza Universitaria" data-fr="Diplôme de spécialisation en enseignement universitaire" data-en="Specialization Diploma in University Teaching">Diploma de Especialización en Enseñanza Universitaria</div>
-        <div class="edu-inst">UPEL – Universidad Pedagógica Experimental Libertador · Caracas</div>
-      </div>
-      <div class="edu-card panel reveal d2">
-        <div class="edu-year">2009 — 2016</div>
-        <div class="edu-deg" data-es="Licenciatura en Educación, mención Francés" data-fr="Licence en éducation mention français" data-en="Bachelor's in Education, French">Licenciatura en Educación, mención Francés</div>
-        <div class="edu-inst">Instituto Pedagógico de Caracas – UPEL</div>
-        <ul class="dist-list">
-          <li>Mención Magna Cum Laude (2016)</li>
-          <li>Premio Talentum (2015)</li>
-          <li>Distinción excelencia académica AVENPROF (2011)</li>
-        </ul>
-      </div>
-    </div>
-    <p class="eyebrow reveal" style="margin:3rem 0 1.5rem;">Formations continues</p>
-    <div class="cert-grid">
-      <div class="cert-item reveal d1"><i class="fa fa-certificate"></i><span>France Éducation International — FLE, évaluation et motivation en classe</span></div>
-      <div class="cert-item reveal d2"><i class="fa fa-certificate"></i><span>Institut Français — Transition numérique et stratégie éducative</span></div>
-      <div class="cert-item reveal d3"><i class="fa fa-certificate"></i><span>CLE International – Montpellier — Didactique avancée du FLE</span></div>
-      <div class="cert-item reveal d4"><i class="fa fa-certificate"></i><span>CIEP – France — Certification officielle correction DELF-DALF</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ GALLERY ═══ -->
-<section id="gallery" class="alt z10">
-  <div class="container">
-    <div class="sec-head reveal">
-      <p class="eyebrow" data-es="Momentos y proyectos" data-fr="Moments et projets" data-en="Moments & projects">Momentos y proyectos</p>
-      <h2 class="sec-title" style="margin-top:0.8rem;"><em data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</em></h2>
-    </div>
-    <div class="filmstrip-wrap" data-gallery>
-      <div class="filmstrip-track" id="filmstripTrack">
-        <div class="filmstrip-loading"><i class="fa fa-circle-notch fa-spin"></i> <span>Cargando carrete</span></div>
-      </div>
-    </div>
-    <div class="filmstrip-hint">
-      <i class="fa fa-hand-pointer"></i>
-      <span data-es="Arrastra para explorar" data-fr="Glissez pour explorer" data-en="Drag to explore">Arrastra para explorar</span>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ VIDEO REEL ═══ -->
-<section id="video-reel" class="z10">
-  <div class="container">
-    <div class="sec-head reveal" style="text-align:center;margin-bottom:3rem;">
-      <p class="eyebrow" style="justify-content:center"
-         data-es="Presentación audiovisual" data-fr="Présentation audiovisuelle" data-en="Audiovisual presentation">
-        Presentación audiovisual
-      </p>
-      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;">
-        <em data-es="En vídeo" data-fr="En vidéo" data-en="On video">En vídeo</em>
-      </h2>
-    </div>
-
-    <div class="video-wrapper reveal bracket">
-      <!-- Corners -->
-      <div class="v-corner tl"></div>
-      <div class="v-corner tr"></div>
-      <div class="v-corner bl"></div>
-      <div class="v-corner br"></div>
-
-      <!-- Video -->
-      <video id="site-video" preload="metadata" playsinline
-             poster="portrait-director-1.jpg">
-        <source src="Miguel_Tillero_video_bienvenida.mp4" type="video/mp4">
-      </video>
-
-      <!-- Custom play overlay -->
-      <div class="video-play-overlay" id="video-overlay">
-        <div class="play-circle"><i class="fa fa-play"></i></div>
-      </div>
-    </div>
-
-    <div class="video-meta reveal">
-      <span class="vtag">MT · ALLIANCE FRANÇAISE · SCSC</span>
-      <span data-es="Clic para reproducir" data-fr="Cliquer pour lire" data-en="Click to play">Clic para reproducir</span>
-      <span class="vtag">FLE · GESTIÓN CULTURAL · FORMACIÓN</span>
-    </div>
-
-    <!-- ── Vídeos institucionales ── -->
-    <div class="video-grid">
-      <div class="video-card reveal d1">
-        <div class="video-wrapper bracket">
-          <div class="v-corner tl"></div>
-          <div class="v-corner tr"></div>
-          <div class="v-corner bl"></div>
-          <div class="v-corner br"></div>
-          <video class="grid-video" preload="metadata" playsinline poster="poster-alianza.jpg">
-            <source src="video%20alianza.mp4" type="video/mp4">
-          </video>
-          <div class="video-play-overlay">
-            <div class="play-circle"><i class="fa fa-play"></i></div>
-          </div>
-        </div>
-        <div class="video-meta">
-          <span class="vtag">ALLIANCE FRANÇAISE · SCSC</span>
-          <span data-es="Nuestra Alianza" data-fr="Notre Alliance" data-en="Our Alliance">Nuestra Alianza</span>
-        </div>
-      </div>
-      <div class="video-card reveal d2">
-        <div class="video-wrapper bracket">
-          <div class="v-corner tl"></div>
-          <div class="v-corner tr"></div>
-          <div class="v-corner bl"></div>
-          <div class="v-corner br"></div>
-          <video class="grid-video" preload="metadata" playsinline poster="poster-cavilam.jpg">
-            <source src="video%20cavilam.mp4" type="video/mp4">
-          </video>
-          <div class="video-play-overlay">
-            <div class="play-circle"><i class="fa fa-play"></i></div>
-          </div>
-        </div>
-        <div class="video-meta">
-          <span class="vtag">CAVILAM · ALLIANCE FRANÇAISE · VICHY</span>
-          <span data-es="Formación en Francia" data-fr="Formation en France" data-en="Training in France">Formación en Francia</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-<!-- ═══ AGENDA CULTURAL ═══ -->
-<section id="cultura" class="alt z10">
-  <div class="container">
-    <div class="sec-head reveal" style="text-align:center;">
-      <p class="eyebrow" style="justify-content:center" data-es="Más allá del aula" data-fr="Au-delà de la salle de classe" data-en="Beyond the classroom">Más allá del aula</p>
-      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Actividades con mis estudiantes" data-fr="Activités avec mes étudiants" data-en="Activities with my students">Actividades con mis estudiantes</em></h2>
-    </div>
-
-    <p class="af-intro reveal" data-es="Una lengua no se aprende solo con ejercicios. Estas son las actividades que propongo a mis grupos a lo largo del año para que el francés se escuche, se coma, se cante y se discuta fuera del cuaderno. Se organizan según el nivel y los intereses de cada grupo." data-fr="Une langue ne s'apprend pas qu'avec des exercices. Voici les activités que je propose à mes groupes tout au long de l'année, pour que le français s'écoute, se goûte, se chante et se discute hors du cahier. Elles s'organisent selon le niveau et les intérêts de chaque groupe." data-en="A language is not learned through exercises alone. These are the activities I offer my groups through the year, so that French is heard, tasted, sung and debated away from the notebook. They are arranged around each group's level and interests.">Una lengua no se aprende solo con ejercicios. Estas son las actividades que propongo a mis grupos a lo largo del año para que el francés se escuche, se coma, se cante y se discuta fuera del cuaderno. Se organizan según el nivel y los intereses de cada grupo.</p>
-
-    <div class="cul-grid">
-
-      <div class="cul-card reveal d1">
-        <i class="fa fa-film cul-icon"></i>
-        <h3 class="cul-title" data-es="Ciné-club francófono" data-fr="Ciné-club francophone" data-en="Francophone film club">Ciné-club francófono</h3>
-        <p class="cul-desc" data-es="Vemos cine francés, quebequense y africano francófono, con una presentación antes y conversación después. Con subtítulos: no hace falta ser bilingüe para participar desde el primer nivel." data-fr="Nous regardons du cinéma français, québécois et africain francophone, avec une présentation avant et un échange après. Sous-titré : nul besoin d'être bilingue pour participer." data-en="We watch French, Quebec and francophone African cinema, with an introduction before and a discussion after. Subtitled: you don't need to be bilingual to join from the first level.">Vemos cine francés, quebequense y africano francófono, con una presentación antes y conversación después. Con subtítulos: no hace falta ser bilingüe para participar desde el primer nivel.</p>
-      </div>
-
-      <div class="cul-card reveal d2">
-        <i class="fa fa-book-open cul-icon"></i>
-        <h3 class="cul-title" data-es="Café littéraire" data-fr="Café littéraire" data-en="Literary café">Café littéraire</h3>
-        <p class="cul-desc" data-es="Encuentros literarios alrededor de un texto: lectura compartida, discusión y, cuando es posible, la voz del propio autor o de sus traductores al español." data-fr="Rencontres littéraires autour d'un texte : lecture partagée, discussion et, quand c'est possible, la voix de l'auteur ou de ses traducteurs." data-en="Literary meetings around a text: shared reading, discussion and, when possible, the voice of the author or their translators.">Encuentros literarios alrededor de un texto: lectura compartida, discusión y, cuando es posible, la voz del propio autor o de sus traductores al español.</p>
-      </div>
-
-      <div class="cul-card reveal d3">
-        <i class="fa fa-map-location-dot cul-icon"></i>
-        <h3 class="cul-title" data-es="Salidas en francés" data-fr="Sorties en français" data-en="Outings in French">Salidas en francés</h3>
-        <p class="cul-desc" data-es="Clase fuera del aula: recorrer el mercado, un museo o el centro de San Cristóbal describiendo, preguntando y negociando únicamente en francés. La gramática se fija cuando se usa de verdad." data-fr="Cours hors les murs : parcourir le marché, un musée ou le centre de San Cristóbal en décrivant, questionnant et négociant uniquement en français." data-en="Class outside the classroom: walking the market, a museum or downtown San Cristóbal while describing, asking and bargaining only in French.">Clase fuera del aula: recorrer el mercado, un museo o el centro de San Cristóbal describiendo, preguntando y negociando únicamente en francés. La gramática se fija cuando se usa de verdad.</p>
-      </div>
-
-      <div class="cul-card reveal d4">
-        <i class="fa fa-globe cul-icon"></i>
-        <h3 class="cul-title" data-es="Fiesta de la Francofonía" data-fr="Fête de la Francophonie" data-en="Francophonie Festival">Fiesta de la Francofonía</h3>
-        <p class="cul-desc" data-es="Cada marzo celebramos con los grupos a los países que comparten el francés: música, cocina, dictado, concursos y un recorrido por acentos y culturas que van de Quebec a Senegal." data-fr="Chaque mois de mars, nous célébrons avec les groupes les pays qui partagent le français : musique, cuisine, dictée, concours et un tour des accents, du Québec au Sénégal." data-en="Every March we celebrate with the groups the countries that share French: music, cooking, dictation, contests and a tour of accents from Quebec to Senegal.">Cada marzo celebramos con los grupos a los países que comparten el francés: música, cocina, dictado, concursos y un recorrido por acentos y culturas que van de Quebec a Senegal.</p>
-      </div>
-
-      <div class="cul-card reveal d5">
-        <i class="fa fa-music cul-icon"></i>
-        <h3 class="cul-title" data-es="Música francófona" data-fr="Musique francophone" data-en="Francophone music">Música francófona</h3>
-        <p class="cul-desc" data-es="Conciertos, escuchas comentadas y talleres de canción: de la chanson française al rap de Marsella, del jazz al zouk y a los ritmos del África occidental." data-fr="Concerts, écoutes commentées et ateliers chanson : de la chanson française au rap marseillais, du jazz au zouk et aux rythmes d'Afrique de l'Ouest." data-en="Concerts, guided listening and song workshops: from chanson française to Marseille rap, from jazz to zouk and West African rhythms.">Conciertos, escuchas comentadas y talleres de canción: de la chanson française al rap de Marsella, del jazz al zouk y a los ritmos del África occidental.</p>
-      </div>
-
-      <div class="cul-card reveal d6">
-        <i class="fa fa-utensils cul-icon"></i>
-        <h3 class="cul-title" data-es="Talleres de gastronomía" data-fr="Ateliers gastronomie" data-en="Gastronomy workshops">Talleres de gastronomía</h3>
-        <p class="cul-desc" data-es="Cocinar en francés: crêpes, quiche, ratatouille o macarons mientras se aprende el vocabulario, los imperativos y las cantidades. La lengua entra también por la mesa." data-fr="Cuisiner en français : crêpes, quiche, ratatouille ou macarons tout en apprenant le vocabulaire, l'impératif et les quantités." data-en="Cooking in French: crêpes, quiche, ratatouille or macarons while learning vocabulary, imperatives and quantities. The language comes in through the table too.">Cocinar en francés: crêpes, quiche, ratatouille o macarons mientras se aprende el vocabulario, los imperativos y las cantidades. La lengua entra también por la mesa.</p>
-      </div>
-
-      <div class="cul-card reveal d1">
-        <i class="fa fa-mug-hot cul-icon"></i>
-        <h3 class="cul-title" data-es="Café des langues" data-fr="Café des langues" data-en="Language café">Café des langues</h3>
-        <p class="cul-desc" data-es="Intercambio lingüístico informal entre hispanohablantes y francófonos de paso por San Cristóbal. Media hora en francés, media hora en español, sin corrección ni examen." data-fr="Échange linguistique informel entre hispanophones et francophones de passage. Une demi-heure en français, une demi-heure en espagnol, sans correction ni examen." data-en="Informal language exchange between Spanish speakers and francophones passing through. Half an hour in French, half in Spanish, no corrections, no exams.">Intercambio lingüístico informal entre hispanohablantes y francófonos de paso por San Cristóbal. Media hora en francés, media hora en español, sin corrección ni examen.</p>
-      </div>
-
-      <div class="cul-card reveal d2">
-        <i class="fa fa-microphone-lines cul-icon"></i>
-        <h3 class="cul-title" data-es="Invitados francófonos" data-fr="Invités francophones" data-en="Francophone guests">Invitados francófonos</h3>
-        <p class="cul-desc" data-es="Sesiones de conversación con hablantes nativos de distintos países: escuchar otro acento, otra forma de decir las cosas y comprobar que se entiende a alguien que no es tu profesor." data-fr="Séances de conversation avec des locuteurs natifs de différents pays : entendre un autre accent, une autre façon de dire les choses, et constater qu'on comprend quelqu'un d'autre que son professeur." data-en="Conversation sessions with native speakers from different countries: hearing another accent, another way of putting things, and proving you can understand someone other than your teacher.">Sesiones de conversación con hablantes nativos de distintos países: escuchar otro acento, otra forma de decir las cosas y comprobar que se entiende a alguien que no es tu profesor.</p>
-      </div>
-
-      <div class="cul-card reveal d3">
-        <i class="fa fa-champagne-glasses cul-icon"></i>
-        <h3 class="cul-title" data-es="Calendario francés" data-fr="Calendrier français" data-en="French calendar">Calendario francés</h3>
-        <p class="cul-desc" data-es="Las citas que marcan el año: la Galette des Rois en enero, la Chandeleur en febrero, el 14 de julio y el Beaujolais nouveau en noviembre. Tradición, lengua y convivencia." data-fr="Les rendez-vous qui rythment l'année : la Galette des Rois, la Chandeleur, le 14 juillet et le Beaujolais nouveau. Tradition, langue et convivialité." data-en="The dates that shape the year: Galette des Rois in January, Chandeleur in February, the 14th of July and Beaujolais nouveau in November. Tradition, language and conviviality.">Las citas que marcan el año: la Galette des Rois en enero, la Chandeleur en febrero, el 14 de julio y el Beaujolais nouveau en noviembre. Tradición, lengua y convivencia.</p>
-      </div>
-
-    </div>
-
-    <p class="af-note reveal">
-      <i class="fa fa-envelope-open-text"></i>
-      <span data-es="Las actividades se arman según el grupo y la temporada, y se avisan con antelación a quienes toman clases conmigo. Si quieres saber cuáles están en marcha ahora mismo, escríbeme por WhatsApp o desde el formulario de contacto." data-fr="Les activités se montent selon le groupe et la saison, et sont annoncées à l'avance à mes étudiants. Pour savoir lesquelles sont en cours, écrivez-moi par WhatsApp ou via le formulaire de contact." data-en="Activities are built around the group and the season, and announced in advance to those taking classes with me. To find out which ones are running right now, write to me on WhatsApp or through the contact form.">Las actividades se arman según el grupo y la temporada, y se avisan con antelación a quienes toman clases conmigo. Si quieres saber cuáles están en marcha ahora mismo, escríbeme por WhatsApp o desde el formulario de contacto.</span>
-    </p>
-  </div>
-</section>
-
-<!-- ═══ RECURSOS / MEDIATECA ═══ -->
-<section id="recursos" class="z10">
-  <div class="container">
-    <div class="sec-head reveal" style="text-align:center;">
-      <p class="eyebrow" style="justify-content:center" data-es="Mediateca abierta" data-fr="Médiathèque ouverte" data-en="Open media library">Mediateca abierta</p>
-      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Recursos para practicar" data-fr="Ressources pour pratiquer" data-en="Resources to practise">Recursos para practicar</em></h2>
-    </div>
-
-    <p class="af-intro reveal" data-es="Entre una clase y la siguiente pasan muchos días. Esta es la selección de recursos gratuitos y de acceso abierto que recomiendo a mis estudiantes para mantener el oído despierto y la lengua en movimiento." data-fr="Entre deux cours, il se passe beaucoup de jours. Voici la sélection de ressources gratuites et en accès libre que je recommande à mes étudiants pour garder l'oreille éveillée." data-en="A lot of days go by between one class and the next. Here is the selection of free, open-access resources I recommend to my students to keep their ear sharp and their French moving.">Entre una clase y la siguiente pasan muchos días. Esta es la selección de recursos gratuitos y de acceso abierto que recomiendo a mis estudiantes para mantener el oído despierto y la lengua en movimiento.</p>
-
-    <div class="res-grid">
-
-      <a class="res-card reveal d1" href="https://apprendre.tv5monde.com/" target="_blank" rel="noopener">
-        <div class="res-name"><i class="fa fa-tv"></i> TV5MONDE · Apprendre</div>
-        <p class="res-desc" data-es="Cientos de ejercicios interactivos a partir de vídeos auténticos, clasificados de A1 a B2. La mejor puerta de entrada para trabajar la comprensión oral." data-fr="Des centaines d'exercices interactifs à partir de vidéos authentiques, classés de A1 à B2. La meilleure porte d'entrée pour la compréhension orale." data-en="Hundreds of interactive exercises built on authentic videos, graded A1 to B2. The best gateway for listening practice.">Cientos de ejercicios interactivos a partir de vídeos auténticos, clasificados de A1 a B2. La mejor puerta de entrada para trabajar la comprensión oral.</p>
-        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
-      </a>
-
-      <a class="res-card reveal d2" href="https://francaisfacile.rfi.fr/" target="_blank" rel="noopener">
-        <div class="res-name"><i class="fa fa-radio"></i> RFI · Français Facile</div>
-        <p class="res-desc" data-es="El noticiero en francés fácil de Radio France Internationale, con transcripción y ejercicios diarios. Diez minutos al día cambian un nivel en un semestre." data-fr="Le journal en français facile de RFI, avec transcription et exercices quotidiens. Dix minutes par jour changent un niveau en un semestre." data-en="RFI's news in easy French, with transcript and daily exercises. Ten minutes a day changes a level in a semester.">El noticiero en francés fácil de Radio France Internationale, con transcripción y ejercicios diarios. Diez minutos al día cambian un nivel en un semestre.</p>
-        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
-      </a>
-
-      <a class="res-card reveal d3" href="https://www.france-education-international.fr/" target="_blank" rel="noopener">
-        <div class="res-name"><i class="fa fa-certificate"></i> France Éducation international</div>
-        <p class="res-desc" data-es="La institución que diseña el DELF, el DALF y el TCF. Aquí encuentras las muestras oficiales de examen, la estructura de cada prueba y los criterios de evaluación." data-fr="L'institution qui conçoit le DELF, le DALF et le TCF. Sujets d'exemple officiels, structure des épreuves et critères d'évaluation." data-en="The institution that designs DELF, DALF and TCF. Official sample papers, exam structure and assessment criteria.">La institución que diseña el DELF, el DALF y el TCF. Aquí encuentras las muestras oficiales de examen, la estructura de cada prueba y los criterios de evaluación.</p>
-        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
-      </a>
-
-      <a class="res-card reveal d4" href="https://www.campusfrance.org/es" target="_blank" rel="noopener">
-        <div class="res-name"><i class="fa fa-graduation-cap"></i> Campus France</div>
-        <p class="res-desc" data-es="La agencia oficial para estudiar en Francia: catálogo de programas, becas, procedimiento de admisión y trámite de visa de estudiante, en español." data-fr="L'agence officielle pour étudier en France : programmes, bourses, procédure d'admission et démarches de visa étudiant." data-en="The official agency for studying in France: programme catalogue, scholarships, admission procedure and student visa steps.">La agencia oficial para estudiar en Francia: catálogo de programas, becas, procedimiento de admisión y trámite de visa de estudiante, en español.</p>
-        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
-      </a>
-
-      <a class="res-card reveal d5" href="https://www.culturetheque.com/" target="_blank" rel="noopener">
-        <div class="res-name"><i class="fa fa-book-open-reader"></i> Culturethèque</div>
-        <p class="res-desc" data-es="La biblioteca digital del Institut français: libros, cómics, prensa, música y películas en francés, disponibles en línea desde cualquier lugar." data-fr="La bibliothèque numérique de l'Institut français : livres, BD, presse, musique et films en français, en ligne." data-en="The Institut français digital library: books, comics, press, music and films in French, available online from anywhere.">La biblioteca digital del Institut français: libros, cómics, prensa, música y películas en francés, disponibles en línea desde cualquier lugar.</p>
-        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
-      </a>
-
-      <a class="res-card reveal d6" href="https://www.lepointdufle.net/" target="_blank" rel="noopener">
-        <div class="res-name"><i class="fa fa-list-check"></i> Le Point du FLE</div>
-        <p class="res-desc" data-es="El directorio más completo de ejercicios de francés en línea, ordenado por punto gramatical, competencia y nivel. Un clásico entre los profesores de FLE." data-fr="Le répertoire le plus complet d'exercices de français en ligne, classés par point de grammaire, compétence et niveau." data-en="The most complete directory of online French exercises, sorted by grammar point, skill and level. A classic among FLE teachers.">El directorio más completo de ejercicios de francés en línea, ordenado por punto gramatical, competencia y nivel. Un clásico entre los profesores de FLE.</p>
-        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
-      </a>
-
-      <a class="res-card reveal d1" href="https://www.cnrtl.fr/definition/" target="_blank" rel="noopener">
-        <div class="res-name"><i class="fa fa-spell-check"></i> CNRTL</div>
-        <p class="res-desc" data-es="El diccionario de referencia del francés: definiciones, etimología, sinónimos y ejemplos literarios. Indispensable a partir del nivel B1." data-fr="Le dictionnaire de référence du français : définitions, étymologie, synonymes et exemples littéraires. Indispensable dès le B1." data-en="The reference dictionary of French: definitions, etymology, synonyms and literary examples. Essential from B1 onwards.">El diccionario de referencia del francés: definiciones, etimología, sinónimos y ejemplos literarios. Indispensable a partir del nivel B1.</p>
-        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
-      </a>
-
-      <a class="res-card reveal d2" href="https://www.radiofrance.fr/franceculture" target="_blank" rel="noopener">
-        <div class="res-name"><i class="fa fa-podcast"></i> France Culture</div>
-        <p class="res-desc" data-es="Pódcasts de historia, filosofía, ciencia y literatura en francés real, sin adaptar. El salto natural cuando ya estás en B2 y quieres llegar a C1." data-fr="Podcasts d'histoire, de philosophie, de sciences et de littérature en français non adapté. Le saut naturel entre B2 et C1." data-en="Podcasts on history, philosophy, science and literature in unadapted French. The natural jump when you're at B2 and heading for C1.">Pódcasts de historia, filosofía, ciencia y literatura en francés real, sin adaptar. El salto natural cuando ya estás en B2 y quieres llegar a C1.</p>
-        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
-      </a>
-
-      <a class="res-card reveal d3" href="https://www.bonjourdefrance.com/" target="_blank" rel="noopener">
-        <div class="res-name"><i class="fa fa-pen-to-square"></i> Bonjour de France</div>
-        <p class="res-desc" data-es="Revista en línea de ejercicios de francés, gratuita y clasificada por nivel: gramática, vocabulario, comprensión y fichas de civilización para practicar por tu cuenta." data-fr="Magazine en ligne d'exercices de français, gratuit et classé par niveau : grammaire, vocabulaire, compréhension et fiches de civilisation." data-en="Free online magazine of French exercises sorted by level: grammar, vocabulary, comprehension and culture sheets to practise on your own.">Revista en línea de ejercicios de francés, gratuita y clasificada por nivel: gramática, vocabulario, comprensión y fichas de civilización para practicar por tu cuenta.</p>
-        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
-      </a>
-
-    </div>
-  </div>
-</section>
-
-<!-- ═══ TESTIMONIOS ═══ -->
-<section id="testimonios" class="z10">
-  <div class="container">
-    <div class="sec-head reveal" style="text-align:center;margin-bottom:3rem;">
-      <p class="eyebrow" style="justify-content:center" data-es="Lo que dicen de mí" data-fr="Ce qu'ils disent" data-en="What they say">Lo que dicen de mí</p>
-      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Testimonios" data-fr="Témoignages" data-en="Testimonials">Testimonios</em></h2>
-    </div>
-    <div class="testi-grid">
-      <div class="testi-card reveal d1">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text" data-es="Gracias al acompañamiento de Miguel obtuve mi DELF B2 con excelente puntuación. Su método hace que el francés se sienta natural, nunca memorizado." data-fr="Grâce à l'accompagnement de Miguel, j'ai obtenu mon DELF B2 avec une excellente note. Sa méthode rend le français naturel." data-en="Thanks to Miguel's guidance I earned my DELF B2 with an excellent score. His method makes French feel natural.">Gracias al acompañamiento de Miguel obtuve mi DELF B2 con excelente puntuación. Su método hace que el francés se sienta natural, nunca memorizado.</p>
-        <div class="testi-author">
-          <div class="testi-avatar">LG</div>
-          <div><div class="testi-name">Luis Emilio G.</div><div class="testi-role" data-es="DELF Junior B2 · 100/100" data-fr="DELF Junior B2 · 100/100" data-en="DELF Junior B2 · 100/100">DELF Junior B2 · 100/100</div></div>
-        </div>
-      </div>
-      <div class="testi-card reveal d2">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text" data-es="Como docente, las asesorías pedagógicas transformaron mi manera de planificar. Miguel domina el MCER como pocos y lo traduce en herramientas prácticas." data-fr="En tant qu'enseignante, ses conseils pédagogiques ont transformé ma façon de planifier. Miguel maîtrise le CECRL comme peu d'experts." data-en="As a teacher, his pedagogical consulting transformed how I plan. Miguel masters the CEFR like few others.">Como docente, las asesorías pedagógicas transformaron mi manera de planificar. Miguel domina el MCER como pocos y lo traduce en herramientas prácticas.</p>
-        <div class="testi-author">
-          <div class="testi-avatar">GR</div>
-          <div><div class="testi-name">Gloria R.</div><div class="testi-role" data-es="Docente FLE · Preparación B1" data-fr="Enseignante FLE · Préparation B1" data-en="FLE Teacher · B1 Prep">Docente FLE · Preparación B1</div></div>
-        </div>
-      </div>
-      <div class="testi-card reveal d3">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text" data-es="Llegué sin saber decir bonjour y un año después sostuve mi entrevista migratoria para Quebec completamente en francés. Profesionalismo absoluto." data-fr="Je suis arrivé sans savoir dire bonjour et un an plus tard, j'ai passé mon entretien d'immigration pour le Québec entièrement en français." data-en="I arrived unable to say bonjour, and a year later I held my Quebec immigration interview entirely in French.">Llegué sin saber decir bonjour y un año después sostuve mi entrevista migratoria para Quebec completamente en francés. Profesionalismo absoluto.</p>
-        <div class="testi-author">
-          <div class="testi-avatar">CM</div>
-          <div><div class="testi-name">Carlos M.</div><div class="testi-role" data-es="Proceso migratorio · Quebec" data-fr="Immigration · Québec" data-en="Immigration · Quebec">Proceso migratorio · Quebec</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── DEJAR TESTIMONIO ── -->
-    <div class="testi-cta-wrap reveal">
-      <button class="testi-cta-btn" onclick="toggleTestiForm()">
-        <i class="fa fa-feather"></i>
-        <span data-es="Deja tu testimonio" data-fr="Laissez votre témoignage" data-en="Leave a testimonial">Deja tu testimonio</span>
-      </button>
-
-      <form id="testi-form-panel" onsubmit="return submitTesti(event)">
-        <div class="testi-note" data-es="✦ Tu testimonio será revisado personalmente antes de su publicación. Una vez validado, aparecerá en esta sección. Gracias por compartir tu experiencia." data-fr="✦ Votre témoignage sera relu personnellement avant publication. Une fois validé, il apparaîtra dans cette section. Merci de partager votre expérience." data-en="✦ Your testimonial will be personally reviewed before publication. Once approved, it will appear in this section. Thank you for sharing your experience.">✦ Tu testimonio será revisado personalmente antes de su publicación. Una vez validado, aparecerá en esta sección. Gracias por compartir tu experiencia.</div>
-
-        <div class="insc-row">
-          <div class="insc-field">
-            <label for="tf-name" data-es="Tu nombre" data-fr="Votre nom" data-en="Your name">Tu nombre <span class="req">*</span></label>
-            <input type="text" id="tf-name" required placeholder="Nombre o iniciales">
-          </div>
-          <div class="insc-field">
-            <label for="tf-email">Email <span class="req">*</span></label>
-            <input type="email" id="tf-email" required placeholder="tu@correo.com">
-          </div>
-        </div>
-        <div class="insc-field">
-          <label for="tf-role" data-es="Curso / servicio recibido" data-fr="Cours / service reçu" data-en="Course / service received">Curso / servicio recibido</label>
-          <input type="text" id="tf-role" placeholder="Ej: DELF B2, clases A1, asesoría pedagógica...">
-        </div>
-        <div class="insc-field">
-          <label id="lbl-rating" data-es="Tu calificación" data-fr="Votre note" data-en="Your rating">Tu calificación</label>
-          <div role="group" aria-labelledby="lbl-rating" class="star-select" id="tf-stars">
-            <button type="button" class="st" data-v="1">★</button>
-            <button type="button" class="st" data-v="2">★</button>
-            <button type="button" class="st" data-v="3">★</button>
-            <button type="button" class="st" data-v="4">★</button>
-            <button type="button" class="st" data-v="5">★</button>
-          </div>
-        </div>
-        <div class="insc-field">
-          <label for="tf-text" data-es="Tu testimonio" data-fr="Votre témoignage" data-en="Your testimonial">Tu testimonio <span class="req">*</span></label>
-          <textarea id="tf-text" required placeholder="Cuéntanos tu experiencia..." style="min-height:100px"></textarea>
-        </div>
-        <button type="submit" class="insc-submit" id="tf-submit">
-          <i class="fa fa-paper-plane"></i>&nbsp;
-          <span data-es="Enviar para validación" data-fr="Envoyer pour validation" data-en="Submit for review">Enviar para validación</span>
-        </button>
-        <div class="insc-success" id="tf-success">
-          ✦ ¡Testimonio recibido! ✦<br>
-          Lo revisaré personalmente y, una vez validado, aparecerá publicado en esta sección.
-        </div>
-      </form>
-    </div>
-  </div>
-</section>
-
 <!-- ═══ NIVELES MCER + TEST DE POSICIONAMIENTO ═══ -->
-<section id="niveles" class="alt z10">
+<section id="niveles" class="alt z10" data-page="estudiantes">
   <div class="container">
     <div class="sec-head reveal" style="text-align:center;">
       <p class="eyebrow" style="justify-content:center" data-es="Marco Común Europeo de Referencia" data-fr="Cadre européen commun de référence" data-en="Common European Framework of Reference">Marco Común Europeo de Referencia</p>
@@ -3502,8 +3174,450 @@ select:focus-visible, textarea:focus-visible {
 })();
 </script>
 
+<!-- ═══ TIMELINE ═══ -->
+<section id="timeline" class="alt z10" data-page="perfil">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow" data-es="Mi trayectoria" data-fr="Mon parcours" data-en="My career">Mi trayectoria</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;"><em data-es="Trayectoria profesional" data-fr="Parcours professionnel" data-en="Professional path">Trayectoria profesional</em></h2>
+    </div>
+    <div class="tl">
+      <div class="tl-item reveal d1">
+        <div class="tl-date-col"><div class="tl-date">Oct 2024<br>Présent</div></div>
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <div class="tl-role" data-es="Director General" data-fr="Directeur général" data-en="General Director">Director General</div>
+          <div class="tl-org">Alliance Française · San Cristóbal de Las Casas, MX</div>
+          <ul class="tl-list">
+            <li data-es="Pilotaje del plan de relance institucional: diagnóstico estratégico y relance financiero." data-fr="Pilotage du plan de relance institutionnel : diagnostic stratégique et relance financière." data-en="Leading the institutional recovery plan: strategic diagnosis and financial relaunch.">Pilotaje del plan de relance institucional: diagnóstico estratégico y relance financiero.</li>
+            <li data-es="Implementación de protocolos administrativos, financieros y de RRHH." data-fr="Mise en œuvre de protocoles administratifs, financiers et RH." data-en="Implementation of administrative, financial and HR protocols.">Implementación de protocolos administrativos, financieros y de RRHH.</li>
+            <li data-es="Lanzamiento del proyecto STAFE «Potager Innovant»: agricultura urbana y educación culinaria." data-fr="Lancement du projet STAFE «Potager Innovant»." data-en="Launch of the STAFE «Potager Innovant» project.">Lanzamiento del proyecto STAFE «Potager Innovant»: agricultura urbana y educación culinaria.</li>
+            <li data-es="Alianzas con Institut Parmentier y Colegio La Salle." data-fr="Partenariats avec l'Institut Parmentier et le Colegio La Salle." data-en="Alliances with Institut Parmentier and Colegio La Salle.">Alianzas con Institut Parmentier y Colegio La Salle.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-item reveal d1">
+        <div class="tl-date-col"><div class="tl-date">2019<br>2022</div></div>
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <div class="tl-role" data-es="Director Pedagógico" data-fr="Directeur pédagogique" data-en="Pedagogical Director">Director Pedagógico</div>
+          <div class="tl-org">Alliance Française de Cuenca · Ecuador</div>
+          <ul class="tl-list">
+            <li data-es="Crecimiento del 34,7% en matrícula bajo su dirección." data-fr="Hausse de 34,7 % du nombre d'étudiants sur la période." data-en="34.7% student enrollment growth under his leadership.">Crecimiento del 34,7% en matrícula.</li>
+            <li data-es="Gestión de equipo de 12 docentes con formación individualizada." data-fr="Gestion d'une équipe de 12 enseignants." data-en="Management of a team of 12 teachers.">Gestión de equipo de 12 docentes.</li>
+            <li data-es="Organización de exámenes oficiales DELF y traducciones oficiales." data-fr="Organisation des examens DELF et traductions officielles." data-en="DELF examinations organization and official translations.">Organización DELF y traducciones oficiales.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-item reveal d1">
+        <div class="tl-date-col"><div class="tl-date">2013<br>2017 · 2023</div></div>
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <div class="tl-role" data-es="Profesor y Coordinador Pedagógico" data-fr="Professeur et coordinateur pédagogique" data-en="Teacher & Pedagogical Coordinator">Profesor y Coordinador Pedagógico</div>
+          <div class="tl-org">Lycée Français de Caracas · Venezuela</div>
+          <ul class="tl-list">
+            <li>Enseñanza FLE / ELE. Coordinación DELF escolar. Acompañamiento DIL.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-item reveal d1">
+        <div class="tl-date-col"><div class="tl-date">2010<br>2012</div></div>
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <div class="tl-role">Collaborateur — Campus France</div>
+          <div class="tl-org">Embajada de Francia · Venezuela</div>
+          <ul class="tl-list"><li>Formaciones regionales. Gestión de redes y contenidos institucionales.</li></ul>
+        </div>
+      </div>
+      <div class="tl-item reveal d1">
+        <div class="tl-date-col"><div class="tl-date">2011<br>2014</div></div>
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <div class="tl-role">Conseiller Migration · Dir. Pédagogique</div>
+          <div class="tl-org">Centro Cultural Canadiense · Caracas</div>
+          <ul class="tl-list"><li>Asesoría migración Quebec. Eventos orientación universitaria.</li></ul>
+        </div>
+      </div>
+      <div class="tl-item reveal d1">
+        <div class="tl-date-col"><div class="tl-date">2010<br>2017</div></div>
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <div class="tl-role">Formateur & Enseignant LE</div>
+          <div class="tl-org">Venezuela · France (Millau)</div>
+          <ul class="tl-list"><li>Enseñanza FR/EN/ES todos los niveles. Asistanato lingüístico Millau, Francia.</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EDUCATION ═══ -->
+<section id="education" class="z10" data-page="perfil">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow" data-es="Mi formación académica" data-fr="Ma formation" data-en="My education">Mi formación académica</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;"><em data-es="Formación y distinciones" data-fr="Formation et distinctions" data-en="Education & distinctions">Formación y distinciones</em></h2>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card panel reveal d1">
+        <div class="edu-year">2017</div>
+        <div class="edu-deg" data-es="Diploma de Especialización en Enseñanza Universitaria" data-fr="Diplôme de spécialisation en enseignement universitaire" data-en="Specialization Diploma in University Teaching">Diploma de Especialización en Enseñanza Universitaria</div>
+        <div class="edu-inst">UPEL – Universidad Pedagógica Experimental Libertador · Caracas</div>
+      </div>
+      <div class="edu-card panel reveal d2">
+        <div class="edu-year">2009 — 2016</div>
+        <div class="edu-deg" data-es="Licenciatura en Educación, mención Francés" data-fr="Licence en éducation mention français" data-en="Bachelor's in Education, French">Licenciatura en Educación, mención Francés</div>
+        <div class="edu-inst">Instituto Pedagógico de Caracas – UPEL</div>
+        <ul class="dist-list">
+          <li>Mención Magna Cum Laude (2016)</li>
+          <li>Premio Talentum (2015)</li>
+          <li>Distinción excelencia académica AVENPROF (2011)</li>
+        </ul>
+      </div>
+    </div>
+    <p class="eyebrow reveal" style="margin:3rem 0 1.5rem;">Formations continues</p>
+    <div class="cert-grid">
+      <div class="cert-item reveal d1"><i class="fa fa-certificate"></i><span>France Éducation International — FLE, évaluation et motivation en classe</span></div>
+      <div class="cert-item reveal d2"><i class="fa fa-certificate"></i><span>Institut Français — Transition numérique et stratégie éducative</span></div>
+      <div class="cert-item reveal d3"><i class="fa fa-certificate"></i><span>CLE International – Montpellier — Didactique avancée du FLE</span></div>
+      <div class="cert-item reveal d4"><i class="fa fa-certificate"></i><span>CIEP – France — Certification officielle correction DELF-DALF</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GALLERY ═══ -->
+<section id="gallery" class="alt z10" data-page="galeria">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow" data-es="Momentos y proyectos" data-fr="Moments et projets" data-en="Moments & projects">Momentos y proyectos</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;"><em data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</em></h2>
+    </div>
+    <div class="filmstrip-wrap" data-gallery>
+      <div class="filmstrip-track" id="filmstripTrack">
+        <div class="filmstrip-loading"><i class="fa fa-circle-notch fa-spin"></i> <span>Cargando carrete</span></div>
+      </div>
+    </div>
+    <div class="filmstrip-hint">
+      <i class="fa fa-hand-pointer"></i>
+      <span data-es="Arrastra para explorar" data-fr="Glissez pour explorer" data-en="Drag to explore">Arrastra para explorar</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ VIDEO REEL ═══ -->
+<section id="video-reel" class="z10" data-page="galeria">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;margin-bottom:3rem;">
+      <p class="eyebrow" style="justify-content:center"
+         data-es="Presentación audiovisual" data-fr="Présentation audiovisuelle" data-en="Audiovisual presentation">
+        Presentación audiovisual
+      </p>
+      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;">
+        <em data-es="En vídeo" data-fr="En vidéo" data-en="On video">En vídeo</em>
+      </h2>
+    </div>
+
+    <div class="video-wrapper reveal bracket">
+      <!-- Corners -->
+      <div class="v-corner tl"></div>
+      <div class="v-corner tr"></div>
+      <div class="v-corner bl"></div>
+      <div class="v-corner br"></div>
+
+      <!-- Video -->
+      <video id="site-video" preload="metadata" playsinline
+             poster="portrait-director-1.jpg">
+        <source src="Miguel_Tillero_video_bienvenida.mp4" type="video/mp4">
+      </video>
+
+      <!-- Custom play overlay -->
+      <div class="video-play-overlay" id="video-overlay">
+        <div class="play-circle"><i class="fa fa-play"></i></div>
+      </div>
+    </div>
+
+    <div class="video-meta reveal">
+      <span class="vtag">MT · ALLIANCE FRANÇAISE · SCSC</span>
+      <span data-es="Clic para reproducir" data-fr="Cliquer pour lire" data-en="Click to play">Clic para reproducir</span>
+      <span class="vtag">FLE · GESTIÓN CULTURAL · FORMACIÓN</span>
+    </div>
+
+    <!-- ── Vídeos institucionales ── -->
+    <div class="video-grid">
+      <div class="video-card reveal d1">
+        <div class="video-wrapper bracket">
+          <div class="v-corner tl"></div>
+          <div class="v-corner tr"></div>
+          <div class="v-corner bl"></div>
+          <div class="v-corner br"></div>
+          <video class="grid-video" preload="metadata" playsinline poster="poster-alianza.jpg">
+            <source src="video%20alianza.mp4" type="video/mp4">
+          </video>
+          <div class="video-play-overlay">
+            <div class="play-circle"><i class="fa fa-play"></i></div>
+          </div>
+        </div>
+        <div class="video-meta">
+          <span class="vtag">ALLIANCE FRANÇAISE · SCSC</span>
+          <span data-es="Nuestra Alianza" data-fr="Notre Alliance" data-en="Our Alliance">Nuestra Alianza</span>
+        </div>
+      </div>
+      <div class="video-card reveal d2">
+        <div class="video-wrapper bracket">
+          <div class="v-corner tl"></div>
+          <div class="v-corner tr"></div>
+          <div class="v-corner bl"></div>
+          <div class="v-corner br"></div>
+          <video class="grid-video" preload="metadata" playsinline poster="poster-cavilam.jpg">
+            <source src="video%20cavilam.mp4" type="video/mp4">
+          </video>
+          <div class="video-play-overlay">
+            <div class="play-circle"><i class="fa fa-play"></i></div>
+          </div>
+        </div>
+        <div class="video-meta">
+          <span class="vtag">CAVILAM · ALLIANCE FRANÇAISE · VICHY</span>
+          <span data-es="Formación en Francia" data-fr="Formation en France" data-en="Training in France">Formación en Francia</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ═══ AGENDA CULTURAL ═══ -->
+<section id="cultura" class="alt z10" data-page="estudiantes">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;">
+      <p class="eyebrow" style="justify-content:center" data-es="Más allá del aula" data-fr="Au-delà de la salle de classe" data-en="Beyond the classroom">Más allá del aula</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Actividades con mis estudiantes" data-fr="Activités avec mes étudiants" data-en="Activities with my students">Actividades con mis estudiantes</em></h2>
+    </div>
+
+    <p class="af-intro reveal" data-es="Una lengua no se aprende solo con ejercicios. Estas son las actividades que propongo a mis grupos a lo largo del año para que el francés se escuche, se coma, se cante y se discuta fuera del cuaderno. Se organizan según el nivel y los intereses de cada grupo." data-fr="Une langue ne s'apprend pas qu'avec des exercices. Voici les activités que je propose à mes groupes tout au long de l'année, pour que le français s'écoute, se goûte, se chante et se discute hors du cahier. Elles s'organisent selon le niveau et les intérêts de chaque groupe." data-en="A language is not learned through exercises alone. These are the activities I offer my groups through the year, so that French is heard, tasted, sung and debated away from the notebook. They are arranged around each group's level and interests.">Una lengua no se aprende solo con ejercicios. Estas son las actividades que propongo a mis grupos a lo largo del año para que el francés se escuche, se coma, se cante y se discuta fuera del cuaderno. Se organizan según el nivel y los intereses de cada grupo.</p>
+
+    <div class="cul-grid">
+
+      <div class="cul-card reveal d1">
+        <i class="fa fa-film cul-icon"></i>
+        <h3 class="cul-title" data-es="Ciné-club francófono" data-fr="Ciné-club francophone" data-en="Francophone film club">Ciné-club francófono</h3>
+        <p class="cul-desc" data-es="Vemos cine francés, quebequense y africano francófono, con una presentación antes y conversación después. Con subtítulos: no hace falta ser bilingüe para participar desde el primer nivel." data-fr="Nous regardons du cinéma français, québécois et africain francophone, avec une présentation avant et un échange après. Sous-titré : nul besoin d'être bilingue pour participer." data-en="We watch French, Quebec and francophone African cinema, with an introduction before and a discussion after. Subtitled: you don't need to be bilingual to join from the first level.">Vemos cine francés, quebequense y africano francófono, con una presentación antes y conversación después. Con subtítulos: no hace falta ser bilingüe para participar desde el primer nivel.</p>
+      </div>
+
+      <div class="cul-card reveal d2">
+        <i class="fa fa-book-open cul-icon"></i>
+        <h3 class="cul-title" data-es="Café littéraire" data-fr="Café littéraire" data-en="Literary café">Café littéraire</h3>
+        <p class="cul-desc" data-es="Encuentros literarios alrededor de un texto: lectura compartida, discusión y, cuando es posible, la voz del propio autor o de sus traductores al español." data-fr="Rencontres littéraires autour d'un texte : lecture partagée, discussion et, quand c'est possible, la voix de l'auteur ou de ses traducteurs." data-en="Literary meetings around a text: shared reading, discussion and, when possible, the voice of the author or their translators.">Encuentros literarios alrededor de un texto: lectura compartida, discusión y, cuando es posible, la voz del propio autor o de sus traductores al español.</p>
+      </div>
+
+      <div class="cul-card reveal d3">
+        <i class="fa fa-map-location-dot cul-icon"></i>
+        <h3 class="cul-title" data-es="Salidas en francés" data-fr="Sorties en français" data-en="Outings in French">Salidas en francés</h3>
+        <p class="cul-desc" data-es="Clase fuera del aula: recorrer el mercado, un museo o el centro de San Cristóbal describiendo, preguntando y negociando únicamente en francés. La gramática se fija cuando se usa de verdad." data-fr="Cours hors les murs : parcourir le marché, un musée ou le centre de San Cristóbal en décrivant, questionnant et négociant uniquement en français." data-en="Class outside the classroom: walking the market, a museum or downtown San Cristóbal while describing, asking and bargaining only in French.">Clase fuera del aula: recorrer el mercado, un museo o el centro de San Cristóbal describiendo, preguntando y negociando únicamente en francés. La gramática se fija cuando se usa de verdad.</p>
+      </div>
+
+      <div class="cul-card reveal d4">
+        <i class="fa fa-globe cul-icon"></i>
+        <h3 class="cul-title" data-es="Fiesta de la Francofonía" data-fr="Fête de la Francophonie" data-en="Francophonie Festival">Fiesta de la Francofonía</h3>
+        <p class="cul-desc" data-es="Cada marzo celebramos con los grupos a los países que comparten el francés: música, cocina, dictado, concursos y un recorrido por acentos y culturas que van de Quebec a Senegal." data-fr="Chaque mois de mars, nous célébrons avec les groupes les pays qui partagent le français : musique, cuisine, dictée, concours et un tour des accents, du Québec au Sénégal." data-en="Every March we celebrate with the groups the countries that share French: music, cooking, dictation, contests and a tour of accents from Quebec to Senegal.">Cada marzo celebramos con los grupos a los países que comparten el francés: música, cocina, dictado, concursos y un recorrido por acentos y culturas que van de Quebec a Senegal.</p>
+      </div>
+
+      <div class="cul-card reveal d5">
+        <i class="fa fa-music cul-icon"></i>
+        <h3 class="cul-title" data-es="Música francófona" data-fr="Musique francophone" data-en="Francophone music">Música francófona</h3>
+        <p class="cul-desc" data-es="Conciertos, escuchas comentadas y talleres de canción: de la chanson française al rap de Marsella, del jazz al zouk y a los ritmos del África occidental." data-fr="Concerts, écoutes commentées et ateliers chanson : de la chanson française au rap marseillais, du jazz au zouk et aux rythmes d'Afrique de l'Ouest." data-en="Concerts, guided listening and song workshops: from chanson française to Marseille rap, from jazz to zouk and West African rhythms.">Conciertos, escuchas comentadas y talleres de canción: de la chanson française al rap de Marsella, del jazz al zouk y a los ritmos del África occidental.</p>
+      </div>
+
+      <div class="cul-card reveal d6">
+        <i class="fa fa-utensils cul-icon"></i>
+        <h3 class="cul-title" data-es="Talleres de gastronomía" data-fr="Ateliers gastronomie" data-en="Gastronomy workshops">Talleres de gastronomía</h3>
+        <p class="cul-desc" data-es="Cocinar en francés: crêpes, quiche, ratatouille o macarons mientras se aprende el vocabulario, los imperativos y las cantidades. La lengua entra también por la mesa." data-fr="Cuisiner en français : crêpes, quiche, ratatouille ou macarons tout en apprenant le vocabulaire, l'impératif et les quantités." data-en="Cooking in French: crêpes, quiche, ratatouille or macarons while learning vocabulary, imperatives and quantities. The language comes in through the table too.">Cocinar en francés: crêpes, quiche, ratatouille o macarons mientras se aprende el vocabulario, los imperativos y las cantidades. La lengua entra también por la mesa.</p>
+      </div>
+
+      <div class="cul-card reveal d1">
+        <i class="fa fa-mug-hot cul-icon"></i>
+        <h3 class="cul-title" data-es="Café des langues" data-fr="Café des langues" data-en="Language café">Café des langues</h3>
+        <p class="cul-desc" data-es="Intercambio lingüístico informal entre hispanohablantes y francófonos de paso por San Cristóbal. Media hora en francés, media hora en español, sin corrección ni examen." data-fr="Échange linguistique informel entre hispanophones et francophones de passage. Une demi-heure en français, une demi-heure en espagnol, sans correction ni examen." data-en="Informal language exchange between Spanish speakers and francophones passing through. Half an hour in French, half in Spanish, no corrections, no exams.">Intercambio lingüístico informal entre hispanohablantes y francófonos de paso por San Cristóbal. Media hora en francés, media hora en español, sin corrección ni examen.</p>
+      </div>
+
+      <div class="cul-card reveal d2">
+        <i class="fa fa-microphone-lines cul-icon"></i>
+        <h3 class="cul-title" data-es="Invitados francófonos" data-fr="Invités francophones" data-en="Francophone guests">Invitados francófonos</h3>
+        <p class="cul-desc" data-es="Sesiones de conversación con hablantes nativos de distintos países: escuchar otro acento, otra forma de decir las cosas y comprobar que se entiende a alguien que no es tu profesor." data-fr="Séances de conversation avec des locuteurs natifs de différents pays : entendre un autre accent, une autre façon de dire les choses, et constater qu'on comprend quelqu'un d'autre que son professeur." data-en="Conversation sessions with native speakers from different countries: hearing another accent, another way of putting things, and proving you can understand someone other than your teacher.">Sesiones de conversación con hablantes nativos de distintos países: escuchar otro acento, otra forma de decir las cosas y comprobar que se entiende a alguien que no es tu profesor.</p>
+      </div>
+
+      <div class="cul-card reveal d3">
+        <i class="fa fa-champagne-glasses cul-icon"></i>
+        <h3 class="cul-title" data-es="Calendario francés" data-fr="Calendrier français" data-en="French calendar">Calendario francés</h3>
+        <p class="cul-desc" data-es="Las citas que marcan el año: la Galette des Rois en enero, la Chandeleur en febrero, el 14 de julio y el Beaujolais nouveau en noviembre. Tradición, lengua y convivencia." data-fr="Les rendez-vous qui rythment l'année : la Galette des Rois, la Chandeleur, le 14 juillet et le Beaujolais nouveau. Tradition, langue et convivialité." data-en="The dates that shape the year: Galette des Rois in January, Chandeleur in February, the 14th of July and Beaujolais nouveau in November. Tradition, language and conviviality.">Las citas que marcan el año: la Galette des Rois en enero, la Chandeleur en febrero, el 14 de julio y el Beaujolais nouveau en noviembre. Tradición, lengua y convivencia.</p>
+      </div>
+
+    </div>
+
+    <p class="af-note reveal">
+      <i class="fa fa-envelope-open-text"></i>
+      <span data-es="Las actividades se arman según el grupo y la temporada, y se avisan con antelación a quienes toman clases conmigo. Si quieres saber cuáles están en marcha ahora mismo, escríbeme por WhatsApp o desde el formulario de contacto." data-fr="Les activités se montent selon le groupe et la saison, et sont annoncées à l'avance à mes étudiants. Pour savoir lesquelles sont en cours, écrivez-moi par WhatsApp ou via le formulaire de contact." data-en="Activities are built around the group and the season, and announced in advance to those taking classes with me. To find out which ones are running right now, write to me on WhatsApp or through the contact form.">Las actividades se arman según el grupo y la temporada, y se avisan con antelación a quienes toman clases conmigo. Si quieres saber cuáles están en marcha ahora mismo, escríbeme por WhatsApp o desde el formulario de contacto.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ═══ RECURSOS / MEDIATECA ═══ -->
+<section id="recursos" class="z10" data-page="estudiantes">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;">
+      <p class="eyebrow" style="justify-content:center" data-es="Mediateca abierta" data-fr="Médiathèque ouverte" data-en="Open media library">Mediateca abierta</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Recursos para practicar" data-fr="Ressources pour pratiquer" data-en="Resources to practise">Recursos para practicar</em></h2>
+    </div>
+
+    <p class="af-intro reveal" data-es="Entre una clase y la siguiente pasan muchos días. Esta es la selección de recursos gratuitos y de acceso abierto que recomiendo a mis estudiantes para mantener el oído despierto y la lengua en movimiento." data-fr="Entre deux cours, il se passe beaucoup de jours. Voici la sélection de ressources gratuites et en accès libre que je recommande à mes étudiants pour garder l'oreille éveillée." data-en="A lot of days go by between one class and the next. Here is the selection of free, open-access resources I recommend to my students to keep their ear sharp and their French moving.">Entre una clase y la siguiente pasan muchos días. Esta es la selección de recursos gratuitos y de acceso abierto que recomiendo a mis estudiantes para mantener el oído despierto y la lengua en movimiento.</p>
+
+    <div class="res-grid">
+
+      <a class="res-card reveal d1" href="https://apprendre.tv5monde.com/" target="_blank" rel="noopener">
+        <div class="res-name"><i class="fa fa-tv"></i> TV5MONDE · Apprendre</div>
+        <p class="res-desc" data-es="Cientos de ejercicios interactivos a partir de vídeos auténticos, clasificados de A1 a B2. La mejor puerta de entrada para trabajar la comprensión oral." data-fr="Des centaines d'exercices interactifs à partir de vidéos authentiques, classés de A1 à B2. La meilleure porte d'entrée pour la compréhension orale." data-en="Hundreds of interactive exercises built on authentic videos, graded A1 to B2. The best gateway for listening practice.">Cientos de ejercicios interactivos a partir de vídeos auténticos, clasificados de A1 a B2. La mejor puerta de entrada para trabajar la comprensión oral.</p>
+        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
+      </a>
+
+      <a class="res-card reveal d2" href="https://francaisfacile.rfi.fr/" target="_blank" rel="noopener">
+        <div class="res-name"><i class="fa fa-radio"></i> RFI · Français Facile</div>
+        <p class="res-desc" data-es="El noticiero en francés fácil de Radio France Internationale, con transcripción y ejercicios diarios. Diez minutos al día cambian un nivel en un semestre." data-fr="Le journal en français facile de RFI, avec transcription et exercices quotidiens. Dix minutes par jour changent un niveau en un semestre." data-en="RFI's news in easy French, with transcript and daily exercises. Ten minutes a day changes a level in a semester.">El noticiero en francés fácil de Radio France Internationale, con transcripción y ejercicios diarios. Diez minutos al día cambian un nivel en un semestre.</p>
+        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
+      </a>
+
+      <a class="res-card reveal d3" href="https://www.france-education-international.fr/" target="_blank" rel="noopener">
+        <div class="res-name"><i class="fa fa-certificate"></i> France Éducation international</div>
+        <p class="res-desc" data-es="La institución que diseña el DELF, el DALF y el TCF. Aquí encuentras las muestras oficiales de examen, la estructura de cada prueba y los criterios de evaluación." data-fr="L'institution qui conçoit le DELF, le DALF et le TCF. Sujets d'exemple officiels, structure des épreuves et critères d'évaluation." data-en="The institution that designs DELF, DALF and TCF. Official sample papers, exam structure and assessment criteria.">La institución que diseña el DELF, el DALF y el TCF. Aquí encuentras las muestras oficiales de examen, la estructura de cada prueba y los criterios de evaluación.</p>
+        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
+      </a>
+
+      <a class="res-card reveal d4" href="https://www.campusfrance.org/es" target="_blank" rel="noopener">
+        <div class="res-name"><i class="fa fa-graduation-cap"></i> Campus France</div>
+        <p class="res-desc" data-es="La agencia oficial para estudiar en Francia: catálogo de programas, becas, procedimiento de admisión y trámite de visa de estudiante, en español." data-fr="L'agence officielle pour étudier en France : programmes, bourses, procédure d'admission et démarches de visa étudiant." data-en="The official agency for studying in France: programme catalogue, scholarships, admission procedure and student visa steps.">La agencia oficial para estudiar en Francia: catálogo de programas, becas, procedimiento de admisión y trámite de visa de estudiante, en español.</p>
+        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
+      </a>
+
+      <a class="res-card reveal d5" href="https://www.culturetheque.com/" target="_blank" rel="noopener">
+        <div class="res-name"><i class="fa fa-book-open-reader"></i> Culturethèque</div>
+        <p class="res-desc" data-es="La biblioteca digital del Institut français: libros, cómics, prensa, música y películas en francés, disponibles en línea desde cualquier lugar." data-fr="La bibliothèque numérique de l'Institut français : livres, BD, presse, musique et films en français, en ligne." data-en="The Institut français digital library: books, comics, press, music and films in French, available online from anywhere.">La biblioteca digital del Institut français: libros, cómics, prensa, música y películas en francés, disponibles en línea desde cualquier lugar.</p>
+        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
+      </a>
+
+      <a class="res-card reveal d6" href="https://www.lepointdufle.net/" target="_blank" rel="noopener">
+        <div class="res-name"><i class="fa fa-list-check"></i> Le Point du FLE</div>
+        <p class="res-desc" data-es="El directorio más completo de ejercicios de francés en línea, ordenado por punto gramatical, competencia y nivel. Un clásico entre los profesores de FLE." data-fr="Le répertoire le plus complet d'exercices de français en ligne, classés par point de grammaire, compétence et niveau." data-en="The most complete directory of online French exercises, sorted by grammar point, skill and level. A classic among FLE teachers.">El directorio más completo de ejercicios de francés en línea, ordenado por punto gramatical, competencia y nivel. Un clásico entre los profesores de FLE.</p>
+        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
+      </a>
+
+      <a class="res-card reveal d1" href="https://www.cnrtl.fr/definition/" target="_blank" rel="noopener">
+        <div class="res-name"><i class="fa fa-spell-check"></i> CNRTL</div>
+        <p class="res-desc" data-es="El diccionario de referencia del francés: definiciones, etimología, sinónimos y ejemplos literarios. Indispensable a partir del nivel B1." data-fr="Le dictionnaire de référence du français : définitions, étymologie, synonymes et exemples littéraires. Indispensable dès le B1." data-en="The reference dictionary of French: definitions, etymology, synonyms and literary examples. Essential from B1 onwards.">El diccionario de referencia del francés: definiciones, etimología, sinónimos y ejemplos literarios. Indispensable a partir del nivel B1.</p>
+        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
+      </a>
+
+      <a class="res-card reveal d2" href="https://www.radiofrance.fr/franceculture" target="_blank" rel="noopener">
+        <div class="res-name"><i class="fa fa-podcast"></i> France Culture</div>
+        <p class="res-desc" data-es="Pódcasts de historia, filosofía, ciencia y literatura en francés real, sin adaptar. El salto natural cuando ya estás en B2 y quieres llegar a C1." data-fr="Podcasts d'histoire, de philosophie, de sciences et de littérature en français non adapté. Le saut naturel entre B2 et C1." data-en="Podcasts on history, philosophy, science and literature in unadapted French. The natural jump when you're at B2 and heading for C1.">Pódcasts de historia, filosofía, ciencia y literatura en francés real, sin adaptar. El salto natural cuando ya estás en B2 y quieres llegar a C1.</p>
+        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
+      </a>
+
+      <a class="res-card reveal d3" href="https://www.bonjourdefrance.com/" target="_blank" rel="noopener">
+        <div class="res-name"><i class="fa fa-pen-to-square"></i> Bonjour de France</div>
+        <p class="res-desc" data-es="Revista en línea de ejercicios de francés, gratuita y clasificada por nivel: gramática, vocabulario, comprensión y fichas de civilización para practicar por tu cuenta." data-fr="Magazine en ligne d'exercices de français, gratuit et classé par niveau : grammaire, vocabulaire, compréhension et fiches de civilisation." data-en="Free online magazine of French exercises sorted by level: grammar, vocabulary, comprehension and culture sheets to practise on your own.">Revista en línea de ejercicios de francés, gratuita y clasificada por nivel: gramática, vocabulario, comprensión y fichas de civilización para practicar por tu cuenta.</p>
+        <span class="res-go" data-es="Abrir el sitio ↗" data-fr="Ouvrir le site ↗" data-en="Open the site ↗">Abrir el sitio ↗</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIOS ═══ -->
+<section id="testimonios" class="z10" data-page="contacto">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;margin-bottom:3rem;">
+      <p class="eyebrow" style="justify-content:center" data-es="Lo que dicen de mí" data-fr="Ce qu'ils disent" data-en="What they say">Lo que dicen de mí</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Testimonios" data-fr="Témoignages" data-en="Testimonials">Testimonios</em></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal d1">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text" data-es="Gracias al acompañamiento de Miguel obtuve mi DELF B2 con excelente puntuación. Su método hace que el francés se sienta natural, nunca memorizado." data-fr="Grâce à l'accompagnement de Miguel, j'ai obtenu mon DELF B2 avec une excellente note. Sa méthode rend le français naturel." data-en="Thanks to Miguel's guidance I earned my DELF B2 with an excellent score. His method makes French feel natural.">Gracias al acompañamiento de Miguel obtuve mi DELF B2 con excelente puntuación. Su método hace que el francés se sienta natural, nunca memorizado.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">LG</div>
+          <div><div class="testi-name">Luis Emilio G.</div><div class="testi-role" data-es="DELF Junior B2 · 100/100" data-fr="DELF Junior B2 · 100/100" data-en="DELF Junior B2 · 100/100">DELF Junior B2 · 100/100</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal d2">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text" data-es="Como docente, las asesorías pedagógicas transformaron mi manera de planificar. Miguel domina el MCER como pocos y lo traduce en herramientas prácticas." data-fr="En tant qu'enseignante, ses conseils pédagogiques ont transformé ma façon de planifier. Miguel maîtrise le CECRL comme peu d'experts." data-en="As a teacher, his pedagogical consulting transformed how I plan. Miguel masters the CEFR like few others.">Como docente, las asesorías pedagógicas transformaron mi manera de planificar. Miguel domina el MCER como pocos y lo traduce en herramientas prácticas.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">GR</div>
+          <div><div class="testi-name">Gloria R.</div><div class="testi-role" data-es="Docente FLE · Preparación B1" data-fr="Enseignante FLE · Préparation B1" data-en="FLE Teacher · B1 Prep">Docente FLE · Preparación B1</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal d3">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text" data-es="Llegué sin saber decir bonjour y un año después sostuve mi entrevista migratoria para Quebec completamente en francés. Profesionalismo absoluto." data-fr="Je suis arrivé sans savoir dire bonjour et un an plus tard, j'ai passé mon entretien d'immigration pour le Québec entièrement en français." data-en="I arrived unable to say bonjour, and a year later I held my Quebec immigration interview entirely in French.">Llegué sin saber decir bonjour y un año después sostuve mi entrevista migratoria para Quebec completamente en francés. Profesionalismo absoluto.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">CM</div>
+          <div><div class="testi-name">Carlos M.</div><div class="testi-role" data-es="Proceso migratorio · Quebec" data-fr="Immigration · Québec" data-en="Immigration · Quebec">Proceso migratorio · Quebec</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── DEJAR TESTIMONIO ── -->
+    <div class="testi-cta-wrap reveal">
+      <button class="testi-cta-btn" onclick="toggleTestiForm()">
+        <i class="fa fa-feather"></i>
+        <span data-es="Deja tu testimonio" data-fr="Laissez votre témoignage" data-en="Leave a testimonial">Deja tu testimonio</span>
+      </button>
+
+      <form id="testi-form-panel" onsubmit="return submitTesti(event)">
+        <div class="testi-note" data-es="✦ Tu testimonio será revisado personalmente antes de su publicación. Una vez validado, aparecerá en esta sección. Gracias por compartir tu experiencia." data-fr="✦ Votre témoignage sera relu personnellement avant publication. Une fois validé, il apparaîtra dans cette section. Merci de partager votre expérience." data-en="✦ Your testimonial will be personally reviewed before publication. Once approved, it will appear in this section. Thank you for sharing your experience.">✦ Tu testimonio será revisado personalmente antes de su publicación. Una vez validado, aparecerá en esta sección. Gracias por compartir tu experiencia.</div>
+
+        <div class="insc-row">
+          <div class="insc-field">
+            <label for="tf-name" data-es="Tu nombre" data-fr="Votre nom" data-en="Your name">Tu nombre <span class="req">*</span></label>
+            <input type="text" id="tf-name" required placeholder="Nombre o iniciales">
+          </div>
+          <div class="insc-field">
+            <label for="tf-email">Email <span class="req">*</span></label>
+            <input type="email" id="tf-email" required placeholder="tu@correo.com">
+          </div>
+        </div>
+        <div class="insc-field">
+          <label for="tf-role" data-es="Curso / servicio recibido" data-fr="Cours / service reçu" data-en="Course / service received">Curso / servicio recibido</label>
+          <input type="text" id="tf-role" placeholder="Ej: DELF B2, clases A1, asesoría pedagógica...">
+        </div>
+        <div class="insc-field">
+          <label id="lbl-rating" data-es="Tu calificación" data-fr="Votre note" data-en="Your rating">Tu calificación</label>
+          <div role="group" aria-labelledby="lbl-rating" class="star-select" id="tf-stars">
+            <button type="button" class="st" data-v="1">★</button>
+            <button type="button" class="st" data-v="2">★</button>
+            <button type="button" class="st" data-v="3">★</button>
+            <button type="button" class="st" data-v="4">★</button>
+            <button type="button" class="st" data-v="5">★</button>
+          </div>
+        </div>
+        <div class="insc-field">
+          <label for="tf-text" data-es="Tu testimonio" data-fr="Votre témoignage" data-en="Your testimonial">Tu testimonio <span class="req">*</span></label>
+          <textarea id="tf-text" required placeholder="Cuéntanos tu experiencia..." style="min-height:100px"></textarea>
+        </div>
+        <button type="submit" class="insc-submit" id="tf-submit">
+          <i class="fa fa-paper-plane"></i>&nbsp;
+          <span data-es="Enviar para validación" data-fr="Envoyer pour validation" data-en="Submit for review">Enviar para validación</span>
+        </button>
+        <div class="insc-success" id="tf-success">
+          ✦ ¡Testimonio recibido! ✦<br>
+          Lo revisaré personalmente y, una vez validado, aparecerá publicado en esta sección.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ INSCRIPCIÓN A CLASES ═══ -->
-<section id="inscripcion" class="z10">
+<section id="inscripcion" class="z10" data-page="contacto">
   <div class="container">
     <div class="sec-head reveal" style="text-align:center;margin-bottom:2.5rem;">
       <p class="eyebrow" style="justify-content:center"
@@ -3654,7 +3768,7 @@ select:focus-visible, textarea:focus-visible {
 
 
 <!-- ═══ FAQ ═══ -->
-<section id="faq" class="z10">
+<section id="faq" class="z10" data-page="contacto">
   <div class="container">
     <div class="sec-head reveal" style="text-align:center;margin-bottom:3rem;">
       <p class="eyebrow" style="justify-content:center" data-es="Resuelve tus dudas" data-fr="Questions fréquentes" data-en="Common questions">Resuelve tus dudas</p>
@@ -3702,7 +3816,7 @@ select:focus-visible, textarea:focus-visible {
 </section>
 
 <!-- ═══ CONTACT ═══ -->
-<section id="contact" class="z10">
+<section id="contact" class="z10" data-page="contacto">
   <div class="container">
     <div class="sec-head reveal">
       <p class="eyebrow" data-es="Hablemos" data-fr="Parlons ensemble" data-en="Let's talk">Hablemos</p>
@@ -3806,7 +3920,7 @@ select:focus-visible, textarea:focus-visible {
 
 
 <!-- ═══ PAGOS (enlace discreto — datos bancarios en página privada no indexada) ═══ -->
-<section id="pagos" class="alt z10" style="padding-top:4rem;padding-bottom:4rem;">
+<section id="pagos" class="alt z10" style="padding-top:4rem;padding-bottom:4rem;" data-page="contacto">
   <div class="container">
     <div class="sec-head reveal">
       <p class="eyebrow" data-es="Para mis estudiantes" data-fr="Pour mes étudiants" data-en="For my students">Para mis estudiantes</p>
@@ -4020,6 +4134,107 @@ if (!window.setLang) {
   };
 }
 
+/* ── ENRUTADOR DE PÁGINAS (sin recarga) ─────
+   Cada sección declara data-page. Solo se muestra una página a la vez;
+   la dirección del navegador cambia (#estudiantes) para poder compartir
+   y usar el botón atrás. Los enlaces antiguos a secciones (#inscripcion,
+   #niveles…) siguen funcionando: abren su página y bajan a la sección. */
+window.SitePages = (function () {
+  var ORDER = ['inicio', 'perfil', 'servicios', 'estudiantes', 'galeria', 'contacto'];
+  var current = null;
+
+  function sections() { return document.querySelectorAll('section[data-page]'); }
+
+  function pageOfSection(id) {
+    var el = document.getElementById(id);
+    return el ? el.getAttribute('data-page') : null;
+  }
+
+  /* Las animaciones de entrada no se disparan en secciones ocultas:
+     al mostrar una página las reactivamos. */
+  function revealPage(name) {
+    document.querySelectorAll('section[data-page="' + name + '"] .reveal').forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.92) el.classList.add('on');
+      else if (window.SiteReveal) window.SiteReveal.observe(el);
+    });
+  }
+
+  function markActive(name) {
+    document.querySelectorAll('[data-route]').forEach(function (a) {
+      a.classList.toggle('active', a.getAttribute('data-route') === name);
+    });
+  }
+
+  function show(name, sectionId, push) {
+    if (ORDER.indexOf(name) === -1) name = 'inicio';
+    var changed = name !== current;
+    current = name;
+
+    sections().forEach(function (s) {
+      s.style.display = (s.getAttribute('data-page') === name) ? '' : 'none';
+    });
+    document.body.setAttribute('data-current-page', name);
+    markActive(name);
+
+    if (push !== false) {
+      var target = sectionId || name;
+      if (('#' + target) !== window.location.hash) {
+        history.pushState({ page: name, section: sectionId || null }, '', '#' + target);
+      }
+    }
+
+    if (sectionId) {
+      var el = document.getElementById(sectionId);
+      if (el) {
+        /* Esperamos al reflow para medir la posición real */
+        requestAnimationFrame(function () {
+          var top = el.getBoundingClientRect().top + window.pageYOffset - 70;
+          window.scrollTo({ top: top > 0 ? top : 0, behavior: changed ? 'auto' : 'smooth' });
+        });
+      }
+    } else {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+
+    revealPage(name);
+    window.dispatchEvent(new CustomEvent('pagechange', { detail: { page: name } }));
+  }
+
+  /* Resuelve cualquier hash: nombre de página o id de sección */
+  function go(hash, push) {
+    var id = (hash || '').replace(/^#/, '');
+    if (!id) { show('inicio', null, push); return; }
+    if (ORDER.indexOf(id) !== -1) { show(id, null, push); return; }
+    var pg = pageOfSection(id);
+    if (pg) { show(pg, id, push); return; }
+    show('inicio', null, push);   /* enlaces a modales u otros: portada */
+  }
+
+  function init() {
+    /* Interceptamos todos los enlaces internos de la página */
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+      if (!a) return;
+      var href = a.getAttribute('href');
+      if (!href || href === '#') return;
+      var id = href.slice(1);
+      if (ORDER.indexOf(id) === -1 && !document.getElementById(id)) return;
+      e.preventDefault();
+      go(href, true);
+      if (typeof closeMob === 'function') closeMob();
+    });
+
+    window.addEventListener('popstate', function () { go(window.location.hash, false); });
+    go(window.location.hash, false);
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+
+  return { go: go, show: show, pages: ORDER, currentPage: function () { return current; } };
+})();
+
 /* ── BARRA DE PESTAÑAS · ÁREA DE ESTUDIANTES ── */
 (function () {
   var bar = document.getElementById('studybar');
@@ -4030,6 +4245,11 @@ if (!window.setLang) {
   if (!zone.length) return;
 
   function update() {
+    /* Solo existe dentro de la página de estudiantes */
+    if (document.body.getAttribute('data-current-page') !== 'estudiantes') {
+      bar.classList.remove('on');
+      return;
+    }
     var first = zone[0].getBoundingClientRect();
     var last = zone[zone.length - 1].getBoundingClientRect();
     /* La barra vive mientras el bloque del estudiante ocupa la pantalla */
@@ -4052,6 +4272,7 @@ if (!window.setLang) {
     requestAnimationFrame(function () { update(); ticking = false; });
   }, { passive: true });
   window.addEventListener('resize', update, { passive: true });
+  window.addEventListener('pagechange', function () { setTimeout(update, 60); });
   update();
 })();
 
@@ -4060,6 +4281,8 @@ const ro = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); ro.unobserve(e.target); } });
 }, { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+/* El enrutador lo reutiliza al mostrar una página nueva */
+window.SiteReveal = ro;
 
 /* ── SKILL BARS ──────────────────────────── */
 const sro = new IntersectionObserver(entries => {
