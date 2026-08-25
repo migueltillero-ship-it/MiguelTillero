@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#bcdcc9">
+<meta name="robots" content="noindex, follow">
+<title>Reserva tus clases · Vive el francés</title>
+<meta name="description" content="Elige tu paquete de clases particulares de francés con el profesor Miguel Tillero, arma tu horario y recibe tu presupuesto al instante.">
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="18" fill="%23cfe6d9"/><text x="50" y="68" font-family="Georgia,serif" font-size="52" fill="%230d3b2e" text-anchor="middle">MT</text></svg>'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#cfe6d9;
+  --bg-grad:radial-gradient(ellipse 90% 70% at 50% 0%,#c5e0d3 0%,#b8d9ca 55%,#a5cdbf 100%);
+  --gold:#a5824a; --gold2:#86673a; --gold-claro:#e8c87a;
+  --em1:#0d3b2e; --em2:#1a5c45; --em-hondo:#0b3327;
+  --ink:#12291c; --muted:rgba(18,41,28,.62); --tenue:rgba(18,41,28,.42);
+  --line:rgba(13,59,46,.14);
+  --sombra:0 8px 26px rgba(13,59,46,.10);
+  --serif:'Cormorant Garamond',serif; --sans:'Syne',sans-serif; --mono:'Space Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);color:var(--ink);line-height:1.6;background:var(--void);
+  background-image:var(--bg-grad);background-attachment:fixed;min-height:100vh;
+  padding:0 0 7.5rem;-webkit-font-smoothing:antialiased}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+a{color:inherit}
+
+.wrap{max-width:720px;margin:0 auto;padding:0 1rem}
+
+/* ── Cabecera ── */
+header.top{text-align:center;padding:2.4rem 1rem 1.4rem}
+.eyebrow{font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.3em;
+  text-transform:uppercase;color:#8f6b2e;margin-bottom:.5rem}
+h1{font-family:var(--serif);font-size:clamp(1.9rem,7vw,2.7rem);font-weight:600;line-height:1.1}
+h1 em{font-style:normal;color:var(--gold)}
+.lead{color:var(--muted);font-size:.94rem;margin-top:.6rem;max-width:34rem;margin-inline:auto}
+
+/* ── Pasos ── */
+.pasos{display:flex;gap:.4rem;justify-content:center;margin:1.4rem 0 .4rem;flex-wrap:wrap}
+.paso-pin{display:flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.6rem;
+  font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tenue)}
+.paso-pin b{width:1.45rem;height:1.45rem;border-radius:50%;background:#fff;border:1px solid var(--line);
+  display:grid;place-items:center;font-size:.68rem;color:var(--muted)}
+.paso-pin.on{color:var(--em1)}
+.paso-pin.on b{background:var(--em1);color:var(--gold-claro);border-color:var(--em1)}
+.paso-pin.hecho b{background:#eaf6ef;color:var(--em2);border-color:rgba(26,92,69,.35)}
+
+/* ── Tarjetas ── */
+.card{background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:var(--sombra);
+  padding:1.5rem;margin-bottom:1.1rem}
+.card h2{font-family:var(--serif);font-size:1.45rem;font-weight:600;margin-bottom:.2rem}
+.card .sub{color:var(--muted);font-size:.86rem;margin-bottom:1.2rem}
+.paso{display:none}
+.paso.on{display:block;animation:entra .35s cubic-bezier(.16,1,.3,1) both}
+@keyframes entra{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ── Paquetes ── */
+.paquetes{display:grid;gap:.6rem;grid-template-columns:repeat(auto-fit,minmax(128px,1fr))}
+@media(max-width:400px){.card{padding:1.25rem}.paq{padding:.85rem .9rem}}
+.paq{position:relative;text-align:left;font:inherit;color:inherit;cursor:pointer;
+  background:#fff;border:1.5px solid var(--line);border-radius:9px;padding:1rem 1.1rem;
+  transition:border-color .18s,box-shadow .18s,transform .18s}
+.paq:hover{border-color:var(--gold);transform:translateY(-2px)}
+.paq.sel{border-color:var(--em1);background:#f4faf6;box-shadow:0 0 0 1px var(--em1) inset}
+.paq .h{font-family:var(--serif);font-size:1.75rem;font-weight:600;line-height:1}
+.paq .h span{font-family:var(--sans);font-size:.82rem;font-weight:600;color:var(--muted)}
+.paq .p{font-family:var(--mono);font-size:.78rem;color:var(--em2);margin-top:.35rem;font-weight:700}
+.paq .r{display:inline-block;margin-top:.5rem;font-size:.7rem;font-weight:700;letter-spacing:.04em;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;padding:.2rem .5rem;border-radius:3px}
+
+/* ── Chips de día ── */
+.dias{display:grid;grid-template-columns:repeat(auto-fit,minmax(78px,1fr));gap:.5rem}
+.dia{font:inherit;color:inherit;cursor:pointer;background:#fff;border:1.5px solid var(--line);
+  border-radius:8px;padding:.75rem .3rem;text-align:center;transition:all .16s}
+.dia:hover{border-color:var(--gold)}
+.dia.sel{border-color:var(--em1);background:var(--em1);color:var(--gold-claro)}
+.dia .d1{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  display:block;opacity:.75}
+.dia .d2{font-weight:700;font-size:.95rem}
+
+.horas-dia{margin-top:1rem;display:grid;gap:.6rem}
+.hd{display:flex;align-items:center;gap:.7rem;background:#f6faf7;border:1px solid var(--line);
+  border-radius:8px;padding:.6rem .8rem}
+.hd .n{flex:1;font-weight:600;font-size:.9rem}
+.hd select{width:auto;min-width:7.5rem}
+
+/* ── Formulario ── */
+.campo{margin-bottom:1rem}
+.fila{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:560px){.fila{grid-template-columns:1fr}}
+label{display:block;font-size:.8rem;font-weight:600;margin-bottom:.35rem}
+input,select,textarea{width:100%;font-family:inherit;font-size:16px;color:var(--ink);background:#fff;
+  border:1px solid var(--line);border-radius:7px;padding:.75rem .85rem;appearance:none}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230d3b2e' stroke-width='1.6' fill='none'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right .85rem center;padding-right:2.2rem}
+textarea{min-height:76px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold)}
+.req{color:#a03030}
+.error{color:#a03030;font-size:.8rem;margin-top:.3rem;display:none}
+.campo.malo input,.campo.malo select{border-color:#a03030}
+.campo.malo .error{display:block}
+.radios{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+@media(max-width:460px){.radios{grid-template-columns:1fr}}
+.radio{display:flex;gap:.6rem;align-items:flex-start;background:#fff;border:1.5px solid var(--line);
+  border-radius:8px;padding:.8rem .9rem;cursor:pointer;font-size:.88rem;transition:border-color .16s}
+.radio:hover{border-color:var(--gold)}
+.radio:has(input:checked){border-color:var(--em1);background:#f4faf6}
+.radio input{width:auto;margin-top:.2rem;accent-color:var(--em1)}
+
+/* ── Calendario ── */
+.cal{border:1px solid var(--line);border-radius:9px;overflow:hidden;margin-top:.4rem}
+.cal-mes{background:#f2f8f4;padding:.5rem .9rem;font-family:var(--mono);font-size:.66rem;
+  font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--em2);
+  border-bottom:1px solid var(--line)}
+.cal-fila{display:flex;align-items:center;gap:.75rem;padding:.6rem .9rem;font-size:.88rem;
+  border-bottom:1px solid rgba(13,59,46,.07)}
+.cal-fila:last-child{border-bottom:0}
+.cal-n{width:1.6rem;height:1.6rem;border-radius:50%;background:#eaf6ef;color:var(--em2);
+  display:grid;place-items:center;font-family:var(--mono);font-size:.66rem;font-weight:700;flex-shrink:0}
+.cal-fila.bonus .cal-n{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff}
+.cal-f{flex:1}
+.cal-h{font-family:var(--mono);font-size:.76rem;color:var(--muted);white-space:nowrap}
+.cal-scroll{max-height:19rem;overflow-y:auto}
+
+/* ── Resumen ── */
+.linea-r{display:flex;justify-content:space-between;gap:1rem;padding:.5rem 0;font-size:.9rem;
+  border-bottom:1px solid var(--line)}
+.linea-r:last-of-type{border-bottom:0}
+.linea-r span:first-child{color:var(--muted)}
+.linea-r span:last-child{font-weight:600;text-align:right}
+.total{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;
+  margin-top:.8rem;padding-top:.9rem;border-top:2px solid var(--em1)}
+.total b{font-family:var(--serif);font-size:2rem;font-weight:600;color:var(--em1)}
+
+/* ── Avisos ── */
+.aviso{border-left:3px solid var(--gold);background:#fffaf2;padding:.85rem 1rem;font-size:.85rem;
+  border-radius:0 7px 7px 0;margin:1rem 0}
+.aviso.verde{border-left-color:var(--em2);background:#f1f8f4}
+.regalo{display:flex;gap:.7rem;align-items:flex-start;background:linear-gradient(135deg,#fdf6e8,#faf0da);
+  border:1px solid rgba(165,130,74,.32);border-radius:9px;padding:.9rem 1rem;margin-top:.9rem;font-size:.87rem}
+.regalo .ic{font-size:1.15rem;line-height:1}
+
+/* ── Botones ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-family:var(--mono);
+  font-size:.74rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;padding:.95rem 1.4rem;
+  border-radius:7px;cursor:pointer;border:1px solid var(--em1);
+  background:linear-gradient(135deg,var(--em-hondo),#14503e);color:var(--gold-claro);
+  box-shadow:0 6px 18px rgba(13,59,46,.26);transition:transform .16s,box-shadow .16s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(13,59,46,.34)}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-claro{background:#fff;color:var(--em1);box-shadow:none}
+.btn-claro:hover{background:#f2f8f4}
+.btn-wa{background:linear-gradient(135deg,#25D366,#128C4B);border-color:#128C4B;color:#fff}
+.btn-ancho{width:100%}
+.navbtns{display:flex;gap:.7rem;margin-top:1.3rem}
+.navbtns .btn{flex:1}
+
+/* ── Barra fija de resumen (móvil incluido) ── */
+.barra{position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(255,255,255,.97);
+  backdrop-filter:blur(18px);border-top:1px solid var(--line);
+  box-shadow:0 -6px 24px rgba(13,59,46,.10);padding:.7rem 1rem;
+  padding-bottom:calc(.7rem + env(safe-area-inset-bottom))}
+.barra-in{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:1rem}
+.barra .info{flex:1;min-width:0}
+.barra .k{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--tenue)}
+.barra .v{font-weight:700;font-size:.98rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.barra .btn{padding:.8rem 1.2rem;flex-shrink:0}
+
+@media print{
+  body{background:#fff;padding:0}
+  .barra,.pasos,.navbtns,header.top .lead,.no-print{display:none!important}
+  .card{box-shadow:none;border-color:#ccc;break-inside:avoid}
+  .paso{display:none!important}.paso.imprimible{display:block!important}
+}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="eyebrow">Vive el francés</div>
+  <h1>Reserva tus <em>clases</em></h1>
+  <p class="lead">Elige tu paquete, arma tu horario y recibe el presupuesto al instante.
+     Al terminar, el profesor Miguel confirma la disponibilidad contigo.</p>
+  <nav class="pasos" id="pasos" aria-label="Progreso"></nav>
+</header>
+
+<div class="wrap">
+
+  <!-- ══ PASO 1 · PAQUETE ══ -->
+  <section class="paso on" id="p1">
+    <div class="card">
+      <h2>¿Cuántas horas?</h2>
+      <p class="sub">Clases particulares de francés, individuales. Cada hora es de 60 minutos.</p>
+      <div class="paquetes" id="paquetes" role="group" aria-label="Paquetes disponibles"></div>
+
+      <div class="campo" style="margin-top:1.2rem">
+        <label for="otras">¿Prefieres otra cantidad?</label>
+        <input id="otras" type="number" min="4" max="120" step="1" inputmode="numeric"
+               placeholder="Escribe el número de horas">
+      </div>
+
+      <div id="regalo-box"></div>
+
+      <div class="navbtns">
+        <button class="btn btn-ancho" id="a2" disabled>Continuar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PASO 2 · HORARIO ══ -->
+  <section class="paso" id="p2">
+    <div class="card">
+      <h2>¿Qué días te vienen bien?</h2>
+      <p class="sub">Elige los días de la semana y la hora de cada uno. Puedes cambiarlo
+         después hablando con Miguel.</p>
+
+      <div class="campo">
+        <label for="dur">Duración de cada clase</label>
+        <select id="dur">
+          <option value="1">1 hora</option>
+          <option value="1.5">1 hora y media</option>
+          <option value="2">2 horas</option>
+        </select>
+      </div>
+
+      <div class="campo">
+        <label id="lbl-dias">Días de la semana</label>
+        <div class="dias" id="dias" role="group" aria-labelledby="lbl-dias"></div>
+        <div class="error" id="err-dias">Elige al menos un día.</div>
+      </div>
+
+      <div id="horas-dia" class="horas-dia"></div>
+
+      <div class="campo" style="margin-top:1.2rem">
+        <label for="inicio">¿Cuándo quieres empezar?</label>
+        <input id="inicio" type="date">
+        <div class="error">Elige una fecha desde hoy en adelante.</div>
+      </div>
+
+      <div class="navbtns">
+        <button class="btn btn-claro" id="v1">Atrás</button>
+        <button class="btn" id="a3">Ver mi calendario</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PASO 3 · CALENDARIO ══ -->
+  <section class="paso" id="p3">
+    <div class="card">
+      <h2>Tu calendario</h2>
+      <p class="sub" id="cal-sub"></p>
+      <div class="cal-scroll"><div class="cal" id="cal"></div></div>
+      <div class="aviso verde" id="cal-cierre"></div>
+      <div class="navbtns">
+        <button class="btn btn-claro" id="v2">Cambiar horario</button>
+        <button class="btn" id="a4">Continuar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PASO 4 · DATOS ══ -->
+  <section class="paso" id="p4">
+    <div class="card">
+      <h2>Tus datos</h2>
+      <p class="sub">Para preparar el recibo y el contrato.</p>
+
+      <div class="campo">
+        <label id="lbl-quien">¿Quién va a tomar las clases?</label>
+        <div class="radios" role="radiogroup" aria-labelledby="lbl-quien">
+          <label class="radio"><input type="radio" name="quien" value="adulto" checked>
+            <span><b>Yo mismo/a</b><br><span class="sub" style="font-size:.8rem">Soy mayor de edad</span></span></label>
+          <label class="radio"><input type="radio" name="quien" value="menor">
+            <span><b>Mi hijo/a</b><br><span class="sub" style="font-size:.8rem">Es menor de edad</span></span></label>
+        </div>
+      </div>
+
+      <div id="bloque-menor" hidden>
+        <div class="fila">
+          <div class="campo">
+            <label for="est-nombre">Nombre del estudiante <span class="req">*</span></label>
+            <input id="est-nombre" autocomplete="off" placeholder="Nombre y apellidos">
+            <div class="error">Escribe el nombre del estudiante.</div>
+          </div>
+          <div class="campo">
+            <label for="est-edad">Edad</label>
+            <input id="est-edad" type="number" min="3" max="17" inputmode="numeric" placeholder="Años">
+          </div>
+        </div>
+      </div>
+
+      <div class="fila">
+        <div class="campo">
+          <label for="nombre" id="lbl-nombre">Tu nombre completo <span class="req">*</span></label>
+          <input id="nombre" autocomplete="name" placeholder="Nombre y apellidos">
+          <div class="error">Escribe tu nombre completo.</div>
+        </div>
+        <div class="campo">
+          <label for="tel">WhatsApp <span class="req">*</span></label>
+          <input id="tel" type="tel" autocomplete="tel" placeholder="+52 967 000 0000">
+          <div class="error">Escribe un número con al menos 8 dígitos.</div>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="correo">Correo electrónico <span class="req">*</span></label>
+        <input id="correo" type="email" autocomplete="email" placeholder="tu@correo.com">
+        <div class="error">Ese correo no parece válido.</div>
+      </div>
+
+      <div class="campo">
+        <label for="nivel">Nivel de francés</label>
+        <select id="nivel">
+          <option value="">No estoy seguro / empezamos de cero</option>
+          <option>A1</option><option>A2</option><option>B1</option>
+          <option>B2</option><option>C1</option>
+        </select>
+      </div>
+
+      <div class="campo">
+        <label for="notas">¿Algo que Miguel deba saber?</label>
+        <textarea id="notas" placeholder="Objetivos, exámenes, preferencias de horario..."></textarea>
+      </div>
+
+      <div class="navbtns">
+        <button class="btn btn-claro" id="v3">Atrás</button>
+        <button class="btn" id="a5">Ver mi presupuesto</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PASO 5 · RESUMEN ══ -->
+  <section class="paso imprimible" id="p5">
+    <div class="card">
+      <div class="eyebrow" style="margin-bottom:.4rem">Presupuesto</div>
+      <h2 id="res-titulo">Tu paquete de clases</h2>
+      <p class="sub" id="res-fecha"></p>
+      <div id="resumen"></div>
+      <div class="total">
+        <span class="k" style="font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;
+              text-transform:uppercase;color:var(--muted)">Total a pagar</span>
+        <b id="res-total">—</b>
+      </div>
+      <div class="regalo" style="margin-top:1rem" id="res-regalo"></div>
+    </div>
+
+    <div class="card no-print">
+      <h2>Último paso</h2>
+      <p class="sub">Envíame tu solicitud y te confirmo la disponibilidad de esos horarios.
+         Después coordinamos el pago y te llega el contrato con las fechas.</p>
+      <button class="btn btn-wa btn-ancho" id="enviar">Enviar por WhatsApp</button>
+      <div style="display:flex;gap:.7rem;margin-top:.7rem">
+        <button class="btn btn-claro" style="flex:1" id="correo-btn">Enviar por correo</button>
+        <button class="btn btn-claro" style="flex:1" id="imprimir">Guardar PDF</button>
+      </div>
+      <div class="aviso" style="margin-top:1.2rem">
+        <b>¿Qué pasa después?</b> Miguel confirma que esos horarios están libres, coordinan el
+        pago y recibes el contrato con las fechas de inicio y cierre. Nada queda apartado
+        hasta esa confirmación.
+      </div>
+      <div class="navbtns">
+        <button class="btn btn-claro btn-ancho" id="v4">Cambiar algo</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══ Barra fija ══ -->
+<div class="barra" id="barra" hidden>
+  <div class="barra-in">
+    <div class="info">
+      <div class="k" id="barra-k">Paquete</div>
+      <div class="v" id="barra-v">—</div>
+    </div>
+    <button class="btn" id="barra-btn">Continuar</button>
+  </div>
+</div>
+
+<script>
+'use strict';
+/* ═══════════════════════════════════════════════════════════
+   AJUSTES — lo único que hay que tocar para cambiar precios
+   ═══════════════════════════════════════════════════════════ */
+var TARIFA    = 250;                    // pesos por hora de 60 minutos
+var MONEDA    = 'MXN';
+var PAQUETES  = [10, 20, 30, 40];       // opciones que se muestran
+var HORAS_POR_REGALO = 10;              // 1 hora de tutoría de regalo por cada 10 contratadas
+var WHATSAPP  = '529673424456';
+var CORREO_MT = 'migueltillero@gmail.com';
+var HORAS_DIA = ['08:00','09:00','10:00','11:00','12:00','13:00',
+                 '14:00','15:00','16:00','17:00','18:00','19:00','20:00'];
+
+var DIAS  = ['lunes','martes','miércoles','jueves','viernes','sábado','domingo'];
+var CORTO = ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
+var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto',
+             'septiembre','octubre','noviembre','diciembre'];
+
+var est = { horas:0, dur:1, dias:[], horaDe:{}, inicio:null, sesiones:[], paso:1 };
+
+var $  = function(s){ return document.querySelector(s); };
+var $$ = function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); };
+
+function regaloDe(h){ return Math.floor(h / HORAS_POR_REGALO); }
+function durTexto(h){ return h===0.5?'media hora':h===1?'1 hora':h===1.5?'hora y media'
+  :h===2?'2 horas':(Number.isInteger(h)?h+' horas':h.toString().replace('.',',')+' horas'); }
+function durCorta(h){ return h===0.5?'30 min':h===1?'1 h':h===1.5?'1 h 30':h+' h'; }
+/* Describe el reparto real: la última sesión puede ser más corta. */
+function repartoTexto(ses){
+  var plenas = ses.filter(function(s){ return s.horas === ses[0].horas; }).length;
+  var resto  = ses.filter(function(s){ return s.horas !== ses[0].horas; });
+  if (!resto.length) return ses.length + ' sesiones de ' + durTexto(ses[0].horas);
+  return plenas + ' sesiones de ' + durTexto(ses[0].horas)
+       + ' y una de ' + durTexto(resto[0].horas);
+}
+function dinero(n){ return '$' + n.toLocaleString('es-MX') + ' ' + MONEDA; }
+function enLetra(d){ return DIAS[(d.getDay()+6)%7] + ' ' + d.getDate() + ' de ' + MESES[d.getMonth()]; }
+function iso(d){ return d.toISOString().slice(0,10); }
+
+/* ── Paso 1: paquetes ── */
+function pintaPaquetes(){
+  $('#paquetes').innerHTML = PAQUETES.map(function(h){
+    var r = regaloDe(h);
+    return '<button type="button" class="paq" data-h="'+h+'">'
+      + '<div class="h">'+h+' <span>h</span></div>'
+      + '<div class="p">'+dinero(h*TARIFA)+'</div>'
+      + (r ? '<div class="r">+'+r+' h de regalo</div>' : '')
+      + '</button>';
+  }).join('');
+  $$('.paq').forEach(function(b){
+    b.addEventListener('click', function(){ eligeHoras(parseInt(b.dataset.h,10), true); });
+  });
+}
+
+function eligeHoras(h, desdeBoton){
+  est.horas = h;
+  $$('.paq').forEach(function(b){ b.classList.toggle('sel', parseInt(b.dataset.h,10)===h); });
+  if (desdeBoton) $('#otras').value = '';
+  var r = regaloDe(h);
+  $('#regalo-box').innerHTML = h ?
+    ('<div class="regalo"><span class="ic">🎁</span><div>'
+      + (r ? '<b>Se incluyen '+r+' hora'+(r>1?'s':'')+' de tutoría de regalo.</b> '
+             + 'Se suman a tu calendario sin costo: en total tomarás <b>'+(h+r)+' horas</b>.'
+           : 'A partir de '+HORAS_POR_REGALO+' horas se incluyen tutorías de regalo.')
+      + '</div></div>') : '';
+  $('#a2').disabled = !h;
+  actualizaBarra();
+}
+
+/* ── Paso 2: días y horas ── */
+function pintaDias(){
+  $('#dias').innerHTML = DIAS.map(function(d,i){
+    return '<button type="button" class="dia" data-i="'+i+'" aria-pressed="false">'
+      + '<span class="d1">'+CORTO[i]+'</span><span class="d2">'+d.charAt(0).toUpperCase()+'</span></button>';
+  }).join('');
+  $$('.dia').forEach(function(b){
+    b.addEventListener('click', function(){
+      var i = parseInt(b.dataset.i,10);
+      var k = est.dias.indexOf(i);
+      if (k>=0) { est.dias.splice(k,1); delete est.horaDe[i]; }
+      else { est.dias.push(i); est.dias.sort(function(a,c){return a-c;}); est.horaDe[i]='16:00'; }
+      b.classList.toggle('sel', k<0);
+      b.setAttribute('aria-pressed', String(k<0));
+      $('#err-dias').style.display='none';
+      pintaHorasDia();
+      actualizaBarra();
+    });
+  });
+}
+
+function pintaHorasDia(){
+  var c = $('#horas-dia');
+  if (!est.dias.length) { c.innerHTML=''; return; }
+  c.innerHTML = est.dias.map(function(i){
+    var id = 'h-dia-'+i;
+    return '<div class="hd"><span class="n">'+DIAS[i].charAt(0).toUpperCase()+DIAS[i].slice(1)+'</span>'
+      + '<label for="'+id+'" style="margin:0;font-size:.75rem;color:var(--muted)">a las</label>'
+      + '<select id="'+id+'" data-i="'+i+'">'
+      + HORAS_DIA.map(function(h){
+          return '<option'+(est.horaDe[i]===h?' selected':'')+'>'+h+'</option>'; }).join('')
+      + '</select></div>';
+  }).join('');
+  c.querySelectorAll('select').forEach(function(s){
+    s.addEventListener('change', function(){ est.horaDe[s.dataset.i] = s.value; });
+  });
+}
+
+/* ── Generar el calendario ── */
+function generaCalendario(){
+  var total = est.horas + regaloDe(est.horas);
+  var restan = total, ses = [], d = new Date(est.inicio.getTime()), tope = 0;
+  while (restan > 0.001 && tope < 900){
+    var wd = (d.getDay()+6)%7;
+    if (est.dias.indexOf(wd) >= 0){
+      var h = Math.min(est.dur, restan);
+      ses.push({ fecha:new Date(d.getTime()), horas:h, hora:est.horaDe[wd]||'16:00' });
+      restan -= h;
+    }
+    d.setDate(d.getDate()+1); tope++;
+  }
+  /* Las horas de regalo son las últimas del calendario. */
+  var reg = regaloDe(est.horas), acum = 0;
+  ses.forEach(function(s){ acum += s.horas; s.bonus = acum > est.horas + 0.001; });
+  est.sesiones = ses;
+  return ses;
+}
+
+function pintaCalendario(){
+  var ses = generaCalendario();
+  var reg = regaloDe(est.horas);
+  $('#cal-sub').textContent = repartoTexto(ses) + ', ' + (est.horas+reg) + ' horas en total.';
+  var html = '', mesActual = '';
+  ses.forEach(function(s,i){
+    var m = MESES[s.fecha.getMonth()] + ' ' + s.fecha.getFullYear();
+    if (m !== mesActual){ html += '<div class="cal-mes">'+m+'</div>'; mesActual = m; }
+    html += '<div class="cal-fila'+(s.bonus?' bonus':'')+'">'
+      + '<span class="cal-n">'+(i+1)+'</span>'
+      + '<span class="cal-f">'+enLetra(s.fecha)+(s.bonus?' · <b style="color:var(--gold2)">tutoría de regalo</b>':'')+'</span>'
+      + '<span class="cal-h">'+s.hora
+      + (s.horas !== ses[0].horas ? ' · '+durCorta(s.horas) : '')
+      + '</span></div>';
+  });
+  $('#cal').innerHTML = html;
+  var ult = ses[ses.length-1];
+  $('#cal-cierre').innerHTML = '<b>Del '+enLetra(ses[0].fecha)+' al '+enLetra(ult.fecha)
+    + ' de ' + ult.fecha.getFullYear() + '.</b> Esas serían las fechas de inicio y cierre de tu contrato.';
+}
+
+/* ── Resumen ── */
+function pintaResumen(){
+  var reg = regaloDe(est.horas), ses = est.sesiones;
+  var quien = document.querySelector('input[name=quien]:checked').value;
+  var alumno = quien==='menor' ? ($('#est-nombre').value.trim()||'—') : ($('#nombre').value.trim()||'—');
+  $('#res-titulo').textContent = 'Clases particulares · ' + alumno;
+  $('#res-fecha').textContent = 'Presupuesto emitido el ' + new Date().toLocaleDateString('es-MX',
+      {day:'numeric',month:'long',year:'numeric'}) + '. Sujeto a confirmación de horarios.';
+  var f = [
+    ['Horas contratadas', est.horas + ' h'],
+    ['Precio por hora', dinero(TARIFA)],
+    ['Tutorías de regalo', reg ? reg + ' h · sin costo' : '—'],
+    ['Horas totales a tomar', (est.horas+reg) + ' h'],
+    ['Sesiones', repartoTexto(ses)],
+    ['Días', est.dias.map(function(i){ return DIAS[i]+' '+(est.horaDe[i]||''); }).join(' · ')],
+    ['Inicio', enLetra(ses[0].fecha) + ' de ' + ses[0].fecha.getFullYear()],
+    ['Cierre', enLetra(ses[ses.length-1].fecha) + ' de ' + ses[ses.length-1].fecha.getFullYear()]
+  ];
+  $('#resumen').innerHTML = f.map(function(x){
+    return '<div class="linea-r"><span>'+x[0]+'</span><span>'+x[1]+'</span></div>'; }).join('');
+  $('#res-total').textContent = dinero(est.horas * TARIFA);
+  $('#res-regalo').innerHTML = reg
+    ? '<span class="ic">🎁</span><div><b>'+reg+' hora'+(reg>1?'s':'')+' de tutoría incluidas.</b> '
+      + 'Ya están agendadas al final de tu calendario, marcadas en dorado.</div>'
+    : '<span class="ic">📘</span><div>Las clases se imparten en línea o presenciales, a convenir.</div>';
+}
+
+/* ── Mensaje para Miguel ── */
+function mensaje(){
+  var reg = regaloDe(est.horas), ses = est.sesiones;
+  var quien = document.querySelector('input[name=quien]:checked').value;
+  var L = ['SOLICITUD DE PAQUETE DE CLASES',''];
+  if (quien==='menor'){
+    L.push('Estudiante: ' + $('#est-nombre').value.trim() + ($('#est-edad').value?' ('+$('#est-edad').value+' años)':''));
+    L.push('Representante: ' + $('#nombre').value.trim());
+  } else {
+    L.push('Estudiante: ' + $('#nombre').value.trim());
+  }
+  L.push('WhatsApp: ' + $('#tel').value.trim());
+  L.push('Correo: ' + $('#correo').value.trim());
+  if ($('#nivel').value) L.push('Nivel: ' + $('#nivel').value);
+  L.push('');
+  L.push('Paquete: ' + est.horas + ' h × ' + dinero(TARIFA) + ' = ' + dinero(est.horas*TARIFA));
+  if (reg) L.push('Tutorías de regalo: ' + reg + ' h');
+  L.push('Total a tomar: ' + (est.horas+reg) + ' h en ' + repartoTexto(ses));
+  L.push('Días: ' + est.dias.map(function(i){ return DIAS[i]+' '+(est.horaDe[i]||''); }).join(', '));
+  L.push('Inicio: ' + enLetra(ses[0].fecha) + ' de ' + ses[0].fecha.getFullYear());
+  L.push('Cierre: ' + enLetra(ses[ses.length-1].fecha) + ' de ' + ses[ses.length-1].fecha.getFullYear());
+  if ($('#notas').value.trim()){ L.push(''); L.push('Notas: ' + $('#notas').value.trim()); }
+  L.push(''); L.push('Quedo atenta/o a que confirmes la disponibilidad de estos horarios.');
+  return L.join('\n');
+}
+
+/* ── Navegación ── */
+function ve(n){
+  est.paso = n;
+  $$('.paso').forEach(function(s,i){ s.classList.toggle('on', i === n-1); });
+  pintaPasos();
+  actualizaBarra();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function pintaPasos(){
+  var nombres = ['Paquete','Horario','Calendario','Datos','Listo'];
+  $('#pasos').innerHTML = nombres.map(function(t,i){
+    var n = i+1, cl = n===est.paso ? 'on' : (n<est.paso ? 'hecho' : '');
+    return '<span class="paso-pin '+cl+'"><b>'+(n<est.paso?'✓':n)+'</b>'+t+'</span>';
+  }).join('');
+}
+
+function actualizaBarra(){
+  var b = $('#barra');
+  if (est.paso === 5 || !est.horas){ b.hidden = true; return; }
+  b.hidden = false;
+  var reg = regaloDe(est.horas);
+  $('#barra-k').textContent = est.horas + ' h' + (reg?' + '+reg+' de regalo':'');
+  $('#barra-v').textContent = dinero(est.horas*TARIFA);
+  var btn = $('#barra-btn');
+  btn.textContent = est.paso===1 ? 'Elegir horario'
+                  : est.paso===2 ? 'Ver calendario'
+                  : est.paso===3 ? 'Continuar' : 'Ver presupuesto';
+  btn.onclick = function(){ $('#a'+(est.paso+1)).click(); };
+}
+
+/* ── Validación ── */
+function marca(id, ok){
+  var c = document.getElementById(id).closest('.campo');
+  if (c) c.classList.toggle('malo', !ok);
+  return ok;
+}
+
+function validaDatos(){
+  var quien = document.querySelector('input[name=quien]:checked').value;
+  var ok = marca('nombre', $('#nombre').value.trim().length > 2);
+  ok = marca('correo', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('#correo').value.trim())) && ok;
+  ok = marca('tel', $('#tel').value.replace(/\D/g,'').length >= 8) && ok;
+  if (quien === 'menor') ok = marca('est-nombre', $('#est-nombre').value.trim().length > 2) && ok;
+  if (!ok){
+    var m = $('.campo.malo');
+    if (m){ m.scrollIntoView({behavior:'smooth',block:'center'});
+            var f = m.querySelector('input,select'); if (f) f.focus({preventScroll:true}); }
+  }
+  return ok;
+}
+
+/* ── Arranque ── */
+pintaPaquetes();
+pintaDias();
+pintaPasos();
+
+var hoy = new Date();
+var manana = new Date(hoy.getTime() + 86400000);
+$('#inicio').value = iso(manana);
+$('#inicio').min = iso(hoy);
+
+$('#otras').addEventListener('input', function(){
+  var v = parseInt(this.value, 10);
+  $$('.paq').forEach(function(b){ b.classList.remove('sel'); });
+  eligeHoras(v > 0 ? v : 0, false);
+});
+
+$('#a2').addEventListener('click', function(){ ve(2); });
+$('#v1').addEventListener('click', function(){ ve(1); });
+
+$('#a3').addEventListener('click', function(){
+  if (!est.dias.length){ $('#err-dias').style.display='block';
+    $('#dias').scrollIntoView({behavior:'smooth',block:'center'}); return; }
+  var f = $('#inicio').value;
+  if (!f){ marca('inicio', false); return; }
+  marca('inicio', true);
+  est.dur = parseFloat($('#dur').value);
+  var p = f.split('-');
+  est.inicio = new Date(+p[0], +p[1]-1, +p[2]);
+  pintaCalendario();
+  ve(3);
+});
+$('#v2').addEventListener('click', function(){ ve(2); });
+$('#a4').addEventListener('click', function(){ ve(4); });
+$('#v3').addEventListener('click', function(){ ve(3); });
+$('#v4').addEventListener('click', function(){ ve(4); });
+
+$('#a5').addEventListener('click', function(){
+  if (!validaDatos()) return;
+  pintaResumen();
+  ve(5);
+});
+
+document.querySelectorAll('input[name=quien]').forEach(function(r){
+  r.addEventListener('change', function(){
+    var menor = document.querySelector('input[name=quien]:checked').value === 'menor';
+    $('#bloque-menor').hidden = !menor;
+    $('#lbl-nombre').innerHTML = (menor ? 'Tu nombre completo (madre, padre o tutor)'
+                                        : 'Tu nombre completo') + ' <span class="req">*</span>';
+  });
+});
+
+$('#enviar').addEventListener('click', function(){
+  window.open('https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(mensaje()), '_blank');
+});
+$('#correo-btn').addEventListener('click', function(){
+  window.location.href = 'mailto:' + CORREO_MT
+    + '?subject=' + encodeURIComponent('Solicitud de paquete de clases — ' + $('#nombre').value.trim())
+    + '&body=' + encodeURIComponent(mensaje());
+});
+$('#imprimir').addEventListener('click', function(){ window.print(); });
+
+document.addEventListener('input', function(e){
+  var c = e.target.closest && e.target.closest('.campo.malo');
+  if (c) c.classList.remove('malo');
+});
+</script>
+</body>
+</html>
