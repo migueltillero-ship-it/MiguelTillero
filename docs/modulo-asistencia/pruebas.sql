@@ -37,8 +37,15 @@ $$;
 \echo ''
 \echo '=== PRUEBAS ==='
 -- Rol de prueba sin privilegios especiales: RLS sí le aplica
-drop role if exists alumno_rol;
-create role alumno_rol nologin;
+-- El rol es del cluster, no de la base: puede sobrevivir a ejecuciones
+-- anteriores y no se puede borrar mientras tenga permisos concedidos en
+-- otras bases. Se crea solo si falta; los permisos de abajo son de esta
+-- base y por tanto siempre parten de cero.
+do $$ begin
+  if not exists (select 1 from pg_roles where rolname = 'alumno_rol') then
+    create role alumno_rol nologin;
+  end if;
+end $$;
 grant usage on schema public, auth to alumno_rol;
 grant select, insert, update on all tables in schema public to alumno_rol;
 grant select, insert, delete on _sesion to alumno_rol;
