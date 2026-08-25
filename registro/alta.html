@@ -101,6 +101,16 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g
 .note { font-size: 0.82rem; color: var(--muted); line-height: 1.55; border-left: 2px solid var(--gold); padding-left: 0.8rem; margin-top: 1.2rem; }
 .done-box { text-align: center; }
 .done-box i.big { font-size: 2.4rem; color: var(--cyan); margin-bottom: 0.8rem; }
+
+/* ── ERGONOMÍA MÓVIL: objetivos táctiles de 44 px ── */
+@media (max-width: 640px) {
+  .langs button { min-width: 44px; min-height: 44px; font-size: 0.66rem; }
+  .btn { min-height: 48px; }
+  .day-pick span { min-width: 46px; min-height: 46px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.7rem; }
+  .pick { min-height: 60px; }
+  input, select, textarea { font-size: 16px; min-height: 48px; }
+  textarea { min-height: 92px; }
+}
 </style>
 </head>
 <body>

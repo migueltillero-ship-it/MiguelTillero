@@ -91,6 +91,16 @@ input[type=text]:focus { outline: none; border-color: var(--gold); box-shadow: 0
   .panel { border: none; padding: 0 0 1rem; background: none; }
   .wrap { max-width: 100%; }
 }
+
+/* ── ERGONOMÍA MÓVIL: objetivos táctiles de 44 px ── */
+@media (max-width: 640px) {
+  .langs .btn { min-width: 44px; min-height: 44px; font-size: 0.66rem; }
+  .btn { min-height: 48px; }
+  input[type=text] { font-size: 16px; min-height: 48px; }
+  .check-row input { width: 1.4rem; height: 1.4rem; }
+  .check-row { padding: 0.4rem 0; }
+  .sig-box { grid-template-columns: 1fr; gap: 1.6rem; }
+}
 </style>
 </head>
 <body>

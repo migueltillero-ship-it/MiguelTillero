@@ -142,6 +142,17 @@ body {
 
 
 
+
+/* ── ERGONOMÍA MÓVIL: objetivos táctiles de 44 px ── */
+@media (max-width: 640px) {
+  .back-link { min-height: 46px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.68rem; }
+  .copy-btn { min-width: 46px; min-height: 46px; font-size: 0.85rem; }
+  .pay-value { font-size: 0.95rem; }
+  .pay-label, .pay-bank-sub, .store-badge, .qr-info { font-size: 0.7rem; }
+  .oxxo-grid { grid-template-columns: 1fr; }
+  /* Enlaces dentro de un párrafo: más área táctil sin romper el texto */
+  .pay-note a { padding: 0.4rem 0.15rem; display: inline-block; }
+}
 </style>
 </head>
 <body>
