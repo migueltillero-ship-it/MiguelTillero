@@ -94,8 +94,14 @@ TIPO: grupo
 NIVEL: B2
 DIAS: lunes, miércoles
 HORA: 19:00-20:30
+INICIO: 2026-08-31
+PAQUETE: 16 horas
+TOMADAS: 0
 MODALIDAD: en línea
-NOTAS: faltan la fecha de inicio del ciclo y su total de horas
+NOTAS: ciclo nuevo. El lunes se hace repaso general y reparto de horarios;
+       el miércoles, evaluación de competencias y entrega del plan de
+       estudios. Inicio deducido de la carta al grupo: pendiente de
+       confirmar si el ciclo arranca ese lunes o tras la evaluación
 ESTUDIANTES:
 - Melissa Rico
 - Montserrat Álvarez
