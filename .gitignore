@@ -1,0 +1,8 @@
+# Fichas y calendarios generados por herramientas/generar_fichas.py
+#
+# Son archivos derivados: se rehacen en cualquier momento con
+#     python3 herramientas/generar_fichas.py
+# y llevan dentro la fecha del día, así que versionarlos ensuciaría
+# el historial cada jornada y provocaría conflictos entre sesiones.
+# La fuente de verdad es datos/grupos.txt, que sí se versiona.
+datos/generado/
