@@ -168,6 +168,24 @@ def calendario(g, hoy=None):
     """
     hoy = hoy or date.today()
 
+    # Un ciclo con fecha de fin fija (un bimestre) manda sobre el total de
+    # horas: las sesiones son las que caben entre INICIO y FIN.
+    fin = leer_fecha(g.get("fin"))
+    ini = leer_fecha(g.get("inicio"))
+    dias_f = leer_dias(g.get("dias"))
+    if fin and ini and dias_f:
+        dur = leer_duracion(g.get("hora"))
+        if dur is None:
+            return [], "falta el horario con hora de inicio y fin (HORA)"
+        ses, acum, d = [], 0.0, ini
+        while d <= fin:
+            if d.weekday() in dias_f:
+                acum += dur
+                ses.append({"fecha": d.isoformat(), "en_letra": en_letra(d), "horas": dur,
+                            "acumulado": round(acum, 2), "suelta": False, "pasada": d < hoy})
+            d += timedelta(days=1)
+        return ses, None
+
     if clave(g.get("estado", "")).startswith("standby"):
         return [], "en standby: el grupo no tiene fechas mientras no se reanude"
 
@@ -325,7 +343,12 @@ def main():
         if motivo:
             sin_calendario.append((g["grupo"], motivo))
         total = leer_horas(g.get("paquete"))
+        if total is None and ses:
+            # Un ciclo con fecha de fin fija: el total sale del calendario.
+            total = round(sum(x["horas"] for x in ses), 2)
         tomadas = leer_horas(g.get("tomadas")) or 0.0
+        if not g.get("tomadas") and ses:
+            tomadas = round(sum(x["horas"] for x in ses if x["pasada"]), 2)
         g["horas_total"] = total or 0
         g["horas_tomadas"] = tomadas
         g["horas_restantes"] = round(total - tomadas, 2) if total else 0
