@@ -42,7 +42,10 @@
   --gold:    #a5824a;          /* dorado profundo, legible sobre claro */
   --gold2:   #86673a;          /* dorado oscuro para hover */
   --goldx:   rgba(201,169,110,0.16);
-  --cyan:    #0f8a5f;          /* esmeralda legible sobre claro */
+  /* Esmeralda de acento. #0f8a5f se quedaba en 4.36 de contraste sobre
+     blanco y la norma AA pide 4.5 para texto pequeño; este llega a 5.01
+     con un cambio de tono imperceptible. */
+  --cyan:    #0d7f57;
   --cyanx:   rgba(15,138,95,0.10);
   --white:   #12291c;          /* tinta verde oscura (texto principal) */
   --text:    rgba(18,41,28,0.92);
@@ -2045,6 +2048,47 @@ select:focus-visible, textarea:focus-visible {
 .res-desc { font-size: 0.75rem; line-height: 1.7; color: var(--muted); }
 .res-go { display: inline-block; margin-top: 0.9rem; font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan); }
 
+/* ── Accesibilidad ────────────────────────────────────────────
+   Foco visible en todo lo que recibe el teclado. Los campos de
+   formulario y los desplegables de preguntas frecuentes no
+   mostraban ningún indicador, así que quien navega sin ratón no
+   sabía dónde estaba. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 1px;
+}
+.insc-field input:focus-visible,
+.insc-field select:focus-visible,
+.insc-field textarea:focus-visible,
+.form-field input:focus-visible,
+.form-field select:focus-visible,
+.form-field textarea:focus-visible {
+  outline-offset: 0;
+  box-shadow: 0 0 0 3px var(--goldx);
+}
+
+/* Enlace para saltar la navegación: invisible hasta que se tabula */
+.skip-link {
+  position: fixed; top: 0; left: 50%; transform: translate(-50%, -120%);
+  z-index: 2000; padding: 0.8rem 1.5rem;
+  background: var(--gold); color: #fff; text-decoration: none;
+  font-family: 'Space Mono', monospace; font-size: 0.6rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  transition: transform 0.25s ease;
+}
+.skip-link:focus { transform: translate(-50%, 0); }
+
+/* La tira de la galería se desplaza: sin esto no hay forma de
+   recorrerla con el teclado. */
+#filmstripTrack:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+
 /* ── Portada: accesos a las páginas ── */
 .portal-head {
   display: flex; align-items: center; justify-content: center; gap: 1.2rem;
@@ -2286,6 +2330,9 @@ select:focus-visible, textarea:focus-visible {
 
 </head>
 <body>
+
+<a class="skip-link" href="#saltar-al-contenido" id="skip-link"
+   data-es="Saltar al contenido" data-fr="Aller au contenu" data-en="Skip to content">Saltar al contenido</a>
 
 <!-- 3D BG -->
 <!-- ═══════════════════════════════════════════
@@ -3293,7 +3340,7 @@ select:focus-visible, textarea:focus-visible {
       <h2 class="sec-title" style="margin-top:0.8rem;"><em data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</em></h2>
     </div>
     <div class="filmstrip-wrap" data-gallery>
-      <div class="filmstrip-track" id="filmstripTrack">
+      <div class="filmstrip-track" id="filmstripTrack" tabindex="0" role="region" aria-label="Galería de imágenes, desplazable con las flechas">
         <div class="filmstrip-loading"><i class="fa fa-circle-notch fa-spin"></i> <span>Cargando carrete</span></div>
       </div>
     </div>
@@ -3936,7 +3983,7 @@ select:focus-visible, textarea:focus-visible {
   </div>
 </section>
 
-<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Volver arriba"><i class="fa fa-arrow-up"></i></button>
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Volver arriba" aria-label="Volver arriba" data-es-aria="Volver arriba" data-fr-aria="Revenir en haut" data-en-aria="Back to top"><i class="fa fa-arrow-up"></i></button>
 
 <!-- ═══ FOOTER ═══ -->
 <footer id="footer" class="z10">
@@ -3959,7 +4006,7 @@ select:focus-visible, textarea:focus-visible {
 <!-- ═══ MODAL CITA ═══ -->
 <div class="modal-overlay" id="modal-cita" role="dialog" aria-modal="true">
   <div class="modal-box bracket">
-    <button class="modal-close" onclick="closeModal('modal-cita')"><i class="fa fa-times"></i></button>
+    <button class="modal-close" onclick="closeModal('modal-cita')" aria-label="Cerrar"><i class="fa fa-times"></i></button>
     <div class="modal-title">Agendar cita</div>
     <div class="modal-sub">Consultoría · Asesoría · Gestión cultural</div>
     <div class="modal-rule"></div>
@@ -4012,7 +4059,7 @@ select:focus-visible, textarea:focus-visible {
 <!-- ═══ MODAL CLASE ═══ -->
 <div class="modal-overlay" id="modal-clase" role="dialog" aria-modal="true">
   <div class="modal-box bracket">
-    <button class="modal-close" onclick="closeModal('modal-clase')"><i class="fa fa-times"></i></button>
+    <button class="modal-close" onclick="closeModal('modal-clase')" aria-label="Cerrar"><i class="fa fa-times"></i></button>
     <div class="modal-title">Clase de prueba</div>
     <div class="modal-sub">Gratuite · 45 min · Tous niveaux</div>
     <div class="modal-rule"></div>
@@ -4211,7 +4258,22 @@ window.SitePages = (function () {
     show('inicio', null, push);   /* enlaces a modales u otros: portada */
   }
 
+  /* El enlace de salto lleva al primer bloque de la página activa,
+     sea cual sea, y le pasa el foco para que el teclado y el lector
+     de pantalla continúen desde ahí y no desde el principio. */
+  function saltarAlContenido(e) {
+    e.preventDefault();
+    var destino = document.querySelector('section[data-page="' + current + '"]');
+    if (!destino) return;
+    destino.setAttribute('tabindex', '-1');
+    destino.focus({ preventScroll: true });
+    window.scrollTo({ top: destino.getBoundingClientRect().top + window.pageYOffset - 70 });
+  }
+
   function init() {
+    var skip = document.getElementById('skip-link');
+    if (skip) skip.addEventListener('click', saltarAlContenido);
+
     /* Interceptamos todos los enlaces internos de la página */
     document.addEventListener('click', function (e) {
       var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
@@ -5045,6 +5107,29 @@ window.addEventListener('DOMContentLoaded', function() {
   };
   build(0);
   build(1); /* duplicado para auto-scroll infinito */
+
+  /* ── TECLADO ──
+     La tira se movía solo con ratón o dedo, así que con el teclado no
+     había forma de ver más allá de las primeras fotos. Además la
+     animación no se detenía al recibir el foco: quien navega tabulando
+     se encontraba el contenido huyendo. Las flechas la recorren y el
+     foco la detiene, igual que ya hacía el ratón al pasar por encima. */
+  track.addEventListener('keydown', function (e) {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    e.preventDefault();
+    track.classList.remove('animating');
+    track.classList.add('paused');
+    /* Se asigna scrollLeft en lugar de usar scrollBy con desplazamiento
+       suave: sobre este contenedor el modo suave no llega a aplicarse
+       —se queda en el punto de partida— y además el salto directo es lo
+       que conviene a quien ha pedido menos movimiento en su sistema. */
+    var paso = (track.querySelector('.g-item') || {}).offsetWidth || 240;
+    var avance = (e.key === 'ArrowRight' ? 1 : -1) * (paso + 16);
+    track.scrollLeft = Math.max(0, Math.min(track.scrollWidth - track.clientWidth,
+                                            track.scrollLeft + avance));
+  });
+  track.addEventListener('focus', function () { track.classList.add('paused'); });
+  track.addEventListener('blur',  function () { track.classList.remove('paused'); });
 
   /* ── DRAG / SWIPE (mouse + touch) ── */
   var isDown = false, startX = 0, startScroll = 0, moved = 0;
