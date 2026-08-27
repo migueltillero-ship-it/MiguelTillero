@@ -2051,6 +2051,14 @@ select:focus-visible, textarea:focus-visible {
 .res-desc { font-size: 0.75rem; line-height: 1.7; color: var(--muted); }
 .res-go { display: inline-block; margin-top: 0.9rem; font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan); }
 
+/* ── Resumen del CV en una página ── */
+.cv-resumen {
+  margin-top: 1rem; font-family: 'Space Mono', monospace;
+  font-size: 0.58rem; letter-spacing: 0.14em; color: var(--muted);
+}
+.cv-resumen a { color: var(--gold2); text-decoration: none; border-bottom: 1px solid var(--border); }
+.cv-resumen a:hover { color: var(--gold); }
+
 /* ── Enlaces a las páginas de detalle ──
    Los buscadores llegan a ellas siguiendo estos enlaces; el mapa del
    sitio por sí solo no basta. */
@@ -2629,11 +2637,14 @@ summary:focus-visible,
               <i class="fa fa-chevron-down" style="font-size:.55rem"></i>
             </button>
             <div id="cv-drop" style="display:none;position:absolute;top:110%;left:0;min-width:220px;background:rgba(255,255,255,.96);border:1px solid rgba(201,169,110,.35);backdrop-filter:blur(16px);z-index:200;padding:.5rem 0">
-              <a href="CV%20Miguel%20Tillero%20Espanol.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
+              <a href="cv-miguel-tillero-es.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
                 <span class="cv-flag">ES</span>&nbsp; Español
               </a>
-              <a href="CVMiguelTilleroFrancais.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
+              <a href="cv-miguel-tillero-fr.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
                 <span class="cv-flag">FR</span>&nbsp; Français
+              </a>
+              <a href="cv-miguel-tillero-en.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
+                <span class="cv-flag">EN</span>&nbsp; English
               </a>
             </div>
           </div>
@@ -2778,17 +2789,30 @@ summary:focus-visible,
 
       <!-- ── DESCARGA DE CV ── -->
       <div class="cv-download-wrap reveal">
-        <a href="CV%20Miguel%20Tillero%20Espanol.pdf" download class="cv-btn" target="_blank" rel="noopener">
+        <a href="cv-miguel-tillero-es.pdf" download class="cv-btn" target="_blank" rel="noopener">
           <span class="cv-flag">ES</span>
           <i class="fa fa-file-pdf"></i>
           <span data-es="Descargar CV en español" data-fr="Télécharger CV en espagnol" data-en="Download CV in Spanish">Descargar CV · Español</span>
         </a>
-        <a href="CVMiguelTilleroFrancais.pdf" download class="cv-btn" target="_blank" rel="noopener">
+        <a href="cv-miguel-tillero-fr.pdf" download class="cv-btn" target="_blank" rel="noopener">
           <span class="cv-flag">FR</span>
           <i class="fa fa-file-pdf"></i>
           <span data-es="Descargar CV en francés" data-fr="Télécharger CV en français" data-en="Download CV in French">Télécharger CV · Français</span>
         </a>
+        <a href="cv-miguel-tillero-en.pdf" download class="cv-btn" target="_blank" rel="noopener">
+          <span class="cv-flag">EN</span>
+          <i class="fa fa-file-pdf"></i>
+          <span data-es="Descargar CV en inglés" data-fr="Télécharger CV en anglais" data-en="Download CV in English">Download CV · English</span>
+        </a>
       </div>
+
+      <!-- El resumen de una página, para quien no quiere el CV completo -->
+      <p class="cv-resumen reveal">
+        <span data-es="¿Prefieres una sola página?" data-fr="Vous préférez une seule page ?" data-en="Prefer a single page?">¿Prefieres una sola página?</span>
+        <a href="resumen-miguel-tillero-es.pdf" download target="_blank" rel="noopener">Español</a> ·
+        <a href="resumen-miguel-tillero-fr.pdf" download target="_blank" rel="noopener">Français</a> ·
+        <a href="resumen-miguel-tillero-en.pdf" download target="_blank" rel="noopener">English</a>
+      </p>
 
     </div>
   </div>
@@ -4600,9 +4624,12 @@ document.querySelectorAll('input[type="date"]').forEach(d => d.min = today);
       Copiar el PUBLIC_KEY (ej: user_AbCdEf)
    5. Reemplazar los 3 valores abajo:
 ══════════════════════════════════════════════════════ */
-const EMAILJS_SERVICE  = 'service_k9b1j7y'; // ✅ CONFIGURADO
-const EMAILJS_TEMPLATE = 'template_sp4hl5f';  // ← reemplazar
-const EMAILJS_KEY      = '7FPd-e34G4AgVK5YA';   // ← reemplazar
+/* Los tres valores están puestos. Si alguna vez cambian, se cambian
+   AQUÍ y en ningún otro sitio: todos los formularios los leen de estas
+   constantes. */
+const EMAILJS_SERVICE  = 'service_k9b1j7y';
+const EMAILJS_TEMPLATE = 'template_sp4hl5f';
+const EMAILJS_KEY      = '7FPd-e34G4AgVK5YA';
 
 /* Inicializar EmailJS */
 if (EMAILJS_KEY && !EMAILJS_KEY.startsWith('TU_')) { try { emailjs.init(EMAILJS_KEY); } catch(e){} }
@@ -5110,7 +5137,7 @@ window.addEventListener('DOMContentLoaded', function() {
     }
 
     try {
-      emailjs.send('service_k9b1j7y', 'template_sp4hl5f', {
+      emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
         subject: '🎓 NUEVA INSCRIPCIÓN — ' + d.nombre,
         from_name: d.nombre,
         from_email: d.email,

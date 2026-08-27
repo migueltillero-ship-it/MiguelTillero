@@ -12,7 +12,7 @@
 :root {
   --gold: #a5824a; --gold2: #86673a; --goldx: rgba(201,169,110,0.16);
   --cyan: #0f8a5f; --ink: #12291c;
-  --text: rgba(18,41,28,0.92); --muted: rgba(18,41,28,0.62);
+  --text: rgba(18,41,28,0.92); --muted: rgba(18,41,28,0.72);
   --border: rgba(165,130,74,0.38);
   --red: #b3402e; --panel: rgba(255,255,255,0.92);
 }
@@ -34,7 +34,7 @@ h1 em { font-style: normal; color: var(--gold); }
   display: inline-flex; align-items: center; gap: 0.45rem; transition: all .25s;
 }
 .btn:hover { background: var(--goldx); }
-.btn.solid { background: var(--gold); color: #fff; border-color: var(--gold); }
+.btn.solid { background: var(--gold2); color: #fff; border-color: var(--gold2); }
 .btn.solid:hover { background: var(--gold2); }
 .btn.danger { color: var(--red); border-color: rgba(179,64,46,.4); }
 .btn.small { padding: 0.35rem 0.7rem; font-size: 0.55rem; }
@@ -96,7 +96,7 @@ td { padding: 0.55rem 0.6rem; border-bottom: 1px solid rgba(18,41,28,0.08); vert
   padding: 0.5rem 0.55rem; border: 1px solid rgba(18,41,28,0.2); cursor: pointer;
   user-select: none; color: var(--muted); transition: all .2s;
 }
-.day-pick span.on { background: var(--gold); border-color: var(--gold); color: #fff; }
+.day-pick span.on { background: var(--gold2); border-color: var(--gold2); color: #fff; }
 
 /* agenda de hoy y pendientes */
 #today-box, #todo-box { margin-bottom: 1.5rem; }
