@@ -1,0 +1,230 @@
+/* ═══════════════════════════════════════════════════════════
+   PÁGINAS DE CAPTACIÓN
+   Hoja compartida por las páginas de examen y de público.
+
+   Son archivos independientes y no vistas del enrutador porque
+   su razón de ser es aparecer en buscadores: un fragmento de
+   dirección (#delf-b2) no genera una página distinta para
+   Google, así que una vista del sitio principal nunca podría
+   posicionarse por sí sola.
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --void:    #f3f7f1;
+  --panel:   rgba(255,255,255,0.92);
+  --gold:    #a5824a;
+  --gold2:   #86673a;
+  --goldx:   rgba(201,169,110,0.16);
+  --cyan:    #0d7f57;              /* 5.01 de contraste sobre blanco */
+  --white:   #12291c;
+  --text:    rgba(18,41,28,0.92);
+  --muted:   rgba(18,41,28,0.62);
+  --border:  rgba(165,130,74,0.38);
+  --borderx: rgba(13,127,87,0.18);
+  --glow:    0 0 40px rgba(201,169,110,0.18), 0 0 80px rgba(201,169,110,0.07);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 2rem; }
+
+body {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--text);
+  background: radial-gradient(ellipse 80% 80% at 50% 30%, #ffffff 0%, #edf5ea 55%, #dfeadd 100%);
+  min-height: 100vh;
+  padding: 1.5rem 1.5rem 4rem;
+  line-height: 1.7;
+}
+
+.container { max-width: 860px; margin: 0 auto; }
+
+/* ── Foco visible en todo lo que recibe el teclado ── */
+a:focus-visible, button:focus-visible, summary:focus-visible {
+  outline: 2px solid var(--gold); outline-offset: 2px;
+}
+
+.skip-link {
+  position: fixed; top: 0; left: 50%; transform: translate(-50%, -120%);
+  z-index: 100; padding: 0.8rem 1.5rem;
+  background: var(--gold); color: #fff; text-decoration: none;
+  font-family: 'Space Mono', monospace; font-size: 0.6rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  transition: transform 0.25s ease;
+}
+.skip-link:focus { transform: translate(-50%, 0); }
+
+/* ── Cabecera ── */
+.top-bar {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 1rem; flex-wrap: wrap; margin-bottom: 3.5rem;
+}
+.brand {
+  font-size: 1.15rem; color: var(--white); text-decoration: none;
+  letter-spacing: 0.04em;
+}
+.brand span { color: var(--gold); }
+.back-link {
+  font-family: 'Space Mono', monospace; font-size: 0.55rem;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold); text-decoration: none;
+  border: 1px solid var(--border); padding: 0.6rem 1.1rem;
+  transition: background 0.3s;
+}
+.back-link:hover { background: var(--goldx); }
+
+/* ── Migas de pan ── */
+.migas {
+  font-family: 'Space Mono', monospace; font-size: 0.55rem;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 1.6rem;
+}
+.migas a { color: var(--gold); text-decoration: none; }
+.migas a:hover { text-decoration: underline; }
+
+/* ── Encabezado ── */
+.eyebrow {
+  font-family: 'Space Mono', monospace; font-size: 0.58rem;
+  letter-spacing: 0.35em; text-transform: uppercase; color: var(--cyan);
+  margin-bottom: 0.9rem;
+}
+h1 {
+  font-family: 'Syne', sans-serif; font-size: clamp(1.9rem, 5vw, 2.9rem);
+  font-weight: 700; line-height: 1.15; color: var(--white);
+  margin-bottom: 1.2rem;
+}
+h1 em { font-style: normal; color: var(--gold); }
+.entradilla {
+  font-size: 1.05rem; line-height: 1.85; color: var(--text);
+  max-width: 660px; margin-bottom: 2.4rem;
+}
+
+h2 {
+  font-family: 'Syne', sans-serif; font-size: 1.25rem; font-weight: 600;
+  color: var(--white); margin: 3rem 0 1.1rem;
+  padding-bottom: 0.6rem; border-bottom: 1px solid var(--border);
+}
+h3 {
+  font-family: 'Syne', sans-serif; font-size: 0.98rem; font-weight: 600;
+  color: var(--white); margin-bottom: 0.45rem;
+}
+p { margin-bottom: 1.1rem; }
+p:last-child { margin-bottom: 0; }
+
+/* ── Ficha de datos ── */
+.ficha {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1px; background: var(--borderx); border: 1px solid var(--border);
+  margin: 2.2rem 0;
+}
+.ficha div { background: rgba(255,255,255,0.85); padding: 1.3rem 1.2rem; }
+.ficha dt {
+  font-family: 'Space Mono', monospace; font-size: 0.5rem;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold2);
+  margin-bottom: 0.5rem;
+}
+.ficha dd {
+  font-family: 'Syne', sans-serif; font-size: 1.05rem;
+  font-weight: 600; color: var(--white);
+}
+.ficha dd small { display: block; font-family: 'Cormorant Garamond', serif; font-size: 0.82rem; font-weight: 400; color: var(--muted); margin-top: 0.3rem; line-height: 1.5; }
+
+/* ── Listas ── */
+.lista { list-style: none; margin: 1.2rem 0; }
+.lista li {
+  position: relative; padding-left: 1.5rem; margin-bottom: 0.85rem;
+  font-size: 0.95rem; line-height: 1.75;
+}
+.lista li::before {
+  content: '›'; position: absolute; left: 0; top: -0.1rem;
+  color: var(--gold); font-size: 1.1rem;
+}
+
+/* ── Bloque de las cuatro pruebas ── */
+/* Dos columnas fijas: con cuatro pruebas, el ajuste automático dejaba
+   una suelta en la última fila. */
+.pruebas { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.6rem 0; }
+.prueba {
+  padding: 1.4rem 1.3rem; background: rgba(255,255,255,0.75);
+  border: 1px solid var(--borderx); border-top: 2px solid var(--cyan);
+}
+.prueba p { font-size: 0.85rem; line-height: 1.7; color: var(--muted); margin: 0; }
+
+/* ── Aviso ── */
+.aviso {
+  padding: 1.2rem 1.4rem; margin: 2.4rem 0;
+  border-left: 2px solid var(--gold); background: rgba(255,255,255,0.6);
+  font-size: 0.88rem; line-height: 1.8; color: var(--muted);
+}
+.aviso strong { color: var(--white); }
+
+/* ── Preguntas ── */
+details {
+  border: 1px solid var(--borderx); background: rgba(255,255,255,0.6);
+  margin-bottom: 0.6rem;
+}
+summary {
+  padding: 1rem 1.3rem; cursor: pointer; list-style: none;
+  font-family: 'Syne', sans-serif; font-size: 0.92rem; font-weight: 600;
+  color: var(--white);
+}
+summary::-webkit-details-marker { display: none; }
+summary::after { content: '+'; float: right; color: var(--gold); font-weight: 400; }
+details[open] summary::after { content: '−'; }
+details .cuerpo { padding: 0 1.3rem 1.2rem; font-size: 0.9rem; line-height: 1.8; color: var(--muted); }
+
+/* ── Llamada a la acción ── */
+.cta {
+  margin: 3.5rem 0 0; padding: 2.2rem 2rem; text-align: center;
+  background: var(--panel); border: 1px solid var(--border);
+  box-shadow: var(--glow);
+}
+.cta h2 { border: none; margin: 0 0 0.8rem; }
+.cta p { max-width: 520px; margin: 0 auto 1.8rem; color: var(--muted); font-size: 0.95rem; }
+.botones { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.9rem 1.8rem; text-decoration: none;
+  font-family: 'Space Mono', monospace; font-size: 0.55rem;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  transition: all 0.3s; border: 1px solid transparent; cursor: pointer;
+}
+/* Blanco sobre el dorado claro se queda en 3.56 de contraste; sobre el
+   oscuro llega a 5.23, que es lo que pide el nivel AA. */
+.btn-oro { background: var(--gold2); color: #fff; font-weight: 700; }
+.btn-oro:hover { background: #6f552f; }
+.btn-linea { background: rgba(255,255,255,0.85); color: var(--gold); border-color: var(--border); }
+.btn-linea:hover { background: var(--goldx); }
+
+/* ── Enlaces entre páginas hermanas ── */
+.hermanas { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+.hermanas a {
+  font-family: 'Space Mono', monospace; font-size: 0.52rem;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 0.5rem 0.9rem; text-decoration: none;
+  color: var(--gold); border: 1px solid var(--border);
+  transition: background 0.3s;
+}
+.hermanas a:hover { background: var(--goldx); }
+.hermanas a[aria-current="page"] { background: var(--gold2); color: #fff; font-weight: 700; }
+
+/* ── Pie ── */
+footer {
+  margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border);
+  font-family: 'Space Mono', monospace; font-size: 0.55rem;
+  letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+  display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+}
+footer a { color: var(--gold); text-decoration: none; }
+
+@media (max-width: 600px) {
+  body { padding: 1rem 1rem 3rem; }
+  .ficha { grid-template-columns: 1fr; }
+  .pruebas { grid-template-columns: 1fr; }
+  .botones { flex-direction: column; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}

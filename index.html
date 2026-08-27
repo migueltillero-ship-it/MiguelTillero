@@ -361,11 +361,14 @@ body::after {
   transition: opacity 0.3s; opacity: 0;
 }
 .btn:hover::before { opacity: 1; }
+/* El dorado claro con texto blanco daba 3.56 de contraste, por debajo
+   del 4.5 que pide la norma AA. Con el dorado oscuro sube a 5.23 y el
+   botón sigue leyéndose como dorado. */
 .btn-gold {
-  background: var(--gold); color: #ffffff; font-weight: 700;
+  background: var(--gold2); color: #ffffff; font-weight: 700;
   box-shadow: 0 0 30px rgba(201,169,110,0.3), inset 0 1px 0 rgba(255,255,255,0.15);
 }
-.btn-gold:hover { background: var(--gold2); box-shadow: 0 0 50px rgba(201,169,110,0.5); transform: translateY(-2px); }
+.btn-gold:hover { background: #6f552f; box-shadow: 0 0 50px rgba(201,169,110,0.5); transform: translateY(-2px); }
 .btn-ghost {
   background: rgba(255,255,255,0.85); color: var(--gold);
   border: 1px solid var(--border);
@@ -2048,6 +2051,19 @@ select:focus-visible, textarea:focus-visible {
 .res-desc { font-size: 0.75rem; line-height: 1.7; color: var(--muted); }
 .res-go { display: inline-block; margin-top: 0.9rem; font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan); }
 
+/* ── Enlaces a las páginas de detalle ──
+   Los buscadores llegan a ellas siguiendo estos enlaces; el mapa del
+   sitio por sí solo no basta. */
+.paginas-detalle { max-width: 820px; margin: 2.6rem auto 0; text-align: center; }
+.paginas-detalle p {
+  font-family: 'Space Mono', monospace; font-size: 0.55rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 0.9rem;
+}
+.paginas-detalle .af-chips { justify-content: center; }
+.paginas-detalle a.af-chip { text-decoration: none; transition: background 0.3s, color 0.3s; }
+.paginas-detalle a.af-chip:hover { background: var(--gold2); color: #fff; border-color: var(--gold2); }
+
 /* ── Accesibilidad ────────────────────────────────────────────
    Foco visible en todo lo que recibe el teclado. Los campos de
    formulario y los desplegables de preguntas frecuentes no
@@ -2844,6 +2860,16 @@ summary:focus-visible,
     <div class="af-cta reveal">
       <a href="#inscripcion" class="btn btn-gold" data-es="Solicitar mi curso" data-fr="Demander mon cours" data-en="Request my course">Solicitar mi curso</a>
     </div>
+
+    <div class="paginas-detalle reveal">
+      <p data-es="Clases según a quién van dirigidas:" data-fr="Cours selon le public :" data-en="Classes by audience:">Clases según a quién van dirigidas:</p>
+      <div class="af-chips">
+        <a class="af-chip" href="cursos/ninos.html" data-es="Niños" data-fr="Enfants" data-en="Children">Niños</a>
+        <a class="af-chip" href="cursos/adolescentes.html" data-es="Adolescentes" data-fr="Adolescents" data-en="Teenagers">Adolescentes</a>
+        <a class="af-chip" href="cursos/adultos.html" data-es="Adultos" data-fr="Adultes" data-en="Adults">Adultos</a>
+        <a class="af-chip" href="cursos/docentes.html" data-es="Docentes" data-fr="Enseignants" data-en="Teachers">Docentes</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -2960,6 +2986,18 @@ summary:focus-visible,
     <div class="af-cta reveal">
       <a href="#inscripcion" class="btn btn-gold" data-es="Preparar mi examen" data-fr="Préparer mon examen" data-en="Prepare my exam">Preparar mi examen</a>
       <a href="#niveles" class="btn btn-ghost" data-es="Conocer mi nivel" data-fr="Connaître mon niveau" data-en="Find my level">Conocer mi nivel</a>
+    </div>
+
+    <div class="paginas-detalle reveal">
+      <p data-es="Ficha detallada de cada examen:" data-fr="Fiche détaillée de chaque examen :" data-en="Detailed page for each exam:">Ficha detallada de cada examen:</p>
+      <div class="af-chips">
+        <a class="af-chip" href="examenes/delf-a1.html">DELF A1</a>
+        <a class="af-chip" href="examenes/delf-a2.html">DELF A2</a>
+        <a class="af-chip" href="examenes/delf-b1.html">DELF B1</a>
+        <a class="af-chip" href="examenes/delf-b2.html">DELF B2</a>
+        <a class="af-chip" href="examenes/dalf-c1.html">DALF C1</a>
+        <a class="af-chip" href="examenes/dalf-c2.html">DALF C2</a>
+      </div>
     </div>
   </div>
 </section>
