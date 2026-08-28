@@ -8,7 +8,10 @@
   --bg-grad:radial-gradient(ellipse 80% 80% at 50% 40%,#c5e0d3 0%,#b8d9ca 55%,#a5cdbf 100%);
   --gold:#a5824a; --gold2:#86673a; --gold-claro:#e8c87a;
   --em1:#0d3b2e; --em2:#1a5c45; --em-hondo:#0b3327;
-  --ink:#12291c; --muted:rgba(18,41,28,.62); --tenue:rgba(18,41,28,.45);
+  /* --muted y --tenue subieron de opacidad: con .62 y .45 el texto
+     quedaba en 4.35 y 2.73 de contraste sobre los fondos claros del
+     portal, por debajo del 4.5 que exige el nivel AA. */
+  --ink:#12291c; --muted:rgba(18,41,28,.72); --tenue:rgba(18,41,28,.65);
   --line:rgba(13,59,46,.14);
   --sombra:0 8px 26px rgba(13,59,46,.10);
   --sombra-alta:0 14px 40px rgba(13,59,46,.16);

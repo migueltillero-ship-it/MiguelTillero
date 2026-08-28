@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Zonas privadas o de trabajo interno
+Disallow: /pagos.html
+Disallow: /registro/
+Disallow: /estudiantes/
+Disallow: /mantenimiento.html
+
+Sitemap: https://migueltillero-ship-it.github.io/MiguelTillero/sitemap.xml

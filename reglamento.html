@@ -372,12 +372,16 @@ body::after {
 footer#footer { padding: 3rem 0; border-top:1px solid rgba(165,130,74,.2); }
 .footer-inner { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.5rem; }
 .footer-brand { font-family:'Cormorant Garamond',serif; font-size:1.25rem; font-weight:300; color:var(--white); }
-.footer-brand em { font-style:normal; color:var(--gold); }
-.footer-tag { font-family:'Space Mono',monospace; font-size:0.56rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--muted); margin-top:0.3rem; }
-.footer-back { font-family:'Space Mono',monospace; font-size:0.56rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-top:0.6rem; display:inline-flex; align-items:center; gap:0.4rem; }
-.footer-back:hover { color: var(--gold2); }
-.footer-contact { font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.1em; color:var(--muted); text-align:center; line-height:2; }
-.footer-contact a { color: var(--gold); }
+/* El pie va sobre un verde más saturado que el resto de la página, y ahí
+   el dorado claro se queda en 2.71 de contraste. Estos tonos son los
+   mismos colores un punto más oscuros, ya por encima del 4.5 que pide
+   la norma AA. */
+.footer-brand em { font-style:normal; color:#7a5d34; }
+.footer-tag { font-family:'Space Mono',monospace; font-size:0.56rem; letter-spacing:0.3em; text-transform:uppercase; color:#46584e; margin-top:0.3rem; }
+.footer-back { font-family:'Space Mono',monospace; font-size:0.56rem; letter-spacing:0.2em; text-transform:uppercase; color:#7a5d34; margin-top:0.6rem; display:inline-flex; align-items:center; gap:0.4rem; }
+.footer-back:hover { color: #634c2a; }
+.footer-contact { font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.1em; color:#46584e; text-align:center; line-height:2; }
+.footer-contact a { color: #7a5d34; }
 .footer-contact a:hover { color: var(--gold2); }
 
 /* ════════ FLOTANTES ════════ */

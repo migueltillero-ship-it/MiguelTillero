@@ -14,7 +14,7 @@
 :root {
   --gold: #a5824a; --gold2: #86673a; --goldx: rgba(201,169,110,0.16);
   --cyan: #0f8a5f; --ink: #12291c;
-  --text: rgba(18,41,28,0.92); --muted: rgba(18,41,28,0.62);
+  --text: rgba(18,41,28,0.92); --muted: rgba(18,41,28,0.72);
   --border: rgba(165,130,74,0.38);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -44,8 +44,8 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g
   display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all .25s;
 }
 .btn:hover { background: var(--goldx); }
-.langs .btn.active { background: var(--gold); color: #fff; border-color: var(--gold); }
-.btn.solid { background: var(--gold); color: #fff; border-color: var(--gold); }
+.langs .btn.active { background: var(--gold2); color: #fff; border-color: var(--gold2); }
+.btn.solid { background: var(--gold2); color: #fff; border-color: var(--gold2); }
 .btn.solid:hover { background: var(--gold2); }
 .btn.big { width: 100%; font-size: 0.72rem; padding: 1.05rem 1.3rem; }
 .btn.wa { background: #1faa59; border-color: #1faa59; color: #fff; }
@@ -62,7 +62,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g
   font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--muted);
   background: rgba(255,255,255,0.8); transition: all .3s;
 }
-.step-dot.on { background: var(--gold); border-color: var(--gold); color: #fff; }
+.step-dot.on { background: var(--gold2); border-color: var(--gold2); color: #fff; }
 .step-dot.done { background: var(--cyan); border-color: var(--cyan); color: #fff; }
 .step-line { flex: 1; height: 1px; background: var(--border); }
 .step-lbl { font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-top: 0.4rem; }
@@ -87,7 +87,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g
   padding: 0.6rem 0.6rem; border: 1px solid rgba(18,41,28,0.2); cursor: pointer;
   user-select: none; color: var(--muted); transition: all .2s;
 }
-.day-pick span.on { background: var(--gold); border-color: var(--gold); color: #fff; }
+.day-pick span.on { background: var(--gold2); border-color: var(--gold2); color: #fff; }
 
 .nav-row { display: flex; gap: 0.6rem; margin-top: 1.5rem; }
 .nav-row .btn { flex: 1; }
