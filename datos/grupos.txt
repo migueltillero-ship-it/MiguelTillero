@@ -94,14 +94,14 @@ TIPO: grupo
 NIVEL: B2
 DIAS: lunes, miércoles
 HORA: 19:00-20:30
-INICIO: 2026-08-31
-PAQUETE: 16 horas
-TOMADAS: 0
+INICIO: 2026-07-27
+FIN: 2026-09-14
 MODALIDAD: en línea
-NOTAS: ciclo nuevo. El lunes se hace repaso general y reparto de horarios;
-       el miércoles, evaluación de competencias y entrega del plan de
-       estudios. Inicio deducido de la carta al grupo: pendiente de
-       confirmar si el ciclo arranca ese lunes o tras la evaluación
+NOTAS: fechas del bimestre según el aviso al grupo del 28 de julio. Las
+       15 sesiones dan 22,5 h programadas, no las 16 indicadas: falta
+       aclarar a qué corresponden esas 16. Canceladas el 29 de julio (sin
+       reposición), el 5 de agosto (repuesta el viernes 7) y el 17 de
+       agosto (repuesta el viernes 21)
 ESTUDIANTES:
 - Melissa Rico
 - Montserrat Álvarez

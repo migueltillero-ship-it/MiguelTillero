@@ -432,6 +432,7 @@ def cabecera(titulo, meta, canonico, prof):
 def pie(prof):
     return f"""
 <footer>
+  <span class="eslogan">La solución está en francés</span>
   <span>© 2026 Miguel Tillero · Profesor de francés · Especialista FLE</span>
   <span><a href="{prof}index.html">Inicio</a> · <a href="{prof}index.html#contacto">Contacto</a> · <a href="{prof}reglamento.html">Reglamento</a></span>
 </footer>
