@@ -1,0 +1,521 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Espace Étudiant | Harleen Kaur</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        afblue: '#1a365d',
+                        afgold: '#c5a059',
+                        afsand: '#f7f6f2',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .module-card { transition: all 0.3s ease; }
+        .module-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); border-left-color: #c5a059; }
+
+        /* ── Formulaire du Module 3 ───────────────────────────── */
+        .tcf-field {
+            width: 100%;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            background-color: #ffffff;
+            padding: 0.65rem 0.85rem;
+            font-size: 0.9rem;
+            line-height: 1.55;
+            color: #1f2937;
+            resize: vertical;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+        .tcf-field::placeholder { color: #9ca3af; font-style: italic; }
+        .tcf-field:focus {
+            outline: none;
+            border-color: #c5a059;
+            box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.20);
+        }
+        .tcf-field.is-filled { border-color: #c5a059; background-color: #fffdf7; }
+
+        .tcf-save { opacity: 0; transition: opacity 0.4s ease; }
+        .tcf-save.is-visible { opacity: 1; }
+
+        .tcf-btn { transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease; }
+        .tcf-btn:hover { transform: translateY(-1px); }
+        .tcf-btn:focus-visible { outline: 2px solid #c5a059; outline-offset: 2px; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .module-card, .tcf-field, .tcf-save, .tcf-btn { transition: none; }
+            .tcf-btn:hover { transform: none; }
+        }
+    </style>
+</head>
+<body class="bg-afsand text-gray-800 font-sans antialiased selection:bg-afgold selection:text-white">
+
+    <!-- Navbar -->
+    <nav class="bg-afblue text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-afgold rounded flex items-center justify-center font-serif font-bold text-afblue">af</div>
+                    <span class="font-serif text-xl tracking-wide">Suivi Pédagogique</span>
+                </div>
+                <div class="text-sm font-light tracking-wider hidden md:block">
+                    Direction Générale | San Cristóbal de Las Casas
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 md:p-12 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-2 h-full bg-afgold"></div>
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div>
+                    <h1 class="text-sm uppercase tracking-widest text-gray-500 font-semibold mb-2">Portail d'Apprentissage Individuel</h1>
+                    <h2 class="text-4xl font-serif text-afblue mb-2">Espace Étudiant : Harleen Kaur</h2>
+                    <p class="text-gray-600 max-w-2xl text-lg">Parcours d'excellence linguistique, de la consolidation des acquis à la maîtrise argumentative.</p>
+                </div>
+                <div class="text-right">
+                    <span class="inline-block bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-semibold uppercase tracking-wide border border-green-200">Niveau Cible : B2/C1</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content: Modules -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        
+        <div class="mb-10">
+            <h3 class="text-2xl font-serif text-afblue mb-2">Planification Stratégique</h3>
+            <p class="text-gray-500">Progression pédagogique structurée selon les objectifs d'évaluation et de maîtrise phonétique.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8" id="module-container">
+            
+            <!-- Module 1 -->
+            <div class="module-card bg-white rounded-xl shadow-sm border border-gray-200 border-l-4 border-l-gray-300 p-6 opacity-0">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Módulo 1 • Completado</span>
+                    <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <h4 class="text-xl font-bold text-afblue mb-3">Diagnostic et Profilage</h4>
+                <ul class="text-sm text-gray-600 space-y-2">
+                    <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-afgold"></div> Analyse SWOT (Forces, Faiblesses, Opportunités, Menaces).</li>
+                    <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-afgold"></div> Activités diagnostiques de lecture.</li>
+                    <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-afgold"></div> Identification du style d'apprentissage.</li>
+                </ul>
+            </div>
+
+            <!-- Module 2 -->
+            <div class="module-card bg-white rounded-xl shadow-sm border border-gray-200 border-l-4 border-l-gray-300 p-6 opacity-0">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Módulo 2 • Completado</span>
+                    <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <h4 class="text-xl font-bold text-afblue mb-3">Présentation Impactante</h4>
+                <ul class="text-sm text-gray-600 space-y-2">
+                    <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-afgold"></div> Techniques de présentation personnelle.</li>
+                    <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-afgold"></div> Étude des ressources vidéo (Méthode Yves Gautier).</li>
+                    <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-afgold"></div> Préparation ciblée pour l'entretien oral.</li>
+                </ul>
+            </div>
+
+            <!-- Module 3 -->
+            <div class="module-card bg-white rounded-xl shadow-sm border border-gray-200 border-l-4 border-l-blue-500 p-6 lg:col-span-2 opacity-0">
+                <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Módulo 3 • En curso</span>
+                        <span class="relative flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span></span>
+                    </div>
+                    <span id="tcfCounter" class="text-xs font-semibold uppercase tracking-wide text-afblue bg-afsand border border-afgold/50 px-3 py-1 rounded-full" aria-live="polite">0 / 15 réponses</span>
+                </div>
+                <h4 class="text-xl font-bold text-afblue mb-2">Évaluation TCF et Réalignement</h4>
+                <p class="text-sm text-gray-600 mb-6 max-w-3xl">Prends le temps de répondre compétence par compétence. Tes réponses s'enregistrent automatiquement sur cet appareil ; lorsque tu auras terminé, copie ou télécharge le résumé et transmets-le à Miguel avant notre prochaine séance.</p>
+
+                <form id="tcfForm" novalidate>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
+
+                        <!-- Section A -->
+                        <section aria-labelledby="tcf-section-a">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="flex-shrink-0 w-7 h-7 rounded-full bg-afblue text-white font-serif text-sm flex items-center justify-center">A</span>
+                                <div>
+                                    <h5 id="tcf-section-a" class="text-base font-bold text-afblue leading-tight">Compréhension orale</h5>
+                                    <span class="text-xs uppercase tracking-wider text-afgold font-semibold">Niveau atteint : C1</span>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1.5" for="co_ressenti">Comment s'est passée cette partie pour toi ?</label>
+                                    <textarea id="co_ressenti" data-field="co_ressenti" rows="3" class="tcf-field" placeholder="Raconte ton ressenti pendant l'épreuve d'écoute..."></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1.5" for="co_reussites">Qu'est-ce qui a bien fonctionné ?</label>
+                                    <textarea id="co_reussites" data-field="co_reussites" rows="3" class="tcf-field" placeholder="Ce que tu as compris sans effort, les stratégies qui t'ont aidée..."></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1.5" for="co_difficultes">Quelles difficultés ou erreurs as-tu remarquées ?</label>
+                                    <textarea id="co_difficultes" data-field="co_difficultes" rows="3" class="tcf-field" placeholder="Accents, débit, vocabulaire, questions piégeuses..."></textarea>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Section B -->
+                        <section aria-labelledby="tcf-section-b" class="mt-8 md:mt-0">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="flex-shrink-0 w-7 h-7 rounded-full bg-afblue text-white font-serif text-sm flex items-center justify-center">B</span>
+                                <div>
+                                    <h5 id="tcf-section-b" class="text-base font-bold text-afblue leading-tight">Compréhension écrite</h5>
+                                    <span class="text-xs uppercase tracking-wider text-afgold font-semibold">Niveau atteint : C1</span>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1.5" for="ce_ressenti">Comment s'est passée cette partie pour toi ?</label>
+                                    <textarea id="ce_ressenti" data-field="ce_ressenti" rows="3" class="tcf-field" placeholder="Ton ressenti face aux textes et à la gestion du temps..."></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1.5" for="ce_reussites">Qu'est-ce qui a bien fonctionné à l'écrit ?</label>
+                                    <textarea id="ce_reussites" data-field="ce_reussites" rows="3" class="tcf-field" placeholder="Les types de textes ou de consignes que tu as maîtrisés..."></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1.5" for="ce_difficultes">Quelles difficultés ou erreurs as-tu remarquées ?</label>
+                                    <textarea id="ce_difficultes" data-field="ce_difficultes" rows="3" class="tcf-field" placeholder="Lexique, syntaxe complexe, inférence, longueur des textes..."></textarea>
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+
+                    <!-- Section C -->
+                    <section aria-labelledby="tcf-section-c" class="mt-10 pt-8 border-t border-gray-200">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-afblue text-white font-serif text-sm flex items-center justify-center">C</span>
+                            <div>
+                                <h5 id="tcf-section-c" class="text-base font-bold text-afblue leading-tight">Expression orale, l'entretien</h5>
+                                <span class="text-xs uppercase tracking-wider text-afgold font-semibold">Analyse de l'échange avec l'examinateur</span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1.5" for="eo_moment1">Moment clé n°1</label>
+                                <textarea id="eo_moment1" data-field="eo_moment1" rows="3" class="tcf-field" placeholder="La première situation ou question marquante..."></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1.5" for="eo_moment2">Moment clé n°2</label>
+                                <textarea id="eo_moment2" data-field="eo_moment2" rows="3" class="tcf-field" placeholder="La deuxième situation ou question marquante..."></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1.5" for="eo_moment3">Moment clé n°3</label>
+                                <textarea id="eo_moment3" data-field="eo_moment3" rows="3" class="tcf-field" placeholder="La troisième situation ou question marquante..."></textarea>
+                            </div>
+                            <div class="md:col-span-3">
+                                <label class="block text-sm font-semibold text-gray-700 mb-1.5" for="eo_reactions">Réactions et typologie des questions posées</label>
+                                <textarea id="eo_reactions" data-field="eo_reactions" rows="4" class="tcf-field" placeholder="Comment as-tu réagi aux sollicitations de l'examinateur ? Quels types de questions t'ont été posés et comment as-tu géré ces échanges ?"></textarea>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Section D -->
+                    <section aria-labelledby="tcf-section-d" class="mt-10 pt-8 border-t border-gray-200">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-afblue text-white font-serif text-sm flex items-center justify-center">D</span>
+                            <div>
+                                <h5 id="tcf-section-d" class="text-base font-bold text-afblue leading-tight">Bilan transversal et plan d'action</h5>
+                                <span class="text-xs uppercase tracking-wider text-afgold font-semibold">Vers les prochains jalons</span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1.5" for="bilan_aime">Ce que tu as aimé dans cette expérience</label>
+                                <textarea id="bilan_aime" data-field="bilan_aime" rows="3" class="tcf-field" placeholder="Les moments agréables, stimulants ou satisfaisants..."></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1.5" for="bilan_moins_aime">Ce que tu as moins aimé ou ce qui t'a mise mal à l'aise</label>
+                                <textarea id="bilan_moins_aime" data-field="bilan_moins_aime" rows="3" class="tcf-field" placeholder="Les moments inconfortables, déstabilisants ou frustrants..."></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1.5" for="bilan_forces">Tes points forts, ton potentiel identifié</label>
+                                <textarea id="bilan_forces" data-field="bilan_forces" rows="3" class="tcf-field" placeholder="Ce sur quoi tu peux t'appuyer avec confiance..."></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1.5" for="bilan_ameliorer">Ce que tu penses pouvoir améliorer</label>
+                                <textarea id="bilan_ameliorer" data-field="bilan_ameliorer" rows="3" class="tcf-field" placeholder="Les compétences à consolider en priorité..."></textarea>
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-semibold text-gray-700 mb-1.5" for="bilan_organisation">Comment veux-tu qu'on organise notre travail à partir de maintenant ?</label>
+                                <textarea id="bilan_organisation" data-field="bilan_organisation" rows="4" class="tcf-field" placeholder="Rythme des séances, priorités, format des exercices, ressources souhaitées..."></textarea>
+                            </div>
+                        </div>
+                    </section>
+
+                    <p class="tcf-save text-xs font-semibold text-green-700 mt-6" id="tcfSaveIndicator" role="status">Enregistré automatiquement sur cet appareil</p>
+
+                    <div class="flex flex-wrap gap-3 mt-4">
+                        <button type="button" id="tcfBtnCopy" class="tcf-btn bg-afgold text-white text-sm font-semibold px-5 py-2.5 rounded-lg shadow-sm hover:bg-afblue">Copier le résumé pour Miguel</button>
+                        <button type="button" id="tcfBtnDownload" class="tcf-btn bg-white text-afblue text-sm font-semibold px-5 py-2.5 rounded-lg border border-afgold shadow-sm hover:bg-afsand">Télécharger en .txt</button>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-3">Envoie le résumé copié ou le fichier téléchargé à Miguel par WhatsApp ou par courriel avant la prochaine séance.</p>
+                </form>
+            </div>
+
+            <!-- Module 4 -->
+            <div class="module-card bg-white rounded-xl shadow-sm border border-gray-200 border-l-4 border-l-afgold p-6 opacity-0">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="text-xs font-bold text-afgold uppercase tracking-wider">Módulo 4 • Próximo</span>
+                </div>
+                <h4 class="text-xl font-bold text-afblue mb-3">Socle Phonétique et Orthoépique</h4>
+                <ul class="text-sm text-gray-600 space-y-2">
+                    <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-afgold"></div> Règles de lecture et d'écriture.</li>
+                    <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-afgold"></div> Voyelles : isolées, composées, nasales.</li>
+                    <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-afgold"></div> Consonnes : sons sibilants et vibrants.</li>
+                    <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-afgold"></div> Accentuation, rythme et syllabation.</li>
+                </ul>
+            </div>
+
+            <!-- Module 5 -->
+            <div class="module-card bg-white rounded-xl shadow-sm border border-gray-200 border-l-4 border-l-afgold p-6 lg:col-span-2 opacity-0">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="text-xs font-bold text-afgold uppercase tracking-wider">Módulo 5 • Central</span>
+                </div>
+                <h4 class="text-xl font-bold text-afblue mb-3">Mécanique Verbale et Ligne du Temps</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-afgold"></div> Bases phonétiques de la conjugaison (1er, 2e, 3e groupes).</li>
+                        <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-afgold"></div> Construction et usage : Présent, Présent continu, Gérondif.</li>
+                        <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-afgold"></div> L'axe du futur : Futur proche vs Futur simple.</li>
+                    </ul>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-afgold"></div> Différenciation : Passé composé vs Imparfait.</li>
+                        <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-afgold"></div> Temps complexes : Passé récent et Plus-que-parfait.</li>
+                        <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-afgold"></div> Modes avancés : Conditionnels et Subjonctif.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Module 6 -->
+            <div class="module-card bg-white rounded-xl shadow-sm border border-gray-200 border-l-4 border-l-purple-600 p-6 lg:col-span-2 opacity-0">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">Módulo 6 • Avancé</span>
+                </div>
+                <h4 class="text-xl font-bold text-afblue mb-3">Argumentation et Esthétique Littéraire</h4>
+                <ul class="text-sm text-gray-600 space-y-2">
+                    <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-afgold"></div> Retour à l'expression libre avec des bases solides.</li>
+                    <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-afgold"></div> Techniques d'argumentation avancée et rhétorique.</li>
+                    <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-afgold"></div> Intégration de la poésie (ex: Rimbaud) pour le rythme et l'intonation.</li>
+                </ul>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-gray-50 border-t border-gray-200 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm text-gray-400 font-light">
+            &copy; 2026 Alliance Française — Créé et géré via GitHub Pages.
+        </div>
+    </footer>
+
+    <script>
+        // GSAP Animation for a professional reveal
+        document.addEventListener("DOMContentLoaded", (event) => {
+            gsap.to(".module-card", {
+                y: 0,
+                opacity: 1,
+                duration: 0.6,
+                stagger: 0.15,
+                ease: "power2.out",
+                delay: 0.2
+            });
+        });
+    </script>
+
+    <script>
+    // ── Module 3 : bilan TCF (autosauvegarde locale, résumé copiable) ──
+    (function () {
+        var STORAGE_KEY = 'tcf-bilan-harleen';
+
+        // L'ordre du tableau détermine l'ordre du résumé exporté.
+        var sections = [
+            {
+                title: 'A. Compréhension orale (niveau atteint : C1)',
+                fields: [
+                    ['co_ressenti',    "Comment s'est passée cette partie pour toi ?"],
+                    ['co_reussites',   "Qu'est-ce qui a bien fonctionné ?"],
+                    ['co_difficultes', "Quelles difficultés ou erreurs as-tu remarquées ?"]
+                ]
+            },
+            {
+                title: 'B. Compréhension écrite (niveau atteint : C1)',
+                fields: [
+                    ['ce_ressenti',    "Comment s'est passée cette partie pour toi ?"],
+                    ['ce_reussites',   "Qu'est-ce qui a bien fonctionné à l'écrit ?"],
+                    ['ce_difficultes', "Quelles difficultés ou erreurs as-tu remarquées ?"]
+                ]
+            },
+            {
+                title: "C. Expression orale, l'entretien",
+                fields: [
+                    ['eo_moment1',   'Moment clé n°1'],
+                    ['eo_moment2',   'Moment clé n°2'],
+                    ['eo_moment3',   'Moment clé n°3'],
+                    ['eo_reactions', 'Réactions et typologie des questions posées']
+                ]
+            },
+            {
+                title: "D. Bilan transversal et plan d'action",
+                fields: [
+                    ['bilan_aime',         'Ce que tu as aimé dans cette expérience'],
+                    ['bilan_moins_aime',   "Ce que tu as moins aimé ou ce qui t'a mise mal à l'aise"],
+                    ['bilan_forces',       'Tes points forts, ton potentiel identifié'],
+                    ['bilan_ameliorer',    'Ce que tu penses pouvoir améliorer'],
+                    ['bilan_organisation', "Comment veux-tu qu'on organise notre travail à partir de maintenant ?"]
+                ]
+            }
+        ];
+
+        var form = document.getElementById('tcfForm');
+        if (!form) return;
+
+        var fields = Array.prototype.slice.call(form.querySelectorAll('textarea[data-field]'));
+        var counterEl = document.getElementById('tcfCounter');
+        var saveEl = document.getElementById('tcfSaveIndicator');
+        var btnCopy = document.getElementById('tcfBtnCopy');
+        var btnDownload = document.getElementById('tcfBtnDownload');
+        var COPY_LABEL = btnCopy.textContent;
+        var saveTimer, hideTimer, labelTimer;
+
+        function readStore() {
+            try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}') || {}; }
+            catch (e) { return {}; }
+        }
+
+        function markFilled(el) {
+            el.classList.toggle('is-filled', el.value.trim().length > 0);
+        }
+
+        function updateCounter() {
+            var filled = fields.filter(function (el) { return el.value.trim().length > 0; }).length;
+            counterEl.textContent = filled + ' / ' + fields.length + ' réponses';
+        }
+
+        function persist() {
+            var data = {};
+            fields.forEach(function (el) { data[el.getAttribute('data-field')] = el.value; });
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+            catch (e) { return; }
+            saveEl.classList.add('is-visible');
+            clearTimeout(hideTimer);
+            hideTimer = setTimeout(function () { saveEl.classList.remove('is-visible'); }, 1800);
+        }
+
+        function restore() {
+            var data = readStore();
+            fields.forEach(function (el) {
+                var saved = data[el.getAttribute('data-field')];
+                if (typeof saved === 'string' && saved !== '') el.value = saved;
+                markFilled(el);
+            });
+            updateCounter();
+        }
+
+        fields.forEach(function (el) {
+            el.addEventListener('input', function () {
+                markFilled(el);
+                updateCounter();
+                clearTimeout(saveTimer);
+                saveTimer = setTimeout(persist, 500);
+            });
+        });
+
+        function buildSummary() {
+            var lines = [
+                'BILAN TCF — Harleen Kaur',
+                'Module 3 · Évaluation TCF et Réalignement',
+                '========================================',
+                ''
+            ];
+            sections.forEach(function (section) {
+                var answered = section.fields.filter(function (pair) {
+                    var el = form.querySelector('textarea[data-field="' + pair[0] + '"]');
+                    return el && el.value.trim() !== '';
+                });
+                if (!answered.length) return;
+                lines.push(section.title);
+                lines.push('----------------------------------------');
+                answered.forEach(function (pair) {
+                    var el = form.querySelector('textarea[data-field="' + pair[0] + '"]');
+                    lines.push(pair[1]);
+                    lines.push(el.value.trim());
+                    lines.push('');
+                });
+            });
+            if (lines.length === 4) lines.push('(Aucune réponse saisie pour le moment.)');
+            return lines.join('\n');
+        }
+
+        function flashLabel(text) {
+            btnCopy.textContent = text;
+            clearTimeout(labelTimer);
+            labelTimer = setTimeout(function () { btnCopy.textContent = COPY_LABEL; }, 2000);
+        }
+
+        function fallbackCopy(text) {
+            var helper = document.createElement('textarea');
+            helper.value = text;
+            helper.setAttribute('readonly', '');
+            helper.style.position = 'fixed';
+            helper.style.top = '0';
+            helper.style.opacity = '0';
+            document.body.appendChild(helper);
+            helper.select();
+            try { flashLabel(document.execCommand('copy') ? 'Copié ✓' : 'Impossible de copier'); }
+            catch (e) { flashLabel('Impossible de copier'); }
+            document.body.removeChild(helper);
+        }
+
+        btnCopy.addEventListener('click', function () {
+            var text = buildSummary();
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text)
+                    .then(function () { flashLabel('Copié ✓'); })
+                    .catch(function () { fallbackCopy(text); });
+            } else {
+                fallbackCopy(text);
+            }
+        });
+
+        btnDownload.addEventListener('click', function () {
+            var blob = new Blob([buildSummary()], { type: 'text/plain;charset=utf-8' });
+            var url = URL.createObjectURL(blob);
+            var link = document.createElement('a');
+            link.href = url;
+            link.download = 'bilan-tcf-harleen.txt';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        });
+
+        restore();
+    })();
+    </script>
+</body>
+</html>
