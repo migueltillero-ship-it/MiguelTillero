@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -111,6 +111,11 @@
   input,select,textarea,button{font-size:16px}
   .buzon-pills label{min-height:40px}
 }
+
+/* Mejora de legibilidad */
+h1, h2, h3 { text-shadow: 1px 2px 4px rgba(0,0,0,0.08); color: var(--em-hondo, #0b3327); }
+.club-hero h1, .club-hero p.lead, .card-imagen h2 { text-shadow: 2px 2px 8px rgba(0,0,0,0.4); }
+p.muted { color: #4a5d54; font-weight: 500; }
 </style>
 </head>
 <body>
@@ -146,6 +151,17 @@
       <a class="btn btn-claro" href="#niveles">Ver actividades por nivel</a>
       <a class="btn btn-claro" href="club/index.html">Entrer dans l'espace du club →</a>
     </div>
+  </div>
+</section>
+
+
+<!-- ════════ ANUNCIO DE BIENVENIDA ════════ -->
+<section class="seccion wrap-sm" id="bienvenida">
+  <div class="card" style="text-align:center; background:#ffffff; border-top: 4px solid var(--gold); padding: 3rem 2rem; box-shadow: var(--sombra);">
+    <div class="eyebrow centro">Nouveau Cycle</div>
+    <h2 style="margin-bottom:1rem;">Un espace pour tous</h2>
+    <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem; color: var(--em-hondo);">Este club de conversación nació de la voluntad inquebrantable de antiguos estudiantes en búsqueda de un espacio de práctica, intercambio y expresión. Hoy, retomamos actividades e invitamos al público en general a participar. Indistintamente de tu edad o tu nivel, aquí encontrarás un lugar donde serás considerado y escuchado. <strong>¡Eres cordialmente bienvenido!</strong></p>
+    <a class="btn btn-oro" href="https://wa.me/529673424456?text=Hola%20Miguel%2C%20me%20encantaría%20unirme%20a%20Vendredi%20entre%20amis" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Contáctame directamente</a>
   </div>
 </section>
 
@@ -326,6 +342,19 @@
   </div>
 </section>
 
+
+<!-- ════════ LA PHOTO DU VENDREDI ════════ -->
+<section class="seccion wrap" id="galerie">
+  <div class="eyebrow centro" style="text-align:center">Notre communauté</div>
+  <h2 class="centro" style="text-align:center; margin-bottom:.6rem">La photo du vendredi</h2>
+  <p class="muted centro" style="text-align:center; max-width:640px; margin:0 auto 2.2rem">Una compilación visual de nuestros encuentros, risas y aprendizajes compartidos.</p>
+  <div class="mosaico-identidad">
+    <figure><img src="assets/club/hero-bienvenue.jpg" loading="lazy" alt="Notre groupe"></figure>
+    <figure><img src="assets/club/marque-identite.jpg" loading="lazy" alt="Rencontre du vendredi"></figure>
+    <figure><img src="assets/club/structure-papier.jpg" loading="lazy" alt="Souvenirs partagés"></figure>
+  </div>
+</section>
+
 <!-- ════════ PIE ════════ -->
 <footer class="seccion wrap centro" style="text-align:center">
   <p class="serif" style="font-size:1.2rem;margin-bottom:.4rem">Vendredi <span style="color:var(--gold)">entre amis</span></p>
@@ -371,3 +400,4 @@
 </script>
 </body>
 </html>
+
