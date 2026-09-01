@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#bcdcc9">
+<meta name="description" content="Club de Conversación Vendredi entre amis, de la Alianza Francesa de San Cristóbal de Las Casas. Recursos, actividades por nivel y espacio de ideas para practicar francés cada semana.">
+<title>Club de Conversación · Vendredi entre amis · Alliance Française SCLC</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="assets/estilo.css">
+
+<style>
+/* ═══════════════════════════════════════════════════════
+   CLUB DE CONVERSATION · VENDREDI ENTRE AMIS
+   Extiende el sistema visual de assets/estilo.css (mármol
+   esmeralda y oro). No redefine colores nuevos: solo añade
+   la maquetación propia de este espacio.
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Hero ── */
+.club-hero{
+  position:relative; min-height:78vh; display:flex; align-items:flex-end;
+  background:linear-gradient(180deg, rgba(11,51,39,.55) 0%, rgba(11,51,39,.78) 55%, rgba(11,51,39,.94) 100%),
+             url('assets/club/hero-cafe.jpg') center 30%/cover no-repeat;
+  color:#fff;
+}
+.club-hero-in{max-width:1120px;margin:0 auto;padding:3rem 1.5rem 3.2rem;width:100%}
+.club-hero .eyebrow{color:var(--gold-claro,#e8c87a)}
+.club-hero h1{
+  font-family:var(--serif); font-weight:600; color:#fff;
+  font-size:clamp(2.4rem,7vw,4.2rem); line-height:1.05; margin:.5rem 0 .9rem;
+}
+.club-hero h1 em{font-style:normal;color:var(--gold)}
+.club-hero p.lead{max-width:560px; font-size:1.08rem; line-height:1.75; color:rgba(255,255,255,.88); margin-bottom:1.6rem}
+.club-hero .acciones{display:flex; gap:.8rem; flex-wrap:wrap}
+
+/* ── Marca del club (línea de identidad) ── */
+.marca-club{
+  display:flex; align-items:center; gap:1rem; justify-content:center;
+  padding:1.6rem 1.5rem; text-align:center; flex-wrap:wrap;
+}
+.marca-club img{width:64px;height:64px;object-fit:cover;border-radius:50%;border:2px solid var(--gold)}
+.marca-club .txt{font-family:var(--serif);font-size:1.05rem;color:var(--muted)}
+.marca-club .txt b{color:var(--em1)}
+
+/* ── Cita de bienvenida ── */
+.cita{
+  background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:var(--sombra);
+  padding:2.2rem 2rem; max-width:760px; margin:0 auto; position:relative;
+}
+.cita .marca-cita{font-family:var(--serif);font-size:3.2rem;color:var(--gold);line-height:0;position:absolute;top:1.1rem;left:1.4rem}
+.cita p{font-size:1.05rem;line-height:1.85;font-style:italic;margin-bottom:.9rem}
+.cita .firma{font-family:var(--mono);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold2);font-style:normal}
+
+/* ── Cómo funciona (fichas de la carta del club) ── */
+.como-icono{
+  width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--em-hondo),var(--em2));color:var(--gold-claro);
+  font-size:.95rem;margin-bottom:.7rem;flex-shrink:0;
+}
+
+/* ── Niveles ── */
+.nivel-tarjeta{
+  background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:var(--sombra);
+  overflow:hidden; display:flex; flex-direction:column;
+}
+.nivel-cabeza{padding:1.5rem 1.6rem 1.2rem; border-bottom:1px solid var(--line)}
+.nivel-badge{
+  display:inline-block;font-family:var(--mono);font-size:.68rem;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:#fff;background:linear-gradient(135deg,var(--em-hondo),var(--em2));
+  padding:.3rem .7rem;border-radius:3px;margin-bottom:.7rem;
+}
+.nivel-cuerpo{padding:1.3rem 1.6rem 1.6rem;flex:1}
+.nivel-cuerpo ul{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+.nivel-cuerpo li{display:flex;gap:.6rem;font-size:.92rem;color:var(--muted)}
+.nivel-cuerpo li i{color:var(--gold);margin-top:.25rem;flex-shrink:0}
+
+/* ── Buzón de ideas ── */
+.buzon{background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:var(--sombra);padding:2rem}
+.buzon-pills{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.1rem}
+.buzon-pills label{
+  display:inline-flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.68rem;
+  font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
+  border:1px solid var(--line);border-radius:20px;padding:.45rem .85rem;cursor:pointer;margin-bottom:0;
+  transition:background .18s ease,color .18s ease,border-color .18s ease;
+}
+.buzon-pills input{position:absolute;opacity:0;width:0;height:0}
+.buzon-pills input:checked + span{color:var(--em1)}
+.buzon-pills label:has(input:checked){background:#eaf6ef;border-color:var(--em2);color:var(--em1)}
+
+/* ── Identidad visual: mosaico Vendredi entre amis ── */
+.mosaico-identidad{
+  display:grid; gap:.9rem; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+}
+.mosaico-identidad figure{
+  margin:0;border-radius:8px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--sombra);
+  aspect-ratio:2/3;position:relative;
+}
+.mosaico-identidad img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s ease}
+.mosaico-identidad figure:hover img{transform:scale(1.05)}
+
+/* ── Ergonomía móvil ── */
+@media (max-width:640px){
+  .club-hero{min-height:66vh}
+  .club-hero-in{padding:2.2rem 1.2rem 2.4rem}
+  .cita{padding:1.7rem 1.3rem}
+  input,select,textarea,button{font-size:16px}
+  .buzon-pills label{min-height:40px}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════ BARRA SUPERIOR ════════ -->
+<header class="barra">
+  <div class="barra-in">
+    <a class="marca" href="index.html">Miguel <b>Tillero</b></a>
+    <nav>
+      <a href="index.html">Sitio principal</a>
+      <a href="#club" class="on">Le Club</a>
+      <a href="#funciona">Cómo funciona</a>
+      <a href="#niveles">Niveles</a>
+      <a href="#recursos">Recursos</a>
+      <a href="#ideas">Buzón de ideas</a>
+    </nav>
+    <a class="btn btn-oro" style="padding:.6rem 1.1rem" href="https://wa.me/529673424456?text=Hola%20Miguel%2C%20quiero%20unirme%20a%20Vendredi%20entre%20amis" target="_blank" rel="noopener">
+      <i class="fa-brands fa-whatsapp"></i> Unirme
+    </a>
+  </div>
+</header>
+
+<!-- ════════ HERO ════════ -->
+<section class="club-hero" id="club">
+  <div class="club-hero-in">
+    <div class="eyebrow">Club de conversación · Alliance Française San Cristóbal de Las Casas</div>
+    <h1>Vendredi <em>entre amis</em></h1>
+    <p class="lead">Cada viernes, un espacio para practicar el francés hablado en un ambiente cálido y sin miedo al error: ideas, juegos, lecturas y conversación real, clasificados por nivel para que cada quien encuentre su lugar.</p>
+    <div class="acciones">
+      <a class="btn btn-oro" href="https://wa.me/529673424456?text=Hola%20Miguel%2C%20quiero%20unirme%20a%20Vendredi%20entre%20amis" target="_blank" rel="noopener">
+        <i class="fa-brands fa-whatsapp"></i> Reservar mi lugar
+      </a>
+      <a class="btn btn-claro" href="#niveles">Ver actividades por nivel</a>
+      <a class="btn btn-claro" href="club/index.html">Entrer dans l'espace du club →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ MARCA DEL CLUB ════════ -->
+<section class="seccion">
+  <div class="marca-club">
+    <img src="assets/club/marque-identite.jpg" alt="Vendredi entre amis · identidad del club">
+    <div class="txt"><b>Pratiquons le français ensemble.</b><br>Club de conversation en ligne et en présentiel · sous la tutelle de M. Miguel Tillero</div>
+  </div>
+</section>
+
+<!-- ════════ CITA DE BIENVENIDA ════════ -->
+<section class="seccion wrap-sm">
+  <div class="cita">
+    <span class="marca-cita">“</span>
+    <p>Apprendre une langue transcende la simple maîtrise d'une syntaxe ou d'un lexique : c'est embrasser une altérité féconde et affiner son regard sur le monde. Chaque effort consenti, chaque hésitation surmontée et chaque progrès que nous célébrerons lors de nos rencontres hebdomadaires viendront consolider l'édifice de notre compréhension mutuelle.</p>
+    <p>C'est un honneur pour moi de vous guider à travers ce périple à la fois intellectuel et humain. Puisse chacune de nos séances s'ériger en un sanctuaire de découverte, de respect partagé et, par-dessus tout, d'épanouissement linguistique.</p>
+    <p class="firma">— Miguel David Tillero Álvarez</p>
+  </div>
+</section>
+
+<!-- ════════ CÓMO FUNCIONA ════════ -->
+<section class="seccion wrap" id="funciona">
+  <div class="eyebrow centro" style="text-align:center">La carta de nuestro club</div>
+  <h2 class="centro" style="text-align:center;margin-bottom:.6rem">Cómo funciona Vendredi entre amis</h2>
+  <p class="muted centro" style="text-align:center;max-width:640px;margin:0 auto 2.2rem">Los acuerdos que compartimos cada sesión con el grupo, para que todos sepan qué esperar del club.</p>
+
+  <div class="rejilla rejilla-3">
+    <div class="card">
+      <div class="como-icono"><i class="fa-solid fa-calendar-week"></i></div>
+      <h3>Ritmo y flexibilidad</h3>
+      <p class="muted chico">Nos reunimos regularmente los viernes por la tarde, conservando cierta flexibilidad para adaptarnos a los imprevistos de cada quien.</p>
+    </div>
+    <div class="card">
+      <div class="como-icono"><i class="fa-solid fa-comments"></i></div>
+      <h3>Temática transversal</h3>
+      <p class="muted chico">Para enriquecer nuestros intercambios, se define una temática central que se comunica con anticipación antes de cada sesión.</p>
+    </div>
+    <div class="card">
+      <div class="como-icono"><i class="fa-solid fa-hand-holding-heart"></i></div>
+      <h3>La cultura del compartir</h3>
+      <p class="muted chico">Cada miembro está invitado a traer una contribución libre: un libro, una melodía, una obra, una anécdota o un deseo. El arte de dar es un pilar de nuestro aprendizaje colectivo.</p>
+    </div>
+    <div class="card">
+      <div class="como-icono"><i class="fa-solid fa-book-open"></i></div>
+      <h3>Actividades complementarias</h3>
+      <p class="muted chico">Entre sesión y sesión, seguimos practicando con actividades enviadas por el profesor, principalmente de TV5Monde y otras plataformas oficiales de aprendizaje del francés.</p>
+    </div>
+    <div class="card">
+      <div class="como-icono"><i class="fa-solid fa-envelope-open-text"></i></div>
+      <h3>Disponibilidad</h3>
+      <p class="muted chico">Miguel permanece disponible para toda pregunta o aclaración, durante las sesiones o por mensaje privado, y para sesiones complementarias según su disponibilidad.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ NIVELES ════════ -->
+<section class="seccion wrap" id="niveles" style="background:rgba(255,255,255,.5);border-radius:12px">
+  <div class="eyebrow centro" style="text-align:center">Actividades del taller</div>
+  <h2 class="centro" style="text-align:center;margin-bottom:.6rem">Recursos y dinámicas por nivel</h2>
+  <p class="muted centro" style="text-align:center;max-width:640px;margin:0 auto 2.2rem">Todos los niveles son bienvenidos. Cada sesión se adapta al grupo, pero estas son las bases que sostienen el taller según el MCER.</p>
+
+  <div class="rejilla" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
+    <div class="nivel-tarjeta">
+      <div class="nivel-cabeza">
+        <span class="nivel-badge">A1 · A2 — Découverte</span>
+        <h3>Primeros pasos y rompehielos</h3>
+      </div>
+      <div class="nivel-cuerpo">
+        <ul>
+          <li><i class="fa-solid fa-icicles"></i> Rompehielos y presentaciones guiadas para perder el miedo a hablar.</li>
+          <li><i class="fa-solid fa-masks-theater"></i> Juegos de rol de situaciones cotidianas: el mercado, el café, el transporte.</li>
+          <li><i class="fa-solid fa-layer-group"></i> Tarjetas de vocabulario interactivo y asociación de imágenes.</li>
+          <li><i class="fa-solid fa-dice"></i> Juegos ligeros de preguntas y adivinanzas en francés sencillo.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="nivel-tarjeta">
+      <div class="nivel-cabeza">
+        <span class="nivel-badge">B1 · B2 — Approfondissement</span>
+        <h3>Debate, cine y argumentación</h3>
+      </div>
+      <div class="nivel-cuerpo">
+        <ul>
+          <li><i class="fa-solid fa-clapperboard"></i> Análisis de fragmentos de cine francófono con conversación posterior.</li>
+          <li><i class="fa-solid fa-feather"></i> Exploración de textos poéticos y lectura compartida.</li>
+          <li><i class="fa-solid fa-scale-balanced"></i> Pautas para el debate y la argumentación estructurada.</li>
+          <li><i class="fa-solid fa-graduation-cap"></i> Simulacros de producción oral con la mirada puesta en el DELF B1/B2.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ BÓVEDA DE RECURSOS ════════ -->
+<section class="seccion wrap" id="recursos">
+  <div class="eyebrow centro" style="text-align:center">Mediateca abierta</div>
+  <h2 class="centro" style="text-align:center;margin-bottom:.6rem">Bóveda de recursos para practicar</h2>
+  <p class="muted centro" style="text-align:center;max-width:640px;margin:0 auto 2.2rem">Entre un viernes y el siguiente, esta es la selección gratuita que recomiendo para mantener el oído despierto y la lengua en movimiento.</p>
+
+  <div class="rejilla rejilla-3">
+    <a class="card" style="display:block" href="https://apprendre.tv5monde.com/" target="_blank" rel="noopener">
+      <h3><i class="fa-solid fa-clapperboard" style="color:var(--gold)"></i> TV5MONDE · Apprendre</h3>
+      <p class="muted chico">Ejercicios interactivos a partir de vídeos auténticos, de A1 a B2.</p>
+    </a>
+    <a class="card" style="display:block" href="https://www.lepointdufle.net/" target="_blank" rel="noopener">
+      <h3><i class="fa-solid fa-list-check" style="color:var(--gold)"></i> Le Point du FLE</h3>
+      <p class="muted chico">Directorio de ejercicios ordenado por punto gramatical, competencia y nivel.</p>
+    </a>
+    <a class="card" style="display:block" href="https://www.bonjourdefrance.com/" target="_blank" rel="noopener">
+      <h3><i class="fa-solid fa-newspaper" style="color:var(--gold)"></i> Bonjour de France</h3>
+      <p class="muted chico">Ejercicios y fichas de civilización clasificadas por nivel para practicar por tu cuenta.</p>
+    </a>
+  </div>
+  <p class="centro chico muted" style="text-align:center;margin-top:1.3rem">¿Falta un recurso que te encantaría ver aquí? Cuéntamelo en el buzón de ideas, abajo.</p>
+</section>
+
+<!-- ════════ BUZÓN DE IDEAS ════════ -->
+<section class="seccion wrap-sm" id="ideas">
+  <div class="eyebrow centro" style="text-align:center">Caja de resonancia</div>
+  <h2 class="centro" style="text-align:center;margin-bottom:.6rem">Buzón de ideas del club</h2>
+  <p class="muted centro" style="text-align:center;margin-bottom:1.8rem">¿Un tema para el próximo viernes, un juego, una lectura o simplemente un comentario? Este espacio es tuyo.</p>
+
+  <div class="buzon">
+    <div id="ideas-msg" class="aviso aviso-bien" style="display:none;margin-bottom:1.1rem"></div>
+
+    <form id="form-ideas" novalidate>
+      <div class="campo">
+        <label for="idea-nombre">Tu nombre</label>
+        <input type="text" id="idea-nombre" name="nombre" required>
+      </div>
+
+      <div class="campo">
+        <label>Tipo de aporte</label>
+        <div class="buzon-pills" role="group" aria-label="Tipo de aporte">
+          <label><input type="radio" name="tipo" value="Tema" checked><span>Idea de tema</span></label>
+          <label><input type="radio" name="tipo" value="Juego"><span>Juego o dinámica</span></label>
+          <label><input type="radio" name="tipo" value="Recurso"><span>Recurso</span></label>
+          <label><input type="radio" name="tipo" value="Comentario"><span>Comentario</span></label>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="idea-mensaje">Cuéntame tu idea</label>
+        <textarea id="idea-mensaje" name="mensaje" required placeholder="Ej. Me encantaría una sesión sobre música francófona de los 80..."></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-oro btn-ancho">Enviar al buzón</button>
+    </form>
+  </div>
+</section>
+
+<!-- ════════ INVITACIÓN ════════ -->
+<section class="seccion wrap-sm">
+  <div class="card" style="text-align:center;background:linear-gradient(0deg,rgba(255,255,255,.94),rgba(255,255,255,.94)),url('assets/club/invitation-livres.jpg') center/cover">
+    <div class="eyebrow">Rejoins notre</div>
+    <h2 style="margin-bottom:.8rem">Vendredi entre amis</h2>
+    <p class="muted" style="max-width:480px;margin:0 auto 1.4rem">Cada viernes, retrouvons-nous para practicar el francés en un ambiente convivial y distendido. Todos los niveles son bienvenidos: ven a intercambiar, reír y progresar juntos.</p>
+    <a class="btn btn-oro" href="https://wa.me/529673424456?text=Hola%20Miguel%2C%20quiero%20unirme%20a%20Vendredi%20entre%20amis" target="_blank" rel="noopener">
+      <i class="fa-brands fa-whatsapp"></i> Escribir a Miguel
+    </a>
+  </div>
+</section>
+
+<!-- ════════ IDENTIDAD VISUAL ════════ -->
+<section class="seccion wrap">
+  <div class="eyebrow centro" style="text-align:center">Notre identité</div>
+  <h2 class="centro" style="text-align:center;margin-bottom:1.6rem">Vendredi entre amis en imágenes</h2>
+  <div class="mosaico-identidad">
+    <figure><img src="assets/club/hero-bienvenue.jpg" loading="lazy" alt="Bienvenida al club Vendredi entre amis"></figure>
+    <figure><img src="assets/club/marque-identite.jpg" loading="lazy" alt="Marca del club Vendredi entre amis"></figure>
+    <figure><img src="assets/club/hero-cafe.jpg" loading="lazy" alt="Ambiente de café del club Vendredi entre amis"></figure>
+    <figure><img src="assets/club/invitation-livres.jpg" loading="lazy" alt="Invitación al club entre libros"></figure>
+    <figure><img src="assets/club/citation-mains.jpg" loading="lazy" alt="Cita de bienvenida del profesor Miguel Tillero"></figure>
+    <figure><img src="assets/club/lettre-macarons.jpg" loading="lazy" alt="Carta de bienvenida del club"></figure>
+    <figure><img src="assets/club/structure-papier.jpg" loading="lazy" alt="Estructura y acuerdos del club Vendredi entre amis"></figure>
+  </div>
+</section>
+
+<!-- ════════ PIE ════════ -->
+<footer class="seccion wrap centro" style="text-align:center">
+  <p class="serif" style="font-size:1.2rem;margin-bottom:.4rem">Vendredi <span style="color:var(--gold)">entre amis</span></p>
+  <p class="chico muted">Club de conversación · Alliance Française de San Cristóbal de Las Casas</p>
+  <p class="chico muted" style="margin-top:.6rem">© 2026 Miguel Tillero · <a href="index.html" style="text-decoration:underline">Volver al sitio principal</a></p>
+</footer>
+
+<script>
+/* ── Envío del buzón de ideas ──────────────────────────────
+   Sustituye ENDPOINT por tu propio endpoint de Formspree
+   (el mismo patrón que usas en tus otros formularios: fetch()
+   con encabezado Accept: application/json). */
+(function(){
+  var ENDPOINT = 'https://formspree.io/f/TU_ID_DE_FORMSPREE';
+  var form = document.getElementById('form-ideas');
+  var msg  = document.getElementById('ideas-msg');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var data = new FormData(form);
+
+    fetch(ENDPOINT, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    }).then(function(res){
+      if (res.ok) {
+        form.reset();
+        msg.textContent = '✦ ¡Idea recibida! Gracias por alimentar nuestro club, la leeré antes del próximo viernes.';
+        msg.style.display = 'block';
+      } else {
+        msg.className = 'aviso aviso-mal';
+        msg.textContent = 'Hubo un problema al enviar tu idea. Intenta de nuevo o escríbeme por WhatsApp.';
+        msg.style.display = 'block';
+      }
+    }).catch(function(){
+      msg.className = 'aviso aviso-mal';
+      msg.textContent = 'No se pudo conectar. Revisa tu conexión e intenta de nuevo.';
+      msg.style.display = 'block';
+    });
+  });
+})();
+</script>
+</body>
+</html>
