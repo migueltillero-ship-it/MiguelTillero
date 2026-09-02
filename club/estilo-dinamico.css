@@ -58,3 +58,12 @@ footer { text-align: center; padding: 2rem; font-family: 'Syne', sans-serif; fon
   .barra-in { flex-direction: column; align-items: center; gap: 0.5rem; }
   .btn-oro { width: 100%; text-align: center; }
 }
+
+/* ════════ COIN SÉRÉNITÉ (Clases Dinámicas) ════════ */
+html.confort { font-size: 110%; }
+html.confort-plus { font-size: 125%; }
+html.contraste body { background: #000 !important; color: #fff !important; }
+html.contraste .tarjeta-valor, html.contraste .contenedor-slide { background: #111 !important; border-color: #fff !important; }
+.a11y-panel { position: fixed; bottom: 20px; left: 20px; background: rgba(0,0,0,0.8); border: 1px solid var(--gold); padding: 0.5rem; border-radius: 8px; z-index: 100; display: flex; gap: 0.5rem; }
+.a11y-panel button { background: transparent; border: 1px solid var(--gold-claro); color: #fff; padding: 0.3rem 0.6rem; border-radius: 4px; cursor: pointer; font-family: 'Syne'; transition: 0.3s; }
+.a11y-panel button:hover { background: var(--gold); color: #000; }

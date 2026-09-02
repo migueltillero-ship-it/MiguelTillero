@@ -59,7 +59,7 @@
     <div style="background:rgba(0,0,0,0.3); padding:1.5rem; border-radius:8px;">
       <h4 style="color:var(--gold-claro); margin-top:0;">Vocabulaire utile</h4>
       <ul style="color:rgba(255,255,255,0.8); font-size:0.95rem; padding-left:1rem; margin:0;">
-        <li>se réveiller</li><li>prendre le petit-déjeuner</li><li>travailler / étudier</li><li>se reposer</li>
+        <li>se réveiller <button onclick="agregarAlCarnet('se réveiller', 'Vocabulaire')" style="background:none;border:none;color:var(--gold);cursor:pointer;" title="Ajouter au carnet"><i class="fa-solid fa-bookmark"></i></button></li><li>prendre le petit-déjeuner</li><li>travailler / étudier</li><li>se reposer</li>
       </ul>
     </div>
     <div style="background:rgba(0,0,0,0.3); padding:1.5rem; border-radius:8px;">
@@ -85,6 +85,15 @@
   </div>
 
 </main>
+  <!-- Panel Coin Sérénité -->
+  <div class="a11y-panel" aria-label="Confort de lecture">
+    <button onclick="setTamano(null)" title="Taille normale">A</button>
+    <button onclick="setTamano('confort')" title="Texte agrandi">A+</button>
+    <button onclick="toggleContraste()" title="Contraste élevé">◐</button>
+  </div>
+  <script src="assets/js/carnet.js"></script>
+  <script src="assets/js/a11y.js"></script>
 </body>
 </html>
+
 
