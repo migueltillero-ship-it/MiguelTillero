@@ -1,0 +1,92 @@
+﻿{
+  "nav": {
+    "about": "À propos",
+    "services": "Services",
+    "experience": "Expérience",
+    "testimonials": "Témoignages",
+    "contact": "Contact"
+  },
+  "hero": {
+    "pre": "Spécialiste en FLE",
+    "name": "Miguel David Tillero",
+    "lastname": "Álvarez",
+    "tagline": "Directeur Général de l'projet indépendant de San Cristóbal de Las Casas. Enseignant spécialiste en Français Langue Étrangère (FLE), gestion culturelle et formation. Expérience au Venezuela, Équateur, Mexique et France.",
+    "cta_primary": "Voir le portfolio",
+    "cta_secondary": "Télécharger le CV"
+  },
+  "langs": {
+    "es": "Español",
+    "en": "English",
+    "fr": "Français"
+  },
+  "stats": {
+    "years": "Années d'expérience",
+    "students": "Étudiants formés",
+    "projects": "Projets exécutés",
+    "certifications": "Certifications"
+  },
+  "about": {
+    "title": "À propos de moi",
+    "intro": "Je suis Miguel David Tillero Álvarez, enseignant spécialiste en Français Langue Étrangère (FLE) avec plus de 15 ans d'expérience dans l'enseignement supérieur et la formation continue.",
+    "description": "Ma formation multidisciplinaire combine la pédagogie, la linguistique appliquée et la gestion culturelle. J'ai travaillé dans des institutions éducatives au Venezuela, en Équateur, au Mexique et en France, développant des programmes innovants d'enseignement du français et de gestion culturelle.",
+    "focus": "Mon approche est centrée sur la création d'expériences d'apprentissage significatives, combinant les méthodologies traditionnelles avec la technologie éducative."
+  },
+  "skills": {
+    "title": "Compétences",
+    "teaching": "Enseignement FLE",
+    "management": "Gestion Culturelle",
+    "training": "Formation",
+    "technology": "Technologie Éducative"
+  },
+  "services": {
+    "title": "Services",
+    "training_label": "Formation",
+    "training_desc": "Programmes spécialisés en français, gestion culturelle et formation de formateurs.",
+    "consulting_label": "Consultation",
+    "consulting_desc": "Conseil sur les projets éducatifs et la gestion culturelle.",
+    "teaching_label": "Enseignement",
+    "teaching_desc": "Cours particuliers et collectifs de français pour tous les niveaux.",
+    "cultural_label": "Événements Culturels",
+    "cultural_desc": "Organisation et direction d'événements culturels et d'activités francophones."
+  },
+  "timeline": {
+    "title": "Expérience",
+    "roles": {
+      "director": "Directeur Général",
+      "professor": "Professeur",
+      "coordinator": "Coordinateur"
+    }
+  },
+  "education": {
+    "title": "Éducation et Certifications",
+    "degree_label": "Diplôme",
+    "institution_label": "Institution",
+    "year_label": "Année"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Intéressé par une collaboration?",
+    "form_name": "Nom",
+    "form_email": "E-mail",
+    "form_phone": "Téléphone",
+    "form_city": "Ville",
+    "form_subject": "Sujet",
+    "form_message": "Message",
+    "form_submit": "Envoyer le message",
+    "email": "migueltillero@gmail.com",
+    "whatsapp": "WhatsApp",
+    "location": "San Cristóbal de Las Casas, Chiapas, Mexique"
+  },
+  "footer": {
+    "copyright": "© 2024 Miguel Tillero. Tous droits réservés.",
+    "tagline": "Éducateur · Spécialiste FLE · Gestionnaire Culturel"
+  },
+  "validation": {
+    "name_required": "Le nom est requis",
+    "email_required": "L'e-mail est requis",
+    "email_invalid": "E-mail invalide",
+    "message_required": "Le message est requis",
+    "success": "Message envoyé avec succès!"
+  }
+}
+

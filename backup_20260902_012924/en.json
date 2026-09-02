@@ -1,0 +1,92 @@
+﻿{
+  "nav": {
+    "about": "About",
+    "services": "Services",
+    "experience": "Experience",
+    "testimonials": "Testimonials",
+    "contact": "Contact"
+  },
+  "hero": {
+    "pre": "Specialist in FFL",
+    "name": "Miguel David Tillero",
+    "lastname": "Álvarez",
+    "tagline": "General Director of the projet indépendant of San Cristóbal de Las Casas. Specialist teacher in French as a Foreign Language (FFL), cultural management, and training. Experienced in Venezuela, Ecuador, Mexico, and France.",
+    "cta_primary": "View Portfolio",
+    "cta_secondary": "Download CV"
+  },
+  "langs": {
+    "es": "Español",
+    "en": "English",
+    "fr": "Français"
+  },
+  "stats": {
+    "years": "Years of Experience",
+    "students": "Students Trained",
+    "projects": "Projects Executed",
+    "certifications": "Certifications"
+  },
+  "about": {
+    "title": "About Me",
+    "intro": "I'm Miguel David Tillero Álvarez, a specialist teacher in French as a Foreign Language (FFL) with more than 15 years of experience in higher education and continuous training.",
+    "description": "My multidisciplinary background combines pedagogy, applied linguistics, and cultural management. I have worked in educational institutions in Venezuela, Ecuador, Mexico, and France, developing innovative French language teaching and cultural management programs.",
+    "focus": "My approach is centered on creating meaningful learning experiences, combining traditional methodologies with educational technology."
+  },
+  "skills": {
+    "title": "Competencies",
+    "teaching": "FFL Teaching",
+    "management": "Cultural Management",
+    "training": "Training",
+    "technology": "Educational Technology"
+  },
+  "services": {
+    "title": "Services",
+    "training_label": "Training",
+    "training_desc": "Specialized programs in French, cultural management, and trainer training.",
+    "consulting_label": "Consulting",
+    "consulting_desc": "Advising on educational projects and cultural management.",
+    "teaching_label": "Teaching",
+    "teaching_desc": "Individual and group French classes for all levels.",
+    "cultural_label": "Cultural Events",
+    "cultural_desc": "Organization and direction of cultural events and Francophone activities."
+  },
+  "timeline": {
+    "title": "Experience",
+    "roles": {
+      "director": "General Director",
+      "professor": "Professor",
+      "coordinator": "Coordinator"
+    }
+  },
+  "education": {
+    "title": "Education and Certifications",
+    "degree_label": "Degree",
+    "institution_label": "Institution",
+    "year_label": "Year"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Interested in working together?",
+    "form_name": "Name",
+    "form_email": "Email",
+    "form_phone": "Phone",
+    "form_city": "City",
+    "form_subject": "Subject",
+    "form_message": "Message",
+    "form_submit": "Send Message",
+    "email": "migueltillero@gmail.com",
+    "whatsapp": "WhatsApp",
+    "location": "San Cristóbal de Las Casas, Chiapas, Mexico"
+  },
+  "footer": {
+    "copyright": "© 2024 Miguel Tillero. All rights reserved.",
+    "tagline": "Educator · FFL Specialist · Cultural Manager"
+  },
+  "validation": {
+    "name_required": "Name is required",
+    "email_required": "Email is required",
+    "email_invalid": "Invalid email",
+    "message_required": "Message is required",
+    "success": "Message sent successfully!"
+  }
+}
+

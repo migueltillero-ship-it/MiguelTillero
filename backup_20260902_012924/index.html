@@ -2405,58 +2405,82 @@ summary:focus-visible,
 <!-- JSON-LD: Person Schema -->
 <script type="application/ld+json">
 {
-    "@context":  "https://schema.org",
-    "@type":  "Person",
-    "name":  "Miguel David Tillero Álvarez",
-    "url":  "https://migueltillero-ship-it.github.io/MiguelTillero/",
-    "image":  "https://migueltillero-ship-it.github.io/MiguelTillero/IMG-20250925-WA0034.jpg",
-    "jobTitle":  "Especialista FLE",
-    "address":  {
-                    "@type":  "PostalAddress",
-                    "addressLocality":  "San Cristóbal de Las Casas",
-                    "addressRegion":  "Chiapas",
-                    "addressCountry":  "MX"
-                },
-    "email":  "mailto:migueltillero@gmail.com",
-    "knowsLanguage":  [
-                          "es",
-                          "fr",
-                          "en"
-                      ],
-    "description":  "Especialista en Francés Lengua Extranjera, formación docente, traducción especializada y acompañamiento académico internacional.",
-    "alumniOf":  {
-                     "@type":  "EducationalOrganization",
-                     "name":  "Universidad Pedagógica Experimental Libertador (UPEL)"
-                 }
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Miguel David Tillero Álvarez",
+  "url": "https://migueltillero-ship-it.github.io/MiguelTillero/",
+  "image": "https://migueltillero-ship-it.github.io/MiguelTillero/IMG-20250925-WA0034.jpg",
+  "jobTitle": "Profesor de francés · Especialista FLE",
+  
+  "address": {"@type": "PostalAddress", "addressLocality": "San Cristóbal de Las Casas", "addressRegion": "Chiapas", "addressCountry": "MX"},
+  "email": "mailto:migueltillero@gmail.com",
+  "knowsLanguage": ["es", "fr", "en"],
+  "description": "Profesor especialista en FLE. Especialista FLE y creador de Vendredi entre amis, formador, traductor ES-FR y gestor cultural con 13 años de experiencia.",
+  "alumniOf": {"@type": "EducationalOrganization", "name": "Universidad Pedagógica Experimental Libertador (UPEL)"}
 }
 </script>
 
 <!-- JSON-LD: oferta formativa de francés (cursos y preparación de exámenes) -->
 <script type="application/ld+json">
 {
-    "@context":  "https://schema.org",
-    "@type":  "Person",
-    "name":  "Miguel David Tillero Álvarez",
-    "url":  "https://migueltillero-ship-it.github.io/MiguelTillero/",
-    "image":  "https://migueltillero-ship-it.github.io/MiguelTillero/IMG-20250925-WA0034.jpg",
-    "jobTitle":  "Especialista FLE",
-    "address":  {
-                    "@type":  "PostalAddress",
-                    "addressLocality":  "San Cristóbal de Las Casas",
-                    "addressRegion":  "Chiapas",
-                    "addressCountry":  "MX"
-                },
-    "email":  "mailto:migueltillero@gmail.com",
-    "knowsLanguage":  [
-                          "es",
-                          "fr",
-                          "en"
-                      ],
-    "description":  "Especialista en Francés Lengua Extranjera, formación docente, traducción especializada y acompañamiento académico internacional.",
-    "alumniOf":  {
-                     "@type":  "EducationalOrganization",
-                     "name":  "Universidad Pedagógica Experimental Libertador (UPEL)"
-                 }
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Cursos de francés y preparación de exámenes oficiales",
+  "itemListElement": [
+    {
+      "@type": "ListItem", "position": 1,
+      "item": {
+        "@type": "Course",
+        "name": "Curso general de francés (A1 a C2)",
+        "description": "Itinerario completo de francés lengua extranjera según el Marco Común Europeo de Referencia, del nivel A1 al C2, con metodología comunicativa y accional.",
+        "inLanguage": "fr",
+        "teaches": "Francés lengua extranjera (FLE)",
+        "educationalLevel": "A1, A2, B1, B2, C1, C2",
+        "provider": {"@type": "Person", "name": "Miguel David Tillero Álvarez"},
+        "hasCourseInstance": {
+          "@type": "CourseInstance",
+          "courseMode": ["Onsite", "Online"],
+          "location": {"@type": "Place", "address": {"@type": "PostalAddress", "addressLocality": "San Cristóbal de Las Casas", "addressRegion": "Chiapas", "addressCountry": "MX"}}
+        }
+      }
+    },
+    {
+      "@type": "ListItem", "position": 2,
+      "item": {
+        "@type": "Course",
+        "name": "Preparación DELF y DALF",
+        "description": "Entrenamiento específico para los diplomas oficiales DELF (A1-B2) y DALF (C1-C2) del Ministerio francés de Educación Nacional: estrategias por prueba, simulacros y retroalimentación según los criterios oficiales.",
+        "inLanguage": "fr",
+        "teaches": "Preparación a los diplomas DELF y DALF",
+        "provider": {"@type": "Person", "name": "Miguel David Tillero Álvarez"},
+        "hasCourseInstance": {"@type": "CourseInstance", "courseMode": ["Onsite", "Online"]}
+      }
+    },
+    {
+      "@type": "ListItem", "position": 3,
+      "item": {
+        "@type": "Course",
+        "name": "Preparación TCF y TEF para migración",
+        "description": "Preparación lingüística para los tests oficiales TCF y TEF en sus versiones de migración a Canadá y Quebec y de integración, residencia y nacionalidad francesa.",
+        "inLanguage": "fr",
+        "teaches": "Preparación a los tests TCF y TEF",
+        "provider": {"@type": "Person", "name": "Miguel David Tillero Álvarez"},
+        "hasCourseInstance": {"@type": "CourseInstance", "courseMode": ["Onsite", "Online"]}
+      }
+    },
+    {
+      "@type": "ListItem", "position": 4,
+      "item": {
+        "@type": "Course",
+        "name": "Francés profesional y para empresas",
+        "description": "Francés sobre objetivos específicos para equipos e instituciones: turismo, hostelería, negocios, salud y cooperación internacional, con diagnóstico previo y programa a medida.",
+        "inLanguage": "fr",
+        "teaches": "Francés sobre objetivos específicos (FOS)",
+        "provider": {"@type": "Person", "name": "Miguel David Tillero Álvarez"},
+        "hasCourseInstance": {"@type": "CourseInstance", "courseMode": ["Onsite", "Online"]}
+      }
+    }
+  ]
 }
 </script>
 
@@ -5370,8 +5394,6 @@ window.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
-
-
 
 
 
