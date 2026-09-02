@@ -36,3 +36,9 @@ h1, h2, h3 { font-family: 'Syne', sans-serif; color: #fff; text-shadow: 1px 2px 
 .mosaico-identidad img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
 .mosaico-identidad figure:hover img { transform: scale(1.05); }
 footer { text-align: center; padding: 2rem; font-family: 'Syne', sans-serif; font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--line); }
+.rejilla-6 { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.tarjeta-valor { background: rgba(0,0,0,0.4); border: 1px solid var(--gold); border-radius: 8px; padding: 1.5rem; text-align: left; transition: transform 0.3s; }
+.tarjeta-valor:hover { transform: translateY(-5px); }
+.tarjeta-valor h3 { color: var(--gold-claro); margin-top: 0; font-size: 1.2rem; }
+.tarjeta-valor p { color: rgba(255,255,255,0.85); font-size: 0.95rem; margin-bottom: 0; }
+.paso-cifra { font-family: 'Syne', sans-serif; font-size: 3rem; color: rgba(197, 160, 89, 0.2); float: right; line-height: 0.8; }
