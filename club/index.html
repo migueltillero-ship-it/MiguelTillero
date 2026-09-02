@@ -54,8 +54,41 @@
   </div>
 </main>
 <footer><p>© 2026 Miguel Tillero · Vendredi entre amis</p></footer>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const video = document.querySelector('video');
+    const audios = document.querySelectorAll('audio');
+    
+    if (video) {
+        video.addEventListener('play', () => {
+            audios.forEach(audio => {
+                if (!audio.paused) {
+                    audio.dataset.wasPlaying = 'true';
+                    audio.pause();
+                }
+            });
+        });
+        video.addEventListener('pause', () => {
+            audios.forEach(audio => {
+                if (audio.dataset.wasPlaying === 'true') {
+                    audio.play().catch(e => console.log("Audio resume prevented:", e));
+                    audio.dataset.wasPlaying = 'false';
+                }
+            });
+        });
+        video.addEventListener('ended', () => {
+            audios.forEach(audio => {
+                if (audio.dataset.wasPlaying === 'true') {
+                    audio.play().catch(e => console.log("Audio resume prevented:", e));
+                    audio.dataset.wasPlaying = 'false';
+                }
+            });
+        });
+    }
+});
+</script>
 </body>
-</html>
+
 
 
 
