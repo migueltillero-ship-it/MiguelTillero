@@ -49,3 +49,12 @@ footer { text-align: center; padding: 2rem; font-family: 'Syne', sans-serif; fon
 .galerie-vendredi img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
 .galerie-vendredi figure:hover img { transform: scale(1.06); }
 .galerie-vendredi figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 0.6rem 0.8rem; background: linear-gradient(0deg, rgba(0,0,0,0.75), transparent); color: #fff; font-family: 'Syne', sans-serif; font-size: 0.8rem; }
+
+/* ════════ RESPONSIVIDAD MÓVIL (MENÚ) ════════ */
+@media (max-width: 768px) {
+  .nav-scroll { display: flex; overflow-x: auto; white-space: nowrap; padding-bottom: 0.5rem; width: 100%; -webkit-overflow-scrolling: touch; gap: 1.2rem; margin-bottom: 0.5rem; }
+  .nav-scroll::-webkit-scrollbar { height: 3px; }
+  .nav-scroll::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+  .barra-in { flex-direction: column; align-items: center; gap: 0.5rem; }
+  .btn-oro { width: 100%; text-align: center; }
+}
