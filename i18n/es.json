@@ -1,4 +1,4 @@
-{
+﻿{
   "nav": {
     "about": "Acerca de",
     "services": "Servicios",
@@ -10,7 +10,7 @@
     "pre": "Especialista en FLE",
     "name": "Miguel David Tillero",
     "lastname": "Álvarez",
-    "tagline": "Director General de la Alliance Française de San Cristóbal de Las Casas. Profesor especialista en Francés Lengua Extranjera (FLE), gestión cultural y formación. Con experiencia en Venezuela, Ecuador, México y Francia.",
+    "tagline": "Profesor especialista en Francés Lengua Extranjera (FLE) y creador de Vendredi entre amis. Profesor especialista en Francés Lengua Extranjera (FLE), gestión cultural y formación. Con experiencia en Venezuela, Ecuador, México y Francia.",
     "cta_primary": "Ver Portafolio",
     "cta_secondary": "Descargar CV"
   },
@@ -89,3 +89,4 @@
     "success": "¡Mensaje enviado exitosamente!"
   }
 }
+

@@ -1,4 +1,4 @@
-{
+﻿{
   "nav": {
     "about": "À propos",
     "services": "Services",
@@ -10,7 +10,7 @@
     "pre": "Spécialiste en FLE",
     "name": "Miguel David Tillero",
     "lastname": "Álvarez",
-    "tagline": "Directeur Général de l'Alliance Française de San Cristóbal de Las Casas. Enseignant spécialiste en Français Langue Étrangère (FLE), gestion culturelle et formation. Expérience au Venezuela, Équateur, Mexique et France.",
+    "tagline": "Directeur Général de l'projet indépendant de San Cristóbal de Las Casas. Enseignant spécialiste en Français Langue Étrangère (FLE), gestion culturelle et formation. Expérience au Venezuela, Équateur, Mexique et France.",
     "cta_primary": "Voir le portfolio",
     "cta_secondary": "Télécharger le CV"
   },
@@ -89,3 +89,4 @@
     "success": "Message envoyé avec succès!"
   }
 }
+
