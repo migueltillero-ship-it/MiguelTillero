@@ -3,45 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Boîte à idées · Vendredi entre amis</title>
+<title>Rejoignez-nous · Vendredi entre amis</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="estilo-dinamico.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-<header class="barra">
-  <div class="barra-in">
-    <a class="marca" href="../index.html">Miguel <b>Tillero</b></a>
-    <nav>
-      <a href="index.html">Accueil</a>
-      <a href="funciona.html">Comment ça marche</a>
-      <a href="niveles.html">Niveaux</a>
-      <a href="recursos.html">Ressources</a>
-      <a href="ideas.html" class="on">Boîte à idées</a>
-    </nav>
-    <a class="btn-oro" href="https://wa.me/529673424456?text=Hola%20Miguel%2C%20quiero%20unirme%20a%20Vendredi%20entre%20amis" target="_blank"><i class="fa-brands fa-whatsapp"></i> Unirme</a>
-  </div>
-</header>
+<header class="barra"><div class="barra-in"><a class="marca" href="../index.html">Miguel <b>Tillero</b></a><nav><a href="index.html">Accueil</a><a href="pourquoi.html">Le Concept</a><a href="animateur.html">L'Animateur</a><a href="niveles.html">Pédagogie</a><a href="recursos.html" class="on">Ressources</a></nav></div></header>
 <main class="contenedor-slide">
-  <span style="font-family:'Syne'; font-size:0.8rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold-claro);">Caja de resonancia</span>
-  <h1 style="font-size:2.5rem; margin:0.5rem 0 1.5rem;">Boîte à idées</h1>
-  <form action="https://formspree.io/f/TU_ID_DE_FORMSPREE" method="POST" enctype="multipart/form-data" style="display:grid; gap:1rem;">
+  <span style="font-family:'Syne'; font-size:0.8rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold-claro);">Questions & Contact</span>
+  <h1 style="font-size:2.5rem; margin:0.5rem 0 2rem;">Rejoignez-nous</h1>
+  
+  <h2 style="font-size:1.6rem; color:var(--gold-claro);">Questions fréquentes</h2>
+  <div style="margin-bottom:2.5rem;">
+    <p><b>¿Necesito un nivel específico?</b><br>No. Existen actividades adaptadas a distintos niveles desde A1 hasta C2.</p>
+    <p><b>¿Se corrigen los errores?</b><br>Sí, de forma respetuosa y constructiva. Es parte vital de la metodología.</p>
+    <p><b>¿Puedo asistir aunque sea tímido?</b><br>Por supuesto. Muchos participantes comienzan exactamente así; la confianza se construye en el grupo.</p>
+  </div>
+
+  <h2 style="font-size:1.6rem; color:var(--gold-claro);">Boîte à idées & Inscription</h2>
+  <form action="https://formspree.io/f/TU_ID_DE_FORMSPREE" method="POST" enctype="multipart/form-data" style="display:grid; gap:1rem; margin-bottom:2.5rem; background:rgba(0,0,0,0.3); padding:2rem; border-radius:8px; border:1px solid var(--line);">
     <div>
       <label style="display:block; font-family:'Syne'; font-size:0.85rem; margin-bottom:0.3rem;">Tu nombre</label>
-      <input type="text" name="nombre" required style="width:100%; padding:0.8rem; background:rgba(0,0,0,0.3); border:1px solid var(--line); border-radius:4px; color:#fff; font-family:inherit;">
+      <input type="text" name="nombre" required style="width:100%; padding:0.8rem; background:rgba(255,255,255,0.1); border:1px solid var(--line); border-radius:4px; color:#fff; font-family:inherit;">
     </div>
     <div>
-      <label style="display:block; font-family:'Syne'; font-size:0.85rem; margin-bottom:0.3rem;">Tu mensaje o propuesta</label>
-      <textarea name="mensaje" rows="4" required style="width:100%; padding:0.8rem; background:rgba(0,0,0,0.3); border:1px solid var(--line); border-radius:4px; color:#fff; font-family:inherit;"></textarea>
+      <label style="display:block; font-family:'Syne'; font-size:0.85rem; margin-bottom:0.3rem;">Tu mensaje, idea o solicitud de inscripción</label>
+      <textarea name="mensaje" rows="4" required style="width:100%; padding:0.8rem; background:rgba(255,255,255,0.1); border:1px solid var(--line); border-radius:4px; color:#fff; font-family:inherit;"></textarea>
     </div>
-    <button type="submit" class="btn-oro" style="border:0; cursor:pointer; width:100%; text-align:center;">Enviar al buzón</button>
+    <button type="submit" class="btn-oro" style="border:0; cursor:pointer; width:100%; text-align:center;">Envoyer le message</button>
   </form>
-  <div style="margin-top:2rem; display:flex; justify-content:flex-start;">
-    <a href="recursos.html" class="btn-oro" style="background:transparent; color:#fff; border:1px solid var(--gold);"><i class="fa-solid fa-arrow-left"></i> Anterior</a>
+
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <a href="comunidad.html" class="btn-oro" style="background:transparent; color:#fff; border:1px solid var(--gold);"><i class="fa-solid fa-arrow-left"></i> Anterior</a>
+    <a href="https://wa.me/529673424456?text=Hola%20Miguel%2C%20quiero%20unirme%20a%20Vendredi%20entre%20amis" target="_blank" class="btn-oro"><i class="fa-brands fa-whatsapp"></i> Contacto Directo WhatsApp</a>
   </div>
 </main>
-<footer>
-  <p>Vendredi entre amis · Conducido por Miguel David Tillero Álvarez</p>
-</footer>
 </body>
 </html>
