@@ -1,0 +1,24 @@
+﻿[
+  {
+    "id": "routine",
+    "titulo": "Ma routine quotidienne",
+    "nivel": "A1-A2",
+    "categoria": "Vie quotidienne",
+    "vocabulario": [
+      {"fr": "se réveiller", "es": "despertarse"},
+      "se lever",
+      "prendre le petit-déjeuner"
+    ]
+  },
+  {
+    "id": "voyage",
+    "titulo": "Préparer un voyage à Paris",
+    "nivel": "B1-B2",
+    "categoria": "Voyages",
+    "vocabulaire": [
+      {"fr": "réserver un billet", "es": "reservar un boleto"},
+      "faire sa valise",
+      "l'embarquement"
+    ]
+  }
+]
