@@ -10,7 +10,7 @@
     "pre": "Specialist in FFL",
     "name": "Miguel David Tillero",
     "lastname": "Álvarez",
-    "tagline": "General Director of the projet indépendant of San Cristóbal de Las Casas. Specialist teacher in French as a Foreign Language (FFL), cultural management, and training. Experienced in Venezuela, Ecuador, Mexico, and France.",
+    "tagline": "French as a Foreign Language specialist, teacher trainer, translator and international educational consultant.",
     "cta_primary": "View Portfolio",
     "cta_secondary": "Download CV"
   },
@@ -79,7 +79,7 @@
   },
   "footer": {
     "copyright": "© 2024 Miguel Tillero. All rights reserved.",
-    "tagline": "Educator · FFL Specialist · Cultural Manager"
+    "tagline": "French as a Foreign Language specialist, teacher trainer, translator and international educational consultant."
   },
   "validation": {
     "name_required": "Name is required",
@@ -89,4 +89,5 @@
     "success": "Message sent successfully!"
   }
 }
+
 

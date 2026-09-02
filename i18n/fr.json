@@ -10,7 +10,7 @@
     "pre": "Spécialiste en FLE",
     "name": "Miguel David Tillero",
     "lastname": "Álvarez",
-    "tagline": "Directeur Général de l'projet indépendant de San Cristóbal de Las Casas. Enseignant spécialiste en Français Langue Étrangère (FLE), gestion culturelle et formation. Expérience au Venezuela, Équateur, Mexique et France.",
+    "tagline": "Spécialiste FLE, formateur, traducteur et accompagnateur pédagogique à l'international.",
     "cta_primary": "Voir le portfolio",
     "cta_secondary": "Télécharger le CV"
   },
@@ -79,7 +79,7 @@
   },
   "footer": {
     "copyright": "© 2024 Miguel Tillero. Tous droits réservés.",
-    "tagline": "Éducateur · Spécialiste FLE · Gestionnaire Culturel"
+    "tagline": "Spécialiste FLE, formateur, traducteur et accompagnateur pédagogique à l'international."
   },
   "validation": {
     "name_required": "Le nom est requis",
@@ -89,4 +89,5 @@
     "success": "Message envoyé avec succès!"
   }
 }
+
 

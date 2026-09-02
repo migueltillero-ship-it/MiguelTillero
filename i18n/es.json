@@ -10,7 +10,7 @@
     "pre": "Especialista en FLE",
     "name": "Miguel David Tillero",
     "lastname": "Álvarez",
-    "tagline": "Profesor especialista en Francés Lengua Extranjera (FLE) y creador de Vendredi entre amis. Profesor especialista en Francés Lengua Extranjera (FLE), gestión cultural y formación. Con experiencia en Venezuela, Ecuador, México y Francia.",
+    "tagline": "Especialista en Francés Lengua Extranjera (FLE), formación docente, traducción especializada y acompañamiento académico internacional.",
     "cta_primary": "Ver Portafolio",
     "cta_secondary": "Descargar CV"
   },
@@ -79,7 +79,7 @@
   },
   "footer": {
     "copyright": "© 2024 Miguel Tillero. Todos los derechos reservados.",
-    "tagline": "Educador · Especialista en FLE · Gestor Cultural"
+    "tagline": "Especialista en Francés Lengua Extranjera (FLE), formación docente, traducción especializada y acompañamiento académico internacional."
   },
   "validation": {
     "name_required": "El nombre es requerido",
@@ -89,4 +89,5 @@
     "success": "¡Mensaje enviado exitosamente!"
   }
 }
+
 
