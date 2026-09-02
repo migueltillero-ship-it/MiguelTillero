@@ -1,104 +1,45 @@
-<!DOCTYPE html>
-<html lang="fr">
+﻿<!DOCTYPE html>
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Vendredi entre Amis — l'espace du club de conversation en français du professeur Miguel Tillero. Une nouvelle destination francophone chaque vendredi.">
-<title>Vendredi entre Amis · Le Club de Conversation de Miguel Tillero</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/main.css">
-<link rel="stylesheet" href="assets/css/components.css">
-<link rel="stylesheet" href="assets/css/accessibility.css">
-<script>window.PAGE_PREFIX = ""; window.CURRENT_PAGE = "accueil"; window.DATA_PATH = "data/semaines.json";</script>
+<title>Vendredi entre amis · Accueil</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilo-dinamico.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-
-<header id="topbar"><div id="topbar-mount"></div></header>
-
-<main class="container">
-  <div class="hero">
-    <p class="eyebrow">Bienvenue</p>
-    <h1>Bonjour, et bienvenue parmi nous</h1>
-    <p class="muted" style="max-width:60ch;margin-top:.5rem;">Chaque vendredi, nous nous retrouvons pour explorer une nouvelle destination — ou une nouvelle facette de nous-mêmes — en français. Cet espace continue la conversation entre deux rencontres.</p>
-
-    <div class="mot-miguel">
-      <div class="avatar">MT</div>
-      <div>
-        <blockquote>
-          Bonjour à toutes et à tous ! Cette semaine, nous partons à la découverte d'un nouveau lieu francophone.
-          Je vous invite à explorer le vocabulaire et l'expression ci-dessous avant notre rencontre de vendredi. À très bientôt !
-        </blockquote>
-        <footer>— Miguel</footer>
-      </div>
-    </div>
-
-    <div class="progress-wrap">
-      <div class="progress-label" id="accueil-progress-label"></div>
-      <div class="progress-bar"><span id="accueil-progress-bar" style="width:0%"></span></div>
-    </div>
+<header class="barra">
+  <div class="barra-in">
+    <a class="marca" href="../index.html">Miguel <b>Tillero</b></a>
+    <nav>
+      <a href="index.html" class="on">Accueil</a>
+      <a href="funciona.html">Comment ça marche</a>
+      <a href="niveles.html">Niveaux</a>
+      <a href="recursos.html">Ressources</a>
+      <a href="ideas.html">Boîte à idées</a>
+    </nav>
+    <a class="btn-oro" href="https://wa.me/529673424456?text=Hola%20Miguel%2C%20quiero%20unirme%20a%20Vendredi%20entre%20amis" target="_blank"><i class="fa-brands fa-whatsapp"></i> Unirme</a>
   </div>
-
-  <div class="timeline-3">
-    <div class="card">
-      <p class="tag">🔄 Cette semaine</p>
-      <h3 id="accueil-semana-num"></h3>
-      <p id="accueil-tema-actual"></p>
-      <p class="muted" id="accueil-temporada"></p>
-    </div>
-    <div class="card">
-      <p class="tag">📅 Vendredi prochain</p>
-      <h3>À suivre</h3>
-      <p id="accueil-proxima"></p>
-    </div>
-    <div class="card">
-      <p class="tag">🛂 Ton passeport</p>
-      <h3>Passeport Francophone</h3>
-      <p class="muted">Découvre les destinations déjà visitées.</p>
-      <a class="btn secondary" href="#passeport">Voir mon passeport ↓</a>
-    </div>
+</header>
+<main class="contenedor-slide" style="text-align:center;">
+  <span style="font-family:'Syne'; font-size:0.8rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold-claro);">Club de conversation · Alliance Française SCLC</span>
+  <h1 style="font-size:clamp(2.5rem, 5vw, 4rem); margin:0.5rem 0 1rem;">Vendredi <эм style="color:var(--gold); font-style:normal;">entre amis</эм></h1>
+  <p style="font-size:1.2rem; line-height:1.7; max-width:700px; margin:0 auto 2rem; color:rgba(255,255,255,0.9);">Un espacio único de conversación en francés, cálido, inclusivo y sin miedo al error. Abierto a todos los niveles y público en general bajo la tutela de M. Miguel Tillero.</p>
+  <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; margin-bottom:2.5rem;">
+    <a href="funciona.html" class="btn-oro">Siguiente: Cómo funciona <i class="fa-solid fa-arrow-right"></i></a>
   </div>
-
-  <h2 id="passeport" style="margin-top:2.5rem;">🛂 Passeport Francophone</h2>
-  <p class="muted">Une ville visitée à chaque étape de la Saison 1 — Voyage en Francophonie.</p>
-  <div class="passport-grid" id="passport-grid"></div>
-
-  <div class="grid-cards" style="margin-top:2.5rem;">
-    <div class="card">
-      <p class="icon">☕</p>
-      <h3>Le Café du Vendredi</h3>
-      <p class="muted">L'activité principale de la semaine, par niveau.</p>
-      <a class="btn" href="pages/cafe.html">Y aller</a>
-    </div>
-    <div class="card">
-      <p class="icon">🎯</p>
-      <h3>Le Défi de la Semaine</h3>
-      <p class="muted">Un petit défi, 5 minutes maximum.</p>
-      <a class="btn" href="pages/defis.html">Y aller</a>
-    </div>
-    <div class="card">
-      <p class="icon">📔</p>
-      <h3>Mon Carnet de Voyage</h3>
-      <p class="muted">Garde tes mots et réflexions personnelles.</p>
-      <a class="btn" href="pages/carnet.html">Y aller</a>
-    </div>
-    <div class="card">
-      <p class="icon">💬</p>
-      <h3>Entre Amis</h3>
-      <p class="muted">La question de la semaine à partager au groupe.</p>
-      <a class="btn" href="pages/amis.html">Y aller</a>
-    </div>
+  <hr style="border:0; border-top:1px solid var(--line); margin:2rem 0;">
+  <h2 style="font-size:1.8rem; margin-bottom:1rem;">Notre identité visuelle</h2>
+  <div class="mosaico-identidad">
+    <figure><img src="../assets/club/hero-bienvenue.jpg" loading="lazy" alt="Bienvenida"></figure>
+    <figure><img src="../assets/club/marque-identite.jpg" loading="lazy" alt="Identidad"></figure>
+    <figure><img src="../assets/club/invitation-livres.jpg" loading="lazy" alt="Café y libros"></figure>
   </div>
 </main>
-
-<footer id="club-footer">
-  Vendredi entre Amis · Un espace du professeur Miguel Tillero — <a href="../index.html">retour au site principal</a>
+<footer>
+  <p>Vendredi entre amis · Conducido por Miguel David Tillero Álvarez</p>
+  <p>© 2026 · <a href="../index.html" style="color:var(--gold-claro); text-decoration:underline;">Sitio principal</a></p>
 </footer>
-
-<script src="assets/js/data-loader.js"></script>
-<script src="assets/js/progression.js"></script>
-<script src="assets/js/nav.js"></script>
-<script src="assets/js/page-index.js"></script>
 </body>
 </html>
