@@ -96,7 +96,26 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .portrait-hud{ box-shadow: var(--shadow-card-hover); }
 .services-grid{ gap: 1.15rem; background: none; border: none; }
 .svc-card{ border: 1px solid var(--border); }
-</style>
+        .filmstrip-wrap { position: relative; margin: 0 -2rem; padding: 1.2rem 0 1.8rem; overflow: hidden; mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%); }
+        .filmstrip-track { display: flex; gap: 1rem; padding: 0 2rem; cursor: grab; overflow-x: auto; scrollbar-width: none; }
+        .filmstrip-track::-webkit-scrollbar { display: none; }
+        .filmstrip-track.grabbing { cursor: grabbing; }
+        .filmstrip-track.grabbing .g-item { pointer-events: none; }
+        .g-item { flex: 0 0 auto; width: 280px; height: 380px; overflow: hidden; cursor: pointer; position: relative; background: rgba(224,236,222,0.85); border: 1px solid var(--border); border-radius: 6px; transition: border-color 0.35s, transform 0.35s, box-shadow 0.4s; }
+        .g-item img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.75) contrast(1.02); transition: transform 0.7s, filter 0.4s, opacity 0.5s; opacity: 0; }
+        .g-item img.loaded { opacity: 1; }
+        .g-item:hover img { transform: scale(1.07); filter: saturate(1) contrast(1.05); }
+        .g-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(2,12,6,0.85) 0%, transparent 55%); opacity: 0; transition: opacity 0.4s; display: flex; align-items: flex-end; justify-content: center; padding: 1rem; pointer-events: none; }
+        .g-overlay i { color: var(--gold); font-size: 1.5rem; }
+        .g-item:hover .g-overlay { opacity: 1; }
+        #lightbox { display: none; position: fixed; inset: 0; z-index: 5000; background: rgba(2,5,16,0.97); backdrop-filter: blur(16px); align-items: center; justify-content: center; }
+        #lightbox.open { display: flex; }
+        #lightbox img { max-width: 90vw; max-height: 88vh; object-fit: contain; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);}
+        #lb-close { position: absolute; top: 2rem; right: 2rem; background: none; border: 1px solid var(--border); color: #fff; width: 2.5rem; height: 2.5rem; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; transition: all 0.3s; border-radius: 50%; }
+        #lb-close:hover { border-color: var(--primary-color); color: var(--primary-color); background: rgba(255,255,255,0.1); }
+        .filmstrip-loading { display: flex; align-items: center; justify-content: center; gap: 0.6rem; min-height: 220px; width: 100%; font-family: 'Space Mono', monospace; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--primary-color); }
+        .filmstrip-hint { display: flex; align-items: center; justify-content: center; gap: 0.8rem; margin-top: 1rem; font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-light); }
+    </style>
 </head>
 <body>
     <nav class="main-nav">
@@ -117,15 +136,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     </nav>
     <main>
         <div class="sec-head"><span class="eyebrow" data-i18n="sec.galeria.eyebrow">Momentos y proyectos</span><h1 class="sec-title" data-i18n="sec.galeria.title">Galería</h1></div>
-<div class="filmstrip-track">
-    <div class="g-item"><img src="https://drive.google.com/thumbnail?id=1nHMpKPvpZvhpxyQrDluo9sozD9xtRnA-&sz=w800"></div>
-    <div class="g-item"><img src="https://drive.google.com/thumbnail?id=14SrCOErHmePOImKYgNWNTKIcTKdVzKZf&sz=w800"></div>
-    <div class="g-item"><img src="https://drive.google.com/thumbnail?id=1VhZBSAeZIAGSpqWdoXlInaqfapaJf7RF&sz=w800"></div>
-    <div class="g-item"><img src="https://drive.google.com/thumbnail?id=1sDsRlHiS0FfOXPCGkHWrB8Ko5RQd_cNu&sz=w800"></div>
-    <div class="g-item"><img src="https://drive.google.com/thumbnail?id=1MfcV74qm8D9V7ReD2MNotTyL5EZ0SVnz&sz=w800"></div>
-    <div class="g-item"><img src="https://drive.google.com/thumbnail?id=1KiKI1T_L0FhIb5CpOmItXqrZBQskS_io&sz=w800"></div>
+<div class="filmstrip-wrap" data-gallery>
+    <div class="filmstrip-track" id="filmstripTrack" tabindex="0" role="region" aria-label="Galería de imágenes, desplazable con las flechas">
+        <div class="filmstrip-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> <span>Cargando carrete de Google Drive...</span></div>
+    </div>
 </div>
-<p style="text-align:center; color:var(--primary-color); font-size:0.8rem; margin-top:1rem;"><i class="fa-solid fa-arrows-left-right"></i> Desliza para explorar</p>
+<div class="filmstrip-hint">
+    <i class="fa-solid fa-hand-pointer"></i> <span data-i18n="sec.galeria.hint">Arrastra para explorar</span>
+</div>
 
 <div class="sec-head" style="margin-top: 5rem;"><span class="eyebrow">Presentación audiovisual</span><h2 class="sec-title">En vídeo</h2></div>
 <div class="grid-2">
@@ -140,7 +158,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
         <p style="font-size:0.85rem; color:var(--text-light);">CAVILAM · VICHY</p>
     </div>
 </div>
-    </main>
+        <div id="lightbox" role="dialog" aria-modal="true">
+        <button id="lb-close" aria-label="Cerrar"><i class="fa-solid fa-times"></i></button>
+        <img loading="lazy" id="lb-img" src="" alt="">
+    </div>
+</main>
     <script src="assets/js/i18n.js"></script>
     <script>
         const btnMenu = document.getElementById('mobile-menu-btn');
@@ -168,7 +190,77 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
             });
         });
     </script>
+<script>
+function openLBdrive(url, alt) {
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lb-img');
+    if (!lb || !img) { window.open(url, '_blank', 'noopener'); return; }
+    img.src = url;
+    img.alt = alt || 'Galería Miguel Tillero';
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const lbClose = document.getElementById('lb-close');
+    const lb = document.getElementById('lightbox');
+    if (lbClose) lbClose.onclick = () => { lb.classList.remove('open'); document.body.style.overflow = ''; };
+    if (lb) lb.onclick = (e) => { if (e.target === lb) { lb.classList.remove('open'); document.body.style.overflow = ''; } };
+
+    const track = document.getElementById('filmstripTrack');
+    if (!track) return;
+
+    // Las 22 IDs exactas de tu Google Drive original
+    const GALLERY_IDS = [
+        '1nHMpKPvpZvhpxyQrDluo9sozD9xtRnA-','14SrCOErHmePOImKYgNWNTKIcTKdVzKZf',
+        '1VhZBSAeZIAGSpqWdoXlInaqfapaJf7RF','1sDsRlHiS0FfOXPCGkHWrB8Ko5RQd_cNu',
+        '1MfcV74qm8D9V7ReD2MNotTyL5EZ0SVnz','1KiKI1T_L0FhIb5CpOmItXqrZBQskS_io',
+        '1RfKAm7Qcb4gFQsQeEMTpJs7C1ftKZQGL','170UXYtWSjfXzRa7ZQO1w_eFhVC_utYd9',
+        '1jejddePJzIIfBucfeU2-EqEp6n0Pd5cw','1ogdOJy4E0BufCI0ypWRTbiaAVlSvMfFF',
+        '150zYARzsWMXg7yrPN760sk0gueAoeRF-','17L2cZJUSaOWQbPDulxCh57HslAHDT51B',
+        '1d_pv2jRccFxYcoogvynkF8Ki6O5d6QhB','1seB92AQhCCnX_Vg_rfp0yP8X77ZU1TF4',
+        '1FHzihJC0NVrxTx3dTtpX7-bmW9F3cvAe','1i8n8tyX-PFx6CoAmrbo7DJTjdOCnTWPE',
+        '1gObW3L9oI5KiuafL6GcutW13SwKfhxJo','1ANuazsbFfDGu983Xvl5Ha1QCmxXn7Yhj',
+        '1WOODU25GiVxUuNJ7YxbfnWjmzlnvKvbq','1BrM3U6Y73ganlMIrYUBzVq7olCxDEaIT',
+        '1MJjRZcpj8vJNmj0btyXvQWrKQpwTBmjM','1WAeC0pcNgqYjjjDj0FhB6TxR0yS3l1Cz'
+    ];
+    const thumb = id => 'https://drive.google.com/thumbnail?id=' + id + '&sz=w800';
+    const full = id => 'https://lh3.googleusercontent.com/d/' + id + '=w2400';
+
+    track.innerHTML = '';
+    const build = (loopIdx) => {
+        GALLERY_IDS.forEach((id, i) => {
+            const item = document.createElement('div');
+            item.className = 'g-item';
+            item.innerHTML = <img loading="lazy" src="+thumb(id)+" alt="Galería foto +(i+1)+" onload="this.classList.add('loaded')" onerror="this.closest('.g-item').style.display='none'"><div class="g-overlay"><i class="fa-solid fa-expand"></i></div>;
+            item.addEventListener('click', () => {
+                if (track.classList.contains('was-dragging')) return;
+                openLBdrive(full(id), 'Galería foto ' + (i+1));
+            });
+            track.appendChild(item);
+        });
+    };
+    
+    // Construir la lista dos veces para el efecto de scroll infinito
+    build(0); build(1);
+
+    // Sistema de Drag and Drop (Táctil y Mouse)
+    let isDown = false, startX = 0, startScroll = 0, moved = 0;
+    const onDown = e => { isDown = true; moved = 0; track.classList.add('grabbing'); startX = (e.touches ? e.touches[0].pageX : e.pageX); startScroll = track.scrollLeft; };
+    const onMove = e => { if (!isDown) return; const x = (e.touches ? e.touches[0].pageX : e.pageX); const dx = x - startX; moved = Math.abs(dx); track.scrollLeft = startScroll - dx; if (moved > 6) track.classList.add('was-dragging'); };
+    const onUp = () => { if (!isDown) return; isDown = false; track.classList.remove('grabbing'); setTimeout(() => track.classList.remove('was-dragging'), 50); };
+
+    track.addEventListener('mousedown', onDown); track.addEventListener('mousemove', onMove); track.addEventListener('mouseup', onUp); track.addEventListener('mouseleave', onUp);
+    track.addEventListener('touchstart', onDown, { passive: true }); track.addEventListener('touchmove', onMove, { passive: true }); track.addEventListener('touchend', onUp);
+
+    // Auto-scroll continuo
+    let autoId = setInterval(() => { if (!isDown) { track.scrollLeft += 0.6; if (track.scrollLeft >= track.scrollWidth / 2) track.scrollLeft = 0; } }, 16);
+    track.addEventListener('mouseenter', () => clearInterval(autoId));
+    track.addEventListener('mouseleave', () => { clearInterval(autoId); autoId = setInterval(() => { if (!isDown) { track.scrollLeft += 0.6; if (track.scrollLeft >= track.scrollWidth / 2) track.scrollLeft = 0; } }, 16); });
+});
+</script>
 </body>
 </html>
+
 
 
