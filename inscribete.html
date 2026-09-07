@@ -353,83 +353,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-/* SECUENCIA VIDEO INTRO */
-var introEl = document.getElementById('video-intro');
-var introVid = document.getElementById('intro-video');
-
-setTimeout(() => { 
-    if(introEl) introEl.classList.add('dimmed'); 
-    var mono = document.getElementById('intro-monogram');
-    if(mono) mono.classList.add('show'); 
-}, 1000);
-
-setTimeout(() => { 
-    var title = document.getElementById('intro-title');
-    if(title) title.classList.add('show'); 
-}, 1500);
-
-setTimeout(() => { 
-    var btn = document.getElementById('intro-enter-btn');
-    if(btn) btn.classList.add('show'); 
-}, 2000);
-
-window.closeIntro = function() {
-    sessionStorage.setItem('introVisto', 'true');
-    if (!introEl) return;
-    introEl.classList.add('fade-out');
-    setTimeout(() => { 
-        introEl.style.display = 'none'; 
-        if(introVid) introVid.pause(); 
-    }, 1000);
-};
-
-window.enterSite = function() {
-    sessionStorage.setItem('introVisto', 'true');
-    if (!introEl || !introVid) return;
-    introEl.classList.remove('dimmed');
-    introEl.classList.add('entered');
-
-    introVid.removeAttribute('loop');
-    introVid.loop = false;
-    
-    introVid.muted = false;
-    introVid.currentTime = 0;
-    var p = introVid.play();
-    if (p && p.catch) p.catch(()=>{});
-
-    const bgAud = document.getElementById('bg-audio');
-    if (bgAud) {
-        bgAud.currentTime = 0;
-        if(typeof window.startBgMusic === 'function') window.startBgMusic();
-    }
-
-    var mono = document.getElementById('intro-monogram');
-    var title = document.getElementById('intro-title');
-    var enterBtn = document.getElementById('intro-enter-btn');
-    if(mono) mono.style.opacity = '0';
-    if(title) title.style.opacity = '0';
-    if(enterBtn) enterBtn.style.opacity = '0';
-
-    let cerrado = false;
-    const cerrarVideo = () => {
-        if (cerrado) return;
-        cerrado = true;
-        introEl.classList.add('fade-out');
-        setTimeout(() => { 
-            introEl.style.display = 'none'; 
-            introVid.pause(); 
-        }, 1000);
-    };
-
-    introVid.addEventListener('ended', cerrarVideo, { once: true });
-    introVid.addEventListener('timeupdate', () => {
-        if (!cerrado && introVid.duration && introVid.currentTime >= (introVid.duration - 0.5)) {
-            cerrarVideo();
-        }
-    });
-    setTimeout(cerrarVideo, 55000);
-};
-
 /* ROTACIÓN DE FOTOS PORTRAIT */
 setInterval(() => {
   var slides = document.querySelectorAll('.portrait-slide');
@@ -519,5 +442,6 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
 
 

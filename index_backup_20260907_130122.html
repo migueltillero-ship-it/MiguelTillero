@@ -352,62 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-/* SECUENCIA VIDEO INTRO */
-var introEl = document.getElementById('video-intro');
-var introVid = document.getElementById('intro-video');
-setTimeout(() => { introEl.classList.add('dimmed'); document.getElementById('intro-monogram').classList.add('show'); }, 1000);
-setTimeout(() => { document.getElementById('intro-title').classList.add('show'); }, 1500);
-setTimeout(() => { document.getElementById('intro-enter-btn').classList.add('show'); }, 2000);
-
-window.enterSite = function() {
-    sessionStorage.setItem('introVisto', 'true');
-    introEl.classList.remove('dimmed');
-    introEl.classList.add('entered');
-
-    /* Bucle del video desactivado */
-    introVid.removeAttribute('loop');
-    introVid.loop = false;
-    
-    /* Reproducir video */
-    introVid.muted = false;
-    introVid.currentTime = 0;
-    var p = introVid.play();
-    if (p && p.catch) p.catch(()=>{});
-
-    /* 🚀 INICIAR LA MÚSICA INMEDIATAMENTE AL DAR CLIC EN ENTRAR */
-    const bgAud = document.getElementById('bg-audio');
-    if (bgAud) {
-        bgAud.currentTime = 0; /* Asegurarnos de que arranque en 0:00 */
-        if(typeof window.startBgMusic === 'function') window.startBgMusic();
-    }
-
-    /* Ocultar elementos de texto */
-    document.getElementById('intro-monogram').style.opacity = '0';
-    document.getElementById('intro-title').style.opacity = '0';
-    document.getElementById('intro-enter-btn').style.opacity = '0';
-
-    /* Mecanismo de cierre del video */
-    let cerrado = false;
-    const cerrarVideo = () => {
-        if (cerrado) return;
-        cerrado = true;
-        introEl.classList.add('fade-out');
-        setTimeout(() => { 
-            introEl.style.display = 'none'; 
-            introVid.pause(); 
-        }, 1000);
-    };
-
-    introVid.addEventListener('ended', cerrarVideo, { once: true });
-    introVid.addEventListener('timeupdate', () => {
-        if (!cerrado && introVid.duration && introVid.currentTime >= (introVid.duration - 0.5)) {
-            cerrarVideo();
-        }
-    });
-    setTimeout(cerrarVideo, 55000);
-};
-
-    /* Disparador A: El evento natural de fin de video */
+/* Disparador A: El evento natural de fin de video */
     introVid.addEventListener('ended', cerrarVideo, { once: true });
 
     /* Disparador B (Failsafe 1): El video está a 0.5s de terminar */
@@ -510,6 +455,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
 
 
 
