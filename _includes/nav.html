@@ -1,0 +1,23 @@
+﻿<nav id="nav" class="z10">
+  <div class="nav-brand">
+    <span class="dot"></span>
+    Miguel <span>Tillero</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="{{ '/#about' | relative_url }}" data-es="Sobre mí" data-fr="À propos" data-en="About">Sobre mí</a></li>
+    <li><a href="{{ '/#services' | relative_url }}" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</a></li>
+    <li><a href="{{ '/#timeline' | relative_url }}" data-es="Trayectoria" data-fr="Parcours" data-en="Career">Trayectoria</a></li>
+    <li><a href="{{ '/#education' | relative_url }}" data-es="Formación" data-fr="Formation" data-en="Education">Formación</a></li>
+    <li><a href="{{ '/#gallery' | relative_url }}" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a></li>
+    <li><a href="{{ '/#video-reel' | relative_url }}" data-es="Vídeo" data-fr="Vidéo" data-en="Video">Vídeo</a></li>
+    <li><a href="{{ '/#pagos' | relative_url }}" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a></li>
+    <li><a href="{{ '/#inscripcion' | relative_url }}" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a></li>
+    <li><a href="{{ '/#contact' | relative_url }}" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a></li>
+  </ul>
+  <div class="nav-controls">
+    <button class="ctrl-btn active" lang="es" aria-pressed="true" onclick="setLang('es')">ES</button>
+    <button class="ctrl-btn" lang="fr" aria-pressed="false" onclick="setLang('fr')">FR</button>
+    <button class="ctrl-btn" lang="en" aria-pressed="false" onclick="setLang('en')">EN</button>
+    <button class="hamburger" onclick="toggleMob()" aria-label="Menú" data-aria-es="Menú" data-aria-fr="Menu" data-aria-en="Menu"><i class="fa fa-bars"></i></button>
+  </div>
+</nav>
