@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miguel Tillero | Especialista FLE & Dirección Pedagógica</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #eef0e5; 
+            --primary-color: #8c734b; 
+            --text-dark: #2c3e35;
+            --text-light: #5a665f;
+            --card-bg: #ffffff;
+            --accent-green: #3b5346;
+        }
+        body { background-color: var(--bg-color); color: var(--text-dark); font-family: 'Syne', sans-serif; margin: 0; padding: 0; }
+        nav.main-nav { background: var(--card-bg); border-bottom: 1px solid rgba(140, 115, 75, 0.2); padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; position: sticky; top: 0; z-index: 100; }
+        .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--text-dark); text-decoration: none; }
+        .nav-links { display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; list-style: none; margin: 0; padding: 0; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-size: 0.85rem; font-weight: 600; font-family: 'Space Mono', monospace; text-transform: uppercase; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--primary-color); }
+        .btn-nav-action { background: var(--accent-green) !important; color: #fff !important; padding: 0.5rem 1rem; border-radius: 20px; }
+        .hero-home { max-width: 1000px; margin: 4rem auto; padding: 0 1.5rem; text-align: center; }
+        .hero-home .eyebrow { font-family: 'Space Mono', monospace; color: var(--primary-color); letter-spacing: 0.15em; text-transform: uppercase; font-size: 0.85rem; margin-bottom: 1rem; }
+        .hero-home h1 { font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 300; margin: 0 0 1.5rem 0; line-height: 1.2; }
+        .hero-home p { color: var(--text-light); font-size: 1.2rem; line-height: 1.7; max-width: 700px; margin: 0 auto 2.5rem auto; }
+        .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .btn-action { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.9rem 2rem; border-radius: 30px; font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: transform 0.2s, opacity 0.3s; }
+        .btn-action.primary { background: var(--primary-color); color: #fff; }
+        .btn-action.secondary { background: transparent; color: var(--primary-color); border: 1px solid var(--primary-color); }
+        .btn-action:hover { transform: translateY(-2px); opacity: 0.95; }
+        .quick-grid { max-width: 1100px; margin: 0 auto 6rem auto; padding: 0 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .quick-card { background: var(--card-bg); padding: 2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid rgba(140, 115, 75, 0.1); text-decoration: none; color: inherit; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.3s; }
+        .quick-card:hover { transform: translateY(-5px); }
+        .quick-card i { font-size: 2rem; color: var(--primary-color); margin-bottom: 1rem; }
+        .quick-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; margin: 0 0 0.5rem 0; }
+        .quick-card p { color: var(--text-light); font-size: 0.9rem; margin: 0; line-height: 1.5; }
+        .lang-switcher { display: flex; gap: 0.4rem; align-items: center; }
+        .ctrl-btn { background: none; border: 1px solid rgba(140,115,75,0.3); padding: 0.3rem 0.6rem; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.7rem; cursor: pointer; }
+        .ctrl-btn.active { background: var(--primary-color); color: #fff; border-color: var(--primary-color); }
+    </style>
+</head>
+<body>
+
+    <nav class="main-nav">
+        <a href="index.html" class="nav-brand">Miguel Tillero</a>
+        <ul class="nav-links">
+            <li><a href="perfil.html" data-i18n="nav.perfil">Perfil</a></li>
+            <li><a href="servicios.html" data-i18n="nav.servicios">Servicios</a></li>
+            <li><a href="cursos.html" data-i18n="nav.cursos">Cursos</a></li>
+            <li><a href="galeria.html" data-i18n="nav.galeria">Galería</a></li>
+            <li><a href="testimonios.html" data-i18n="nav.testimonios">Testimonios</a></li>
+            <li><a href="ressources.html" data-i18n="nav.ressources">Recursos</a></li>
+            <li><a href="contacto.html" data-i18n="nav.contacto">Contacto</a></li>
+            <li><a href="inscribete.html" class="btn-nav-action" data-i18n="nav.cotizar">Cotizar / Inscribirse</a></li>
+        </ul>
+        <div class="lang-switcher">
+            <button class="ctrl-btn active" onclick="setLang('es')">ES</button>
+            <button class="ctrl-btn" onclick="setLang('fr')">FR</button>
+            <button class="ctrl-btn" onclick="setLang('en')">EN</button>
+        </div>
+    </nav>
+
+    <main>
+        <div class="hero-home">
+            <p class="eyebrow">Especialista en FLE & Dirección Pedagógica</p>
+            <h1 data-i18n="hero.title">Excelencia, rigor y cercanía en la enseñanza del francés</h1>
+            <p>Acompañamiento institucional, clases a medida y proyectos educativos concebidos con una visión viva, horizontal y rigurosa basada en el MCER.</p>
+            
+            <div class="hero-actions">
+                <a href="inscribete.html" class="btn-action primary">
+                    <i class="fa-solid fa-file-pen"></i> Solicitar cotización
+                </a>
+                <a href="servicios.html" class="btn-action secondary">
+                    <i class="fa-solid fa-compass"></i> Explorar servicios
+                </a>
+            </div>
+        </div>
+
+        <div class="quick-grid">
+            <a href="cursos.html" class="quick-card">
+                <div>
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <h3>Cursos y Modalidades</h3>
+                    <p>Itinerarios flexibles adaptados a tus objetivos reales de aprendizaje y certificación.</p>
+                </div>
+            </a>
+
+            <a href="ressources.html" class="quick-card">
+                <div>
+                    <i class="fa-solid fa-globe"></i>
+                    <h3>Ressources & Actualités</h3>
+                    <p>Espacio pedagógico, enlaces de la francofonía y archivo de trayectoria institucional.</p>
+                </div>
+            </a>
+
+            <a href="mi-espacio.html" class="quick-card">
+                <div>
+                    <i class="fa-solid fa-lock"></i>
+                    <h3>Mi Espacio</h3>
+                    <p>Portal exclusivo para estudiantes activos: clases, materiales y estado de cuenta.</p>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <script src="assets/js/i18n.js"></script>
+</body>
+</html>
