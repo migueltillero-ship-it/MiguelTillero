@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mensaje Enviado | Miguel Tillero</title>
+    <title>Reservar | Miguel Tillero</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -67,11 +67,76 @@
         </div>
     </nav>
     <main>
-        <div style="text-align:center; padding: 4rem 2rem; max-width: 650px; margin: 0 auto; background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--r-md); box-shadow: var(--shadow-card);">
-    <i class="fa-solid fa-circle-check" style="font-size: 5rem; color: var(--primary-color); margin-bottom: 1.5rem;"></i>
-    <h1 class="sec-title" style="margin-bottom: 1.5rem;">¡Mensaje enviado con éxito!</h1>
-    <p style="color: var(--text-light); font-size: 1.1rem; line-height: 1.8; margin-bottom: 2.5rem;">He recibido tu información correctamente en mi bandeja de entrada. Revisaré los detalles de tu solicitud y me pondré en contacto contigo a la brevedad posible para dar el siguiente paso.</p>
-    <a href="index.html" class="btn-gold"><i class="fa-solid fa-house"></i> Volver al inicio</a>
+        <div class="sec-head">
+    <span class="eyebrow">Agenda tu espacio</span>
+    <h1 class="sec-title">Reservar Clase o Asesoría</h1>
+</div>
+<div class="grid-2">
+    <div class="card" style="padding: 3rem;">
+        <!-- Formulario de Reserva Web3Forms -->
+        <form action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="b916dcfc-fd99-4464-a963-7913e8b6799a">
+            <input type="hidden" name="redirect" value="https://migueltillero-ship-it.github.io/MiguelTillero/gracias.html">
+            <input type="hidden" name="subject" value="Nueva RESERVA de Clase o Cita - Miguel Tillero">
+            <input type="checkbox" name="botcheck" style="display: none;">
+
+            <div class="form-field">
+                <label>Nombre completo *</label>
+                <input type="text" name="Nombre" required placeholder="Tu nombre">
+            </div>
+            <div class="form-field">
+                <label>Correo Electrónico *</label>
+                <input type="email" name="Email" required placeholder="tu@correo.com">
+            </div>
+            <div class="form-field">
+                <label>WhatsApp / Teléfono *</label>
+                <input type="tel" name="Telefono" required placeholder="+52 ...">
+            </div>
+            <div class="form-field">
+                <label>Tipo de reserva *</label>
+                <select name="Tipo_Reserva">
+                    <option>Clase de prueba gratuita (45 min)</option>
+                    <option>Asesoría pedagógica FLE</option>
+                    <option>Consultoría institucional / Alianzas</option>
+                </select>
+            </div>
+            <div class="form-field">
+                <label>Modalidad preferida *</label>
+                <select name="Modalidad">
+                    <option>En línea (Zoom / Google Meet)</option>
+                    <option>Presencial (San Cristóbal de Las Casas)</option>
+                </select>
+            </div>
+            <div class="form-field">
+                <label>Fecha y hora preferida *</label>
+                <input type="text" name="Fecha_Hora" required placeholder="Ej: Lunes por la mañana o Viernes a las 16h">
+            </div>
+            <div class="form-field">
+                <label>Comentarios o nivel actual de francés</label>
+                <textarea name="Comentarios" rows="3" placeholder="Contexto de tu solicitud..."></textarea>
+            </div>
+            <button type="submit" class="btn-gold" style="width:100%; justify-content:center; margin-top: 1rem;"><i class="fa-solid fa-calendar-check"></i> Solicitar Reserva</button>
+        </form>
+    </div>
+    
+    <div>
+        <p class="af-intro" style="text-align: left; font-size: 0.95rem;">Completar este formulario no genera un cobro automático. Una vez recibida tu solicitud, revisaré mi agenda y me comunicaré contigo vía WhatsApp o correo electrónico para confirmar la cita y enviarte el enlace o la ubicación.</p>
+        
+        <div class="card" style="margin-bottom:1.5rem; padding: 1.5rem;">
+            <i class="fa-solid fa-video card-icon" style="font-size: 1.5rem;"></i>
+            <h3 class="card-title">Modalidad Online Global</h3>
+            <p style="font-size:0.85rem; color:var(--text-light); line-height: 1.6;">Las sesiones en línea se realizan en alta calidad vía Zoom o Google Meet. Recibirás el enlace seguro una vez confirmada la cita. Asegúrate de estar en un lugar tranquilo con buena conexión.</p>
+        </div>
+        <div class="card" style="padding: 1.5rem;">
+            <i class="fa-solid fa-map-location-dot card-icon" style="font-size: 1.5rem;"></i>
+            <h3 class="card-title">Presencial en Chiapas</h3>
+            <p style="font-size:0.85rem; color:var(--text-light); line-height: 1.6;">Las sesiones presenciales se coordinan exclusivamente en San Cristóbal de Las Casas. Los horarios presenciales están sujetos a disponibilidad física de espacios.</p>
+        </div>
+        
+        <div style="margin-top: 2.5rem; text-align: center;">
+            <a href="reglamento.html" style="font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--primary-color); text-transform: uppercase; text-decoration: none; letter-spacing: 0.1em; border-bottom: 1px solid var(--primary-color); padding-bottom: 2px;">Leer Reglamento Institucional</a>
+        </div>
+    </div>
 </div>
     </main>
     <script src="assets/js/i18n.js"></script>
