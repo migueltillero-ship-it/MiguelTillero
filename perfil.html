@@ -3,41 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil | Miguel Tillero</title>
+    <title>Perfil · Miguel Tillero</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        :root { --bg-color: #eef0e5; --primary-color: #8c734b; --text-dark: #2c3e35; --text-light: #5a665f; --card-bg: #ffffff; --accent-green: #3b5346; }
+        :root { 
+            --bg-color: #eef0e5; --primary-color: #8c734b; --primary-hover: #6f552f; 
+            --text-dark: #1a2e24; --text-light: #5a665f; --card-bg: rgba(255,255,255,0.85); 
+            --accent-green: #2b4535; --border: rgba(165,130,74,0.38); --cyan: #0d7f57;
+        }
         body { background-color: var(--bg-color); color: var(--text-dark); font-family: 'Syne', sans-serif; margin: 0; padding: 0; display:flex; flex-direction:column; min-height:100vh;}
-        nav.main-nav { background: var(--card-bg); border-bottom: 1px solid rgba(140, 115, 75, 0.2); padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; position: sticky; top: 0; z-index: 100; }
-        .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--text-dark); text-decoration: none; }
-        .nav-links { display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; list-style: none; margin: 0; padding: 0; }
-        .nav-links a { text-decoration: none; color: var(--text-dark); font-size: 0.85rem; font-weight: 600; font-family: 'Space Mono', monospace; text-transform: uppercase; transition: color 0.3s; }
+        
+        /* Nav Responsivo */
+        nav.main-nav { background: #ffffff; border-bottom: 1px solid rgba(43, 69, 53, 0.2); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; color: var(--accent-green); text-decoration: none; }
+        .hamburger { display: none; background: none; border: none; font-size: 1.8rem; color: var(--accent-green); cursor: pointer; }
+        .nav-container { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-links { display: flex; gap: 1.2rem; align-items: center; list-style: none; margin: 0; padding: 0; }
+        .nav-links a { text-decoration: none; color: var(--accent-green); font-size: 0.85rem; font-weight: 600; font-family: 'Space Mono', monospace; text-transform: uppercase; transition: color 0.3s; }
         .nav-links a:hover { color: var(--primary-color); }
         .btn-nav-action { background: var(--accent-green) !important; color: #fff !important; padding: 0.5rem 1rem; border-radius: 20px; }
-        main { flex-grow:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 2rem; text-align:center;}
-        h1 { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--primary-color); text-transform: capitalize; margin-bottom: 0.5rem;}
-        p { color: var(--text-light); max-width:600px; line-height: 1.6; }
         .lang-switcher { display: flex; gap: 0.4rem; align-items: center; }
-        .ctrl-btn { background: none; border: 1px solid rgba(140,115,75,0.3); padding: 0.3rem 0.6rem; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.7rem; cursor: pointer; }
-        .ctrl-btn.active { background: var(--primary-color); color: #fff; border-color: var(--primary-color); }
-            .hamburger { display: none; background: none; border: none; font-size: 1.8rem; color: var(--accent-green); cursor: pointer; }
-        .nav-container { display: flex; align-items: center; gap: 1.5rem; }
+        .ctrl-btn { background: none; border: 1px solid var(--accent-green); padding: 0.3rem 0.6rem; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.7rem; cursor: pointer; color: var(--accent-green); transition: 0.3s;}
+        .ctrl-btn.active, .ctrl-btn:hover { background: var(--accent-green); color: #fff; }
+        
         @media (max-width: 900px) {
             .hamburger { display: block; }
-            .nav-container { display: none; flex-direction: column; width: 100%; position: absolute; top: 100%; left: 0; background: var(--card-bg); padding: 1.5rem; box-shadow: 0 10px 15px rgba(0,0,0,0.1); border-top: 1px solid rgba(43, 69, 53, 0.1); }
+            .nav-container { display: none; flex-direction: column; width: 100%; position: absolute; top: 100%; left: 0; background: #ffffff; padding: 1.5rem; box-shadow: 0 10px 15px rgba(0,0,0,0.1); border-top: 1px solid rgba(43, 69, 53, 0.1); }
             .nav-container.active { display: flex; }
             .nav-links { flex-direction: column; width: 100%; }
             .nav-links li { width: 100%; text-align: center; margin-bottom: 0.5rem; }
         }
-            .btn-ghost { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.8rem 1.8rem; background: rgba(255,255,255,0.85); color: var(--primary-color); border: 1px solid var(--border); font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; text-decoration: none; border-radius: 30px; transition: all 0.3s; cursor:pointer;}
-        .btn-ghost:hover { border-color: var(--primary-color); background: rgba(140, 115, 75, 0.1); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(140, 115, 75, 0.1); color: var(--accent-green);}
-        .cv-flag { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 0.9rem; letter-spacing: 0.1em; color: var(--primary-color); border: 1px solid rgba(140, 115, 75, 0.45); padding: 0.1rem 0.4rem; border-radius: 4px;}
-            .btn-ghost { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.8rem 1.8rem; background: rgba(255,255,255,0.85); color: var(--primary-color); border: 1px solid var(--border); font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; text-decoration: none; border-radius: 30px; transition: all 0.3s; cursor:pointer;}
-        .btn-ghost:hover { border-color: var(--primary-color); background: rgba(140, 115, 75, 0.1); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(140, 115, 75, 0.1); color: var(--accent-green);}
-        .cv-flag { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 0.9rem; letter-spacing: 0.1em; color: var(--primary-color); border: 1px solid rgba(140, 115, 75, 0.45); padding: 0.1rem 0.4rem; border-radius: 4px;}
+
+        /* Estructura de Secciones */
+        main { padding: 4rem 5%; max-width: 1200px; margin: 0 auto; }
+        .sec-head { text-align: center; margin-bottom: 3.5rem; }
+        .eyebrow { font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--primary-color); margin-bottom: 0.5rem; display: block; }
+        .sec-title { font-family: 'Cormorant Garamond', serif; font-size: 3.2rem; font-weight: 300; color: var(--accent-green); margin: 0; }
+        .af-intro { max-width: 800px; margin: 0 auto 3rem; text-align: center; font-size: 1.05rem; line-height: 1.8; color: var(--text-light); }
+
+        /* Grillas de Tarjetas (Estilo Premium Original) */
+        .crs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+        .crs-card { position: relative; overflow: hidden; padding: 2rem; background: var(--card-bg); border: 1px solid var(--border); border-top: 3px solid transparent; transition: transform 0.4s, border-color 0.4s, box-shadow 0.4s; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border-radius: 8px; }
+        .crs-card:hover { transform: translateY(-6px); border-top-color: var(--primary-color); box-shadow: 0 15px 40px rgba(140, 115, 75, 0.15); }
+        .crs-icon { font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1.2rem; display: block; }
+        .crs-title { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--accent-green); margin: 0 0 0.8rem 0; }
+        .crs-desc { font-size: 0.95rem; line-height: 1.6; color: var(--text-light); margin-bottom: 1.5rem; }
+        
+        .af-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .af-chip { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.4rem 0.8rem; border: 1px solid var(--border); color: var(--primary-hover); background: rgba(255,255,255,0.8); border-radius: 4px; }
+        .af-chip.em { border-color: var(--cyan); color: var(--cyan); background: rgba(13, 127, 87, 0.05); }
+
+        /* Tarjetas de Exámenes */
+        .exam-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; margin-top: 4rem; }
+        .exam-card { padding: 2.5rem; background: #ffffff; border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.04); transition: transform 0.3s; }
+        .exam-card:hover { transform: translateY(-4px); box-shadow: 0 15px 35px rgba(140, 115, 75, 0.12); }
+        .exam-sigla { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 700; color: var(--primary-color); margin-bottom: 0.5rem; }
+        .exam-full { font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); margin-bottom: 1.5rem; }
+        .exam-rows { list-style: none; padding: 0; margin: 0; }
+        .exam-rows li { display: flex; flex-direction: column; padding: 0.8rem 0; border-top: 1px solid rgba(165,130,74,0.2); font-size: 0.95rem; line-height: 1.6; color: var(--text-dark); }
+        .exam-rows b { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--primary-hover); margin-bottom: 0.3rem; }
+
+        .btn-gold { display: inline-block; background: var(--primary-color); color: #ffffff; padding: 1rem 2.5rem; font-family: 'Space Mono', monospace; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border-radius: 30px; font-weight: 700; transition: background 0.3s, transform 0.2s; margin-top: 3rem; }
+        .btn-gold:hover { background: var(--primary-hover); transform: translateY(-2px); }
+        .text-center { text-align: center; }
+
+        @media (max-width: 768px) {
+            .exam-grid { grid-template-columns: 1fr; }
+            .sec-title { font-size: 2.5rem; }
+        }
     /* ══════════════════════════════════════════════════════════════
    REFINAMIENTO — Calidez, detalle y modernidad
 ══════════════════════════════════════════════════════════════ */
@@ -77,14 +113,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 </style>
 </head>
 <body>
-        <nav class="main-nav">
+    <nav class="main-nav">
         <a href="index.html" class="nav-brand">Miguel Tillero</a>
         <button class="hamburger" id="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
         <div class="nav-container" id="nav-container">
             <ul class="nav-links">
                 <li><a href="perfil.html" data-i18n="nav.perfil">Perfil</a></li>
                 <li><a href="servicios.html" data-i18n="nav.servicios">Servicios</a></li>
-                <li><a href="cursos.html" data-i18n="nav.cursos">Cursos</a></li>
+                <li><a href="cursos.html" style="color: var(--primary-color);" data-i18n="nav.cursos">Cursos</a></li>
                 <li><a href="galeria.html" data-i18n="nav.galeria">Galería</a></li>
                 <li><a href="testimonios.html" data-i18n="nav.testimonios">Testimonios</a></li>
                 <li><a href="ressources.html" data-i18n="nav.ressources">Recursos</a></li>
@@ -99,16 +135,54 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
         </div>
     </nav>
 
-    <main>
-        <h1>Perfil</h1>
-        <p>Esta sección está siendo estructurada. Estará disponible muy pronto como parte del nuevo ecosistema.</p>
-        <br>
-        <a href="index.html" style="color:var(--accent-green); font-weight:bold; text-decoration:none;">
-            <i class="fa fa-arrow-left"></i> Volver al inicio
-        </a>
+        <main>
+        <div class="sec-head">
+            <span class="eyebrow">Trayectoria profesional</span>
+            <h1 class="sec-title">Perfil y Experiencia</h1>
+        </div>
+        <p class="af-intro">Director General, especialista en la enseñanza del francés como lengua extranjera (FLE) y gestor cultural con más de dos décadas de experiencia institucional y docente en Europa y América Latina.</p>
+
+        <div class="grid-2" style="align-items: center; margin-bottom: 4rem;">
+            <div>
+                <h3 style="font-family:'Cormorant Garamond', serif; font-size: 2rem; color: var(--accent-green); margin-bottom: 1rem;">Liderazgo institucional y pedagógico</h3>
+                <p style="color: var(--text-light); line-height: 1.8; margin-bottom: 1rem;">Ex-Director General de la Alliance Française de San Cristóbal de Las Casas. Experto en la coordinación de centros de certificación internacional DELF/DALF, diseño curricular avanzado, vinculación universitaria y gestión de proyectos culturales de gran escala.</p>
+                <p style="color: var(--text-light); line-height: 1.8;">Formado en el ámbito de la diplomacia cultural francesa, combina un rigor metodológico estricto con un enfoque humanista y comunicativo adaptado a cada alumno o institución.</p>
+            </div>
+            <div style="background: var(--card-bg); padding: 2.5rem; border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="padding: 0.8rem 0; border-bottom: 1px solid rgba(165,130,74,0.2); display: flex; justify-content: space-between;"><span style="font-family:'Space Mono', monospace; font-size:0.75rem; text-transform:uppercase; color:var(--primary-color);">Especialidad</span><strong>FLE / DELF-DALF</strong></li>
+                    <li style="padding: 0.8rem 0; border-bottom: 1px solid rgba(165,130,74,0.2); display: flex; justify-content: space-between;"><span style="font-family:'Space Mono', monospace; font-size:0.75rem; text-transform:uppercase; color:var(--primary-color);">Gestión</span><strong>Dirección General</strong></li>
+                    <li style="padding: 0.8rem 0; border-bottom: 1px solid rgba(165,130,74,0.2); display: flex; justify-content: space-between;"><span style="font-family:'Space Mono', monospace; font-size:0.75rem; text-transform:uppercase; color:var(--primary-color);">Idiomas</span><strong>Español, Francés, Inglés</strong></li>
+                    <li style="padding: 0.8rem 0; display: flex; justify-content: space-between;"><span style="font-family:'Space Mono', monospace; font-size:0.75rem; text-transform:uppercase; color:var(--primary-color);">Base actual</span><strong>Chiapas, México</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sec-head" style="margin-top: 5rem;">
+            <span class="eyebrow">Recorrido profesional</span>
+            <h2 class="sec-title">Experiencia y responsabilidades</h2>
+        </div>
+
+        <div class="grid-3" style="margin-bottom: 5rem;">
+            <div class="card">
+                <span style="font-family:'Space Mono', monospace; font-size:0.7rem; color:var(--primary-color); display:block; margin-bottom:0.5rem;">2021 — 2026</span>
+                <h3 class="card-title">Director General</h3>
+                <p style="font-size: 0.9rem; color: var(--text-light); line-height: 1.7;">Alliance Française de San Cristóbal de Las Casas. Liderazgo administrativo, financiero, pedagógico y de relaciones diplomáticas con la Embajada de Francia y la red mundial.</p>
+            </div>
+            <div class="card">
+                <span style="font-family:'Space Mono', monospace; font-size:0.7rem; color:var(--primary-color); display:block; margin-bottom:0.5rem;">Docencia superior</span>
+                <h3 class="card-title">Profesor y Formador FLE</h3>
+                <p style="font-size: 0.9rem; color: var(--text-light); line-height: 1.7;">Impartición de cursos especializados en instituciones como UNICACH, Colegio La Salle y programas de inmersión internacional en CAVILAM (Vichy, Francia).</p>
+            </div>
+            <div class="card">
+                <span style="font-family:'Space Mono', monospace; font-size:0.75rem; color:var(--primary-color); display:block; margin-bottom:0.5rem;">Proyectos Globales</span>
+                <h3 class="card-title">Gestión Cultural y Alianzas</h3>
+                <p style="font-size: 0.9rem; color: var(--text-light); line-height: 1.7;">Creación de convenios estratégicos con institutos culinarios, universidades y redes francófonas para fomentar el intercambio cultural y académico.</p>
+            </div>
+        </div>
     </main>
 
-        <script src="assets/js/i18n.js"></script>
+    <script src="assets/js/i18n.js"></script>
     <script>
         const btnMenu = document.getElementById('mobile-menu-btn');
         const navContainer = document.getElementById('nav-container');
@@ -137,8 +211,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     </script>
 </body>
 </html>
-
-
 
 
 
