@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi-espacio | Miguel Tillero</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root { --bg-color: #eef0e5; --primary-color: #8c734b; --text-dark: #2c3e35; --text-light: #5a665f; --card-bg: #ffffff; --accent-green: #3b5346; }
+        body { background-color: var(--bg-color); color: var(--text-dark); font-family: 'Syne', sans-serif; margin: 0; padding: 0; display:flex; flex-direction:column; min-height:100vh;}
+        nav.main-nav { background: var(--card-bg); border-bottom: 1px solid rgba(140, 115, 75, 0.2); padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; position: sticky; top: 0; z-index: 100; }
+        .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--text-dark); text-decoration: none; }
+        .nav-links { display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; list-style: none; margin: 0; padding: 0; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-size: 0.85rem; font-weight: 600; font-family: 'Space Mono', monospace; text-transform: uppercase; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--primary-color); }
+        .btn-nav-action { background: var(--accent-green) !important; color: #fff !important; padding: 0.5rem 1rem; border-radius: 20px; }
+        main { flex-grow:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 2rem; text-align:center;}
+        h1 { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--primary-color); text-transform: capitalize; margin-bottom: 0.5rem;}
+        p { color: var(--text-light); max-width:600px; line-height: 1.6; }
+        .lang-switcher { display: flex; gap: 0.4rem; align-items: center; }
+        .ctrl-btn { background: none; border: 1px solid rgba(140,115,75,0.3); padding: 0.3rem 0.6rem; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.7rem; cursor: pointer; }
+        .ctrl-btn.active { background: var(--primary-color); color: #fff; border-color: var(--primary-color); }
+    </style>
+</head>
+<body>
+    <nav class="main-nav">
+        <a href="index.html" class="nav-brand">Miguel Tillero</a>
+        <ul class="nav-links">
+            <li><a href="perfil.html" data-i18n="nav.perfil">Perfil</a></li>
+            <li><a href="servicios.html" data-i18n="nav.servicios">Servicios</a></li>
+            <li><a href="cursos.html" data-i18n="nav.cursos">Cursos</a></li>
+            <li><a href="galeria.html" data-i18n="nav.galeria">Galería</a></li>
+            <li><a href="testimonios.html" data-i18n="nav.testimonios">Testimonios</a></li>
+            <li><a href="ressources.html" data-i18n="nav.ressources">Recursos</a></li>
+            <li><a href="contacto.html" data-i18n="nav.contacto">Contacto</a></li>
+            <li><a href="inscribete.html" class="btn-nav-action" data-i18n="nav.cotizar">Cotizar / Inscribirse</a></li>
+        </ul>
+        <div class="lang-switcher">
+            <button class="ctrl-btn active" onclick="setLang('es')">ES</button>
+            <button class="ctrl-btn" onclick="setLang('fr')">FR</button>
+            <button class="ctrl-btn" onclick="setLang('en')">EN</button>
+        </div>
+    </nav>
+
+    <main>
+        <h1>Mi-espacio</h1>
+        <p>Esta sección está siendo estructurada. Estará disponible muy pronto como parte del nuevo ecosistema.</p>
+        <br>
+        <a href="index.html" style="color:var(--accent-green); font-weight:bold; text-decoration:none;">
+            <i class="fa fa-arrow-left"></i> Volver al inicio
+        </a>
+    </main>
+
+    <script src="assets/js/i18n.js"></script>
+</body>
+</html>
