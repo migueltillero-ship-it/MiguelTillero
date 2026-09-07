@@ -204,7 +204,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 <!-- PANTALLA INTRO -->
 <div id="video-intro">
-  <video id="intro-video" autoplay muted playsinline preload="auto" style="will-change: transform; transform: translateZ(0);" data-src-h="4k.mp4" data-src-v="4k.mp4"></video>
+  <video id="intro-video" autoplay muted playsinline preload="auto" style="will-change: transform; transform: translateZ(0);" data-src-h="4k.mp4" data-src-v="4k.mp4"><source src="4k.mp4" type="video/mp4"></video>
   <button class="intro-skip show" onclick="closeIntro()" style="opacity:1 !important; pointer-events:auto !important; z-index:99999;"><span data-es="Saltar" data-fr="Passer" data-en="Skip">Saltar</span> &nbsp;<i class="fas fa-chevron-right"></i></button>
     <div class="intro-brand">
     <div class="intro-monogram" id="intro-monogram">MT</div>
@@ -472,7 +472,7 @@ document.addEventListener('DOMContentLoaded', () => {
         GALLERY_IDS.forEach((id, i) => {
             const item = document.createElement('div');
             item.className = 'g-item';
-            item.innerHTML = <img loading="lazy" src="+thumb(id)+" alt="Galería foto +(i+1)+" onload="this.classList.add('loaded')" onerror="this.closest('.g-item').style.display='none'"><div class="g-overlay"><i class="fa-solid fa-expand"></i></div>;
+            item.innerHTML = `<img loading="lazy" src="${thumb(id)}" alt="Galería foto ${i+1}" onload="this.classList.add(\x27loaded\x27)" onerror="this.closest(\x27.g-item\x27).style.display=\x27none\x27"><div class="g-overlay"><i class="fa-solid fa-expand"></i></div>`;
             item.addEventListener('click', () => {
                 if (track.classList.contains('was-dragging')) return;
                 openLBdrive(full(id), 'Galería foto ' + (i+1));
@@ -501,6 +501,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
 
 
 
