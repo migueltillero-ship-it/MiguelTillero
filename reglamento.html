@@ -42,7 +42,35 @@
         .form-field input, .form-field textarea, .form-field select { width: 100%; padding: 0.9rem; border: 1px solid var(--border); border-radius: 8px 8px 0 0; font-family: 'Syne', sans-serif; font-size: 0.95rem; background: #fff; box-sizing: border-box; }
         .form-field input:focus, .form-field textarea:focus, .form-field select:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(140, 115, 75, 0.1); }
         @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } .sec-title { font-size: 2.5rem; } .btn-gold, .btn-ghost{ font-size: 0.88rem; padding: 0.85rem 1.7rem; }}
-    </style>
+    .intro-skip {
+  position: absolute !important;
+  top: 2.5rem !important;
+  right: 2.5rem !important;
+  z-index: 99999 !important;
+  background: rgba(4,16,8,0.75) !important;
+  border: 1px solid rgba(201,169,110,0.4) !important;
+  color: rgba(240,247,242,0.9) !important;
+  font-family: 'Space Mono', monospace !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.3em !important;
+  text-transform: uppercase !important;
+  padding: 0.6rem 1.5rem !important;
+  cursor: pointer !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  transition: all 0.3s ease !important;
+  border-radius: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.6rem !important;
+}
+.intro-skip:hover {
+  border-color: #a5824a !important;
+  color: #a5824a !important;
+  background: rgba(201,169,110,0.15) !important;
+  transform: translateY(-2px);
+}
+</style>
 </head>
 <body>
     <nav class="main-nav">
@@ -117,5 +145,6 @@
     </script>
 </body>
 </html>
+
 
 
