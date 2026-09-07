@@ -204,7 +204,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 <!-- PANTALLA INTRO -->
 <div id="video-intro">
-  <video id="intro-video" autoplay muted playsinline loop src="4k.mp4"></video>
+  <video id="intro-video" autoplay muted playsinline preload="auto" style="will-change: transform; transform: translateZ(0);" data-src-h="4k.mp4" data-src-v="4k.mp4"></video>
   <div class="intro-brand">
     <div class="intro-monogram" id="intro-monogram">MT</div>
     <div class="intro-title" id="intro-title">Vive el francés</div>
@@ -492,6 +492,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
 
 
 
