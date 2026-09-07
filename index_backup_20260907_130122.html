@@ -231,19 +231,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 </head>
 <body>
 
-<!-- PANTALLA INTRO -->
-<div id="video-intro">
-  <video id="intro-video" autoplay muted playsinline preload="auto" style="will-change: transform; transform: translateZ(0);" data-src-h="4k.mp4" data-src-v="4k.mp4"></video>
-  <button class="intro-skip show" onclick="closeIntro()" style="opacity:1 !important; pointer-events:auto !important; z-index:99999;"><span data-es="Saltar" data-fr="Passer" data-en="Skip">Saltar</span> &nbsp;<i class="fas fa-chevron-right"></i></button>
-    <div class="intro-brand">
-    <div class="intro-monogram" id="intro-monogram">MT</div>
-    <div class="intro-title" id="intro-title">Vive el francés</div>
-    <button class="intro-enter-btn" id="intro-enter-btn" onclick="enterSite()">
-      <span>Entrer · Acceder</span> <span class="enter-arrow">→</span>
-    </button>
-  </div>
-</div>
-
 <div id="vanta-bg"></div>
 
 <!-- AUDIO -->
@@ -373,6 +360,7 @@ setTimeout(() => { document.getElementById('intro-title').classList.add('show');
 setTimeout(() => { document.getElementById('intro-enter-btn').classList.add('show'); }, 2000);
 
 window.enterSite = function() {
+    sessionStorage.setItem('introVisto', 'true');
     introEl.classList.remove('dimmed');
     introEl.classList.add('entered');
 
@@ -522,6 +510,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
 
 
 

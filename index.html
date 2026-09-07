@@ -229,6 +229,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 </head>
 <body>
 
+<script>if(sessionStorage.getItem('introVisto') === 'true') { document.write('<style>#video-intro { display: none !important; }</style>'); }</script>
 <!-- PANTALLA INTRO -->
 <div id="video-intro">
   <video id="intro-video" autoplay muted playsinline preload="auto" style="will-change: transform; transform: translateZ(0);" data-src-h="4k.mp4" data-src-v="4k.mp4"><source src="4k.mp4" type="video/mp4"></video>
@@ -387,6 +388,7 @@ setTimeout(() => {
 }, 2000);
 
 window.closeIntro = function() {
+    sessionStorage.setItem('introVisto', 'true');
     if (!introEl) return;
     introEl.classList.add('fade-out');
     setTimeout(() => { 
@@ -396,6 +398,7 @@ window.closeIntro = function() {
 };
 
 window.enterSite = function() {
+    sessionStorage.setItem('introVisto', 'true');
     if (!introEl || !introVid) return;
     introEl.classList.remove('dimmed');
     introEl.classList.add('entered');
@@ -530,4 +533,5 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
 
