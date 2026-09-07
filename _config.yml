@@ -1,0 +1,10 @@
+﻿title: "Miguel David Tillero Álvarez"
+email: "migueltillero@gmail.com"
+description: "Director General de la Alliance Française de San Cristóbal de Las Casas. Profesor especialista en FLE, gestión cultural y formación."
+baseurl: "/MiguelTillero"
+url: "https://migueltillero-ship-it.github.io"
+markdown: kramdown
+permalink: /:title/
+exclude:
+  - README.md
+  - PowerShell/
