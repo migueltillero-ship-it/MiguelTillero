@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -9,39 +9,67 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        :root { --bg-color: #eef0e5; --primary-color: #8c734b; --text-dark: #2c3e35; --text-light: #5a665f; --card-bg: #ffffff; --accent-green: #3b5346; }
+        :root { 
+            --bg-color: #eef0e5; --primary-color: #8c734b; --primary-hover: #6f552f; 
+            --text-dark: #1a2e24; --text-light: #5a665f; --card-bg: rgba(255,255,255,0.85); 
+            --accent-green: #2b4535; --border: rgba(165,130,74,0.38); --cyan: #0d7f57;
+        }
         body { background-color: var(--bg-color); color: var(--text-dark); font-family: 'Syne', sans-serif; margin: 0; padding: 0; display:flex; flex-direction:column; min-height:100vh;}
-        nav.main-nav { background: var(--card-bg); border-bottom: 1px solid rgba(140, 115, 75, 0.2); padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; position: sticky; top: 0; z-index: 100; }
-        .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--text-dark); text-decoration: none; }
-        .nav-links { display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; list-style: none; margin: 0; padding: 0; }
-        .nav-links a { text-decoration: none; color: var(--text-dark); font-size: 0.85rem; font-weight: 600; font-family: 'Space Mono', monospace; text-transform: uppercase; transition: color 0.3s; }
+        
+        /* Nav Responsivo */
+        nav.main-nav { background: #ffffff; border-bottom: 1px solid rgba(43, 69, 53, 0.2); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; color: var(--accent-green); text-decoration: none; }
+        .hamburger { display: none; background: none; border: none; font-size: 1.8rem; color: var(--accent-green); cursor: pointer; }
+        .nav-container { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-links { display: flex; gap: 1.2rem; align-items: center; list-style: none; margin: 0; padding: 0; }
+        .nav-links a { text-decoration: none; color: var(--accent-green); font-size: 0.85rem; font-weight: 600; font-family: 'Space Mono', monospace; text-transform: uppercase; transition: color 0.3s; }
         .nav-links a:hover { color: var(--primary-color); }
         .btn-nav-action { background: var(--accent-green) !important; color: #fff !important; padding: 0.5rem 1rem; border-radius: 20px; }
-        main { flex-grow:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 2rem; text-align:center;}
-        h1 { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--primary-color); text-transform: capitalize; margin-bottom: 0.5rem;}
-        p { color: var(--text-light); max-width:600px; line-height: 1.6; }
         .lang-switcher { display: flex; gap: 0.4rem; align-items: center; }
-        .ctrl-btn { background: none; border: 1px solid rgba(140,115,75,0.3); padding: 0.3rem 0.6rem; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.7rem; cursor: pointer; }
-        .ctrl-btn.active { background: var(--primary-color); color: #fff; border-color: var(--primary-color); }
-            .hamburger { display: none; background: none; border: none; font-size: 1.8rem; color: var(--accent-green); cursor: pointer; }
-        .nav-container { display: flex; align-items: center; gap: 1.5rem; }
+        .ctrl-btn { background: none; border: 1px solid var(--accent-green); padding: 0.3rem 0.6rem; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.7rem; cursor: pointer; color: var(--accent-green); transition: 0.3s;}
+        .ctrl-btn.active, .ctrl-btn:hover { background: var(--accent-green); color: #fff; }
+        
         @media (max-width: 900px) {
             .hamburger { display: block; }
-            .nav-container { display: none; flex-direction: column; width: 100%; position: absolute; top: 100%; left: 0; background: var(--card-bg); padding: 1.5rem; box-shadow: 0 10px 15px rgba(0,0,0,0.1); border-top: 1px solid rgba(43, 69, 53, 0.1); }
+            .nav-container { display: none; flex-direction: column; width: 100%; position: absolute; top: 100%; left: 0; background: #ffffff; padding: 1.5rem; box-shadow: 0 10px 15px rgba(0,0,0,0.1); border-top: 1px solid rgba(43, 69, 53, 0.1); }
             .nav-container.active { display: flex; }
             .nav-links { flex-direction: column; width: 100%; }
             .nav-links li { width: 100%; text-align: center; margin-bottom: 0.5rem; }
         }
+
+        /* Estructura de Secciones */
+        main { padding: 4rem 5%; max-width: 1200px; margin: 0 auto; flex-grow: 1;}
+        .sec-head { text-align: center; margin-bottom: 3.5rem; }
+        .eyebrow { font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--primary-color); margin-bottom: 0.5rem; display: block; }
+        .sec-title { font-family: 'Cormorant Garamond', serif; font-size: 3.2rem; font-weight: 300; color: var(--accent-green); margin: 0; }
+        
+        /* Grillas de Servicios */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+        .svc-card { background: var(--card-bg); padding: 2.5rem 2rem; position: relative; overflow: hidden; border: 1px solid var(--border); border-radius: 8px; transition: transform 0.4s, background 0.4s, box-shadow 0.4s; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border-top: 3px solid transparent; }
+        .svc-card:hover { background: #ffffff; transform: translateY(-6px); border-top-color: var(--primary-color); box-shadow: 0 15px 40px rgba(140, 115, 75, 0.15); }
+        .svc-num { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--primary-color); opacity: 0.6; margin-bottom: 1.5rem; }
+        .svc-icon { font-size: 2rem; color: var(--primary-color); margin-bottom: 1.2rem; display: block; transition: transform 0.3s; }
+        .svc-card:hover .svc-icon { transform: translateY(-4px); }
+        .svc-title { font-family: 'Syne', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--accent-green); margin-bottom: 1rem; }
+        .svc-desc { font-size: 0.95rem; line-height: 1.7; color: var(--text-light); margin: 0; }
+
+        .btn-gold { display: inline-block; background: var(--primary-color); color: #ffffff; padding: 1rem 2.5rem; font-family: 'Space Mono', monospace; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border-radius: 30px; font-weight: 700; transition: background 0.3s, transform 0.2s; margin-top: 3rem; }
+        .btn-gold:hover { background: var(--primary-hover); transform: translateY(-2px); }
+        .text-center { text-align: center; }
+
+        @media (max-width: 768px) {
+            .sec-title { font-size: 2.5rem; }
+        }
     </style>
 </head>
 <body>
-        <nav class="main-nav">
+    <nav class="main-nav">
         <a href="index.html" class="nav-brand">Miguel Tillero</a>
         <button class="hamburger" id="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
         <div class="nav-container" id="nav-container">
             <ul class="nav-links">
                 <li><a href="perfil.html" data-i18n="nav.perfil">Perfil</a></li>
-                <li><a href="servicios.html" data-i18n="nav.servicios">Servicios</a></li>
+                <li><a href="servicios.html" style="color: var(--primary-color);" data-i18n="nav.servicios">Servicios</a></li>
                 <li><a href="cursos.html" data-i18n="nav.cursos">Cursos</a></li>
                 <li><a href="galeria.html" data-i18n="nav.galeria">Galería</a></li>
                 <li><a href="testimonios.html" data-i18n="nav.testimonios">Testimonios</a></li>
@@ -58,15 +86,61 @@
     </nav>
 
     <main>
-        <h1>Servicios</h1>
-        <p>Esta sección está siendo estructurada. Estará disponible muy pronto como parte del nuevo ecosistema.</p>
-        <br>
-        <a href="index.html" style="color:var(--accent-green); font-weight:bold; text-decoration:none;">
-            <i class="fa fa-arrow-left"></i> Volver al inicio
-        </a>
+        <div class="sec-head">
+            <span class="eyebrow">Mis áreas de especialidad</span>
+            <h1 class="sec-title">Lo que ofrezco</h1>
+        </div>
+        
+        <div class="services-grid">
+            <div class="svc-card">
+                <div class="svc-num">// 01</div>
+                <i class="fa-solid fa-chalkboard-teacher svc-icon"></i>
+                <h3 class="svc-title">Clases de francés</h3>
+                <p class="svc-desc">Desde el primer bonjour hasta la certificación oficial DELF/DALF. Clases individuales o en pequeño grupo, con metodología comunicativa y accional. Preparación de exámenes, francés general, conversación e inmersión cultural.</p>
+            </div>
+
+            <div class="svc-card">
+                <div class="svc-num">// 02</div>
+                <i class="fa-solid fa-lightbulb svc-icon"></i>
+                <h3 class="svc-title">Asesorías pedagógicas</h3>
+                <p class="svc-desc">Acompañamiento a docentes y equipos que quieren enseñar mejor el francés. Diseño curricular, formación de formadores, evaluación de programas y construcción de itinerarios pedagógicos según el MCER.</p>
+            </div>
+
+            <div class="svc-card">
+                <div class="svc-num">// 03</div>
+                <i class="fa-solid fa-seedling svc-icon"></i>
+                <h3 class="svc-title">Proyectos pedagógicos</h3>
+                <p class="svc-desc">Diseño y dirección de proyectos educativos innovadores: del huerto pedagógico STAFE que une agricultura y francés, a programas de inmersión como Vichy, ciclos de cine francófono y alianzas interinstitucionales.</p>
+            </div>
+
+            <div class="svc-card">
+                <div class="svc-num">// 04</div>
+                <i class="fa-solid fa-building-columns svc-icon"></i>
+                <h3 class="svc-title">Gestión y dirección cultural</h3>
+                <p class="svc-desc">Más de una década dirigiendo y transformando centros de la red de las Alianzas Francesas. Diagnóstico institucional, desarrollo de equipos, relance financiero, relaciones diplomáticas y planificación estratégica.</p>
+            </div>
+
+            <div class="svc-card">
+                <div class="svc-num">// 05</div>
+                <i class="fa-solid fa-language svc-icon"></i>
+                <h3 class="svc-title">Traducción e interpretación</h3>
+                <p class="svc-desc">Traducciones fidedignas español ↔ francés con registro institucional: documentos oficiales, contratos, convenios, correspondencia diplomática y materiales didácticos. Interpretación en eventos y reuniones bilingües.</p>
+            </div>
+
+            <div class="svc-card">
+                <div class="svc-num">// 06</div>
+                <i class="fa-solid fa-microphone-lines svc-icon"></i>
+                <h3 class="svc-title">Conferencias y formación</h3>
+                <p class="svc-desc">Intervenciones dinámicas sobre francophonie, interculturalidad, pedagogía innovadora y cooperación educativa internacional. Talleres y formaciones a medida para instituciones educativas y culturales.</p>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <a href="contacto.html" class="btn-gold"><i class="fa-solid fa-envelope"></i> Contactar para un proyecto</a>
+        </div>
     </main>
 
-        <script src="assets/js/i18n.js"></script>
+    <script src="assets/js/i18n.js"></script>
     <script>
         const btnMenu = document.getElementById('mobile-menu-btn');
         const navContainer = document.getElementById('nav-container');
@@ -84,4 +158,3 @@
     </script>
 </body>
 </html>
-
