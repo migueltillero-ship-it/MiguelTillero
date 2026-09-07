@@ -323,6 +323,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 </main>
 
 <script>
+<script>
 /* INICIALIZAR VANTA NET */
 document.addEventListener('DOMContentLoaded', () => {
   if (typeof VANTA !== 'undefined') {
@@ -339,37 +340,58 @@ document.addEventListener('DOMContentLoaded', () => {
 /* SECUENCIA VIDEO INTRO */
 var introEl = document.getElementById('video-intro');
 var introVid = document.getElementById('intro-video');
-setTimeout(() => { introEl.classList.add('dimmed'); document.getElementById('intro-monogram').classList.add('show'); }, 1000);
-setTimeout(() => { document.getElementById('intro-title').classList.add('show'); }, 1500);
-setTimeout(() => { document.getElementById('intro-enter-btn').classList.add('show'); }, 2000);
+
+setTimeout(() => { 
+    if(introEl) introEl.classList.add('dimmed'); 
+    var mono = document.getElementById('intro-monogram');
+    if(mono) mono.classList.add('show'); 
+}, 1000);
+
+setTimeout(() => { 
+    var title = document.getElementById('intro-title');
+    if(title) title.classList.add('show'); 
+}, 1500);
+
+setTimeout(() => { 
+    var btn = document.getElementById('intro-enter-btn');
+    if(btn) btn.classList.add('show'); 
+}, 2000);
+
+window.closeIntro = function() {
+    if (!introEl) return;
+    introEl.classList.add('fade-out');
+    setTimeout(() => { 
+        introEl.style.display = 'none'; 
+        if(introVid) introVid.pause(); 
+    }, 1000);
+};
 
 window.enterSite = function() {
+    if (!introEl || !introVid) return;
     introEl.classList.remove('dimmed');
     introEl.classList.add('entered');
 
-    /* Bucle del video desactivado */
     introVid.removeAttribute('loop');
     introVid.loop = false;
     
-    /* Reproducir video */
     introVid.muted = false;
     introVid.currentTime = 0;
     var p = introVid.play();
     if (p && p.catch) p.catch(()=>{});
 
-    /* 🚀 INICIAR LA MÚSICA INMEDIATAMENTE AL DAR CLIC EN ENTRAR */
     const bgAud = document.getElementById('bg-audio');
     if (bgAud) {
-        bgAud.currentTime = 0; /* Asegurarnos de que arranque en 0:00 */
+        bgAud.currentTime = 0;
         if(typeof window.startBgMusic === 'function') window.startBgMusic();
     }
 
-    /* Ocultar elementos de texto */
-    document.getElementById('intro-monogram').style.opacity = '0';
-    document.getElementById('intro-title').style.opacity = '0';
-    document.getElementById('intro-enter-btn').style.opacity = '0';
+    var mono = document.getElementById('intro-monogram');
+    var title = document.getElementById('intro-title');
+    var enterBtn = document.getElementById('intro-enter-btn');
+    if(mono) mono.style.opacity = '0';
+    if(title) title.style.opacity = '0';
+    if(enterBtn) enterBtn.style.opacity = '0';
 
-    /* Mecanismo de cierre del video */
     let cerrado = false;
     const cerrarVideo = () => {
         if (cerrado) return;
@@ -390,26 +412,12 @@ window.enterSite = function() {
     setTimeout(cerrarVideo, 55000);
 };
 
-    /* Disparador A: El evento natural de fin de video */
-    introVid.addEventListener('ended', cerrarVideo, { once: true });
-
-    /* Disparador B (Failsafe 1): El video está a 0.5s de terminar */
-    introVid.addEventListener('timeupdate', () => {
-        if (!cerrado && introVid.duration && introVid.currentTime >= (introVid.duration - 0.5)) {
-            cerrarVideo();
-        }
-    });
-
-    /* Disparador C (Failsafe 2): Apagado de emergencia absoluto */
-    /* Garantiza que tu cliente SIEMPRE llegue a la página web */
-    setTimeout(cerrarVideo, 55000);
-};
-
 /* ROTACIÓN DE FOTOS PORTRAIT */
 setInterval(() => {
   var slides = document.querySelectorAll('.portrait-slide');
   if (slides.length < 2) return;
   var active = document.querySelector('.portrait-slide.active');
+  if(!active) return;
   active.classList.remove('active');
   var next = active.nextElementSibling;
   if (!next || !next.classList.contains('portrait-slide')) next = slides[0];
@@ -418,9 +426,9 @@ setInterval(() => {
 
 /* NAV SCROLL */
 window.addEventListener('scroll', () => {
-  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+  var nav = document.getElementById('nav');
+  if(nav) nav.classList.toggle('scrolled', window.scrollY > 60);
 });
-
 </script>
 <script>
 function openLBdrive(url, alt) {
@@ -493,6 +501,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
 
 
 
