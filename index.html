@@ -174,13 +174,18 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .portrait-hud{ box-shadow: var(--shadow-card-hover); }
 .services-grid{ gap: 1.15rem; background: none; border: none; }
 .svc-card{ border: 1px solid var(--border); }
-</style>
+        #audio-player { position: fixed; bottom: 2rem; right: 2rem; z-index: 900; }
+        #audio-btn { width: 3rem; height: 3rem; border-radius: 50%; background: var(--goldx); border: 1px solid var(--border); color: var(--gold); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; backdrop-filter: blur(12px); box-shadow: var(--glow); transition: all 0.3s; }
+        #audio-btn:hover { border-color: var(--gold); background: rgba(201,169,110,0.2); }
+        #audio-btn.playing { animation: pulse-border 2s infinite; border-color: var(--gold); }
+        @keyframes pulse-border { 0%,100% { border-color: var(--border); } 50% { border-color: rgba(201,169,110,0.5); } }
+    </style>
 </head>
 <body>
 
 <!-- PANTALLA INTRO -->
 <div id="video-intro">
-  <video id="intro-video" autoplay muted playsinline loop src="Miguel_Tillero_video_bienvenida.mp4"></video>
+  <video id="intro-video" autoplay muted playsinline loop src="4k.mp4"></video>
   <div class="intro-brand">
     <div class="intro-monogram" id="intro-monogram">MT</div>
     <div class="intro-title" id="intro-title">Vive el francés</div>
@@ -191,6 +196,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 </div>
 
 <div id="vanta-bg"></div>
+
+<!-- AUDIO -->
+<div id="audio-player">
+  <button id="audio-btn" aria-label="Música de fondo"><i class="fa-solid fa-music"></i></button>
+</div>
+<audio id="bg-audio" loop preload="none">
+  <source src="Une_Promenade_en_Soleil.mp3" type="audio/mpeg">
+</audio>
 
 <!-- NAV UNIFICADO -->
 <nav id="nav" class="z10">
@@ -322,7 +335,7 @@ window.enterSite = function() {
   
   introVid.addEventListener('ended', () => {
     introEl.classList.add('fade-out');
-    setTimeout(() => { introEl.style.display = 'none'; }, 1000);
+    setTimeout(() => { introEl.style.display = 'none'; if(typeof window.startBgMusic === 'function') window.startBgMusic(); }, 1000);
   }, { once: true });
 };
 
@@ -363,9 +376,45 @@ track.addEventListener('mousemove', (e) => {
                 }
             });
         });
-    </script>
+    /* ── AUDIO ── */
+const bgAudio = document.getElementById('bg-audio');
+const audioBtn = document.getElementById('audio-btn');
+let playing = false;
+if (bgAudio) bgAudio.volume = 0.4;
+if (audioBtn && bgAudio) {
+  audioBtn.addEventListener('click', () => {
+    if (playing) {
+      bgAudio.pause();
+      audioBtn.classList.remove('playing');
+      audioBtn.innerHTML = '<i class="fa-solid fa-music"></i>';
+    } else {
+      bgAudio.play().catch(()=>{});
+      audioBtn.classList.add('playing');
+      audioBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+    }
+    playing = !playing;
+  });
+}
+window.startBgMusic = function() {
+  if (!bgAudio || playing) return;
+  var p = bgAudio.play();
+  playing = true;
+  if (audioBtn) {
+    audioBtn.classList.add('playing');
+    audioBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+  }
+  if (p && p.catch) p.catch(function() {
+    playing = false;
+    if (audioBtn) {
+      audioBtn.classList.remove('playing');
+      audioBtn.innerHTML = '<i class="fa-solid fa-music"></i>';
+    }
+  });
+};
+</script>
 </body>
 </html>
+
 
 
 
