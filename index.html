@@ -140,7 +140,7 @@ body::after {
 
 <!-- PANTALLA INTRO -->
 <div id="video-intro">
-  <video id="intro-video" autoplay muted playsinline loop data-src-h="assets/videos/Miguel_Tillero_video_bienvenida.mp4"></video>
+  <video id="intro-video" autoplay muted playsinline loop src="Miguel_Tillero_video_bienvenida.mp4"></video>
   <div class="intro-brand">
     <div class="intro-monogram" id="intro-monogram">MT</div>
     <div class="intro-title" id="intro-title">Vive el francés</div>
@@ -270,7 +270,12 @@ setTimeout(() => { document.getElementById('intro-enter-btn').classList.add('sho
 
 window.enterSite = function() {
   introEl.classList.remove('dimmed'); introEl.classList.add('entered');
-  introVid.muted = false; introVid.play();
+  
+  introVid.loop = false; /* MUY IMPORTANTE: Permite que el video termine al concluir la reproducción */
+  introVid.muted = false; 
+  introVid.currentTime = 0; /* Reiniciar desde el principio con sonido */
+  introVid.play().catch(()=>{});
+  
   document.getElementById('intro-monogram').style.opacity = '0';
   document.getElementById('intro-title').style.opacity = '0';
   document.getElementById('intro-enter-btn').style.opacity = '0';
@@ -278,7 +283,7 @@ window.enterSite = function() {
   introVid.addEventListener('ended', () => {
     introEl.classList.add('fade-out');
     setTimeout(() => { introEl.style.display = 'none'; }, 1000);
-  });
+  }, { once: true });
 };
 
 /* ROTACIÓN DE FOTOS PORTRAIT */
@@ -310,3 +315,4 @@ track.addEventListener('mousemove', (e) => {
 </script>
 </body>
 </html>
+
