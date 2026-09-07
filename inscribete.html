@@ -3,28 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscribete | Miguel Tillero</title>
+    <title>Cotizar / Inscribirse | Miguel Tillero</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        :root { --bg-color: #eef0e5; --primary-color: #8c734b; --text-dark: #2c3e35; --text-light: #5a665f; --card-bg: #ffffff; --accent-green: #3b5346; }
+        :root { --bg-color: #eef0e5; --primary-color: #8c734b; --text-dark: #1a2e24; --text-light: #5a665f; --card-bg: #ffffff; --accent-green: #2b4535; }
         body { background-color: var(--bg-color); color: var(--text-dark); font-family: 'Syne', sans-serif; margin: 0; padding: 0; display:flex; flex-direction:column; min-height:100vh;}
-        nav.main-nav { background: var(--card-bg); border-bottom: 1px solid rgba(140, 115, 75, 0.2); padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; position: sticky; top: 0; z-index: 100; }
-        .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--text-dark); text-decoration: none; }
-        .nav-links { display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; list-style: none; margin: 0; padding: 0; }
-        .nav-links a { text-decoration: none; color: var(--text-dark); font-size: 0.85rem; font-weight: 600; font-family: 'Space Mono', monospace; text-transform: uppercase; transition: color 0.3s; }
+        
+        /* Navegación Responsiva */
+        nav.main-nav { background: var(--card-bg); border-bottom: 1px solid rgba(43, 69, 53, 0.2); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; color: var(--accent-green); text-decoration: none; }
+        .hamburger { display: none; background: none; border: none; font-size: 1.8rem; color: var(--accent-green); cursor: pointer; }
+        .nav-container { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-links { display: flex; gap: 1.2rem; align-items: center; list-style: none; margin: 0; padding: 0; }
+        .nav-links a { text-decoration: none; color: var(--accent-green); font-size: 0.85rem; font-weight: 600; font-family: 'Space Mono', monospace; text-transform: uppercase; transition: color 0.3s; }
         .nav-links a:hover { color: var(--primary-color); }
         .btn-nav-action { background: var(--accent-green) !important; color: #fff !important; padding: 0.5rem 1rem; border-radius: 20px; }
-        main { flex-grow:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 2rem; text-align:center;}
-        h1 { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--primary-color); text-transform: capitalize; margin-bottom: 0.5rem;}
-        p { color: var(--text-light); max-width:600px; line-height: 1.6; }
         .lang-switcher { display: flex; gap: 0.4rem; align-items: center; }
-        .ctrl-btn { background: none; border: 1px solid rgba(140,115,75,0.3); padding: 0.3rem 0.6rem; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.7rem; cursor: pointer; }
-        .ctrl-btn.active { background: var(--primary-color); color: #fff; border-color: var(--primary-color); }
-            .hamburger { display: none; background: none; border: none; font-size: 1.8rem; color: var(--accent-green); cursor: pointer; }
-        .nav-container { display: flex; align-items: center; gap: 1.5rem; }
+        .ctrl-btn { background: none; border: 1px solid var(--accent-green); padding: 0.3rem 0.6rem; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.7rem; cursor: pointer; color: var(--accent-green); transition: 0.3s;}
+        .ctrl-btn.active, .ctrl-btn:hover { background: var(--accent-green); color: #fff; }
+        
         @media (max-width: 900px) {
             .hamburger { display: block; }
             .nav-container { display: none; flex-direction: column; width: 100%; position: absolute; top: 100%; left: 0; background: var(--card-bg); padding: 1.5rem; box-shadow: 0 10px 15px rgba(0,0,0,0.1); border-top: 1px solid rgba(43, 69, 53, 0.1); }
@@ -32,10 +32,27 @@
             .nav-links { flex-direction: column; width: 100%; }
             .nav-links li { width: 100%; text-align: center; margin-bottom: 0.5rem; }
         }
+
+        /* Estilos del Formulario */
+        main { flex-grow:1; display:flex; flex-direction:column; align-items:center; padding: 4rem 1.5rem; }
+        .form-wrapper { background: var(--card-bg); max-width: 750px; width: 100%; padding: 3rem; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); border-top: 5px solid var(--primary-color); }
+        h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; color: var(--accent-green); margin-top: 0; margin-bottom: 0.5rem; text-align: center; }
+        p.subtitle { text-align: center; color: var(--text-light); margin-bottom: 2.5rem; line-height: 1.6;}
+        
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .form-group { margin-bottom: 1.5rem; }
+        label { display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--accent-green); }
+        input[type="text"], input[type="email"], input[type="tel"], select, textarea { width: 100%; padding: 0.9rem 1rem; border: 1px solid rgba(140, 115, 75, 0.3); border-radius: 8px; font-family: 'Syne', sans-serif; font-size: 1rem; background: var(--bg-color); color: var(--text-dark); box-sizing: border-box; transition: border-color 0.3s, box-shadow 0.3s; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(140, 115, 75, 0.1); }
+        
+        .btn-submit { width: 100%; background: var(--accent-green); color: #fff; border: none; padding: 1.2rem; font-size: 1.1rem; font-family: 'Syne', sans-serif; font-weight: 700; border-radius: 8px; cursor: pointer; transition: background 0.3s, transform 0.2s; margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 0.6rem; }
+        .btn-submit:hover { background: var(--primary-color); transform: translateY(-2px); }
+
+        @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; gap: 0; } .form-wrapper { padding: 2rem 1.5rem; } }
     </style>
 </head>
 <body>
-        <nav class="main-nav">
+    <nav class="main-nav">
         <a href="index.html" class="nav-brand">Miguel Tillero</a>
         <button class="hamburger" id="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
         <div class="nav-container" id="nav-container">
@@ -58,15 +75,68 @@
     </nav>
 
     <main>
-        <h1>Inscribete</h1>
-        <p>Esta sección está siendo estructurada. Estará disponible muy pronto como parte del nuevo ecosistema.</p>
-        <br>
-        <a href="index.html" style="color:var(--accent-green); font-weight:bold; text-decoration:none;">
-            <i class="fa fa-arrow-left"></i> Volver al inicio
-        </a>
+        <div class="form-wrapper">
+            <h1>Reserva tus clases</h1>
+            <p class="subtitle">Completa el formulario para estructurar tu itinerario. Recibirás un presupuesto formal a la brevedad y confirmaremos la disponibilidad de horarios.</p>
+            
+            <form action="https://api.web3forms.com/submit" method="POST">
+                <!-- REEMPLAZA ESTO CON TU LLAVE DE ACCESO REAL DE WEB3FORMS -->
+                <input type="hidden" name="access_key" value="TU_LLAVE_AQUI">
+                
+                <input type="hidden" name="redirect" value="https://migueltillero-ship-it.github.io/MiguelTillero/gracias.html">
+                <input type="hidden" name="subject" value="Nueva solicitud de inscripción - Clases de Francés">
+                <input type="checkbox" name="botcheck" id="" style="display: none;">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nombre">Nombre completo</label>
+                        <input type="text" id="nombre" name="Nombre" required placeholder="Ej. Ana García">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono (WhatsApp)</label>
+                        <input type="tel" id="telefono" name="Teléfono" required placeholder="+52 ...">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="correo">Correo electrónico</label>
+                    <input type="email" id="correo" name="Correo" required placeholder="tu@correo.com">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="modalidad">Modalidad preferida</label>
+                        <select id="modalidad" name="Modalidad" required>
+                            <option value="" disabled selected>Selecciona una opción</option>
+                            <option value="Presencial">Presencial (San Cristóbal de Las Casas)</option>
+                            <option value="En línea">En línea</option>
+                            <option value="Híbrida">Híbrida</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="horas">Paquete base (Estimación)</label>
+                        <select id="horas" name="Paquete" required>
+                            <option value="" disabled selected>Selecciona un paquete</option>
+                            <option value="10 horas">10 horas</option>
+                            <option value="20 horas">20 horas (+2h de regalo)</option>
+                            <option value="30 horas">30 horas (+3h de regalo)</option>
+                            <option value="40 horas">40 horas (+4h de regalo)</option>
+                            <option value="Otro">Otra cantidad a convenir</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="objetivos">Objetivos pedagógicos (Ej. Certificación DELF B2, viaje, académico)</label>
+                    <textarea id="objetivos" name="Objetivos" rows="4" required placeholder="Describe brevemente tus metas de aprendizaje..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit"><i class="fa-solid fa-paper-plane"></i> Enviar solicitud formal</button>
+            </form>
+        </div>
     </main>
 
-        <script src="assets/js/i18n.js"></script>
+    <script src="assets/js/i18n.js"></script>
     <script>
         const btnMenu = document.getElementById('mobile-menu-btn');
         const navContainer = document.getElementById('nav-container');
@@ -84,4 +154,3 @@
     </script>
 </body>
 </html>
-
