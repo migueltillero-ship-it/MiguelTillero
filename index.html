@@ -134,7 +134,9 @@ body::after {
 .intro-monogram.show, .intro-title.show, .intro-enter-btn.show { opacity: 1; }
 
 @keyframes float-y { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-</style>
+        .btn-ghost { display: inline-flex; align-items: center; gap: 0.6rem; padding: 1rem 2.5rem; background: rgba(255,255,255,0.85); color: var(--primary-color); border: 1px solid var(--border); font-family: 'Space Mono', monospace; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; text-decoration: none; border-radius: 30px; transition: all 0.3s; cursor:pointer;}
+        .btn-ghost:hover { border-color: var(--primary-color); background: rgba(140, 115, 75, 0.1); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(140, 115, 75, 0.1); color: var(--accent-green);}
+    </style>
 </head>
 <body>
 
@@ -176,15 +178,15 @@ body::after {
         <div>
           <div class="hero-pre"><span>Direction Générale · FLE Specialist</span></div>
           <h1 class="hero-name">Miguel <em>Tillero</em><div class="glitch-layer">Miguel Tillero</div></h1>
-          <p class="hero-tagline">Profesor especialista en la enseñanza del francés como lengua extranjera · FLE · Gestión cultural.</p>
+          <p class="hero-tagline" data-i18n="hero.tagline">Profesor especialista en la enseñanza del francés como lengua extranjera · FLE · Gestión cultural.</p>
           <div class="hero-langs">
             <div class="lang-pill"><span class="code">ES</span><span class="lvl">Nativo</span></div>
             <div class="lang-pill"><span class="code">FR</span><span class="lvl">C1</span></div>
             <div class="lang-pill"><span class="code">EN</span><span class="lvl">B1/B2</span></div>
           </div>
           <div class="hero-cta">
-            <a href="inscribete.html" class="btn btn-gold"><i class="fa fa-graduation-cap"></i><span>Comenzar clases</span></a>
-            <a href="contacto.html" class="btn btn-ghost"><i class="fa fa-envelope"></i><span>Escribirme</span></a>
+            <a href="inscribete.html" class="btn btn-gold"><i class="fa fa-graduation-cap"></i><span data-i18n="hero.btn.start">Comenzar clases</span></a>
+            <a href="contacto.html" class="btn btn-ghost"><i class="fa fa-envelope"></i><span data-i18n="hero.btn.contact">Escribirme</span></a>
           </div>
         </div>
 
@@ -315,4 +317,5 @@ track.addEventListener('mousemove', (e) => {
 </script>
 </body>
 </html>
+
 
