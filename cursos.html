@@ -1,48 +1,90 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cursos | Miguel Tillero</title>
+    <title>Cursos y Exámenes | Miguel Tillero</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        :root { --bg-color: #eef0e5; --primary-color: #8c734b; --text-dark: #2c3e35; --text-light: #5a665f; --card-bg: #ffffff; --accent-green: #3b5346; }
+        :root { 
+            --bg-color: #eef0e5; --primary-color: #8c734b; --primary-hover: #6f552f; 
+            --text-dark: #1a2e24; --text-light: #5a665f; --card-bg: rgba(255,255,255,0.85); 
+            --accent-green: #2b4535; --border: rgba(165,130,74,0.38); --cyan: #0d7f57;
+        }
         body { background-color: var(--bg-color); color: var(--text-dark); font-family: 'Syne', sans-serif; margin: 0; padding: 0; display:flex; flex-direction:column; min-height:100vh;}
-        nav.main-nav { background: var(--card-bg); border-bottom: 1px solid rgba(140, 115, 75, 0.2); padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; position: sticky; top: 0; z-index: 100; }
-        .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--text-dark); text-decoration: none; }
-        .nav-links { display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; list-style: none; margin: 0; padding: 0; }
-        .nav-links a { text-decoration: none; color: var(--text-dark); font-size: 0.85rem; font-weight: 600; font-family: 'Space Mono', monospace; text-transform: uppercase; transition: color 0.3s; }
+        
+        /* Nav Responsivo */
+        nav.main-nav { background: #ffffff; border-bottom: 1px solid rgba(43, 69, 53, 0.2); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; color: var(--accent-green); text-decoration: none; }
+        .hamburger { display: none; background: none; border: none; font-size: 1.8rem; color: var(--accent-green); cursor: pointer; }
+        .nav-container { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-links { display: flex; gap: 1.2rem; align-items: center; list-style: none; margin: 0; padding: 0; }
+        .nav-links a { text-decoration: none; color: var(--accent-green); font-size: 0.85rem; font-weight: 600; font-family: 'Space Mono', monospace; text-transform: uppercase; transition: color 0.3s; }
         .nav-links a:hover { color: var(--primary-color); }
         .btn-nav-action { background: var(--accent-green) !important; color: #fff !important; padding: 0.5rem 1rem; border-radius: 20px; }
-        main { flex-grow:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 2rem; text-align:center;}
-        h1 { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--primary-color); text-transform: capitalize; margin-bottom: 0.5rem;}
-        p { color: var(--text-light); max-width:600px; line-height: 1.6; }
         .lang-switcher { display: flex; gap: 0.4rem; align-items: center; }
-        .ctrl-btn { background: none; border: 1px solid rgba(140,115,75,0.3); padding: 0.3rem 0.6rem; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.7rem; cursor: pointer; }
-        .ctrl-btn.active { background: var(--primary-color); color: #fff; border-color: var(--primary-color); }
-            .hamburger { display: none; background: none; border: none; font-size: 1.8rem; color: var(--accent-green); cursor: pointer; }
-        .nav-container { display: flex; align-items: center; gap: 1.5rem; }
+        .ctrl-btn { background: none; border: 1px solid var(--accent-green); padding: 0.3rem 0.6rem; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.7rem; cursor: pointer; color: var(--accent-green); transition: 0.3s;}
+        .ctrl-btn.active, .ctrl-btn:hover { background: var(--accent-green); color: #fff; }
+        
         @media (max-width: 900px) {
             .hamburger { display: block; }
-            .nav-container { display: none; flex-direction: column; width: 100%; position: absolute; top: 100%; left: 0; background: var(--card-bg); padding: 1.5rem; box-shadow: 0 10px 15px rgba(0,0,0,0.1); border-top: 1px solid rgba(43, 69, 53, 0.1); }
+            .nav-container { display: none; flex-direction: column; width: 100%; position: absolute; top: 100%; left: 0; background: #ffffff; padding: 1.5rem; box-shadow: 0 10px 15px rgba(0,0,0,0.1); border-top: 1px solid rgba(43, 69, 53, 0.1); }
             .nav-container.active { display: flex; }
             .nav-links { flex-direction: column; width: 100%; }
             .nav-links li { width: 100%; text-align: center; margin-bottom: 0.5rem; }
         }
+
+        /* Estructura de Secciones */
+        main { padding: 4rem 5%; max-width: 1200px; margin: 0 auto; }
+        .sec-head { text-align: center; margin-bottom: 3.5rem; }
+        .eyebrow { font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--primary-color); margin-bottom: 0.5rem; display: block; }
+        .sec-title { font-family: 'Cormorant Garamond', serif; font-size: 3.2rem; font-weight: 300; color: var(--accent-green); margin: 0; }
+        .af-intro { max-width: 800px; margin: 0 auto 3rem; text-align: center; font-size: 1.05rem; line-height: 1.8; color: var(--text-light); }
+
+        /* Grillas de Tarjetas (Estilo Premium Original) */
+        .crs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+        .crs-card { position: relative; overflow: hidden; padding: 2rem; background: var(--card-bg); border: 1px solid var(--border); border-top: 3px solid transparent; transition: transform 0.4s, border-color 0.4s, box-shadow 0.4s; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border-radius: 8px; }
+        .crs-card:hover { transform: translateY(-6px); border-top-color: var(--primary-color); box-shadow: 0 15px 40px rgba(140, 115, 75, 0.15); }
+        .crs-icon { font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1.2rem; display: block; }
+        .crs-title { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--accent-green); margin: 0 0 0.8rem 0; }
+        .crs-desc { font-size: 0.95rem; line-height: 1.6; color: var(--text-light); margin-bottom: 1.5rem; }
+        
+        .af-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .af-chip { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.4rem 0.8rem; border: 1px solid var(--border); color: var(--primary-hover); background: rgba(255,255,255,0.8); border-radius: 4px; }
+        .af-chip.em { border-color: var(--cyan); color: var(--cyan); background: rgba(13, 127, 87, 0.05); }
+
+        /* Tarjetas de Exámenes */
+        .exam-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; margin-top: 4rem; }
+        .exam-card { padding: 2.5rem; background: #ffffff; border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.04); transition: transform 0.3s; }
+        .exam-card:hover { transform: translateY(-4px); box-shadow: 0 15px 35px rgba(140, 115, 75, 0.12); }
+        .exam-sigla { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 700; color: var(--primary-color); margin-bottom: 0.5rem; }
+        .exam-full { font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); margin-bottom: 1.5rem; }
+        .exam-rows { list-style: none; padding: 0; margin: 0; }
+        .exam-rows li { display: flex; flex-direction: column; padding: 0.8rem 0; border-top: 1px solid rgba(165,130,74,0.2); font-size: 0.95rem; line-height: 1.6; color: var(--text-dark); }
+        .exam-rows b { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--primary-hover); margin-bottom: 0.3rem; }
+
+        .btn-gold { display: inline-block; background: var(--primary-color); color: #ffffff; padding: 1rem 2.5rem; font-family: 'Space Mono', monospace; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border-radius: 30px; font-weight: 700; transition: background 0.3s, transform 0.2s; margin-top: 3rem; }
+        .btn-gold:hover { background: var(--primary-hover); transform: translateY(-2px); }
+        .text-center { text-align: center; }
+
+        @media (max-width: 768px) {
+            .exam-grid { grid-template-columns: 1fr; }
+            .sec-title { font-size: 2.5rem; }
+        }
     </style>
 </head>
 <body>
-        <nav class="main-nav">
+    <nav class="main-nav">
         <a href="index.html" class="nav-brand">Miguel Tillero</a>
         <button class="hamburger" id="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
         <div class="nav-container" id="nav-container">
             <ul class="nav-links">
                 <li><a href="perfil.html" data-i18n="nav.perfil">Perfil</a></li>
                 <li><a href="servicios.html" data-i18n="nav.servicios">Servicios</a></li>
-                <li><a href="cursos.html" data-i18n="nav.cursos">Cursos</a></li>
+                <li><a href="cursos.html" style="color: var(--primary-color);" data-i18n="nav.cursos">Cursos</a></li>
                 <li><a href="galeria.html" data-i18n="nav.galeria">Galería</a></li>
                 <li><a href="testimonios.html" data-i18n="nav.testimonios">Testimonios</a></li>
                 <li><a href="ressources.html" data-i18n="nav.ressources">Recursos</a></li>
@@ -58,15 +100,123 @@
     </nav>
 
     <main>
-        <h1>Cursos</h1>
-        <p>Esta sección está siendo estructurada. Estará disponible muy pronto como parte del nuevo ecosistema.</p>
-        <br>
-        <a href="index.html" style="color:var(--accent-green); font-weight:bold; text-decoration:none;">
-            <i class="fa fa-arrow-left"></i> Volver al inicio
-        </a>
+        <!-- SECCIÓN DE CURSOS -->
+        <div class="sec-head">
+            <span class="eyebrow">Nuestra oferta para aprender francés</span>
+            <h1 class="sec-title">Cursos y modalidades</h1>
+        </div>
+        <p class="af-intro">No trabajo con un método enlatado: construimos juntos un itinerario según tu objetivo, tu ritmo y el tiempo del que dispones realmente. Todos los formatos siguen el Marco Común Europeo de Referencia (MCER) y avanzan del A1 al C2 con metas claras en cada etapa.</p>
+
+        <div class="crs-grid">
+            <div class="crs-card">
+                <i class="fa-solid fa-calendar-week crs-icon"></i>
+                <h3 class="crs-title">Curso general extensivo</h3>
+                <p class="crs-desc">El itinerario clásico: dos a cuatro horas por semana, progresión continua y trabajo equilibrado de las cuatro competencias — comprensión oral y escrita, producción oral y escrita.</p>
+                <div class="af-chips"><span class="af-chip">A1 → C2</span><span class="af-chip em">2–4 h / semana</span></div>
+            </div>
+            <div class="crs-card">
+                <i class="fa-solid fa-bolt crs-icon"></i>
+                <h3 class="crs-title">Intensivo e inmersión</h3>
+                <p class="crs-desc">Para quien necesita avanzar rápido: de diez a veinte horas semanales, con ritmo sostenido y uso exclusivo del francés en el aula. Ideal antes de un examen, una beca o una mudanza.</p>
+                <div class="af-chips"><span class="af-chip">A1 → C1</span><span class="af-chip em">10–20 h / semana</span></div>
+            </div>
+            <div class="crs-card">
+                <i class="fa-solid fa-user crs-icon"></i>
+                <h3 class="crs-title">Clases individuales</h3>
+                <p class="crs-desc">Un programa hecho solo para ti: contenidos, horarios y ritmo definidos a partir de tu objetivo concreto. La fórmula más eficaz cuando el tiempo es corto o la meta es muy específica.</p>
+                <div class="af-chips"><span class="af-chip">A0 → C2</span><span class="af-chip em">A medida</span></div>
+            </div>
+            <div class="crs-card">
+                <i class="fa-solid fa-user-group crs-icon"></i>
+                <h3 class="crs-title">Dúo y grupo reducido</h3>
+                <p class="crs-desc">De dos a seis participantes del mismo nivel. Se conserva la atención personalizada y se gana lo que solo aporta el grupo: interacción real, debate y trabajo colaborativo.</p>
+                <div class="af-chips"><span class="af-chip">A1 → C1</span><span class="af-chip em">2 a 6 personas</span></div>
+            </div>
+            <div class="crs-card">
+                <i class="fa-solid fa-comments crs-icon"></i>
+                <h3 class="crs-title">Taller de comunicación oral</h3>
+                <p class="crs-desc">Hablar, hablar y hablar. Un espacio para desbloquear la expresión: debates, juegos de rol, presentaciones y situaciones de la vida real, con corrección inmediata y sin miedo al error.</p>
+                <div class="af-chips"><span class="af-chip">A1 → B2</span><span class="af-chip em">Taller temático</span></div>
+            </div>
+            <div class="crs-card">
+                <i class="fa-solid fa-pen-nib crs-icon"></i>
+                <h3 class="crs-title">Taller de gramática</h3>
+                <p class="crs-desc">Los puntos que siempre se atraviesan: subjuntivo, pronombres, concordancias, tiempos del pasado y conectores. Explicación clara, práctica intensiva y aplicación inmediata al uso real.</p>
+                <div class="af-chips"><span class="af-chip">A1 → B2</span><span class="af-chip em">Taller temático</span></div>
+            </div>
+            <div class="crs-card">
+                <i class="fa-solid fa-wave-square crs-icon"></i>
+                <h3 class="crs-title">Fonética y corrección fonética</h3>
+                <p class="crs-desc">Las vocales nasales, la r francesa, el ritmo y la entonación. Trabajo sistemático del acento con grabaciones, escucha comparada y ejercicios de discriminación auditiva.</p>
+                <div class="af-chips"><span class="af-chip">A2 → C1</span><span class="af-chip em">Individual o grupal</span></div>
+            </div>
+            <div class="crs-card">
+                <i class="fa-solid fa-award crs-icon"></i>
+                <h3 class="crs-title">Preparación DELF · DALF · TCF</h3>
+                <p class="crs-desc">Entrenamiento específico para el día del examen: estrategias por prueba, gestión del tiempo, simulacros completos en condiciones reales y retroalimentación detallada.</p>
+                <div class="af-chips"><span class="af-chip">A1 → C2</span><span class="af-chip em">Certificación oficial</span></div>
+            </div>
+            <div class="crs-card">
+                <i class="fa-solid fa-briefcase crs-icon"></i>
+                <h3 class="crs-title">Francés profesional y empresas</h3>
+                <p class="crs-desc">Francés sobre objetivos específicos para equipos e instituciones: turismo, hostelería, negocios, salud, cooperación internacional. Diagnóstico previo y programa a medida.</p>
+                <div class="af-chips"><span class="af-chip">A2 → C1</span><span class="af-chip em">Empresas e instituciones</span></div>
+            </div>
+            <div class="crs-card">
+                <i class="fa-solid fa-passport crs-icon"></i>
+                <h3 class="crs-title">Francés para migración</h3>
+                <p class="crs-desc">Acompañamiento completo para emigrar a Quebec, Canadá o Francia: preparación lingüística del TCF/TEF, simulacros de entrevista y claves culturales para la integración.</p>
+                <div class="af-chips"><span class="af-chip">TCF · TEF</span><span class="af-chip em">Quebec · Canadá · Francia</span></div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <a href="inscribete.html" class="btn-gold"><i class="fa-solid fa-file-pen"></i> Solicitar mi curso</a>
+        </div>
+
+        <!-- SECCIÓN DE EXÁMENES OFICIALES -->
+        <div class="sec-head" style="margin-top: 6rem;">
+            <span class="eyebrow">Certifica tu francés</span>
+            <h2 class="sec-title">Exámenes oficiales</h2>
+        </div>
+        <p class="af-intro">Decir "hablo francés" en un currículum no vale nada; un diploma o un test oficial sí. Te preparo rigurosamente para superar con éxito las pruebas exigidas por universidades, empleadores y autoridades migratorias.</p>
+
+        <div class="exam-grid">
+            <div class="exam-card">
+                <div class="exam-sigla">DELF</div>
+                <div class="exam-full">Diplôme d'Études en Langue Française</div>
+                <div class="af-chips" style="margin-bottom: 1.5rem;"><span class="af-chip">A1</span><span class="af-chip">A2</span><span class="af-chip">B1</span><span class="af-chip">B2</span></div>
+                <ul class="exam-rows">
+                    <li><b>Para qué</b>Demostrar tu francés con un papel que no caduca. Sirve para inscribirte en una universidad, sumar puntos en un expediente migratorio o para entrevistas de trabajo.</li>
+                    <li><b>Validez</b>De por vida. El diploma no caduca nunca.</li>
+                    <li><b>Estructura</b>Cuatro pruebas independientes: comprensión oral y escrita, producción oral y escrita.</li>
+                </ul>
+            </div>
+            <div class="exam-card">
+                <div class="exam-sigla">DALF</div>
+                <div class="exam-full">Diplôme Approfondi de Langue Française</div>
+                <div class="af-chips" style="margin-bottom: 1.5rem;"><span class="af-chip">C1</span><span class="af-chip">C2</span></div>
+                <ul class="exam-rows">
+                    <li><b>Para qué</b>El techo de la escala. Ideal para posgrados francófonos o puestos donde el francés es la herramienta principal. Te exime de la prueba de idioma en universidades.</li>
+                    <li><b>Validez</b>De por vida. El diploma no caduca nunca.</li>
+                    <li><b>Estructura</b>Tareas largas y complejas: síntesis de documentos, ensayo argumentado y exposición oral con debate.</li>
+                </ul>
+            </div>
+            <div class="exam-card">
+                <div class="exam-sigla">TCF / TEF</div>
+                <div class="exam-full">Tests Oficiales de Nivel (Migración y Estudios)</div>
+                <div class="af-chips" style="margin-bottom: 1.5rem;"><span class="af-chip">A1 → C2</span><span class="af-chip em">Canadá · Quebec · Francia</span></div>
+                <ul class="exam-rows">
+                    <li><b>Para qué</b>Situar tu nivel de forma rápida para migración económica, trámites de residencia, nacionalidad o acceso universitario.</li>
+                    <li><b>Validez</b>Dos años a partir de la fecha del examen.</li>
+                    <li><b>Resultado</b>No se aprueba ni reprueba: obtienes una puntuación con equivalencia directa en el MCER (A1 a C2).</li>
+                </ul>
+            </div>
+        </div>
+
     </main>
 
-        <script src="assets/js/i18n.js"></script>
+    <script src="assets/js/i18n.js"></script>
     <script>
         const btnMenu = document.getElementById('mobile-menu-btn');
         const navContainer = document.getElementById('nav-container');
@@ -84,4 +234,3 @@
     </script>
 </body>
 </html>
-
