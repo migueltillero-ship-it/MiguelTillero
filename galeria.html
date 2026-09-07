@@ -60,7 +60,43 @@
         .faq-item[open] .faq-q::after { content: '-'; }
         .faq-a { padding: 0 1.5rem 1.2rem; font-size: 0.9rem; line-height: 1.7; color: var(--text-light); }
         @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } .sec-title { font-size: 2.5rem; } }
-    </style>
+    /* ══════════════════════════════════════════════════════════════
+   REFINAMIENTO — Calidez, detalle y modernidad
+══════════════════════════════════════════════════════════════ */
+:root{
+  --r-xs:  8px;
+  --r-sm:  14px;
+  --r-md:  18px;
+  --r-lg:  26px;
+  --r-pill: 999px;
+  --shadow-card:       0 4px 20px rgba(20,45,32,0.07), 0 1px 2px rgba(20,45,32,0.05);
+  --shadow-card-hover: 0 20px 44px rgba(20,45,32,0.14);
+}
+.btn, .btn-gold, .btn-nav-action { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.92rem; letter-spacing: 0.005em; text-transform: none; border-radius: var(--r-pill); }
+@media (max-width: 640px){ .btn, .btn-gold{ font-size: 0.88rem; padding: 0.85rem 1.7rem; } }
+.nav-links{ flex-wrap: wrap; row-gap: 0.5rem; }
+.nav-links a{ font-size: 0.68rem; letter-spacing: 0.1em; }
+.ctrl-btn{ font-size: 0.58rem; letter-spacing: 0.12em; border-radius: var(--r-xs); padding: 0.42rem 0.75rem; }
+.eyebrow, .hud-label, .hero-pre, .sec-head .eyebrow{ letter-spacing: 0.16em; font-size: 0.7rem; }
+.eyebrow::before{ width: 18px; }
+.stat-lbl, .tl-date, .tl-org, .edu-year, .c-label, .footer-tag, .footer-copy, .exam-full, .exam-rows b, .pick-goal, .role-tag, .af-chip, .skill-tag, .form-field label, .pay-label, .pay-bank-sub, .qr-info, .pt-count, .svc-num, .lang-pill .lvl, .studybar-inner a, .portal-go{ letter-spacing: 0.12em; }
+.stat-lbl, .c-label, .footer-tag, .edu-year, .form-field label, .footer-copy, .af-chip, .studybar-inner a, .portal-go{ font-size: 0.64rem; }
+.c-card, .cert-item, .hud-data-box{ border-radius: var(--r-sm); }
+.panel, .portal-card, .svc-card, .crs-card, .exam-card, .pick-card, .edu-card, .about-text, .tl-body, .role-panel, .stats-bar, .text-glass, .card, .video-wrapper, .faq-item { border-radius: var(--r-md); }
+.portrait-hud, .portrait-inner, .modal-box{ border-radius: var(--r-lg); }
+.lang-pill{ border-radius: var(--r-pill); padding: 0.5rem 1.1rem; }
+.lang-pill .code{ border-radius: var(--r-xs); }
+.skill-tag, .af-chip{ border-radius: var(--r-pill); }
+.g-item, .g-item::before{ border-radius: var(--r-sm); }
+.form-field input, .form-field textarea, .form-field select{ border-radius: 8px 8px 0 0; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible, [tabindex]:focus-visible{ border-radius: var(--r-xs); }
+.panel, .c-card, .hud-data-box, .edu-card, .cert-item, .about-text, .card { box-shadow: var(--shadow-card); }
+.portal-card, .svc-card, .crs-card, .exam-card, .card { box-shadow: var(--shadow-card); transition: transform 0.45s cubic-bezier(.16,1,.3,1), border-color 0.4s, box-shadow 0.4s, background 0.4s; }
+.portal-card:hover, .svc-card:hover, .crs-card:hover, .exam-card:hover, .card:hover { box-shadow: var(--shadow-card-hover); transform: translateY(-6px); }
+.portrait-hud{ box-shadow: var(--shadow-card-hover); }
+.services-grid{ gap: 1.15rem; background: none; border: none; }
+.svc-card{ border: 1px solid var(--border); }
+</style>
 </head>
 <body>
     <nav class="main-nav">
@@ -123,3 +159,4 @@
     </script>
 </body>
 </html>
+
