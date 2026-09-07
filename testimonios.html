@@ -116,7 +116,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
         </div>
     </nav>
     <main>
-        <div class="sec-head"><span class="eyebrow">Lo que dicen de mí</span><h1 class="sec-title">Testimonios</h1></div>
+        <div class="sec-head"><span class="eyebrow" data-i18n="sec.testimonios.eyebrow">Lo que dicen de mí</span><h1 class="sec-title" data-i18n="sec.testimonios.title">Testimonios</h1></div>
 <div class="grid-3">
     <div class="card">
         <div class="testi-stars">★★★★★</div>
@@ -155,7 +155,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
                 }
             });
         }
+            // Auto-cierre del menú en móviles al hacer clic en un enlace
+        const navLinksMobile = document.querySelectorAll('.nav-links a');
+        navLinksMobile.forEach(link => {
+            link.addEventListener('click', () => {
+                if(navContainer && navContainer.classList.contains('active')) {
+                    navContainer.classList.remove('active');
+                    const icon = btnMenu.querySelector('i');
+                    if(icon) { icon.classList.remove('fa-xmark'); icon.classList.add('fa-bars'); }
+                }
+            });
+        });
     </script>
 </body>
 </html>
+
 

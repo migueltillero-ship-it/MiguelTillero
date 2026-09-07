@@ -116,7 +116,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
         </div>
     </nav>
     <main>
-        <div class="sec-head"><span class="eyebrow">Mediateca abierta</span><h1 class="sec-title">Recursos para practicar</h1></div>
+        <div class="sec-head"><span class="eyebrow" data-i18n="sec.recursos.eyebrow">Mediateca abierta</span><h1 class="sec-title" data-i18n="sec.recursos.title">Recursos para practicar</h1></div>
 <p class="af-intro">Entre una clase y la siguiente pasan muchos días. Esta es la selección de recursos gratuitos y de acceso abierto que recomiendo a mis estudiantes para mantener el oído despierto y la lengua en movimiento.</p>
 <div class="grid-3">
     <a href="https://apprendre.tv5monde.com/" target="_blank" class="card" style="text-decoration:none;">
@@ -157,7 +157,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
                 }
             });
         }
+            // Auto-cierre del menú en móviles al hacer clic en un enlace
+        const navLinksMobile = document.querySelectorAll('.nav-links a');
+        navLinksMobile.forEach(link => {
+            link.addEventListener('click', () => {
+                if(navContainer && navContainer.classList.contains('active')) {
+                    navContainer.classList.remove('active');
+                    const icon = btnMenu.querySelector('i');
+                    if(icon) { icon.classList.remove('fa-xmark'); icon.classList.add('fa-bars'); }
+                }
+            });
+        });
     </script>
 </body>
 </html>
+
 

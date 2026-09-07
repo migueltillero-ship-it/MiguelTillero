@@ -116,7 +116,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
         </div>
     </nav>
     <main>
-        <div class="sec-head"><span class="eyebrow">Momentos y proyectos</span><h1 class="sec-title">Galería</h1></div>
+        <div class="sec-head"><span class="eyebrow" data-i18n="sec.galeria.eyebrow">Momentos y proyectos</span><h1 class="sec-title" data-i18n="sec.galeria.title">Galería</h1></div>
 <div class="filmstrip-track">
     <div class="g-item"><img src="https://drive.google.com/thumbnail?id=1nHMpKPvpZvhpxyQrDluo9sozD9xtRnA-&sz=w800"></div>
     <div class="g-item"><img src="https://drive.google.com/thumbnail?id=14SrCOErHmePOImKYgNWNTKIcTKdVzKZf&sz=w800"></div>
@@ -156,7 +156,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
                 }
             });
         }
+            // Auto-cierre del menú en móviles al hacer clic en un enlace
+        const navLinksMobile = document.querySelectorAll('.nav-links a');
+        navLinksMobile.forEach(link => {
+            link.addEventListener('click', () => {
+                if(navContainer && navContainer.classList.contains('active')) {
+                    navContainer.classList.remove('active');
+                    const icon = btnMenu.querySelector('i');
+                    if(icon) { icon.classList.remove('fa-xmark'); icon.classList.add('fa-bars'); }
+                }
+            });
+        });
     </script>
 </body>
 </html>
+
 

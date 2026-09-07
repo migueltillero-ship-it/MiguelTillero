@@ -138,8 +138,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     <main>
         <!-- SECCIÓN DE CURSOS -->
         <div class="sec-head">
-            <span class="eyebrow">Nuestra oferta para aprender francés</span>
-            <h1 class="sec-title">Cursos y modalidades</h1>
+            <span class="eyebrow" data-i18n="sec.cursos.eyebrow">Nuestra oferta para aprender francés</span>
+            <h1 class="sec-title" data-i18n="sec.cursos.title">Cursos y modalidades</h1>
         </div>
         <p class="af-intro">No trabajo con un método enlatado: construimos juntos un itinerario según tu objetivo, tu ritmo y el tiempo del que dispones realmente. Todos los formatos siguen el Marco Común Europeo de Referencia (MCER) y avanzan del A1 al C2 con metas claras en cada etapa.</p>
 
@@ -267,7 +267,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
                 }
             });
         }
+            // Auto-cierre del menú en móviles al hacer clic en un enlace
+        const navLinksMobile = document.querySelectorAll('.nav-links a');
+        navLinksMobile.forEach(link => {
+            link.addEventListener('click', () => {
+                if(navContainer && navContainer.classList.contains('active')) {
+                    navContainer.classList.remove('active');
+                    const icon = btnMenu.querySelector('i');
+                    if(icon) { icon.classList.remove('fa-xmark'); icon.classList.add('fa-bars'); }
+                }
+            });
+        });
     </script>
 </body>
 </html>
+
 

@@ -116,7 +116,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
         </div>
     </nav>
     <main>
-        <div class="sec-head"><span class="eyebrow">Hablemos</span><h1 class="sec-title">Contáctame</h1></div>
+        <div class="sec-head"><span class="eyebrow" data-i18n="sec.contacto.eyebrow">Hablemos</span><h1 class="sec-title" data-i18n="sec.contacto.title">Contáctame</h1></div>
 <div class="grid-2">
     <div style="background:var(--card-bg); padding:3rem; border:1px solid var(--border); border-radius:8px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
         <form action="https://api.web3forms.com/submit" method="POST">
@@ -173,7 +173,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
                 }
             });
         }
+            // Auto-cierre del menú en móviles al hacer clic en un enlace
+        const navLinksMobile = document.querySelectorAll('.nav-links a');
+        navLinksMobile.forEach(link => {
+            link.addEventListener('click', () => {
+                if(navContainer && navContainer.classList.contains('active')) {
+                    navContainer.classList.remove('active');
+                    const icon = btnMenu.querySelector('i');
+                    if(icon) { icon.classList.remove('fa-xmark'); icon.classList.add('fa-bars'); }
+                }
+            });
+        });
     </script>
 </body>
 </html>
+
 

@@ -123,8 +123,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
     <main>
         <div class="sec-head">
-            <span class="eyebrow">Mis áreas de especialidad</span>
-            <h1 class="sec-title">Lo que ofrezco</h1>
+            <span class="eyebrow" data-i18n="sec.servicios.eyebrow">Mis áreas de especialidad</span>
+            <h1 class="sec-title" data-i18n="sec.servicios.title">Lo que ofrezco</h1>
         </div>
         
         <div class="services-grid">
@@ -191,7 +191,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
                 }
             });
         }
+            // Auto-cierre del menú en móviles al hacer clic en un enlace
+        const navLinksMobile = document.querySelectorAll('.nav-links a');
+        navLinksMobile.forEach(link => {
+            link.addEventListener('click', () => {
+                if(navContainer && navContainer.classList.contains('active')) {
+                    navContainer.classList.remove('active');
+                    const icon = btnMenu.querySelector('i');
+                    if(icon) { icon.classList.remove('fa-xmark'); icon.classList.add('fa-bars'); }
+                }
+            });
+        });
     </script>
 </body>
 </html>
+
 
