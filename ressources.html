@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -23,25 +23,37 @@
         .lang-switcher { display: flex; gap: 0.4rem; align-items: center; }
         .ctrl-btn { background: none; border: 1px solid rgba(140,115,75,0.3); padding: 0.3rem 0.6rem; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.7rem; cursor: pointer; }
         .ctrl-btn.active { background: var(--primary-color); color: #fff; border-color: var(--primary-color); }
+            .hamburger { display: none; background: none; border: none; font-size: 1.8rem; color: var(--accent-green); cursor: pointer; }
+        .nav-container { display: flex; align-items: center; gap: 1.5rem; }
+        @media (max-width: 900px) {
+            .hamburger { display: block; }
+            .nav-container { display: none; flex-direction: column; width: 100%; position: absolute; top: 100%; left: 0; background: var(--card-bg); padding: 1.5rem; box-shadow: 0 10px 15px rgba(0,0,0,0.1); border-top: 1px solid rgba(43, 69, 53, 0.1); }
+            .nav-container.active { display: flex; }
+            .nav-links { flex-direction: column; width: 100%; }
+            .nav-links li { width: 100%; text-align: center; margin-bottom: 0.5rem; }
+        }
     </style>
 </head>
 <body>
-    <nav class="main-nav">
+        <nav class="main-nav">
         <a href="index.html" class="nav-brand">Miguel Tillero</a>
-        <ul class="nav-links">
-            <li><a href="perfil.html" data-i18n="nav.perfil">Perfil</a></li>
-            <li><a href="servicios.html" data-i18n="nav.servicios">Servicios</a></li>
-            <li><a href="cursos.html" data-i18n="nav.cursos">Cursos</a></li>
-            <li><a href="galeria.html" data-i18n="nav.galeria">Galería</a></li>
-            <li><a href="testimonios.html" data-i18n="nav.testimonios">Testimonios</a></li>
-            <li><a href="ressources.html" data-i18n="nav.ressources">Recursos</a></li>
-            <li><a href="contacto.html" data-i18n="nav.contacto">Contacto</a></li>
-            <li><a href="inscribete.html" class="btn-nav-action" data-i18n="nav.cotizar">Cotizar / Inscribirse</a></li>
-        </ul>
-        <div class="lang-switcher">
-            <button class="ctrl-btn active" onclick="setLang('es')">ES</button>
-            <button class="ctrl-btn" onclick="setLang('fr')">FR</button>
-            <button class="ctrl-btn" onclick="setLang('en')">EN</button>
+        <button class="hamburger" id="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        <div class="nav-container" id="nav-container">
+            <ul class="nav-links">
+                <li><a href="perfil.html" data-i18n="nav.perfil">Perfil</a></li>
+                <li><a href="servicios.html" data-i18n="nav.servicios">Servicios</a></li>
+                <li><a href="cursos.html" data-i18n="nav.cursos">Cursos</a></li>
+                <li><a href="galeria.html" data-i18n="nav.galeria">Galería</a></li>
+                <li><a href="testimonios.html" data-i18n="nav.testimonios">Testimonios</a></li>
+                <li><a href="ressources.html" data-i18n="nav.ressources">Recursos</a></li>
+                <li><a href="contacto.html" data-i18n="nav.contacto">Contacto</a></li>
+                <li><a href="inscribete.html" class="btn-nav-action" data-i18n="nav.cotizar">Cotizar / Inscribirse</a></li>
+            </ul>
+            <div class="lang-switcher">
+                <button class="ctrl-btn active" onclick="setLang('es')">ES</button>
+                <button class="ctrl-btn" onclick="setLang('fr')">FR</button>
+                <button class="ctrl-btn" onclick="setLang('en')">EN</button>
+            </div>
         </div>
     </nav>
 
@@ -54,6 +66,22 @@
         </a>
     </main>
 
-    <script src="assets/js/i18n.js"></script>
+        <script src="assets/js/i18n.js"></script>
+    <script>
+        const btnMenu = document.getElementById('mobile-menu-btn');
+        const navContainer = document.getElementById('nav-container');
+        if(btnMenu && navContainer) {
+            btnMenu.addEventListener('click', () => {
+                navContainer.classList.toggle('active');
+                const icon = btnMenu.querySelector('i');
+                if(navContainer.classList.contains('active')){
+                    icon.classList.remove('fa-bars'); icon.classList.add('fa-xmark');
+                } else {
+                    icon.classList.remove('fa-xmark'); icon.classList.add('fa-bars');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
+
