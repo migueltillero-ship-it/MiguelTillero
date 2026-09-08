@@ -1590,6 +1590,17 @@ section::after {
 <!-- Sistema de Internacionalización (i18n) -->
 <script src="i18n/i18n.js"></script>
 
+<style>
+/* Ocultar los textos HTML superpuestos porque el video 4k ya los trae integrados */
+#intro-monogram, #intro-title, #intro-sub, #intro-divider { 
+    display: none !important; 
+}
+/* Empujar el botón y el texto de 'Video de bienvenida' hacia el fondo de la pantalla */
+.intro-brand { 
+    justify-content: flex-end !important; 
+    padding-bottom: 12vh !important; 
+}
+</style>
 </head>
 <body>
 <script>if(sessionStorage.getItem('introVisto') === 'true') { document.write('<style>#video-intro { display: none !important; }.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Space Mono', monospace !important; font-size: 0.6rem !important; letter-spacing: 0.25em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; -webkit-backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; } .intro-skip:hover { background: rgba(201,169,110,0.2) !important; border-color: #a5824a !important; color: #a5824a !important; } </style>'); }</script>
@@ -3012,3 +3023,4 @@ window.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
+
