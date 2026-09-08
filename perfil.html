@@ -2487,6 +2487,21 @@ summary:focus-visible,
 <!-- Sistema de Internacionalización (i18n) -->
 <script src="i18n/i18n.js"></script>
 
+<style>
+/* FIX: Garantizar que el video cubra toda la pantalla */
+#video-intro { background: #030f08 !important; }
+#intro-video { object-fit: cover !important; width: 100vw !important; height: 100vh !important; }
+
+/* FIX: Ocultar textos duplicados (el video 4k ya trae la animacion) */
+#intro-monogram, #intro-title, #intro-sub, #intro-divider { display: none !important; }
+
+/* FIX: Bajar el botón de entrar al fondo de la pantalla */
+.intro-brand { justify-content: flex-end !important; padding-bottom: 12vh !important; }
+
+/* FIX: Botón Saltar protegido, elegante y en la esquina correcta */
+.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Space Mono', monospace !important; font-size: 0.6rem !important; letter-spacing: 0.25em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; -webkit-backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; } 
+.intro-skip:hover { background: rgba(201,169,110,0.2) !important; border-color: #a5824a !important; color: #a5824a !important; }
+</style>
 </head>
 <body data-current-page="perfil">
 <div id="vanta-bg"></div>
