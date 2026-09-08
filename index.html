@@ -1601,6 +1601,15 @@ section::after {
 .intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Space Mono', monospace !important; font-size: 0.6rem !important; letter-spacing: 0.25em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; -webkit-backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
 .intro-skip:hover { background: rgba(201,169,110,0.2) !important; border-color: #a5824a !important; color: #a5824a !important; }
 </style>
+<style>
+/* FIX PORTADA Y BOTONES */
+#intro-monogram, #intro-title, #intro-sub, #intro-divider { display: none !important; }
+.intro-brand { justify-content: flex-end !important; padding-bottom: 12vh !important; }
+#video-intro { background: #030f08 !important; }
+#intro-video { object-fit: cover !important; width: 100vw !important; height: 100vh !important; }
+.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Space Mono', monospace !important; font-size: 0.6rem !important; letter-spacing: 0.25em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; -webkit-backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
+.intro-skip:hover { background: rgba(201,169,110,0.2) !important; border-color: #a5824a !important; color: #a5824a !important; }
+</style>
 </head>
 <body>
 <script>if(sessionStorage.getItem('introVisto') === 'true') { document.write('<style>#video-intro { display: none !important; }</style>'); }</script>
@@ -3300,7 +3309,7 @@ section::after {
     <div class="pagos-intro reveal" style="text-align:center;max-width:560px;margin:0 auto;">
       <p data-es="Por seguridad, los datos bancarios (CLABE, código OXXO) están en una página reservada para mis estudiantes." data-fr="Par sécurité, les coordonnées bancaires (CLABE, code OXXO) se trouvent sur une page réservée à mes étudiants." data-en="For security, banking details (CLABE, OXXO code) are on a page reserved for my students.">Por seguridad, los datos bancarios (CLABE, código OXXO) están en una página reservada para mis estudiantes.</p>
       <div style="margin-top:1.5rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-        <a href="pagos.html" class="btn btn-ghost" rel="nofollow"><i class="fa fa-lock"></i><span data-es="Ver métodos de pago" data-fr="Voir les moyens de paiement" data-en="View payment methods">Ver métodos de pago</span></a>
+        <a href="#pagos" class="btn btn-ghost" rel="nofollow"><i class="fa fa-lock"></i><span data-es="Ver métodos de pago" data-fr="Voir les moyens de paiement" data-en="View payment methods">Ver métodos de pago</span></a>
         <a href="https://wa.me/529673424456?text=Hola%20Miguel%2C%20%C2%BFme%20compartes%20los%20datos%20de%20pago%3F" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fab fa-whatsapp"></i><span data-es="Pedirlos por WhatsApp" data-fr="Les demander par WhatsApp" data-en="Request via WhatsApp">Pedirlos por WhatsApp</span></a>
       </div>
     </div>
@@ -4529,4 +4538,5 @@ window.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
+
 
