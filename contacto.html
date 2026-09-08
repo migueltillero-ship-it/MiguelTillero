@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vive el francés · Con el profesor Miguel Tillero</title>
+<title>Contacto · Miguel Tillero</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <style>
 /* VARIABLES — SISTEMA FUTURISTA */
@@ -198,7 +199,27 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
         #lb-close:hover { border-color: var(--primary-color); color: var(--primary-color); background: rgba(255,255,255,0.1); }
         .filmstrip-loading { display: flex; align-items: center; justify-content: center; gap: 0.6rem; min-height: 220px; width: 100%; font-family: 'Space Mono', monospace; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--primary-color); }
         .filmstrip-hint { display: flex; align-items: center; justify-content: center; gap: 0.8rem; margin-top: 1rem; font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-light); }
-    .intro-skip { position: absolute !important; top: 2rem !important; right: 2rem !important; z-index: 99999 !important; }</style>
+
+    /* CONTACTO */
+    .contact-grid { display: grid; grid-template-columns: 320px 1fr; gap: 2.5rem; margin: 0 auto 6rem; max-width: 980px; }
+    .contact-info { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-item { display: flex; align-items: center; gap: 1rem; padding: 1.4rem 1.3rem; background: rgba(255,255,255,0.72); border: 1px solid var(--border); backdrop-filter: blur(16px); transition: all 0.3s; }
+    .contact-item:hover { background: rgba(255,255,255,0.94); border-color: var(--gold); transform: translateY(-3px); }
+    .contact-item i { font-size: 1.4rem; color: var(--gold); width: 1.6rem; text-align: center; }
+    .contact-item .contact-label { display: block; font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+    .contact-item .contact-value { display: block; font-family: 'Syne', sans-serif; font-size: 0.92rem; color: var(--white); font-weight: 600; margin-top: 0.15rem; word-break: break-word; }
+    .contact-form { padding: 2.2rem; background: rgba(255,255,255,0.72); border: 1px solid var(--border); backdrop-filter: blur(16px); display: flex; flex-direction: column; gap: 1.3rem; }
+    .form-row { display: flex; flex-direction: column; gap: 0.5rem; }
+    .form-row label { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+    .form-row input, .form-row textarea { font-family: 'Syne', sans-serif; font-size: 0.9rem; color: var(--text); background: rgba(255,255,255,0.9); border: 1px solid var(--border); padding: 0.8rem 1rem; outline: none; transition: border-color 0.3s; resize: vertical; }
+    .form-row input:focus, .form-row textarea:focus { border-color: var(--gold); }
+    .contact-form .btn { align-self: flex-start; }
+    .contact-form .btn:disabled { opacity: 0.6; cursor: wait; }
+    .cf-status { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.03em; min-height: 1.2em; }
+    .cf-status.ok { color: var(--cyan); }
+    .cf-status.err { color: #a5432f; }
+    @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; } }
+    </style>
 </head>
 <body>
 
@@ -246,83 +267,55 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 </nav>
 
 <main>
-  <section id="hero" class="z10">
-    <div class="container">
-      <div class="hero-inner">
-        <div>
-          <div class="hero-pre"><span>Direction Générale · FLE Specialist</span></div>
-          <h1 class="hero-name">Miguel <em>Tillero</em><div class="glitch-layer">Miguel Tillero</div></h1>
-          <p class="hero-tagline" data-i18n="hero.tagline">Profesor especialista en la enseñanza del francés como lengua extranjera · FLE · Gestión cultural.</p>
-          <div class="hero-langs">
-            <div class="lang-pill"><span class="code">ES</span><span class="lvl">Nativo</span></div>
-            <div class="lang-pill"><span class="code">FR</span><span class="lvl">C1</span></div>
-            <div class="lang-pill"><span class="code">EN</span><span class="lvl">B1/B2</span></div>
-          </div>
-          <div class="hero-cta">
-            <a href="inscribete.html" class="btn btn-gold"><i class="fa fa-graduation-cap"></i><span data-i18n="hero.btn.start">Comenzar clases</span></a>
-            <a href="contacto.html" class="btn btn-ghost"><i class="fa fa-envelope"></i><span data-i18n="hero.btn.contact">Escribirme</span></a>
-          </div>
-        </div>
-
-        <div class="hero-portrait-panel">
-          <div class="portrait-hud bracket">
-            <div class="portrait-inner" id="portraitCarousel">
-              <img class="portrait-slide active" src="assets/images/portrait-director-1.jpg" onerror="this.src='https://ui-avatars.com/api/?name=Miguel+Tillero&background=8c734b&color=fff&size=400'">
-              <img class="portrait-slide" src="assets/images/portrait-director-3.jpg" onerror="this.style.display='none'">
-              <div class="portrait-data">
-                <div class="name-tag">MIGUEL TILLERO ÁLVAREZ</div>
-                <div><i class="fa fa-map-marker-alt"></i> Especialista FLE</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- PORTAL GRID -->
+  <section id="contacto-hero" class="z10">
+    <div class="container" style="padding-top: 8rem;">
       <div class="portal-head">
         <span class="portal-line"></span>
-        <p class="eyebrow">Elige por dónde empezar</p>
+        <p class="eyebrow">Hablemos</p>
         <span class="portal-line"></span>
       </div>
+      <h1 class="hero-name" style="text-align:center; font-size:clamp(2.6rem,5.5vw,4.2rem); margin-bottom:1.2rem;">Contacto</h1>
+      <p class="hero-tagline" style="max-width:640px; margin:0 auto 3.5rem; text-align:center;">¿Dudas sobre los cursos, los exámenes DELF/DALF/TCF o quieres agendar una clase? Escríbeme y te respondo directamente — también puedes escribirme por WhatsApp.</p>
 
-      <div class="portal-grid">
-        <a href="cursos.html" class="portal-card feature">
-          <span class="portal-num">01</span><i class="fa fa-graduation-cap portal-icon"></i>
-          <h3 class="portal-title">Cursos y exámenes</h3>
-          <p class="portal-desc">Modalidades de clase, preparación DELF/DALF y TCF/TEF, escala de niveles y recursos para practicar.</p>
-          <span class="portal-go">Entrar</span>
-        </a>
-        <a href="servicios.html" class="portal-card">
-          <span class="portal-num">02</span><i class="fa fa-briefcase portal-icon"></i>
-          <h3 class="portal-title">Servicios</h3>
-          <p class="portal-desc">Asesoría pedagógica, proyectos educativos, gestión cultural y traducción institucional.</p>
-          <span class="portal-go">Entrar</span>
-        </a>
-        <a href="perfil.html" class="portal-card">
-          <span class="portal-num">03</span><i class="fa fa-user portal-icon"></i>
-          <h3 class="portal-title">Perfil</h3>
-          <p class="portal-desc">Mi trayectoria profesional en Ecuador, Venezuela, México y Francia.</p>
-          <span class="portal-go">Entrar</span>
-        </a>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <a class="contact-item" href="mailto:migueltillero@gmail.com">
+            <i class="fa-solid fa-envelope"></i>
+            <div><span class="contact-label">Correo</span><span class="contact-value">migueltillero@gmail.com</span></div>
+          </a>
+          <a class="contact-item" href="https://wa.me/584122465331" target="_blank" rel="noopener">
+            <i class="fa-brands fa-whatsapp"></i>
+            <div><span class="contact-label">WhatsApp</span><span class="contact-value">+58 412-246-5331</span></div>
+          </a>
+          <div class="contact-item" style="cursor:default;">
+            <i class="fa-solid fa-location-dot"></i>
+            <div><span class="contact-label">Ubicación</span><span class="contact-value">San Cristóbal de las Casas, Chiapas</span></div>
+          </div>
+        </div>
+
+        <form id="contact-form" class="contact-form">
+          <div class="form-row">
+            <label for="cf-name">Nombre</label>
+            <input type="text" id="cf-name" name="from_name" required placeholder="Tu nombre">
+          </div>
+          <div class="form-row">
+            <label for="cf-email">Correo electrónico</label>
+            <input type="email" id="cf-email" name="reply_to" required placeholder="tu@correo.com">
+          </div>
+          <div class="form-row">
+            <label for="cf-subject">Asunto</label>
+            <input type="text" id="cf-subject" name="subject" required placeholder="¿En qué puedo ayudarte?">
+          </div>
+          <div class="form-row">
+            <label for="cf-message">Mensaje</label>
+            <textarea id="cf-message" name="message" rows="5" required placeholder="Cuéntame qué necesitas..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-gold" id="cf-submit"><i class="fa fa-paper-plane"></i><span>Enviar mensaje</span></button>
+          <p id="cf-status" class="cf-status" role="status" aria-live="polite"></p>
+        </form>
       </div>
-
-      <!-- GALLERY FILMSTRIP -->
-      <div class="filmstrip-wrap">
-        <div class="filmstrip-wrap" data-gallery>
-    <div class="filmstrip-track" id="filmstripTrack" tabindex="0" role="region" aria-label="Galería de imágenes, desplazable con las flechas">
-        <div class="filmstrip-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> <span>Cargando carrete de Google Drive...</span></div>
-    </div>
-</div>
-<div class="filmstrip-hint">
-    <i class="fa-solid fa-hand-pointer"></i> <span data-i18n="sec.galeria.hint">Arrastra para explorar</span>
-</div></div>
-
     </div>
   </section>
-    <div id="lightbox" role="dialog" aria-modal="true">
-        <button id="lb-close" aria-label="Cerrar"><i class="fa-solid fa-times"></i></button>
-        <img loading="lazy" id="lb-img" src="" alt="">
-    </div>
 </main>
 
 <script>
@@ -500,6 +493,49 @@ document.addEventListener('DOMContentLoaded', () => {
     track.addEventListener('mouseenter', () => clearInterval(autoId));
     track.addEventListener('mouseleave', () => { clearInterval(autoId); autoId = setInterval(() => { if (!isDown) { track.scrollLeft += 0.6; if (track.scrollLeft >= track.scrollWidth / 2) track.scrollLeft = 0; } }, 16); });
 });
+</script>
+
+<!-- FORMULARIO DE CONTACTO — EMAILJS -->
+<script>
+(function () {
+    // Datos de tu cuenta EmailJS (Public Key: segura para exponer en el navegador)
+    var EMAILJS_PUBLIC_KEY  = '7FPd-e34G4AgVK5YA';
+    var EMAILJS_SERVICE_ID  = 'service_uv779js';
+    var EMAILJS_TEMPLATE_ID = 'template_sp4hl5f';
+
+    if (typeof emailjs === 'undefined') return;
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+    var form = document.getElementById('contact-form');
+    if (!form) return;
+    var statusEl = document.getElementById('cf-status');
+    var submitBtn = document.getElementById('cf-submit');
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        statusEl.textContent = '';
+        statusEl.className = 'cf-status';
+        submitBtn.disabled = true;
+        var originalHTML = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i><span>Enviando…</span>';
+
+        emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form)
+            .then(function () {
+                statusEl.textContent = '¡Mensaje enviado! Te responderé lo antes posible.';
+                statusEl.classList.add('ok');
+                form.reset();
+            })
+            .catch(function (err) {
+                console.error('EmailJS error:', err);
+                statusEl.textContent = 'No se pudo enviar el mensaje. Escríbeme directo a migueltillero@gmail.com o por WhatsApp.';
+                statusEl.classList.add('err');
+            })
+            .finally(function () {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalHTML;
+            });
+    });
+})();
 </script>
 </body>
 </html>
