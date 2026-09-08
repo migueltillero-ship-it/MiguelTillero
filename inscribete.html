@@ -2516,7 +2516,157 @@ summary:focus-visible,
   </div>
 </nav>
 <main>
+<section id="inscripcion" class="z10" data-page="contacto">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;margin-bottom:2.5rem;">
+      <p class="eyebrow" style="justify-content:center"
+         data-es="Comienza tu aprendizaje" data-fr="Commencez votre apprentissage" data-en="Start learning">
+        Comienza tu aprendizaje
+      </p>
+      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;">
+        <em data-es="Inscríbete a tus clases" data-fr="Inscrivez-vous" data-en="Enroll now">Inscríbete a tus clases</em>
+      </h2>
+    </div>
 
+    <div class="insc-intro reveal">
+      <p data-es="Completa este formulario para que pueda conocerte mejor y diseñar un plan de clases a tu medida. Tus respuestas me ayudarán a organizar horarios, adaptar la metodología a tus objetivos y ofrecerte la mejor experiencia de aprendizaje del francés." data-fr="Remplissez ce formulaire pour que je puisse mieux vous connaître et concevoir un plan de cours sur mesure." data-en="Fill out this form so I can get to know you and design a tailored class plan.">Completa este formulario para que pueda conocerte mejor y diseñar un plan de clases a tu medida. Tus respuestas me ayudarán a organizar horarios, adaptar la metodología a tus objetivos y ofrecerte la mejor experiencia de aprendizaje del francés.</p>
+      <p style="text-align:center;margin-top:1.2rem">
+        <a href="registro/alta.html" class="btn btn-ghost btn-express">
+          <i class="fa fa-bolt"></i>
+          <span data-es="¿Ya hablaste con Miguel? Ficha exprés en 3 pasos" data-fr="Déjà en contact avec Miguel ? Fiche express en 3 étapes" data-en="Already talked to Miguel? Express form in 3 steps">¿Ya hablaste con Miguel? Ficha exprés en 3 pasos</span>
+        </a>
+      </p>
+    </div>
+
+    <form class="insc-form reveal" id="inscForm">
+
+      <!-- DATOS PERSONALES -->
+      <div class="insc-group">
+        <div class="insc-legend"><i class="fa fa-user"></i> <span data-es="Datos personales" data-fr="Données personnelles" data-en="Personal details">Datos personales</span></div>
+        <div class="insc-row">
+          <div class="insc-field">
+            <label for="f-nombre" data-es="Nombre completo" data-fr="Nom complet" data-en="Full name">Nombre completo <span class="req">*</span></label>
+            <input id="f-nombre" type="text" name="nombre" required placeholder="Tu nombre y apellidos" data-es="Tu nombre y apellidos" data-fr="Votre nom et prénoms" data-en="Your name and last name">
+          </div>
+          <div class="insc-field">
+            <label for="f-email-2">Email <span class="req">*</span></label>
+            <input id="f-email-2" type="email" name="email" required placeholder="tu@correo.com" data-es="tu@correo.com" data-fr="vous@email.com" data-en="you@email.com">
+          </div>
+        </div>
+        <div class="insc-row">
+          <div class="insc-field">
+            <label for="f-telefono" data-es="WhatsApp / Teléfono" data-fr="WhatsApp / Téléphone" data-en="WhatsApp / Phone">WhatsApp / Teléfono</label>
+            <input id="f-telefono" type="tel" name="telefono" placeholder="+52 ..." data-es="+52 ..." data-fr="+33 ..." data-en="+1 ...">
+          </div>
+          <div class="insc-field">
+            <label for="f-edad" data-es="Edad" data-fr="Âge" data-en="Age">Edad</label>
+            <input id="f-edad" type="text" name="edad" placeholder="Opcional" data-es="Opcional" data-fr="Optionnel" data-en="Optional">
+          </div>
+        </div>
+        <div class="insc-field">
+          <label for="f-ciudad" data-es="Lugar donde vives (ciudad / zona)" data-fr="Lieu de résidence" data-en="Where you live">Lugar donde vives (ciudad / zona)</label>
+          <input id="f-ciudad" type="text" name="ciudad" placeholder="Ciudad, colonia o zona" data-es="Ciudad, colonia o zona" data-fr="Ville, quartier ou zone" data-en="City, neighborhood or area">
+        </div>
+      </div>
+
+      <!-- NIVEL Y HORAS -->
+      <div class="insc-group">
+        <div class="insc-legend"><i class="fa fa-graduation-cap"></i> <span data-es="Tu nivel y objetivos" data-fr="Niveau et objectifs" data-en="Level & goals">Tu nivel y objetivos</span></div>
+        <div class="insc-row">
+          <div class="insc-field">
+            <label for="f-nivel" data-es="Nivel actual de francés" data-fr="Niveau actuel" data-en="Current level">Nivel actual de francés</label>
+            <select id="f-nivel" name="nivel">
+              <option value="" disabled selected data-es="— Selecciona —" data-fr="— Sélectionner —" data-en="— Select —">— Selecciona —</option>
+              <option data-es="Principiante total (A0)" data-fr="Débutant complet (A0)" data-en="Total beginner (A0)">Principiante total (A0)</option>
+              <option data-es="Básico (A1 - A2)" data-fr="Élémentaire (A1 - A2)" data-en="Elementary (A1 - A2)">Básico (A1 - A2)</option>
+              <option data-es="Intermedio (B1 - B2)" data-fr="Intermédiaire (B1 - B2)" data-en="Intermediate (B1 - B2)">Intermedio (B1 - B2)</option>
+              <option data-es="Avanzado (C1 - C2)" data-fr="Avancé (C1 - C2)" data-en="Advanced (C1 - C2)">Avanzado (C1 - C2)</option>
+              <option data-es="No estoy seguro / Necesito evaluación" data-fr="Pas sûr / Évaluation requise" data-en="Not sure / Need evaluation">No estoy seguro / Necesito evaluación</option>
+            </select>
+          </div>
+          <div class="insc-field">
+            <label for="f-horas" data-es="Horas que deseas contratar" data-fr="Heures souhaitées" data-en="Hours wanted">Nº de horas que deseas contratar</label>
+            <select id="f-horas" name="horas">
+              <option value="" disabled selected data-es="— Selecciona —" data-fr="— Sélectionner —" data-en="— Select —">— Selecciona —</option>
+              <option data-es="Paquete de 10 horas" data-fr="Forfait de 10 heures" data-en="Package of 10 hours">Paquete de 10 horas</option>
+              <option data-es="Paquete de 20 horas" data-fr="Forfait de 20 heures" data-en="Package of 20 hours">Paquete de 20 horas</option>
+              <option data-es="Paquete de 30 horas" data-fr="Forfait de 30 heures" data-en="Package of 30 hours">Paquete de 30 horas</option>
+              <option data-es="Clases semanales continuas" data-fr="Cours hebdomadaires continus" data-en="Continuous weekly classes">Clases semanales continuas</option>
+              <option data-es="Aún no lo sé" data-fr="Je ne sais pas encore" data-en="I don't know yet">Aún no lo sé</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- DISPONIBILIDAD -->
+      <div class="insc-group">
+        <div class="insc-legend"><i class="fa fa-clock"></i> <span data-es="Disponibilidad horaria (marca todas las que apliquen)" data-fr="Disponibilités" data-en="Availability">Disponibilidad horaria — marca todas las que apliquen</span></div>
+        <div class="dispo-grid">
+          <label class="dispo-option"><input type="checkbox" name="dispo" value="Lunes a viernes - mañana"> <span data-es="Entre semana · Mañana" data-fr="Entre semaine · Matin" data-en="Weekday · Morning">Entre semana · Mañana</span></label>
+          <label class="dispo-option"><input type="checkbox" name="dispo" value="Lunes a viernes - tarde"> <span data-es="Entre semana · Tarde" data-fr="Entre semaine · Après-midi" data-en="Weekday · Afternoon">Entre semana · Tarde</span></label>
+          <label class="dispo-option"><input type="checkbox" name="dispo" value="Lunes a viernes - noche"> <span data-es="Entre semana · Noche" data-fr="Entre semaine · Soirée" data-en="Weekday · Evening">Entre semana · Noche</span></label>
+          <label class="dispo-option"><input type="checkbox" name="dispo" value="Sábado - mañana"> <span data-es="Sábado · Mañana" data-fr="Samedi · Matin" data-en="Saturday · Morning">Sábado · Mañana</span></label>
+          <label class="dispo-option"><input type="checkbox" name="dispo" value="Sábado - tarde"> <span data-es="Sábado · Tarde" data-fr="Samedi · Après-midi" data-en="Saturday · Afternoon">Sábado · Tarde</span></label>
+          <label class="dispo-option"><input type="checkbox" name="dispo" value="Domingo"> <span data-es="Domingo" data-fr="Dimanche" data-en="Sunday">Domingo</span></label>
+          <label class="dispo-option"><input type="checkbox" name="dispo" value="Horario flexible"> <span data-es="Horario flexible" data-fr="Horaire flexible" data-en="Flexible schedule">Horario flexible</span></label>
+        </div>
+      </div>
+
+      <!-- MOTIVACIÓN Y EXPECTATIVAS -->
+      <div class="insc-group">
+        <div class="insc-legend"><i class="fa fa-heart"></i> <span data-es="Tu motivación" data-fr="Votre motivation" data-en="Your motivation">Tu motivación</span></div>
+        <div class="insc-field">
+          <label for="f-motivacion" data-es="¿Por qué quieres aprender francés? (motivación)" data-fr="Pourquoi le français ?" data-en="Why French?">¿Por qué quieres aprender francés? (motivación)</label>
+          <textarea id="f-motivacion" name="motivacion" placeholder="Trabajo, viaje, estudios, certificación DELF/DALF, cultura, migración..." data-es="Trabajo, viaje, estudios, certificación DELF/DALF, cultura, migración..." data-fr="Travail, voyage, études, certification DELF/DALF, culture, migration..." data-en="Work, travel, studies, DELF/DALF certification, culture, migration..."></textarea>
+        </div>
+        <div class="insc-field">
+          <label for="f-expectativas" data-es="¿Qué esperas lograr con tus clases? (expectativas)" data-fr="Vos attentes" data-en="Expectations">¿Qué esperas lograr con tus clases? (expectativas)</label>
+          <textarea id="f-expectativas" name="expectativas" placeholder="Tus metas a corto y largo plazo..." data-es="Tus metas a corto y largo plazo..." data-fr="Vos objectifs à court et long terme..." data-en="Your short and long-term goals..."></textarea>
+        </div>
+        <div class="insc-field">
+          <label for="f-no_gusta" data-es="¿Qué NO te gustaría de tus clases?" data-fr="Ce que vous n'aimeriez pas" data-en="What you wouldn't like">¿Qué NO te gustaría de tus clases?</label>
+          <textarea id="f-no_gusta" name="no_gusta" placeholder="Para evitar métodos o dinámicas que no funcionan para ti..." data-es="Para evitar métodos o dinámicas que no funcionan para ti..." data-fr="Pour éviter les méthodes ou dynamiques qui ne vous conviennent pas..." data-en="To avoid methods or dynamics that don't work for you..."></textarea>
+        </div>
+      </div>
+
+      <!-- ENTREVISTA PREVIA -->
+      <div class="insc-group">
+        <div class="insc-legend"><i class="fa fa-comments"></i> <span data-es="Contacto previo" data-fr="Contact préalable" data-en="Previous contact">Contacto previo</span></div>
+        <div class="insc-field">
+          <label id="lbl-entrevista" data-es="¿Ya has tenido una entrevista o clase de prueba conmigo?" data-fr="Entretien préalable ?" data-en="Previous interview?">¿Ya has tenido una entrevista o clase de prueba conmigo?</label>
+          <div role="group" aria-labelledby="lbl-entrevista" class="radio-row" style="margin-top:0.5rem">
+            <label class="radio-opt"><input type="radio" name="entrevista" value="Primera entrevista completada"> <span data-es="Ya tuve mi primera entrevista con Miguel" data-fr="J'ai déjà eu mon premier entretien avec Miguel" data-en="I already had my first interview with Miguel">Ya tuve mi primera entrevista con Miguel</span></label>
+            <label class="radio-opt"><input type="radio" name="entrevista" value="No"> <span data-es="No, es la primera vez" data-fr="Non, c'est la première fois" data-en="No, it's the first time">No, es la primera vez</span></label>
+            <label class="radio-opt"><input type="radio" name="entrevista" value="Agendada"> <span data-es="Tengo una agendada" data-fr="J'en ai une programmée" data-en="I have one scheduled">Tengo una agendada</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMENTARIOS -->
+      <div class="insc-group">
+        <div class="insc-legend"><i class="fa fa-pen"></i> <span data-es="Cierre" data-fr="Remarques" data-en="Closing">Para cerrar</span></div>
+        <div class="insc-field">
+          <label for="f-comentarios" data-es="Dudas, comentarios y sugerencias" data-fr="Questions et remarques" data-en="Questions & comments">Dudas, comentarios y sugerencias</label>
+          <textarea id="f-comentarios" name="comentarios" placeholder="Lo que quieras agregar..." data-es="Lo que quieras agregar..." data-fr="Tout ce que vous voulez ajouter..." data-en="Anything you want to add..."></textarea>
+        </div>
+      </div>
+
+      <button type="submit" class="insc-submit">
+        <i class="fa fa-paper-plane"></i>&nbsp;
+        <span data-es="Enviar mi inscripción" data-fr="Envoyer mon inscription" data-en="Submit enrollment">Enviar mi inscripción</span>
+      </button>
+
+      <div class="insc-success" id="inscSuccess">
+        <span data-es="✦ ¡Inscripción recibida! ✦" data-fr="✦ Inscription reçue ! ✦" data-en="✦ Enrollment received! ✦">✦ ¡Inscripción recibida! ✦</span><br>
+        <span data-es="Revisaré tus respuestas y te contactaré pronto para coordinar tu plan de clases." data-fr="Je vais examiner vos réponses et vous contacterai bientôt pour coordonner votre plan de cours." data-en="I will review your answers and contact you soon to coordinate your class plan.">Revisaré tus respuestas y te contactaré pronto para coordinar tu plan de clases.</span>
+        <div class="success-actions">
+          <a href="#inicio" data-route="inicio" class="btn btn-ghost"><i class="fa fa-house"></i>&nbsp;Volver al inicio</a>
+          <a href="https://wa.me/529673424456?text=Hola%20Miguel%2C%20acabo%20de%20enviar%20mi%20formulario%20de%20inscripci%C3%B3n%20en%20tu%20p%C3%A1gina%20web." target="_blank" rel="noopener" class="btn btn-gold"><i class="fab fa-whatsapp"></i>&nbsp;Avisar por WhatsApp</a>
+        </div>
+        </div>
+    </form>
+  </div>
+</section>
 </main>
 <footer id="footer" class="z10">
   <div class="container">

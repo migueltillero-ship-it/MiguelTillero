@@ -1477,7 +1477,7 @@ section::after {
 }
 
 /* Botón saltar */
-.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Space Mono', monospace !important; font-size: 0.6rem !important; letter-spacing: 0.25em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; } .intro-skip:hover { background: rgba(201,169,110,0.2) !important; border-color: #a5824a !important; color: #a5824a !important; } </style>
+.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Space Mono', monospace !important; font-size: 0.6rem !important; letter-spacing: 0.25em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; -webkit-backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; } .intro-skip:hover { background: rgba(201,169,110,0.2) !important; border-color: #a5824a !important; color: #a5824a !important; } </style>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <!-- ═══ SEO EJECUTIVO ═══ -->
@@ -1592,7 +1592,7 @@ section::after {
 
 </head>
 <body>
-<script>if(sessionStorage.getItem('introVisto') === 'true') { document.write('<style>#video-intro { display: none !important; }.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Space Mono', monospace !important; font-size: 0.6rem !important; letter-spacing: 0.25em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; } .intro-skip:hover { background: rgba(201,169,110,0.2) !important; border-color: #a5824a !important; color: #a5824a !important; } </style>'); }</script>
+<script>if(sessionStorage.getItem('introVisto') === 'true') { document.write('<style>#video-intro { display: none !important; }.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Space Mono', monospace !important; font-size: 0.6rem !important; letter-spacing: 0.25em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; -webkit-backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; } .intro-skip:hover { background: rgba(201,169,110,0.2) !important; border-color: #a5824a !important; color: #a5824a !important; } </style>'); }</script>
 <!-- ═══════════════════════════════════════════
      VIDEO INTRO — Pantalla completa de entrada
 ═══════════════════════════════════════════ -->
@@ -1654,7 +1654,141 @@ section::after {
   </div>
 </nav>
 <main>
+<section id="hero" class="z10" data-page="inicio">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-pre">
+          <span>Direction Générale · FLE Specialist</span>
+        </div>
+        <h1 class="hero-name">
+          Miguel
+          <em>Tillero</em>
+        </h1>
+        <p class="hero-tagline" data-es="Profesor especialista en la enseñanza del francés como lengua extranjera · FLE · Gestión cultural." data-fr="Spécialiste de l'enseignement du français langue étrangère · FLE · Direction culturelle." data-en="French as a Foreign Language Specialist · FLE Teaching · Cultural Management.">
+          Profesor especialista en la enseñanza del francés como lengua extranjera · FLE · Gestión cultural.
+        </p>
+        <div class="hero-langs">
+          <div class="lang-pill"><span class="code">ES</span><span class="lvl" data-es="Nativo" data-fr="Natif" data-en="Native">Nativo</span></div>
+          <div class="lang-pill"><span class="code">FR</span><span class="lvl">C1</span></div>
+          <div class="lang-pill"><span class="code">EN</span><span class="lvl">B1/B2</span></div>
+        </div>
+        <div class="hero-cta">
+          <button onclick="openModal('modal-clase')" class="btn btn-gold"><i class="fa fa-graduation-cap"></i><span data-es="Clase de prueba gratuita" data-fr="Cours d'essai gratuit" data-en="Free trial class">Clase de prueba gratuita</span></button>
+          <a href="#contact" class="btn btn-ghost"><i class="fa fa-envelope"></i><span data-es="Escribirme" data-fr="Me contacter" data-en="Contact me">Escribirme</span></a>
+          <!-- CV dropdown -->
+          <div style="position:relative;display:inline-block" id="cv-drop-wrap">
+            <button class="btn btn-ghost" onclick="document.getElementById('cv-drop').classList.toggle('open')" style="gap:.5rem">
+              <i class="fa fa-file-pdf"></i>
+              <span data-es="CV" data-fr="CV" data-en="CV">CV</span>
+              <i class="fa fa-chevron-down" style="font-size:.55rem"></i>
+            </button>
+            <div id="cv-drop" style="display:none;position:absolute;top:110%;left:0;min-width:220px;background:rgba(255,255,255,.96);border:1px solid rgba(201,169,110,.35);backdrop-filter:blur(16px);z-index:200;padding:.5rem 0">
+              <a href="cv-miguel-tillero-es.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
+                <span class="cv-flag">ES</span>&nbsp; Español
+              </a>
+              <a href="cv-miguel-tillero-fr.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
+                <span class="cv-flag">FR</span>&nbsp; Français
+              </a>
+              <a href="cv-miguel-tillero-en.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
+                <span class="cv-flag">EN</span>&nbsp; English
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <div class="hero-portrait-panel">
+        <div class="portrait-hud bracket">
+          <div class="portrait-inner" id="portraitCarousel">
+            <!-- Carrusel — set oficial de fotos -->
+            <img class="portrait-slide active"
+                 src="portrait-director-1.jpg"
+                 alt="Miguel Tillero — Profesor de francés, especialista FLE"
+                 style="object-fit:cover;object-position:center top"
+                 onerror="this.src='IMG-20250925-WA0034.jpg'">
+            <img class="portrait-slide"
+                 src="portrait-director-3.jpg"
+                 alt="Miguel Tillero — Spécialiste FLE"
+                 style="object-fit:cover;object-position:center top"
+                 onerror="this.style.display='none'">
+            <img class="portrait-slide"
+                 src="IMG-20250925-WA0034.jpg"
+                 alt="Miguel Tillero — Formateur"
+                 style="object-fit:cover;object-position:center top"
+                 onerror="this.style.display='none'">
+                        <div class="portrait-data">
+              <div class="name-tag">MIGUEL TILLERO ÁLVAREZ</div>
+              <div class="loc"><i class="fa fa-map-marker-alt"></i> Profesor de francés · Especialista FLE</div>
+            </div>
+          </div>
+        </div>
+        <div class="hud-data-box">
+          <div class="row"><span data-es="Experiencia" data-fr="Expérience" data-en="Experience">Experiencia</span><span class="val" data-es="13 años · 5 países" data-fr="13 ans · 5 pays" data-en="13 years · 5 countries">13 años · 5 países</span></div>
+          <div class="row"><span data-es="Certificaciones" data-fr="Certifications" data-en="Certifications">Certificaciones</span><span class="val">DELF · DALF · MCL</span></div>
+          <div class="row"><span data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</span><span class="val">migueltillero@gmail.com</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ACCESOS A LAS PÁGINAS ── -->
+    <div class="portal-head reveal">
+      <span class="portal-line"></span>
+      <p class="eyebrow" data-es="Elige por dónde empezar" data-fr="Choisissez par où commencer" data-en="Choose where to start">Elige por dónde empezar</p>
+      <span class="portal-line"></span>
+    </div>
+
+    <div class="portal-grid">
+      <a href="#estudiantes" class="portal-card feature reveal d1">
+        <span class="portal-num">01</span>
+        <i class="fa fa-graduation-cap portal-icon"></i>
+        <h3 class="portal-title" data-es="Cursos y exámenes" data-fr="Cours et examens" data-en="Courses & exams">Cursos y exámenes</h3>
+        <p class="portal-desc" data-es="Las modalidades de clase, los diplomas oficiales DELF y DALF, los tests TCF y TEF, la escala de niveles con test de ubicación, las actividades y los recursos para practicar." data-fr="Les formats de cours, les diplômes DELF et DALF, les tests TCF et TEF, l'échelle des niveaux avec test de positionnement, les activités et les ressources." data-en="Class formats, the official DELF and DALF diplomas, the TCF and TEF tests, the level scale with a placement test, activities and practice resources.">Las modalidades de clase, los diplomas oficiales DELF y DALF, los tests TCF y TEF, la escala de niveles con test de ubicación, las actividades y los recursos para practicar.</p>
+        <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
+      </a>
+
+      <a href="#servicios" class="portal-card reveal d2">
+        <span class="portal-num">02</span>
+        <i class="fa fa-briefcase portal-icon"></i>
+        <h3 class="portal-title" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</h3>
+        <p class="portal-desc" data-es="Clases, asesoría pedagógica, proyectos educativos, gestión cultural, traducción e interpretación y formación a medida." data-fr="Cours, conseil pédagogique, projets éducatifs, direction culturelle, traduction et formation sur mesure." data-en="Classes, pedagogical consulting, educational projects, cultural management, translation and tailored training.">Clases, asesoría pedagógica, proyectos educativos, gestión cultural, traducción e interpretación y formación a medida.</p>
+        <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
+      </a>
+
+      <a href="#perfil" class="portal-card reveal d3">
+        <span class="portal-num">03</span>
+        <i class="fa fa-user portal-icon"></i>
+        <h3 class="portal-title" data-es="Perfil" data-fr="Profil" data-en="Profile">Perfil</h3>
+        <p class="portal-desc" data-es="Quién soy, mi trayectoria por Venezuela, Ecuador, México y Francia, y la formación que respalda mi trabajo." data-fr="Qui je suis, mon parcours entre le Venezuela, l'Équateur, le Mexique et la France, et ma formation." data-en="Who I am, my path through Venezuela, Ecuador, Mexico and France, and the training behind my work.">Quién soy, mi trayectoria por Venezuela, Ecuador, México y Francia, y la formación que respalda mi trabajo.</p>
+        <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
+      </a>
+
+      <a href="#galeria" class="portal-card reveal d4">
+        <span class="portal-num">04</span>
+        <i class="fa fa-photo-film portal-icon"></i>
+        <h3 class="portal-title" data-es="Galería y vídeo" data-fr="Galerie et vidéo" data-en="Gallery & video">Galería y vídeo</h3>
+        <p class="portal-desc" data-es="Imágenes del aula y de los proyectos, y los vídeos donde me presento y cuento cómo trabajo." data-fr="Images de la classe et des projets, et les vidéos où je me présente et explique ma façon de travailler." data-en="Images from the classroom and projects, plus the videos where I introduce myself and how I work.">Imágenes del aula y de los proyectos, y los vídeos donde me presento y cuento cómo trabajo.</p>
+        <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
+      </a>
+
+      <a href="#inscripcion" class="portal-card reveal d5">
+        <span class="portal-num">05</span>
+        <i class="fa fa-pen-to-square portal-icon"></i>
+        <h3 class="portal-title" data-es="Inscripción" data-fr="Inscription" data-en="Enrolment">Inscripción</h3>
+        <p class="portal-desc" data-es="El formulario para empezar clases, con tu nivel, tus horarios y tus objetivos. También los testimonios de quienes ya pasaron por aquí." data-fr="Le formulaire pour commencer les cours, avec votre niveau, vos horaires et vos objectifs, ainsi que les témoignages." data-en="The form to start classes, with your level, schedule and goals — plus testimonials from past students.">El formulario para empezar clases, con tu nivel, tus horarios y tus objetivos. También los testimonios de quienes ya pasaron por aquí.</p>
+        <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
+      </a>
+
+      <a href="#contacto" class="portal-card reveal d6">
+        <span class="portal-num">06</span>
+        <i class="fa fa-envelope portal-icon"></i>
+        <h3 class="portal-title" data-es="Contacto y pagos" data-fr="Contact et paiements" data-en="Contact & payments">Contacto y pagos</h3>
+        <p class="portal-desc" data-es="Escríbeme, agenda una cita o una clase de prueba, resuelve las preguntas frecuentes y consulta los métodos de pago." data-fr="Écrivez-moi, réservez un rendez-vous ou un cours d'essai, consultez la FAQ et les moyens de paiement." data-en="Write to me, book an appointment or a trial class, check the FAQ and the payment methods.">Escríbeme, agenda una cita o una clase de prueba, resuelve las preguntas frecuentes y consulta los métodos de pago.</p>
+        <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
+      </a>
+    </div>
+  </div>
+</section>
 </main>
 <footer id="footer" class="z10">
   <div class="container">

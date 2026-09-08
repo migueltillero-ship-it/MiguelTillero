@@ -2516,9 +2516,245 @@ summary:focus-visible,
   </div>
 </nav>
 <main>
+<section id="testimonios" class="z10" data-page="contacto">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;margin-bottom:3rem;">
+      <p class="eyebrow" style="justify-content:center" data-es="Lo que dicen de mí" data-fr="Ce qu'ils disent" data-en="What they say">Lo que dicen de mí</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Testimonios" data-fr="Témoignages" data-en="Testimonials">Testimonios</em></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal d1">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text" data-es="Gracias al acompañamiento de Miguel obtuve mi DELF B2 con excelente puntuación. Su método hace que el francés se sienta natural, nunca memorizado." data-fr="Grâce à l'accompagnement de Miguel, j'ai obtenu mon DELF B2 avec une excellente note. Sa méthode rend le français naturel." data-en="Thanks to Miguel's guidance I earned my DELF B2 with an excellent score. His method makes French feel natural.">Gracias al acompañamiento de Miguel obtuve mi DELF B2 con excelente puntuación. Su método hace que el francés se sienta natural, nunca memorizado.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">LG</div>
+          <div><div class="testi-name">Luis Emilio G.</div><div class="testi-role" data-es="DELF Junior B2 · 100/100" data-fr="DELF Junior B2 · 100/100" data-en="DELF Junior B2 · 100/100">DELF Junior B2 · 100/100</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal d2">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text" data-es="Como docente, las asesorías pedagógicas transformaron mi manera de planificar. Miguel domina el MCER como pocos y lo traduce en herramientas prácticas." data-fr="En tant qu'enseignante, ses conseils pédagogiques ont transformé ma façon de planifier. Miguel maîtrise le CECRL comme peu d'experts." data-en="As a teacher, his pedagogical consulting transformed how I plan. Miguel masters the CEFR like few others.">Como docente, las asesorías pedagógicas transformaron mi manera de planificar. Miguel domina el MCER como pocos y lo traduce en herramientas prácticas.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">GR</div>
+          <div><div class="testi-name">Gloria R.</div><div class="testi-role" data-es="Docente FLE · Preparación B1" data-fr="Enseignante FLE · Préparation B1" data-en="FLE Teacher · B1 Prep">Docente FLE · Preparación B1</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal d3">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text" data-es="Llegué sin saber decir bonjour y un año después sostuve mi entrevista migratoria para Quebec completamente en francés. Profesionalismo absoluto." data-fr="Je suis arrivé sans savoir dire bonjour et un an plus tard, j'ai passé mon entretien d'immigration pour le Québec entièrement en français." data-en="I arrived unable to say bonjour, and a year later I held my Quebec immigration interview entirely in French.">Llegué sin saber decir bonjour y un año después sostuve mi entrevista migratoria para Quebec completamente en francés. Profesionalismo absoluto.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">CM</div>
+          <div><div class="testi-name">Carlos M.</div><div class="testi-role" data-es="Proceso migratorio · Quebec" data-fr="Immigration · Québec" data-en="Immigration · Quebec">Proceso migratorio · Quebec</div></div>
+        </div>
+      </div>
+    </div>
 
+    <!-- ── DEJAR TESTIMONIO ── -->
+    <div class="testi-cta-wrap reveal">
+      <button class="testi-cta-btn" onclick="toggleTestiForm()">
+        <i class="fa fa-feather"></i>
+        <span data-es="Deja tu testimonio" data-fr="Laissez votre témoignage" data-en="Leave a testimonial">Deja tu testimonio</span>
+      </button>
 
+      <form id="testi-form-panel" onsubmit="return submitTesti(event)">
+        <div class="testi-note" data-es="✦ Tu testimonio será revisado personalmente antes de su publicación. Una vez validado, aparecerá en esta sección. Gracias por compartir tu experiencia." data-fr="✦ Votre témoignage sera relu personnellement avant publication. Une fois validé, il apparaîtra dans cette section. Merci de partager votre expérience." data-en="✦ Your testimonial will be personally reviewed before publication. Once approved, it will appear in this section. Thank you for sharing your experience.">✦ Tu testimonio será revisado personalmente antes de su publicación. Una vez validado, aparecerá en esta sección. Gracias por compartir tu experiencia.</div>
 
+        <div class="insc-row">
+          <div class="insc-field">
+            <label for="tf-name" data-es="Tu nombre" data-fr="Votre nom" data-en="Your name">Tu nombre <span class="req">*</span></label>
+            <input type="text" id="tf-name" required placeholder="Nombre o iniciales">
+          </div>
+          <div class="insc-field">
+            <label for="tf-email">Email <span class="req">*</span></label>
+            <input type="email" id="tf-email" required placeholder="tu@correo.com">
+          </div>
+        </div>
+        <div class="insc-field">
+          <label for="tf-role" data-es="Curso / servicio recibido" data-fr="Cours / service reçu" data-en="Course / service received">Curso / servicio recibido</label>
+          <input type="text" id="tf-role" placeholder="Ej: DELF B2, clases A1, asesoría pedagógica...">
+        </div>
+        <div class="insc-field">
+          <label id="lbl-rating" data-es="Tu calificación" data-fr="Votre note" data-en="Your rating">Tu calificación</label>
+          <div role="group" aria-labelledby="lbl-rating" class="star-select" id="tf-stars">
+            <button type="button" class="st" data-v="1">★</button>
+            <button type="button" class="st" data-v="2">★</button>
+            <button type="button" class="st" data-v="3">★</button>
+            <button type="button" class="st" data-v="4">★</button>
+            <button type="button" class="st" data-v="5">★</button>
+          </div>
+        </div>
+        <div class="insc-field">
+          <label for="tf-text" data-es="Tu testimonio" data-fr="Votre témoignage" data-en="Your testimonial">Tu testimonio <span class="req">*</span></label>
+          <textarea id="tf-text" required placeholder="Cuéntanos tu experiencia..." style="min-height:100px"></textarea>
+        </div>
+        <button type="submit" class="insc-submit" id="tf-submit">
+          <i class="fa fa-paper-plane"></i>&nbsp;
+          <span data-es="Enviar para validación" data-fr="Envoyer pour validation" data-en="Submit for review">Enviar para validación</span>
+        </button>
+        <div class="insc-success" id="tf-success">
+          ✦ ¡Testimonio recibido! ✦<br>
+          Lo revisaré personalmente y, una vez validado, aparecerá publicado en esta sección.
+          <div class="success-actions">
+            <a href="#inicio" data-route="inicio" class="btn btn-ghost"><i class="fa fa-house"></i>&nbsp;Volver al inicio</a>
+            <a href="https://wa.me/529673424456?text=Hola%20Miguel%2C%20acabo%20de%20dejar%20mi%20testimonio%20en%20tu%20p%C3%A1gina%20web." target="_blank" rel="noopener" class="btn btn-gold"><i class="fab fa-whatsapp"></i>&nbsp;Avisar por WhatsApp</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<section id="faq" class="z10" data-page="contacto">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;margin-bottom:3rem;">
+      <p class="eyebrow" style="justify-content:center" data-es="Resuelve tus dudas" data-fr="Questions fréquentes" data-en="Common questions">Resuelve tus dudas</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Preguntas frecuentes" data-fr="Foire aux questions" data-en="FAQ">Preguntas frecuentes</em></h2>
+    </div>
+    <div class="faq-list reveal">
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Necesito saber algo de francés para empezar?" data-fr="Dois-je connaître le français pour commencer ?" data-en="Do I need any French to start?">¿Necesito saber algo de francés para empezar?</summary>
+        <div class="faq-a" data-es="No. Diseño itinerarios desde el nivel cero absoluto (A0) hasta la maestría (C2). En la primera sesión evalúo tu punto de partida y construyo un plan a tu medida según el Marco Común Europeo de Referencia." data-fr="Non. Je conçois des parcours du niveau zéro absolu (A0) jusqu'à la maîtrise (C2). Lors de la première séance, j'évalue votre niveau et construis un plan sur mesure selon le CECRL." data-en="No. I design learning paths from absolute zero (A0) to mastery (C2). In the first session I assess your starting point and build a tailored plan based on the CEFR.">No. Diseño itinerarios desde el nivel cero absoluto (A0) hasta la maestría (C2). En la primera sesión evalúo tu punto de partida y construyo un plan a tu medida según el Marco Común Europeo de Referencia.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Las clases son presenciales o en línea?" data-fr="Les cours sont-ils en présentiel ou en ligne ?" data-en="Are classes in person or online?">¿Las clases son presenciales o en línea?</summary>
+        <div class="faq-a" data-es="Ambas modalidades. Presenciales en San Cristóbal de Las Casas, Chiapas, y en línea para cualquier parte del mundo, con la misma metodología comunicativa y materiales auténticos." data-fr="Les deux. En présentiel à San Cristóbal de Las Casas, Chiapas, et en ligne partout dans le monde, avec la même méthodologie communicative." data-en="Both. In person in San Cristóbal de Las Casas, Chiapas, and online worldwide, with the same communicative methodology.">Ambas modalidades. Presenciales en San Cristóbal de Las Casas, Chiapas, y en línea para cualquier parte del mundo, con la misma metodología comunicativa y materiales auténticos.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Cuánto tiempo toma alcanzar un nivel B2?" data-fr="Combien de temps pour atteindre le niveau B2 ?" data-en="How long does it take to reach B2?">¿Cuánto tiempo toma alcanzar un nivel B2?</summary>
+        <div class="faq-a" data-es="Depende de tu dedicación y frecuencia. Con 2-3 sesiones semanales más trabajo personal, un estudiante constante suele alcanzar el B2 en 18-24 meses partiendo de cero. Con inmersión intensiva, el camino se acorta considerablemente." data-fr="Cela dépend de votre rythme. Avec 2-3 séances hebdomadaires plus travail personnel, un étudiant régulier atteint le B2 en 18-24 mois en partant de zéro." data-en="It depends on your pace. With 2-3 weekly sessions plus personal work, a consistent student typically reaches B2 in 18-24 months from scratch.">Depende de tu dedicación y frecuencia. Con 2-3 sesiones semanales más trabajo personal, un estudiante constante suele alcanzar el B2 en 18-24 meses partiendo de cero. Con inmersión intensiva, el camino se acorta considerablemente.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Preparas para los exámenes oficiales DELF/DALF?" data-fr="Préparez-vous aux examens DELF/DALF ?" data-en="Do you prepare for DELF/DALF exams?">¿Preparas para los exámenes oficiales DELF/DALF?</summary>
+        <div class="faq-a" data-es="Sí, es una de mis especialidades. He formado candidatos que obtuvieron puntuaciones perfectas (100/100). Trabajo las cuatro competencias con simulacros reales, estrategias de examen y retroalimentación detallada." data-fr="Oui, c'est l'une de mes spécialités. J'ai formé des candidats ayant obtenu des notes parfaites (100/100). Je travaille les quatre compétences avec des examens blancs." data-en="Yes, it's one of my specialties. I've trained candidates who achieved perfect scores (100/100), working all four skills with real mock exams.">Sí, es una de mis especialidades. He formado candidatos que obtuvieron puntuaciones perfectas (100/100). Trabajo las cuatro competencias con simulacros reales, estrategias de examen y retroalimentación detallada.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Ayudas con procesos de migración a Quebec / Francia?" data-fr="Aidez-vous pour l'immigration au Québec / en France ?" data-en="Do you help with Quebec / France immigration?">¿Ayudas con procesos de migración a Quebec / Francia?</summary>
+        <div class="faq-a" data-es="Sí. He asesorado candidatos en procesos migratorios hacia Quebec: preparación lingüística para el TEF/TCF, simulacros de entrevista y acompañamiento cultural para la integración francófona." data-fr="Oui. J'ai accompagné des candidats à l'immigration vers le Québec : préparation au TEF/TCF, simulations d'entretien et accompagnement culturel." data-en="Yes. I've advised candidates on Quebec immigration: TEF/TCF language prep, interview simulations and cultural guidance.">Sí. He asesorado candidatos en procesos migratorios hacia Quebec: preparación lingüística para el TEF/TCF, simulacros de entrevista y acompañamiento cultural para la integración francófona.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Qué diferencia hay entre el DELF, el TCF y el TEF?" data-fr="Quelle différence entre le DELF, le TCF et le TEF ?" data-en="What's the difference between DELF, TCF and TEF?">¿Qué diferencia hay entre el DELF, el TCF y el TEF?</summary>
+        <div class="faq-a" data-es="El DELF (y su continuación, el DALF) es un <strong>diploma</strong>: se aprueba o no, corresponde a un solo nivel y no caduca jamás. El TCF y el TEF son <strong>tests de nivel</strong>: no se aprueban ni se reprueban, sitúan tu francés en algún punto entre el A1 y el C2 y caducan a los dos años. Regla práctica: para estudios y para acreditar tu nivel de por vida, DELF o DALF; para trámites migratorios hacia Canadá, Quebec o Francia, TCF o TEF en la versión que exija tu expediente." data-fr="Le DELF (et sa suite, le DALF) est un <strong>diplôme</strong> : on l'obtient ou non, il correspond à un seul niveau et n'expire jamais. Le TCF et le TEF sont des <strong>tests de niveau</strong> : ils situent votre français entre A1 et C2 et sont valables deux ans. En pratique : pour les études et une attestation à vie, DELF ou DALF ; pour l'immigration vers le Canada, le Québec ou la France, TCF ou TEF dans la version exigée." data-en="DELF (and its continuation, DALF) is a <strong>diploma</strong>: you pass or you don't, it maps to a single level and never expires. TCF and TEF are <strong>level tests</strong>: there's no pass or fail, they place your French somewhere between A1 and C2 and expire after two years. Rule of thumb: for studies and lifelong proof, DELF or DALF; for immigration to Canada, Quebec or France, TCF or TEF in whichever version your file requires.">El DELF (y su continuación, el DALF) es un <strong>diploma</strong>: se aprueba o no, corresponde a un solo nivel y no caduca jamás. El TCF y el TEF son <strong>tests de nivel</strong>: no se aprueban ni se reprueban, sitúan tu francés en algún punto entre el A1 y el C2 y caducan a los dos años. Regla práctica: para estudios y para acreditar tu nivel de por vida, DELF o DALF; para trámites migratorios hacia Canadá, Quebec o Francia, TCF o TEF en la versión que exija tu expediente.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Dónde puedo presentar el examen oficial?" data-fr="Où puis-je passer l'examen officiel ?" data-en="Where can I sit the official exam?">¿Dónde puedo presentar el examen oficial?</summary>
+        <div class="faq-a" data-es="Los exámenes se aplican únicamente en centros acreditados, con un calendario de sesiones fijado con meses de antelación y plazos de inscripción que cierran mucho antes de la fecha. Yo te preparo y te acompaño en la logística: identificamos el centro autorizado más cercano a ti, revisamos el calendario y los requisitos, y planificamos la preparación hacia atrás desde el día del examen para que llegues listo." data-fr="Les examens se déroulent uniquement dans des centres agréés, avec un calendrier fixé des mois à l'avance et des inscriptions qui ferment bien avant la date. Je vous prépare et je vous accompagne dans la logistique : identification du centre agréé le plus proche, vérification du calendrier et des conditions, et planification de la préparation à rebours depuis le jour J." data-en="Exams are only administered at accredited centres, on a session calendar set months in advance with registration deadlines that close well before the date. I prepare you and help with the logistics: finding the nearest authorised centre, checking the calendar and requirements, and planning your preparation backwards from exam day.">Los exámenes se aplican únicamente en centros acreditados, con un calendario de sesiones fijado con meses de antelación y plazos de inscripción que cierran mucho antes de la fecha. Yo te preparo y te acompaño en la logística: identificamos el centro autorizado más cercano a ti, revisamos el calendario y los requisitos, y planificamos la preparación hacia atrás desde el día del examen para que llegues listo.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Qué es el MCER y por qué importa mi nivel?" data-fr="Qu'est-ce que le CECRL et pourquoi mon niveau compte-t-il ?" data-en="What is the CEFR and why does my level matter?">¿Qué es el MCER y por qué importa mi nivel?</summary>
+        <div class="faq-a" data-es="El Marco Común Europeo de Referencia divide el aprendizaje de cualquier lengua en seis niveles, del A1 al C2, descritos por lo que eres capaz de <em>hacer</em> con el idioma, no por cuántas reglas memorizaste. Es el lenguaje común de universidades, empleadores y autoridades migratorias: saber tu nivel te dice qué curso te corresponde, a qué examen puedes presentarte y cuánto tiempo necesitas realmente. Puedes estimarlo ahora mismo con el test de posicionamiento de esta página." data-fr="Le Cadre européen commun de référence divise l'apprentissage d'une langue en six niveaux, de A1 à C2, décrits par ce que vous savez <em>faire</em> avec la langue. C'est le langage commun des universités, des employeurs et des autorités migratoires : connaître votre niveau indique le cours qui vous convient, l'examen visé et le temps nécessaire. Vous pouvez l'estimer tout de suite avec le test de positionnement de cette page." data-en="The Common European Framework of Reference splits language learning into six levels, A1 to C2, described by what you can <em>do</em> with the language rather than how many rules you memorised. It's the shared language of universities, employers and immigration authorities: knowing your level tells you which course fits, which exam you can sit and how much time you really need. You can estimate it right now with the placement test on this page.">El Marco Común Europeo de Referencia divide el aprendizaje de cualquier lengua en seis niveles, del A1 al C2, descritos por lo que eres capaz de <em>hacer</em> con el idioma, no por cuántas reglas memorizaste. Es el lenguaje común de universidades, empleadores y autoridades migratorias: saber tu nivel te dice qué curso te corresponde, a qué examen puedes presentarte y cuánto tiempo necesitas realmente. Puedes estimarlo ahora mismo con el test de posicionamiento de esta página.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Cómo se paga y cuáles son los métodos disponibles?" data-fr="Comment payer et quels sont les moyens disponibles ?" data-en="How do I pay and what methods are available?">¿Cómo se paga y cuáles son los métodos disponibles?</summary>
+        <div class="faq-a" data-es="Transferencia bancaria (Nu, albo), depósito en OXXO o efectivo. Encuentras todos los datos en la sección Métodos de pago de esta misma página. Los paquetes de horas se abonan al inicio de cada ciclo." data-fr="Virement bancaire (Nu, albo), dépôt OXXO ou espèces. Tous les détails figurent dans la section Moyens de paiement de cette page." data-en="Bank transfer (Nu, albo), OXXO deposit or cash. All details are in the Payment methods section of this page.">Transferencia bancaria (Nu, albo), depósito en OXXO o efectivo. Encuentras todos los datos en la sección Métodos de pago de esta misma página. Los paquetes de horas se abonan al inicio de cada ciclo.</div>
+      </details>
+    </div>
+  </div>
+</section>
+<section id="contact" class="z10" data-page="contacto">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow" data-es="Hablemos" data-fr="Parlons ensemble" data-en="Let's talk">Hablemos</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;"><em data-es="Contáctame" data-fr="Me contacter" data-en="Get in touch">Contáctame</em></h2>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal d1">
+        <form id="contact-form" novalidate>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="f-name" data-es="Nombre *" data-fr="Nom *" data-en="Name *">Nombre *</label>
+              <input type="text" name="name" id="f-name" placeholder="Tu nombre">
+              <div class="form-error" id="e-name">Campo requerido.</div>
+            </div>
+            <div class="form-field">
+              <label for="f-email">Email *</label>
+              <input type="email" name="email" id="f-email" placeholder="tu@correo.com">
+              <div class="form-error" id="e-email">Email inválido.</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="f-telefono-2">WhatsApp / Tel</label>
+              <input id="f-telefono-2" type="tel" name="telefono" placeholder="+52 xxx xxx xxxx">
+            </div>
+            <div class="form-field">
+              <label for="f-ciudad-2" data-es="País / Ciudad" data-fr="Pays / Ville" data-en="Country / City">País / Ciudad</label>
+              <input id="f-ciudad-2" type="text" name="ciudad" placeholder="Tu ciudad">
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="f-subject_sel" data-es="Motivo" data-fr="Objet" data-en="Subject">Motivo</label>
+            <select id="f-subject_sel" name="subject_sel">
+              <option value="" disabled selected>— Selecciona —</option>
+              <option>Clases particulares de francés</option>
+              <option>Asesoría pedagógica</option>
+              <option>Gestión y dirección cultural</option>
+              <option>Conferencia o ponencia</option>
+              <option>Traducción / Interpretación</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="f-msg" data-es="Mensaje *" data-fr="Message *" data-en="Message *">Mensaje *</label>
+            <textarea name="message" id="f-msg" placeholder="Cuéntame tu proyecto o consulta..." rows="4"></textarea>
+            <div class="form-error" id="e-msg">Campo requerido.</div>
+          </div>
+          <button type="submit" class="btn btn-gold" style="width:100%;justify-content:center;">
+            <i class="fa fa-paper-plane"></i>
+            <span data-es="Enviar mensaje" data-fr="Envoyer" data-en="Send message">Enviar mensaje</span>
+          </button>
+          <div class="form-success" id="form-success">✦ Mensaje enviado. Te respondo pronto. ✦
+          <div class="success-actions">
+            <a href="#inicio" data-route="inicio" class="btn btn-ghost"><i class="fa fa-house"></i>&nbsp;Volver al inicio</a>
+            <a href="https://wa.me/529673424456?text=Hola%20Miguel%2C%20acabo%20de%20enviarte%20un%20mensaje%20desde%20tu%20p%C3%A1gina%20web." target="_blank" rel="noopener" class="btn btn-gold"><i class="fab fa-whatsapp"></i>&nbsp;Avisar por WhatsApp</a>
+          </div>
+        </div>
+        </form>
+      </div>
+
+      <div class="reveal d2">
+        <div class="c-cards">
+          <div class="c-card">
+            <div class="c-icon"><i class="fa fa-envelope"></i></div>
+            <div><div class="c-label">Email</div><div class="c-val"><a href="mailto:migueltillero@gmail.com">migueltillero@gmail.com</a></div></div>
+          </div>
+          <div class="c-card">
+            <div class="c-icon"><i class="fab fa-whatsapp"></i></div>
+            <div>
+              <div class="c-label">WhatsApp (MX)</div>
+              <div class="c-val"><a href="https://wa.me/529673424456" target="_blank" rel="noopener">+52 967 342 4456</a></div>
+            </div>
+          </div>
+          <div class="c-card">
+            <div class="c-icon"><i class="fa fa-phone"></i></div>
+            <div>
+              <div class="c-label">WhatsApp (VE)</div>
+              <div class="c-val"><a href="https://wa.me/584122465331" target="_blank" rel="noopener">+58 412 246 5331</a></div>
+            </div>
+          </div>
+          <div class="c-card">
+            <div class="c-icon"><i class="fa fa-map-marker-alt"></i></div>
+            <div>
+              <div class="c-label" data-es="Ubicación" data-fr="Localisation" data-en="Location">Ubicación</div>
+              <div class="c-val">San Cristóbal de Las Casas<br>Chiapas · México</div>
+            </div>
+          </div>
+        </div>
+        <div class="cta-btns">
+          <button onclick="openModal('modal-cita')" class="btn btn-ghost" style="flex:1;justify-content:center;">
+            <i class="fa fa-calendar-alt"></i>
+            <span data-es="Agendar cita" data-fr="Rendez-vous" data-en="Book meeting">Agendar cita</span>
+          </button>
+          <button onclick="openModal('modal-clase')" class="btn btn-cyan" style="flex:1;justify-content:center;">
+            <i class="fa fa-graduation-cap"></i>
+            <span data-es="Clase de prueba" data-fr="Cours d'essai" data-en="Trial class">Clase de prueba</span>
+          </button>
+        </div>
+        <div class="socials">
+          <a href="https://wa.me/529673424456" target="_blank" class="social-btn" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 </main>
 <footer id="footer" class="z10">
   <div class="container">
