@@ -2419,6 +2419,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 /* ── Transición suave de entrada a cada página (sin vídeo) ── */
 body { animation: pageFadeIn 0.5s ease; }
 @keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* Video de transicion entre secciones — una sola vez por pagina y sesion */
+#page-transition { position: fixed; inset: 0; z-index: 999999; background: var(--void); display: flex; align-items: center; justify-content: center; overflow: hidden; transition: opacity 0.5s ease; }
+#page-transition video { width: 100%; height: 100%; object-fit: cover; }
+#page-transition.hide { opacity: 0; pointer-events: none; }
+
+/* Boton "ver version de escritorio" — solo en el menu movil */
+.desktop-toggle-btn { display: block; width: 100%; text-align: center; background: none; border: 1px solid var(--gold); color: var(--gold); font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.7rem 1rem; margin-top: 0.6rem; cursor: pointer; border-radius: var(--r-pill, 999px); }
 </style>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
@@ -2543,6 +2551,7 @@ body { animation: pageFadeIn 0.5s ease; }
 </style>
 </head>
 <body>
+<div id="page-transition" aria-hidden="true"><video id="page-transition-video" src="transicion.mp4" autoplay muted playsinline></video></div>
 <script>try { if(sessionStorage.getItem('introVisto') === 'true') { document.write('<style>#video-intro { display: none !important; }</style>'); } } catch (e) {}</script>
 
 <a class="skip-link" href="#saltar-al-contenido" id="skip-link"
@@ -2593,6 +2602,7 @@ body { animation: pageFadeIn 0.5s ease; }
   <a href="reglamento.html" onclick="closeMob()" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a>
   <a href="mi-espacio.html" onclick="closeMob()" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a>
   <a href="club/index.html" onclick="closeMob()" style="color:var(--gold);" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</a>
+  <button type="button" class="desktop-toggle-btn" id="desktop-toggle-btn" onclick="toggleDesktopView()">Ver versión de escritorio</button>
 </div>
 
 <!-- NAV -->
@@ -4015,6 +4025,65 @@ window.addEventListener('DOMContentLoaded', function() {
 
 </script>
 <script>document.addEventListener('DOMContentLoaded', function(){ if (window.SitePages && !window.location.hash) window.SitePages.show('contacto', null, false); });</script>
+<script>
+/* Alterna entre la vista movil responsiva y una vista de escritorio
+   forzada, para quien prefiere ver el sitio completo en su telefono. */
+(function () {
+  var META_DESKTOP = 'width=1280';
+  var META_MOBIL = 'width=device-width, initial-scale=1.0';
+  var meta = document.querySelector('meta[name="viewport"]');
+  var btn = document.getElementById('desktop-toggle-btn');
+  function estaEnEscritorio() {
+    try { return localStorage.getItem('mt-vista-escritorio') === '1'; } catch (e) { return false; }
+  }
+  function actualizarBoton() {
+    if (!btn) return;
+    btn.textContent = estaEnEscritorio() ? 'Volver a la vista móvil' : 'Ver versión de escritorio';
+  }
+  if (meta && estaEnEscritorio()) meta.setAttribute('content', META_DESKTOP);
+  actualizarBoton();
+  window.toggleDesktopView = function () {
+    if (!meta) return;
+    if (estaEnEscritorio()) {
+      meta.setAttribute('content', META_MOBIL);
+      try { localStorage.removeItem('mt-vista-escritorio'); } catch (e) {}
+    } else {
+      meta.setAttribute('content', META_DESKTOP);
+      try { localStorage.setItem('mt-vista-escritorio', '1'); } catch (e) {}
+    }
+    location.reload();
+  };
+})();
+
+/* Video de transicion — se muestra una sola vez por pagina y por sesion,
+   para no repetirse cada vez que se vuelve a entrar. */
+(function () {
+  var overlay = document.getElementById('page-transition');
+  if (!overlay) return;
+  var storageKey = 'mt-transicion-' + (location.pathname.split('/').pop() || 'pagina');
+  var yaVista = false;
+  try { yaVista = !!sessionStorage.getItem(storageKey); } catch (e) {}
+  if (yaVista) { overlay.parentNode.removeChild(overlay); return; }
+  try { sessionStorage.setItem(storageKey, '1'); } catch (e) {}
+  var cerrado = false;
+  function cerrar() {
+    if (cerrado) return;
+    cerrado = true;
+    overlay.classList.add('hide');
+    setTimeout(function () { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 550);
+  }
+  var vid = document.getElementById('page-transition-video');
+  if (vid) {
+    vid.addEventListener('ended', cerrar);
+    var p = vid.play();
+    if (p && p.catch) p.catch(cerrar);
+  } else {
+    cerrar();
+  }
+  overlay.addEventListener('click', cerrar);
+  setTimeout(cerrar, 9500);
+})();
+</script>
 
 <!-- CURSOR PERSONALIZADO -->
 
