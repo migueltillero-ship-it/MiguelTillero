@@ -1586,8 +1586,8 @@ body.intro-active { overflow: hidden; }
   width: 100%; margin-top: 1rem; padding: 1.1rem;
   background: linear-gradient(135deg, var(--gold), var(--gold2));
   color: #03100a; border: none; cursor: pointer;
-  font-family: 'Space Mono', monospace; font-size: 0.6rem;
-  letter-spacing: 0.35em; text-transform: uppercase; font-weight: 700;
+  font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700;
+  letter-spacing: 0.005em; text-transform: none; border-radius: var(--r-pill);
   transition: all 0.3s; position: relative; overflow: hidden;
 }
 .insc-submit:hover { box-shadow: 0 0 40px rgba(201,169,110,.4); transform: translateY(-2px); }
@@ -1795,14 +1795,14 @@ select:focus-visible, textarea:focus-visible {
 /* ════ DEJAR TESTIMONIO ════ */
 .testi-cta-wrap { text-align: center; margin-top: 2.5rem; }
 .testi-cta-btn {
-  display: inline-flex; align-items: center; gap: 0.8rem;
-  background: transparent; border: 1px solid rgba(201,169,110,.45);
-  color: var(--gold2); cursor: pointer; padding: 0.9rem 2.2rem;
-  font-family: 'Space Mono', monospace; font-size: 0.58rem;
-  letter-spacing: 0.28em; text-transform: uppercase; font-weight: 700;
-  transition: all 0.35s; backdrop-filter: blur(8px);
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  background: rgba(255,255,255,0.85); border: 1px solid var(--border);
+  color: var(--gold); cursor: pointer; padding: 0.95rem 2.1rem;
+  font-family: 'Syne', sans-serif; font-size: 0.92rem; font-weight: 600;
+  letter-spacing: 0.005em; text-transform: none; border-radius: var(--r-pill);
+  transition: all 0.3s; backdrop-filter: blur(8px);
 }
-.testi-cta-btn:hover { border-color: var(--gold); background: rgba(201,169,110,.1); box-shadow: 0 0 30px rgba(201,169,110,.25); }
+.testi-cta-btn:hover { border-color: var(--gold); background: var(--goldx); box-shadow: var(--glow); }
 #testi-form-panel {
   display: none; max-width: 640px; margin: 2rem auto 0;
   background: rgba(255,255,255,.92); backdrop-filter: blur(22px);
@@ -1833,17 +1833,17 @@ select:focus-visible, textarea:focus-visible {
   display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 2.5rem;
 }
 .cv-btn {
-  display: inline-flex; align-items: center; gap: 0.7rem;
-  padding: 0.8rem 1.8rem; text-decoration: none;
-  border: 1px solid rgba(201,169,110,.45); color: var(--gold2);
-  font-family: 'Space Mono', monospace; font-size: 0.55rem;
-  letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700;
-  transition: all 0.35s; backdrop-filter: blur(8px);
-  background: rgba(201,169,110,.05);
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  padding: 0.95rem 2.1rem; text-decoration: none;
+  border: 1px solid var(--border); color: var(--gold);
+  font-family: 'Syne', sans-serif; font-size: 0.92rem; font-weight: 600;
+  letter-spacing: 0.005em; text-transform: none; border-radius: var(--r-pill);
+  transition: all 0.3s; backdrop-filter: blur(8px);
+  background: rgba(255,255,255,0.85);
 }
 .cv-btn:hover {
-  border-color: var(--gold); background: rgba(201,169,110,.12);
-  color: var(--white); box-shadow: 0 0 28px rgba(201,169,110,.25);
+  border-color: var(--gold); background: var(--goldx);
+  box-shadow: var(--glow);
   transform: translateY(-2px);
 }
 .cv-btn i { font-size: 0.8rem; }
@@ -3924,4 +3924,5 @@ window.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
+
 
