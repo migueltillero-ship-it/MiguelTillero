@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Vendredi entre Amis — l'espace du club de conversation en français du professeur Miguel Tillero. Une nouvelle destination francophone chaque vendredi.">
+<title>Vendredi entre Amis · Le Club de Conversation de Miguel Tillero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/club.css">
+</head>
+<body>
+
+<header id="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Vendredi <span>entre Amis</span></div>
+    <nav id="tabs" aria-label="Sections du club">
+      <button data-view="accueil">Accueil</button>
+      <button data-view="cafe">Le Café du Vendredi</button>
+      <button data-view="carnet">Mon Carnet</button>
+      <button data-view="expressions">La Boîte à Expressions</button>
+      <button data-view="culture">Le Coin Culture</button>
+      <button data-view="amis">Entre Amis</button>
+    </nav>
+    <div class="a11y-controls" role="group" aria-label="Confort de lecture — Coin Sérénité">
+      <button id="btn-a-normal" aria-pressed="true" title="Taille normale">A</button>
+      <button id="btn-a-plus" aria-pressed="false" title="Texte agrandi">A+</button>
+      <button id="btn-a-plusplus" aria-pressed="false" title="Texte très agrandi">A++</button>
+      <button id="btn-contraste" aria-pressed="false" title="Contraste élevé">◐</button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- ═══ ACCUEIL ═══ -->
+  <section id="view-accueil" class="view">
+    <div class="hero">
+      <p class="eyebrow">Bienvenue</p>
+      <h1>Bonjour, et bienvenue parmi nous</h1>
+      <p class="muted" style="max-width:60ch;margin-top:.5rem;">Chaque vendredi, nous nous retrouvons pour explorer une nouvelle destination — ou une nouvelle facette de nous-mêmes — en français. Cet espace continue la conversation entre deux rencontres.</p>
+
+      <div class="mot-miguel">
+        <div class="avatar">MT</div>
+        <div>
+          <blockquote id="mot-miguel-texto">
+            Bonjour à toutes et à tous ! Cette semaine, nous partons à la découverte d'un nouveau lieu francophone.
+            Je vous invite à explorer le vocabulaire et l'expression ci-dessous avant notre rencontre de vendredi. À très bientôt !
+          </blockquote>
+          <footer>— Miguel</footer>
+        </div>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-label" id="accueil-progress-label"></div>
+        <div class="progress-bar"><span id="accueil-progress-bar" style="width:0%"></span></div>
+      </div>
+    </div>
+
+    <div class="timeline-3">
+      <div class="card">
+        <p class="tag">🔄 Cette semaine</p>
+        <h3 id="accueil-semana-num"></h3>
+        <p id="accueil-tema-actual"></p>
+        <p class="muted" id="accueil-temporada"></p>
+      </div>
+      <div class="card">
+        <p class="tag">📅 Vendredi prochain</p>
+        <h3>À suivre</h3>
+        <p id="accueil-proxima"></p>
+      </div>
+      <div class="card">
+        <p class="tag">🛂 Ton passeport</p>
+        <h3>Passeport Francophone</h3>
+        <p class="muted">Découvre les destinations déjà visitées.</p>
+        <button class="btn secondary" data-goto="cafe">Voir mon passeport ↓</button>
+      </div>
+    </div>
+
+    <h2 style="margin-top:2.5rem;">🛂 Passeport Francophone</h2>
+    <p class="muted">Une ville visitée à chaque étape de la Saison 1 — Voyage en Francophonie.</p>
+    <div class="passport-grid" id="passport-grid"></div>
+
+    <div class="grid-cards" style="margin-top:2.5rem;">
+      <div class="card">
+        <p class="icon">☕</p>
+        <h3>Le Café du Vendredi</h3>
+        <p class="muted">L'activité principale de la semaine, par niveau.</p>
+        <button class="btn" data-goto="cafe">Y aller</button>
+      </div>
+      <div class="card">
+        <p class="icon">📔</p>
+        <h3>Mon Carnet de Voyage</h3>
+        <p class="muted">Garde tes mots et réflexions personnelles.</p>
+        <button class="btn" data-goto="carnet">Y aller</button>
+      </div>
+      <div class="card">
+        <p class="icon">💬</p>
+        <h3>Entre Amis</h3>
+        <p class="muted">La question de la semaine à partager au groupe.</p>
+        <button class="btn" data-goto="amis">Y aller</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ LE CAFÉ DU VENDREDI ═══ -->
+  <section id="view-cafe" class="view">
+    <p class="eyebrow">L'activité de la semaine</p>
+    <h1>Le Café du Vendredi</h1>
+    <div class="week-picker">
+      <label for="week-select" class="muted">Choisir une semaine :</label>
+      <select id="week-select"></select>
+    </div>
+
+    <div class="destination-banner">
+      <p class="pays" id="cafe-pais"></p>
+      <h2 id="cafe-destino"></h2>
+      <p id="cafe-tema"></p>
+    </div>
+
+    <div class="level-tabs">
+      <button class="active" data-level="a1a2">🌱 Débutant · A1–A2</button>
+      <button data-level="b1b2">🌳 Avancé · B1–B2</button>
+    </div>
+
+    <div id="panel-a1a2" class="level-panel active">
+      <h3>Vocabulaire</h3>
+      <ul class="vocab-list" id="vocab-a1a2"></ul>
+      <div class="expr-card">
+        <p class="eyebrow">Expression de la semaine</p>
+        <p class="fr" id="expr-a1a2-fr"></p>
+        <p class="muted" id="expr-a1a2-es"></p>
+      </div>
+      <div class="reto-card">
+        <label>
+          <input type="checkbox" id="reto-check-a1a2">
+          <span><strong>Défi de la semaine :</strong> <span id="reto-a1a2-texto"></span></span>
+        </label>
+      </div>
+    </div>
+
+    <div id="panel-b1b2" class="level-panel">
+      <h3>Vocabulaire &amp; expressions</h3>
+      <ul class="vocab-list" id="vocab-b1b2"></ul>
+      <div class="expr-card">
+        <p class="eyebrow">Expression de la semaine</p>
+        <p class="fr" id="expr-b1b2-fr"></p>
+        <p class="muted" id="expr-b1b2-es"></p>
+      </div>
+      <div class="reto-card">
+        <label>
+          <input type="checkbox" id="reto-check-b1b2">
+          <span><strong>Défi de la semaine :</strong> <span id="reto-b1b2-texto"></span></span>
+        </label>
+      </div>
+    </div>
+
+    <div id="cultura-wrap" class="culture-card" style="margin-top:1.5rem;">
+      <p class="eyebrow">🌍 Le Coin Culture</p>
+      <p id="cultura-texto"></p>
+    </div>
+  </section>
+
+  <!-- ═══ CARNET ═══ -->
+  <section id="view-carnet" class="view">
+    <p class="eyebrow">Personnel &amp; privé — visible seulement sur cet appareil</p>
+    <h1>Mon Carnet de Voyage</h1>
+    <p class="muted" style="max-width:60ch;margin-bottom:1.5rem;">Note ici les mots nouveaux, les expressions qui te plaisent, ou une simple réflexion sur ton apprentissage.</p>
+
+    <form id="carnet-form" class="entry-form">
+      <textarea id="carnet-texto" placeholder="Écris un mot, une expression ou une réflexion..." required></textarea>
+      <select id="carnet-tipo">
+        <option value="Mot nouveau">Mot nouveau</option>
+        <option value="Expression favorite">Expression favorite</option>
+        <option value="Découverte culturelle">Découverte culturelle</option>
+        <option value="Réflexion">Réflexion</option>
+      </select>
+      <button type="submit" class="btn">Ajouter à mon carnet</button>
+    </form>
+
+    <div class="entry-list" id="carnet-list"></div>
+  </section>
+
+  <!-- ═══ EXPRESSIONS ═══ -->
+  <section id="view-expressions" class="view">
+    <p class="eyebrow">Une bibliothèque qui grandit chaque semaine</p>
+    <h1>La Boîte à Expressions</h1>
+
+    <div class="toolbar">
+      <input type="search" id="expr-search" placeholder="Rechercher une expression...">
+      <div class="pill-filters">
+        <button class="active" data-nivel="todos">Tous niveaux</button>
+        <button data-nivel="a1a2">A1–A2</button>
+        <button data-nivel="b1b2">B1–B2</button>
+      </div>
+    </div>
+
+    <div class="entry-list" id="expr-list"></div>
+  </section>
+
+  <!-- ═══ CULTURE ═══ -->
+  <section id="view-culture" class="view">
+    <p class="eyebrow">Un regard sur la Francophonie</p>
+    <h1>Le Coin Culture</h1>
+    <div id="culture-list"></div>
+  </section>
+
+  <!-- ═══ ENTRE AMIS ═══ -->
+  <section id="view-amis" class="view">
+    <p class="eyebrow">La question de la semaine</p>
+    <h1>Entre Amis</h1>
+    <div class="question-card">
+      <h2 id="entre-amis-pregunta"></h2>
+      <p class="muted" style="color:rgba(255,255,255,.85);">Écris ta réponse ici, puis partage-la avec le groupe pour continuer la conversation jusqu'à vendredi prochain.</p>
+    </div>
+    <textarea id="entre-amis-texto" class="entry-form" style="width:100%;min-height:120px;" placeholder="Ta réponse..."></textarea>
+    <div class="share-row">
+      <button class="btn whatsapp" id="entre-amis-whatsapp">Partager sur WhatsApp</button>
+    </div>
+  </section>
+
+</main>
+
+<footer id="club-footer">
+  Vendredi entre Amis · Un espace du professeur Miguel Tillero — <a href="../index.html">retour au site principal</a>
+</footer>
+
+<script src="js/club.js"></script>
+</body>
+</html>
