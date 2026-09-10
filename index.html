@@ -2388,7 +2388,7 @@ summary:focus-visible,
 <meta property="og:title" content="Vive el francés · Con el profesor Miguel Tillero">
 <meta property="og:description" content="Profesor especialista en FLE, director de Alliance Française, formador y traductor. 13 años de experiencia internacional. Clases de francés, asesorías pedagógicas y gestión cultural.">
 <meta property="og:url" content="https://migueltillero-ship-it.github.io/MiguelTillero/">
-<meta property="og:image" content="https://migueltillero-ship-it.github.io/MiguelTillero/portrait-director-1.jpg">
+<meta property="og:image" content="https://migueltillero-ship-it.github.io/MiguelTillero/assets/images/portrait-director-1.jpg">
 <meta property="og:image:alt" content="Miguel Tillero en París, Tour Eiffel">
 <meta property="og:locale" content="es_MX">
 <meta property="og:locale:alternate" content="fr_FR">
@@ -2397,7 +2397,7 @@ summary:focus-visible,
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Miguel David Tillero Álvarez · Spécialiste FLE">
 <meta name="twitter:description" content="Director de Alliance Française · Clases de francés · Asesorías pedagógicas · Traducción ES↔FR">
-<meta name="twitter:image" content="https://migueltillero-ship-it.github.io/MiguelTillero/portrait-director-1.jpg">
+<meta name="twitter:image" content="https://migueltillero-ship-it.github.io/MiguelTillero/assets/images/portrait-director-1.jpg">
 
 <!-- Favicon monograma MT -->
 <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="18" fill="%23f3f7f1"/><text x="50" y="68" font-family="Georgia,serif" font-size="52" fill="%23206a48" text-anchor="middle">MT</text></svg>'>
@@ -2409,7 +2409,7 @@ summary:focus-visible,
   "@type": "Person",
   "name": "Miguel David Tillero Álvarez",
   "url": "https://migueltillero-ship-it.github.io/MiguelTillero/",
-  "image": "https://migueltillero-ship-it.github.io/MiguelTillero/IMG-20250925-WA0034.jpg",
+  "image": "https://migueltillero-ship-it.github.io/MiguelTillero/assets/images/portrait-director-1.jpg",
   "jobTitle": "Profesor de francés · Especialista FLE",
   "worksFor": {"@type": "Organization", "name": "Alliance Française de San Cristóbal de Las Casas"},
   "address": {"@type": "PostalAddress", "addressLocality": "San Cristóbal de Las Casas", "addressRegion": "Chiapas", "addressCountry": "MX"},
@@ -2485,7 +2485,7 @@ summary:focus-visible,
 </script>
 
 <!-- Sistema de Internacionalización (i18n) -->
-<script src="i18n/i18n.js"></script>
+<script src="assets/js/i18n.js"></script>
 
 <style>
 /* VIDEO 4K Y BOTONES */
@@ -2498,7 +2498,7 @@ summary:focus-visible,
 </style>
 </head>
 <body>
-<script>if(sessionStorage.getItem('introVisto') === 'true') { document.write('<style>#video-intro { display: none !important; }</style>'); }</script>
+<script>try { if(sessionStorage.getItem('introVisto') === 'true') { document.write('<style>#video-intro { display: none !important; }</style>'); } } catch (e) {}</script>
 
 <a class="skip-link" href="#saltar-al-contenido" id="skip-link"
    data-es="Saltar al contenido" data-fr="Aller au contenu" data-en="Skip to content">Saltar al contenido</a>
@@ -2574,7 +2574,7 @@ summary:focus-visible,
   <a href="#pagos" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a>
   <a href="reservar.html" onclick="closeMob()" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
   <a href="reglamento.html" onclick="closeMob()" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a>
-  <a href="estudiantes/" onclick="closeMob()" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a>
+  <a href="mi-espacio.html" onclick="closeMob()" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a>
 </div>
 
 <!-- NAV -->
@@ -2593,7 +2593,7 @@ summary:focus-visible,
     <li class="nav-sec"><a href="#pagos" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a></li>
     <li class="nav-sec"><a href="reservar.html" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
     <a href="reglamento.html" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a></li>
-    <li><a href="estudiantes/" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a></li>
+    <li><a href="mi-espacio.html" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a></li>
     <li><a href="#inscripcion" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a></li>
   </ul>
   <div class="nav-controls">
@@ -2647,13 +2647,13 @@ summary:focus-visible,
               <i class="fa fa-chevron-down" style="font-size:.55rem"></i>
             </button>
             <div id="cv-drop" style="display:none;position:absolute;top:110%;left:0;min-width:220px;background:rgba(255,255,255,.96);border:1px solid rgba(201,169,110,.35);backdrop-filter:blur(16px);z-index:200;padding:.5rem 0">
-              <a href="cv-miguel-tillero-es.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
+              <a href="assets/docs/cv-miguel-tillero-es.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
                 <span class="cv-flag">ES</span>&nbsp; Español
               </a>
-              <a href="cv-miguel-tillero-fr.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
+              <a href="assets/docs/cv-miguel-tillero-fr.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
                 <span class="cv-flag">FR</span>&nbsp; Français
               </a>
-              <a href="cv-miguel-tillero-en.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
+              <a href="assets/docs/cv-miguel-tillero-en.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
                 <span class="cv-flag">EN</span>&nbsp; English
               </a>
             </div>
@@ -2666,18 +2666,13 @@ summary:focus-visible,
           <div class="portrait-inner" id="portraitCarousel">
             <!-- Carrusel — set oficial de fotos -->
             <img class="portrait-slide active"
-                 src="portrait-director-1.jpg"
+                 src="assets/images/portrait-director-1.jpg"
                  alt="Miguel Tillero — Profesor de francés, especialista FLE"
-                 style="object-fit:cover;object-position:center top"
-                 onerror="this.src='IMG-20250925-WA0034.jpg'">
-            <img class="portrait-slide"
-                 src="portrait-director-3.jpg"
-                 alt="Miguel Tillero — Spécialiste FLE"
                  style="object-fit:cover;object-position:center top"
                  onerror="this.style.display='none'">
             <img class="portrait-slide"
-                 src="IMG-20250925-WA0034.jpg"
-                 alt="Miguel Tillero — Formateur"
+                 src="assets/images/portrait-director-3.jpg"
+                 alt="Miguel Tillero — Spécialiste FLE"
                  style="object-fit:cover;object-position:center top"
                  onerror="this.style.display='none'">
                         <div class="portrait-data">
@@ -2799,17 +2794,17 @@ summary:focus-visible,
 
       <!-- ── DESCARGA DE CV ── -->
       <div class="cv-download-wrap reveal">
-        <a href="cv-miguel-tillero-es.pdf" download class="cv-btn" target="_blank" rel="noopener">
+        <a href="assets/docs/cv-miguel-tillero-es.pdf" download class="cv-btn" target="_blank" rel="noopener">
           <span class="cv-flag">ES</span>
           <i class="fa fa-file-pdf"></i>
           <span data-es="Descargar CV en español" data-fr="Télécharger CV en espagnol" data-en="Download CV in Spanish">Descargar CV · Español</span>
         </a>
-        <a href="cv-miguel-tillero-fr.pdf" download class="cv-btn" target="_blank" rel="noopener">
+        <a href="assets/docs/cv-miguel-tillero-fr.pdf" download class="cv-btn" target="_blank" rel="noopener">
           <span class="cv-flag">FR</span>
           <i class="fa fa-file-pdf"></i>
           <span data-es="Descargar CV en francés" data-fr="Télécharger CV en français" data-en="Download CV in French">Télécharger CV · Français</span>
         </a>
-        <a href="cv-miguel-tillero-en.pdf" download class="cv-btn" target="_blank" rel="noopener">
+        <a href="assets/docs/cv-miguel-tillero-en.pdf" download class="cv-btn" target="_blank" rel="noopener">
           <span class="cv-flag">EN</span>
           <i class="fa fa-file-pdf"></i>
           <span data-es="Descargar CV en inglés" data-fr="Télécharger CV en anglais" data-en="Download CV in English">Download CV · English</span>
@@ -2819,9 +2814,9 @@ summary:focus-visible,
       <!-- El resumen de una página, para quien no quiere el CV completo -->
       <p class="cv-resumen reveal">
         <span data-es="¿Prefieres una sola página?" data-fr="Vous préférez une seule page ?" data-en="Prefer a single page?">¿Prefieres una sola página?</span>
-        <a href="resumen-miguel-tillero-es.pdf" download target="_blank" rel="noopener">Español</a> ·
-        <a href="resumen-miguel-tillero-fr.pdf" download target="_blank" rel="noopener">Français</a> ·
-        <a href="resumen-miguel-tillero-en.pdf" download target="_blank" rel="noopener">English</a>
+        <a href="assets/docs/resumen-miguel-tillero-es.pdf" download target="_blank" rel="noopener">Español</a> ·
+        <a href="assets/docs/resumen-miguel-tillero-fr.pdf" download target="_blank" rel="noopener">Français</a> ·
+        <a href="assets/docs/resumen-miguel-tillero-en.pdf" download target="_blank" rel="noopener">English</a>
       </p>
 
     </div>
@@ -3582,7 +3577,7 @@ summary:focus-visible,
 
       <!-- Video -->
       <video id="site-video" preload="metadata" playsinline
-             poster="portrait-director-1.jpg">
+             poster="assets/images/portrait-director-1.jpg">
         <source src="4k.mp4" type="video/mp4">
       </video>
 
@@ -5063,7 +5058,8 @@ window.addEventListener('DOMContentLoaded', function() {
   }
 
   /* ── FASE 3: BOTÓN ENTRAR — sonido del vídeo + audio de fondo ── */
-  window.enterSite = function() { sessionStorage.setItem('introVisto', 'true');
+  window.enterSite = function() {
+    try { sessionStorage.setItem('introVisto', 'true'); } catch (e) {}
     if (!introVid) { closeIntro(); return; }
 
     introVid.loop = false;

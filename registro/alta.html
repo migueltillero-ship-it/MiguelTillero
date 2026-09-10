@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ficha exprés | Miguel Tillero</title>
+<meta name="description" content="Ficha de alta exprés en 3 pasos, para quien ya habló con Miguel Tillero y quiere formalizar su inscripción.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root { --bg-color: #eef0e5; --primary-color: #8c734b; --primary-hover: #6f552f; --text-dark: #1a2e24; --text-light: #5a665f; --card-bg: rgba(255,255,255,0.85); --accent-green: #2b4535; --border: rgba(165,130,74,0.38); --cyan: #0d7f57;
+--r-xs: 8px; --r-sm: 14px; --r-md: 18px; --r-lg: 26px; --r-pill: 999px; --shadow-card: 0 4px 20px rgba(20,45,32,0.07), 0 1px 2px rgba(20,45,32,0.05); --shadow-card-hover: 0 20px 44px rgba(20,45,32,0.14);}
+body { background-color: var(--bg-color); color: var(--text-dark); font-family: 'Syne', sans-serif; margin: 0; padding: 0; display:flex; flex-direction:column; min-height:100vh; overflow-x:hidden;}
+nav.main-nav { background: #ffffff; border-bottom: 1px solid rgba(43, 69, 53, 0.2); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+.nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; color: var(--accent-green); text-decoration: none; }
+.hamburger { display: none; background: none; border: none; font-size: 1.8rem; color: var(--accent-green); cursor: pointer; }
+.nav-container { display: flex; align-items: center; gap: 1.5rem; }
+.nav-links { display: flex; gap: 1.2rem; align-items: center; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; row-gap: 0.5rem;}
+.nav-links a { text-decoration: none; color: var(--accent-green); font-size: 0.68rem; font-weight: 600; font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.1em; transition: color 0.3s; }
+.nav-links a:hover { color: var(--primary-color); }
+.btn-nav-action { background: var(--accent-green) !important; color: #fff !important; padding: 0.5rem 1rem; border-radius: var(--r-pill); }
+.lang-switcher { display: flex; gap: 0.4rem; align-items: center; }
+.ctrl-btn { background: none; border: 1px solid var(--accent-green); padding: 0.42rem 0.75rem; border-radius: var(--r-xs); font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.12em; cursor: pointer; color: var(--accent-green); transition: 0.3s;}
+.ctrl-btn.active, .ctrl-btn:hover { background: var(--accent-green); color: #fff; }
+@media (max-width: 900px) { .hamburger { display: block; } .nav-container { display: none; flex-direction: column; width: 100%; position: absolute; top: 100%; left: 0; background: #ffffff; padding: 1.5rem; box-shadow: 0 10px 15px rgba(0,0,0,0.1); border-top: 1px solid rgba(43, 69, 53, 0.1); } .nav-container.active { display: flex; } .nav-links { flex-direction: column; width: 100%; } }
+main { padding: 4rem 5%; max-width: 720px; margin: 0 auto; flex-grow: 1; width: 90%;}
+.sec-head { text-align: center; margin-bottom: 2.5rem; }
+.eyebrow { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--primary-color); margin-bottom: 0.5rem; display: block; }
+.sec-title { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: var(--accent-green); margin: 0; }
+.lede { max-width: 560px; margin: 1.2rem auto 0; text-align:center; color: var(--text-light); line-height:1.7; font-size:1rem; }
+.btn-gold { display: inline-flex; align-items:center; gap:0.5rem; background: var(--primary-color); color: #ffffff; padding: 0.95rem 2.1rem; font-family: 'Syne', sans-serif; font-size: 0.92rem; text-decoration: none; border-radius: var(--r-pill); font-weight: 600; transition: background 0.3s, transform 0.2s; border:none; cursor:pointer; box-shadow: var(--shadow-card); width:100%; justify-content:center; }
+.btn-gold:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: var(--shadow-card-hover);}
+.card { background: var(--card-bg); padding: 2.4rem; border: 1px solid var(--border); border-radius: var(--r-md); box-shadow: var(--shadow-card); }
+.steps { display:flex; justify-content:center; gap:1.5rem; margin: 0 0 2.2rem; flex-wrap:wrap; }
+.step { display:flex; align-items:center; gap:0.5rem; font-family:'Space Mono',monospace; font-size:0.68rem; letter-spacing:0.06em; color: var(--accent-green); text-transform:uppercase; }
+.step span { width:22px; height:22px; border-radius:50%; background: var(--accent-green); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.68rem; }
+.form-field { margin-bottom: 1.2rem; }
+.form-field label { display: block; font-family: 'Space Mono', monospace; font-size: 0.64rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-green); margin-bottom: 0.5rem; }
+.form-field input, .form-field textarea, .form-field select { width: 100%; padding: 0.9rem; border: 1px solid var(--border); border-radius: 8px 8px 0 0; font-family: 'Syne', sans-serif; font-size: 0.95rem; background: #fff; box-sizing: border-box; }
+.form-field input:focus, .form-field textarea:focus, .form-field select:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(140, 115, 75, 0.1); }
+.back-link { display:block; text-align:center; margin-top:2rem; font-family:'Space Mono',monospace; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color: var(--primary-color); text-decoration:none; }
+@media (max-width: 768px) { .sec-title { font-size: 2.2rem; } .card { padding: 1.6rem; } }
+</style>
+</head>
+<body>
+<nav class="main-nav">
+    <a href="../index.html" class="nav-brand">Miguel Tillero</a>
+    <button class="hamburger" id="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+    <div class="nav-container" id="nav-container">
+        <ul class="nav-links">
+            <li><a href="../index.html#perfil" data-i18n="nav.perfil">Perfil</a></li>
+            <li><a href="../index.html#servicios" data-i18n="nav.servicios">Servicios</a></li>
+            <li><a href="../index.html#estudiantes" data-i18n="nav.cursos">Cursos</a></li>
+            <li><a href="../index.html#galeria" data-i18n="nav.galeria">Galería</a></li>
+            <li><a href="../testimonios.html" data-i18n="nav.testimonios">Testimonios</a></li>
+            <li><a href="../index.html#recursos" data-i18n="nav.ressources">Recursos</a></li>
+            <li><a href="../index.html#pagos" data-i18n="nav.pagos">Pagos</a></li>
+            <li><a href="../reservar.html" data-i18n="nav.reservar">Reservar</a></li>
+            <li><a href="../index.html#contacto" data-i18n="nav.contacto">Contacto</a></li>
+            <li><a href="../index.html#inscripcion" class="btn-nav-action" data-i18n="nav.cotizar">Cotizar / Inscribirse</a></li>
+        </ul>
+        <div class="lang-switcher">
+            <button class="ctrl-btn active" onclick="setLang('es')">ES</button>
+            <button class="ctrl-btn" onclick="setLang('fr')">FR</button>
+            <button class="ctrl-btn" onclick="setLang('en')">EN</button>
+        </div>
+    </div>
+</nav>
+<main>
+    <div class="sec-head">
+        <span class="eyebrow">Ya hablamos · Ficha exprés</span>
+        <h1 class="sec-title">Formaliza tu inscripción</h1>
+        <p class="lede">Para cuando ya conversamos por WhatsApp o correo y solo falta dejarlo por escrito. Tres datos y quedas registrado.</p>
+    </div>
+
+    <div class="card">
+        <div class="steps">
+            <div class="step"><span>1</span> Quién eres</div>
+            <div class="step"><span>2</span> Cómo contactarte</div>
+            <div class="step"><span>3</span> En qué quedamos</div>
+        </div>
+
+        <form action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="b916dcfc-fd99-4464-a963-7913e8b6799a">
+            <input type="hidden" name="redirect" value="https://migueltillero-ship-it.github.io/MiguelTillero/gracias.html">
+            <input type="hidden" name="subject" value="Ficha exprés de alta - Miguel Tillero">
+            <input type="checkbox" name="botcheck" style="display: none;">
+
+            <div class="form-field">
+                <label>1. Nombre completo *</label>
+                <input type="text" name="Nombre" required placeholder="Tu nombre">
+            </div>
+            <div class="form-field">
+                <label>2. WhatsApp o correo de contacto *</label>
+                <input type="text" name="Contacto" required placeholder="+52 ... o tu@correo.com">
+            </div>
+            <div class="form-field">
+                <label>3. ¿En qué quedamos con Miguel? *</label>
+                <textarea name="Acuerdo" rows="4" required placeholder="Ej: curso individual en línea, 2 clases por semana, empezamos el lunes"></textarea>
+            </div>
+            <button type="submit" class="btn-gold"><i class="fa-solid fa-check"></i> Confirmar mi inscripción</button>
+        </form>
+    </div>
+
+    <a href="../reservar.html" class="back-link">¿Aún no hemos hablado? Reserva una clase de prueba →</a>
+</main>
+<script src="../assets/js/i18n.js"></script>
+<script>
+    const btnMenu = document.getElementById('mobile-menu-btn');
+    const navContainer = document.getElementById('nav-container');
+    if(btnMenu && navContainer) {
+        btnMenu.addEventListener('click', () => {
+            navContainer.classList.toggle('active');
+            const icon = btnMenu.querySelector('i');
+            if(navContainer.classList.contains('active')){
+                icon.classList.remove('fa-bars'); icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark'); icon.classList.add('fa-bars');
+            }
+        });
+    }
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            if(navContainer && navContainer.classList.contains('active')) {
+                navContainer.classList.remove('active');
+                const icon = btnMenu.querySelector('i');
+                if(icon) { icon.classList.remove('fa-xmark'); icon.classList.add('fa-bars'); }
+            }
+        });
+    });
+</script>
+</body>
+</html>

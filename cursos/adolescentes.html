@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Francés para adolescentes | Miguel Tillero</title>
+<meta name="description" content="Clases de francés para adolescentes: preparación DELF Junior y Scolaire, apoyo escolar y actividades que sostienen la motivación. Presencial en San Cristóbal de Las Casas y en línea.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root { --bg-color: #eef0e5; --primary-color: #8c734b; --primary-hover: #6f552f; --text-dark: #1a2e24; --text-light: #5a665f; --card-bg: rgba(255,255,255,0.85); --accent-green: #2b4535; --border: rgba(165,130,74,0.38); --cyan: #0d7f57;
+--r-xs: 8px; --r-sm: 14px; --r-md: 18px; --r-lg: 26px; --r-pill: 999px; --shadow-card: 0 4px 20px rgba(20,45,32,0.07), 0 1px 2px rgba(20,45,32,0.05); --shadow-card-hover: 0 20px 44px rgba(20,45,32,0.14);}
+body { background-color: var(--bg-color); color: var(--text-dark); font-family: 'Syne', sans-serif; margin: 0; padding: 0; display:flex; flex-direction:column; min-height:100vh; overflow-x:hidden;}
+nav.main-nav { background: #ffffff; border-bottom: 1px solid rgba(43, 69, 53, 0.2); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+.nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; color: var(--accent-green); text-decoration: none; }
+.hamburger { display: none; background: none; border: none; font-size: 1.8rem; color: var(--accent-green); cursor: pointer; }
+.nav-container { display: flex; align-items: center; gap: 1.5rem; }
+.nav-links { display: flex; gap: 1.2rem; align-items: center; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; row-gap: 0.5rem;}
+.nav-links a { text-decoration: none; color: var(--accent-green); font-size: 0.68rem; font-weight: 600; font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.1em; transition: color 0.3s; }
+.nav-links a:hover { color: var(--primary-color); }
+.btn-nav-action { background: var(--accent-green) !important; color: #fff !important; padding: 0.5rem 1rem; border-radius: var(--r-pill); }
+.lang-switcher { display: flex; gap: 0.4rem; align-items: center; }
+.ctrl-btn { background: none; border: 1px solid var(--accent-green); padding: 0.42rem 0.75rem; border-radius: var(--r-xs); font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.12em; cursor: pointer; color: var(--accent-green); transition: 0.3s;}
+.ctrl-btn.active, .ctrl-btn:hover { background: var(--accent-green); color: #fff; }
+@media (max-width: 900px) { .hamburger { display: block; } .nav-container { display: none; flex-direction: column; width: 100%; position: absolute; top: 100%; left: 0; background: #ffffff; padding: 1.5rem; box-shadow: 0 10px 15px rgba(0,0,0,0.1); border-top: 1px solid rgba(43, 69, 53, 0.1); } .nav-container.active { display: flex; } .nav-links { flex-direction: column; width: 100%; } }
+main { padding: 4rem 5%; max-width: 1100px; margin: 0 auto; flex-grow: 1; width: 90%;}
+.sec-head { text-align: center; margin-bottom: 3rem; }
+.eyebrow { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--primary-color); margin-bottom: 0.5rem; display: block; }
+.sec-title { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: var(--accent-green); margin: 0; }
+.lede { max-width: 760px; margin: 1.2rem auto 0; text-align:center; color: var(--text-light); line-height:1.7; font-size:1rem; }
+.btn-gold { display: inline-flex; align-items:center; gap:0.5rem; background: var(--primary-color); color: #ffffff; padding: 0.95rem 2.1rem; font-family: 'Syne', sans-serif; font-size: 0.92rem; text-decoration: none; border-radius: var(--r-pill); font-weight: 600; transition: background 0.3s, transform 0.2s; border:none; cursor:pointer; box-shadow: var(--shadow-card);}
+.btn-gold:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: var(--shadow-card-hover);}
+.btn-ghost { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.95rem 2.1rem; background: rgba(255,255,255,0.85); color: var(--primary-color); border: 1px solid var(--border); font-family: 'Syne', sans-serif; font-size: 0.92rem; font-weight: 600; text-decoration: none; border-radius: var(--r-pill); transition: all 0.3s; cursor:pointer;}
+.btn-ghost:hover { border-color: var(--primary-color); background: rgba(140, 115, 75, 0.1); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(140, 115, 75, 0.1); color: var(--accent-green);}
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.6rem; }
+.card { background: var(--card-bg); padding: 2rem; border: 1px solid var(--border); border-radius: var(--r-md); transition: transform 0.45s, box-shadow 0.4s; box-shadow: var(--shadow-card); }
+.card:hover { transform: translateY(-5px); box-shadow: var(--shadow-card-hover); background: #fff;}
+.card-icon { font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem; display: block; }
+.card-title { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--accent-green); margin-bottom: 0.8rem; }
+.card-p { font-size:0.9rem; color:var(--text-light); line-height:1.65; margin:0; }
+.chip-row { display:flex; flex-wrap:wrap; gap:0.5rem; margin: 1rem 0; }
+.chip { background: rgba(140,115,75,0.1); border:1px solid var(--border); color: var(--accent-green); font-family:'Space Mono',monospace; font-size:0.68rem; letter-spacing:0.06em; padding:0.4rem 0.8rem; border-radius: var(--r-pill); }
+.chip.em { background: var(--accent-green); color:#fff; border-color: var(--accent-green); }
+.cta-block { text-align:center; margin-top: 3rem; display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+.back-link { display:block; text-align:center; margin-top:2.5rem; font-family:'Space Mono',monospace; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color: var(--primary-color); text-decoration:none; }
+@media (max-width: 768px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } .sec-title { font-size: 2.2rem; } .btn-gold, .btn-ghost{ font-size: 0.88rem; padding: 0.85rem 1.7rem; }}
+</style>
+</head>
+<body>
+<nav class="main-nav">
+    <a href="../index.html" class="nav-brand">Miguel Tillero</a>
+    <button class="hamburger" id="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+    <div class="nav-container" id="nav-container">
+        <ul class="nav-links">
+            <li><a href="../index.html#perfil" data-i18n="nav.perfil">Perfil</a></li>
+            <li><a href="../index.html#servicios" data-i18n="nav.servicios">Servicios</a></li>
+            <li><a href="../index.html#estudiantes" data-i18n="nav.cursos">Cursos</a></li>
+            <li><a href="../index.html#galeria" data-i18n="nav.galeria">Galería</a></li>
+            <li><a href="../testimonios.html" data-i18n="nav.testimonios">Testimonios</a></li>
+            <li><a href="../index.html#recursos" data-i18n="nav.ressources">Recursos</a></li>
+            <li><a href="../index.html#pagos" data-i18n="nav.pagos">Pagos</a></li>
+            <li><a href="../reservar.html" data-i18n="nav.reservar">Reservar</a></li>
+            <li><a href="../index.html#contacto" data-i18n="nav.contacto">Contacto</a></li>
+            <li><a href="../index.html#inscripcion" class="btn-nav-action" data-i18n="nav.cotizar">Cotizar / Inscribirse</a></li>
+        </ul>
+        <div class="lang-switcher">
+            <button class="ctrl-btn active" onclick="setLang('es')">ES</button>
+            <button class="ctrl-btn" onclick="setLang('fr')">FR</button>
+            <button class="ctrl-btn" onclick="setLang('en')">EN</button>
+        </div>
+    </div>
+</nav>
+<main>
+    <div class="sec-head">
+        <span class="eyebrow">Cursos por edad · Adolescentes</span>
+        <h1 class="sec-title">Francés para adolescentes</h1>
+        <p class="lede">De 13 a 17 años. La prioridad es que el francés se sienta útil y propio — no una materia más — combinando avance real con espacio para hablar de lo que a esa edad importa.</p>
+    </div>
+
+    <div class="chip-row" style="justify-content:center">
+        <span class="chip em">13 a 17 años</span>
+        <span class="chip">Grupos por nivel y edad</span>
+        <span class="chip">Presencial o en línea</span>
+        <span class="chip">DELF Junior · Scolaire</span>
+    </div>
+
+    <div class="grid-3" style="margin-top:2.5rem">
+        <div class="card">
+            <i class="fa-solid fa-comments card-icon"></i>
+            <h3 class="card-title">Temas que les interesan</h3>
+            <p class="card-p">Música, series, redes, videojuegos, viajes: el vocabulario y la gramática se trabajan sobre contenido que un adolescente elegiría ver de todas formas, no sobre textos genéricos de manual.</p>
+        </div>
+        <div class="card">
+            <i class="fa-solid fa-graduation-cap card-icon"></i>
+            <h3 class="card-title">Apoyo escolar</h3>
+            <p class="card-p">Si el francés ya es materia en su escuela, reforzamos tarea, exámenes y comprensión de clase, sin duplicar el programa escolar sino aclarando lo que ahí quedó a medias.</p>
+        </div>
+        <div class="card">
+            <i class="fa-solid fa-people-group card-icon"></i>
+            <h3 class="card-title">Grupo o individual</h3>
+            <p class="card-p">En grupo reducido con compañeros del mismo nivel para practicar interacción real, o de forma individual cuando el ritmo escolar o el objetivo lo piden.</p>
+        </div>
+    </div>
+
+    <div class="card" style="margin-top:2.5rem; text-align:center;">
+        <i class="fa-solid fa-award card-icon" style="margin:0 auto 1rem"></i>
+        <h3 class="card-title">Preparación DELF Junior y DELF Scolaire</h3>
+        <p class="card-p">Cuando el objetivo es certificar el nivel, preparamos específicamente el <b>DELF Junior</b> (versión general para su edad) o el <b>DELF Scolaire</b> (para quienes cursan francés dentro del sistema escolar), con simulacros y corrección según los criterios oficiales.</p>
+    </div>
+
+    <div class="cta-block">
+        <a href="../index.html#inscripcion" class="btn-gold"><i class="fa-solid fa-graduation-cap"></i> Solicitar clase de prueba</a>
+        <a href="../reservar.html" class="btn-ghost"><i class="fa-solid fa-calendar-check"></i> Reservar un horario</a>
+    </div>
+
+    <a href="../index.html#estudiantes" class="back-link">← Ver todas las modalidades</a>
+</main>
+<script src="../assets/js/i18n.js"></script>
+<script>
+    const btnMenu = document.getElementById('mobile-menu-btn');
+    const navContainer = document.getElementById('nav-container');
+    if(btnMenu && navContainer) {
+        btnMenu.addEventListener('click', () => {
+            navContainer.classList.toggle('active');
+            const icon = btnMenu.querySelector('i');
+            if(navContainer.classList.contains('active')){
+                icon.classList.remove('fa-bars'); icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark'); icon.classList.add('fa-bars');
+            }
+        });
+    }
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            if(navContainer && navContainer.classList.contains('active')) {
+                navContainer.classList.remove('active');
+                const icon = btnMenu.querySelector('i');
+                if(icon) { icon.classList.remove('fa-xmark'); icon.classList.add('fa-bars'); }
+            }
+        });
+    });
+</script>
+</body>
+</html>
