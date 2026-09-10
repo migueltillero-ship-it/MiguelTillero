@@ -2592,6 +2592,7 @@ body { animation: pageFadeIn 0.5s ease; }
   <a href="reservar.html" onclick="closeMob()" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
   <a href="reglamento.html" onclick="closeMob()" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a>
   <a href="mi-espacio.html" onclick="closeMob()" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a>
+  <a href="club/index.html" onclick="closeMob()" style="color:var(--gold);" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</a>
 </div>
 
 <!-- NAV -->
@@ -2611,6 +2612,7 @@ body { animation: pageFadeIn 0.5s ease; }
     <li class="nav-sec"><a href="reservar.html" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
     <a href="reglamento.html" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a></li>
     <li><a href="mi-espacio.html" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a></li>
+    <li class="nav-sec"><a href="club/index.html" style="color:var(--gold);" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</a></li>
     <li><a href="inscribete.html" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a></li>
   </ul>
   <div class="nav-controls">
@@ -3920,11 +3922,32 @@ window.addEventListener('DOMContentLoaded', function() {
 
 </script>
 <script>document.addEventListener('DOMContentLoaded', function(){ if (window.SitePages && !window.location.hash) window.SitePages.show('servicios', null, false); });</script>
+<script>
+/* Cada tarjeta de servicio lleva directo al formulario de contacto,
+   con el servicio y su descripción ya identificados. */
+(function () {
+  document.querySelectorAll('.svc-card').forEach(function (card) {
+    card.style.cursor = 'pointer';
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'link');
+    function ir() {
+      var titulo = (card.querySelector('.svc-title') || {}).textContent || '';
+      var desc = (card.querySelector('.svc-desc') || {}).textContent || '';
+      window.location.href = 'inscribete.html?modalidad=' + encodeURIComponent(titulo.trim()) + '&desc=' + encodeURIComponent(desc.trim());
+    }
+    card.addEventListener('click', ir);
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); ir(); }
+    });
+  });
+})();
+</script>
 
 <!-- CURSOR PERSONALIZADO -->
 
 </body>
 </html>
+
 
 
 

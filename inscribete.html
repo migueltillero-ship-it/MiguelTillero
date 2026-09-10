@@ -2592,6 +2592,7 @@ body { animation: pageFadeIn 0.5s ease; }
   <a href="reservar.html" onclick="closeMob()" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
   <a href="reglamento.html" onclick="closeMob()" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a>
   <a href="mi-espacio.html" onclick="closeMob()" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a>
+  <a href="club/index.html" onclick="closeMob()" style="color:var(--gold);" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</a>
 </div>
 
 <!-- NAV -->
@@ -2611,6 +2612,7 @@ body { animation: pageFadeIn 0.5s ease; }
     <li class="nav-sec"><a href="reservar.html" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
     <a href="reglamento.html" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a></li>
     <li><a href="mi-espacio.html" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a></li>
+    <li class="nav-sec"><a href="club/index.html" style="color:var(--gold);" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</a></li>
     <li><a href="inscribete.html" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a></li>
   </ul>
   <div class="nav-controls">
@@ -2640,6 +2642,12 @@ body { animation: pageFadeIn 0.5s ease; }
           <span data-es="¿Ya hablaste con Miguel? Ficha exprés en 3 pasos" data-fr="Déjà en contact avec Miguel ? Fiche express en 3 étapes" data-en="Already talked to Miguel? Express form in 3 steps">¿Ya hablaste con Miguel? Ficha exprés en 3 pasos</span>
         </a>
       </p>
+    </div>
+
+    <div id="modalidad-banner" class="reveal" style="display:none;background:rgba(201,169,110,.08);border:1px solid var(--border);padding:1.5rem 1.8rem;margin-bottom:2rem;">
+      <p class="eyebrow" style="margin-bottom:0.5rem;" data-es="Estás solicitando información sobre" data-fr="Vous demandez des informations sur" data-en="You're requesting information about">Estás solicitando información sobre</p>
+      <h3 id="modalidad-nombre" style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:1.6rem;color:var(--white);margin:0 0 0.6rem;"></h3>
+      <p id="modalidad-desc" style="font-size:0.92rem;color:var(--muted);margin:0;"></p>
     </div>
 
     <form class="insc-form reveal" id="inscForm">
@@ -4012,11 +4020,33 @@ window.addEventListener('DOMContentLoaded', function() {
 
 </script>
 <script>document.addEventListener('DOMContentLoaded', function(){ if (window.SitePages && !window.location.hash) window.SitePages.show('contacto', null, false); });</script>
+<script>
+/* Si llegamos desde una tarjeta de curso o servicio (?modalidad=...&desc=...),
+   mostramos qué eligió y le dejamos el motivo ya escrito, sin que tenga
+   que repetir lo que ya seleccionó con un clic. */
+(function () {
+  var params = new URLSearchParams(window.location.search);
+  var modalidad = params.get('modalidad');
+  if (!modalidad) return;
+  var desc = params.get('desc') || '';
+  var banner = document.getElementById('modalidad-banner');
+  if (banner) {
+    banner.style.display = 'block';
+    document.getElementById('modalidad-nombre').textContent = modalidad;
+    document.getElementById('modalidad-desc').textContent = desc;
+  }
+  var motivacion = document.getElementById('f-motivacion');
+  if (motivacion && !motivacion.value) {
+    motivacion.value = 'Me interesa: ' + modalidad + (desc ? '\n\n' + desc : '');
+  }
+})();
+</script>
 
 <!-- CURSOR PERSONALIZADO -->
 
 </body>
 </html>
+
 
 
 
