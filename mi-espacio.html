@@ -23,6 +23,15 @@
         .lang-switcher { display: flex; gap: 0.4rem; align-items: center; }
         .ctrl-btn { background: none; border: 1px solid rgba(140,115,75,0.3); padding: 0.3rem 0.6rem; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.7rem; cursor: pointer; }
         .ctrl-btn.active { background: var(--primary-color); color: #fff; border-color: var(--primary-color); }
+        .niveles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.4rem; max-width: 980px; margin: 2.5rem auto 0; width: 100%; text-align: left; }
+        .nivel-card { background: var(--card-bg); border: 1px solid rgba(140,115,75,0.25); border-radius: var(--r-md, 18px); padding: 1.8rem; box-shadow: var(--shadow-card, 0 4px 20px rgba(20,45,32,0.07)); text-decoration: none; color: inherit; transition: transform 0.35s, box-shadow 0.35s; display: block; }
+        .nivel-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-card-hover, 0 20px 44px rgba(20,45,32,0.14)); }
+        .nivel-card .niv-code { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.14em; color: var(--primary-color); text-transform: uppercase; }
+        .nivel-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; margin: 0.4rem 0 0.5rem; color: var(--accent-green); }
+        .nivel-card p { font-size: 0.85rem; color: var(--text-light); margin: 0; line-height: 1.55; }
+        .nivel-card.soon { opacity: 0.55; cursor: default; pointer-events: none; }
+        .nivel-card .niv-badge { display: inline-block; margin-top: 0.9rem; font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 999px; background: rgba(59,83,70,0.1); color: var(--accent-green); }
+        .nivel-card.soon .niv-badge { background: rgba(90,102,95,0.12); color: var(--text-light); }
             .hamburger { display: none; background: none; border: none; font-size: 1.8rem; color: var(--accent-green); cursor: pointer; }
         .nav-container { display: flex; align-items: center; gap: 1.5rem; }
         @media (max-width: 900px) {
@@ -125,8 +134,48 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     </nav>
 
     <main>
-        <h1>Mi-espacio</h1>
-        <p>Esta sección está siendo estructurada. Estará disponible muy pronto como parte del nuevo ecosistema.</p>
+        <h1>Mi espacio</h1>
+        <p>Tu aula virtual por nivel: cuaderno de sesiones, gramática explicada, vocabulario, juegos de repaso y entrega de tareas. Elige tu nivel actual para continuar.</p>
+
+        <div class="niveles-grid">
+            <a class="nivel-card" href="estudiantes/a1.html">
+                <div class="niv-code">Nivel A1</div>
+                <h3>Espace Hybride A1</h3>
+                <p>Primeros contactos, presentarse, números, vivienda. Cuaderno de sesiones, 4 módulos con quiz y juego de memoria.</p>
+                <span class="niv-badge">Disponible</span>
+            </a>
+            <a class="nivel-card" href="estudiantes/b2.html">
+                <div class="niv-code">Nivel B2</div>
+                <h3>Dossier de Révision B2</h3>
+                <p>Indéfinis, causa/consecuencia, voz pasiva, condicional, discurso argumentado. 9 módulos y espacio de entrega de tareas.</p>
+                <span class="niv-badge">Disponible</span>
+            </a>
+            <div class="nivel-card soon">
+                <div class="niv-code">Nivel A2</div>
+                <h3>Próximamente</h3>
+                <p>Este nivel todavía está en construcción.</p>
+                <span class="niv-badge">Próximamente</span>
+            </div>
+            <div class="nivel-card soon">
+                <div class="niv-code">Nivel B1</div>
+                <h3>Próximamente</h3>
+                <p>Este nivel todavía está en construcción.</p>
+                <span class="niv-badge">Próximamente</span>
+            </div>
+            <div class="nivel-card soon">
+                <div class="niv-code">Nivel C1</div>
+                <h3>Próximamente</h3>
+                <p>Este nivel todavía está en construcción.</p>
+                <span class="niv-badge">Próximamente</span>
+            </div>
+            <div class="nivel-card soon">
+                <div class="niv-code">Nivel C2</div>
+                <h3>Próximamente</h3>
+                <p>Este nivel todavía está en construcción.</p>
+                <span class="niv-badge">Próximamente</span>
+            </div>
+        </div>
+
         <br>
         <a href="index.html" style="color:var(--accent-green); font-weight:bold; text-decoration:none;">
             <i class="fa fa-arrow-left"></i> Volver al inicio
