@@ -22,22 +22,36 @@ function mostrarAvisoSinConfigurar(elId) {
  * si el cliente todavía estaba inicializándose.
  */
 async function obtenerPerfilActual(reintentar = true) {
-  if (!supabaseClient) return null;
-  const { data: { session } } = await supabaseClient.auth.getSession();
-  if (!session || !session.user) {
-    if (reintentar) {
-      await new Promise(r => setTimeout(r, 400));
-      return obtenerPerfilActual(false);
+  try {
+    if (!supabaseClient) { window.__ultimoDiagPerfil = 'no hay supabaseClient'; return null; }
+    const { data: { session }, error: errSesion } = await supabaseClient.auth.getSession();
+    if (errSesion) { window.__ultimoDiagPerfil = 'error getSession: ' + errSesion.message; }
+    if (!session || !session.user) {
+      if (reintentar) {
+        await new Promise(r => setTimeout(r, 600));
+        return obtenerPerfilActual(false);
+      }
+      window.__ultimoDiagPerfil = 'sin sesión tras reintento (getSession no devolvió usuario)';
+      return null;
     }
+    const { data: perfil, error } = await supabaseClient
+      .from('profiles')
+      .select('*')
+      .eq('id', session.user.id)
+      .single();
+    if (error) {
+      if (reintentar) {
+        await new Promise(r => setTimeout(r, 600));
+        return obtenerPerfilActual(false);
+      }
+      window.__ultimoDiagPerfil = `error leyendo profiles (código ${error.code || '?'}): ${error.message}`;
+      return null;
+    }
+    return { user: session.user, perfil };
+  } catch (e) {
+    window.__ultimoDiagPerfil = 'excepción: ' + (e && e.message ? e.message : String(e));
     return null;
   }
-  const { data: perfil, error } = await supabaseClient
-    .from('profiles')
-    .select('*')
-    .eq('id', session.user.id)
-    .single();
-  if (error) return null;
-  return { user: session.user, perfil };
 }
 
 /**

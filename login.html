@@ -106,7 +106,8 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
 
     const contexto = await obtenerPerfilActual();
     if (!contexto) {
-        mostrarMsg(msgEl, 'Iniciaste sesión pero no pudimos leer tu perfil. Refresca esta página e intenta entrar de nuevo.', 'error');
+        const detalle = window.__ultimoDiagPerfil || 'motivo desconocido';
+        mostrarMsg(msgEl, 'Iniciaste sesión pero no pudimos leer tu perfil. Detalle técnico: ' + detalle, 'error');
         btn.disabled = false;
         return;
     }
