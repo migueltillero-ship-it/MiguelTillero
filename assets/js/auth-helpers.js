@@ -33,11 +33,11 @@ async function requerirSesion(rolRequerido) {
   if (!supabaseConfigurado) return null;
   const contexto = await obtenerPerfilActual();
   if (!contexto) {
-    window.location.href = '/login.html';
+    window.location.href = 'login.html';
     return null;
   }
   if (rolRequerido && contexto.perfil.role !== rolRequerido) {
-    window.location.href = contexto.perfil.role === 'docente' ? '/panel-docente.html' : '/panel-estudiante.html';
+    window.location.href = contexto.perfil.role === 'docente' ? 'panel-docente.html' : 'panel-estudiante.html';
     return null;
   }
   return contexto;
@@ -45,5 +45,5 @@ async function requerirSesion(rolRequerido) {
 
 async function cerrarSesion() {
   if (supabaseClient) await supabaseClient.auth.signOut();
-  window.location.href = '/login.html';
+  window.location.href = 'login.html';
 }

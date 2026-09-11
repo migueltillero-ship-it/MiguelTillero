@@ -10,7 +10,7 @@
  *
  * Este archivo debe cargarse DESPUÉS del script del CDN de supabase-js, p. ej.:
  *   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
- *   <script src="/assets/js/supabase-config.js"></script>
+ *   <script src="assets/js/supabase-config.js"></script>
  */
 const SUPABASE_URL = 'https://yfrdlzveleevkjqekdoq.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_KrCwsrcn0Y6tQ6oqYNBObg_droR0ta3';
