@@ -1,0 +1,164 @@
+/* ════════════════════════════════════════════════
+   CARRUSEL DE VÍDEOS — index.html y galeria.html
+   Las clases llevan prefijo .vc- para no chocar con
+   el reproductor suelto que ya vive en #video-reel.
+════════════════════════════════════════════════ */
+.vc { position: relative; max-width: 1040px; margin: 0 auto; }
+
+.vc-track {
+  display: flex;
+  gap: 1.4rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 0.4rem 0.2rem 1.4rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(165,130,74,0.5) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+.vc-track::-webkit-scrollbar { height: 6px; }
+.vc-track::-webkit-scrollbar-track { background: rgba(165,130,74,0.10); border-radius: 999px; }
+.vc-track::-webkit-scrollbar-thumb { background: rgba(165,130,74,0.45); border-radius: 999px; }
+
+.vc-slide {
+  flex: 0 0 min(580px, 84%);
+  scroll-snap-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.vc-frame {
+  position: relative;
+  overflow: hidden;
+  background: #071409;
+  border: 1px solid rgba(201,169,110,0.28);
+  box-shadow: 0 0 46px rgba(201,169,110,0.13), 0 22px 60px rgba(30,60,40,0.20);
+}
+.vc-frame::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px; z-index: 2;
+  background: linear-gradient(90deg, transparent, rgba(201,169,110,0.5), rgba(77,255,200,0.4), transparent);
+}
+/* El póster llena el recuadro (los retratos verticales dejarían si no dos
+   franjas negras enormes); al arrancar la reproducción pasamos a contain
+   para no recortar nada del vídeo, venga en el formato que venga. */
+.vc-video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center 25%;
+  background: #000;
+}
+.vc-video.is-playing { object-fit: contain; object-position: center; }
+
+.vc-corner {
+  position: absolute; width: 14px; height: 14px; z-index: 6;
+  border-color: rgba(201,169,110,0.55); border-style: solid;
+  pointer-events: none;
+}
+.vc-corner.tl { top: 0; left: 0; border-width: 2px 0 0 2px; }
+.vc-corner.tr { top: 0; right: 0; border-width: 2px 2px 0 0; }
+.vc-corner.bl { bottom: 0; left: 0; border-width: 0 0 2px 2px; }
+.vc-corner.br { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
+
+.vc-play {
+  position: absolute; inset: 0; z-index: 5;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(2,12,6,0.45);
+  border: none; cursor: pointer; padding: 0;
+  transition: opacity 0.4s, background 0.4s;
+}
+.vc-play.is-hidden { opacity: 0; pointer-events: none; }
+.vc-play-circle {
+  width: 68px; height: 68px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(201,169,110,0.7);
+  background: rgba(4,16,8,0.7);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 30px rgba(201,169,110,0.2);
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+.vc-play-circle i { color: #c9a96e; font-size: 1.4rem; margin-left: 4px; }
+.vc-play:hover .vc-play-circle,
+.vc-play:focus-visible .vc-play-circle {
+  background: rgba(201,169,110,0.18);
+  border-color: #c9a96e;
+  box-shadow: 0 0 50px rgba(201,169,110,0.35);
+  transform: scale(1.06);
+}
+
+.vc-meta { padding: 1rem 0.3rem 0; }
+.vc-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold, #a5824a);
+}
+.vc-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.45rem; font-weight: 600; line-height: 1.25;
+  color: var(--white, #12291c);
+  margin: 0.4rem 0 0;
+}
+.vc-desc {
+  font-size: 0.9rem; line-height: 1.6;
+  color: var(--muted, rgba(18,41,28,0.62));
+  margin: 0.5rem 0 0;
+}
+.vc-aviso {
+  position: absolute; inset: 0; z-index: 7;
+  display: flex; align-items: center; justify-content: center;
+  padding: 1.5rem; text-align: center;
+  background: rgba(2,12,6,0.86);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(255,255,255,0.78);
+}
+
+/* ── Controles ─────────────────────────────── */
+.vc-controles {
+  display: flex; align-items: center; justify-content: center;
+  gap: 1.4rem; margin-top: 0.4rem;
+}
+.vc-nav {
+  width: 46px; height: 46px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.82);
+  border: 1px solid var(--border, rgba(165,130,74,0.38));
+  color: var(--gold, #a5824a);
+  cursor: pointer;
+  transition: background 0.3s, border-color 0.3s, transform 0.3s, opacity 0.3s;
+}
+.vc-nav:hover:not(:disabled) {
+  background: var(--gold, #a5824a); color: #fff;
+  border-color: var(--gold, #a5824a); transform: translateY(-2px);
+}
+.vc-nav:disabled { opacity: 0.3; cursor: default; }
+.vc-nav i { font-size: 0.85rem; }
+
+.vc-dots { display: flex; gap: 0.55rem; align-items: center; }
+.vc-dot {
+  width: 9px; height: 9px; border-radius: 50%; padding: 0;
+  background: rgba(165,130,74,0.3);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s, border-color 0.3s;
+}
+.vc-dot[aria-current="true"] {
+  background: var(--gold, #a5824a);
+  transform: scale(1.35);
+}
+.vc-dot:focus-visible { border-color: var(--gold, #a5824a); outline: none; }
+
+@media (max-width: 640px) {
+  .vc-slide { flex-basis: 88%; }
+  .vc-title { font-size: 1.25rem; }
+  .vc-play-circle { width: 56px; height: 56px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vc-track { scroll-behavior: auto; }
+  .vc-play, .vc-play-circle, .vc-nav, .vc-dot { transition: none; }
+  .vc-nav:hover:not(:disabled), .vc-play:hover .vc-play-circle { transform: none; }
+}

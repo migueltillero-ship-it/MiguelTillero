@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="assets/css/video-carrusel.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 
@@ -2521,6 +2522,7 @@ body { animation: pageFadeIn 0.5s ease; }
 
 <!-- Sistema de Internacionalización (i18n) -->
 <script src="assets/js/i18n.js"></script>
+<script src="assets/js/video-carrusel.js"></script>
 
 <style>
 /* VIDEO 4K Y BOTONES */
@@ -2643,28 +2645,11 @@ body { animation: pageFadeIn 0.5s ease; }
       </h2>
     </div>
 
-    <div class="video-wrapper reveal bracket">
-      <!-- Corners -->
-      <div class="v-corner tl"></div>
-      <div class="v-corner tr"></div>
-      <div class="v-corner bl"></div>
-      <div class="v-corner br"></div>
-
-      <!-- Video -->
-      <video id="site-video" preload="metadata" playsinline
-             poster="assets/images/portrait-miguel-1.jpg">
-        <source src="profesor-miguel-tillero.mp4" type="video/mp4">
-      </video>
-
-      <!-- Custom play overlay -->
-      <div class="video-play-overlay" id="video-overlay">
-        <div class="play-circle"><i class="fa fa-play"></i></div>
-      </div>
-    </div>
+    <div class="reveal" data-carrusel-videos></div>
 
     <div class="video-meta reveal">
       <span class="vtag">MT · FLE</span>
-      <span data-es="Clic para reproducir" data-fr="Cliquer pour lire" data-en="Click to play">Clic para reproducir</span>
+      <span data-es="Desliza para ver más" data-fr="Faites défiler pour voir plus" data-en="Swipe to see more">Desliza para ver más</span>
       <span class="vtag">FLE · GESTIÓN CULTURAL · FORMACIÓN</span>
     </div>
   </div>

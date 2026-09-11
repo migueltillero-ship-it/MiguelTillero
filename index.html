@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="assets/css/video-carrusel.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 
@@ -2516,6 +2517,7 @@ body { animation: pageFadeIn 0.5s ease; }
 
 <!-- Sistema de Internacionalización (i18n) -->
 <script src="assets/js/i18n.js"></script>
+<script src="assets/js/video-carrusel.js"></script>
 
 <style>
 /* VIDEO 4K Y BOTONES */
@@ -2783,6 +2785,28 @@ body { animation: pageFadeIn 0.5s ease; }
         <span class="portal-meta" style="display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;opacity:.85;margin-bottom:.5rem;"><i class="fa fa-calendar-days"></i> <span data-es="Todos los viernes — próxima sesión: 11 de septiembre" data-fr="Tous les vendredis — prochaine séance : 11 septembre" data-en="Every Friday — next session: September 11">Todos los viernes — próxima sesión: 11 de septiembre</span></span>
         <span class="portal-go" data-es="Entrar al club" data-fr="Entrer dans le club" data-en="Enter the club">Entrar al club</span>
       </a>
+    </div>
+  </div>
+</section>
+
+<section id="video-reel" class="z10" data-page="inicio">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;margin-bottom:3rem;">
+      <p class="eyebrow" style="justify-content:center"
+         data-es="Presentación audiovisual" data-fr="Présentation audiovisuelle" data-en="Audiovisual presentation">
+        Presentación audiovisual
+      </p>
+      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;">
+        <em data-es="En vídeo" data-fr="En vidéo" data-en="On video">En vídeo</em>
+      </h2>
+    </div>
+
+    <div class="reveal" data-carrusel-videos></div>
+
+    <div class="video-meta reveal">
+      <span class="vtag">MT · FLE</span>
+      <span data-es="Desliza para ver más" data-fr="Faites défiler pour voir plus" data-en="Swipe to see more">Desliza para ver más</span>
+      <span class="vtag">FLE · GESTIÓN CULTURAL · FORMACIÓN</span>
     </div>
   </div>
 </section>

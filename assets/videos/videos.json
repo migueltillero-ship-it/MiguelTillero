@@ -1,0 +1,24 @@
+{
+  "videos": [
+    {
+      "archivo": "Miguel_Tillero_video_bienvenida.mp4",
+      "poster": "assets/images/portrait-miguel-1.jpg",
+      "titulo": "Video de bienvenida",
+      "titulo_fr": "Vidéo de bienvenue",
+      "titulo_en": "Welcome video",
+      "descripcion": "Una presentación breve: quién soy y cómo trabajo el francés contigo.",
+      "descripcion_fr": "Une présentation brève : qui je suis et comment je travaille le français avec vous.",
+      "descripcion_en": "A short introduction: who I am and how I work on French with you."
+    },
+    {
+      "archivo": "profesor-miguel-tillero.mp4",
+      "poster": "assets/images/portrait-miguel-3.jpg",
+      "titulo": "El profesor en clase",
+      "titulo_fr": "Le professeur en classe",
+      "titulo_en": "The teacher in class",
+      "descripcion": "Mi manera de dar clase, el ritmo de las sesiones y el trato con los estudiantes.",
+      "descripcion_fr": "Ma façon d'enseigner, le rythme des séances et la relation avec les étudiants.",
+      "descripcion_en": "How I teach, the rhythm of the sessions and the rapport with students."
+    }
+  ]
+}
