@@ -12,17 +12,32 @@ function mostrarAvisoSinConfigurar(elId) {
   }
 }
 
-async function obtenerPerfilActual() {
+/**
+ * Lee la sesión y el perfil actuales. Usa getSession() (lectura local,
+ * espera a que el cliente termine de restaurar la sesión guardada) en
+ * vez de getUser() (siempre hace una llamada de red y puede devolver
+ * "sin usuario" si se llama justo al cargar la página, antes de que la
+ * sesión termine de restaurarse desde el almacenamiento del navegador).
+ * Reintenta una vez más si la primera lectura no encuentra sesión, por
+ * si el cliente todavía estaba inicializándose.
+ */
+async function obtenerPerfilActual(reintentar = true) {
   if (!supabaseClient) return null;
-  const { data: { user } } = await supabaseClient.auth.getUser();
-  if (!user) return null;
+  const { data: { session } } = await supabaseClient.auth.getSession();
+  if (!session || !session.user) {
+    if (reintentar) {
+      await new Promise(r => setTimeout(r, 400));
+      return obtenerPerfilActual(false);
+    }
+    return null;
+  }
   const { data: perfil, error } = await supabaseClient
     .from('profiles')
     .select('*')
-    .eq('id', user.id)
+    .eq('id', session.user.id)
     .single();
   if (error) return null;
-  return { user, perfil };
+  return { user: session.user, perfil };
 }
 
 /**

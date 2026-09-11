@@ -104,8 +104,13 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
         return;
     }
 
-    const { data: perfil } = await supabaseClient.from('profiles').select('role').eq('id', data.user.id).single();
-    window.location.href = perfil && perfil.role === 'docente' ? 'panel-docente.html' : 'panel-estudiante.html';
+    const contexto = await obtenerPerfilActual();
+    if (!contexto) {
+        mostrarMsg(msgEl, 'Iniciaste sesión pero no pudimos leer tu perfil. Refresca esta página e intenta entrar de nuevo.', 'error');
+        btn.disabled = false;
+        return;
+    }
+    window.location.href = contexto.perfil.role === 'docente' ? 'panel-docente.html' : 'panel-estudiante.html';
 });
 
 document.getElementById('link-recuperar').addEventListener('click', async (e) => {
