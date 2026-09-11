@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crear mi cuenta de estudiante | Miguel Tillero</title>
+<meta name="description" content="Crea tu cuenta de estudiante para acceder a tu curso, calendario, asistencia y notas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root { --bg-color: #eef0e5; --primary-color: #8c734b; --primary-hover: #6f552f; --text-dark: #1a2e24; --text-light: #5a665f; --card-bg: rgba(255,255,255,0.85); --accent-green: #2b4535; --border: rgba(165,130,74,0.38);
+--r-xs: 8px; --r-sm: 14px; --r-md: 18px; --r-pill: 999px; --shadow-card: 0 4px 20px rgba(20,45,32,0.07), 0 1px 2px rgba(20,45,32,0.05); --shadow-card-hover: 0 20px 44px rgba(20,45,32,0.14);}
+* { box-sizing: border-box; }
+body { background-color: var(--bg-color); color: var(--text-dark); font-family: 'Syne', sans-serif; margin: 0; padding: 0; display:flex; flex-direction:column; min-height:100vh; overflow-x:hidden;}
+nav.main-nav { background: #ffffff; border-bottom: 1px solid rgba(43, 69, 53, 0.2); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; }
+.nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; color: var(--accent-green); text-decoration: none; }
+main { padding: 3.5rem 5%; max-width: 640px; margin: 0 auto; flex-grow: 1; width: 90%;}
+.sec-head { text-align: center; margin-bottom: 2.2rem; }
+.eyebrow { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--primary-color); margin-bottom: 0.5rem; display: block; }
+.sec-title { font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; font-weight: 300; color: var(--accent-green); margin: 0; }
+.lede { max-width: 520px; margin: 1rem auto 0; text-align:center; color: var(--text-light); line-height:1.7; font-size:0.95rem; }
+.card { background: var(--card-bg); padding: 2.2rem; border: 1px solid var(--border); border-radius: var(--r-md); box-shadow: var(--shadow-card); }
+.form-field { margin-bottom: 1.1rem; }
+.form-field label { display: block; font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-green); margin-bottom: 0.45rem; }
+.form-field input, .form-field select { width: 100%; padding: 0.85rem; border: 1px solid var(--border); border-radius: 8px; font-family: 'Syne', sans-serif; font-size: 0.95rem; background: #fff; }
+.form-row { display:grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+.btn-gold { display: inline-flex; align-items:center; justify-content:center; gap:0.5rem; background: var(--primary-color); color: #fff; padding: 0.95rem 1.6rem; font-family: 'Syne', sans-serif; font-size: 0.92rem; text-decoration: none; border-radius: var(--r-pill); font-weight: 600; border:none; cursor:pointer; width:100%; transition: background 0.3s, transform 0.2s; }
+.btn-gold:hover { background: var(--primary-hover); transform: translateY(-2px); }
+.btn-gold:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+.msg { margin-top: 1.1rem; padding: 0.9rem 1rem; border-radius: var(--r-xs); font-size: 0.85rem; display:none; }
+.msg.error { background: rgba(180,50,40,0.1); color: #a13324; border: 1px solid rgba(180,50,40,0.25); }
+.msg.ok { background: rgba(43,69,53,0.1); color: var(--accent-green); border: 1px solid rgba(43,69,53,0.25); }
+.back-link { display:block; text-align:center; margin-top:1.8rem; font-family:'Space Mono',monospace; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color: var(--text-light); text-decoration:none; }
+.hint { font-size: 0.75rem; color: var(--text-light); margin-top: -0.6rem; margin-bottom: 1rem; }
+#pantalla-exito { display:none; text-align:center; }
+#pantalla-exito i { font-size: 2.6rem; color: var(--accent-green); margin-bottom: 1rem; }
+</style>
+</head>
+<body>
+<nav class="main-nav">
+    <a href="../index.html" class="nav-brand">Miguel Tillero</a>
+</nav>
+<main>
+    <div class="sec-head">
+        <span class="eyebrow">Nuevo estudiante</span>
+        <h1 class="sec-title">Crea tu cuenta</h1>
+        <p class="lede">Regístrate para acceder a tu espacio personal: planificación del curso, calendario, asistencia y notas.</p>
+    </div>
+
+    <div class="card">
+        <div id="aviso-config" class="msg error" style="display:none;"></div>
+
+        <form id="form-inscripcion">
+            <div class="form-field">
+                <label>Nombre completo *</label>
+                <input type="text" id="f-nombre" required placeholder="Tu nombre y apellido">
+            </div>
+            <div class="form-row">
+                <div class="form-field">
+                    <label>Correo electrónico *</label>
+                    <input type="email" id="f-correo" required placeholder="tu@correo.com">
+                </div>
+                <div class="form-field">
+                    <label>Teléfono / WhatsApp</label>
+                    <input type="tel" id="f-telefono" placeholder="+52 ...">
+                </div>
+            </div>
+            <div class="form-field">
+                <label>Curso *</label>
+                <select id="f-curso" required>
+                    <option value="">Cargando cursos disponibles…</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <div class="form-field">
+                    <label>Contraseña *</label>
+                    <input type="password" id="f-password" required minlength="6" autocomplete="new-password">
+                </div>
+                <div class="form-field">
+                    <label>Confirmar contraseña *</label>
+                    <input type="password" id="f-password2" required minlength="6" autocomplete="new-password">
+                </div>
+            </div>
+            <p class="hint">Mínimo 6 caracteres. La necesitarás para entrar a tu espacio de estudiante.</p>
+
+            <button type="submit" class="btn-gold" id="btn-enviar"><i class="fa-solid fa-user-plus"></i> Crear mi cuenta</button>
+        </form>
+
+        <div id="msg-form" class="msg"></div>
+
+        <div id="pantalla-exito">
+            <i class="fa-solid fa-envelope-circle-check"></i>
+            <h3>¡Ya casi! Revisa tu correo</h3>
+            <p class="lede">Te enviamos un enlace de verificación. Confírmalo y luego inicia sesión para entrar a tu espacio.</p>
+            <br>
+            <a href="../login.html" class="btn-gold" style="display:inline-flex; width:auto; padding:0.9rem 2rem;">Ir a iniciar sesión</a>
+        </div>
+    </div>
+
+    <a href="../mi-espacio.html" class="back-link"><i class="fa fa-arrow-left"></i> Volver a mi espacio</a>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../assets/js/supabase-config.js"></script>
+<script src="../assets/js/auth-helpers.js"></script>
+<script>
+function mostrarMsg(el, texto, tipo) {
+    el.textContent = texto;
+    el.className = 'msg ' + tipo;
+    el.style.display = 'block';
+}
+
+const selectCurso = document.getElementById('f-curso');
+
+if (!supabaseConfigurado) {
+    mostrarAvisoSinConfigurar('aviso-config');
+    selectCurso.innerHTML = '<option value="">No disponible todavía</option>';
+} else {
+    (async () => {
+        const { data: cursos, error } = await supabaseClient
+            .from('cursos')
+            .select('id, nombre, nivel')
+            .eq('estado', 'abierto')
+            .order('nombre');
+
+        if (error || !cursos || cursos.length === 0) {
+            selectCurso.innerHTML = '<option value="">No hay cursos abiertos por ahora</option>';
+            return;
+        }
+        selectCurso.innerHTML = '<option value="">Selecciona un curso</option>' +
+            cursos.map(c => `<option value="${c.id}">${c.nombre}${c.nivel ? ' — ' + c.nivel : ''}</option>`).join('');
+    })();
+}
+
+document.getElementById('form-inscripcion').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const msgEl = document.getElementById('msg-form');
+    msgEl.style.display = 'none';
+
+    if (!supabaseConfigurado) {
+        mostrarMsg(msgEl, 'La plataforma todavía no está conectada a Supabase.', 'error');
+        return;
+    }
+
+    const password = document.getElementById('f-password').value;
+    const password2 = document.getElementById('f-password2').value;
+    if (password !== password2) {
+        mostrarMsg(msgEl, 'Las contraseñas no coinciden.', 'error');
+        return;
+    }
+
+    const btn = document.getElementById('btn-enviar');
+    btn.disabled = true;
+
+    const nombre_completo = document.getElementById('f-nombre').value.trim();
+    const email = document.getElementById('f-correo').value.trim();
+    const telefono = document.getElementById('f-telefono').value.trim();
+    const curso_id = document.getElementById('f-curso').value;
+
+    const { error } = await supabaseClient.auth.signUp({
+        email,
+        password,
+        options: {
+            data: { role: 'estudiante', nombre_completo, telefono, curso_id },
+            emailRedirectTo: window.location.origin + window.location.pathname.replace('inscripcion.html', '') + '../login.html'
+        }
+    });
+
+    if (error) {
+        mostrarMsg(msgEl, error.message.includes('already registered') || error.message.includes('User already registered')
+            ? 'Ese correo ya tiene una cuenta. Ve a iniciar sesión.'
+            : error.message, 'error');
+        btn.disabled = false;
+        return;
+    }
+
+    document.getElementById('form-inscripcion').style.display = 'none';
+    document.getElementById('pantalla-exito').style.display = 'block';
+});
+</script>
+</body>
+</html>

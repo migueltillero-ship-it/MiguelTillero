@@ -7,6 +7,20 @@
 -- 2. Ve a SQL Editor → New query
 -- 3. Pega y ejecuta este archivo completo
 -- 4. Copia Project URL y anon public key en assets/js/supabase-config.js
+--
+-- Cómo crear tu propia cuenta de DOCENTE (Miguel):
+-- El formulario público de inscripcion.html solo crea cuentas de ESTUDIANTE.
+-- Para tu cuenta de docente:
+--   1. Ve a Authentication → Users → Add user (en el dashboard de Supabase)
+--      y crea tu usuario con tu correo y una contraseña (marca "Auto Confirm User").
+--   2. Copia el UUID de ese usuario (columna "UID").
+--   3. Ejecuta en SQL Editor:
+--        update public.profiles set role = 'docente', nombre_completo = 'Miguel Tillero'
+--        where id = 'PEGA-AQUI-EL-UUID';
+--      (el perfil se crea automáticamente al confirmar el usuario, gracias al
+--      trigger on_auth_user_created más abajo; si aún no existe, espera unos
+--      segundos tras crear el usuario y vuelve a intentar el UPDATE).
+--   4. Entra en login.html con ese correo y contraseña → te llevará a panel-docente.html
 -- ============================================================================
 
 -- ---------------------------------------------------------------------------
@@ -69,6 +83,15 @@ alter table public.cursos enable row level security;
 create policy "cursos: cualquiera ve cursos abiertos"
   on public.cursos for select
   using (estado = 'abierto' or docente_id = auth.uid());
+
+create policy "cursos: estudiante inscrito ve su curso aunque ya no esté abierto"
+  on public.cursos for select
+  using (
+    exists (
+      select 1 from public.inscripciones i
+      where i.curso_id = cursos.id and i.estudiante_id = auth.uid()
+    )
+  );
 
 create policy "cursos: docente administra sus cursos"
   on public.cursos for all
@@ -266,23 +289,37 @@ create policy "notas: estudiante ve sus propias notas"
   using (estudiante_id = auth.uid());
 
 -- ---------------------------------------------------------------------------
--- 8. Trigger opcional: crear perfil automáticamente al confirmar un usuario
---    (el frontend también inserta el perfil explícitamente en el registro;
---    este trigger es un respaldo por si el insert del frontend falla).
+-- 8. Trigger: crea el perfil (y, si aplica, la inscripción) automáticamente
+--    cuando se registra un usuario nuevo. Se ejecuta con security definer
+--    porque en el momento del registro (antes de confirmar el correo) el
+--    usuario todavía no tiene una sesión activa para pasar las políticas RLS.
+--    El formulario público de inscripción manda curso_id, nombre_completo
+--    y telefono en options.data al llamar a supabaseClient.auth.signUp().
 -- ---------------------------------------------------------------------------
 create or replace function public.handle_new_user()
 returns trigger
 language plpgsql
 security definer set search_path = public
 as $$
+declare
+  v_curso_id uuid;
 begin
-  insert into public.profiles (id, role, nombre_completo)
+  insert into public.profiles (id, role, nombre_completo, telefono)
   values (
     new.id,
     coalesce(new.raw_user_meta_data->>'role', 'estudiante'),
-    coalesce(new.raw_user_meta_data->>'nombre_completo', new.email)
+    coalesce(new.raw_user_meta_data->>'nombre_completo', new.email),
+    new.raw_user_meta_data->>'telefono'
   )
   on conflict (id) do nothing;
+
+  v_curso_id := nullif(new.raw_user_meta_data->>'curso_id', '')::uuid;
+  if v_curso_id is not null then
+    insert into public.inscripciones (curso_id, estudiante_id, estado)
+    values (v_curso_id, new.id, 'pendiente')
+    on conflict (curso_id, estudiante_id) do nothing;
+  end if;
+
   return new;
 end;
 $$;
