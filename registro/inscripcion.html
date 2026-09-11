@@ -104,8 +104,8 @@ main { padding: 3.5rem 5%; max-width: 640px; margin: 0 auto; flex-grow: 1; width
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="../assets/js/supabase-config.js?v=1789127831"></script>
-<script src="../assets/js/auth-helpers.js?v=1789127831"></script>
+<script src="../assets/js/supabase-config.js?v=1789129125"></script>
+<script src="../assets/js/auth-helpers.js?v=1789129125"></script>
 <script>
 function mostrarMsg(el, texto, tipo) {
     el.textContent = texto;
@@ -114,12 +114,48 @@ function mostrarMsg(el, texto, tipo) {
 }
 
 const selectCurso = document.getElementById('f-curso');
+const campoCurso = selectCurso.closest('.form-field');
+
+// Si el enlace trae un curso concreto (…/inscripcion.html?curso=ID), el
+// estudiante queda inscrito en ese curso y no tiene que elegir nada.
+const cursoDelEnlace = new URLSearchParams(window.location.search).get('curso');
+
+function mostrarCursoFijo(curso) {
+    campoCurso.innerHTML = `
+        <label>Te vas a inscribir en</label>
+        <div style="padding:0.95rem 1.1rem; border:1px solid var(--border); border-radius:10px; background:rgba(43,69,53,0.05);">
+            <strong style="font-family:'Cormorant Garamond',serif; font-size:1.25rem; color:var(--accent-green);">${curso.nombre}</strong>
+            ${curso.nivel ? `<span style="margin-left:0.5rem; font-family:'Space Mono',monospace; font-size:0.68rem; color:var(--primary-color);">${curso.nivel}</span>` : ''}
+            ${curso.fecha_inicio ? `<div style="font-size:0.82rem; color:var(--text-light); margin-top:0.3rem;">Del ${curso.fecha_inicio} al ${curso.fecha_fin || '—'}</div>` : ''}
+        </div>
+        <input type="hidden" id="f-curso-fijo" value="${curso.id}">
+    `;
+}
+
+function cursoElegido() {
+    const fijo = document.getElementById('f-curso-fijo');
+    return fijo ? fijo.value : (document.getElementById('f-curso') || {}).value || '';
+}
 
 if (!supabaseConfigurado) {
     mostrarAvisoSinConfigurar('aviso-config');
     selectCurso.innerHTML = '<option value="">No disponible todavía</option>';
 } else {
     (async () => {
+        if (cursoDelEnlace) {
+            const { data: curso } = await supabaseClient
+                .from('cursos')
+                .select('id, nombre, nivel, fecha_inicio, fecha_fin, estado')
+                .eq('id', cursoDelEnlace)
+                .maybeSingle();
+            if (curso && curso.estado === 'abierto') {
+                mostrarCursoFijo(curso);
+                return;
+            }
+            mostrarMsg(document.getElementById('msg-form'),
+                'Ese curso ya no está abierto a inscripciones. Elige otro de la lista.', 'error');
+        }
+
         const { data: cursos, error } = await supabaseClient
             .from('cursos')
             .select('id, nombre, nivel')
@@ -158,13 +194,19 @@ document.getElementById('form-inscripcion').addEventListener('submit', async (e)
     const nombre_completo = document.getElementById('f-nombre').value.trim();
     const email = document.getElementById('f-correo').value.trim();
     const telefono = document.getElementById('f-telefono').value.trim();
-    const curso_id = document.getElementById('f-curso').value;
+    const curso_id = cursoElegido();
+
+    if (!curso_id) {
+        mostrarMsg(msgEl, 'Selecciona el curso al que quieres inscribirte.', 'error');
+        btn.disabled = false;
+        return;
+    }
 
     const { error } = await supabaseClient.auth.signUp({
         email,
         password,
         options: {
-            data: { role: 'estudiante', nombre_completo, telefono, curso_id },
+            data: { nombre_completo, telefono, curso_id },
             emailRedirectTo: window.location.origin + window.location.pathname.replace('inscripcion.html', '') + '../login.html'
         }
     });

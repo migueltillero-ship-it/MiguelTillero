@@ -116,6 +116,22 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
         <!-- DETALLE DE CURSO -->
         <section id="detalle-curso" class="panel" style="display:none;">
             <h2 id="titulo-curso-detalle"></h2>
+
+            <div id="caja-enlace" style="background:rgba(43,69,53,0.05); border:1px solid var(--border); border-radius:var(--r-sm); padding:1rem 1.1rem; margin-bottom:1.4rem;">
+                <div style="font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-green); margin-bottom:0.5rem;">
+                    Enlace de inscripción para este curso
+                </div>
+                <div style="display:flex; gap:0.6rem; flex-wrap:wrap; align-items:center;">
+                    <input id="enlace-inscripcion" readonly onclick="this.select()"
+                           style="flex:1; min-width:240px; padding:0.6rem 0.8rem; border:1px solid var(--border); border-radius:8px; font-family:'Space Mono',monospace; font-size:0.72rem; background:#fff;">
+                    <button class="btn pequeno" onclick="copiarEnlace()"><i class="fa-solid fa-copy"></i> Copiar</button>
+                </div>
+                <div class="muted" style="margin:0.6rem 0 0; font-size:0.8rem;">
+                    Compártelo con tus estudiantes: al abrirlo crean su cuenta y quedan inscritos en este curso, pendientes de que los apruebes en la pestaña «Estudiantes».
+                    <span id="aviso-curso-borrador" style="display:none; color:var(--danger); font-weight:600;"><br>Ojo: este curso está en borrador. Cámbialo a «abierto» para que el enlace funcione.</span>
+                </div>
+            </div>
+
             <div class="tabs">
                 <button class="tab-btn activo" data-tab="planificacion" onclick="cambiarTab('planificacion')">Planificación</button>
                 <button class="tab-btn" data-tab="asistencia" onclick="cambiarTab('asistencia')">Asistencia</button>
@@ -202,8 +218,8 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="assets/js/supabase-config.js?v=1789127831"></script>
-<script src="assets/js/auth-helpers.js?v=1789127831"></script>
+<script src="assets/js/supabase-config.js?v=1789129125"></script>
+<script src="assets/js/auth-helpers.js?v=1789129125"></script>
 <script>
 let perfilDocente = null;
 let cursos = [];
@@ -287,10 +303,24 @@ async function seleccionarCurso(id) {
     const curso = cursos.find(c => c.id === id);
     document.getElementById('titulo-curso-detalle').textContent = curso.nombre;
     document.getElementById('detalle-curso').style.display = 'block';
+
+    const base = window.location.href.replace(/\/[^\/]*$/, '/');
+    document.getElementById('enlace-inscripcion').value = base + 'registro/inscripcion.html?curso=' + curso.id;
+    document.getElementById('aviso-curso-borrador').style.display = curso.estado === 'abierto' ? 'none' : 'inline';
+
     await cargarCursos(); // refresca resaltado
     cambiarTab('planificacion');
     await Promise.all([cargarSesiones(), cargarEstudiantes(), cargarEvaluaciones()]);
     document.getElementById('detalle-curso').scrollIntoView({ behavior: 'smooth' });
+}
+
+function copiarEnlace() {
+    const campo = document.getElementById('enlace-inscripcion');
+    campo.select();
+    navigator.clipboard.writeText(campo.value).then(
+        () => alert('Enlace copiado. Ya puedes pegarlo en WhatsApp, correo o donde lo necesites.'),
+        () => { document.execCommand('copy'); alert('Enlace copiado.'); }
+    );
 }
 
 function cambiarTab(tab) {
