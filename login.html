@@ -139,7 +139,7 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
     if (!perfil) {
         const detalle = ultimoError ? `${ultimoError.code || '?'}: ${ultimoError.message}` : 'la consulta no devolvió ninguna fila';
         mostrarMsg(msgEl, 'Iniciaste sesión pero no pudimos leer tu perfil. Detalle: ' + detalle +
-            ' · Abre diagnostico.html para ver el informe completo.', 'error');
+            ' · Vuelve a intentarlo o contacta a Miguel si el problema continúa.', 'error');
         btn.disabled = false;
         return;
     }
