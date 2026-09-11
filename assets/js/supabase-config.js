@@ -3,7 +3,8 @@
  *
  * PASOS PARA ACTIVAR LA PLATAFORMA:
  * 1. Crea un proyecto gratuito en https://supabase.com
- * 2. Ve a Project Settings → API y copia "Project URL" y "anon public key".
+ * 2. Ve a Project Settings → API Keys y copia "Project URL" y la "Publishable key"
+ *    (NUNCA la "Secret key" — esa es privada y solo se usa en un servidor).
  * 3. Pégalos abajo, reemplazando los placeholders.
  * 4. Ve a SQL Editor y ejecuta el contenido de /supabase/schema.sql
  *
@@ -12,7 +13,7 @@
  *   <script src="/assets/js/supabase-config.js"></script>
  */
 const SUPABASE_URL = 'https://yfrdlzveleevkjqekdoq.supabase.co';
-const SUPABASE_ANON_KEY = 'TU-ANON-PUBLIC-KEY';
+const SUPABASE_ANON_KEY = 'sb_publishable_KrCwsrcn0Y6tQ6oqYNBObg_droR0ta3';
 
 const supabaseConfigurado = !SUPABASE_URL.includes('TU-PROYECTO') && !SUPABASE_ANON_KEY.includes('TU-ANON-PUBLIC-KEY');
 
