@@ -1621,6 +1621,36 @@ body.intro-active { overflow: hidden; }
 #back-top.show { opacity: 1; pointer-events: auto; }
 #back-top:hover { background: rgba(201,169,110,0.15); border-color: var(--gold); transform: translateY(-3px); }
 
+/* ── BOTÓN FLOTANTE "VENDREDI ENTRE AMIS" ──
+   A propósito NO sigue la paleta esmeralda/dorada del resto del sitio:
+   debe saltar a la vista como invitación aparte al club de conversación. */
+#vendredi-fab {
+  position: fixed; top: 50%; right: 0; transform: translateY(-50%);
+  z-index: 950;
+  display: flex; align-items: center; gap: 0.55rem;
+  padding: 0.85rem 1.1rem 0.85rem 1.3rem;
+  border-radius: 999px 0 0 999px;
+  background: linear-gradient(135deg, #ff6b6b, #ff9f43 45%, #a855f7);
+  background-size: 220% 220%;
+  color: #fff !important;
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.82rem;
+  letter-spacing: 0.02em; text-decoration: none; white-space: nowrap;
+  box-shadow: 0 10px 30px rgba(168,85,247,0.4);
+  animation: vendrediGradiente 5s ease infinite, vendrediPulso 2.6s ease-in-out infinite;
+  transition: padding 0.3s ease, transform 0.3s ease;
+}
+#vendredi-fab:hover { padding-right: 1.7rem; transform: translateY(-50%) scale(1.05); }
+#vendredi-fab i { font-size: 1.05rem; }
+@keyframes vendrediGradiente { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+@keyframes vendrediPulso {
+  0%, 100% { box-shadow: 0 10px 30px rgba(168,85,247,0.4); }
+  50%      { box-shadow: 0 10px 42px rgba(255,107,107,0.55); }
+}
+@media (max-width: 700px) {
+  #vendredi-fab { font-size: 0.72rem; padding: 0.7rem 0.9rem 0.7rem 1.05rem; }
+  #vendredi-fab .vf-text { display: none; }
+}
+
 
 /* ── SKILL TAGS ── */
 .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; padding-top: 1.3rem; border-top: 1px solid rgba(201,169,110,0.15); }
@@ -2558,6 +2588,12 @@ body { animation: pageFadeIn 0.5s ease; }
 <div id="audio-player">
   <button id="audio-btn" aria-label="Música de fondo"><i class="fa fa-music"></i></button>
 </div>
+
+<!-- BOTÓN FLOTANTE — invitación al club de conversación -->
+<a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" id="vendredi-fab" aria-label="Vendredi entre Amis — club de conversación en francés">
+  <i class="fa fa-mug-hot"></i>
+  <span class="vf-text" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</span>
+</a>
 <audio id="bg-audio" loop preload="none">
   <source src="Une_Promenade_en_Soleil.mp3" type="audio/mpeg">
 </audio>
