@@ -69,8 +69,8 @@ h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--a
 <a href="index.html" class="back-link"><i class="fa fa-arrow-left"></i> Volver al inicio</a>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="assets/js/supabase-config.js?v=1789129125"></script>
-<script src="assets/js/auth-helpers.js?v=1789129125"></script>
+<script src="assets/js/supabase-config.js?v=1789151573"></script>
+<script src="assets/js/auth-helpers.js?v=1789151573"></script>
 <script>
 function mostrarMsg(el, texto, tipo) {
     el.textContent = texto;
@@ -153,7 +153,10 @@ document.getElementById('link-recuperar').addEventListener('click', async (e) =>
         alert('Escribe tu correo arriba y vuelve a hacer clic en "¿Olvidaste tu contraseña?".');
         return;
     }
-    const { error } = await supabaseClient.auth.resetPasswordForEmail(email);
+    const base = window.location.href.split('?')[0].replace(/\/[^\/]*$/, '/');
+    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+        redirectTo: base + 'restablecer.html'
+    });
     const msgEl = document.getElementById('msg-login');
     if (error) {
         mostrarMsg(msgEl, error.message, 'error');
