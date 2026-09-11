@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acceso a mi espacio | Miguel Tillero</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root { --bg-color: #eef0e5; --primary-color: #8c734b; --primary-hover: #6f552f; --text-dark: #1a2e24; --text-light: #5a665f; --card-bg: rgba(255,255,255,0.92); --accent-green: #2b4535; --border: rgba(165,130,74,0.38);
+--r-xs: 8px; --r-sm: 14px; --r-md: 18px; --r-pill: 999px; --shadow-card: 0 4px 20px rgba(20,45,32,0.07), 0 1px 2px rgba(20,45,32,0.05); --shadow-card-hover: 0 20px 44px rgba(20,45,32,0.14);}
+* { box-sizing: border-box; }
+body { background-color: var(--bg-color); color: var(--text-dark); font-family: 'Syne', sans-serif; margin: 0; padding: 0; display:flex; flex-direction:column; min-height:100vh; }
+nav.main-nav { background: #ffffff; border-bottom: 1px solid rgba(43, 69, 53, 0.2); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; }
+.nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; color: var(--accent-green); text-decoration: none; }
+main { flex-grow:1; display:flex; align-items:center; justify-content:center; padding: 3rem 5%; }
+.card { background: var(--card-bg); padding: 2.6rem; border: 1px solid var(--border); border-radius: var(--r-md); box-shadow: var(--shadow-card); width: 100%; max-width: 420px; }
+.eyebrow { font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--primary-color); display:block; margin-bottom:0.4rem; }
+h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--accent-green); margin: 0 0 1.6rem; }
+.form-field { margin-bottom: 1.1rem; }
+.form-field label { display: block; font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-green); margin-bottom: 0.4rem; }
+.form-field input { width: 100%; padding: 0.85rem; border: 1px solid var(--border); border-radius: 8px; font-family: 'Syne', sans-serif; font-size: 0.95rem; background: #fff; }
+.btn-gold { display: inline-flex; align-items:center; justify-content:center; gap:0.5rem; background: var(--primary-color); color: #fff; padding: 0.9rem 1.6rem; font-family: 'Syne', sans-serif; font-size: 0.92rem; text-decoration: none; border-radius: var(--r-pill); font-weight: 600; border:none; cursor:pointer; width:100%; transition: background 0.3s, transform 0.2s; }
+.btn-gold:hover { background: var(--primary-hover); transform: translateY(-2px); }
+.btn-gold:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+.links-row { display:flex; justify-content:space-between; margin-top:1.2rem; font-family:'Space Mono',monospace; font-size:0.68rem; }
+.links-row a { color: var(--primary-color); text-decoration:none; }
+.links-row a:hover { text-decoration:underline; }
+.msg { margin-top: 1rem; padding: 0.8rem 1rem; border-radius: var(--r-xs); font-size: 0.85rem; display:none; }
+.msg.error { background: rgba(180,50,40,0.1); color: #a13324; border: 1px solid rgba(180,50,40,0.25); }
+.msg.ok { background: rgba(43,69,53,0.1); color: var(--accent-green); border: 1px solid rgba(43,69,53,0.25); }
+.back-link { display:block; text-align:center; margin-top:1.6rem; font-family:'Space Mono',monospace; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color: var(--text-light); text-decoration:none; }
+</style>
+</head>
+<body>
+<nav class="main-nav">
+    <a href="index.html" class="nav-brand">Miguel Tillero</a>
+</nav>
+<main>
+    <div class="card">
+        <span class="eyebrow">Mi espacio</span>
+        <h1>Iniciar sesión</h1>
+
+        <div id="aviso-config" class="msg error" style="display:none;"></div>
+
+        <form id="form-login">
+            <div class="form-field">
+                <label>Correo electrónico</label>
+                <input type="email" id="login-email" required autocomplete="email">
+            </div>
+            <div class="form-field">
+                <label>Contraseña</label>
+                <input type="password" id="login-password" required autocomplete="current-password">
+            </div>
+            <button type="submit" class="btn-gold" id="btn-login"><i class="fa-solid fa-right-to-bracket"></i> Entrar</button>
+        </form>
+
+        <div id="msg-login" class="msg"></div>
+
+        <div class="links-row">
+            <a href="#" id="link-recuperar">¿Olvidaste tu contraseña?</a>
+            <a href="registro/inscripcion.html">Crear cuenta de estudiante</a>
+        </div>
+    </div>
+</main>
+<a href="index.html" class="back-link"><i class="fa fa-arrow-left"></i> Volver al inicio</a>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/auth-helpers.js"></script>
+<script>
+function mostrarMsg(el, texto, tipo) {
+    el.textContent = texto;
+    el.className = 'msg ' + tipo;
+    el.style.display = 'block';
+}
+
+if (!supabaseConfigurado) {
+    mostrarAvisoSinConfigurar('aviso-config');
+}
+
+document.getElementById('form-login').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const msgEl = document.getElementById('msg-login');
+    msgEl.style.display = 'none';
+    if (!supabaseConfigurado) {
+        mostrarMsg(msgEl, 'La plataforma todavía no está conectada a Supabase.', 'error');
+        return;
+    }
+    const btn = document.getElementById('btn-login');
+    btn.disabled = true;
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+    if (error) {
+        mostrarMsg(msgEl, error.message.includes('Email not confirmed')
+            ? 'Debes confirmar tu correo antes de entrar. Revisa tu bandeja de entrada.'
+            : 'Correo o contraseña incorrectos.', 'error');
+        btn.disabled = false;
+        return;
+    }
+
+    const { data: perfil } = await supabaseClient.from('profiles').select('role').eq('id', data.user.id).single();
+    window.location.href = perfil && perfil.role === 'docente' ? 'panel-docente.html' : 'panel-estudiante.html';
+});
+
+document.getElementById('link-recuperar').addEventListener('click', async (e) => {
+    e.preventDefault();
+    if (!supabaseConfigurado) return;
+    const email = document.getElementById('login-email').value.trim();
+    if (!email) {
+        alert('Escribe tu correo arriba y vuelve a hacer clic en "¿Olvidaste tu contraseña?".');
+        return;
+    }
+    const { error } = await supabaseClient.auth.resetPasswordForEmail(email);
+    const msgEl = document.getElementById('msg-login');
+    if (error) {
+        mostrarMsg(msgEl, error.message, 'error');
+    } else {
+        mostrarMsg(msgEl, 'Te enviamos un correo para restablecer tu contraseña.', 'ok');
+    }
+});
+</script>
+</body>
+</html>
