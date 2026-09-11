@@ -1,24 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="es">
 <head>
-<script>
-/* ══ PAUSA TEMPORAL DEL SITIO ══
-   Activa hasta MAINT_UNTIL (UTC); después se desactiva sola sin tocar nada.
-   Puerta de acceso para Miguel: abrir el sitio con  ?acceso=mt
-   (queda recordado en esa pestaña vía sessionStorage). */
-(function(){
-  var MAINT_UNTIL = '2026-08-13T07:53:00Z';
-  try {
-    if (Date.now() >= Date.parse(MAINT_UNTIL)) return;          /* ya venció → sitio normal */
-    if (/[?&]acceso=mt\b/.test(location.search)) {              /* bypass del dueño */
-      sessionStorage.setItem('mt_bypass', '1');
-      return;
-    }
-    if (sessionStorage.getItem('mt_bypass')) return;
-    location.replace('mantenimiento.html');
-  } catch(e){}
-})();
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Lo que dicen los estudiantes de Miguel Tillero sobre sus clases de francés, preparación DELF/DALF y asesorías pedagógicas.">
@@ -3990,16 +3972,17 @@ window.addEventListener('DOMContentLoaded', function() {
   };
 })();
 
-/* Video de transicion — se muestra una sola vez por pagina y por sesion,
-   para no repetirse cada vez que se vuelve a entrar. */
+/* Video de transicion — máximo 3 reproducciones por sesión, compartidas
+   entre TODAS las páginas (no una vez por página). Al llegar al límite,
+   no vuelve a mostrarse aunque se visiten páginas nuevas. */
 (function () {
   var overlay = document.getElementById('page-transition');
   if (!overlay) return;
-  var storageKey = 'mt-transicion-' + (location.pathname.split('/').pop() || 'pagina');
-  var yaVista = false;
-  try { yaVista = !!sessionStorage.getItem(storageKey); } catch (e) {}
-  if (yaVista) { overlay.parentNode.removeChild(overlay); return; }
-  try { sessionStorage.setItem(storageKey, '1'); } catch (e) {}
+  var MAX_REPRODUCCIONES = 3;
+  var contador = 0;
+  try { contador = parseInt(sessionStorage.getItem('mt-transicion-contador') || '0', 10) || 0; } catch (e) {}
+  if (contador >= MAX_REPRODUCCIONES) { overlay.parentNode.removeChild(overlay); return; }
+  try { sessionStorage.setItem('mt-transicion-contador', String(contador + 1)); } catch (e) {}
   var cerrado = false;
   function cerrar() {
     if (cerrado) return;
