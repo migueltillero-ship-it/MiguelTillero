@@ -21,33 +21,41 @@ function mostrarAvisoSinConfigurar(elId) {
  * Reintenta una vez más si la primera lectura no encuentra sesión, por
  * si el cliente todavía estaba inicializándose.
  */
-async function obtenerPerfilActual(reintentar = true) {
+async function obtenerPerfilActual() {
+  if (!supabaseClient) { window.__ultimoDiagPerfil = 'no hay supabaseClient'; return null; }
   try {
-    if (!supabaseClient) { window.__ultimoDiagPerfil = 'no hay supabaseClient'; return null; }
-    const { data: { session }, error: errSesion } = await supabaseClient.auth.getSession();
-    if (errSesion) { window.__ultimoDiagPerfil = 'error getSession: ' + errSesion.message; }
-    if (!session || !session.user) {
-      if (reintentar) {
-        await new Promise(r => setTimeout(r, 600));
-        return obtenerPerfilActual(false);
+    let user = null;
+    for (let intento = 0; intento < 4 && !user; intento++) {
+      if (intento > 0) await new Promise(r => setTimeout(r, 500));
+      // Alternamos entre getSession() (lectura local) y getUser() (llamada
+      // de red) porque en algunos navegadores/ventanas de incógnito el
+      // mecanismo de Supabase que coordina la sesión entre pestañas puede
+      // fallar en leer con uno de los dos métodos pero no con el otro.
+      const metodo = intento % 2 === 0 ? 'getSession' : 'getUser';
+      if (metodo === 'getSession') {
+        const { data, error } = await supabaseClient.auth.getSession();
+        if (error) window.__ultimoDiagPerfil = 'error getSession: ' + error.message;
+        user = data && data.session && data.session.user;
+      } else {
+        const { data, error } = await supabaseClient.auth.getUser();
+        if (error) window.__ultimoDiagPerfil = 'error getUser: ' + error.message;
+        user = data && data.user;
       }
-      window.__ultimoDiagPerfil = 'sin sesión tras reintento (getSession no devolvió usuario)';
+    }
+    if (!user) {
+      window.__ultimoDiagPerfil = 'sin sesión tras varios intentos (getSession/getUser no devolvieron usuario)';
       return null;
     }
     const { data: perfil, error } = await supabaseClient
       .from('profiles')
       .select('*')
-      .eq('id', session.user.id)
+      .eq('id', user.id)
       .single();
     if (error) {
-      if (reintentar) {
-        await new Promise(r => setTimeout(r, 600));
-        return obtenerPerfilActual(false);
-      }
       window.__ultimoDiagPerfil = `error leyendo profiles (código ${error.code || '?'}): ${error.message}`;
       return null;
     }
-    return { user: session.user, perfil };
+    return { user, perfil };
   } catch (e) {
     window.__ultimoDiagPerfil = 'excepción: ' + (e && e.message ? e.message : String(e));
     return null;

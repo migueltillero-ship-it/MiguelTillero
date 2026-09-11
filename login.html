@@ -104,14 +104,27 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
         return;
     }
 
-    const contexto = await obtenerPerfilActual();
-    if (!contexto) {
-        const detalle = window.__ultimoDiagPerfil || 'motivo desconocido';
+    // Usamos el usuario que ya viene en la respuesta del propio inicio de
+    // sesión, en vez de volver a preguntarle al cliente por la sesión
+    // (getSession/getUser) justo después: en ventanas de incógnito ese
+    // mecanismo de coordinación entre pestañas a veces no responde a
+    // tiempo. Reintentamos solo la lectura del perfil, que sí depende de
+    // la base de datos.
+    let perfil = null, ultimoError = null;
+    for (let intento = 0; intento < 3 && !perfil; intento++) {
+        if (intento > 0) await new Promise(r => setTimeout(r, 500));
+        const resp = await supabaseClient.from('profiles').select('*').eq('id', data.user.id).single();
+        if (resp.data) { perfil = resp.data; break; }
+        ultimoError = resp.error;
+    }
+
+    if (!perfil) {
+        const detalle = ultimoError ? `${ultimoError.code || '?'}: ${ultimoError.message}` : 'motivo desconocido';
         mostrarMsg(msgEl, 'Iniciaste sesión pero no pudimos leer tu perfil. Detalle técnico: ' + detalle, 'error');
         btn.disabled = false;
         return;
     }
-    window.location.href = contexto.perfil.role === 'docente' ? 'panel-docente.html' : 'panel-estudiante.html';
+    window.location.href = perfil.role === 'docente' ? 'panel-docente.html' : 'panel-estudiante.html';
 });
 
 document.getElementById('link-recuperar').addEventListener('click', async (e) => {
