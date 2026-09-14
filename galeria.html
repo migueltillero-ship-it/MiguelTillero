@@ -677,15 +677,23 @@ section.alt { background: rgba(13,89,58,0.05); }
 .g-item img:not(.loaded) { opacity: 0; }
 .g-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(2,12,6,0.85) 0%, transparent 55%);
+  background: rgba(2,12,6,0.45);
   opacity: 0; transition: opacity 0.4s;
-  display: flex; align-items: flex-end; justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   padding: 1rem;
   pointer-events: none;
   z-index: 2;
 }
 .g-overlay i { color: var(--gold); font-size: 1.1rem; }
 .g-item:hover .g-overlay { opacity: 1; }
+.g-caption {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to top, rgba(2,12,6,0.88) 15%, transparent 100%);
+  padding: 2.4rem 0.9rem 0.7rem;
+  font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.03em;
+  line-height: 1.35; color: rgba(255,255,255,0.92);
+  z-index: 2; pointer-events: none;
+}
 .filmstrip-loading {
   display: flex; align-items: center; justify-content: center;
   gap: 0.6rem; min-height: 220px;
@@ -890,7 +898,7 @@ section.alt { background: rgba(13,89,58,0.05); }
 }
 #wa-float:hover #wa-lbl { opacity: 1; transform: translateX(0); }
 
-#audio-player { position: fixed; bottom: 2rem; right: 2rem; z-index: 900; }
+#audio-player { position: fixed; bottom: 2rem; right: 2rem; z-index: 900; display: flex; align-items: center; gap: 0.5rem; }
 #audio-btn {
   width: 3rem; height: 3rem; border-radius: 50%;
   background: var(--goldx); border: 1px solid var(--border);
@@ -900,6 +908,19 @@ section.alt { background: rgba(13,89,58,0.05); }
 }
 #audio-btn:hover { border-color: var(--gold); background: rgba(201,169,110,0.2); }
 #audio-btn.playing { animation: pulse-border 2s infinite; border-color: var(--gold); }
+/* Ecualizador — barras que solo se mueven mientras suena la música, para que
+   se note de un vistazo que hay sonido y que el botón sirve para silenciarlo. */
+.audio-eq {
+  display: flex; align-items: flex-end; gap: 3px; height: 1.2rem; padding: 0 0.15rem;
+  opacity: 0; transform: scale(0.8); transition: opacity 0.3s, transform 0.3s; pointer-events: none;
+}
+#audio-player:has(#audio-btn.playing) .audio-eq { opacity: 1; transform: scale(1); }
+.audio-eq i { display: block; width: 3px; border-radius: 2px; background: var(--gold); height: 100%; transform-origin: bottom; }
+#audio-player:has(#audio-btn.playing) .audio-eq i { animation: eqBounce 0.9s ease-in-out infinite; }
+.audio-eq i:nth-child(1) { animation-delay: 0s; }
+.audio-eq i:nth-child(2) { animation-delay: 0.2s; }
+.audio-eq i:nth-child(3) { animation-delay: 0.4s; }
+@keyframes eqBounce { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
 
 /* ════════════════════════════════════════════════
    RESPONSIVE
@@ -2233,7 +2254,7 @@ summary:focus-visible,
 /* ── Responsive del bloque AF ── */
 .nav-links a { white-space: nowrap; }
 @media (max-width: 1400px) { .nav-links { gap: 1.4rem; } }
-@media (max-width: 1280px) {
+@media (max-width: 1850px) {
   .nav-links { gap: 1.15rem; }
   .nav-links a { letter-spacing: 0.18em; }
   .nav-links li.nav-sec { display: none; }
@@ -2587,6 +2608,7 @@ body { animation: pageFadeIn 0.5s ease; }
 <!-- AUDIO -->
 <div id="audio-player">
   <button id="audio-btn" aria-label="Música de fondo"><i class="fa fa-music"></i></button>
+  <span class="audio-eq" aria-hidden="true"><i></i><i></i><i></i></span>
 </div>
 
 <!-- BOTÓN FLOTANTE — invitación al club de conversación -->
@@ -2613,13 +2635,14 @@ body { animation: pageFadeIn 0.5s ease; }
   <a href="servicios.html" data-route="servicios" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</a>
   <a href="cursos.html" data-route="estudiantes" data-es="Cursos y exámenes" data-fr="Cours et examens" data-en="Courses & exams">Cursos y exámenes</a>
   <a href="galeria.html" data-route="galeria" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a>
-  <a href="contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a>
-  <a href="inscribete.html" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a>
-  <a href="pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a>
-  <a href="reservar.html" onclick="closeMob()" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
-  <a href="reglamento.html" onclick="closeMob()" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a>
   <a href="mi-espacio.html" onclick="closeMob()" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a>
   <a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" onclick="closeMob()" style="color:var(--gold);" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</a>
+  <a href="inscribete.html" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a>
+  <a href="reservar.html" onclick="closeMob()" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
+  <a href="reglamento.html" onclick="closeMob()" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a>
+  <a href="contacto.html#faq" onclick="closeMob()" data-es="Preguntas frecuentes" data-fr="Foire aux questions" data-en="FAQ">Preguntas frecuentes</a>
+  <a href="contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a>
+  <a href="pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a>
   <button type="button" class="desktop-toggle-btn" id="desktop-toggle-btn" onclick="toggleDesktopView()">Ver versión de escritorio</button>
 </div>
 
@@ -2635,13 +2658,14 @@ body { animation: pageFadeIn 0.5s ease; }
     <li><a href="servicios.html" data-route="servicios" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</a></li>
     <li><a href="cursos.html" data-route="estudiantes" data-es="Cursos y exámenes" data-fr="Cours et examens" data-en="Courses &amp; exams">Cursos y exámenes</a></li>
     <li><a href="galeria.html" data-route="galeria" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a></li>
-    <li><a href="contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a></li>
-    <li class="nav-sec"><a href="pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a></li>
-    <li class="nav-sec"><a href="reservar.html" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
-    <a href="reglamento.html" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a></li>
     <li><a href="mi-espacio.html" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a></li>
     <li class="nav-sec"><a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" style="color:var(--gold);" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</a></li>
     <li><a href="inscribete.html" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a></li>
+    <li class="nav-sec"><a href="reservar.html" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
+    <a href="reglamento.html" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a></li>
+    <li class="nav-sec"><a href="contacto.html#faq" data-es="Preguntas frecuentes" data-fr="Foire aux questions" data-en="FAQ">Preguntas frecuentes</a></li>
+    <li><a href="contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a></li>
+    <li class="nav-sec"><a href="pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a></li>
   </ul>
   <div class="nav-controls">
     <button class="ctrl-btn active" onclick="setLang('es')">ES</button>
@@ -3826,11 +3850,15 @@ window.addEventListener('DOMContentLoaded', function() {
   if (!track) return;
 
   /* IDs curados del folder de Drive — solo fotos donde el director
-     es el protagonista (se retiraron grupales lejanas y duplicados) */
+     es el protagonista (se retiraron grupales lejanas y duplicados).
+     Cada ID lleva un descriptor corto paralelo en GALLERY_CAPTIONS.
+     (Se retiró el ID 1KiKI1T_L0FhIb5CpOmItXqrZBQskS_io: el archivo en
+     Drive no tiene permiso público, Google pide iniciar sesión — hay
+     que corregir su "compartir" antes de poder reincorporarlo.) */
   var GALLERY_IDS = [
     '1nHMpKPvpZvhpxyQrDluo9sozD9xtRnA-','14SrCOErHmePOImKYgNWNTKIcTKdVzKZf',
     '1VhZBSAeZIAGSpqWdoXlInaqfapaJf7RF','1sDsRlHiS0FfOXPCGkHWrB8Ko5RQd_cNu',
-    '1MfcV74qm8D9V7ReD2MNotTyL5EZ0SVnz','1KiKI1T_L0FhIb5CpOmItXqrZBQskS_io',
+    '1MfcV74qm8D9V7ReD2MNotTyL5EZ0SVnz',
     '1RfKAm7Qcb4gFQsQeEMTpJs7C1ftKZQGL','170UXYtWSjfXzRa7ZQO1w_eFhVC_utYd9',
     '1jejddePJzIIfBucfeU2-EqEp6n0Pd5cw','1ogdOJy4E0BufCI0ypWRTbiaAVlSvMfFF',
     '150zYARzsWMXg7yrPN760sk0gueAoeRF-','17L2cZJUSaOWQbPDulxCh57HslAHDT51B',
@@ -3840,6 +3868,29 @@ window.addEventListener('DOMContentLoaded', function() {
     '1WOODU25GiVxUuNJ7YxbfnWjmzlnvKvbq','1BrM3U6Y73ganlMIrYUBzVq7olCxDEaIT',
     '1MJjRZcpj8vJNmj0btyXvQWrKQpwTBmjM','1WAeC0pcNgqYjjjDj0FhB6TxR0yS3l1Cz'
   ];
+  var GALLERY_CAPTIONS = [
+    { es:'Recorriendo el centro histórico', fr:'En balade dans le centre historique', en:'Walking through downtown' },
+    { es:'Con autoridades del Gobierno de Chiapas', fr:'Avec des autorités du gouvernement du Chiapas', en:'With Chiapas state government officials' },
+    { es:'Firmando un convenio educativo', fr:"Signature d'un partenariat éducatif", en:'Signing an educational partnership' },
+    { es:'Con colegas, en un encuentro institucional', fr:'Avec des collègues, lors d\'une rencontre institutionnelle', en:'With colleagues, at an institutional gathering' },
+    { es:'Un regalo de mis estudiantes', fr:'Un cadeau de mes étudiants', en:'A gift from my students' },
+    { es:'Reunión con autoridades del Gobierno de Chiapas', fr:'Réunion avec des autorités du gouvernement du Chiapas', en:'Meeting with Chiapas state government officials' },
+    { es:'Entrega de certificados a estudiantes', fr:'Remise de certificats aux étudiants', en:'Handing certificates to students' },
+    { es:'Después de una conferencia', fr:'Après une conférence', en:'After a conference' },
+    { es:'Formalizando una alianza educativa', fr:"Formalisation d'un partenariat éducatif", en:'Formalizing an educational partnership' },
+    { es:'Entrega de certificado · banderas de Francia y México', fr:'Remise de certificat · drapeaux de la France et du Mexique', en:'Handing over a certificate · France and Mexico flags' },
+    { es:'En el Centro de Lenguas', fr:'Au Centre de Lenguas', en:'At the Centro de Lenguas' },
+    { es:'Con el equipo, en temporada navideña', fr:"Avec l'équipe, pendant les fêtes", en:'With the team, during the holidays' },
+    { es:'Con un colega', fr:'Avec un collègue', en:'With a colleague' },
+    { es:'Frente a las banderas de la Unión Europea, Ecuador y Francia', fr:"Devant les drapeaux de l'Union européenne, de l'Équateur et de la France", en:'In front of the European Union, Ecuador and France flags' },
+    { es:'En casa, con mis compañeros de cuatro patas', fr:'À la maison, avec mes compagnons à quatre pattes', en:'At home, with my four-legged companions' },
+    { es:'Reunión de equipo', fr:"Réunion d'équipe", en:'Team meeting' },
+    { es:'En una terraza, con la Catedral de Cuenca de fondo', fr:'Sur une terrasse, avec la cathédrale de Cuenca en arrière-plan', en:"On a rooftop terrace, with Cuenca's Cathedral behind" },
+    { es:'En un festival, con amigos', fr:'Dans un festival, entre amis', en:'At a festival, with friends' },
+    { es:'Alianza Francesa de Cuenca, Ecuador', fr:'Alliance Française de Cuenca, Équateur', en:'Alliance Française de Cuenca, Ecuador' },
+    { es:'Con amigos, en una salida informal', fr:'Entre amis, lors d\'une sortie informelle', en:'With friends, on a casual outing' },
+    { es:'Con amigos, en un evento social', fr:'Entre amis, lors d\'un événement', en:'With friends, at a social event' }
+  ];
   var thumb = function(id) { return 'https://drive.google.com/thumbnail?id=' + id + '&sz=w800'; };
   var full  = function(id) { return 'https://lh3.googleusercontent.com/d/' + id + '=w2400'; };
 
@@ -3847,6 +3898,7 @@ window.addEventListener('DOMContentLoaded', function() {
   track.innerHTML = '';
   var build = function(loopIdx) {
     GALLERY_IDS.forEach(function(id, i) {
+      var cap = GALLERY_CAPTIONS[i] || { es:'', fr:'', en:'' };
       var item = document.createElement('div');
       item.className = 'g-item';
       item.setAttribute('data-full', full(id));
@@ -3855,7 +3907,8 @@ window.addEventListener('DOMContentLoaded', function() {
         '<img loading="lazy" src="' + thumb(id) + '" alt="Miguel Tillero — foto ' + (i+1) + '"' +
         ' onload="this.classList.add(\'loaded\')"' +
         ' onerror="this.closest(\'.g-item\').style.display=\'none\'">' +
-        '<div class="g-overlay"><i class="fa fa-expand"></i></div>';
+        '<div class="g-overlay"><i class="fa fa-expand"></i></div>' +
+        '<div class="g-caption"><span data-es="' + cap.es + '" data-fr="' + cap.fr + '" data-en="' + cap.en + '">' + cap.es + '</span></div>';
       item.addEventListener('click', function(e) {
         if (track.classList.contains('was-dragging')) return;
         window.openLBdrive(full(id), 'Galería Miguel Tillero — foto ' + (i+1));
@@ -3865,6 +3918,10 @@ window.addEventListener('DOMContentLoaded', function() {
   };
   build(0);
   build(1); /* duplicado para auto-scroll infinito */
+  /* Las tarjetas se crean después de que i18n.js ya aplicó el idioma
+     guardado al cargar la página — sin esto, sus descriptores se
+     quedarían en español hasta el próximo clic en ES/FR/EN. */
+  try { if (window.setLang) setLang(localStorage.getItem('preferenciaIdioma_MT') || 'es'); } catch (e) {}
 
   /* ── TECLADO ──
      La tira se movía solo con ratón o dedo, así que con el teclado no

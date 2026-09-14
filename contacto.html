@@ -890,7 +890,7 @@ section.alt { background: rgba(13,89,58,0.05); }
 }
 #wa-float:hover #wa-lbl { opacity: 1; transform: translateX(0); }
 
-#audio-player { position: fixed; bottom: 2rem; right: 2rem; z-index: 900; }
+#audio-player { position: fixed; bottom: 2rem; right: 2rem; z-index: 900; display: flex; align-items: center; gap: 0.5rem; }
 #audio-btn {
   width: 3rem; height: 3rem; border-radius: 50%;
   background: var(--goldx); border: 1px solid var(--border);
@@ -900,6 +900,19 @@ section.alt { background: rgba(13,89,58,0.05); }
 }
 #audio-btn:hover { border-color: var(--gold); background: rgba(201,169,110,0.2); }
 #audio-btn.playing { animation: pulse-border 2s infinite; border-color: var(--gold); }
+/* Ecualizador — barras que solo se mueven mientras suena la música, para que
+   se note de un vistazo que hay sonido y que el botón sirve para silenciarlo. */
+.audio-eq {
+  display: flex; align-items: flex-end; gap: 3px; height: 1.2rem; padding: 0 0.15rem;
+  opacity: 0; transform: scale(0.8); transition: opacity 0.3s, transform 0.3s; pointer-events: none;
+}
+#audio-player:has(#audio-btn.playing) .audio-eq { opacity: 1; transform: scale(1); }
+.audio-eq i { display: block; width: 3px; border-radius: 2px; background: var(--gold); height: 100%; transform-origin: bottom; }
+#audio-player:has(#audio-btn.playing) .audio-eq i { animation: eqBounce 0.9s ease-in-out infinite; }
+.audio-eq i:nth-child(1) { animation-delay: 0s; }
+.audio-eq i:nth-child(2) { animation-delay: 0.2s; }
+.audio-eq i:nth-child(3) { animation-delay: 0.4s; }
+@keyframes eqBounce { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
 
 /* ════════════════════════════════════════════════
    RESPONSIVE
@@ -2233,7 +2246,7 @@ summary:focus-visible,
 /* ── Responsive del bloque AF ── */
 .nav-links a { white-space: nowrap; }
 @media (max-width: 1400px) { .nav-links { gap: 1.4rem; } }
-@media (max-width: 1280px) {
+@media (max-width: 1850px) {
   .nav-links { gap: 1.15rem; }
   .nav-links a { letter-spacing: 0.18em; }
   .nav-links li.nav-sec { display: none; }
@@ -2587,6 +2600,7 @@ body { animation: pageFadeIn 0.5s ease; }
 <!-- AUDIO -->
 <div id="audio-player">
   <button id="audio-btn" aria-label="Música de fondo"><i class="fa fa-music"></i></button>
+  <span class="audio-eq" aria-hidden="true"><i></i><i></i><i></i></span>
 </div>
 
 <!-- BOTÓN FLOTANTE — invitación al club de conversación -->
@@ -2613,13 +2627,14 @@ body { animation: pageFadeIn 0.5s ease; }
   <a href="servicios.html" data-route="servicios" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</a>
   <a href="cursos.html" data-route="estudiantes" data-es="Cursos y exámenes" data-fr="Cours et examens" data-en="Courses & exams">Cursos y exámenes</a>
   <a href="galeria.html" data-route="galeria" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a>
-  <a href="contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a>
-  <a href="inscribete.html" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a>
-  <a href="pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a>
-  <a href="reservar.html" onclick="closeMob()" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
-  <a href="reglamento.html" onclick="closeMob()" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a>
   <a href="mi-espacio.html" onclick="closeMob()" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a>
   <a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" onclick="closeMob()" style="color:var(--gold);" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</a>
+  <a href="inscribete.html" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a>
+  <a href="reservar.html" onclick="closeMob()" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
+  <a href="reglamento.html" onclick="closeMob()" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a>
+  <a href="contacto.html#faq" onclick="closeMob()" data-es="Preguntas frecuentes" data-fr="Foire aux questions" data-en="FAQ">Preguntas frecuentes</a>
+  <a href="contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a>
+  <a href="pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a>
   <button type="button" class="desktop-toggle-btn" id="desktop-toggle-btn" onclick="toggleDesktopView()">Ver versión de escritorio</button>
 </div>
 
@@ -2635,13 +2650,14 @@ body { animation: pageFadeIn 0.5s ease; }
     <li><a href="servicios.html" data-route="servicios" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</a></li>
     <li><a href="cursos.html" data-route="estudiantes" data-es="Cursos y exámenes" data-fr="Cours et examens" data-en="Courses &amp; exams">Cursos y exámenes</a></li>
     <li><a href="galeria.html" data-route="galeria" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a></li>
-    <li><a href="contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a></li>
-    <li class="nav-sec"><a href="pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a></li>
-    <li class="nav-sec"><a href="reservar.html" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
-    <a href="reglamento.html" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a></li>
     <li><a href="mi-espacio.html" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a></li>
     <li class="nav-sec"><a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" style="color:var(--gold);" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</a></li>
     <li><a href="inscribete.html" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a></li>
+    <li class="nav-sec"><a href="reservar.html" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
+    <a href="reglamento.html" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a></li>
+    <li class="nav-sec"><a href="contacto.html#faq" data-es="Preguntas frecuentes" data-fr="Foire aux questions" data-en="FAQ">Preguntas frecuentes</a></li>
+    <li><a href="contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a></li>
+    <li class="nav-sec"><a href="pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a></li>
   </ul>
   <div class="nav-controls">
     <button class="ctrl-btn active" onclick="setLang('es')">ES</button>
@@ -2650,52 +2666,6 @@ body { animation: pageFadeIn 0.5s ease; }
     <button class="hamburger" onclick="toggleMob()" aria-label="Menú"><i class="fa fa-bars"></i></button>
   </div>
 </nav>
-<section id="faq" class="z10" data-page="contacto">
-  <div class="container">
-    <div class="sec-head reveal" style="text-align:center;margin-bottom:3rem;">
-      <p class="eyebrow" style="justify-content:center" data-es="Resuelve tus dudas" data-fr="Questions fréquentes" data-en="Common questions">Resuelve tus dudas</p>
-      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Preguntas frecuentes" data-fr="Foire aux questions" data-en="FAQ">Preguntas frecuentes</em></h2>
-    </div>
-    <div class="faq-list reveal">
-      <details class="faq-item">
-        <summary class="faq-q" data-es="¿Necesito saber algo de francés para empezar?" data-fr="Dois-je connaître le français pour commencer ?" data-en="Do I need any French to start?">¿Necesito saber algo de francés para empezar?</summary>
-        <div class="faq-a" data-es="No. Diseño itinerarios desde el nivel cero absoluto (A0) hasta la maestría (C2). En la primera sesión evalúo tu punto de partida y construyo un plan a tu medida según el Marco Común Europeo de Referencia." data-fr="Non. Je conçois des parcours du niveau zéro absolu (A0) jusqu'à la maîtrise (C2). Lors de la première séance, j'évalue votre niveau et construis un plan sur mesure selon le CECRL." data-en="No. I design learning paths from absolute zero (A0) to mastery (C2). In the first session I assess your starting point and build a tailored plan based on the CEFR.">No. Diseño itinerarios desde el nivel cero absoluto (A0) hasta la maestría (C2). En la primera sesión evalúo tu punto de partida y construyo un plan a tu medida según el Marco Común Europeo de Referencia.</div>
-      </details>
-      <details class="faq-item">
-        <summary class="faq-q" data-es="¿Las clases son presenciales o en línea?" data-fr="Les cours sont-ils en présentiel ou en ligne ?" data-en="Are classes in person or online?">¿Las clases son presenciales o en línea?</summary>
-        <div class="faq-a" data-es="Ambas modalidades. Presenciales en San Cristóbal de Las Casas, Chiapas, y en línea para cualquier parte del mundo, con la misma metodología comunicativa y materiales auténticos." data-fr="Les deux. En présentiel à San Cristóbal de Las Casas, Chiapas, et en ligne partout dans le monde, avec la même méthodologie communicative." data-en="Both. In person in San Cristóbal de Las Casas, Chiapas, and online worldwide, with the same communicative methodology.">Ambas modalidades. Presenciales en San Cristóbal de Las Casas, Chiapas, y en línea para cualquier parte del mundo, con la misma metodología comunicativa y materiales auténticos.</div>
-      </details>
-      <details class="faq-item">
-        <summary class="faq-q" data-es="¿Cuánto tiempo toma alcanzar un nivel B2?" data-fr="Combien de temps pour atteindre le niveau B2 ?" data-en="How long does it take to reach B2?">¿Cuánto tiempo toma alcanzar un nivel B2?</summary>
-        <div class="faq-a" data-es="Depende de tu dedicación y frecuencia. Con 2-3 sesiones semanales más trabajo personal, un estudiante constante suele alcanzar el B2 en 18-24 meses partiendo de cero. Con inmersión intensiva, el camino se acorta considerablemente." data-fr="Cela dépend de votre rythme. Avec 2-3 séances hebdomadaires plus travail personnel, un étudiant régulier atteint le B2 en 18-24 mois en partant de zéro." data-en="It depends on your pace. With 2-3 weekly sessions plus personal work, a consistent student typically reaches B2 in 18-24 months from scratch.">Depende de tu dedicación y frecuencia. Con 2-3 sesiones semanales más trabajo personal, un estudiante constante suele alcanzar el B2 en 18-24 meses partiendo de cero. Con inmersión intensiva, el camino se acorta considerablemente.</div>
-      </details>
-      <details class="faq-item">
-        <summary class="faq-q" data-es="¿Preparas para los exámenes oficiales DELF/DALF?" data-fr="Préparez-vous aux examens DELF/DALF ?" data-en="Do you prepare for DELF/DALF exams?">¿Preparas para los exámenes oficiales DELF/DALF?</summary>
-        <div class="faq-a" data-es="Sí, es una de mis especialidades. He formado candidatos que obtuvieron puntuaciones perfectas (100/100). Trabajo las cuatro competencias con simulacros reales, estrategias de examen y retroalimentación detallada." data-fr="Oui, c'est l'une de mes spécialités. J'ai formé des candidats ayant obtenu des notes parfaites (100/100). Je travaille les quatre compétences avec des examens blancs." data-en="Yes, it's one of my specialties. I've trained candidates who achieved perfect scores (100/100), working all four skills with real mock exams.">Sí, es una de mis especialidades. He formado candidatos que obtuvieron puntuaciones perfectas (100/100). Trabajo las cuatro competencias con simulacros reales, estrategias de examen y retroalimentación detallada.</div>
-      </details>
-      <details class="faq-item">
-        <summary class="faq-q" data-es="¿Ayudas con procesos de migración a Quebec / Francia?" data-fr="Aidez-vous pour l'immigration au Québec / en France ?" data-en="Do you help with Quebec / France immigration?">¿Ayudas con procesos de migración a Quebec / Francia?</summary>
-        <div class="faq-a" data-es="Sí. He asesorado candidatos en procesos migratorios hacia Quebec: preparación lingüística para el TEF/TCF, simulacros de entrevista y acompañamiento cultural para la integración francófona." data-fr="Oui. J'ai accompagné des candidats à l'immigration vers le Québec : préparation au TEF/TCF, simulations d'entretien et accompagnement culturel." data-en="Yes. I've advised candidates on Quebec immigration: TEF/TCF language prep, interview simulations and cultural guidance.">Sí. He asesorado candidatos en procesos migratorios hacia Quebec: preparación lingüística para el TEF/TCF, simulacros de entrevista y acompañamiento cultural para la integración francófona.</div>
-      </details>
-      <details class="faq-item">
-        <summary class="faq-q" data-es="¿Qué diferencia hay entre el DELF, el TCF y el TEF?" data-fr="Quelle différence entre le DELF, le TCF et le TEF ?" data-en="What's the difference between DELF, TCF and TEF?">¿Qué diferencia hay entre el DELF, el TCF y el TEF?</summary>
-        <div class="faq-a" data-es="El DELF (y su continuación, el DALF) es un <strong>diploma</strong>: se aprueba o no, corresponde a un solo nivel y no caduca jamás. El TCF y el TEF son <strong>tests de nivel</strong>: no se aprueban ni se reprueban, sitúan tu francés en algún punto entre el A1 y el C2 y caducan a los dos años. Regla práctica: para estudios y para acreditar tu nivel de por vida, DELF o DALF; para trámites migratorios hacia Canadá, Quebec o Francia, TCF o TEF en la versión que exija tu expediente." data-fr="Le DELF (et sa suite, le DALF) est un <strong>diplôme</strong> : on l'obtient ou non, il correspond à un seul niveau et n'expire jamais. Le TCF et le TEF sont des <strong>tests de niveau</strong> : ils situent votre français entre A1 et C2 et sont valables deux ans. En pratique : pour les études et une attestation à vie, DELF ou DALF ; pour l'immigration vers le Canada, le Québec ou la France, TCF ou TEF dans la version exigée." data-en="DELF (and its continuation, DALF) is a <strong>diploma</strong>: you pass or you don't, it maps to a single level and never expires. TCF and TEF are <strong>level tests</strong>: there's no pass or fail, they place your French somewhere between A1 and C2 and expire after two years. Rule of thumb: for studies and lifelong proof, DELF or DALF; for immigration to Canada, Quebec or France, TCF or TEF in whichever version your file requires.">El DELF (y su continuación, el DALF) es un <strong>diploma</strong>: se aprueba o no, corresponde a un solo nivel y no caduca jamás. El TCF y el TEF son <strong>tests de nivel</strong>: no se aprueban ni se reprueban, sitúan tu francés en algún punto entre el A1 y el C2 y caducan a los dos años. Regla práctica: para estudios y para acreditar tu nivel de por vida, DELF o DALF; para trámites migratorios hacia Canadá, Quebec o Francia, TCF o TEF en la versión que exija tu expediente.</div>
-      </details>
-      <details class="faq-item">
-        <summary class="faq-q" data-es="¿Dónde puedo presentar el examen oficial?" data-fr="Où puis-je passer l'examen officiel ?" data-en="Where can I sit the official exam?">¿Dónde puedo presentar el examen oficial?</summary>
-        <div class="faq-a" data-es="Los exámenes se aplican únicamente en centros acreditados, con un calendario de sesiones fijado con meses de antelación y plazos de inscripción que cierran mucho antes de la fecha. Yo te preparo y te acompaño en la logística: identificamos el centro autorizado más cercano a ti, revisamos el calendario y los requisitos, y planificamos la preparación hacia atrás desde el día del examen para que llegues listo." data-fr="Les examens se déroulent uniquement dans des centres agréés, avec un calendrier fixé des mois à l'avance et des inscriptions qui ferment bien avant la date. Je vous prépare et je vous accompagne dans la logistique : identification du centre agréé le plus proche, vérification du calendrier et des conditions, et planification de la préparation à rebours depuis le jour J." data-en="Exams are only administered at accredited centres, on a session calendar set months in advance with registration deadlines that close well before the date. I prepare you and help with the logistics: finding the nearest authorised centre, checking the calendar and requirements, and planning your preparation backwards from exam day.">Los exámenes se aplican únicamente en centros acreditados, con un calendario de sesiones fijado con meses de antelación y plazos de inscripción que cierran mucho antes de la fecha. Yo te preparo y te acompaño en la logística: identificamos el centro autorizado más cercano a ti, revisamos el calendario y los requisitos, y planificamos la preparación hacia atrás desde el día del examen para que llegues listo.</div>
-      </details>
-      <details class="faq-item">
-        <summary class="faq-q" data-es="¿Qué es el MCER y por qué importa mi nivel?" data-fr="Qu'est-ce que le CECRL et pourquoi mon niveau compte-t-il ?" data-en="What is the CEFR and why does my level matter?">¿Qué es el MCER y por qué importa mi nivel?</summary>
-        <div class="faq-a" data-es="El Marco Común Europeo de Referencia divide el aprendizaje de cualquier lengua en seis niveles, del A1 al C2, descritos por lo que eres capaz de <em>hacer</em> con el idioma, no por cuántas reglas memorizaste. Es el lenguaje común de universidades, empleadores y autoridades migratorias: saber tu nivel te dice qué curso te corresponde, a qué examen puedes presentarte y cuánto tiempo necesitas realmente. Puedes estimarlo ahora mismo con el test de posicionamiento de esta página." data-fr="Le Cadre européen commun de référence divise l'apprentissage d'une langue en six niveaux, de A1 à C2, décrits par ce que vous savez <em>faire</em> avec la langue. C'est le langage commun des universités, des employeurs et des autorités migratoires : connaître votre niveau indique le cours qui vous convient, l'examen visé et le temps nécessaire. Vous pouvez l'estimer tout de suite avec le test de positionnement de cette page." data-en="The Common European Framework of Reference splits language learning into six levels, A1 to C2, described by what you can <em>do</em> with the language rather than how many rules you memorised. It's the shared language of universities, employers and immigration authorities: knowing your level tells you which course fits, which exam you can sit and how much time you really need. You can estimate it right now with the placement test on this page.">El Marco Común Europeo de Referencia divide el aprendizaje de cualquier lengua en seis niveles, del A1 al C2, descritos por lo que eres capaz de <em>hacer</em> con el idioma, no por cuántas reglas memorizaste. Es el lenguaje común de universidades, empleadores y autoridades migratorias: saber tu nivel te dice qué curso te corresponde, a qué examen puedes presentarte y cuánto tiempo necesitas realmente. Puedes estimarlo ahora mismo con el test de posicionamiento de esta página.</div>
-      </details>
-      <details class="faq-item">
-        <summary class="faq-q" data-es="¿Cómo se paga y cuáles son los métodos disponibles?" data-fr="Comment payer et quels sont les moyens disponibles ?" data-en="How do I pay and what methods are available?">¿Cómo se paga y cuáles son los métodos disponibles?</summary>
-        <div class="faq-a" data-es="Transferencia bancaria (Nu, albo), depósito en OXXO o efectivo. Encuentras todos los datos en la sección Métodos de pago de esta misma página. Los paquetes de horas se abonan al inicio de cada ciclo." data-fr="Virement bancaire (Nu, albo), dépôt OXXO ou espèces. Tous les détails figurent dans la section Moyens de paiement de cette page." data-en="Bank transfer (Nu, albo), OXXO deposit or cash. All details are in the Payment methods section of this page.">Transferencia bancaria (Nu, albo), depósito en OXXO o efectivo. Encuentras todos los datos en la sección Métodos de pago de esta misma página. Los paquetes de horas se abonan al inicio de cada ciclo.</div>
-      </details>
-    </div>
-  </div>
-</section>
 <section id="contact" class="z10" data-page="contacto">
   <div class="container">
     <div class="sec-head reveal">
@@ -2766,22 +2736,8 @@ body { animation: pageFadeIn 0.5s ease; }
           <div class="c-card">
             <div class="c-icon"><i class="fab fa-whatsapp"></i></div>
             <div>
-              <div class="c-label">WhatsApp (MX)</div>
-              <div class="c-val"><a href="https://wa.me/584122465331" target="_blank" rel="noopener">+58 412-2465331</a></div>
-            </div>
-          </div>
-          <div class="c-card">
-            <div class="c-icon"><i class="fa fa-phone"></i></div>
-            <div>
-              <div class="c-label">WhatsApp (VE)</div>
+              <div class="c-label">WhatsApp</div>
               <div class="c-val"><a href="https://wa.me/584122465331" target="_blank" rel="noopener">+58 412 246 5331</a></div>
-            </div>
-          </div>
-          <div class="c-card">
-            <div class="c-icon"><i class="fa fa-map-marker-alt"></i></div>
-            <div>
-              <div class="c-label" data-es="Ubicación" data-fr="Localisation" data-en="Location">Ubicación</div>
-              <div class="c-val">San Cristóbal de Las Casas<br>Chiapas · México</div>
             </div>
           </div>
         </div>
@@ -2799,6 +2755,52 @@ body { animation: pageFadeIn 0.5s ease; }
           <a href="https://wa.me/584122465331" target="_blank" class="social-btn" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+<section id="faq" class="z10" data-page="contacto">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;margin-bottom:3rem;">
+      <p class="eyebrow" style="justify-content:center" data-es="Resuelve tus dudas" data-fr="Questions fréquentes" data-en="Common questions">Resuelve tus dudas</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Preguntas frecuentes" data-fr="Foire aux questions" data-en="FAQ">Preguntas frecuentes</em></h2>
+    </div>
+    <div class="faq-list reveal">
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Necesito saber algo de francés para empezar?" data-fr="Dois-je connaître le français pour commencer ?" data-en="Do I need any French to start?">¿Necesito saber algo de francés para empezar?</summary>
+        <div class="faq-a" data-es="No. Diseño itinerarios desde el nivel cero absoluto (A0) hasta la maestría (C2). En la primera sesión evalúo tu punto de partida y construyo un plan a tu medida según el Marco Común Europeo de Referencia." data-fr="Non. Je conçois des parcours du niveau zéro absolu (A0) jusqu'à la maîtrise (C2). Lors de la première séance, j'évalue votre niveau et construis un plan sur mesure selon le CECRL." data-en="No. I design learning paths from absolute zero (A0) to mastery (C2). In the first session I assess your starting point and build a tailored plan based on the CEFR.">No. Diseño itinerarios desde el nivel cero absoluto (A0) hasta la maestría (C2). En la primera sesión evalúo tu punto de partida y construyo un plan a tu medida según el Marco Común Europeo de Referencia.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Las clases son presenciales o en línea?" data-fr="Les cours sont-ils en présentiel ou en ligne ?" data-en="Are classes in person or online?">¿Las clases son presenciales o en línea?</summary>
+        <div class="faq-a" data-es="Ambas modalidades. Presenciales en San Cristóbal de Las Casas, Chiapas, y en línea para cualquier parte del mundo, con la misma metodología comunicativa y materiales auténticos." data-fr="Les deux. En présentiel à San Cristóbal de Las Casas, Chiapas, et en ligne partout dans le monde, avec la même méthodologie communicative." data-en="Both. In person in San Cristóbal de Las Casas, Chiapas, and online worldwide, with the same communicative methodology.">Ambas modalidades. Presenciales en San Cristóbal de Las Casas, Chiapas, y en línea para cualquier parte del mundo, con la misma metodología comunicativa y materiales auténticos.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Cuánto tiempo toma alcanzar un nivel B2?" data-fr="Combien de temps pour atteindre le niveau B2 ?" data-en="How long does it take to reach B2?">¿Cuánto tiempo toma alcanzar un nivel B2?</summary>
+        <div class="faq-a" data-es="Depende de tu dedicación y frecuencia. Con 2-3 sesiones semanales más trabajo personal, un estudiante constante suele alcanzar el B2 en 18-24 meses partiendo de cero. Con inmersión intensiva, el camino se acorta considerablemente." data-fr="Cela dépend de votre rythme. Avec 2-3 séances hebdomadaires plus travail personnel, un étudiant régulier atteint le B2 en 18-24 mois en partant de zéro." data-en="It depends on your pace. With 2-3 weekly sessions plus personal work, a consistent student typically reaches B2 in 18-24 months from scratch.">Depende de tu dedicación y frecuencia. Con 2-3 sesiones semanales más trabajo personal, un estudiante constante suele alcanzar el B2 en 18-24 meses partiendo de cero. Con inmersión intensiva, el camino se acorta considerablemente.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Preparas para los exámenes oficiales DELF/DALF?" data-fr="Préparez-vous aux examens DELF/DALF ?" data-en="Do you prepare for DELF/DALF exams?">¿Preparas para los exámenes oficiales DELF/DALF?</summary>
+        <div class="faq-a" data-es="Sí, es una de mis especialidades. He formado candidatos que obtuvieron puntuaciones perfectas (100/100). Trabajo las cuatro competencias con simulacros reales, estrategias de examen y retroalimentación detallada." data-fr="Oui, c'est l'une de mes spécialités. J'ai formé des candidats ayant obtenu des notes parfaites (100/100). Je travaille les quatre compétences avec des examens blancs." data-en="Yes, it's one of my specialties. I've trained candidates who achieved perfect scores (100/100), working all four skills with real mock exams.">Sí, es una de mis especialidades. He formado candidatos que obtuvieron puntuaciones perfectas (100/100). Trabajo las cuatro competencias con simulacros reales, estrategias de examen y retroalimentación detallada.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Ayudas con procesos de migración a Quebec / Francia?" data-fr="Aidez-vous pour l'immigration au Québec / en France ?" data-en="Do you help with Quebec / France immigration?">¿Ayudas con procesos de migración a Quebec / Francia?</summary>
+        <div class="faq-a" data-es="Sí. He asesorado candidatos en procesos migratorios hacia Quebec: preparación lingüística para el TEF/TCF, simulacros de entrevista y acompañamiento cultural para la integración francófona." data-fr="Oui. J'ai accompagné des candidats à l'immigration vers le Québec : préparation au TEF/TCF, simulations d'entretien et accompagnement culturel." data-en="Yes. I've advised candidates on Quebec immigration: TEF/TCF language prep, interview simulations and cultural guidance.">Sí. He asesorado candidatos en procesos migratorios hacia Quebec: preparación lingüística para el TEF/TCF, simulacros de entrevista y acompañamiento cultural para la integración francófona.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Qué diferencia hay entre el DELF, el TCF y el TEF?" data-fr="Quelle différence entre le DELF, le TCF et le TEF ?" data-en="What's the difference between DELF, TCF and TEF?">¿Qué diferencia hay entre el DELF, el TCF y el TEF?</summary>
+        <div class="faq-a" data-es="El DELF (y su continuación, el DALF) es un <strong>diploma</strong>: se aprueba o no, corresponde a un solo nivel y no caduca jamás. El TCF y el TEF son <strong>tests de nivel</strong>: no se aprueban ni se reprueban, sitúan tu francés en algún punto entre el A1 y el C2 y caducan a los dos años. Regla práctica: para estudios y para acreditar tu nivel de por vida, DELF o DALF; para trámites migratorios hacia Canadá, Quebec o Francia, TCF o TEF en la versión que exija tu expediente." data-fr="Le DELF (et sa suite, le DALF) est un <strong>diplôme</strong> : on l'obtient ou non, il correspond à un seul niveau et n'expire jamais. Le TCF et le TEF sont des <strong>tests de niveau</strong> : ils situent votre français entre A1 et C2 et sont valables deux ans. En pratique : pour les études et une attestation à vie, DELF ou DALF ; pour l'immigration vers le Canada, le Québec ou la France, TCF ou TEF dans la version exigée." data-en="DELF (and its continuation, DALF) is a <strong>diploma</strong>: you pass or you don't, it maps to a single level and never expires. TCF and TEF are <strong>level tests</strong>: there's no pass or fail, they place your French somewhere between A1 and C2 and expire after two years. Rule of thumb: for studies and lifelong proof, DELF or DALF; for immigration to Canada, Quebec or France, TCF or TEF in whichever version your file requires.">El DELF (y su continuación, el DALF) es un <strong>diploma</strong>: se aprueba o no, corresponde a un solo nivel y no caduca jamás. El TCF y el TEF son <strong>tests de nivel</strong>: no se aprueban ni se reprueban, sitúan tu francés en algún punto entre el A1 y el C2 y caducan a los dos años. Regla práctica: para estudios y para acreditar tu nivel de por vida, DELF o DALF; para trámites migratorios hacia Canadá, Quebec o Francia, TCF o TEF en la versión que exija tu expediente.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Dónde puedo presentar el examen oficial?" data-fr="Où puis-je passer l'examen officiel ?" data-en="Where can I sit the official exam?">¿Dónde puedo presentar el examen oficial?</summary>
+        <div class="faq-a" data-es="Los exámenes se aplican únicamente en centros acreditados, con un calendario de sesiones fijado con meses de antelación y plazos de inscripción que cierran mucho antes de la fecha. Yo te preparo y te acompaño en la logística: identificamos el centro autorizado más cercano a ti, revisamos el calendario y los requisitos, y planificamos la preparación hacia atrás desde el día del examen para que llegues listo." data-fr="Les examens se déroulent uniquement dans des centres agréés, avec un calendrier fixé des mois à l'avance et des inscriptions qui ferment bien avant la date. Je vous prépare et je vous accompagne dans la logistique : identification du centre agréé le plus proche, vérification du calendrier et des conditions, et planification de la préparation à rebours depuis le jour J." data-en="Exams are only administered at accredited centres, on a session calendar set months in advance with registration deadlines that close well before the date. I prepare you and help with the logistics: finding the nearest authorised centre, checking the calendar and requirements, and planning your preparation backwards from exam day.">Los exámenes se aplican únicamente en centros acreditados, con un calendario de sesiones fijado con meses de antelación y plazos de inscripción que cierran mucho antes de la fecha. Yo te preparo y te acompaño en la logística: identificamos el centro autorizado más cercano a ti, revisamos el calendario y los requisitos, y planificamos la preparación hacia atrás desde el día del examen para que llegues listo.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Qué es el MCER y por qué importa mi nivel?" data-fr="Qu'est-ce que le CECRL et pourquoi mon niveau compte-t-il ?" data-en="What is the CEFR and why does my level matter?">¿Qué es el MCER y por qué importa mi nivel?</summary>
+        <div class="faq-a" data-es="El Marco Común Europeo de Referencia divide el aprendizaje de cualquier lengua en seis niveles, del A1 al C2, descritos por lo que eres capaz de <em>hacer</em> con el idioma, no por cuántas reglas memorizaste. Es el lenguaje común de universidades, empleadores y autoridades migratorias: saber tu nivel te dice qué curso te corresponde, a qué examen puedes presentarte y cuánto tiempo necesitas realmente. Puedes estimarlo ahora mismo con el test de posicionamiento de esta página." data-fr="Le Cadre européen commun de référence divise l'apprentissage d'une langue en six niveaux, de A1 à C2, décrits par ce que vous savez <em>faire</em> avec la langue. C'est le langage commun des universités, des employeurs et des autorités migratoires : connaître votre niveau indique le cours qui vous convient, l'examen visé et le temps nécessaire. Vous pouvez l'estimer tout de suite avec le test de positionnement de cette page." data-en="The Common European Framework of Reference splits language learning into six levels, A1 to C2, described by what you can <em>do</em> with the language rather than how many rules you memorised. It's the shared language of universities, employers and immigration authorities: knowing your level tells you which course fits, which exam you can sit and how much time you really need. You can estimate it right now with the placement test on this page.">El Marco Común Europeo de Referencia divide el aprendizaje de cualquier lengua en seis niveles, del A1 al C2, descritos por lo que eres capaz de <em>hacer</em> con el idioma, no por cuántas reglas memorizaste. Es el lenguaje común de universidades, empleadores y autoridades migratorias: saber tu nivel te dice qué curso te corresponde, a qué examen puedes presentarte y cuánto tiempo necesitas realmente. Puedes estimarlo ahora mismo con el test de posicionamiento de esta página.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q" data-es="¿Cómo se paga y cuáles son los métodos disponibles?" data-fr="Comment payer et quels sont les moyens disponibles ?" data-en="How do I pay and what methods are available?">¿Cómo se paga y cuáles son los métodos disponibles?</summary>
+        <div class="faq-a" data-es="Transferencia bancaria (Nu, albo), depósito en OXXO o efectivo. Encuentras todos los datos en la sección Métodos de pago de esta misma página. Los paquetes de horas se abonan al inicio de cada ciclo." data-fr="Virement bancaire (Nu, albo), dépôt OXXO ou espèces. Tous les détails figurent dans la section Moyens de paiement de cette page." data-en="Bank transfer (Nu, albo), OXXO deposit or cash. All details are in the Payment methods section of this page.">Transferencia bancaria (Nu, albo), depósito en OXXO o efectivo. Encuentras todos los datos en la sección Métodos de pago de esta misma página. Los paquetes de horas se abonan al inicio de cada ciclo.</div>
+      </details>
     </div>
   </div>
 </section>

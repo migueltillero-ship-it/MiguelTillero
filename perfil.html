@@ -702,6 +702,16 @@ section.alt { background: rgba(13,89,58,0.05); }
 }
 .filmstrip-hint i { color: var(--gold); }
 
+#trayectoria-visual .g-item { height: 340px; }
+#trayectoria-visual .g-caption {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to top, rgba(2,12,6,0.88) 15%, transparent 100%);
+  padding: 2.4rem 0.9rem 0.7rem;
+  font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.03em;
+  line-height: 1.35; color: rgba(255,255,255,0.92);
+  z-index: 2; pointer-events: none;
+}
+
 /* Lightbox */
 #lightbox {
   display: none; position: fixed; inset: 0; z-index: 5000;
@@ -890,7 +900,7 @@ section.alt { background: rgba(13,89,58,0.05); }
 }
 #wa-float:hover #wa-lbl { opacity: 1; transform: translateX(0); }
 
-#audio-player { position: fixed; bottom: 2rem; right: 2rem; z-index: 900; }
+#audio-player { position: fixed; bottom: 2rem; right: 2rem; z-index: 900; display: flex; align-items: center; gap: 0.5rem; }
 #audio-btn {
   width: 3rem; height: 3rem; border-radius: 50%;
   background: var(--goldx); border: 1px solid var(--border);
@@ -900,6 +910,19 @@ section.alt { background: rgba(13,89,58,0.05); }
 }
 #audio-btn:hover { border-color: var(--gold); background: rgba(201,169,110,0.2); }
 #audio-btn.playing { animation: pulse-border 2s infinite; border-color: var(--gold); }
+/* Ecualizador — barras que solo se mueven mientras suena la música, para que
+   se note de un vistazo que hay sonido y que el botón sirve para silenciarlo. */
+.audio-eq {
+  display: flex; align-items: flex-end; gap: 3px; height: 1.2rem; padding: 0 0.15rem;
+  opacity: 0; transform: scale(0.8); transition: opacity 0.3s, transform 0.3s; pointer-events: none;
+}
+#audio-player:has(#audio-btn.playing) .audio-eq { opacity: 1; transform: scale(1); }
+.audio-eq i { display: block; width: 3px; border-radius: 2px; background: var(--gold); height: 100%; transform-origin: bottom; }
+#audio-player:has(#audio-btn.playing) .audio-eq i { animation: eqBounce 0.9s ease-in-out infinite; }
+.audio-eq i:nth-child(1) { animation-delay: 0s; }
+.audio-eq i:nth-child(2) { animation-delay: 0.2s; }
+.audio-eq i:nth-child(3) { animation-delay: 0.4s; }
+@keyframes eqBounce { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
 
 /* ════════════════════════════════════════════════
    RESPONSIVE
@@ -2233,7 +2256,7 @@ summary:focus-visible,
 /* ── Responsive del bloque AF ── */
 .nav-links a { white-space: nowrap; }
 @media (max-width: 1400px) { .nav-links { gap: 1.4rem; } }
-@media (max-width: 1280px) {
+@media (max-width: 1850px) {
   .nav-links { gap: 1.15rem; }
   .nav-links a { letter-spacing: 0.18em; }
   .nav-links li.nav-sec { display: none; }
@@ -2587,6 +2610,7 @@ body { animation: pageFadeIn 0.5s ease; }
 <!-- AUDIO -->
 <div id="audio-player">
   <button id="audio-btn" aria-label="Música de fondo"><i class="fa fa-music"></i></button>
+  <span class="audio-eq" aria-hidden="true"><i></i><i></i><i></i></span>
 </div>
 
 <!-- BOTÓN FLOTANTE — invitación al club de conversación -->
@@ -2613,13 +2637,14 @@ body { animation: pageFadeIn 0.5s ease; }
   <a href="servicios.html" data-route="servicios" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</a>
   <a href="cursos.html" data-route="estudiantes" data-es="Cursos y exámenes" data-fr="Cours et examens" data-en="Courses & exams">Cursos y exámenes</a>
   <a href="galeria.html" data-route="galeria" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a>
-  <a href="contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a>
-  <a href="inscribete.html" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a>
-  <a href="pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a>
-  <a href="reservar.html" onclick="closeMob()" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
-  <a href="reglamento.html" onclick="closeMob()" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a>
   <a href="mi-espacio.html" onclick="closeMob()" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a>
   <a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" onclick="closeMob()" style="color:var(--gold);" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</a>
+  <a href="inscribete.html" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a>
+  <a href="reservar.html" onclick="closeMob()" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
+  <a href="reglamento.html" onclick="closeMob()" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a>
+  <a href="contacto.html#faq" onclick="closeMob()" data-es="Preguntas frecuentes" data-fr="Foire aux questions" data-en="FAQ">Preguntas frecuentes</a>
+  <a href="contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a>
+  <a href="pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a>
   <button type="button" class="desktop-toggle-btn" id="desktop-toggle-btn" onclick="toggleDesktopView()">Ver versión de escritorio</button>
 </div>
 
@@ -2635,13 +2660,14 @@ body { animation: pageFadeIn 0.5s ease; }
     <li><a href="servicios.html" data-route="servicios" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</a></li>
     <li><a href="cursos.html" data-route="estudiantes" data-es="Cursos y exámenes" data-fr="Cours et examens" data-en="Courses &amp; exams">Cursos y exámenes</a></li>
     <li><a href="galeria.html" data-route="galeria" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a></li>
-    <li><a href="contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a></li>
-    <li class="nav-sec"><a href="pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a></li>
-    <li class="nav-sec"><a href="reservar.html" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
-    <a href="reglamento.html" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a></li>
     <li><a href="mi-espacio.html" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a></li>
     <li class="nav-sec"><a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" style="color:var(--gold);" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</a></li>
     <li><a href="inscribete.html" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a></li>
+    <li class="nav-sec"><a href="reservar.html" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
+    <a href="reglamento.html" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a></li>
+    <li class="nav-sec"><a href="contacto.html#faq" data-es="Preguntas frecuentes" data-fr="Foire aux questions" data-en="FAQ">Preguntas frecuentes</a></li>
+    <li><a href="contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a></li>
+    <li class="nav-sec"><a href="pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a></li>
   </ul>
   <div class="nav-controls">
     <button class="ctrl-btn active" onclick="setLang('es')">ES</button>
@@ -2653,7 +2679,7 @@ body { animation: pageFadeIn 0.5s ease; }
 <section id="about" class="alt z10" data-page="perfil">
   <div class="reveal" style="position:relative;width:100%;height:52vh;min-height:340px;max-height:520px;overflow:hidden;margin-bottom:3rem;">
     <img src="assets/images/portrait-miguel-paris.jpg" alt="Miguel Tillero en París" loading="lazy"
-         style="width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;">
+         style="width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block;">
     <div style="position:absolute;inset:0;background:linear-gradient(0deg, rgba(18,41,28,0.78) 0%, rgba(18,41,28,0.2) 48%, transparent 72%);"></div>
     <div style="position:absolute;left:0;right:0;bottom:0;padding:2rem clamp(1.5rem,5vw,4rem);">
       <p style="font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin:0 0 0.5rem;">Direction Générale · FLE Specialist</p>
@@ -2683,10 +2709,10 @@ body { animation: pageFadeIn 0.5s ease; }
     </div>
 
     <div class="about-grid">
-      <div class="about-text reveal d1">
-        <p data-es="Soy pedagogo de formación y especialista en lenguas extranjeras con trece años de trayectoria internacional. A lo largo de mi carrera he aprendido que enseñar un idioma no se trata solo de gramática: se trata de abrir puertas, de acercar culturas y de transformar la vida de las personas que deciden dar ese paso." data-fr="Pédagogue de formation et spécialiste des langues étrangères, je porte treize ans de parcours international. Enseigner une langue, c'est ouvrir des portes, rapprocher des cultures et transformer la vie de ceux qui font ce pas." data-en="I am a trained educator and foreign language specialist with thirteen years of international experience. Teaching a language is not just about grammar — it is about opening doors, bridging cultures and transforming lives.">Soy pedagogo de formación y especialista en lenguas extranjeras con trece años de trayectoria internacional. A lo largo de mi carrera he aprendido que enseñar un idioma no se trata solo de gramática: se trata de abrir puertas, de acercar culturas y de transformar la vida de las personas que deciden dar ese paso.</p>
-        <p data-es="He pasado por aulas universitarias en Caracas, oficinas de la Embajada de Francia en Venezuela y Ecuador, y la dirección pedagógica de la Alianza Francesa de Cuenca, donde bajo mi liderazgo la matrícula creció un 34,7% en tres años. Hoy, al frente de la Alianza Francesa de San Cristóbal de Las Casas, continúo ese mismo trabajo: construir instituciones sólidas y comunidades de aprendizaje reales." data-fr="Des salles de classe de Caracas aux bureaux de l'Ambassade de France, en passant par la direction pédagogique de l'Alliance Française de Cuenca où les effectifs ont grandi de 34,7 %, mon parcours est un fil conducteur : construire des institutions solides et des communautés apprenantes." data-en="From university classrooms in Caracas to the French Embassy offices, to the pedagogical direction of the Alliance Française of Cuenca where enrollment grew 34.7%, my path has one thread: building solid institutions and genuine learning communities.">He pasado por aulas universitarias en Caracas, oficinas de la Embajada de Francia en Venezuela y Ecuador, y la dirección pedagógica de la Alianza Francesa de Cuenca, donde bajo mi liderazgo la matrícula creció un 34,7% en tres años. Hoy, al frente de la Alianza Francesa de San Cristóbal de Las Casas, continúo ese mismo trabajo: construir instituciones sólidas y comunidades de aprendizaje reales.</p>
-        <p data-es="He asesorado a candidatos en procesos migratorios hacia Quebec, he trabajado como traductor oficial de obras pedagógicas y he consolidado equipos docentes con formación individualizada y coordinación de exámenes oficiales DELF/DALF. Esta página existe para conectarme directamente con quienes buscan clases de francés, asesorías pedagógicas, formaciones o cualquier proyecto que ponga al lenguaje en el centro." data-fr="J'ai accompagné des candidats à l'immigration vers le Québec, traduit des ouvrages pédagogiques en tant que traducteur officiel et consolidé des équipes enseignantes avec formation individualisée et coordination des examens DELF/DALF. Cette page existe pour me relier directement à celles et ceux qui cherchent des cours, du conseil pédagogique, des formations ou tout projet plaçant la langue au centre." data-en="I have advised candidates in immigration processes to Quebec, worked as an official translator of pedagogical works, and built teaching teams with individualized training and DELF/DALF exam coordination. This page exists to connect me directly with those seeking French classes, pedagogical consulting, training, or any project that places language at its center.">He asesorado a candidatos en procesos migratorios hacia Quebec, he trabajado como traductor oficial de obras pedagógicas y he consolidado equipos docentes con formación individualizada y coordinación de exámenes oficiales DELF/DALF. Esta página existe para conectarme directamente con quienes buscan clases de francés, asesorías pedagógicas, formaciones o cualquier proyecto que ponga al lenguaje en el centro.</p>
+      <div class="about-text reveal d1" style="text-align:justify;">
+        <p data-es="Enseñar un idioma nunca ha sido, para mí, solo una cuestión de gramática. Es abrir una puerta que estaba cerrada y descubrir, del otro lado, una manera distinta de nombrar el mundo. Llevo trece años caminando ese oficio &mdash;pedagogo de formación, especialista en lenguas extranjeras&mdash; y cada aula ha sido, a su manera, un pequeño país nuevo por habitar." data-fr="Enseigner une langue n'a jamais été, pour moi, une simple affaire de grammaire. C'est ouvrir une porte qui était fermée et découvrir, de l'autre côté, une autre façon de nommer le monde. Treize ans que je marche sur ce chemin &mdash;pédagogue de formation, spécialiste des langues étrangères&mdash; et chaque salle de classe a été, à sa manière, un petit pays nouveau à habiter." data-en="Teaching a language has never been, for me, just a matter of grammar. It is opening a door that was closed and discovering, on the other side, a different way of naming the world. I have spent thirteen years walking this path &mdash;a trained educator, a foreign-language specialist&mdash; and every classroom has been, in its own way, a small new country to inhabit.">Enseñar un idioma nunca ha sido, para mí, solo una cuestión de gramática. Es abrir una puerta que estaba cerrada y descubrir, del otro lado, una manera distinta de nombrar el mundo. Llevo trece años caminando ese oficio &mdash;pedagogo de formación, especialista en lenguas extranjeras&mdash; y cada aula ha sido, a su manera, un pequeño país nuevo por habitar.</p>
+        <p data-es="Empecé en las aulas universitarias de Caracas, mi ciudad. Después vinieron Ecuador y la Embajada de Francia, y más tarde la dirección pedagógica de la Alianza Francesa de Cuenca, donde tuve el privilegio de ver crecer una comunidad entera: la matrícula aumentó un 34,7% en tres años, aunque lo que más recuerdo son los rostros de quienes aprobaron su primer DELF. Hoy sigo ese mismo camino al frente de la Alianza Francesa de San Cristóbal de Las Casas, construyendo, de nuevo, un lugar donde el francés se vuelve posible." data-fr="J'ai commencé dans les universités de Caracas, ma ville. Puis sont venus l'Équateur et l'Ambassade de France, et plus tard la direction pédagogique de l'Alliance Française de Cuenca, où j'ai eu le privilège de voir grandir toute une communauté : les effectifs ont augmenté de 34,7 % en trois ans, mais ce dont je me souviens le plus, ce sont les visages de ceux qui ont réussi leur premier DELF. Aujourd'hui, je poursuis ce même chemin à la direction de l'Alliance Française de San Cristóbal de Las Casas, en construisant, à nouveau, un lieu où le français devient possible." data-en="I began in the university halls of Caracas, my city. Then came Ecuador and the French Embassy, and later the pedagogical direction of the Alliance Française de Cuenca, where I had the privilege of watching an entire community grow: enrollment rose 34.7% in three years, though what I remember most are the faces of those who passed their first DELF. Today I carry that same path forward at the helm of the Alliance Française de San Cristóbal de Las Casas, building, once again, a place where French becomes possible.">Empecé en las aulas universitarias de Caracas, mi ciudad. Después vinieron Ecuador y la Embajada de Francia, y más tarde la dirección pedagógica de la Alianza Francesa de Cuenca, donde tuve el privilegio de ver crecer una comunidad entera: la matrícula aumentó un 34,7% en tres años, aunque lo que más recuerdo son los rostros de quienes aprobaron su primer DELF. Hoy sigo ese mismo camino al frente de la Alianza Francesa de San Cristóbal de Las Casas, construyendo, de nuevo, un lugar donde el francés se vuelve posible.</p>
+        <p data-es="En el camino he acompañado a quienes emigran hacia Quebec y necesitan algo más que vocabulario para empezar de nuevo; he traducido oficialmente obras pedagógicas; y he formado equipos docentes que hoy enseñan con la misma convicción con la que a mí me enseñaron. Esta página es, en el fondo, una invitación: si el francés &mdash;o cualquier idioma&mdash; es la puerta que estás buscando, aquí hay alguien dispuesto a abrirla contigo." data-fr="En chemin, j'ai accompagné des personnes qui émigrent vers le Québec et qui ont besoin de bien plus que du vocabulaire pour recommencer ; j'ai traduit officiellement des ouvrages pédagogiques ; et j'ai formé des équipes d'enseignants qui transmettent aujourd'hui la même conviction qu'on m'a transmise. Cette page est, au fond, une invitation : si le français &mdash;ou toute autre langue&mdash; est la porte que vous cherchez, il y a ici quelqu'un de prêt à l'ouvrir avec vous." data-en="Along the way I have guided people emigrating to Quebec who needed far more than vocabulary to start over; I have worked as an official translator of pedagogical works; and I have built teaching teams that now teach with the same conviction I was once taught with. This page is, at heart, an invitation: if French &mdash;or any language&mdash; is the door you have been looking for, there is someone here ready to open it with you.">En el camino he acompañado a quienes emigran hacia Quebec y necesitan algo más que vocabulario para empezar de nuevo; he traducido oficialmente obras pedagógicas; y he formado equipos docentes que hoy enseñan con la misma convicción con la que a mí me enseñaron. Esta página es, en el fondo, una invitación: si el francés &mdash;o cualquier idioma&mdash; es la puerta que estás buscando, aquí hay alguien dispuesto a abrirla contigo.</p>
       </div>
       <div class="reveal d2">
         <div class="panel bracket skills-panel">
@@ -2813,6 +2839,62 @@ body { animation: pageFadeIn 0.5s ease; }
           <ul class="tl-list"><li>Enseñanza FR/EN/ES todos los niveles. Asistanato lingüístico Millau, Francia.</li></ul>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+<section id="trayectoria-visual" class="alt z10" data-page="perfil">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow" data-es="En imágenes" data-fr="En images" data-en="In pictures">En imágenes</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;"><em data-es="Momentos de mi trayectoria" data-fr="Moments de mon parcours" data-en="Moments from my career">Momentos de mi trayectoria</em></h2>
+    </div>
+    <div class="filmstrip-wrap">
+      <div class="filmstrip-track" id="trayectoriaTrack" tabindex="0" role="region" aria-label="Fotos de la trayectoria profesional, desplazable con las flechas">
+        <div class="g-item">
+          <img loading="lazy" src="assets/images/trayectoria/journees-reseau-panel.jpg" alt="Panel de trabajo, Journées du Réseau 2025" onload="this.classList.add('loaded')">
+          <div class="g-caption"><span data-es="Panel de trabajo · Journées du Réseau 2025" data-fr="Table ronde · Journées du Réseau 2025" data-en="Working panel · Journées du Réseau 2025">Panel de trabajo · Journées du Réseau 2025</span></div>
+        </div>
+        <div class="g-item">
+          <img loading="lazy" src="assets/images/trayectoria/journees-reseau-grupo.jpg" alt="Alianzas Francesas de México, Journées du Réseau 2025" onload="this.classList.add('loaded')">
+          <div class="g-caption"><span data-es="Alianzas Francesas de México · Journées du Réseau 2025" data-fr="Alliances Françaises du Mexique · Journées du Réseau 2025" data-en="Alliances Françaises of Mexico · Journées du Réseau 2025">Alianzas Francesas de México · Journées du Réseau 2025</span></div>
+        </div>
+        <div class="g-item">
+          <img loading="lazy" src="assets/images/trayectoria/quito-rfi-banderas.jpg" alt="Quito, con las banderas de la Unión Europea, Ecuador y Francia" onload="this.classList.add('loaded')">
+          <div class="g-caption"><span data-es="Quito · banderas de la UE, Ecuador y Francia" data-fr="Quito · drapeaux de l'UE, de l'Équateur et de la France" data-en="Quito · EU, Ecuador and France flags">Quito · banderas de la UE, Ecuador y Francia</span></div>
+        </div>
+        <div class="g-item">
+          <img loading="lazy" src="assets/images/trayectoria/clase-presencial.jpg" alt="En clase con estudiantes" onload="this.classList.add('loaded')">
+          <div class="g-caption"><span data-es="En clase — «Profesor se escribe con P de pasión»" data-fr="En classe — « Professeur s'écrit avec P de passion »" data-en="In class — “Teacher is spelled with P for passion”">En clase — «Profesor se escribe con P de pasión»</span></div>
+        </div>
+        <div class="g-item">
+          <img loading="lazy" src="assets/images/trayectoria/entrevista-tv.jpg" alt="Entrevista, Le jour du prof de français" onload="this.classList.add('loaded')">
+          <div class="g-caption"><span data-es="Entrevista · «Le jour du prof de français»" data-fr="Interview · « Le jour du prof de français »" data-en="Interview · “Le jour du prof de français”">Entrevista · «Le jour du prof de français»</span></div>
+        </div>
+        <div class="g-item">
+          <img loading="lazy" src="assets/images/trayectoria/embajador-francia.jpg" alt="Con el Embajador de Francia, Fiesta de la Francofonía" onload="this.classList.add('loaded')">
+          <div class="g-caption"><span data-es="Con el Embajador de Francia · Fiesta de la Francofonía" data-fr="Avec l'Ambassadeur de France · Fête de la Francophonie" data-en="With the Ambassador of France · Francophonie Festival">Con el Embajador de Francia · Fiesta de la Francofonía</span></div>
+        </div>
+        <div class="g-item">
+          <img loading="lazy" src="assets/images/trayectoria/af-guayaquil.jpg" alt="Con colegas de la Alianza Francesa de Guayaquil" onload="this.classList.add('loaded')">
+          <div class="g-caption"><span data-es="Con colegas · Alianza Francesa de Guayaquil" data-fr="Avec des collègues · Alliance Française de Guayaquil" data-en="With colleagues · Alliance Française of Guayaquil">Con colegas · Alianza Francesa de Guayaquil</span></div>
+        </div>
+        <div class="g-item">
+          <img loading="lazy" src="assets/images/trayectoria/conferencia-colegas.jpg" alt="Encuentro de colegas de las Alianzas Francesas" onload="this.classList.add('loaded')">
+          <div class="g-caption"><span data-es="Encuentro de colegas de las Alianzas Francesas" data-fr="Rencontre de collègues des Alliances Françaises" data-en="Gathering of Alliance Française colleagues">Encuentro de colegas de las Alianzas Francesas</span></div>
+        </div>
+        <div class="g-item">
+          <img loading="lazy" src="assets/images/trayectoria/af-cuenca.jpg" alt="Alianza Francesa de Cuenca, Ecuador" onload="this.classList.add('loaded')">
+          <div class="g-caption"><span data-es="Alianza Francesa de Cuenca, Ecuador" data-fr="Alliance Française de Cuenca, Équateur" data-en="Alliance Française de Cuenca, Ecuador">Alianza Francesa de Cuenca, Ecuador</span></div>
+        </div>
+        <div class="g-item">
+          <img loading="lazy" src="assets/images/trayectoria/tv5monde.jpg" alt="Con el equipo de TV5MONDE y el Delegado de las Alianzas Francesas en Ecuador" onload="this.classList.add('loaded')">
+          <div class="g-caption"><span data-es="Con TV5MONDE y el Delegado de las Alianzas Francesas en Ecuador" data-fr="Avec TV5MONDE et le Délégué des Alliances Françaises en Équateur" data-en="With TV5MONDE and the Delegate of the Alliances Françaises in Ecuador">Con TV5MONDE y el Delegado de las Alianzas Francesas en Ecuador</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="filmstrip-hint">
+      <i class="fa fa-hand-pointer"></i>
+      <span data-es="Arrastra para explorar" data-fr="Glissez pour explorer" data-en="Drag to explore">Arrastra para explorar</span>
     </div>
   </div>
 </section>
@@ -4087,6 +4169,56 @@ window.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+</script>
+<script>
+/* Carrete de "Momentos de mi trayectoria" — arrastre con mouse/touch,
+   igual que el carrete de la galería, pero sin auto-scroll ni carga
+   dinámica: son 10 fotos fijas, no un set que se repite en loop. */
+document.addEventListener('DOMContentLoaded', function () {
+  var track = document.getElementById('trayectoriaTrack');
+  if (!track) return;
+  var isDown = false, startX = 0, startScroll = 0, moved = 0;
+  var onDown = function (e) {
+    isDown = true; moved = 0;
+    track.classList.add('grabbing');
+    startX = (e.touches ? e.touches[0].pageX : e.pageX);
+    startScroll = track.scrollLeft;
+  };
+  var onMove = function (e) {
+    if (!isDown) return;
+    var x = (e.touches ? e.touches[0].pageX : e.pageX);
+    var dx = x - startX;
+    moved = Math.abs(dx);
+    track.scrollLeft = startScroll - dx;
+    if (moved > 6) track.classList.add('was-dragging');
+  };
+  var onUp = function () {
+    if (!isDown) return;
+    isDown = false;
+    track.classList.remove('grabbing');
+    setTimeout(function () { track.classList.remove('was-dragging'); }, 50);
+  };
+  track.addEventListener('mousedown', onDown);
+  track.addEventListener('mousemove', onMove);
+  track.addEventListener('mouseup', onUp);
+  track.addEventListener('mouseleave', onUp);
+  track.addEventListener('touchstart', onDown, { passive: true });
+  track.addEventListener('touchmove', onMove, { passive: true });
+  track.addEventListener('touchend', onUp);
+  track.addEventListener('wheel', function (e) {
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+      track.scrollLeft += e.deltaY;
+      e.preventDefault();
+    }
+  }, { passive: false });
+  track.addEventListener('keydown', function (e) {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    e.preventDefault();
+    var paso = (track.querySelector('.g-item') || {}).offsetWidth || 280;
+    var avance = (e.key === 'ArrowRight' ? 1 : -1) * (paso + 16);
+    track.scrollLeft = Math.max(0, Math.min(track.scrollWidth - track.clientWidth, track.scrollLeft + avance));
+  });
+});
 </script>
 <script>document.addEventListener('DOMContentLoaded', function(){ if (window.SitePages && !window.location.hash) window.SitePages.show('perfil', null, false); });</script>
 <script>
