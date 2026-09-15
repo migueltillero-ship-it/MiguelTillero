@@ -3639,6 +3639,17 @@ window.addEventListener('DOMContentLoaded', function() {
     return;
   }
 
+  /* Si el intro ya se vio en esta sesión, la hoja de estilo de más arriba
+     lo ha ocultado. Salimos antes de asignar el src: si no, el navegador
+     descarga el vídeo entero para algo que nadie va a ver. */
+  var yaVisto = false;
+  try { yaVisto = sessionStorage.getItem('introVisto') === 'true'; } catch (e) {}
+  if (yaVisto) {
+    if (introEl.parentNode) introEl.parentNode.removeChild(introEl);
+    document.body.classList.remove('intro-active');
+    return;
+  }
+
   /* ── SELECCIÓN DE FUENTE SEGÚN ORIENTACIÓN ──
      Móviles/tablets en vertical → versión vertical (sin recorte).
      Resto → versión horizontal original. */
