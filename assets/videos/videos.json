@@ -1,6 +1,16 @@
 {
   "videos": [
     {
+      "archivo": "presentacion-1.mp4",
+      "poster": "assets/images/portrait-miguel-paris.jpg",
+      "titulo": "Presentación",
+      "titulo_fr": "Présentation",
+      "titulo_en": "Introduction",
+      "descripcion": "Quién soy, qué enseño y cómo puedo acompañarte en tu francés.",
+      "descripcion_fr": "Qui je suis, ce que j'enseigne et comment je peux vous accompagner en français.",
+      "descripcion_en": "Who I am, what I teach and how I can support you in French."
+    },
+    {
       "archivo": "Miguel_Tillero_video_bienvenida.mp4",
       "poster": "assets/images/portrait-miguel-1.jpg",
       "titulo": "Video de bienvenida",
@@ -12,7 +22,7 @@
     },
     {
       "archivo": "profesor-miguel-tillero.mp4",
-      "poster": "assets/images/portrait-miguel-3.jpg",
+      "poster": "assets/images/trayectoria/clase-presencial.jpg",
       "titulo": "El profesor en clase",
       "titulo_fr": "Le professeur en classe",
       "titulo_en": "The teacher in class",

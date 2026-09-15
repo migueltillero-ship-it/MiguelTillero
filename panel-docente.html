@@ -115,7 +115,35 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
 
         <!-- DETALLE DE CURSO -->
         <section id="detalle-curso" class="panel" style="display:none;">
-            <h2 id="titulo-curso-detalle"></h2>
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem;">
+                <h2 id="titulo-curso-detalle" style="margin:0;"></h2>
+                <div class="acciones-fila">
+                    <button class="btn pequeno secundario" onclick="mostrarFormEditarCurso()"><i class="fa-solid fa-pen"></i> Editar curso</button>
+                    <button class="btn pequeno peligro" onclick="eliminarCurso()"><i class="fa-solid fa-trash"></i> Eliminar</button>
+                </div>
+            </div>
+
+            <div id="form-editar-curso" style="display:none; margin:1.2rem 0; border:1px solid var(--border); border-radius:var(--r-sm); padding:1.2rem;">
+                <div class="form-grid">
+                    <div class="form-field"><label>Nombre *</label><input id="ec-nombre"></div>
+                    <div class="form-field"><label>Nivel</label><input id="ec-nivel"></div>
+                    <div class="form-field"><label>Cupo máximo</label><input id="ec-cupo" type="number" min="1"></div>
+                    <div class="form-field"><label>Fecha inicio</label><input id="ec-inicio" type="date"></div>
+                    <div class="form-field"><label>Fecha cierre</label><input id="ec-fin" type="date"></div>
+                    <div class="form-field"><label>Estado</label>
+                        <select id="ec-estado">
+                            <option value="borrador">Borrador (no visible)</option>
+                            <option value="abierto">Abierto (admite inscripciones)</option>
+                            <option value="cerrado">Cerrado (ya no admite inscripciones)</option>
+                            <option value="finalizado">Finalizado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-field"><label>Descripción</label><textarea id="ec-desc" rows="2"></textarea></div>
+                <button class="btn" onclick="guardarCurso()"><i class="fa-solid fa-floppy-disk"></i> Guardar cambios</button>
+                <button class="btn secundario" onclick="document.getElementById('form-editar-curso').style.display='none'">Cancelar</button>
+                <div id="msg-editar-curso" class="msg"></div>
+            </div>
 
             <div id="caja-enlace" style="background:rgba(43,69,53,0.05); border:1px solid var(--border); border-radius:var(--r-sm); padding:1rem 1.1rem; margin-bottom:1.4rem;">
                 <div style="font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-green); margin-bottom:0.5rem;">
@@ -141,6 +169,26 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
 
             <!-- PLANIFICACIÓN -->
             <div class="tab-content activo" id="tab-planificacion">
+
+                <div style="background:rgba(43,69,53,0.05); border:1px solid var(--border); border-radius:var(--r-sm); padding:1.1rem; margin-bottom:1.6rem;">
+                    <div style="font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-green); margin-bottom:0.7rem;">
+                        Horario del curso
+                    </div>
+                    <div id="dias-semana" style="display:flex; gap:0.4rem; flex-wrap:wrap; margin-bottom:0.9rem;"></div>
+                    <div class="form-grid" style="align-items:end;">
+                        <div class="form-field"><label>Hora de inicio</label><input id="hora-inicio" type="time"></div>
+                        <div class="form-field"><label>Hora de fin</label><input id="hora-fin" type="time"></div>
+                    </div>
+                    <div class="acciones-fila">
+                        <button class="btn pequeno secundario" onclick="guardarHorario()"><i class="fa-solid fa-floppy-disk"></i> Guardar horario</button>
+                        <button class="btn pequeno" onclick="generarSesiones()"><i class="fa-solid fa-calendar-plus"></i> Generar todas las clases del periodo</button>
+                    </div>
+                    <div class="muted" style="margin:0.7rem 0 0; font-size:0.8rem;">
+                        Marca los días de clase y guarda el horario. «Generar todas las clases» crea de una vez cada sesión entre la fecha de inicio y la de cierre del curso; no duplica las que ya existan.
+                    </div>
+                    <div id="msg-horario" class="msg"></div>
+                </div>
+
                 <div class="form-grid" style="align-items:end;">
                     <div class="form-field"><label>Fecha *</label><input id="sesion-fecha" type="date"></div>
                     <div class="form-field"><label>Tema</label><input id="sesion-tema" placeholder="Ej. Condicional presente"></div>
@@ -218,8 +266,8 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="assets/js/supabase-config.js?v=1789129125"></script>
-<script src="assets/js/auth-helpers.js?v=1789129125"></script>
+<script src="assets/js/supabase-config.js?v=1789151573"></script>
+<script src="assets/js/auth-helpers.js?v=1789151573"></script>
 <script>
 let perfilDocente = null;
 let cursos = [];
@@ -308,10 +356,138 @@ async function seleccionarCurso(id) {
     document.getElementById('enlace-inscripcion').value = base + 'registro/inscripcion.html?curso=' + curso.id;
     document.getElementById('aviso-curso-borrador').style.display = curso.estado === 'abierto' ? 'none' : 'inline';
 
+    document.getElementById('form-editar-curso').style.display = 'none';
     await cargarCursos(); // refresca resaltado
     cambiarTab('planificacion');
-    await Promise.all([cargarSesiones(), cargarEstudiantes(), cargarEvaluaciones()]);
+    await Promise.all([cargarSesiones(), cargarEstudiantes(), cargarEvaluaciones(), cargarHorario()]);
     document.getElementById('detalle-curso').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ---- EDITAR / ELIMINAR CURSO ----
+function mostrarFormEditarCurso() {
+    const curso = cursos.find(c => c.id === cursoActualId);
+    if (!curso) return;
+    document.getElementById('ec-nombre').value = curso.nombre || '';
+    document.getElementById('ec-nivel').value = curso.nivel || '';
+    document.getElementById('ec-cupo').value = curso.cupo_maximo || '';
+    document.getElementById('ec-inicio').value = curso.fecha_inicio || '';
+    document.getElementById('ec-fin').value = curso.fecha_fin || '';
+    document.getElementById('ec-estado').value = curso.estado;
+    document.getElementById('ec-desc').value = curso.descripcion || '';
+    document.getElementById('form-editar-curso').style.display = 'block';
+}
+
+async function guardarCurso() {
+    const msgEl = document.getElementById('msg-editar-curso');
+    const nombre = document.getElementById('ec-nombre').value.trim();
+    if (!nombre) { mostrarMsg(msgEl, 'El nombre del curso es obligatorio.', 'error'); return; }
+
+    const { error } = await supabaseClient.from('cursos').update({
+        nombre,
+        nivel: document.getElementById('ec-nivel').value.trim() || null,
+        cupo_maximo: document.getElementById('ec-cupo').value || null,
+        fecha_inicio: document.getElementById('ec-inicio').value || null,
+        fecha_fin: document.getElementById('ec-fin').value || null,
+        estado: document.getElementById('ec-estado').value,
+        descripcion: document.getElementById('ec-desc').value.trim() || null
+    }).eq('id', cursoActualId);
+
+    if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
+    document.getElementById('form-editar-curso').style.display = 'none';
+    await cargarCursos();
+    await seleccionarCurso(cursoActualId);
+}
+
+async function eliminarCurso() {
+    const curso = cursos.find(c => c.id === cursoActualId);
+    if (!curso) return;
+    const aviso = `¿Seguro que quieres eliminar «${curso.nombre}»?\n\nSe borrarán también sus sesiones, asistencias, evaluaciones, notas e inscripciones. Esta acción no se puede deshacer.`;
+    if (!confirm(aviso)) return;
+    if (!confirm('Confirma otra vez: se perderán todos los datos de este curso.')) return;
+
+    const { error } = await supabaseClient.from('cursos').delete().eq('id', cursoActualId);
+    if (error) { alert('No se pudo eliminar: ' + error.message); return; }
+    cursoActualId = null;
+    document.getElementById('detalle-curso').style.display = 'none';
+    await cargarCursos();
+}
+
+// ---- HORARIO Y GENERACIÓN DE CLASES ----
+const NOMBRES_DIAS = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+
+function pintarDiasSemana(seleccionados = []) {
+    document.getElementById('dias-semana').innerHTML = NOMBRES_DIAS.map((nombre, i) => `
+        <label style="display:inline-flex; align-items:center; gap:0.35rem; border:1px solid var(--border); border-radius:var(--r-pill); padding:0.35rem 0.8rem; cursor:pointer; font-size:0.82rem;">
+            <input type="checkbox" class="dia-chk" value="${i}" ${seleccionados.includes(i) ? 'checked' : ''}> ${nombre}
+        </label>
+    `).join('');
+}
+
+function diasMarcados() {
+    return Array.from(document.querySelectorAll('.dia-chk')).filter(c => c.checked).map(c => parseInt(c.value, 10));
+}
+
+async function cargarHorario() {
+    const { data } = await supabaseClient.from('horarios').select('*').eq('curso_id', cursoActualId);
+    const filas = data || [];
+    pintarDiasSemana(filas.map(f => f.dia_semana));
+    if (filas.length) {
+        document.getElementById('hora-inicio').value = (filas[0].hora_inicio || '').slice(0, 5);
+        document.getElementById('hora-fin').value = (filas[0].hora_fin || '').slice(0, 5);
+    } else {
+        document.getElementById('hora-inicio').value = '';
+        document.getElementById('hora-fin').value = '';
+    }
+}
+
+async function guardarHorario() {
+    const msgEl = document.getElementById('msg-horario');
+    const dias = diasMarcados();
+    const hIni = document.getElementById('hora-inicio').value;
+    const hFin = document.getElementById('hora-fin').value;
+    if (!dias.length) { mostrarMsg(msgEl, 'Marca al menos un día de clase.', 'error'); return; }
+    if (!hIni || !hFin) { mostrarMsg(msgEl, 'Indica la hora de inicio y la de fin.', 'error'); return; }
+    if (hFin <= hIni) { mostrarMsg(msgEl, 'La hora de fin debe ser posterior a la de inicio.', 'error'); return; }
+
+    await supabaseClient.from('horarios').delete().eq('curso_id', cursoActualId);
+    const { error } = await supabaseClient.from('horarios').insert(
+        dias.map(d => ({ curso_id: cursoActualId, dia_semana: d, hora_inicio: hIni, hora_fin: hFin }))
+    );
+    if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
+    mostrarMsg(msgEl, 'Horario guardado.', 'ok');
+}
+
+async function generarSesiones() {
+    const msgEl = document.getElementById('msg-horario');
+    const curso = cursos.find(c => c.id === cursoActualId);
+    const dias = diasMarcados();
+
+    if (!curso.fecha_inicio || !curso.fecha_fin) {
+        mostrarMsg(msgEl, 'Primero pon la fecha de inicio y la de cierre del curso (botón «Editar curso»).', 'error');
+        return;
+    }
+    if (!dias.length) { mostrarMsg(msgEl, 'Marca los días de clase antes de generar.', 'error'); return; }
+
+    const desde = new Date(curso.fecha_inicio + 'T12:00:00');
+    const hasta = new Date(curso.fecha_fin + 'T12:00:00');
+    if (hasta < desde) { mostrarMsg(msgEl, 'La fecha de cierre es anterior a la de inicio.', 'error'); return; }
+
+    const yaExisten = new Set(sesionesActuales.map(s => s.fecha));
+    const nuevas = [];
+    for (let d = new Date(desde); d <= hasta; d.setDate(d.getDate() + 1)) {
+        if (!dias.includes(d.getDay())) continue;
+        const fecha = d.toISOString().slice(0, 10);
+        if (yaExisten.has(fecha)) continue;
+        nuevas.push({ curso_id: cursoActualId, fecha });
+    }
+
+    if (!nuevas.length) { mostrarMsg(msgEl, 'No hay clases nuevas que crear: ya están todas generadas.', 'ok'); return; }
+    if (!confirm(`Se van a crear ${nuevas.length} clases entre el ${curso.fecha_inicio} y el ${curso.fecha_fin}. ¿Continuamos?`)) return;
+
+    const { error } = await supabaseClient.from('sesiones').insert(nuevas);
+    if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
+    mostrarMsg(msgEl, `Listo: se crearon ${nuevas.length} clases. Ya puedes ponerles tema y pasar asistencia.`, 'ok');
+    await cargarSesiones();
 }
 
 function copiarEnlace() {

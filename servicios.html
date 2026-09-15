@@ -480,14 +480,33 @@ section.alt { background: rgba(13,89,58,0.05); }
    SERVICES
 ════════════════════════════════════════════════ */
 .services-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(210px,1fr));
-  gap: 1px; background: var(--border);
+  display: flex; gap: 1px; background: var(--border);
   border: 1px solid var(--border);
+  overflow-x: auto; scroll-snap-type: x proximity; cursor: grab;
+  user-select: none; -webkit-user-select: none;
+  scrollbar-width: none; -ms-overflow-style: none;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 2%, #000 98%, transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0, #000 2%, #000 98%, transparent 100%);
 }
+.services-grid::-webkit-scrollbar { display: none; }
+.services-grid.grabbing { cursor: grabbing; }
+.services-grid.grabbing .svc-card { pointer-events: none; }
 .svc-card {
   background: var(--deep); padding: 2.5rem 2rem;
-  position: relative; overflow: hidden; cursor: default;
+  position: relative; overflow: hidden; cursor: pointer;
   transition: background 0.4s;
+  flex: 0 0 260px; scroll-snap-align: start;
+}
+.svc-photo {
+  width: 100%; aspect-ratio: 16/10; margin-bottom: 1.2rem;
+  border-radius: var(--r-sm); border: 1px dashed rgba(201,169,110,0.3);
+  background: repeating-linear-gradient(135deg, rgba(201,169,110,0.07) 0 10px, transparent 10px 20px);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(201,169,110,0.4); font-size: 1.5rem;
+}
+.svc-card img.svc-photo-img {
+  width: 100%; aspect-ratio: 16/10; object-fit: cover; margin-bottom: 1.2rem;
+  border-radius: var(--r-sm); display: block;
 }
 .svc-card::before {
   content: ''; position: absolute;
@@ -890,7 +909,7 @@ section.alt { background: rgba(13,89,58,0.05); }
 }
 #wa-float:hover #wa-lbl { opacity: 1; transform: translateX(0); }
 
-#audio-player { position: fixed; bottom: 2rem; right: 2rem; z-index: 900; }
+#audio-player { position: fixed; bottom: 2rem; right: 2rem; z-index: 900; display: flex; align-items: center; gap: 0.5rem; }
 #audio-btn {
   width: 3rem; height: 3rem; border-radius: 50%;
   background: var(--goldx); border: 1px solid var(--border);
@@ -900,6 +919,19 @@ section.alt { background: rgba(13,89,58,0.05); }
 }
 #audio-btn:hover { border-color: var(--gold); background: rgba(201,169,110,0.2); }
 #audio-btn.playing { animation: pulse-border 2s infinite; border-color: var(--gold); }
+/* Ecualizador — barras que solo se mueven mientras suena la música, para que
+   se note de un vistazo que hay sonido y que el botón sirve para silenciarlo. */
+.audio-eq {
+  display: flex; align-items: flex-end; gap: 3px; height: 1.2rem; padding: 0 0.15rem;
+  opacity: 0; transform: scale(0.8); transition: opacity 0.3s, transform 0.3s; pointer-events: none;
+}
+#audio-player:has(#audio-btn.playing) .audio-eq { opacity: 1; transform: scale(1); }
+.audio-eq i { display: block; width: 3px; border-radius: 2px; background: var(--gold); height: 100%; transform-origin: bottom; }
+#audio-player:has(#audio-btn.playing) .audio-eq i { animation: eqBounce 0.9s ease-in-out infinite; }
+.audio-eq i:nth-child(1) { animation-delay: 0s; }
+.audio-eq i:nth-child(2) { animation-delay: 0.2s; }
+.audio-eq i:nth-child(3) { animation-delay: 0.4s; }
+@keyframes eqBounce { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
 
 /* ════════════════════════════════════════════════
    RESPONSIVE
@@ -923,7 +955,7 @@ section.alt { background: rgba(13,89,58,0.05); }
 }
 @media (max-width: 600px) {
   section { padding: 4rem 0; }
-  .services-grid { grid-template-columns: 1fr; }
+  .svc-card { flex-basis: 84vw; }
   .form-row { grid-template-columns: 1fr; }
   .time-grid { grid-template-columns: repeat(2,1fr); }
   .cta-btns { flex-direction: column; }
@@ -1621,6 +1653,36 @@ body.intro-active { overflow: hidden; }
 #back-top.show { opacity: 1; pointer-events: auto; }
 #back-top:hover { background: rgba(201,169,110,0.15); border-color: var(--gold); transform: translateY(-3px); }
 
+/* ── BOTÓN FLOTANTE "VENDREDI ENTRE AMIS" ──
+   A propósito NO sigue la paleta esmeralda/dorada del resto del sitio:
+   debe saltar a la vista como invitación aparte al club de conversación. */
+#vendredi-fab {
+  position: fixed; top: 50%; right: 0; transform: translateY(-50%);
+  z-index: 950;
+  display: flex; align-items: center; gap: 0.55rem;
+  padding: 0.85rem 1.1rem 0.85rem 1.3rem;
+  border-radius: 999px 0 0 999px;
+  background: linear-gradient(135deg, #ff6b6b, #ff9f43 45%, #a855f7);
+  background-size: 220% 220%;
+  color: #fff !important;
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.82rem;
+  letter-spacing: 0.02em; text-decoration: none; white-space: nowrap;
+  box-shadow: 0 10px 30px rgba(168,85,247,0.4);
+  animation: vendrediGradiente 5s ease infinite, vendrediPulso 2.6s ease-in-out infinite;
+  transition: padding 0.3s ease, transform 0.3s ease;
+}
+#vendredi-fab:hover { padding-right: 1.7rem; transform: translateY(-50%) scale(1.05); }
+#vendredi-fab i { font-size: 1.05rem; }
+@keyframes vendrediGradiente { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+@keyframes vendrediPulso {
+  0%, 100% { box-shadow: 0 10px 30px rgba(168,85,247,0.4); }
+  50%      { box-shadow: 0 10px 42px rgba(255,107,107,0.55); }
+}
+@media (max-width: 700px) {
+  #vendredi-fab { font-size: 0.72rem; padding: 0.7rem 0.9rem 0.7rem 1.05rem; }
+  #vendredi-fab .vf-text { display: none; }
+}
+
 
 /* ── SKILL TAGS ── */
 .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; padding-top: 1.3rem; border-top: 1px solid rgba(201,169,110,0.15); }
@@ -2203,7 +2265,7 @@ summary:focus-visible,
 /* ── Responsive del bloque AF ── */
 .nav-links a { white-space: nowrap; }
 @media (max-width: 1400px) { .nav-links { gap: 1.4rem; } }
-@media (max-width: 1280px) {
+@media (max-width: 1850px) {
   .nav-links { gap: 1.15rem; }
   .nav-links a { letter-spacing: 0.18em; }
   .nav-links li.nav-sec { display: none; }
@@ -2557,7 +2619,14 @@ body { animation: pageFadeIn 0.5s ease; }
 <!-- AUDIO -->
 <div id="audio-player">
   <button id="audio-btn" aria-label="Música de fondo"><i class="fa fa-music"></i></button>
+  <span class="audio-eq" aria-hidden="true"><i></i><i></i><i></i></span>
 </div>
+
+<!-- BOTÓN FLOTANTE — invitación al club de conversación -->
+<a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" id="vendredi-fab" aria-label="Vendredi entre Amis — club de conversación en francés">
+  <i class="fa fa-mug-hot"></i>
+  <span class="vf-text" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</span>
+</a>
 <audio id="bg-audio" loop preload="none">
   <source src="Une_Promenade_en_Soleil.mp3" type="audio/mpeg">
 </audio>
@@ -2577,13 +2646,14 @@ body { animation: pageFadeIn 0.5s ease; }
   <a href="servicios.html" data-route="servicios" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</a>
   <a href="cursos.html" data-route="estudiantes" data-es="Cursos y exámenes" data-fr="Cours et examens" data-en="Courses & exams">Cursos y exámenes</a>
   <a href="galeria.html" data-route="galeria" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a>
-  <a href="contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a>
-  <a href="inscribete.html" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a>
-  <a href="pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a>
-  <a href="reservar.html" onclick="closeMob()" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
-  <a href="reglamento.html" onclick="closeMob()" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a>
   <a href="mi-espacio.html" onclick="closeMob()" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a>
   <a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" onclick="closeMob()" style="color:var(--gold);" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</a>
+  <a href="inscribete.html" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a>
+  <a href="reservar.html" onclick="closeMob()" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
+  <a href="reglamento.html" onclick="closeMob()" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a>
+  <a href="contacto.html#faq" onclick="closeMob()" data-es="Preguntas frecuentes" data-fr="Foire aux questions" data-en="FAQ">Preguntas frecuentes</a>
+  <a href="contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a>
+  <a href="pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a>
   <button type="button" class="desktop-toggle-btn" id="desktop-toggle-btn" onclick="toggleDesktopView()">Ver versión de escritorio</button>
 </div>
 
@@ -2599,13 +2669,14 @@ body { animation: pageFadeIn 0.5s ease; }
     <li><a href="servicios.html" data-route="servicios" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</a></li>
     <li><a href="cursos.html" data-route="estudiantes" data-es="Cursos y exámenes" data-fr="Cours et examens" data-en="Courses &amp; exams">Cursos y exámenes</a></li>
     <li><a href="galeria.html" data-route="galeria" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a></li>
-    <li><a href="contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a></li>
-    <li class="nav-sec"><a href="pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a></li>
-    <li class="nav-sec"><a href="reservar.html" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
-    <a href="reglamento.html" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a></li>
     <li><a href="mi-espacio.html" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a></li>
     <li class="nav-sec"><a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" style="color:var(--gold);" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</a></li>
     <li><a href="inscribete.html" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a></li>
+    <li class="nav-sec"><a href="reservar.html" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
+    <a href="reglamento.html" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a></li>
+    <li class="nav-sec"><a href="contacto.html#faq" data-es="Preguntas frecuentes" data-fr="Foire aux questions" data-en="FAQ">Preguntas frecuentes</a></li>
+    <li><a href="contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a></li>
+    <li class="nav-sec"><a href="pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a></li>
   </ul>
   <div class="nav-controls">
     <button class="ctrl-btn active" onclick="setLang('es')">ES</button>
@@ -2625,6 +2696,7 @@ body { animation: pageFadeIn 0.5s ease; }
       <!-- 01 — LES COURS -->
       <div class="svc-card reveal d1">
         <div class="svc-num">// 01</div>
+        <div class="svc-photo" aria-hidden="true"><i class="fa fa-image"></i></div>
         <i class="fa fa-chalkboard-teacher svc-icon"></i>
         <h3 class="svc-title" data-es="Clases de francés" data-fr="Les cours de français" data-en="French classes">Clases de francés</h3>
         <p class="svc-desc" data-es="Desde el primer bonjour hasta la certificación oficial DELF/DALF. Clases individuales o en pequeño grupo, con metodología comunicativa y accional. Preparación de exámenes, francés general, conversación e inmersión cultural." data-fr="Du premier bonjour jusqu'à la certification DELF/DALF. Cours individuels ou en petit groupe, approche communicative et actionnelle. Préparation aux examens, conversation et immersion culturelle." data-en="From the first bonjour to DELF/DALF certification. Individual or small-group classes with a communicative, action-based method. Exam prep, general French, conversation and cultural immersion.">Desde el primer bonjour hasta la certificación oficial DELF/DALF. Clases individuales o en pequeño grupo, con metodología comunicativa y accional. Preparación de exámenes, francés general, conversación e inmersión cultural.</p>
@@ -2633,6 +2705,7 @@ body { animation: pageFadeIn 0.5s ease; }
       <!-- 02 — ASESORÍAS PEDAGÓGICAS -->
       <div class="svc-card reveal d2">
         <div class="svc-num">// 02</div>
+        <div class="svc-photo" aria-hidden="true"><i class="fa fa-image"></i></div>
         <i class="fa fa-lightbulb svc-icon"></i>
         <h3 class="svc-title" data-es="Asesorías pedagógicas" data-fr="Conseil pédagogique" data-en="Pedagogical consulting">Asesorías pedagógicas</h3>
         <p class="svc-desc" data-es="Acompañamiento a docentes y equipos que quieren enseñar mejor el francés. Diseño curricular, formación de formadores, evaluación de programas y construcción de itinerarios pedagógicos según el MCER." data-fr="Accompagnement des enseignants et des équipes. Ingénierie de formation, conception curriculaire, évaluation de programmes et construction de parcours selon le CECRL." data-en="Support for teachers and teams. Curriculum design, trainer training, program evaluation and CEFR-aligned learning paths.">Acompañamiento a docentes y equipos que quieren enseñar mejor el francés. Diseño curricular, formación de formadores, evaluación de programas y construcción de itinerarios pedagógicos según el MCER.</p>
@@ -2641,6 +2714,7 @@ body { animation: pageFadeIn 0.5s ease; }
       <!-- 03 — PROYECTOS PEDAGÓGICOS -->
       <div class="svc-card reveal d3">
         <div class="svc-num">// 03</div>
+        <div class="svc-photo" aria-hidden="true"><i class="fa fa-image"></i></div>
         <i class="fa fa-seedling svc-icon"></i>
         <h3 class="svc-title" data-es="Proyectos pedagógicos" data-fr="Projets pédagogiques" data-en="Educational projects">Proyectos pedagógicos</h3>
         <p class="svc-desc" data-es="Diseño y dirección de proyectos educativos innovadores: del huerto pedagógico STAFE que une agricultura y francés, a programas de inmersión como Vichy, ciclos de cine francófono y alianzas interinstitucionales." data-fr="Conception et pilotage de projets innovants : du potager pédagogique STAFE liant agriculture et français, aux programmes d'immersion comme Vichy, cycles de cinéma et partenariats." data-en="Design and leadership of innovative projects: from the STAFE pedagogical garden linking agriculture and French, to immersion programs like Vichy, francophone film cycles and partnerships.">Diseño y dirección de proyectos educativos innovadores: del huerto pedagógico STAFE que une agricultura y francés, a programas de inmersión como Vichy, ciclos de cine francófono y alianzas interinstitucionales.</p>
@@ -2649,6 +2723,7 @@ body { animation: pageFadeIn 0.5s ease; }
       <!-- 04 — GESTIÓN Y DIRECCIÓN CULTURAL -->
       <div class="svc-card reveal d4">
         <div class="svc-num">// 04</div>
+        <div class="svc-photo" aria-hidden="true"><i class="fa fa-image"></i></div>
         <i class="fa fa-building-columns svc-icon"></i>
         <h3 class="svc-title" data-es="Gestión y dirección cultural" data-fr="Direction culturelle" data-en="Cultural management">Gestión y dirección cultural</h3>
         <p class="svc-desc" data-es="Más de una década dirigiendo y transformando centros de la red de las Alianzas Francesas. Diagnóstico institucional, desarrollo de equipos, relance financiero, relaciones diplomáticas y planificación estratégica." data-fr="Plus d'une décennie à diriger des centres du réseau des Alliances Françaises. Diagnostic institutionnel, développement d'équipes, relance financière, relations diplomatiques et planification stratégique." data-en="Over a decade directing centers in the Alliance Française network. Institutional diagnosis, team development, financial recovery, diplomatic relations and strategic planning.">Más de una década dirigiendo y transformando centros de la red de las Alianzas Francesas. Diagnóstico institucional, desarrollo de equipos, relance financiero, relaciones diplomáticas y planificación estratégica.</p>
@@ -2657,6 +2732,7 @@ body { animation: pageFadeIn 0.5s ease; }
       <!-- 05 — TRADUCCIÓN E INTERPRETACIÓN -->
       <div class="svc-card reveal d5">
         <div class="svc-num">// 05</div>
+        <div class="svc-photo" aria-hidden="true"><i class="fa fa-image"></i></div>
         <i class="fa fa-language svc-icon"></i>
         <h3 class="svc-title" data-es="Traducción e interpretación" data-fr="Traduction et interprétation" data-en="Translation & interpreting">Traducción e interpretación</h3>
         <p class="svc-desc" data-es="Traducciones fidedignas español ↔ francés con registro institucional: documentos oficiales, contratos, convenios, correspondencia diplomática y materiales didácticos. Interpretación en eventos y reuniones bilingües." data-fr="Traductions fidèles espagnol ↔ français au registre institutionnel : documents officiels, contrats, correspondance diplomatique. Interprétation lors d'événements bilingues." data-en="Faithful Spanish ↔ French translations with institutional register: official documents, contracts, diplomatic correspondence. Interpreting at bilingual events.">Traducciones fidedignas español ↔ francés con registro institucional: documentos oficiales, contratos, convenios, correspondencia diplomática y materiales didácticos. Interpretación en eventos y reuniones bilingües.</p>
@@ -2665,11 +2741,16 @@ body { animation: pageFadeIn 0.5s ease; }
       <!-- 06 — CONFERENCIAS Y FORMACIÓN -->
       <div class="svc-card reveal d6">
         <div class="svc-num">// 06</div>
+        <div class="svc-photo" aria-hidden="true"><i class="fa fa-image"></i></div>
         <i class="fa fa-microphone-lines svc-icon"></i>
         <h3 class="svc-title" data-es="Conferencias y formación" data-fr="Conférences et formation" data-en="Talks & training">Conferencias y formación</h3>
         <p class="svc-desc" data-es="Intervenciones dinámicas sobre francophonie, interculturalidad, pedagogía innovadora y cooperación educativa internacional. Talleres y formaciones a medida para instituciones educativas y culturales." data-fr="Interventions sur la francophonie, l'interculturalité, la pédagogie innovante et la coopération éducative. Ateliers et formations sur mesure pour institutions." data-en="Talks on francophonie, interculturality, innovative pedagogy and educational cooperation. Tailored workshops and training for institutions.">Intervenciones dinámicas sobre francophonie, interculturalidad, pedagogía innovadora y cooperación educativa internacional. Talleres y formaciones a medida para instituciones educativas y culturales.</p>
       </div>
 
+    </div>
+    <div class="filmstrip-hint">
+      <i class="fa fa-hand-pointer"></i>
+      <span data-es="Desliza para ver todos los servicios" data-fr="Faites glisser pour voir tous les services" data-en="Drag to see all services">Desliza para ver todos los servicios</span>
     </div>
   </div>
 </section>
@@ -3978,11 +4059,12 @@ window.addEventListener('DOMContentLoaded', function() {
 /* Cada tarjeta de servicio lleva directo al formulario de contacto,
    con el servicio y su descripción ya identificados. */
 (function () {
+  var track = document.querySelector('.services-grid');
   document.querySelectorAll('.svc-card').forEach(function (card) {
-    card.style.cursor = 'pointer';
     card.setAttribute('tabindex', '0');
     card.setAttribute('role', 'link');
     function ir() {
+      if (track && track.classList.contains('was-dragging')) return;
       var titulo = (card.querySelector('.svc-title') || {}).textContent || '';
       var desc = (card.querySelector('.svc-desc') || {}).textContent || '';
       window.location.href = 'inscribete.html?modalidad=' + encodeURIComponent(titulo.trim()) + '&desc=' + encodeURIComponent(desc.trim());
@@ -3992,6 +4074,44 @@ window.addEventListener('DOMContentLoaded', function() {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); ir(); }
     });
   });
+
+  /* Carrete horizontal — arrastre con mouse/touch, igual que la galería */
+  if (track) {
+    var isDown = false, startX = 0, startScroll = 0, moved = 0;
+    var onDown = function (e) {
+      isDown = true; moved = 0;
+      track.classList.add('grabbing');
+      startX = (e.touches ? e.touches[0].pageX : e.pageX);
+      startScroll = track.scrollLeft;
+    };
+    var onMove = function (e) {
+      if (!isDown) return;
+      var x = (e.touches ? e.touches[0].pageX : e.pageX);
+      var dx = x - startX;
+      moved = Math.abs(dx);
+      track.scrollLeft = startScroll - dx;
+      if (moved > 6) track.classList.add('was-dragging');
+    };
+    var onUp = function () {
+      if (!isDown) return;
+      isDown = false;
+      track.classList.remove('grabbing');
+      setTimeout(function () { track.classList.remove('was-dragging'); }, 50);
+    };
+    track.addEventListener('mousedown', onDown);
+    track.addEventListener('mousemove', onMove);
+    track.addEventListener('mouseup', onUp);
+    track.addEventListener('mouseleave', onUp);
+    track.addEventListener('touchstart', onDown, { passive: true });
+    track.addEventListener('touchmove', onMove, { passive: true });
+    track.addEventListener('touchend', onUp);
+    track.addEventListener('wheel', function (e) {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        track.scrollLeft += e.deltaY;
+        e.preventDefault();
+      }
+    }, { passive: false });
+  }
 })();
 </script>
 

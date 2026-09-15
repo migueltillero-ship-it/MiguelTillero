@@ -890,7 +890,7 @@ section.alt { background: rgba(13,89,58,0.05); }
 }
 #wa-float:hover #wa-lbl { opacity: 1; transform: translateX(0); }
 
-#audio-player { position: fixed; bottom: 2rem; right: 2rem; z-index: 900; }
+#audio-player { position: fixed; bottom: 2rem; right: 2rem; z-index: 900; display: flex; align-items: center; gap: 0.5rem; }
 #audio-btn {
   width: 3rem; height: 3rem; border-radius: 50%;
   background: var(--goldx); border: 1px solid var(--border);
@@ -900,6 +900,19 @@ section.alt { background: rgba(13,89,58,0.05); }
 }
 #audio-btn:hover { border-color: var(--gold); background: rgba(201,169,110,0.2); }
 #audio-btn.playing { animation: pulse-border 2s infinite; border-color: var(--gold); }
+/* Ecualizador — barras que solo se mueven mientras suena la música, para que
+   se note de un vistazo que hay sonido y que el botón sirve para silenciarlo. */
+.audio-eq {
+  display: flex; align-items: flex-end; gap: 3px; height: 1.2rem; padding: 0 0.15rem;
+  opacity: 0; transform: scale(0.8); transition: opacity 0.3s, transform 0.3s; pointer-events: none;
+}
+#audio-player:has(#audio-btn.playing) .audio-eq { opacity: 1; transform: scale(1); }
+.audio-eq i { display: block; width: 3px; border-radius: 2px; background: var(--gold); height: 100%; transform-origin: bottom; }
+#audio-player:has(#audio-btn.playing) .audio-eq i { animation: eqBounce 0.9s ease-in-out infinite; }
+.audio-eq i:nth-child(1) { animation-delay: 0s; }
+.audio-eq i:nth-child(2) { animation-delay: 0.2s; }
+.audio-eq i:nth-child(3) { animation-delay: 0.4s; }
+@keyframes eqBounce { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
 
 /* ════════════════════════════════════════════════
    RESPONSIVE
@@ -1621,6 +1634,36 @@ body.intro-active { overflow: hidden; }
 #back-top.show { opacity: 1; pointer-events: auto; }
 #back-top:hover { background: rgba(201,169,110,0.15); border-color: var(--gold); transform: translateY(-3px); }
 
+/* ── BOTÓN FLOTANTE "VENDREDI ENTRE AMIS" ──
+   A propósito NO sigue la paleta esmeralda/dorada del resto del sitio:
+   debe saltar a la vista como invitación aparte al club de conversación. */
+#vendredi-fab {
+  position: fixed; top: 50%; right: 0; transform: translateY(-50%);
+  z-index: 950;
+  display: flex; align-items: center; gap: 0.55rem;
+  padding: 0.85rem 1.1rem 0.85rem 1.3rem;
+  border-radius: 999px 0 0 999px;
+  background: linear-gradient(135deg, #ff6b6b, #ff9f43 45%, #a855f7);
+  background-size: 220% 220%;
+  color: #fff !important;
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.82rem;
+  letter-spacing: 0.02em; text-decoration: none; white-space: nowrap;
+  box-shadow: 0 10px 30px rgba(168,85,247,0.4);
+  animation: vendrediGradiente 5s ease infinite, vendrediPulso 2.6s ease-in-out infinite;
+  transition: padding 0.3s ease, transform 0.3s ease;
+}
+#vendredi-fab:hover { padding-right: 1.7rem; transform: translateY(-50%) scale(1.05); }
+#vendredi-fab i { font-size: 1.05rem; }
+@keyframes vendrediGradiente { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+@keyframes vendrediPulso {
+  0%, 100% { box-shadow: 0 10px 30px rgba(168,85,247,0.4); }
+  50%      { box-shadow: 0 10px 42px rgba(255,107,107,0.55); }
+}
+@media (max-width: 700px) {
+  #vendredi-fab { font-size: 0.72rem; padding: 0.7rem 0.9rem 0.7rem 1.05rem; }
+  #vendredi-fab .vf-text { display: none; }
+}
+
 
 /* ── SKILL TAGS ── */
 .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; padding-top: 1.3rem; border-top: 1px solid rgba(201,169,110,0.15); }
@@ -1894,7 +1937,16 @@ select:focus-visible, textarea:focus-visible {
 }
 .crs-card:hover { transform: translateY(-6px); border-color: var(--border); box-shadow: var(--glow); }
 .crs-card:hover::before { height: 100%; }
-.crs-icon { font-size: 1.2rem; color: var(--gold); display: block; margin-bottom: 1rem; }
+.crs-icon {
+  width: 48px; height: 48px; margin-bottom: 1.1rem;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; color: var(--gold); border-radius: 12px;
+  background: linear-gradient(135deg, rgba(201,169,110,0.18), rgba(77,255,200,0.10));
+  border: 1px solid rgba(201,169,110,0.32);
+  box-shadow: 0 6px 18px -9px rgba(201,169,110,0.5);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.crs-card:hover .crs-icon { transform: translateY(-3px) scale(1.06); box-shadow: 0 10px 26px -8px rgba(201,169,110,0.6); }
 .crs-title { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 0.55rem; }
 .crs-desc { font-size: 0.78rem; line-height: 1.75; color: var(--muted); }
 
@@ -1907,6 +1959,13 @@ select:focus-visible, textarea:focus-visible {
   transition: transform 0.45s cubic-bezier(.16,1,.3,1), box-shadow 0.4s;
 }
 .exam-card:hover { transform: translateY(-5px); box-shadow: var(--glow); }
+.exam-icon {
+  width: 44px; height: 44px; margin-bottom: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.15rem; color: var(--gold); border-radius: 12px;
+  background: linear-gradient(135deg, rgba(201,169,110,0.16), rgba(77,255,200,0.08));
+  border: 1px solid rgba(201,169,110,0.3);
+}
 .exam-sigla { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 700; line-height: 1; color: var(--gold); }
 .exam-full {
   font-family: 'Space Mono', monospace; font-size: 0.54rem; letter-spacing: 0.16em;
@@ -2203,7 +2262,7 @@ summary:focus-visible,
 /* ── Responsive del bloque AF ── */
 .nav-links a { white-space: nowrap; }
 @media (max-width: 1400px) { .nav-links { gap: 1.4rem; } }
-@media (max-width: 1280px) {
+@media (max-width: 1850px) {
   .nav-links { gap: 1.15rem; }
   .nav-links a { letter-spacing: 0.18em; }
   .nav-links li.nav-sec { display: none; }
@@ -2557,7 +2616,14 @@ body { animation: pageFadeIn 0.5s ease; }
 <!-- AUDIO -->
 <div id="audio-player">
   <button id="audio-btn" aria-label="Música de fondo"><i class="fa fa-music"></i></button>
+  <span class="audio-eq" aria-hidden="true"><i></i><i></i><i></i></span>
 </div>
+
+<!-- BOTÓN FLOTANTE — invitación al club de conversación -->
+<a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" id="vendredi-fab" aria-label="Vendredi entre Amis — club de conversación en francés">
+  <i class="fa fa-mug-hot"></i>
+  <span class="vf-text" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</span>
+</a>
 <audio id="bg-audio" loop preload="none">
   <source src="Une_Promenade_en_Soleil.mp3" type="audio/mpeg">
 </audio>
@@ -2577,13 +2643,14 @@ body { animation: pageFadeIn 0.5s ease; }
   <a href="servicios.html" data-route="servicios" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</a>
   <a href="cursos.html" data-route="estudiantes" data-es="Cursos y exámenes" data-fr="Cours et examens" data-en="Courses & exams">Cursos y exámenes</a>
   <a href="galeria.html" data-route="galeria" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a>
-  <a href="contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a>
-  <a href="inscribete.html" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a>
-  <a href="pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a>
-  <a href="reservar.html" onclick="closeMob()" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
-  <a href="reglamento.html" onclick="closeMob()" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a>
   <a href="mi-espacio.html" onclick="closeMob()" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a>
   <a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" onclick="closeMob()" style="color:var(--gold);" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</a>
+  <a href="inscribete.html" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a>
+  <a href="reservar.html" onclick="closeMob()" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
+  <a href="reglamento.html" onclick="closeMob()" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a>
+  <a href="contacto.html#faq" onclick="closeMob()" data-es="Preguntas frecuentes" data-fr="Foire aux questions" data-en="FAQ">Preguntas frecuentes</a>
+  <a href="contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a>
+  <a href="pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a>
   <button type="button" class="desktop-toggle-btn" id="desktop-toggle-btn" onclick="toggleDesktopView()">Ver versión de escritorio</button>
 </div>
 
@@ -2599,13 +2666,14 @@ body { animation: pageFadeIn 0.5s ease; }
     <li><a href="servicios.html" data-route="servicios" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</a></li>
     <li><a href="cursos.html" data-route="estudiantes" data-es="Cursos y exámenes" data-fr="Cours et examens" data-en="Courses &amp; exams">Cursos y exámenes</a></li>
     <li><a href="galeria.html" data-route="galeria" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a></li>
-    <li><a href="contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a></li>
-    <li class="nav-sec"><a href="pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a></li>
-    <li class="nav-sec"><a href="reservar.html" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
-    <a href="reglamento.html" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a></li>
     <li><a href="mi-espacio.html" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a></li>
     <li class="nav-sec"><a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" style="color:var(--gold);" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</a></li>
     <li><a href="inscribete.html" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a></li>
+    <li class="nav-sec"><a href="reservar.html" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
+    <a href="reglamento.html" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a></li>
+    <li class="nav-sec"><a href="contacto.html#faq" data-es="Preguntas frecuentes" data-fr="Foire aux questions" data-en="FAQ">Preguntas frecuentes</a></li>
+    <li><a href="contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a></li>
+    <li class="nav-sec"><a href="pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a></li>
   </ul>
   <div class="nav-controls">
     <button class="ctrl-btn active" onclick="setLang('es')">ES</button>
@@ -2806,6 +2874,7 @@ body { animation: pageFadeIn 0.5s ease; }
 
       <!-- DELF -->
       <div class="exam-card reveal d1">
+        <div class="exam-icon"><i class="fa fa-certificate"></i></div>
         <div class="exam-sigla">DELF</div>
         <p class="exam-full" data-es="Diplôme d'Études en Langue Française · Ministerio francés de Educación Nacional" data-fr="Diplôme d'Études en Langue Française · Ministère français de l'Éducation nationale" data-en="Diplôme d'Études en Langue Française · French Ministry of National Education">Diplôme d'Études en Langue Française · Ministerio francés de Educación Nacional</p>
         <div class="af-chips"><span class="af-chip">A1</span><span class="af-chip">A2</span><span class="af-chip">B1</span><span class="af-chip">B2</span></div>
@@ -2819,6 +2888,7 @@ body { animation: pageFadeIn 0.5s ease; }
 
       <!-- DALF -->
       <div class="exam-card reveal d2">
+        <div class="exam-icon"><i class="fa fa-certificate"></i></div>
         <div class="exam-sigla">DALF</div>
         <p class="exam-full" data-es="Diplôme Approfondi de Langue Française · Ministerio francés de Educación Nacional" data-fr="Diplôme Approfondi de Langue Française · Ministère français de l'Éducation nationale" data-en="Diplôme Approfondi de Langue Française · French Ministry of National Education">Diplôme Approfondi de Langue Française · Ministerio francés de Educación Nacional</p>
         <div class="af-chips"><span class="af-chip">C1</span><span class="af-chip">C2</span></div>
@@ -2832,6 +2902,7 @@ body { animation: pageFadeIn 0.5s ease; }
 
       <!-- TCF -->
       <div class="exam-card reveal d3">
+        <div class="exam-icon"><i class="fa fa-clipboard-check"></i></div>
         <div class="exam-sigla">TCF</div>
         <p class="exam-full" data-es="Test de Connaissance du Français · France Éducation international" data-fr="Test de Connaissance du Français · France Éducation international" data-en="Test de Connaissance du Français · France Éducation international">Test de Connaissance du Français · France Éducation international</p>
         <div class="af-chips"><span class="af-chip">A1 → C2</span></div>
@@ -2845,6 +2916,7 @@ body { animation: pageFadeIn 0.5s ease; }
 
       <!-- TEF -->
       <div class="exam-card reveal d4">
+        <div class="exam-icon"><i class="fa fa-clipboard-check"></i></div>
         <div class="exam-sigla">TEF</div>
         <p class="exam-full" data-es="Test d'Évaluation de Français · Cámara de Comercio e Industria de París Île-de-France" data-fr="Test d'Évaluation de Français · Chambre de commerce et d'industrie de Paris Île-de-France" data-en="Test d'Évaluation de Français · Paris Île-de-France Chamber of Commerce and Industry">Test d'Évaluation de Français · Cámara de Comercio e Industria de París Île-de-France</p>
         <div class="af-chips"><span class="af-chip">A1 → C2</span></div>

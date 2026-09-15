@@ -49,9 +49,30 @@ function setLang(lang) {
             elemento.innerText = traducciones[lang][clave];
         }
     });
-    document.querySelectorAll('.ctrl-btn').forEach(btn => {
+    /* La mayor parte del sitio no usa el diccionario data-i18n de arriba,
+       sino pares data-es / data-fr / data-en directamente en cada
+       elemento (patrón usado en todas las páginas). Este selector
+       aplica esa traducción, que antes se ignoraba por completo. */
+    document.querySelectorAll('[data-' + lang + ']').forEach(elemento => {
+        const texto = elemento.getAttribute('data-' + lang);
+        if (texto === null) return;
+        if (elemento.tagName === 'INPUT' || elemento.tagName === 'TEXTAREA') {
+            elemento.setAttribute('placeholder', texto);
+        } else {
+            elemento.textContent = texto;
+        }
+    });
+    document.querySelectorAll('[data-' + lang + '-aria]').forEach(elemento => {
+        const texto = elemento.getAttribute('data-' + lang + '-aria');
+        if (texto !== null) elemento.setAttribute('aria-label', texto);
+    });
+    document.querySelectorAll('[data-' + lang + '-placeholder]').forEach(elemento => {
+        const texto = elemento.getAttribute('data-' + lang + '-placeholder');
+        if (texto !== null) elemento.setAttribute('placeholder', texto);
+    });
+    document.querySelectorAll('.ctrl-btn, .footer-lb').forEach(btn => {
         btn.classList.remove('active');
-        if (btn.innerText.toLowerCase() === lang) { btn.classList.add('active'); }
+        if (btn.innerText.trim().toLowerCase() === lang) { btn.classList.add('active'); }
     });
 }
 

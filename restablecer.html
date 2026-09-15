@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nueva contraseña | Miguel Tillero</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root { --bg-color: #eef0e5; --primary-color: #8c734b; --primary-hover: #6f552f; --text-dark: #1a2e24; --text-light: #5a665f; --card-bg: rgba(255,255,255,0.92); --accent-green: #2b4535; --border: rgba(165,130,74,0.38);
+--r-xs: 8px; --r-md: 18px; --r-pill: 999px; --shadow-card: 0 4px 20px rgba(20,45,32,0.07), 0 1px 2px rgba(20,45,32,0.05);}
+* { box-sizing: border-box; }
+body { background-color: var(--bg-color); color: var(--text-dark); font-family: 'Syne', sans-serif; margin: 0; padding: 0; display:flex; flex-direction:column; min-height:100vh; }
+nav.main-nav { background: #ffffff; border-bottom: 1px solid rgba(43, 69, 53, 0.2); padding: 1rem 5%; display: flex; align-items: center; }
+.nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; color: var(--accent-green); text-decoration: none; }
+main { flex-grow:1; display:flex; align-items:center; justify-content:center; padding: 3rem 5%; }
+.card { background: var(--card-bg); padding: 2.6rem; border: 1px solid var(--border); border-radius: var(--r-md); box-shadow: var(--shadow-card); width: 100%; max-width: 420px; }
+.eyebrow { font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--primary-color); display:block; margin-bottom:0.4rem; }
+h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.1rem; color: var(--accent-green); margin: 0 0 1.4rem; }
+.form-field { margin-bottom: 1.1rem; }
+.form-field label { display: block; font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-green); margin-bottom: 0.4rem; }
+.form-field input { width: 100%; padding: 0.85rem; border: 1px solid var(--border); border-radius: 8px; font-family: 'Syne', sans-serif; font-size: 0.95rem; background: #fff; }
+.btn-gold { display: inline-flex; align-items:center; justify-content:center; gap:0.5rem; background: var(--primary-color); color: #fff; padding: 0.9rem 1.6rem; font-family: 'Syne', sans-serif; font-size: 0.92rem; text-decoration: none; border-radius: var(--r-pill); font-weight: 600; border:none; cursor:pointer; width:100%; transition: background 0.3s; }
+.btn-gold:hover { background: var(--primary-hover); }
+.btn-gold:disabled { opacity:0.6; cursor:not-allowed; }
+.msg { margin-top: 1rem; padding: 0.85rem 1rem; border-radius: var(--r-xs); font-size: 0.85rem; display:none; }
+.msg.error { background: rgba(180,50,40,0.1); color: #a13324; border: 1px solid rgba(180,50,40,0.25); }
+.msg.ok { background: rgba(43,69,53,0.1); color: var(--accent-green); border: 1px solid rgba(43,69,53,0.25); }
+.hint { font-size: 0.78rem; color: var(--text-light); margin: -0.4rem 0 1.2rem; }
+.back-link { display:block; text-align:center; margin-top:1.4rem; font-family:'Space Mono',monospace; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color: var(--text-light); text-decoration:none; }
+</style>
+</head>
+<body>
+<nav class="main-nav">
+    <a href="index.html" class="nav-brand">Miguel Tillero</a>
+</nav>
+<main>
+    <div class="card">
+        <span class="eyebrow">Mi espacio</span>
+        <h1>Elige tu nueva contraseña</h1>
+
+        <div id="msg-estado" class="msg"></div>
+
+        <form id="form-nueva" style="display:none;">
+            <div class="form-field">
+                <label>Nueva contraseña</label>
+                <input type="password" id="pass1" required minlength="6" autocomplete="new-password">
+            </div>
+            <div class="form-field">
+                <label>Repite la nueva contraseña</label>
+                <input type="password" id="pass2" required minlength="6" autocomplete="new-password">
+            </div>
+            <p class="hint">Mínimo 6 caracteres.</p>
+            <button type="submit" class="btn-gold" id="btn-guardar"><i class="fa-solid fa-key"></i> Guardar contraseña</button>
+        </form>
+
+        <a href="login.html" class="back-link">Volver a iniciar sesión</a>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/js/supabase-config.js?v=1789151573"></script>
+<script src="assets/js/auth-helpers.js?v=1789151573"></script>
+<script>
+const msgEl = document.getElementById('msg-estado');
+const form = document.getElementById('form-nueva');
+
+function mostrarMsg(texto, tipo) {
+    msgEl.textContent = texto;
+    msgEl.className = 'msg ' + tipo;
+    msgEl.style.display = 'block';
+}
+
+// El correo de recuperación trae un enlace con el permiso temporal para
+// cambiar la contraseña. El cliente de Supabase lo lee de la dirección y
+// abre una sesión de recuperación; esperamos a que eso ocurra.
+async function comprobarEnlace() {
+    if (!supabaseConfigurado) {
+        mostrarAvisoSinConfigurar('msg-estado');
+        return;
+    }
+    for (let intento = 0; intento < 6; intento++) {
+        const { data } = await supabaseClient.auth.getSession();
+        if (data && data.session) {
+            form.style.display = 'block';
+            msgEl.style.display = 'none';
+            return;
+        }
+        await new Promise(r => setTimeout(r, 400));
+    }
+    mostrarMsg('Este enlace ya no es válido o ha caducado. Vuelve a "¿Olvidaste tu contraseña?" en la pantalla de acceso para pedir uno nuevo.', 'error');
+}
+
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const p1 = document.getElementById('pass1').value;
+    const p2 = document.getElementById('pass2').value;
+    if (p1 !== p2) {
+        mostrarMsg('Las dos contraseñas no coinciden.', 'error');
+        return;
+    }
+    const btn = document.getElementById('btn-guardar');
+    btn.disabled = true;
+
+    const { error } = await supabaseClient.auth.updateUser({ password: p1 });
+    if (error) {
+        mostrarMsg('No pudimos guardar la contraseña: ' + error.message, 'error');
+        btn.disabled = false;
+        return;
+    }
+    form.style.display = 'none';
+    mostrarMsg('Contraseña actualizada. Ya puedes entrar con ella.', 'ok');
+    setTimeout(() => { window.location.href = 'login.html'; }, 2500);
+});
+
+comprobarEnlace();
+</script>
+</body>
+</html>
