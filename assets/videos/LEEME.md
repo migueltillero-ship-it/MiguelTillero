@@ -17,7 +17,7 @@ del anterior por una coma:
 ```json
 {
   "archivo": "assets/videos/clase-b2-septiembre.mp4",
-  "poster": "assets/images/portrait-miguel-1.jpg",
+  "poster": "assets/images/videos/clase-b2-septiembre.jpg",
   "titulo": "Una clase de B2",
   "descripcion": "De qué trata el video, en una línea."
 }
@@ -28,7 +28,10 @@ del anterior por una coma:
   (`profesor-miguel-tillero.mp4`); los nuevos van con la suya
   (`assets/videos/nombre.mp4`).
 - **`poster`** es la imagen que se ve antes de darle play. Si la omites,
-  el recuadro queda en negro hasta que el video arranca.
+  el recuadro queda en negro hasta que el video arranca. Lo que mejor
+  funciona es un fotograma del propio video, guardado en
+  `assets/images/videos/`: así la tarjeta muestra lo que se va a ver.
+  El recuadro es 16:9, y la imagen se recorta para llenarlo.
 - **`titulo`** y **`descripcion`** son opcionales. Puedes añadir las
   versiones en francés e inglés con `titulo_fr`, `titulo_en`,
   `descripcion_fr` y `descripcion_en`.
