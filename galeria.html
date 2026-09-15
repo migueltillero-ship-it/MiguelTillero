@@ -2586,7 +2586,27 @@ body { animation: pageFadeIn 0.5s ease; }
 </style>
 </head>
 <body>
-<div id="page-transition" aria-hidden="true"><video id="page-transition-video" src="transicion.mp4" autoplay muted playsinline></video></div>
+<div id="page-transition" aria-hidden="true"></div>
+<script>
+/* Se decide aquí, junto al marcado, si la cortinilla toca en esta visita.
+   El vídeo se crea solo cuando toca: si no, el navegador nunca llega a
+   pedirlo y la visita no carga el archivo para nada. */
+(function () {
+  var overlay = document.getElementById('page-transition');
+  var MAX_REPRODUCCIONES = 3;
+  var contador = 0;
+  try { contador = parseInt(sessionStorage.getItem('mt-transicion-contador') || '0', 10) || 0; } catch (e) {}
+  if (contador >= MAX_REPRODUCCIONES) { overlay.parentNode.removeChild(overlay); return; }
+  try { sessionStorage.setItem('mt-transicion-contador', String(contador + 1)); } catch (e) {}
+  var vid = document.createElement('video');
+  vid.id = 'page-transition-video';
+  vid.src = 'transicion.mp4';
+  vid.autoplay = true; vid.muted = true; vid.playsInline = true;
+  vid.setAttribute('muted', ''); vid.setAttribute('playsinline', '');
+  overlay.appendChild(vid);
+  overlay.setAttribute('data-activo', '1');
+})();
+</script>
 <script>try { if(sessionStorage.getItem('introVisto') === 'true') { document.write('<style>#video-intro { display: none !important; }</style>'); } } catch (e) {}</script>
 
 <a class="skip-link" href="#saltar-al-contenido" id="skip-link"
@@ -4018,23 +4038,27 @@ window.addEventListener('DOMContentLoaded', function() {
   };
 })();
 
-/* Video de transicion — máximo 3 reproducciones por sesión, compartidas
-   entre TODAS las páginas (no una vez por página). Al llegar al límite,
-   no vuelve a mostrarse aunque se visiten páginas nuevas. */
+/* Cierre de la cortinilla. Tapa lo que la página tarde en cargar y se
+   retira en cuanto está lista, con un mínimo para que no dé un pestañeo.
+   Antes se quedaba los 9 s enteros del vídeo aunque no hubiera nada que
+   esperar. */
 (function () {
   var overlay = document.getElementById('page-transition');
-  if (!overlay) return;
-  var MAX_REPRODUCCIONES = 3;
-  var contador = 0;
-  try { contador = parseInt(sessionStorage.getItem('mt-transicion-contador') || '0', 10) || 0; } catch (e) {}
-  if (contador >= MAX_REPRODUCCIONES) { overlay.parentNode.removeChild(overlay); return; }
-  try { sessionStorage.setItem('mt-transicion-contador', String(contador + 1)); } catch (e) {}
+  if (!overlay || !overlay.getAttribute('data-activo')) return;
+  var MINIMO_MS = 1200;
+  var arranque = Date.now();
   var cerrado = false;
+  function transcurrido() {
+    return (window.performance && performance.now) ? performance.now() : (Date.now() - arranque);
+  }
   function cerrar() {
     if (cerrado) return;
     cerrado = true;
     overlay.classList.add('hide');
     setTimeout(function () { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 550);
+  }
+  function cerrarCuandoListo() {
+    setTimeout(cerrar, Math.max(0, MINIMO_MS - transcurrido()));
   }
   var vid = document.getElementById('page-transition-video');
   if (vid) {
@@ -4045,6 +4069,8 @@ window.addEventListener('DOMContentLoaded', function() {
     cerrar();
   }
   overlay.addEventListener('click', cerrar);
+  if (document.readyState === 'complete') cerrarCuandoListo();
+  else window.addEventListener('load', cerrarCuandoListo);
   setTimeout(cerrar, 9500);
 })();
 </script>
