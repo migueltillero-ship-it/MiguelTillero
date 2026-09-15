@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="assets/css/video-carrusel.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 
@@ -309,10 +310,6 @@ body::after {
   text-shadow: none;
 }
 
-.hero-langs {
-  display: flex; gap: 1.5rem; margin-bottom: 2.5rem;
-  animation: fadeUp 1s 0.6s cubic-bezier(.16,1,.3,1) forwards; opacity: 0;
-}
 .lang-pill {
   border: 1px solid var(--border); padding: 0.4rem 1rem;
   display: flex; flex-direction: column; align-items: center; gap: 0.15rem;
@@ -890,7 +887,7 @@ section.alt { background: rgba(13,89,58,0.05); }
 }
 #wa-float:hover #wa-lbl { opacity: 1; transform: translateX(0); }
 
-#audio-player { position: fixed; bottom: 2rem; right: 2rem; z-index: 900; }
+#audio-player { position: fixed; bottom: 2rem; right: 2rem; z-index: 900; display: flex; align-items: center; gap: 0.5rem; }
 #audio-btn {
   width: 3rem; height: 3rem; border-radius: 50%;
   background: var(--goldx); border: 1px solid var(--border);
@@ -900,6 +897,19 @@ section.alt { background: rgba(13,89,58,0.05); }
 }
 #audio-btn:hover { border-color: var(--gold); background: rgba(201,169,110,0.2); }
 #audio-btn.playing { animation: pulse-border 2s infinite; border-color: var(--gold); }
+/* Ecualizador — barras que solo se mueven mientras suena la música, para que
+   se note de un vistazo que hay sonido y que el botón sirve para silenciarlo. */
+.audio-eq {
+  display: flex; align-items: flex-end; gap: 3px; height: 1.2rem; padding: 0 0.15rem;
+  opacity: 0; transform: scale(0.8); transition: opacity 0.3s, transform 0.3s; pointer-events: none;
+}
+#audio-player:has(#audio-btn.playing) .audio-eq { opacity: 1; transform: scale(1); }
+.audio-eq i { display: block; width: 3px; border-radius: 2px; background: var(--gold); height: 100%; transform-origin: bottom; }
+#audio-player:has(#audio-btn.playing) .audio-eq i { animation: eqBounce 0.9s ease-in-out infinite; }
+.audio-eq i:nth-child(1) { animation-delay: 0s; }
+.audio-eq i:nth-child(2) { animation-delay: 0.2s; }
+.audio-eq i:nth-child(3) { animation-delay: 0.4s; }
+@keyframes eqBounce { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
 
 /* ════════════════════════════════════════════════
    RESPONSIVE
@@ -1621,6 +1631,36 @@ body.intro-active { overflow: hidden; }
 #back-top.show { opacity: 1; pointer-events: auto; }
 #back-top:hover { background: rgba(201,169,110,0.15); border-color: var(--gold); transform: translateY(-3px); }
 
+/* ── BOTÓN FLOTANTE "VENDREDI ENTRE AMIS" ──
+   A propósito NO sigue la paleta esmeralda/dorada del resto del sitio:
+   debe saltar a la vista como invitación aparte al club de conversación. */
+#vendredi-fab {
+  position: fixed; top: 50%; right: 0; transform: translateY(-50%);
+  z-index: 950;
+  display: flex; align-items: center; gap: 0.55rem;
+  padding: 0.85rem 1.1rem 0.85rem 1.3rem;
+  border-radius: 999px 0 0 999px;
+  background: linear-gradient(135deg, #ff6b6b, #ff9f43 45%, #a855f7);
+  background-size: 220% 220%;
+  color: #fff !important;
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.82rem;
+  letter-spacing: 0.02em; text-decoration: none; white-space: nowrap;
+  box-shadow: 0 10px 30px rgba(168,85,247,0.4);
+  animation: vendrediGradiente 5s ease infinite, vendrediPulso 2.6s ease-in-out infinite;
+  transition: padding 0.3s ease, transform 0.3s ease;
+}
+#vendredi-fab:hover { padding-right: 1.7rem; transform: translateY(-50%) scale(1.05); }
+#vendredi-fab i { font-size: 1.05rem; }
+@keyframes vendrediGradiente { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+@keyframes vendrediPulso {
+  0%, 100% { box-shadow: 0 10px 30px rgba(168,85,247,0.4); }
+  50%      { box-shadow: 0 10px 42px rgba(255,107,107,0.55); }
+}
+@media (max-width: 700px) {
+  #vendredi-fab { font-size: 0.72rem; padding: 0.7rem 0.9rem 0.7rem 1.05rem; }
+  #vendredi-fab .vf-text { display: none; }
+}
+
 
 /* ── SKILL TAGS ── */
 .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; padding-top: 1.3rem; border-top: 1px solid rgba(201,169,110,0.15); }
@@ -2203,7 +2243,7 @@ summary:focus-visible,
 /* ── Responsive del bloque AF ── */
 .nav-links a { white-space: nowrap; }
 @media (max-width: 1400px) { .nav-links { gap: 1.4rem; } }
-@media (max-width: 1280px) {
+@media (max-width: 1850px) {
   .nav-links { gap: 1.15rem; }
   .nav-links a { letter-spacing: 0.18em; }
   .nav-links li.nav-sec { display: none; }
@@ -2396,7 +2436,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .eyebrow::before { background: var(--gold); }
 
 /* ── Legibilidad sobre el fondo animado de puntos (Vanta) ── */
-#hero .hero-tagline, #hero .hero-langs { text-shadow: 0 1px 12px rgba(233,241,231,0.6); }
+#hero .hero-tagline { text-shadow: 0 1px 12px rgba(233,241,231,0.6); }
 
 /* ── Transición suave de entrada a cada página (sin vídeo) ── */
 body { animation: pageFadeIn 0.5s ease; }
@@ -2516,6 +2556,7 @@ body { animation: pageFadeIn 0.5s ease; }
 
 <!-- Sistema de Internacionalización (i18n) -->
 <script src="assets/js/i18n.js"></script>
+<script src="assets/js/video-carrusel.js"></script>
 
 <style>
 /* VIDEO 4K Y BOTONES */
@@ -2579,7 +2620,15 @@ body { animation: pageFadeIn 0.5s ease; }
 <!-- AUDIO -->
 <div id="audio-player">
   <button id="audio-btn" aria-label="Música de fondo"><i class="fa fa-music"></i></button>
+  <span class="audio-eq" aria-hidden="true"><i></i><i></i><i></i></span>
 </div>
+
+<!-- BOTÓN FLOTANTE — invitación al club de conversación -->
+<a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" id="vendredi-fab" aria-label="Vendredi entre Amis — club de conversación en francés">
+  <i class="fa fa-mug-hot"></i>
+  <span class="vf-text" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</span>
+</a>
+
 <audio id="bg-audio" loop preload="none">
   <source src="Une_Promenade_en_Soleil.mp3" type="audio/mpeg">
 </audio>
@@ -2599,13 +2648,14 @@ body { animation: pageFadeIn 0.5s ease; }
   <a href="servicios.html" data-route="servicios" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</a>
   <a href="cursos.html" data-route="estudiantes" data-es="Cursos y exámenes" data-fr="Cours et examens" data-en="Courses & exams">Cursos y exámenes</a>
   <a href="galeria.html" data-route="galeria" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a>
-  <a href="contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a>
-  <a href="inscribete.html" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a>
-  <a href="pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a>
-  <a href="reservar.html" onclick="closeMob()" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
-  <a href="reglamento.html" onclick="closeMob()" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a>
   <a href="mi-espacio.html" onclick="closeMob()" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a>
   <a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" onclick="closeMob()" style="color:var(--gold);" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</a>
+  <a href="inscribete.html" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a>
+  <a href="reservar.html" onclick="closeMob()" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
+  <a href="reglamento.html" onclick="closeMob()" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a>
+  <a href="contacto.html#faq" onclick="closeMob()" data-es="Preguntas frecuentes" data-fr="Foire aux questions" data-en="FAQ">Preguntas frecuentes</a>
+  <a href="contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a>
+  <a href="pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a>
   <button type="button" class="desktop-toggle-btn" id="desktop-toggle-btn" onclick="toggleDesktopView()">Ver versión de escritorio</button>
 </div>
 
@@ -2621,13 +2671,14 @@ body { animation: pageFadeIn 0.5s ease; }
     <li><a href="servicios.html" data-route="servicios" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</a></li>
     <li><a href="cursos.html" data-route="estudiantes" data-es="Cursos y exámenes" data-fr="Cours et examens" data-en="Courses &amp; exams">Cursos y exámenes</a></li>
     <li><a href="galeria.html" data-route="galeria" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a></li>
-    <li><a href="contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a></li>
-    <li class="nav-sec"><a href="pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a></li>
-    <li class="nav-sec"><a href="reservar.html" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
-    <a href="reglamento.html" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a></li>
     <li><a href="mi-espacio.html" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a></li>
     <li class="nav-sec"><a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" style="color:var(--gold);" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</a></li>
     <li><a href="inscribete.html" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a></li>
+    <li class="nav-sec"><a href="reservar.html" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
+    <a href="reglamento.html" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a></li>
+    <li class="nav-sec"><a href="contacto.html#faq" data-es="Preguntas frecuentes" data-fr="Foire aux questions" data-en="FAQ">Preguntas frecuentes</a></li>
+    <li><a href="contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a></li>
+    <li class="nav-sec"><a href="pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a></li>
   </ul>
   <div class="nav-controls">
     <button class="ctrl-btn active" onclick="setLang('es')">ES</button>
@@ -2651,11 +2702,6 @@ body { animation: pageFadeIn 0.5s ease; }
         <p class="hero-tagline" data-es="Profesor especialista en la enseñanza del francés como lengua extranjera · FLE · Gestión cultural." data-fr="Spécialiste de l'enseignement du français langue étrangère · FLE · Direction culturelle." data-en="French as a Foreign Language Specialist · FLE Teaching · Cultural Management.">
           Profesor especialista en la enseñanza del francés como lengua extranjera · FLE · Gestión cultural.
         </p>
-        <div class="hero-langs">
-          <div class="lang-pill"><span class="code">ES</span><span class="lvl" data-es="Nativo" data-fr="Natif" data-en="Native">Nativo</span></div>
-          <div class="lang-pill"><span class="code">FR</span><span class="lvl">C1</span></div>
-          <div class="lang-pill"><span class="code">EN</span><span class="lvl">B1/B2</span></div>
-        </div>
         <div class="hero-cta">
           <button onclick="openModal('modal-clase')" class="btn btn-gold"><i class="fa fa-graduation-cap"></i><span data-es="Clase de prueba gratuita" data-fr="Cours d'essai gratuit" data-en="Free trial class">Clase de prueba gratuita</span></button>
           <a href="contacto.html#contact" class="btn btn-ghost"><i class="fa fa-envelope"></i><span data-es="Escribirme" data-fr="Me contacter" data-en="Contact me">Escribirme</span></a>
@@ -2698,11 +2744,6 @@ body { animation: pageFadeIn 0.5s ease; }
             <img class="portrait-slide"
                  src="assets/images/portrait-miguel-4.jpg"
                  alt="Miguel Tillero — Formateur FLE"
-                 style="object-fit:cover;object-position:center top"
-                 onerror="this.style.display='none'">
-            <img class="portrait-slide"
-                 src="assets/images/portrait-miguel-2.jpg"
-                 alt="Miguel Tillero — Profesor de francés"
                  style="object-fit:cover;object-position:center top"
                  onerror="this.style.display='none'">
                         <div class="portrait-data">
@@ -2780,9 +2821,31 @@ body { animation: pageFadeIn 0.5s ease; }
         <i class="fa fa-mug-hot portal-icon"></i>
         <h3 class="portal-title" data-es="Vendredi entre Amis · Club de conversación" data-fr="Vendredi entre Amis · Club de conversation" data-en="Vendredi entre Amis · Conversation club">Vendredi entre Amis · Club de conversación</h3>
         <p class="portal-desc" data-es="Un espacio dedicado a mis amigos, estudiantes, colegas, allegados y a todas las personas afines interesadas en practicar francés en comunidad: una nueva destination francófona cada semana, vocabulario, expresiones, un carnet de viaje personal y la pregunta de la semana para compartir en el grupo." data-fr="Un espace dédié à mes amis, étudiants, collègues et à toutes les personnes qui aiment pratiquer le français en communauté : une nouvelle destination francophone chaque semaine, du vocabulaire, des expressions, un carnet de voyage personnel et la question de la semaine à partager." data-en="A space for my friends, students, colleagues and everyone who enjoys practising French together: a new francophone destination every week, vocabulary, expressions, a personal travel journal and the question of the week to share with the group.">Un espacio dedicado a mis amigos, estudiantes, colegas, allegados y a todas las personas afines interesadas en practicar francés en comunidad: una nueva destination francófona cada semana, vocabulario, expresiones, un carnet de viaje personal y la pregunta de la semana para compartir en el grupo.</p>
-        <span class="portal-meta" style="display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;opacity:.85;margin-bottom:.5rem;"><i class="fa fa-calendar-days"></i> <span data-es="Todos los viernes — próxima sesión: 11 de septiembre" data-fr="Tous les vendredis — prochaine séance : 11 septembre" data-en="Every Friday — next session: September 11">Todos los viernes — próxima sesión: 11 de septiembre</span></span>
+        <span class="portal-meta" style="display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;opacity:.85;margin-bottom:.5rem;"><i class="fa fa-calendar-days"></i> <span data-es="Todos los viernes — revisa la próxima fecha en el club" data-fr="Tous les vendredis — la prochaine date est indiquée sur le site du club" data-en="Every Friday — check the next date on the club site">Todos los viernes — revisa la próxima fecha en el club</span></span>
         <span class="portal-go" data-es="Entrar al club" data-fr="Entrer dans le club" data-en="Enter the club">Entrar al club</span>
       </a>
+    </div>
+  </div>
+</section>
+
+<section id="video-reel" class="alt z10" data-page="inicio">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;margin-bottom:3rem;">
+      <p class="eyebrow" style="justify-content:center"
+         data-es="Presentación audiovisual" data-fr="Présentation audiovisuelle" data-en="Audiovisual presentation">
+        Presentación audiovisual
+      </p>
+      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;">
+        <em data-es="En vídeo" data-fr="En vidéo" data-en="On video">En vídeo</em>
+      </h2>
+    </div>
+
+    <div class="reveal" data-carrusel-videos></div>
+
+    <div class="video-meta reveal">
+      <span class="vtag">MT · FLE</span>
+      <span data-es="Desliza para ver más" data-fr="Faites défiler pour voir plus" data-en="Swipe to see more">Desliza para ver más</span>
+      <span class="vtag">FLE · GESTIÓN CULTURAL · FORMACIÓN</span>
     </div>
   </div>
 </section>
@@ -3572,6 +3635,17 @@ window.addEventListener('DOMContentLoaded', function() {
   document.body.classList.add('intro-active');
 
   if (!introEl || !introVid) {
+    document.body.classList.remove('intro-active');
+    return;
+  }
+
+  /* Si el intro ya se vio en esta sesión, la hoja de estilo de más arriba
+     lo ha ocultado. Salimos antes de asignar el src: si no, el navegador
+     descarga el vídeo entero para algo que nadie va a ver. */
+  var yaVisto = false;
+  try { yaVisto = sessionStorage.getItem('introVisto') === 'true'; } catch (e) {}
+  if (yaVisto) {
+    if (introEl.parentNode) introEl.parentNode.removeChild(introEl);
     document.body.classList.remove('intro-active');
     return;
   }

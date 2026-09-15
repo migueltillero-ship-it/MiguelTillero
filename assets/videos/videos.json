@@ -1,0 +1,44 @@
+{
+  "videos": [
+    {
+      "archivo": "presentacion-1.mp4",
+      "poster": "assets/images/videos/presentacion-1.jpg",
+      "titulo": "Alianza con el CAVILAM",
+      "titulo_fr": "Partenariat avec le CAVILAM",
+      "titulo_en": "Partnership with CAVILAM",
+      "descripcion": "La firma del acuerdo entre la Alianza Francesa de San Cristóbal y el CAVILAM, y encuentros con responsables de instituciones de la lengua francesa.",
+      "descripcion_fr": "La signature de l'accord entre l'Alliance Française de San Cristóbal et le CAVILAM, et des rencontres avec des responsables d'institutions de la langue française.",
+      "descripcion_en": "The agreement signed between the Alliance Française of San Cristóbal and CAVILAM, plus meetings with leaders of French-language institutions."
+    },
+    {
+      "archivo": "profesor-miguel-tillero.mp4",
+      "poster": "assets/images/videos/profesor.jpg",
+      "titulo": "Bienvenue dans votre classe",
+      "titulo_fr": "Bienvenue dans votre classe",
+      "titulo_en": "Welcome to your French class",
+      "descripcion": "La invitación a entrar en clase: vivir el francés, una palabra a la vez.",
+      "descripcion_fr": "L'invitation à entrer en classe : vivre le français, un mot à la fois.",
+      "descripcion_en": "The invitation into the classroom: living French, one word at a time."
+    },
+    {
+      "archivo": "Miguel_Tillero_video_bienvenida.mp4",
+      "poster": "assets/images/videos/bienvenida.jpg",
+      "titulo": "Video de bienvenida",
+      "titulo_fr": "Vidéo de bienvenue",
+      "titulo_en": "Welcome video",
+      "descripcion": "Una bienvenida breve en imágenes, con París de fondo.",
+      "descripcion_fr": "Une brève bienvenue en images, avec Paris en toile de fond.",
+      "descripcion_en": "A short welcome in images, with Paris in the background."
+    },
+    {
+      "archivo": "transicion.mp4",
+      "poster": "assets/images/videos/transicion.jpg",
+      "titulo": "Intermedio",
+      "titulo_fr": "Interlude",
+      "titulo_en": "Interlude",
+      "descripcion": "La animación que enlaza una sección con otra dentro del sitio.",
+      "descripcion_fr": "L'animation qui relie une section à une autre dans le site.",
+      "descripcion_en": "The animation that links one section of the site to the next."
+    }
+  ]
+}
