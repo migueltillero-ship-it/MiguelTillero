@@ -15,9 +15,15 @@
 const SUPABASE_URL = 'https://yfrdlzveleevkjqekdoq.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_KrCwsrcn0Y6tQ6oqYNBObg_droR0ta3';
 
-const supabaseConfigurado = !SUPABASE_URL.includes('TU-PROYECTO') && !SUPABASE_ANON_KEY.includes('TU-ANON-PUBLIC-KEY');
+const credencialesPuestas = !SUPABASE_URL.includes('TU-PROYECTO') && !SUPABASE_ANON_KEY.includes('TU-ANON-PUBLIC-KEY');
 
 let supabaseClient = null;
-if (supabaseConfigurado && window.supabase) {
+if (credencialesPuestas && window.supabase) {
   supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 }
+
+/* La plataforma solo es utilizable si además de las credenciales llegó la
+   librería del CDN. Si la descarga falla (conexión caída, bloqueador de
+   anuncios), las páginas deben mostrar su aviso en vez de llamar a un
+   cliente que no existe y quedarse muertas. */
+const supabaseConfigurado = supabaseClient !== null;

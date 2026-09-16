@@ -10,17 +10,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        afblue: '#1a365d',
-                        afgold: '#c5a059',
-                        afsand: '#f7f6f2',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
+        /* Si el CDN de Tailwind no responde, la página se ve sin estilos pero
+           legible; sin esta comprobación, además, el script se cortaba aquí. */
+        if (window.tailwind) {
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            afblue: '#1a365d',
+                            afgold: '#c5a059',
+                            afsand: '#f7f6f2',
+                        },
+                        fontFamily: {
+                            sans: ['Inter', 'sans-serif'],
+                            serif: ['Playfair Display', 'serif'],
+                        }
                     }
                 }
             }
@@ -336,6 +340,13 @@
     <script>
         // GSAP Animation for a professional reveal
         document.addEventListener("DOMContentLoaded", (event) => {
+            /* Las tarjetas nacen en opacity-0 y es GSAP quien las revela: si su
+               CDN no responde, la página entera se vería vacía. */
+            if (!window.gsap) {
+                document.querySelectorAll('.module-card')
+                    .forEach(function (c) { c.classList.remove('opacity-0'); });
+                return;
+            }
             gsap.to(".module-card", {
                 y: 0,
                 opacity: 1,
