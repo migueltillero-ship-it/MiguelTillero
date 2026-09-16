@@ -54,6 +54,32 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
 .msg.error { background: rgba(180,50,40,0.1); color: var(--danger); border: 1px solid rgba(180,50,40,0.25); }
 .msg.ok { background: rgba(43,69,53,0.1); color: var(--accent-green); border: 1px solid rgba(43,69,53,0.25); }
 .acciones-fila { display:flex; gap:0.4rem; flex-wrap:wrap; }
+.secciones { display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1.6rem; }
+.sec-btn { background:#fff; border:1px solid var(--border); padding:0.7rem 1.4rem; border-radius:var(--r-pill); font-family:'Syne',sans-serif; font-weight:600; font-size:0.88rem; cursor:pointer; color:var(--text-dark); display:inline-flex; align-items:center; gap:0.5rem; }
+.sec-btn.activo { background:var(--accent-green); color:#fff; border-color:var(--accent-green); }
+.seccion { display:none; }
+.seccion.activa { display:block; }
+.stat-row { display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:0.6rem; }
+.stat { background:rgba(43,69,53,0.06); border-radius:var(--r-sm); padding:0.9rem 1.3rem; min-width:130px; }
+.stat .num { font-family:'Cormorant Garamond',serif; font-size:1.9rem; color:var(--accent-green); display:block; line-height:1.1; }
+.stat .lbl { font-family:'Space Mono',monospace; font-size:0.6rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-light); }
+.clase-hoy { display:flex; align-items:center; gap:1rem; flex-wrap:wrap; border:1px solid var(--border); border-left:5px solid var(--primary-color); border-radius:var(--r-sm); padding:1rem 1.2rem; margin-bottom:0.7rem; }
+.clase-hoy .hora { font-family:'Space Mono',monospace; font-size:1.05rem; color:var(--accent-green); font-weight:700; min-width:120px; }
+.clase-hoy .curso { flex:1; min-width:180px; }
+.clase-hoy .curso strong { font-family:'Cormorant Garamond',serif; font-size:1.25rem; display:block; }
+.aviso { border-radius:var(--r-sm); padding:0.9rem 1.1rem; margin-bottom:0.6rem; font-size:0.9rem; display:flex; align-items:center; gap:0.7rem; flex-wrap:wrap; }
+.aviso.atencion { background:rgba(140,115,75,0.12); border:1px solid rgba(140,115,75,0.35); }
+.aviso.alerta { background:rgba(161,51,36,0.09); border:1px solid rgba(161,51,36,0.3); }
+.cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
+.cal-cab { font-family:'Space Mono',monospace; font-size:0.6rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-light); text-align:center; padding:0.4rem 0; }
+.cal-dia { min-height:86px; border:1px solid var(--border); border-radius:8px; padding:0.35rem; background:#fff; }
+.cal-dia.fuera { background:rgba(0,0,0,0.02); opacity:0.5; }
+.cal-dia.hoy { border-color:var(--primary-color); border-width:2px; }
+.cal-num { font-family:'Space Mono',monospace; font-size:0.68rem; color:var(--text-light); }
+.cal-dia.hoy .cal-num { color:var(--primary-color); font-weight:700; }
+.cal-clase { font-size:0.66rem; padding:0.16rem 0.35rem; border-radius:4px; margin-top:0.2rem; color:#fff; cursor:pointer; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.cal-punto { width:10px; height:10px; border-radius:3px; display:inline-block; }
+@media (max-width: 680px) { .cal-dia { min-height:62px; } .cal-clase { font-size:0.58rem; } }
 #modal-ficha { display:none; position:fixed; inset:0; background:rgba(20,30,25,0.55); align-items:center; justify-content:center; z-index:999; padding:1rem; }
 #modal-ficha .ficha-box { background:#fff; border-radius:var(--r-md); padding:2rem; max-width:480px; width:100%; }
 #modal-ficha h2 { font-family:'Cormorant Garamond',serif; color:var(--accent-green); }
@@ -79,6 +105,50 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
 <main>
     <div id="aviso-config" class="msg error" style="display:none; margin-bottom:1.5rem;"></div>
     <div id="contenido-panel" style="display:none;">
+
+        <div class="secciones">
+            <button class="sec-btn activo" data-sec="hoy" onclick="cambiarSeccion('hoy')"><i class="fa-solid fa-house"></i> Hoy</button>
+            <button class="sec-btn" data-sec="cursos" onclick="cambiarSeccion('cursos')"><i class="fa-solid fa-layer-group"></i> Cursos</button>
+            <button class="sec-btn" data-sec="calendario" onclick="cambiarSeccion('calendario')"><i class="fa-solid fa-calendar-days"></i> Calendario</button>
+        </div>
+
+        <!-- ===================== HOY ===================== -->
+        <div class="seccion activa" id="sec-hoy">
+            <section class="panel">
+                <h2 id="titulo-hoy">Hoy</h2>
+                <div class="stat-row" id="resumen-hoy"></div>
+                <div id="avisos-hoy"></div>
+            </section>
+
+            <section class="panel">
+                <h2>Clases de hoy</h2>
+                <div id="clases-hoy"></div>
+            </section>
+
+            <section class="panel">
+                <h2>Próximas clases</h2>
+                <div id="proximas-clases"></div>
+            </section>
+        </div>
+
+        <!-- ===================== CALENDARIO ===================== -->
+        <div class="seccion" id="sec-calendario">
+            <section class="panel">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.2rem;">
+                    <h2 id="titulo-mes" style="margin:0;"></h2>
+                    <div class="acciones-fila">
+                        <button class="btn pequeno secundario" onclick="cambiarMes(-1)"><i class="fa-solid fa-chevron-left"></i> Mes anterior</button>
+                        <button class="btn pequeno secundario" onclick="irAHoy()">Mes actual</button>
+                        <button class="btn pequeno secundario" onclick="cambiarMes(1)">Mes siguiente <i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div id="leyenda-cursos" style="display:flex; gap:0.6rem; flex-wrap:wrap; margin-bottom:1rem;"></div>
+                <div id="rejilla-calendario"></div>
+            </section>
+        </div>
+
+        <!-- ===================== CURSOS ===================== -->
+        <div class="seccion" id="sec-cursos">
 
         <!-- MIS CURSOS -->
         <section class="panel">
@@ -251,6 +321,7 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
                 <div id="msg-notas" class="msg"></div>
             </div>
         </section>
+        </div><!-- fin sec-cursos -->
     </div>
 </main>
 
@@ -266,14 +337,30 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="assets/js/supabase-config.js?v=1789151573"></script>
-<script src="assets/js/auth-helpers.js?v=1789151573"></script>
+<script src="assets/js/supabase-config.js?v=1789509476"></script>
+<script src="assets/js/auth-helpers.js?v=1789509476"></script>
 <script>
 let perfilDocente = null;
 let cursos = [];
 let cursoActualId = null;
 let sesionesActuales = [];
 let estudiantesActivosActuales = []; // [{id, nombre_completo, telefono}]
+
+// Datos de todos los cursos a la vez, para las vistas de Hoy y Calendario
+let todasSesiones = [];
+let todosHorarios = [];
+let inscripcionesTodas = [];
+let mesVisible = new Date();
+
+const COLORES_CURSO = ['#2b4535', '#8c734b', '#3d6b8a', '#7a4b6b', '#4b7a52', '#a1652d', '#5a5a8c'];
+function colorCurso(cursoId) {
+    const i = cursos.findIndex(c => c.id === cursoId);
+    return COLORES_CURSO[(i < 0 ? 0 : i) % COLORES_CURSO.length];
+}
+
+function fechaISO(d) {
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
 
 function mostrarMsg(el, texto, tipo) {
     el.textContent = texto;
@@ -296,6 +383,179 @@ async function iniciar() {
     document.getElementById('nombre-docente').textContent = perfilDocente.nombre_completo;
     document.getElementById('contenido-panel').style.display = 'block';
     await cargarCursos();
+    await cargarDatosGlobales();
+}
+
+// ---- DATOS DE TODOS LOS CURSOS (para Hoy y Calendario) ----
+async function cargarDatosGlobales() {
+    const ids = cursos.map(c => c.id);
+    if (!ids.length) {
+        todasSesiones = []; todosHorarios = []; inscripcionesTodas = [];
+    } else {
+        const [ses, hor, ins] = await Promise.all([
+            supabaseClient.from('sesiones').select('*').in('curso_id', ids),
+            supabaseClient.from('horarios').select('*').in('curso_id', ids),
+            supabaseClient.from('inscripciones').select('*').in('curso_id', ids)
+        ]);
+        todasSesiones = ses.data || [];
+        todosHorarios = hor.data || [];
+        inscripcionesTodas = ins.data || [];
+    }
+    pintarHoy();
+    pintarCalendario();
+}
+
+function estudiantesDe(cursoId) {
+    return inscripcionesTodas.filter(i => i.curso_id === cursoId && i.estado === 'activa').length;
+}
+
+function horaDeSesion(sesion) {
+    const fecha = new Date(sesion.fecha + 'T12:00:00');
+    const h = todosHorarios.find(x => x.curso_id === sesion.curso_id && x.dia_semana === fecha.getDay());
+    if (!h) return null;
+    return `${(h.hora_inicio || '').slice(0, 5)} – ${(h.hora_fin || '').slice(0, 5)}`;
+}
+
+function cambiarSeccion(sec) {
+    document.querySelectorAll('.sec-btn').forEach(b => b.classList.toggle('activo', b.dataset.sec === sec));
+    document.querySelectorAll('.seccion').forEach(s => s.classList.toggle('activa', s.id === 'sec-' + sec));
+}
+
+// ---- SECCIÓN HOY ----
+function pintarHoy() {
+    const hoy = new Date();
+    const hoyISO = fechaISO(hoy);
+    document.getElementById('titulo-hoy').textContent =
+        hoy.toLocaleDateString('es', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+
+    const activos = cursos.filter(c => c.estado === 'abierto' || c.estado === 'cerrado');
+    const pendientes = inscripcionesTodas.filter(i => i.estado === 'pendiente').length;
+    const totalEstudiantes = new Set(inscripcionesTodas.filter(i => i.estado === 'activa').map(i => i.estudiante_id)).size;
+
+    document.getElementById('resumen-hoy').innerHTML = `
+        <div class="stat"><span class="num">${activos.length}</span><span class="lbl">Cursos en marcha</span></div>
+        <div class="stat"><span class="num">${totalEstudiantes}</span><span class="lbl">Estudiantes activos</span></div>
+        <div class="stat"><span class="num">${pendientes}</span><span class="lbl">Inscripciones por aprobar</span></div>
+    `;
+
+    const avisos = [];
+    if (pendientes > 0) {
+        avisos.push(`<div class="aviso atencion"><i class="fa-solid fa-user-clock"></i>
+            Tienes <strong>${pendientes}</strong> inscripci${pendientes === 1 ? 'ón' : 'ones'} esperando tu aprobación.
+            <button class="btn pequeno" onclick="cambiarSeccion('cursos')">Ver cursos</button></div>`);
+    }
+    cursos.filter(c => c.estado === 'borrador').forEach(c => {
+        avisos.push(`<div class="aviso atencion"><i class="fa-solid fa-pen-ruler"></i>
+            «${esc(c.nombre)}» sigue en borrador: su enlace de inscripción todavía no funciona.</div>`);
+    });
+    document.getElementById('avisos-hoy').innerHTML = avisos.join('');
+
+    // Clases de hoy
+    const deHoy = todasSesiones.filter(s => s.fecha === hoyISO);
+    const cont = document.getElementById('clases-hoy');
+    if (!deHoy.length) {
+        cont.innerHTML = '<p class="muted" style="margin:0;">No tienes clases programadas para hoy.</p>';
+    } else {
+        cont.innerHTML = deHoy.map(s => {
+            const curso = cursos.find(c => c.id === s.curso_id) || {};
+            const hora = horaDeSesion(s);
+            return `<div class="clase-hoy" style="border-left-color:${colorCurso(s.curso_id)}">
+                <div class="hora">${hora || 'Sin horario'}</div>
+                <div class="curso">
+                    <strong>${esc(curso.nombre)}</strong>
+                    <span class="muted" style="margin:0; font-size:0.82rem;">${esc(s.tema || 'Sin tema asignado')} · ${estudiantesDe(s.curso_id)} estudiantes</span>
+                </div>
+                <button class="btn pequeno" onclick="irAPasarAsistencia('${s.curso_id}','${s.id}')">
+                    <i class="fa-solid fa-clipboard-check"></i> Pasar asistencia
+                </button>
+            </div>`;
+        }).join('');
+    }
+
+    // Próximas clases (siguientes 7 días)
+    const limite = new Date(hoy); limite.setDate(limite.getDate() + 7);
+    const proximas = todasSesiones
+        .filter(s => s.fecha > hoyISO && s.fecha <= fechaISO(limite))
+        .sort((a, b) => a.fecha.localeCompare(b.fecha))
+        .slice(0, 8);
+    const contProx = document.getElementById('proximas-clases');
+    contProx.innerHTML = proximas.length
+        ? proximas.map(s => {
+            const curso = cursos.find(c => c.id === s.curso_id) || {};
+            const f = new Date(s.fecha + 'T12:00:00');
+            return `<div class="clase-hoy" style="border-left-color:${colorCurso(s.curso_id)}">
+                <div class="hora">${f.toLocaleDateString('es', { weekday: 'short', day: 'numeric', month: 'short' })}</div>
+                <div class="curso"><strong>${esc(curso.nombre)}</strong>
+                    <span class="muted" style="margin:0; font-size:0.82rem;">${horaDeSesion(s) || 'Sin horario'} · ${esc(s.tema || 'Sin tema')}</span></div>
+            </div>`;
+        }).join('')
+        : '<p class="muted" style="margin:0;">No hay clases en los próximos 7 días.</p>';
+}
+
+async function irAPasarAsistencia(cursoId, sesionId) {
+    cambiarSeccion('cursos');
+    await seleccionarCurso(cursoId);
+    cambiarTab('asistencia');
+    const sel = document.getElementById('asistencia-sesion');
+    sel.value = sesionId;
+    await cargarAsistencia();
+}
+
+// ---- CALENDARIO ----
+function cambiarMes(delta) {
+    mesVisible = new Date(mesVisible.getFullYear(), mesVisible.getMonth() + delta, 1);
+    pintarCalendario();
+}
+
+function irAHoy() {
+    mesVisible = new Date();
+    pintarCalendario();
+}
+
+function pintarCalendario() {
+    const primero = new Date(mesVisible.getFullYear(), mesVisible.getMonth(), 1);
+    const ultimo = new Date(mesVisible.getFullYear(), mesVisible.getMonth() + 1, 0);
+    document.getElementById('titulo-mes').textContent =
+        primero.toLocaleDateString('es', { month: 'long', year: 'numeric' });
+
+    document.getElementById('leyenda-cursos').innerHTML = cursos.map(c => `
+        <span style="display:inline-flex; align-items:center; gap:0.4rem; font-size:0.78rem;">
+            <span class="cal-punto" style="background:${colorCurso(c.id)}"></span>${esc(c.nombre)}
+        </span>`).join('');
+
+    // La semana empieza en lunes
+    const desplazamiento = (primero.getDay() + 6) % 7;
+    const inicio = new Date(primero); inicio.setDate(inicio.getDate() - desplazamiento);
+    const hoyISO = fechaISO(new Date());
+
+    let celdas = '';
+    for (let i = 0; i < 42; i++) {
+        const d = new Date(inicio); d.setDate(d.getDate() + i);
+        const iso = fechaISO(d);
+        const fuera = d.getMonth() !== mesVisible.getMonth();
+        const delDia = todasSesiones.filter(s => s.fecha === iso);
+        celdas += `<div class="cal-dia ${fuera ? 'fuera' : ''} ${iso === hoyISO ? 'hoy' : ''}">
+            <div class="cal-num">${d.getDate()}</div>
+            ${delDia.map(s => {
+                const curso = cursos.find(c => c.id === s.curso_id) || {};
+                const hora = (horaDeSesion(s) || '').split(' – ')[0];
+                return `<div class="cal-clase" style="background:${colorCurso(s.curso_id)}"
+                             title="${esc(curso.nombre)} ${hora}"
+                             onclick="abrirCursoDesdeCalendario('${s.curso_id}')">${hora ? hora + ' ' : ''}${esc(curso.nombre)}</div>`;
+            }).join('')}
+        </div>`;
+    }
+
+    document.getElementById('rejilla-calendario').innerHTML = `
+        <div class="cal-grid">
+            ${['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'].map(d => `<div class="cal-cab">${d}</div>`).join('')}
+            ${celdas}
+        </div>`;
+}
+
+async function abrirCursoDesdeCalendario(cursoId) {
+    cambiarSeccion('cursos');
+    await seleccionarCurso(cursoId);
 }
 
 async function cargarCursos() {
@@ -344,6 +604,7 @@ async function crearCurso() {
     document.getElementById('form-nuevo-curso').style.display = 'none';
     ['nc-nombre','nc-nivel','nc-cupo','nc-inicio','nc-fin','nc-desc'].forEach(id => document.getElementById(id).value = '');
     await cargarCursos();
+    await cargarDatosGlobales();
 }
 
 async function seleccionarCurso(id) {
@@ -396,6 +657,7 @@ async function guardarCurso() {
     document.getElementById('form-editar-curso').style.display = 'none';
     await cargarCursos();
     await seleccionarCurso(cursoActualId);
+    await cargarDatosGlobales();
 }
 
 async function eliminarCurso() {
@@ -410,6 +672,7 @@ async function eliminarCurso() {
     cursoActualId = null;
     document.getElementById('detalle-curso').style.display = 'none';
     await cargarCursos();
+    await cargarDatosGlobales();
 }
 
 // ---- HORARIO Y GENERACIÓN DE CLASES ----
@@ -455,6 +718,7 @@ async function guardarHorario() {
     );
     if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
     mostrarMsg(msgEl, 'Horario guardado.', 'ok');
+    await cargarDatosGlobales();
 }
 
 async function generarSesiones() {
@@ -488,6 +752,7 @@ async function generarSesiones() {
     if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
     mostrarMsg(msgEl, `Listo: se crearon ${nuevas.length} clases. Ya puedes ponerles tema y pasar asistencia.`, 'ok');
     await cargarSesiones();
+    await cargarDatosGlobales();
 }
 
 function copiarEnlace() {
@@ -534,6 +799,7 @@ async function crearSesion() {
     document.getElementById('sesion-tema').value = '';
     document.getElementById('sesion-contenido').value = '';
     await cargarSesiones();
+    await cargarDatosGlobales();
 }
 
 // ---- ASISTENCIA ----
@@ -616,6 +882,7 @@ async function cambiarEstadoInscripcion(inscripcionId, nuevoEstado) {
     const { error } = await supabaseClient.from('inscripciones').update({ estado: nuevoEstado }).eq('id', inscripcionId);
     if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
     await cargarEstudiantes();
+    await cargarDatosGlobales();
 }
 
 function verFicha(nombre, telefono, estado, fechaInscripcion) {
