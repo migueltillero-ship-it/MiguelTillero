@@ -2581,8 +2581,8 @@ body { animation: pageFadeIn 0.5s ease; }
 <div id="video-intro">
   <!-- El vídeo de fondo (silencioso en preview) — fuente elegida por JS según orientación -->
   <video id="intro-video" autoplay muted playsinline loop
-         data-src-h="4k.mp4"
-         data-src-v="4k.mp4"
+         data-src-h="bienvenida.mp4"
+         data-src-v="bienvenida.mp4"
          preload="auto"></video>
 
   <!-- Branding central sobre el vídeo -->
@@ -3753,8 +3753,11 @@ window.addEventListener('DOMContentLoaded', function() {
     introVid.removeAttribute('muted');
     introVid.volume = 1.0;
     introVid.currentTime = 0;
+    /* Si el vídeo no arranca (códec no soportado, descarga fallida), entramos
+       igual: antes la promesa se descartaba en silencio y el visitante se
+       quedaba con la pantalla bloqueada hasta el tope de seguridad. */
     var playP = introVid.play();
-    if (playP && playP.catch) playP.catch(function(){});
+    if (playP && playP.catch) playP.catch(closeIntro);
     startProgress();
 
     /* Precargamos la música mientras corre el vídeo para que entre sin corte.
@@ -3772,6 +3775,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
     /* Cuando el vídeo termina → cerrar intro */
     introVid.addEventListener('ended', closeIntro, { once: true });
+    introVid.addEventListener('error', closeIntro, { once: true });
 
     /* Botón "Saltar" por si quiere entrar antes */
     var skip = document.createElement('button');
@@ -3780,8 +3784,9 @@ window.addEventListener('DOMContentLoaded', function() {
     skip.onclick = closeIntro;
     if (introEl) introEl.appendChild(skip);
 
-    /* Seguridad: cerrar a los 90s */
-    safetyT1 = setTimeout(closeIntro, 90000);
+    /* Seguridad: el vídeo dura 11 s, así que a los 25 algo ha ido mal y no
+       tiene sentido seguir reteniendo la pantalla. */
+    safetyT1 = setTimeout(closeIntro, 25000);
   };
 
 }); /* fin DOMContentLoaded */
