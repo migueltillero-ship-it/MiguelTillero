@@ -6,10 +6,13 @@
 
 function mostrarAvisoSinConfigurar(elId) {
   const el = document.getElementById(elId);
-  if (el) {
-    el.style.display = 'block';
-    el.textContent = 'La plataforma aún no está conectada a la base de datos. Miguel: pega la URL y la anon key de tu proyecto Supabase en assets/js/supabase-config.js para activarla.';
-  }
+  if (!el) return;
+  el.style.display = 'block';
+  /* Dos causas muy distintas: o faltan las credenciales, que es cosa de
+     Miguel, o no llegó la librería, que es cosa del visitante. */
+  el.textContent = window.supabase
+    ? 'La plataforma aún no está conectada a la base de datos. Miguel: pega la URL y la anon key de tu proyecto Supabase en assets/js/supabase-config.js para activarla.'
+    : 'No pudimos cargar la plataforma. Revisa tu conexión y vuelve a intentarlo. Si usas un bloqueador de anuncios, desactívalo en esta página.';
 }
 
 /**
