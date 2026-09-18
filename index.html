@@ -1660,6 +1660,55 @@ body.intro-active { overflow: hidden; }
   #vendredi-fab .vf-text { display: none; }
 }
 
+/* ── POPUP DE PROXIMO EVENTO ── */
+#event-popup {
+  position: fixed; top: 6.5rem; right: 1.5rem; z-index: 970;
+  width: min(320px, calc(100vw - 2rem));
+  background: rgba(255,255,255,0.97);
+  border: 1px solid rgba(201,169,110,0.4);
+  border-radius: var(--r-md, 18px);
+  box-shadow: 0 24px 60px -20px rgba(20,45,32,0.35), 0 0 0 1px rgba(201,169,110,0.08);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  padding: 1.3rem 1.4rem 1.5rem;
+  transform: translateX(120%); opacity: 0; pointer-events: none;
+  transition: transform 0.6s cubic-bezier(.16,1,.3,1), opacity 0.6s ease;
+}
+#event-popup.show { transform: translateX(0); opacity: 1; pointer-events: auto; }
+#event-popup .ep-close {
+  position: absolute; top: 0.6rem; right: 0.7rem;
+  background: none; border: none; color: var(--muted); font-size: 0.85rem;
+  cursor: pointer; width: 1.7rem; height: 1.7rem; display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; transition: all 0.25s;
+}
+#event-popup .ep-close:hover { background: rgba(201,169,110,0.15); color: var(--gold); }
+#event-popup .ep-eyebrow {
+  font-family: 'Space Mono', monospace; font-size: 0.56rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--gold); margin: 0 0 0.55rem; display: flex; align-items: center; gap: 0.4rem;
+}
+#event-popup .ep-eyebrow .ep-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); animation: epPulse 1.8s infinite; }
+@keyframes epPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+#event-popup h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.35rem; line-height: 1.15; color: var(--text); margin: 0 0 0.5rem; }
+#event-popup .ep-when {
+  font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.05em; color: var(--text);
+  background: rgba(201,169,110,0.12); border: 1px solid rgba(201,169,110,0.25);
+  border-radius: 999px; padding: 0.35rem 0.75rem; display: inline-flex; align-items: center; gap: 0.4rem;
+  margin-bottom: 0.7rem;
+}
+#event-popup p.ep-desc { font-size: 0.8rem; line-height: 1.6; color: var(--muted); margin: 0 0 1.1rem; }
+#event-popup .ep-btns { display: flex; gap: 0.6rem; }
+#event-popup .ep-btn {
+  flex: 1; text-align: center; padding: 0.6rem 0.7rem; border-radius: 999px;
+  font-family: 'Syne', sans-serif; font-size: 0.74rem; font-weight: 600; text-decoration: none;
+  transition: all 0.25s; white-space: nowrap;
+}
+#event-popup .ep-btn.primary { background: var(--gold); color: #fff; }
+#event-popup .ep-btn.primary:hover { background: var(--gold2); transform: translateY(-2px); }
+#event-popup .ep-btn.ghost { background: transparent; border: 1px solid var(--border); color: var(--text); }
+#event-popup .ep-btn.ghost:hover { border-color: var(--gold); color: var(--gold); }
+@media (max-width: 560px) {
+  #event-popup { left: 1rem; right: 1rem; width: auto; top: 5.5rem; }
+}
+
 
 /* ── SKILL TAGS ── */
 .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; padding-top: 1.3rem; border-top: 1px solid rgba(201,169,110,0.15); }
@@ -2639,6 +2688,22 @@ body { animation: pageFadeIn 0.5s ease; }
   </a>
 </div>
 
+<!-- POPUP DE PROXIMO EVENTO — contenido real desde public.eventos (ver assets/js/eventos-publicos.js) -->
+<div id="event-popup" role="dialog" aria-label="Proximo evento">
+  <button class="ep-close" id="event-popup-close" aria-label="Cerrar" data-es-aria="Cerrar" data-fr-aria="Fermer" data-en-aria="Close"><i class="fa fa-times"></i></button>
+  <p class="ep-eyebrow"><span class="ep-dot"></span><span data-es="Próximo evento" data-fr="Prochain événement" data-en="Upcoming event">Próximo evento</span></p>
+  <h3 id="ep-titulo"></h3>
+  <span class="ep-when"><i class="fa fa-calendar-days"></i> <span id="ep-fecha"></span></span>
+  <p class="ep-desc" id="ep-descripcion"></p>
+  <div class="ep-btns">
+    <a href="index.html#proximo-evento" class="ep-btn primary" data-es="Ver detalles" data-fr="Voir les détails" data-en="See details">Ver detalles</a>
+    <a href="#" target="_blank" rel="noopener" class="ep-btn ghost" id="ep-btn-accion">WhatsApp</a>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/eventos-publicos.js"></script>
+
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobile-menu">
   <a href="index.html" data-route="inicio" data-es="Inicio" data-fr="Accueil" data-en="Home">Inicio</a>
@@ -2825,6 +2890,29 @@ body { animation: pageFadeIn 0.5s ease; }
     </div>
   </div>
 </section>
+<section id="proximo-evento" class="z10" data-page="inicio">
+  <div class="container">
+    <div class="panel bracket reveal" style="max-width:840px;margin:0 auto;padding:clamp(1.8rem,4vw,3rem);display:grid;grid-template-columns:auto 1fr;gap:clamp(1.5rem,4vw,2.5rem);align-items:center;">
+      <div style="text-align:center;padding:0 0.4rem;">
+        <div style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;" data-es="Próximo evento" data-fr="Prochain événement" data-en="Upcoming event">Próximo evento</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:2.6rem;line-height:1;color:var(--text);" id="pe-dia">—</div>
+        <div style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-top:0.3rem;" id="pe-mes"></div>
+      </div>
+      <div>
+        <div style="display:flex;align-items:center;gap:0.7rem;flex-wrap:wrap;margin-bottom:0.6rem;">
+          <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(1.5rem,3vw,2.1rem);color:var(--text);margin:0;" id="pe-titulo"></h2>
+          <span class="af-chip em" id="pe-chip">Entrada libre</span>
+        </div>
+        <p style="font-size:0.62rem;font-family:'Space Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin:0 0 0.8rem;"><i class="fa fa-clock"></i> <span id="pe-cuando"></span></p>
+        <p style="font-size:0.9rem;color:var(--muted);line-height:1.75;margin:0 0 1.3rem;" id="pe-descripcion"></p>
+        <a href="#" target="_blank" rel="noopener" class="btn btn-gold" id="pe-btn-accion">
+          <i class="fab fa-whatsapp"></i>
+          <span>Escribir por WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 <section id="video-reel" class="alt z10" data-page="inicio">
   <div class="container">
     <div class="sec-head reveal" style="text-align:center;margin-bottom:3rem;">
@@ -2852,6 +2940,24 @@ body { animation: pageFadeIn 0.5s ease; }
         </div>
         <div class="video-meta">
           <span class="vtag">MT · FLE</span>
+          <span data-es="Clic para reproducir" data-fr="Cliquer pour lire" data-en="Click to play">Clic para reproducir</span>
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="video-wrapper reveal bracket">
+          <div class="v-corner tl"></div>
+          <div class="v-corner tr"></div>
+          <div class="v-corner bl"></div>
+          <div class="v-corner br"></div>
+          <video preload="metadata" playsinline poster="assets/images/portrait-miguel-1.jpg">
+            <source src="vendredi-entre-amis-promo.mp4" type="video/mp4">
+          </video>
+          <div class="video-play-overlay">
+            <div class="play-circle"><i class="fa fa-play"></i></div>
+          </div>
+        </div>
+        <div class="video-meta">
+          <span class="vtag" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</span>
           <span data-es="Clic para reproducir" data-fr="Cliquer pour lire" data-en="Click to play">Clic para reproducir</span>
         </div>
       </div>

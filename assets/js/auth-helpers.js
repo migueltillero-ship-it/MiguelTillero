@@ -73,8 +73,12 @@ async function requerirSesion(rolRequerido) {
     window.location.href = 'login.html';
     return null;
   }
-  if (rolRequerido && contexto.perfil.role !== rolRequerido) {
-    window.location.href = contexto.perfil.role === 'docente' ? 'panel-docente.html' : 'panel-estudiante.html';
+  const rol = contexto.perfil.role;
+  // 'admin' cumple también los requisitos de 'docente': en esta plataforma,
+  // por ahora, la coordinación general es la misma persona que da clases.
+  const cumpleRol = !rolRequerido || rol === rolRequerido || (rolRequerido === 'docente' && rol === 'admin');
+  if (!cumpleRol) {
+    window.location.href = (rol === 'docente' || rol === 'admin') ? 'panel-docente.html' : 'panel-estudiante.html';
     return null;
   }
   return contexto;

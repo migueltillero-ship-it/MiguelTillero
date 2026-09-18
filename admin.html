@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel admin | Miguel Tillero</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root { --bg-color: #eef0e5; --primary-color: #8c734b; --primary-hover: #6f552f; --text-dark: #1a2e24; --text-light: #5a665f; --card-bg: #ffffff; --accent-green: #2b4535; --border: rgba(165,130,74,0.3); --danger:#a13324; --ok:#2b4535;
+--r-xs: 8px; --r-sm: 14px; --r-md: 18px; --r-pill: 999px; --shadow-card: 0 4px 20px rgba(20,45,32,0.07), 0 1px 2px rgba(20,45,32,0.05);}
+* { box-sizing: border-box; }
+body { background-color: var(--bg-color); color: var(--text-dark); font-family: 'Syne', sans-serif; margin: 0; padding: 0; }
+nav.main-nav { background: #ffffff; border-bottom: 1px solid rgba(43, 69, 53, 0.2); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap:wrap; gap:0.8rem; }
+.nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--accent-green); text-decoration: none; }
+.nav-right { display:flex; align-items:center; gap:1rem; font-family:'Space Mono',monospace; font-size:0.72rem; }
+.nav-right a, .nav-right button { color: var(--primary-color); text-decoration:none; background:none; border:none; cursor:pointer; font-family:'Space Mono',monospace; font-size:0.72rem; }
+main { padding: 2rem 5% 4rem; max-width: 1200px; margin: 0 auto; }
+h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--accent-green); margin: 0 0 0.3rem;}
+.muted { color: var(--text-light); font-size:0.9rem; margin: 0 0 1.6rem; }
+.panel { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--r-md); box-shadow: var(--shadow-card); padding: 1.6rem; margin-bottom: 1.6rem; }
+.panel h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--accent-green); margin: 0 0 1rem; }
+.btn { background: var(--primary-color); color:#fff; border:none; padding:0.7rem 1.3rem; border-radius:var(--r-pill); font-family:'Syne',sans-serif; font-weight:600; font-size:0.85rem; cursor:pointer; }
+.btn:hover { background: var(--primary-hover); }
+.btn.secundario { background:transparent; color:var(--accent-green); border:1px solid var(--border); }
+.btn.pequeno { padding:0.4rem 0.9rem; font-size:0.75rem; }
+.btn.peligro { background: var(--danger); }
+.form-field { margin-bottom: 0.9rem; }
+.form-field label { display:block; font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent-green); margin-bottom:0.35rem; }
+.form-field input, .form-field select, .form-field textarea { width:100%; padding:0.7rem; border:1px solid var(--border); border-radius:8px; font-family:'Syne',sans-serif; font-size:0.9rem; }
+.form-field.chk { display:flex; align-items:center; gap:0.5rem; }
+.form-field.chk input { width:auto; }
+.form-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); gap:0.9rem; }
+table { width:100%; border-collapse: collapse; font-size:0.85rem; }
+th, td { text-align:left; padding:0.6rem 0.5rem; border-bottom:1px solid var(--border); }
+th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-light); }
+.tabs { display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1.4rem; }
+.tab-btn { background:none; border:1px solid var(--border); padding:0.55rem 1.1rem; border-radius:var(--r-pill); font-family:'Space Mono',monospace; font-size:0.65rem; letter-spacing:0.06em; text-transform:uppercase; cursor:pointer; color:var(--text-dark); }
+.tab-btn.activo { background:var(--accent-green); color:#fff; border-color:var(--accent-green); }
+.tab-content { display:none; }
+.tab-content.activo { display:block; }
+.badge { font-family:'Space Mono',monospace; font-size:0.6rem; text-transform:uppercase; padding:0.2rem 0.55rem; border-radius:var(--r-pill); }
+.badge.abierto, .badge.pagado, .badge.activo, .badge.emitida { background:rgba(43,69,53,0.12); color:var(--accent-green); }
+.badge.pendiente, .badge.procesando, .badge.solicitada, .badge.en_proceso { background:rgba(140,115,75,0.15); color:var(--primary-color); }
+.badge.rechazado, .badge.cancelada, .badge.cerrado { background:rgba(161,51,36,0.1); color:var(--danger); }
+.badge.finalizado, .badge.inactivo { background:rgba(90,102,95,0.15); color:var(--text-light); }
+.msg { margin-top: 0.8rem; padding: 0.7rem 0.9rem; border-radius: var(--r-xs); font-size: 0.82rem; display:none; }
+.msg.error { background: rgba(180,50,40,0.1); color: var(--danger); border: 1px solid rgba(180,50,40,0.25); }
+.msg.ok { background: rgba(43,69,53,0.1); color: var(--accent-green); border: 1px solid rgba(43,69,53,0.25); }
+.acciones-fila { display:flex; gap:0.4rem; flex-wrap:wrap; }
+.stats-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:1rem; margin-bottom:1.6rem; }
+.stat-box { background:var(--card-bg); border:1px solid var(--border); border-radius:var(--r-sm); padding:1.1rem; text-align:center; }
+.stat-box .num { font-family:'Cormorant Garamond',serif; font-size:1.9rem; color:var(--accent-green); }
+.stat-box .lbl { font-family:'Space Mono',monospace; font-size:0.58rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-light); }
+details.form-toggle > summary { cursor:pointer; font-family:'Space Mono',monospace; font-size:0.65rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--primary-color); margin-bottom:1rem; }
+</style>
+</head>
+<body>
+<nav class="main-nav">
+    <a href="index.html" class="nav-brand">Miguel Tillero · Panel admin</a>
+    <div class="nav-right">
+        <span id="nombre-admin"></span>
+        <a href="panel-docente.html">Panel docente</a>
+        <button onclick="cerrarSesion()"><i class="fa-solid fa-right-from-bracket"></i> Salir</button>
+    </div>
+</nav>
+
+<main>
+    <div id="aviso-config" class="msg error" style="display:none; margin-bottom:1.5rem;"></div>
+    <div id="contenido-panel" style="display:none;">
+        <h1>Panel administrativo</h1>
+        <p class="muted">Grupos, docentes, finanzas, eventos y constancias — la vista completa de la plataforma.</p>
+
+        <div class="tabs">
+            <button class="tab-btn activo" data-tab="grupos" onclick="cambiarTabPrincipal('grupos')"><i class="fa-solid fa-users-rectangle"></i> Grupos</button>
+            <button class="tab-btn" data-tab="docentes" onclick="cambiarTabPrincipal('docentes')"><i class="fa-solid fa-chalkboard-user"></i> Docentes</button>
+            <button class="tab-btn" data-tab="finanzas" onclick="cambiarTabPrincipal('finanzas')"><i class="fa-solid fa-sack-dollar"></i> Finanzas</button>
+            <button class="tab-btn" data-tab="eventos" onclick="cambiarTabPrincipal('eventos')"><i class="fa-solid fa-calendar-days"></i> Eventos</button>
+            <button class="tab-btn" data-tab="constancias" onclick="cambiarTabPrincipal('constancias')"><i class="fa-solid fa-certificate"></i> Constancias</button>
+        </div>
+
+        <!-- ═══ GRUPOS ═══ -->
+        <div class="tab-content activo" id="tabp-grupos">
+            <section class="panel">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+                    <h2 style="margin:0;">Grupos</h2>
+                    <button class="btn" onclick="mostrarFormNuevoGrupo()"><i class="fa-solid fa-plus"></i> Nuevo grupo</button>
+                </div>
+                <p class="muted" style="margin:0.4rem 0 0;">Un grupo es una instancia concreta de un curso: horario, cupo, docente y costo. Un mismo curso puede tener varios grupos (en línea, presencial, otro horario...).</p>
+
+                <div id="form-nuevo-grupo" style="display:none; margin-top:1.4rem; border-top:1px solid var(--border); padding-top:1.4rem;">
+                    <div class="form-grid">
+                        <div class="form-field"><label>Código *</label><input id="ng-codigo" placeholder="Ej. B2-LUN-2026"></div>
+                        <div class="form-field"><label>Curso *</label><select id="ng-curso"></select></div>
+                        <div class="form-field"><label>Docente</label><select id="ng-docente"><option value="">— Sin asignar —</option></select></div>
+                        <div class="form-field"><label>Formato</label><select id="ng-formato"><option value="grupal">Grupal</option><option value="individual">Individual</option></select></div>
+                        <div class="form-field"><label>Modalidad</label><select id="ng-modalidad"><option value="virtual">Virtual</option><option value="presencial">Presencial</option></select></div>
+                        <div class="form-field"><label>Cupo máximo</label><input id="ng-cupo" type="number" min="1" value="8"></div>
+                        <div class="form-field"><label>Fecha inicio *</label><input id="ng-inicio" type="date"></div>
+                        <div class="form-field"><label>Fecha cierre</label><input id="ng-fin" type="date"></div>
+                        <div class="form-field"><label>Costo</label><input id="ng-costo" type="number" min="0" step="0.01"></div>
+                        <div class="form-field"><label>Moneda</label><input id="ng-moneda" value="MXN"></div>
+                        <div class="form-field"><label>Estado</label>
+                            <select id="ng-estado">
+                                <option value="abierto">Abierto</option>
+                                <option value="cerrado">Cerrado</option>
+                                <option value="en_curso">En curso</option>
+                                <option value="finalizado">Finalizado</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-field"><label>Notas</label><textarea id="ng-notas" rows="2"></textarea></div>
+                    <button class="btn" onclick="crearGrupo()"><i class="fa-solid fa-check"></i> Crear grupo</button>
+                    <button class="btn secundario" onclick="document.getElementById('form-nuevo-grupo').style.display='none'">Cancelar</button>
+                    <div id="msg-nuevo-grupo" class="msg"></div>
+                </div>
+
+                <table style="margin-top:1.4rem;">
+                    <thead><tr><th>Código</th><th>Curso</th><th>Docente</th><th>Cupo</th><th>Inicio</th><th>Estado</th><th>Acciones</th></tr></thead>
+                    <tbody id="tabla-grupos"></tbody>
+                </table>
+                <div id="msg-grupos" class="msg"></div>
+            </section>
+        </div>
+
+        <!-- ═══ DOCENTES ═══ -->
+        <div class="tab-content" id="tabp-docentes">
+            <section class="panel">
+                <h2>Roster de docentes</h2>
+                <p class="muted">Miguel ya existe como docente/admin. Para sumar otro profesor: primero esa persona crea su cuenta de estudiante en <a href="registro/inscripcion.html">el registro público</a>, y aquí la promueves a docente.</p>
+
+                <div class="form-grid" style="align-items:end; max-width:600px;">
+                    <div class="form-field"><label>Promover un perfil existente a docente</label><select id="doc-promover-select"></select></div>
+                    <button class="btn pequeno" onclick="promoverADocente()" style="height:fit-content;"><i class="fa-solid fa-arrow-up"></i> Promover</button>
+                </div>
+                <div id="msg-promover" class="msg"></div>
+
+                <table style="margin-top:1.4rem;">
+                    <thead><tr><th>Nombre</th><th>Rol</th><th>Teléfono</th><th>Desde</th></tr></thead>
+                    <tbody id="tabla-docentes"></tbody>
+                </table>
+            </section>
+        </div>
+
+        <!-- ═══ FINANZAS ═══ -->
+        <div class="tab-content" id="tabp-finanzas">
+            <div class="stats-row">
+                <div class="stat-box"><div class="num" id="fin-cobrado">—</div><div class="lbl">Cobrado</div></div>
+                <div class="stat-box"><div class="num" id="fin-pendiente">—</div><div class="lbl">Pendiente de cobro</div></div>
+                <div class="stat-box"><div class="num" id="fin-egresos">—</div><div class="lbl">Egresos</div></div>
+                <div class="stat-box"><div class="num" id="fin-balance">—</div><div class="lbl">Balance neto</div></div>
+            </div>
+
+            <section class="panel">
+                <h2>Registrar pago</h2>
+                <div class="form-grid">
+                    <div class="form-field" style="grid-column:1/-1;"><label>Inscripción *</label><select id="pg-inscripcion"></select></div>
+                    <div class="form-field"><label>Monto *</label><input id="pg-monto" type="number" min="0" step="0.01"></div>
+                    <div class="form-field"><label>Moneda</label><input id="pg-moneda" value="MXN"></div>
+                    <div class="form-field"><label>Concepto</label><input id="pg-concepto" placeholder="Ej. Colegiatura septiembre"></div>
+                    <div class="form-field"><label>Estado</label>
+                        <select id="pg-estado">
+                            <option value="pagado">Pagado</option>
+                            <option value="pendiente">Pendiente</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn pequeno" onclick="crearPago()"><i class="fa-solid fa-plus"></i> Registrar pago</button>
+                <div id="msg-pago" class="msg"></div>
+                <table style="margin-top:1.2rem;">
+                    <thead><tr><th>Fecha</th><th>Estudiante</th><th>Concepto</th><th>Monto</th><th>Estado</th></tr></thead>
+                    <tbody id="tabla-pagos"></tbody>
+                </table>
+            </section>
+
+            <section class="panel">
+                <h2>Registrar egreso</h2>
+                <div class="form-grid">
+                    <div class="form-field"><label>Concepto *</label><input id="eg-concepto" placeholder="Ej. Pago a docente, plataforma Zoom..."></div>
+                    <div class="form-field"><label>Categoría</label><input id="eg-categoria"></div>
+                    <div class="form-field"><label>Monto *</label><input id="eg-monto" type="number" min="0" step="0.01"></div>
+                    <div class="form-field"><label>Moneda</label><input id="eg-moneda" value="MXN"></div>
+                    <div class="form-field"><label>Fecha</label><input id="eg-fecha" type="date"></div>
+                    <div class="form-field"><label>Docente relacionado</label><select id="eg-docente"><option value="">— Ninguno —</option></select></div>
+                </div>
+                <button class="btn pequeno" onclick="crearEgreso()"><i class="fa-solid fa-plus"></i> Registrar egreso</button>
+                <div id="msg-egreso" class="msg"></div>
+                <table style="margin-top:1.2rem;">
+                    <thead><tr><th>Fecha</th><th>Concepto</th><th>Categoría</th><th>Monto</th></tr></thead>
+                    <tbody id="tabla-egresos"></tbody>
+                </table>
+            </section>
+        </div>
+
+        <!-- ═══ EVENTOS ═══ -->
+        <div class="tab-content" id="tabp-eventos">
+            <section class="panel">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+                    <h2 style="margin:0;">Eventos</h2>
+                    <button class="btn" onclick="mostrarFormNuevoEvento()"><i class="fa-solid fa-plus"></i> Nuevo evento</button>
+                </div>
+                <p class="muted" style="margin:0.4rem 0 0;">El próximo evento publicado y vigente es el que aparece en el popup y en la sección "Próximo evento" del sitio público.</p>
+
+                <div id="form-nuevo-evento" style="display:none; margin-top:1.4rem; border-top:1px solid var(--border); padding-top:1.4rem;">
+                    <div class="form-grid">
+                        <div class="form-field" style="grid-column:1/-1;"><label>Título *</label><input id="nev-titulo" placeholder="Ej. Iniciación al francés — clase abierta"></div>
+                        <div class="form-field"><label>Fecha *</label><input id="nev-fecha" type="date"></div>
+                        <div class="form-field"><label>Hora inicio</label><input id="nev-hora-inicio" type="time"></div>
+                        <div class="form-field"><label>Hora fin</label><input id="nev-hora-fin" type="time"></div>
+                        <div class="form-field"><label>Lugar</label><input id="nev-lugar"></div>
+                        <div class="form-field"><label>Modalidad</label>
+                            <select id="nev-modalidad"><option value="presencial">Presencial</option><option value="virtual">Virtual</option><option value="hibrido">Híbrido</option></select>
+                        </div>
+                        <div class="form-field chk"><input type="checkbox" id="nev-libre" checked><label style="margin:0;">Entrada libre</label></div>
+                        <div class="form-field"><label>Costo (si no es libre)</label><input id="nev-costo" type="number" min="0" step="0.01"></div>
+                        <div class="form-field"><label>Texto del botón</label><input id="nev-texto-accion" placeholder="Ej. Escribir por WhatsApp"></div>
+                        <div class="form-field"><label>Enlace del botón</label><input id="nev-url-accion" placeholder="https://wa.me/..."></div>
+                        <div class="form-field chk"><input type="checkbox" id="nev-destacado"><label style="margin:0;">Destacado (popup + sección)</label></div>
+                        <div class="form-field chk"><input type="checkbox" id="nev-publicado" checked><label style="margin:0;">Publicado</label></div>
+                    </div>
+                    <div class="form-field"><label>Descripción</label><textarea id="nev-desc" rows="3"></textarea></div>
+                    <button class="btn" onclick="crearEvento()"><i class="fa-solid fa-check"></i> Guardar evento</button>
+                    <button class="btn secundario" onclick="document.getElementById('form-nuevo-evento').style.display='none'">Cancelar</button>
+                    <div id="msg-nuevo-evento" class="msg"></div>
+                </div>
+
+                <table style="margin-top:1.4rem;">
+                    <thead><tr><th>Fecha</th><th>Título</th><th>Publicado</th><th>Acciones</th></tr></thead>
+                    <tbody id="tabla-eventos"></tbody>
+                </table>
+            </section>
+        </div>
+
+        <!-- ═══ CONSTANCIAS ═══ -->
+        <div class="tab-content" id="tabp-constancias">
+            <section class="panel">
+                <h2>Tipos de constancia</h2>
+                <div class="form-grid">
+                    <div class="form-field"><label>Nombre *</label><input id="tc-nombre" placeholder="Ej. Constancia de nivel A1"></div>
+                    <div class="form-field"><label>Costo</label><input id="tc-costo" type="number" min="0" step="0.01" value="0"></div>
+                    <div class="form-field"><label>Moneda</label><input id="tc-moneda" value="MXN"></div>
+                </div>
+                <div class="form-field"><label>Descripción</label><input id="tc-desc"></div>
+                <button class="btn pequeno" onclick="crearTipoConstancia()"><i class="fa-solid fa-plus"></i> Añadir tipo</button>
+                <div id="msg-tipo-constancia" class="msg"></div>
+                <table style="margin-top:1.2rem;">
+                    <thead><tr><th>Nombre</th><th>Costo</th><th>Activo</th></tr></thead>
+                    <tbody id="tabla-tipos-constancia"></tbody>
+                </table>
+            </section>
+
+            <section class="panel">
+                <h2>Solicitudes</h2>
+                <table>
+                    <thead><tr><th>Fecha</th><th>Estudiante</th><th>Tipo</th><th>Estado</th><th>Acciones</th></tr></thead>
+                    <tbody id="tabla-solicitudes"></tbody>
+                </table>
+                <div id="msg-solicitudes" class="msg"></div>
+            </section>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/js/supabase-config.js?v=1789151573"></script>
+<script src="assets/js/auth-helpers.js?v=1789151573"></script>
+<script>
+let perfilAdmin = null;
+let cursosCache = [];
+let docentesCache = [];
+let gruposCache = [];
+let inscripcionesCache = [];
+
+function mostrarMsg(el, texto, tipo) {
+    el.textContent = texto;
+    el.className = 'msg ' + tipo;
+    el.style.display = 'block';
+}
+function esc(s) {
+    return (s || '').toString().replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+function money(n, moneda) {
+    if (n === null || n === undefined) return '—';
+    return Number(n).toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' ' + (moneda || 'MXN');
+}
+
+function cambiarTabPrincipal(tab) {
+    document.querySelectorAll('.tabs > .tab-btn').forEach(b => b.classList.toggle('activo', b.dataset.tab === tab));
+    document.querySelectorAll('#contenido-panel > .tab-content').forEach(c => c.classList.toggle('activo', c.id === 'tabp-' + tab));
+}
+
+async function iniciar() {
+    if (!supabaseConfigurado) { mostrarAvisoSinConfigurar('aviso-config'); return; }
+    const contexto = await requerirSesion('admin');
+    if (!contexto) return;
+    perfilAdmin = contexto.perfil;
+    document.getElementById('nombre-admin').textContent = perfilAdmin.nombre_completo;
+    document.getElementById('contenido-panel').style.display = 'block';
+
+    await Promise.all([cargarCursos(), cargarDocentes(), cargarInscripcionesTodas()]);
+    await cargarGrupos();
+    await cargarFinanzas();
+    await cargarEventos();
+    await cargarConstancias();
+}
+
+// ───────────────────────── GRUPOS ─────────────────────────
+async function cargarCursos() {
+    const { data } = await supabaseClient.from('cursos').select('id, nombre, nivel').order('nombre');
+    cursosCache = data || [];
+    document.getElementById('ng-curso').innerHTML = cursosCache.map(c => `<option value="${c.id}">${esc(c.nombre)}${c.nivel ? ' — ' + esc(c.nivel) : ''}</option>`).join('') || '<option value="">Sin cursos — crea uno primero desde el panel docente</option>';
+}
+
+async function cargarDocentes() {
+    const { data } = await supabaseClient.from('profiles').select('id, nombre_completo, role, telefono, created_at').in('role', ['docente','admin']).order('nombre_completo');
+    docentesCache = data || [];
+    const opcionesDocente = '<option value="">— Sin asignar —</option>' + docentesCache.map(d => `<option value="${d.id}">${esc(d.nombre_completo)}</option>`).join('');
+    document.getElementById('ng-docente').innerHTML = opcionesDocente;
+    document.getElementById('eg-docente').innerHTML = '<option value="">— Ninguno —</option>' + docentesCache.map(d => `<option value="${d.id}">${esc(d.nombre_completo)}</option>`).join('');
+
+    document.getElementById('tabla-docentes').innerHTML = docentesCache.map(d => `
+        <tr><td>${esc(d.nombre_completo)}</td><td><span class="badge activo">${esc(d.role)}</span></td><td>${esc(d.telefono) || '—'}</td><td>${new Date(d.created_at).toLocaleDateString()}</td></tr>
+    `).join('') || '<tr><td colspan="4" class="muted">Sin docentes todavía.</td></tr>';
+
+    const { data: estudiantes } = await supabaseClient.from('profiles').select('id, nombre_completo').eq('role', 'estudiante').order('nombre_completo');
+    document.getElementById('doc-promover-select').innerHTML = (estudiantes || []).map(e => `<option value="${e.id}">${esc(e.nombre_completo)}</option>`).join('') || '<option value="">Sin estudiantes registrados</option>';
+}
+
+async function promoverADocente() {
+    const id = document.getElementById('doc-promover-select').value;
+    const msgEl = document.getElementById('msg-promover');
+    if (!id) { mostrarMsg(msgEl, 'Selecciona un perfil.', 'error'); return; }
+    const { error } = await supabaseClient.from('profiles').update({ role: 'docente' }).eq('id', id);
+    if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
+    mostrarMsg(msgEl, 'Perfil promovido a docente.', 'ok');
+    await cargarDocentes();
+}
+
+async function cargarInscripcionesTodas() {
+    const { data } = await supabaseClient.from('inscripciones').select('id, estudiante_id, grupo_id, estado');
+    inscripcionesCache = data || [];
+    const ids = [...new Set(inscripcionesCache.map(i => i.estudiante_id))];
+    let perfiles = [];
+    if (ids.length) {
+        const { data: p } = await supabaseClient.from('profiles').select('id, nombre_completo').in('id', ids);
+        perfiles = p || [];
+    }
+    const nombrePorId = {};
+    perfiles.forEach(p => nombrePorId[p.id] = p.nombre_completo);
+    document.getElementById('pg-inscripcion').innerHTML = inscripcionesCache.map(i =>
+        `<option value="${i.id}">${esc(nombrePorId[i.estudiante_id] || '(desconocido)')} — ${esc(i.estado)}</option>`
+    ).join('') || '<option value="">Sin inscripciones todavía</option>';
+    window.__nombrePorEstudianteId = nombrePorId;
+}
+
+function mostrarFormNuevoGrupo() { document.getElementById('form-nuevo-grupo').style.display = 'block'; }
+
+async function crearGrupo() {
+    const msgEl = document.getElementById('msg-nuevo-grupo');
+    const codigo = document.getElementById('ng-codigo').value.trim();
+    const curso_id = document.getElementById('ng-curso').value;
+    const fecha_inicio = document.getElementById('ng-inicio').value;
+    if (!codigo || !curso_id || !fecha_inicio) { mostrarMsg(msgEl, 'Código, curso y fecha de inicio son obligatorios.', 'error'); return; }
+
+    const { error } = await supabaseClient.from('grupos').insert({
+        codigo, curso_id,
+        docente_id: document.getElementById('ng-docente').value || null,
+        formato: document.getElementById('ng-formato').value,
+        modalidad: document.getElementById('ng-modalidad').value,
+        cupo_maximo: document.getElementById('ng-cupo').value || 8,
+        fecha_inicio,
+        fecha_fin: document.getElementById('ng-fin').value || null,
+        costo: document.getElementById('ng-costo').value || null,
+        moneda: document.getElementById('ng-moneda').value || 'MXN',
+        estado: document.getElementById('ng-estado').value,
+        notas: document.getElementById('ng-notas').value.trim() || null
+    });
+    if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
+    document.getElementById('form-nuevo-grupo').style.display = 'none';
+    ['ng-codigo','ng-inicio','ng-fin','ng-costo','ng-notas'].forEach(id => document.getElementById(id).value = '');
+    await cargarGrupos();
+}
+
+async function cargarGrupos() {
+    const { data } = await supabaseClient.from('grupos').select('*, cursos(nombre)').order('created_at', { ascending: false });
+    gruposCache = data || [];
+    const nombreDocentePorId = {};
+    docentesCache.forEach(d => nombreDocentePorId[d.id] = d.nombre_completo);
+
+    document.getElementById('tabla-grupos').innerHTML = gruposCache.map(g => `
+        <tr>
+            <td>${esc(g.codigo)}</td>
+            <td>${esc((g.cursos || {}).nombre || '—')}</td>
+            <td>${esc(nombreDocentePorId[g.docente_id] || '—')}</td>
+            <td>${g.cupo_actual}/${g.cupo_maximo}</td>
+            <td>${g.fecha_inicio || '—'}</td>
+            <td><span class="badge ${esc(g.estado)}">${esc(g.estado)}</span></td>
+            <td class="acciones-fila">
+                <button class="btn pequeno secundario" onclick="cambiarEstadoGrupo('${g.id}','cerrado')">Cerrar</button>
+                <button class="btn pequeno secundario" onclick="cambiarEstadoGrupo('${g.id}','finalizado')">Finalizar</button>
+            </td>
+        </tr>
+    `).join('') || '<tr><td colspan="7" class="muted">Sin grupos todavía.</td></tr>';
+}
+
+async function cambiarEstadoGrupo(id, estado) {
+    const { error } = await supabaseClient.from('grupos').update({ estado }).eq('id', id);
+    const msgEl = document.getElementById('msg-grupos');
+    if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
+    await cargarGrupos();
+}
+
+// ───────────────────────── FINANZAS ─────────────────────────
+async function cargarFinanzas() {
+    const { data: pagos } = await supabaseClient.from('pagos').select('*').order('created_at', { ascending: false });
+    const { data: egresos } = await supabaseClient.from('egresos').select('*').order('fecha', { ascending: false });
+
+    const cobrado = (pagos || []).filter(p => p.estado === 'pagado').reduce((s,p) => s + Number(p.monto), 0);
+    const pendiente = (pagos || []).filter(p => p.estado === 'pendiente' || p.estado === 'procesando').reduce((s,p) => s + Number(p.monto), 0);
+    const totalEgresos = (egresos || []).reduce((s,e) => s + Number(e.monto), 0);
+
+    document.getElementById('fin-cobrado').textContent = money(cobrado);
+    document.getElementById('fin-pendiente').textContent = money(pendiente);
+    document.getElementById('fin-egresos').textContent = money(totalEgresos);
+    document.getElementById('fin-balance').textContent = money(cobrado - totalEgresos);
+
+    const nombrePorId = window.__nombrePorEstudianteId || {};
+    const inscPorId = {};
+    inscripcionesCache.forEach(i => inscPorId[i.id] = i);
+
+    document.getElementById('tabla-pagos').innerHTML = (pagos || []).map(p => {
+        const insc = inscPorId[p.inscripcion_id];
+        const nombre = insc ? (nombrePorId[insc.estudiante_id] || '—') : '—';
+        return `<tr><td>${new Date(p.created_at).toLocaleDateString()}</td><td>${esc(nombre)}</td><td>${esc(p.concepto) || '—'}</td><td>${money(p.monto, p.moneda)}</td><td><span class="badge ${esc(p.estado)}">${esc(p.estado)}</span></td></tr>`;
+    }).join('') || '<tr><td colspan="5" class="muted">Sin pagos registrados.</td></tr>';
+
+    document.getElementById('tabla-egresos').innerHTML = (egresos || []).map(e => `
+        <tr><td>${e.fecha}</td><td>${esc(e.concepto)}</td><td>${esc(e.categoria) || '—'}</td><td>${money(e.monto, e.moneda)}</td></tr>
+    `).join('') || '<tr><td colspan="4" class="muted">Sin egresos registrados.</td></tr>';
+}
+
+async function crearPago() {
+    const msgEl = document.getElementById('msg-pago');
+    const inscripcion_id = document.getElementById('pg-inscripcion').value;
+    const monto = document.getElementById('pg-monto').value;
+    if (!inscripcion_id || !monto) { mostrarMsg(msgEl, 'Selecciona la inscripción e indica el monto.', 'error'); return; }
+    const estado = document.getElementById('pg-estado').value;
+    const { error } = await supabaseClient.from('pagos').insert({
+        inscripcion_id, monto,
+        moneda: document.getElementById('pg-moneda').value || 'MXN',
+        concepto: document.getElementById('pg-concepto').value.trim() || null,
+        estado, metodo: 'manual',
+        pagado_en: estado === 'pagado' ? new Date().toISOString() : null,
+        registrado_por: perfilAdmin.id
+    });
+    if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
+    document.getElementById('pg-monto').value = '';
+    document.getElementById('pg-concepto').value = '';
+    await cargarFinanzas();
+}
+
+async function crearEgreso() {
+    const msgEl = document.getElementById('msg-egreso');
+    const concepto = document.getElementById('eg-concepto').value.trim();
+    const monto = document.getElementById('eg-monto').value;
+    if (!concepto || !monto) { mostrarMsg(msgEl, 'El concepto y el monto son obligatorios.', 'error'); return; }
+    const { error } = await supabaseClient.from('egresos').insert({
+        concepto, monto,
+        categoria: document.getElementById('eg-categoria').value.trim() || null,
+        moneda: document.getElementById('eg-moneda').value || 'MXN',
+        fecha: document.getElementById('eg-fecha').value || new Date().toISOString().slice(0,10),
+        docente_id: document.getElementById('eg-docente').value || null,
+        registrado_por: perfilAdmin.id
+    });
+    if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
+    document.getElementById('eg-concepto').value = '';
+    document.getElementById('eg-monto').value = '';
+    await cargarFinanzas();
+}
+
+// ───────────────────────── EVENTOS ─────────────────────────
+function mostrarFormNuevoEvento() { document.getElementById('form-nuevo-evento').style.display = 'block'; }
+
+async function crearEvento() {
+    const msgEl = document.getElementById('msg-nuevo-evento');
+    const titulo = document.getElementById('nev-titulo').value.trim();
+    const fecha = document.getElementById('nev-fecha').value;
+    if (!titulo || !fecha) { mostrarMsg(msgEl, 'El título y la fecha son obligatorios.', 'error'); return; }
+    const { error } = await supabaseClient.from('eventos').insert({
+        titulo, fecha,
+        hora_inicio: document.getElementById('nev-hora-inicio').value || null,
+        hora_fin: document.getElementById('nev-hora-fin').value || null,
+        lugar: document.getElementById('nev-lugar').value.trim() || null,
+        modalidad: document.getElementById('nev-modalidad').value,
+        entrada_libre: document.getElementById('nev-libre').checked,
+        costo: document.getElementById('nev-costo').value || null,
+        url_accion: document.getElementById('nev-url-accion').value.trim() || null,
+        texto_accion: document.getElementById('nev-texto-accion').value.trim() || null,
+        destacado: document.getElementById('nev-destacado').checked,
+        publicado: document.getElementById('nev-publicado').checked,
+        descripcion: document.getElementById('nev-desc').value.trim() || null
+    });
+    if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
+    document.getElementById('form-nuevo-evento').style.display = 'none';
+    await cargarEventos();
+}
+
+async function cargarEventos() {
+    const { data } = await supabaseClient.from('eventos').select('*').order('fecha', { ascending: false });
+    document.getElementById('tabla-eventos').innerHTML = (data || []).map(e => `
+        <tr>
+            <td>${e.fecha}</td>
+            <td>${esc(e.titulo)}${e.destacado ? ' <i class="fa-solid fa-star" style="color:var(--primary-color)" title="Destacado"></i>' : ''}</td>
+            <td><span class="badge ${e.publicado ? 'activo' : 'inactivo'}">${e.publicado ? 'sí' : 'no'}</span></td>
+            <td class="acciones-fila">
+                <button class="btn pequeno secundario" onclick="alternarPublicadoEvento('${e.id}', ${!e.publicado})">${e.publicado ? 'Ocultar' : 'Publicar'}</button>
+                <button class="btn pequeno peligro" onclick="eliminarEvento('${e.id}')">Eliminar</button>
+            </td>
+        </tr>
+    `).join('') || '<tr><td colspan="4" class="muted">Sin eventos todavía.</td></tr>';
+}
+
+async function alternarPublicadoEvento(id, nuevoValor) {
+    await supabaseClient.from('eventos').update({ publicado: nuevoValor }).eq('id', id);
+    await cargarEventos();
+}
+async function eliminarEvento(id) {
+    if (!confirm('¿Eliminar este evento?')) return;
+    await supabaseClient.from('eventos').delete().eq('id', id);
+    await cargarEventos();
+}
+
+// ───────────────────────── CONSTANCIAS ─────────────────────────
+async function crearTipoConstancia() {
+    const msgEl = document.getElementById('msg-tipo-constancia');
+    const nombre = document.getElementById('tc-nombre').value.trim();
+    if (!nombre) { mostrarMsg(msgEl, 'El nombre es obligatorio.', 'error'); return; }
+    const { error } = await supabaseClient.from('tipos_constancia').insert({
+        nombre,
+        costo: document.getElementById('tc-costo').value || 0,
+        moneda: document.getElementById('tc-moneda').value || 'MXN',
+        descripcion: document.getElementById('tc-desc').value.trim() || null
+    });
+    if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
+    document.getElementById('tc-nombre').value = '';
+    document.getElementById('tc-desc').value = '';
+    await cargarConstancias();
+}
+
+async function cargarConstancias() {
+    const { data: tipos } = await supabaseClient.from('tipos_constancia').select('*').order('created_at');
+    document.getElementById('tabla-tipos-constancia').innerHTML = (tipos || []).map(t => `
+        <tr><td>${esc(t.nombre)}</td><td>${money(t.costo, t.moneda)}</td><td><span class="badge ${t.activo ? 'activo' : 'inactivo'}">${t.activo ? 'sí' : 'no'}</span></td></tr>
+    `).join('') || '<tr><td colspan="3" class="muted">Sin tipos de constancia todavía.</td></tr>';
+
+    const { data: solicitudes } = await supabaseClient.from('solicitudes_constancia').select('*, tipos_constancia(nombre)').order('created_at', { ascending: false });
+    const nombrePorId = window.__nombrePorEstudianteId || {};
+    const inscPorId = {};
+    inscripcionesCache.forEach(i => inscPorId[i.id] = i);
+
+    document.getElementById('tabla-solicitudes').innerHTML = (solicitudes || []).map(s => {
+        const insc = inscPorId[s.inscripcion_id];
+        const nombre = insc ? (nombrePorId[insc.estudiante_id] || '—') : '—';
+        return `<tr>
+            <td>${new Date(s.created_at).toLocaleDateString()}</td>
+            <td>${esc(nombre)}</td>
+            <td>${esc((s.tipos_constancia || {}).nombre || '—')}</td>
+            <td><span class="badge ${esc(s.estado)}">${esc(s.estado)}</span></td>
+            <td class="acciones-fila">
+                ${s.estado !== 'emitida' ? `<button class="btn pequeno" onclick="avanzarSolicitud('${s.id}')">Avanzar estado</button>` : ''}
+            </td>
+        </tr>`;
+    }).join('') || '<tr><td colspan="5" class="muted">Sin solicitudes todavía.</td></tr>';
+}
+
+async function avanzarSolicitud(id) {
+    const orden = ['solicitada','en_proceso','pagada','emitida'];
+    const { data } = await supabaseClient.from('solicitudes_constancia').select('estado').eq('id', id).single();
+    if (!data) return;
+    const i = orden.indexOf(data.estado);
+    const siguiente = orden[Math.min(i + 1, orden.length - 1)];
+    await supabaseClient.from('solicitudes_constancia').update({ estado: siguiente }).eq('id', id);
+    await cargarConstancias();
+}
+
+iniciar();
+</script>
+</body>
+</html>
