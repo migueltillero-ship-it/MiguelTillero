@@ -342,9 +342,22 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
 <script>
 let perfilDocente = null;
 let cursos = [];
+let grupos = []; // un grupo por curso (modelo actual de un solo docente): ver grupoDeCurso()
+let feriados = new Set(); // fechas (YYYY-MM-DD) a saltar al generar sesiones
 let cursoActualId = null;
 let sesionesActuales = [];
 let estudiantesActivosActuales = []; // [{id, nombre_completo, telefono}]
+
+function grupoDeCurso(cursoId) {
+    return grupos.find(g => g.curso_id === cursoId) || null;
+}
+
+// Mapea el estado del curso al estado equivalente del grupo que lo acompaña.
+function estadoGrupoDesdeCurso(estadoCurso) {
+    if (estadoCurso === 'abierto') return 'abierto';
+    if (estadoCurso === 'finalizado') return 'finalizado';
+    return 'cerrado'; // borrador o cerrado: el grupo no admite inscripciones nuevas
+}
 
 // Datos de todos los cursos a la vez, para las vistas de Hoy y Calendario
 let todasSesiones = [];
@@ -382,6 +395,8 @@ async function iniciar() {
     perfilDocente = contexto.perfil;
     document.getElementById('nombre-docente').textContent = perfilDocente.nombre_completo;
     document.getElementById('contenido-panel').style.display = 'block';
+    const { data: fer } = await supabaseClient.from('feriados').select('fecha');
+    feriados = new Set((fer || []).map(f => f.fecha));
     await cargarCursos();
     await cargarDatosGlobales();
 }
@@ -565,19 +580,31 @@ async function cargarCursos() {
         .eq('docente_id', perfilDocente.id)
         .order('created_at', { ascending: false });
     cursos = data || [];
+
+    if (cursos.length) {
+        const { data: gruposData } = await supabaseClient.from('grupos').select('*').in('curso_id', cursos.map(c => c.id));
+        grupos = gruposData || [];
+    } else {
+        grupos = [];
+    }
+
     const cont = document.getElementById('lista-cursos');
     if (cursos.length === 0) {
         cont.innerHTML = '<p class="muted">Todavía no tienes cursos. Crea el primero arriba.</p>';
         return;
     }
-    cont.innerHTML = cursos.map(c => `
+    cont.innerHTML = cursos.map(c => {
+        const g = grupoDeCurso(c.id);
+        return `
         <div class="curso-card ${c.id === cursoActualId ? 'activo' : ''}" onclick="seleccionarCurso('${c.id}')">
             <h3>${esc(c.nombre)}</h3>
             <div class="muted" style="margin:0;">${esc(c.nivel || '')}</div>
             <div class="muted" style="margin:0.3rem 0 0; font-size:0.78rem;">${c.fecha_inicio || '—'} → ${c.fecha_fin || '—'}</div>
             <span class="estado">${c.estado}</span>
+            ${g ? `<span class="estado" style="margin-left:0.4rem;">${g.cupo_actual}/${g.cupo_maximo} cupo</span>` : ''}
         </div>
-    `).join('');
+    `;
+    }).join('');
 }
 
 function mostrarFormNuevoCurso() {
@@ -589,18 +616,37 @@ async function crearCurso() {
     const nombre = document.getElementById('nc-nombre').value.trim();
     if (!nombre) { mostrarMsg(msgEl, 'El nombre del curso es obligatorio.', 'error'); return; }
 
-    const { error } = await supabaseClient.from('cursos').insert({
+    const cupo = document.getElementById('nc-cupo').value || null;
+    const fechaInicio = document.getElementById('nc-inicio').value || null;
+    const fechaFin = document.getElementById('nc-fin').value || null;
+    const estado = document.getElementById('nc-estado').value;
+
+    const { data: curso, error } = await supabaseClient.from('cursos').insert({
         docente_id: perfilDocente.id,
         nombre,
         nivel: document.getElementById('nc-nivel').value.trim() || null,
-        cupo_maximo: document.getElementById('nc-cupo').value || null,
-        fecha_inicio: document.getElementById('nc-inicio').value || null,
-        fecha_fin: document.getElementById('nc-fin').value || null,
-        estado: document.getElementById('nc-estado').value,
+        cupo_maximo: cupo,
+        fecha_inicio: fechaInicio,
+        fecha_fin: fechaFin,
+        estado,
         descripcion: document.getElementById('nc-desc').value.trim() || null
-    });
+    }).select().single();
 
     if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
+
+    // Cada curso lleva un grupo (instancia con cupo real) para poder recibir
+    // inscripciones — ver Fase 4 / supabase/schema_v2.sql.
+    const { error: errorGrupo } = await supabaseClient.from('grupos').insert({
+        codigo: 'G-' + curso.id.slice(0, 8),
+        curso_id: curso.id,
+        docente_id: perfilDocente.id,
+        cupo_maximo: cupo || 8,
+        fecha_inicio: fechaInicio || new Date().toISOString().slice(0, 10),
+        fecha_fin: fechaFin,
+        estado: estadoGrupoDesdeCurso(estado)
+    });
+    if (errorGrupo) { mostrarMsg(msgEl, 'El curso se creó, pero hubo un problema preparando su grupo: ' + errorGrupo.message, 'error'); }
+
     document.getElementById('form-nuevo-curso').style.display = 'none';
     ['nc-nombre','nc-nivel','nc-cupo','nc-inicio','nc-fin','nc-desc'].forEach(id => document.getElementById(id).value = '');
     await cargarCursos();
@@ -614,7 +660,9 @@ async function seleccionarCurso(id) {
     document.getElementById('detalle-curso').style.display = 'block';
 
     const base = window.location.href.replace(/\/[^\/]*$/, '/');
-    document.getElementById('enlace-inscripcion').value = base + 'registro/inscripcion.html?curso=' + curso.id;
+    const grupo = grupoDeCurso(id);
+    document.getElementById('enlace-inscripcion').value = base + 'registro/inscripcion.html?' +
+        (grupo ? 'grupo=' + grupo.id : 'curso=' + curso.id);
     document.getElementById('aviso-curso-borrador').style.display = curso.estado === 'abierto' ? 'none' : 'inline';
 
     document.getElementById('form-editar-curso').style.display = 'none';
@@ -643,17 +691,43 @@ async function guardarCurso() {
     const nombre = document.getElementById('ec-nombre').value.trim();
     if (!nombre) { mostrarMsg(msgEl, 'El nombre del curso es obligatorio.', 'error'); return; }
 
+    const cupo = document.getElementById('ec-cupo').value || null;
+    const fechaInicio = document.getElementById('ec-inicio').value || null;
+    const fechaFin = document.getElementById('ec-fin').value || null;
+    const estado = document.getElementById('ec-estado').value;
+
     const { error } = await supabaseClient.from('cursos').update({
         nombre,
         nivel: document.getElementById('ec-nivel').value.trim() || null,
-        cupo_maximo: document.getElementById('ec-cupo').value || null,
-        fecha_inicio: document.getElementById('ec-inicio').value || null,
-        fecha_fin: document.getElementById('ec-fin').value || null,
-        estado: document.getElementById('ec-estado').value,
+        cupo_maximo: cupo,
+        fecha_inicio: fechaInicio,
+        fecha_fin: fechaFin,
+        estado,
         descripcion: document.getElementById('ec-desc').value.trim() || null
     }).eq('id', cursoActualId);
 
     if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
+
+    // El grupo que acompaña a este curso se mantiene sincronizado con sus
+    // fechas, cupo y estado (modelo de un grupo por curso — Fase 4).
+    const grupoExistente = grupoDeCurso(cursoActualId);
+    const datosGrupo = {
+        cupo_maximo: cupo || 8,
+        fecha_inicio: fechaInicio || new Date().toISOString().slice(0, 10),
+        fecha_fin: fechaFin,
+        estado: estadoGrupoDesdeCurso(estado)
+    };
+    if (grupoExistente) {
+        await supabaseClient.from('grupos').update(datosGrupo).eq('id', grupoExistente.id);
+    } else {
+        await supabaseClient.from('grupos').insert({
+            codigo: 'G-' + cursoActualId.slice(0, 8),
+            curso_id: cursoActualId,
+            docente_id: perfilDocente.id,
+            ...datosGrupo
+        });
+    }
+
     document.getElementById('form-editar-curso').style.display = 'none';
     await cargarCursos();
     await seleccionarCurso(cursoActualId);
@@ -736,21 +810,25 @@ async function generarSesiones() {
     const hasta = new Date(curso.fecha_fin + 'T12:00:00');
     if (hasta < desde) { mostrarMsg(msgEl, 'La fecha de cierre es anterior a la de inicio.', 'error'); return; }
 
+    const grupoId = grupoDeCurso(cursoActualId)?.id || null;
     const yaExisten = new Set(sesionesActuales.map(s => s.fecha));
     const nuevas = [];
+    let feriadosSalteados = 0;
     for (let d = new Date(desde); d <= hasta; d.setDate(d.getDate() + 1)) {
         if (!dias.includes(d.getDay())) continue;
         const fecha = d.toISOString().slice(0, 10);
         if (yaExisten.has(fecha)) continue;
-        nuevas.push({ curso_id: cursoActualId, fecha });
+        if (feriados.has(fecha)) { feriadosSalteados++; continue; }
+        nuevas.push({ curso_id: cursoActualId, grupo_id: grupoId, fecha });
     }
 
     if (!nuevas.length) { mostrarMsg(msgEl, 'No hay clases nuevas que crear: ya están todas generadas.', 'ok'); return; }
-    if (!confirm(`Se van a crear ${nuevas.length} clases entre el ${curso.fecha_inicio} y el ${curso.fecha_fin}. ¿Continuamos?`)) return;
+    const avisoFeriados = feriadosSalteados ? ` (se saltaron ${feriadosSalteados} por caer en día feriado)` : '';
+    if (!confirm(`Se van a crear ${nuevas.length} clases entre el ${curso.fecha_inicio} y el ${curso.fecha_fin}${avisoFeriados}. ¿Continuamos?`)) return;
 
     const { error } = await supabaseClient.from('sesiones').insert(nuevas);
     if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
-    mostrarMsg(msgEl, `Listo: se crearon ${nuevas.length} clases. Ya puedes ponerles tema y pasar asistencia.`, 'ok');
+    mostrarMsg(msgEl, `Listo: se crearon ${nuevas.length} clases${avisoFeriados}. Ya puedes ponerles tema y pasar asistencia.`, 'ok');
     await cargarSesiones();
     await cargarDatosGlobales();
 }
@@ -790,6 +868,7 @@ async function crearSesion() {
     if (!fecha) { mostrarMsg(msgEl, 'La fecha es obligatoria.', 'error'); return; }
     const { error } = await supabaseClient.from('sesiones').insert({
         curso_id: cursoActualId,
+        grupo_id: grupoDeCurso(cursoActualId)?.id || null,
         fecha,
         tema: document.getElementById('sesion-tema').value.trim() || null,
         contenido: document.getElementById('sesion-contenido').value.trim() || null
@@ -879,7 +958,15 @@ async function cargarEstudiantes() {
 
 async function cambiarEstadoInscripcion(inscripcionId, nuevoEstado) {
     const msgEl = document.getElementById('msg-estudiantes');
-    const { error } = await supabaseClient.from('inscripciones').update({ estado: nuevoEstado }).eq('id', inscripcionId);
+    const cambios = { estado: nuevoEstado };
+    // Enlaces de inscripción viejos (?curso=) pueden haber dejado la
+    // inscripción sin grupo_id; se completa aquí para que el cupo del grupo
+    // cuente bien al aprobarla.
+    if (nuevoEstado === 'activa') {
+        const grupo = grupoDeCurso(cursoActualId);
+        if (grupo) cambios.grupo_id = grupo.id;
+    }
+    const { error } = await supabaseClient.from('inscripciones').update(cambios).eq('id', inscripcionId);
     if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
     await cargarEstudiantes();
     await cargarDatosGlobales();

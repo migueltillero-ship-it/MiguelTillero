@@ -116,25 +116,47 @@ function mostrarMsg(el, texto, tipo) {
 const selectCurso = document.getElementById('f-curso');
 const campoCurso = selectCurso.closest('.form-field');
 
-// Si el enlace trae un curso concreto (…/inscripcion.html?curso=ID), el
-// estudiante queda inscrito en ese curso y no tiene que elegir nada.
+// El enlace puede traer un grupo concreto (…/inscripcion.html?grupo=ID) —
+// lo normal desde el panel docente — o, por compatibilidad con enlaces
+// viejos, un curso (…?curso=ID), que se resuelve a su grupo automáticamente.
+const grupoDelEnlace = new URLSearchParams(window.location.search).get('grupo');
 const cursoDelEnlace = new URLSearchParams(window.location.search).get('curso');
 
-function mostrarCursoFijo(curso) {
+function costoTexto(g) {
+    if (g.costo === null || g.costo === undefined) return '';
+    const n = Number(g.costo);
+    return n > 0 ? `${n.toLocaleString('es-MX')} ${g.moneda || 'MXN'}` : 'Gratuito';
+}
+
+function mostrarGrupoFijo(g) {
     campoCurso.innerHTML = `
         <label>Te vas a inscribir en</label>
         <div style="padding:0.95rem 1.1rem; border:1px solid var(--border); border-radius:10px; background:rgba(43,69,53,0.05);">
-            <strong style="font-family:'Cormorant Garamond',serif; font-size:1.25rem; color:var(--accent-green);">${curso.nombre}</strong>
-            ${curso.nivel ? `<span style="margin-left:0.5rem; font-family:'Space Mono',monospace; font-size:0.68rem; color:var(--primary-color);">${curso.nivel}</span>` : ''}
-            ${curso.fecha_inicio ? `<div style="font-size:0.82rem; color:var(--text-light); margin-top:0.3rem;">Del ${curso.fecha_inicio} al ${curso.fecha_fin || '—'}</div>` : ''}
+            <strong style="font-family:'Cormorant Garamond',serif; font-size:1.25rem; color:var(--accent-green);">${g.curso_nombre}</strong>
+            ${g.curso_nivel ? `<span style="margin-left:0.5rem; font-family:'Space Mono',monospace; font-size:0.68rem; color:var(--primary-color);">${g.curso_nivel}</span>` : ''}
+            ${g.fecha_inicio ? `<div style="font-size:0.82rem; color:var(--text-light); margin-top:0.3rem;">Del ${g.fecha_inicio} al ${g.fecha_fin || '—'}</div>` : ''}
+            <div style="font-size:0.82rem; color:var(--text-light); margin-top:0.3rem;">
+                ${g.cupo_disponible} cupo${g.cupo_disponible === 1 ? '' : 's'} disponible${g.cupo_disponible === 1 ? '' : 's'}${costoTexto(g) ? ' · ' + costoTexto(g) : ''}
+            </div>
         </div>
-        <input type="hidden" id="f-curso-fijo" value="${curso.id}">
+        <input type="hidden" id="f-grupo-fijo" value="${g.id}">
+        <input type="hidden" id="f-curso-fijo" value="${g.curso_id}">
     `;
+}
+
+function grupoElegido() {
+    const fijo = document.getElementById('f-grupo-fijo');
+    if (fijo) return fijo.value;
+    const sel = document.getElementById('f-curso');
+    return sel ? sel.value : '';
 }
 
 function cursoElegido() {
     const fijo = document.getElementById('f-curso-fijo');
-    return fijo ? fijo.value : (document.getElementById('f-curso') || {}).value || '';
+    if (fijo) return fijo.value;
+    const sel = document.getElementById('f-curso');
+    const opt = sel ? sel.selectedOptions[0] : null;
+    return opt ? opt.dataset.curso || '' : '';
 }
 
 if (!supabaseConfigurado) {
@@ -142,32 +164,36 @@ if (!supabaseConfigurado) {
     selectCurso.innerHTML = '<option value="">No disponible todavía</option>';
 } else {
     (async () => {
-        if (cursoDelEnlace) {
-            const { data: curso } = await supabaseClient
-                .from('cursos')
-                .select('id, nombre, nivel, fecha_inicio, fecha_fin, estado')
-                .eq('id', cursoDelEnlace)
-                .maybeSingle();
-            if (curso && curso.estado === 'abierto') {
-                mostrarCursoFijo(curso);
+        if (grupoDelEnlace || cursoDelEnlace) {
+            let grupo = null;
+            if (grupoDelEnlace) {
+                const { data } = await supabaseClient.from('v_grupos_disponibles').select('*').eq('id', grupoDelEnlace).maybeSingle();
+                grupo = data;
+            } else {
+                // Enlace viejo con ?curso= : se toma el primer grupo disponible de ese curso.
+                const { data } = await supabaseClient.from('v_grupos_disponibles').select('*').eq('curso_id', cursoDelEnlace).order('fecha_inicio').limit(1);
+                grupo = data && data[0];
+            }
+            if (grupo && grupo.cupo_disponible > 0) {
+                mostrarGrupoFijo(grupo);
                 return;
             }
             mostrarMsg(document.getElementById('msg-form'),
-                'Ese curso ya no está abierto a inscripciones. Elige otro de la lista.', 'error');
+                'Ese curso ya no tiene cupo disponible para inscripciones. Elige otro de la lista.', 'error');
         }
 
-        const { data: cursos, error } = await supabaseClient
-            .from('cursos')
-            .select('id, nombre, nivel')
-            .eq('estado', 'abierto')
-            .order('nombre');
+        const { data: grupos, error } = await supabaseClient
+            .from('v_grupos_disponibles')
+            .select('*')
+            .order('curso_nombre');
 
-        if (error || !cursos || cursos.length === 0) {
+        const disponibles = (grupos || []).filter(g => g.cupo_disponible > 0);
+        if (error || disponibles.length === 0) {
             selectCurso.innerHTML = '<option value="">No hay cursos abiertos por ahora</option>';
             return;
         }
         selectCurso.innerHTML = '<option value="">Selecciona un curso</option>' +
-            cursos.map(c => `<option value="${c.id}">${c.nombre}${c.nivel ? ' — ' + c.nivel : ''}</option>`).join('');
+            disponibles.map(g => `<option value="${g.id}" data-curso="${g.curso_id}">${g.curso_nombre}${g.curso_nivel ? ' — ' + g.curso_nivel : ''} (${g.cupo_disponible} cupo${g.cupo_disponible === 1 ? '' : 's'}${costoTexto(g) ? ' · ' + costoTexto(g) : ''})</option>`).join('');
     })();
 }
 
@@ -194,9 +220,10 @@ document.getElementById('form-inscripcion').addEventListener('submit', async (e)
     const nombre_completo = document.getElementById('f-nombre').value.trim();
     const email = document.getElementById('f-correo').value.trim();
     const telefono = document.getElementById('f-telefono').value.trim();
+    const grupo_id = grupoElegido();
     const curso_id = cursoElegido();
 
-    if (!curso_id) {
+    if (!grupo_id) {
         mostrarMsg(msgEl, 'Selecciona el curso al que quieres inscribirte.', 'error');
         btn.disabled = false;
         return;
@@ -206,7 +233,7 @@ document.getElementById('form-inscripcion').addEventListener('submit', async (e)
         email,
         password,
         options: {
-            data: { nombre_completo, telefono, curso_id },
+            data: { nombre_completo, telefono, curso_id, grupo_id },
             emailRedirectTo: window.location.origin + window.location.pathname.replace('inscripcion.html', '') + '../login.html'
         }
     });

@@ -41,6 +41,9 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
 .select-curso select { width:100%; padding:0.7rem; border:1px solid var(--border); border-radius:8px; font-family:'Syne',sans-serif; font-size:0.9rem; }
 .msg { margin-top: 0.8rem; padding: 0.7rem 0.9rem; border-radius: var(--r-xs); font-size: 0.82rem; }
 .msg.error { background: rgba(180,50,40,0.1); color: #a13324; border: 1px solid rgba(180,50,40,0.25); }
+.msg.ok { background: rgba(43,69,53,0.1); color: var(--accent-green); border: 1px solid rgba(43,69,53,0.25); }
+.btn { background: var(--primary-color); color:#fff; border:none; padding:0.7rem 1.3rem; border-radius:var(--r-pill); font-family:'Syne',sans-serif; font-weight:600; font-size:0.85rem; cursor:pointer; white-space:nowrap; }
+select { padding:0.7rem; border:1px solid var(--border); border-radius:8px; font-family:'Syne',sans-serif; font-size:0.9rem; }
 </style>
 </head>
 <body>
@@ -61,6 +64,14 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
     </div>
 
     <div id="contenido-panel" style="display:none;">
+        <section class="panel" id="panel-pagos" style="display:none;">
+            <h2>Mis pagos</h2>
+            <table>
+                <thead><tr><th>Concepto</th><th>Monto</th><th>Estado</th><th>Fecha</th></tr></thead>
+                <tbody id="tabla-pagos"></tbody>
+            </table>
+        </section>
+
         <div class="select-curso">
             <select id="selector-curso" onchange="seleccionarInscripcion(this.value)"></select>
         </div>
@@ -104,6 +115,22 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
                     <tbody id="tabla-notas"></tbody>
                 </table>
             </section>
+
+            <section class="panel" id="panel-constancias">
+                <h2>Constancias</h2>
+                <div id="sin-tipos-constancia" class="muted" style="display:none;">Todavía no hay tipos de constancia disponibles.</div>
+                <div id="form-constancia" style="display:none; margin-bottom:1.2rem;">
+                    <div style="display:flex; gap:0.6rem; align-items:center; flex-wrap:wrap;">
+                        <select id="selector-tipo-constancia" style="flex:1; min-width:220px;"></select>
+                        <button class="btn" onclick="solicitarConstancia()">Solicitar</button>
+                    </div>
+                </div>
+                <div id="msg-constancia" class="msg" style="display:none;"></div>
+                <table>
+                    <thead><tr><th>Tipo</th><th>Estado</th><th>Fecha</th></tr></thead>
+                    <tbody id="tabla-constancias"></tbody>
+                </table>
+            </section>
         </div>
     </div>
 </main>
@@ -114,6 +141,7 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
 <script>
 let perfilEstudiante = null;
 let inscripciones = [];
+let tiposConstancia = [];
 
 function esc(s) {
     return (s || '').toString().replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
@@ -145,9 +173,64 @@ async function iniciar() {
     const sel = document.getElementById('selector-curso');
     sel.innerHTML = inscripciones.map(i => `<option value="${i.id}">${esc(i.cursos.nombre)} (${i.estado})</option>`).join('');
 
+    const { data: tipos } = await supabaseClient.from('tipos_constancia').select('*').eq('activo', true).order('nombre');
+    tiposConstancia = tipos || [];
+    const selTipo = document.getElementById('selector-tipo-constancia');
+    document.getElementById('form-constancia').style.display = tiposConstancia.length ? 'block' : 'none';
+    document.getElementById('sin-tipos-constancia').style.display = tiposConstancia.length ? 'none' : 'block';
+    selTipo.innerHTML = tiposConstancia.map(t => `<option value="${t.id}">${esc(t.nombre)}${t.costo > 0 ? ' — ' + t.costo + ' ' + (t.moneda || 'MXN') : ''}</option>`).join('');
+
+    await cargarMisPagos();
+
     const activa = inscripciones.find(i => i.estado === 'activa') || inscripciones[0];
     sel.value = activa.id;
     await seleccionarInscripcion(activa.id);
+}
+
+async function cargarMisPagos() {
+    const { data, error } = await supabaseClient.rpc('mis_pagos');
+    const pagos = error ? [] : (data || []);
+    document.getElementById('panel-pagos').style.display = pagos.length ? 'block' : 'none';
+    document.getElementById('tabla-pagos').innerHTML = pagos.map(p => `
+        <tr>
+            <td>${esc(p.concepto) || '—'}</td>
+            <td>${Number(p.monto).toLocaleString('es-MX')} ${esc(p.moneda)}</td>
+            <td><span class="badge ${p.estado === 'pagado' ? 'activa' : (p.estado === 'rechazado' ? 'rechazada' : 'pendiente')}">${esc(p.estado)}</span></td>
+            <td>${p.pagado_en ? new Date(p.pagado_en).toLocaleDateString() : new Date(p.created_at).toLocaleDateString()}</td>
+        </tr>
+    `).join('');
+}
+
+async function cargarSolicitudesConstancia(inscripcionId) {
+    const { data } = await supabaseClient
+        .from('solicitudes_constancia')
+        .select('*, tipos_constancia(nombre)')
+        .eq('inscripcion_id', inscripcionId)
+        .order('created_at', { ascending: false });
+    const solicitudes = data || [];
+    document.getElementById('tabla-constancias').innerHTML = solicitudes.map(s => `
+        <tr>
+            <td>${esc(s.tipos_constancia ? s.tipos_constancia.nombre : '—')}</td>
+            <td><span class="badge ${s.estado === 'emitida' ? 'activa' : (s.estado === 'cancelada' ? 'rechazada' : 'pendiente')}">${esc(s.estado)}</span></td>
+            <td>${new Date(s.created_at).toLocaleDateString()}</td>
+        </tr>
+    `).join('') || '<tr><td colspan="3" class="muted">Todavía no has solicitado ninguna constancia.</td></tr>';
+}
+
+async function solicitarConstancia() {
+    const msgEl = document.getElementById('msg-constancia');
+    const tipoId = document.getElementById('selector-tipo-constancia').value;
+    const inscripcionId = document.getElementById('selector-curso').value;
+    if (!tipoId || !inscripcionId) return;
+    const { error } = await supabaseClient.from('solicitudes_constancia').insert({
+        inscripcion_id: inscripcionId,
+        tipo_id: tipoId
+    });
+    msgEl.style.display = 'block';
+    if (error) { msgEl.textContent = error.message; msgEl.className = 'msg error'; return; }
+    msgEl.textContent = 'Solicitud enviada. Te avisaremos cuando esté lista.';
+    msgEl.className = 'msg ok';
+    await cargarSolicitudesConstancia(inscripcionId);
 }
 
 async function seleccionarInscripcion(inscripcionId) {
@@ -172,6 +255,8 @@ async function seleccionarInscripcion(inscripcionId) {
         supabaseClient.from('evaluaciones').select('*').eq('curso_id', curso.id).order('fecha'),
         supabaseClient.from('notas').select('*').eq('estudiante_id', perfilEstudiante.id)
     ]);
+    document.getElementById('msg-constancia').style.display = 'none';
+    await cargarSolicitudesConstancia(insc.id);
 
     const sesiones = sesionesRes.data || [];
     const asistenciaPorSesion = {};
