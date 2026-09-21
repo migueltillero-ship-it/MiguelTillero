@@ -352,6 +352,14 @@ function grupoDeCurso(cursoId) {
     return grupos.find(g => g.curso_id === cursoId) || null;
 }
 
+// grupos.cupo_maximo exige > 0 en la base; esto evita que un campo vacío,
+// en cero o negativo (el <input min="1"> no siempre lo impide) rompa el
+// insert/update con un error de la base en vez de uno legible.
+function cupoValido(valor) {
+    const n = parseInt(valor, 10);
+    return Number.isFinite(n) && n > 0 ? n : 8;
+}
+
 // Mapea el estado del curso al estado equivalente del grupo que lo acompaña.
 function estadoGrupoDesdeCurso(estadoCurso) {
     if (estadoCurso === 'abierto') return 'abierto';
@@ -640,7 +648,7 @@ async function crearCurso() {
         codigo: 'G-' + curso.id.slice(0, 8),
         curso_id: curso.id,
         docente_id: perfilDocente.id,
-        cupo_maximo: cupo || 8,
+        cupo_maximo: cupoValido(cupo),
         fecha_inicio: fechaInicio || new Date().toISOString().slice(0, 10),
         fecha_fin: fechaFin,
         estado: estadoGrupoDesdeCurso(estado)
@@ -712,7 +720,7 @@ async function guardarCurso() {
     // fechas, cupo y estado (modelo de un grupo por curso — Fase 4).
     const grupoExistente = grupoDeCurso(cursoActualId);
     const datosGrupo = {
-        cupo_maximo: cupo || 8,
+        cupo_maximo: cupoValido(cupo),
         fecha_inicio: fechaInicio || new Date().toISOString().slice(0, 10),
         fecha_fin: fechaFin,
         estado: estadoGrupoDesdeCurso(estado)
