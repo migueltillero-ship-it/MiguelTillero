@@ -163,7 +163,7 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
             <div id="form-nuevo-curso" style="display:none; margin-top:1.4rem; border-top:1px solid var(--border); padding-top:1.4rem;">
                 <div class="form-grid">
                     <div class="form-field"><label>Nombre *</label><input id="nc-nombre" placeholder="Ej. Francés B2 — Grupo A"></div>
-                    <div class="form-field"><label>Nivel</label><input id="nc-nivel" placeholder="Ej. B2"></div>
+                    <div class="form-field"><label>Nivel</label><input id="nc-nivel" placeholder="Ej. B2" oninput="sugerirMetodosPorNivel('nc')"></div>
                     <div class="form-field"><label>Cupo máximo</label><input id="nc-cupo" type="number" min="1"></div>
                     <div class="form-field"><label>Fecha inicio</label><input id="nc-inicio" type="date"></div>
                     <div class="form-field"><label>Fecha cierre</label><input id="nc-fin" type="date"></div>
@@ -173,7 +173,11 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
                             <option value="abierto">Abierto (visible en inscripción)</option>
                         </select>
                     </div>
+                    <div class="form-field"><label>Método / manual</label><select id="nc-metodo"><option value="">— Sin especificar —</option></select></div>
                 </div>
+                <p class="muted" id="nc-metodo-hint" style="margin:-0.6rem 0 0.9rem;"></p>
+                <button type="button" class="btn pequeno secundario" onclick="verPlanSugerido('nc')" style="margin-bottom:0.9rem;"><i class="fa-solid fa-calendar"></i> Ver plan sugerido</button>
+                <div id="nc-plan-sugerido" class="muted" style="margin-bottom:0.9rem;"></div>
                 <div class="form-field"><label>Descripción</label><textarea id="nc-desc" rows="2"></textarea></div>
                 <button class="btn" onclick="crearCurso()"><i class="fa-solid fa-check"></i> Crear curso</button>
                 <button class="btn secundario" onclick="document.getElementById('form-nuevo-curso').style.display='none'">Cancelar</button>
@@ -196,7 +200,7 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
             <div id="form-editar-curso" style="display:none; margin:1.2rem 0; border:1px solid var(--border); border-radius:var(--r-sm); padding:1.2rem;">
                 <div class="form-grid">
                     <div class="form-field"><label>Nombre *</label><input id="ec-nombre"></div>
-                    <div class="form-field"><label>Nivel</label><input id="ec-nivel"></div>
+                    <div class="form-field"><label>Nivel</label><input id="ec-nivel" oninput="sugerirMetodosPorNivel('ec')"></div>
                     <div class="form-field"><label>Cupo máximo</label><input id="ec-cupo" type="number" min="1"></div>
                     <div class="form-field"><label>Fecha inicio</label><input id="ec-inicio" type="date"></div>
                     <div class="form-field"><label>Fecha cierre</label><input id="ec-fin" type="date"></div>
@@ -208,7 +212,11 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
                             <option value="finalizado">Finalizado</option>
                         </select>
                     </div>
+                    <div class="form-field"><label>Método / manual</label><select id="ec-metodo"><option value="">— Sin especificar —</option></select></div>
                 </div>
+                <p class="muted" id="ec-metodo-hint" style="margin:-0.6rem 0 0.9rem;"></p>
+                <button type="button" class="btn pequeno secundario" onclick="verPlanSugerido('ec')" style="margin-bottom:0.9rem;"><i class="fa-solid fa-calendar"></i> Ver plan sugerido</button>
+                <div id="ec-plan-sugerido" class="muted" style="margin-bottom:0.9rem;"></div>
                 <div class="form-field"><label>Descripción</label><textarea id="ec-desc" rows="2"></textarea></div>
                 <button class="btn" onclick="guardarCurso()"><i class="fa-solid fa-floppy-disk"></i> Guardar cambios</button>
                 <button class="btn secundario" onclick="document.getElementById('form-editar-curso').style.display='none'">Cancelar</button>
@@ -344,6 +352,7 @@ let perfilDocente = null;
 let cursos = [];
 let grupos = []; // un grupo por curso (modelo actual de un solo docente): ver grupoDeCurso()
 let feriados = new Set(); // fechas (YYYY-MM-DD) a saltar al generar sesiones
+let metodos = []; // catálogo de métodos/manuales activos (editable desde admin.html)
 let cursoActualId = null;
 let sesionesActuales = [];
 let estudiantesActivosActuales = []; // [{id, nombre_completo, telefono}]
@@ -365,6 +374,93 @@ function estadoGrupoDesdeCurso(estadoCurso) {
     if (estadoCurso === 'abierto') return 'abierto';
     if (estadoCurso === 'finalizado') return 'finalizado';
     return 'cerrado'; // borrador o cerrado: el grupo no admite inscripciones nuevas
+}
+
+// ---- MÉTODO / MANUAL Y PLAN SUGERIDO ----
+// El catálogo (metodos/metodo_unidades) es 100% editable desde admin.html;
+// aquí solo se usa. A diferencia del ciclo fijo de 6 semanas de referencia,
+// las semanas del plan salen siempre de la fecha_inicio/fecha_fin reales
+// del curso que estás creando o editando.
+
+function poblarSelectMetodo(selectId) {
+    const sel = document.getElementById(selectId);
+    const valorPrevio = sel.value;
+    sel.innerHTML = '<option value="">— Sin especificar —</option>' +
+        metodos.map(m => `<option value="${m.id}" data-niveles="${esc(m.niveles || '')}">${esc(m.nombre)}</option>`).join('');
+    sel.value = valorPrevio;
+}
+
+// Reordena el desplegable agrupando primero los métodos cuyo nivel confirmado
+// coincide con lo que se escribió en "Nivel". El resto queda debajo, visible,
+// sin inventarle un nivel que el catálogo no confirma.
+function sugerirMetodosPorNivel(prefijo) {
+    const sel = document.getElementById(prefijo + '-metodo');
+    const hint = document.getElementById(prefijo + '-metodo-hint');
+    const nivel = document.getElementById(prefijo + '-nivel').value.trim().toUpperCase();
+    const valorActual = sel.value;
+    const opciones = Array.from(sel.querySelectorAll('option')).filter(o => o.value !== '');
+    if (!nivel) { hint.textContent = ''; poblarSelectMetodo(prefijo + '-metodo'); sel.value = valorActual; return; }
+
+    const coincide = o => (o.dataset.niveles || '').split(',').includes(nivel);
+    const sugeridos = opciones.filter(coincide);
+    if (!sugeridos.length) {
+        hint.textContent = 'Sin métodos con nivel confirmado para "' + nivel + '" — revisa el catálogo completo debajo.';
+        return;
+    }
+    hint.textContent = sugeridos.length + ' método(s) sugerido(s) para nivel ' + nivel + '. Se movieron arriba del desplegable.';
+    const resto = opciones.filter(o => !coincide(o));
+    sel.innerHTML = '<option value="">— Sin especificar —</option>';
+    const grupoSugeridos = document.createElement('optgroup');
+    grupoSugeridos.label = 'Sugeridos para nivel ' + nivel;
+    sugeridos.forEach(o => grupoSugeridos.appendChild(o));
+    sel.appendChild(grupoSugeridos);
+    const grupoResto = document.createElement('optgroup');
+    grupoResto.label = 'Resto del catálogo';
+    resto.forEach(o => grupoResto.appendChild(o));
+    sel.appendChild(grupoResto);
+    sel.value = valorActual;
+}
+
+// Reparte N unidades en S semanas lo más parejo posible, nunca una semana
+// vacía si hay unidades suficientes.
+function repartirEnSemanas(unidades, semanas) {
+    const n = unidades.length;
+    const plan = [];
+    for (let s = 0; s < semanas; s++) {
+        const desde = Math.floor(s * n / semanas);
+        const hasta = Math.floor((s + 1) * n / semanas);
+        plan.push(unidades.slice(desde, hasta));
+    }
+    return plan;
+}
+
+function semanasDelCurso(prefijo) {
+    const inicio = document.getElementById(prefijo + '-inicio').value;
+    const fin = document.getElementById(prefijo + '-fin').value;
+    if (!inicio || !fin) return null;
+    const dias = (new Date(fin + 'T12:00:00') - new Date(inicio + 'T12:00:00')) / 86400000;
+    if (dias < 0) return null;
+    return Math.max(1, Math.ceil((dias + 1) / 7));
+}
+
+async function verPlanSugerido(prefijo) {
+    const metodoId = document.getElementById(prefijo + '-metodo').value;
+    const cont = document.getElementById(prefijo + '-plan-sugerido');
+    if (!metodoId) { cont.textContent = 'Selecciona primero un método/manual.'; return; }
+
+    const semanas = semanasDelCurso(prefijo);
+    if (!semanas) { cont.textContent = 'Indica la fecha de inicio y la de cierre del curso para calcular las semanas.'; return; }
+
+    const { data } = await supabaseClient.from('metodo_unidades').select('titulo').eq('metodo_id', metodoId).order('orden');
+    const unidades = data || [];
+    if (!unidades.length) {
+        cont.textContent = 'Este método todavía no tiene unidades cargadas — agrégalas desde admin.html › Métodos.';
+        return;
+    }
+    const plan = repartirEnSemanas(unidades.map(u => u.titulo), semanas);
+    const metodo = metodos.find(m => m.id === metodoId);
+    const filas = plan.map((us, i) => `<li><strong>Semana ${i + 1}:</strong> ${us.map(esc).join(' · ') || '<em>(sin unidad esta semana)</em>'}</li>`).join('');
+    cont.innerHTML = `<p style="margin:0 0 0.4rem;">Plan sugerido para <strong>${esc(metodo ? metodo.nombre : '')}</strong> en ${semanas} semana${semanas === 1 ? '' : 's'} (según las fechas del curso; ajústalo al ritmo real del grupo):</p><ul style="padding-left:1.2rem;margin:0">${filas}</ul>`;
 }
 
 // Datos de todos los cursos a la vez, para las vistas de Hoy y Calendario
@@ -405,6 +501,10 @@ async function iniciar() {
     document.getElementById('contenido-panel').style.display = 'block';
     const { data: fer } = await supabaseClient.from('feriados').select('fecha');
     feriados = new Set((fer || []).map(f => f.fecha));
+    const { data: met } = await supabaseClient.from('metodos').select('*').eq('activo', true).order('nombre');
+    metodos = met || [];
+    poblarSelectMetodo('nc-metodo');
+    poblarSelectMetodo('ec-metodo');
     await cargarCursos();
     await cargarDatosGlobales();
 }
@@ -603,10 +703,11 @@ async function cargarCursos() {
     }
     cont.innerHTML = cursos.map(c => {
         const g = grupoDeCurso(c.id);
+        const metodo = g && g.metodo_id ? metodos.find(m => m.id === g.metodo_id) : null;
         return `
         <div class="curso-card ${c.id === cursoActualId ? 'activo' : ''}" onclick="seleccionarCurso('${c.id}')">
             <h3>${esc(c.nombre)}</h3>
-            <div class="muted" style="margin:0;">${esc(c.nivel || '')}</div>
+            <div class="muted" style="margin:0;">${esc(c.nivel || '')}${metodo ? ' · ' + esc(metodo.nombre) : ''}</div>
             <div class="muted" style="margin:0.3rem 0 0; font-size:0.78rem;">${c.fecha_inicio || '—'} → ${c.fecha_fin || '—'}</div>
             <span class="estado">${c.estado}</span>
             ${g ? `<span class="estado" style="margin-left:0.4rem;">${g.cupo_actual}/${g.cupo_maximo} cupo</span>` : ''}
@@ -617,6 +718,9 @@ async function cargarCursos() {
 
 function mostrarFormNuevoCurso() {
     document.getElementById('form-nuevo-curso').style.display = 'block';
+    document.getElementById('nc-metodo').value = '';
+    document.getElementById('nc-metodo-hint').textContent = '';
+    document.getElementById('nc-plan-sugerido').textContent = '';
 }
 
 async function crearCurso() {
@@ -628,6 +732,7 @@ async function crearCurso() {
     const fechaInicio = document.getElementById('nc-inicio').value || null;
     const fechaFin = document.getElementById('nc-fin').value || null;
     const estado = document.getElementById('nc-estado').value;
+    const metodoId = document.getElementById('nc-metodo').value || null;
 
     const { data: curso, error } = await supabaseClient.from('cursos').insert({
         docente_id: perfilDocente.id,
@@ -651,12 +756,14 @@ async function crearCurso() {
         cupo_maximo: cupoValido(cupo),
         fecha_inicio: fechaInicio || new Date().toISOString().slice(0, 10),
         fecha_fin: fechaFin,
-        estado: estadoGrupoDesdeCurso(estado)
+        estado: estadoGrupoDesdeCurso(estado),
+        metodo_id: metodoId
     });
     if (errorGrupo) { mostrarMsg(msgEl, 'El curso se creó, pero hubo un problema preparando su grupo: ' + errorGrupo.message, 'error'); }
 
     document.getElementById('form-nuevo-curso').style.display = 'none';
     ['nc-nombre','nc-nivel','nc-cupo','nc-inicio','nc-fin','nc-desc'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('nc-metodo').value = '';
     await cargarCursos();
     await cargarDatosGlobales();
 }
@@ -691,6 +798,10 @@ function mostrarFormEditarCurso() {
     document.getElementById('ec-fin').value = curso.fecha_fin || '';
     document.getElementById('ec-estado').value = curso.estado;
     document.getElementById('ec-desc').value = curso.descripcion || '';
+    const grupo = grupoDeCurso(cursoActualId);
+    document.getElementById('ec-metodo').value = (grupo && grupo.metodo_id) || '';
+    document.getElementById('ec-metodo-hint').textContent = '';
+    document.getElementById('ec-plan-sugerido').textContent = '';
     document.getElementById('form-editar-curso').style.display = 'block';
 }
 
@@ -717,13 +828,14 @@ async function guardarCurso() {
     if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
 
     // El grupo que acompaña a este curso se mantiene sincronizado con sus
-    // fechas, cupo y estado (modelo de un grupo por curso — Fase 4).
+    // fechas, cupo, estado y método (modelo de un grupo por curso — Fase 4).
     const grupoExistente = grupoDeCurso(cursoActualId);
     const datosGrupo = {
         cupo_maximo: cupoValido(cupo),
         fecha_inicio: fechaInicio || new Date().toISOString().slice(0, 10),
         fecha_fin: fechaFin,
-        estado: estadoGrupoDesdeCurso(estado)
+        estado: estadoGrupoDesdeCurso(estado),
+        metodo_id: document.getElementById('ec-metodo').value || null
     };
     if (grupoExistente) {
         await supabaseClient.from('grupos').update(datosGrupo).eq('id', grupoExistente.id);

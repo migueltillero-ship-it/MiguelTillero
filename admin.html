@@ -80,6 +80,7 @@ details.form-toggle > summary { cursor:pointer; font-family:'Space Mono',monospa
             <button class="tab-btn" data-tab="finanzas" onclick="cambiarTabPrincipal('finanzas')"><i class="fa-solid fa-sack-dollar"></i> Finanzas</button>
             <button class="tab-btn" data-tab="eventos" onclick="cambiarTabPrincipal('eventos')"><i class="fa-solid fa-calendar-days"></i> Eventos</button>
             <button class="tab-btn" data-tab="constancias" onclick="cambiarTabPrincipal('constancias')"><i class="fa-solid fa-certificate"></i> Constancias</button>
+            <button class="tab-btn" data-tab="metodos" onclick="cambiarTabPrincipal('metodos')"><i class="fa-solid fa-book"></i> Métodos</button>
         </div>
 
         <!-- ═══ GRUPOS ═══ -->
@@ -261,6 +262,41 @@ details.form-toggle > summary { cursor:pointer; font-family:'Space Mono',monospa
                 <div id="msg-solicitudes" class="msg"></div>
             </section>
         </div>
+
+        <!-- ═══ MÉTODOS ═══ -->
+        <div class="tab-content" id="tabp-metodos">
+            <section class="panel">
+                <h2>Catálogo de métodos / manuales</h2>
+                <p class="muted" style="margin:0.4rem 0 1rem;">El método y sus unidades que elijas aquí quedan disponibles al crear un curso en el panel docente, con un plan sugerido repartido en las semanas reales del curso — nunca un número fijo de semanas.</p>
+                <div class="form-grid" style="align-items:end;">
+                    <div class="form-field" style="grid-column:span 2;"><label>Nombre *</label><input id="met-nombre" placeholder="Ej. Défi 1"></div>
+                    <div class="form-field"><label>Niveles (separados por coma)</label><input id="met-niveles" placeholder="Ej. A1 o A1,A2"></div>
+                    <button class="btn pequeno" onclick="crearMetodo()" style="height:fit-content;"><i class="fa-solid fa-plus"></i> Añadir método</button>
+                </div>
+                <div id="msg-metodo" class="msg"></div>
+                <table style="margin-top:1.2rem;">
+                    <thead><tr><th>Nombre</th><th>Niveles</th><th>Unidades</th><th>Activo</th><th>Acciones</th></tr></thead>
+                    <tbody id="tabla-metodos"></tbody>
+                </table>
+            </section>
+
+            <section class="panel" id="detalle-metodo" style="display:none;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+                    <h2 id="titulo-metodo-detalle" style="margin:0;"></h2>
+                    <button class="btn pequeno secundario" onclick="document.getElementById('detalle-metodo').style.display='none'">Cerrar</button>
+                </div>
+                <p class="muted" style="margin:0.4rem 0 1rem;">Las unidades se listan en el orden en que se trabajan. Este es el orden que usa el plan sugerido para repartirlas en las semanas del curso.</p>
+                <div style="display:flex; gap:0.6rem; margin-bottom:1rem;">
+                    <input id="uni-titulo" placeholder="Título de la unidad" style="flex:1; padding:0.7rem; border:1px solid var(--border); border-radius:8px; font-family:'Syne',sans-serif; font-size:0.9rem;">
+                    <button class="btn pequeno" onclick="agregarUnidad()"><i class="fa-solid fa-plus"></i> Agregar unidad</button>
+                </div>
+                <div id="msg-unidad" class="msg"></div>
+                <table>
+                    <thead><tr><th style="width:3rem;">#</th><th>Título</th><th>Acciones</th></tr></thead>
+                    <tbody id="tabla-unidades"></tbody>
+                </table>
+            </section>
+        </div>
     </div>
 </main>
 
@@ -273,6 +309,8 @@ let cursosCache = [];
 let docentesCache = [];
 let gruposCache = [];
 let inscripcionesCache = [];
+let metodosCache = [];
+let metodoActualId = null;
 
 function mostrarMsg(el, texto, tipo) {
     el.textContent = texto;
@@ -305,6 +343,7 @@ async function iniciar() {
     await cargarFinanzas();
     await cargarEventos();
     await cargarConstancias();
+    await cargarMetodos();
 }
 
 // ───────────────────────── GRUPOS ─────────────────────────
@@ -584,6 +623,115 @@ async function avanzarSolicitud(id) {
     const siguiente = orden[Math.min(i + 1, orden.length - 1)];
     await supabaseClient.from('solicitudes_constancia').update({ estado: siguiente }).eq('id', id);
     await cargarConstancias();
+}
+
+// ───────────────────────── MÉTODOS ─────────────────────────
+async function cargarMetodos() {
+    const { data } = await supabaseClient
+        .from('metodos')
+        .select('*, metodo_unidades(count)')
+        .order('nombre');
+    metodosCache = data || [];
+    document.getElementById('tabla-metodos').innerHTML = metodosCache.map(m => `
+        <tr>
+            <td>${esc(m.nombre)}</td>
+            <td>${esc(m.niveles) || '—'}</td>
+            <td>${(m.metodo_unidades && m.metodo_unidades[0] && m.metodo_unidades[0].count) || 0}</td>
+            <td><span class="badge ${m.activo ? 'activo' : 'inactivo'}">${m.activo ? 'sí' : 'no'}</span></td>
+            <td class="acciones-fila">
+                <button class="btn pequeno secundario" onclick="seleccionarMetodo('${m.id}')"><i class="fa-solid fa-list-ol"></i> Unidades</button>
+                <button class="btn pequeno secundario" onclick="toggleActivoMetodo('${m.id}', ${!m.activo})">${m.activo ? 'Desactivar' : 'Activar'}</button>
+                <button class="btn pequeno peligro" onclick="eliminarMetodo('${m.id}')">Eliminar</button>
+            </td>
+        </tr>
+    `).join('') || '<tr><td colspan="5" class="muted">Sin métodos todavía.</td></tr>';
+}
+
+async function crearMetodo() {
+    const msgEl = document.getElementById('msg-metodo');
+    const nombre = document.getElementById('met-nombre').value.trim();
+    if (!nombre) { mostrarMsg(msgEl, 'El nombre es obligatorio.', 'error'); return; }
+    const niveles = document.getElementById('met-niveles').value.split(',').map(s => s.trim().toUpperCase()).filter(Boolean).join(',');
+    const { error } = await supabaseClient.from('metodos').insert({ nombre, niveles: niveles || null });
+    if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
+    document.getElementById('met-nombre').value = '';
+    document.getElementById('met-niveles').value = '';
+    await cargarMetodos();
+}
+
+async function toggleActivoMetodo(id, valor) {
+    await supabaseClient.from('metodos').update({ activo: valor }).eq('id', id);
+    await cargarMetodos();
+}
+
+async function eliminarMetodo(id) {
+    if (!confirm('¿Eliminar este método y todas sus unidades? Los grupos que ya lo tenían asignado se quedan sin método.')) return;
+    await supabaseClient.from('metodos').delete().eq('id', id);
+    if (metodoActualId === id) document.getElementById('detalle-metodo').style.display = 'none';
+    await cargarMetodos();
+}
+
+async function seleccionarMetodo(id) {
+    metodoActualId = id;
+    const metodo = metodosCache.find(m => m.id === id);
+    document.getElementById('titulo-metodo-detalle').textContent = 'Unidades de ' + (metodo ? metodo.nombre : '');
+    document.getElementById('detalle-metodo').style.display = 'block';
+    document.getElementById('uni-titulo').value = '';
+    document.getElementById('msg-unidad').style.display = 'none';
+    await cargarUnidades();
+    document.getElementById('detalle-metodo').scrollIntoView({ behavior: 'smooth' });
+}
+
+async function cargarUnidades() {
+    const { data } = await supabaseClient.from('metodo_unidades').select('*').eq('metodo_id', metodoActualId).order('orden');
+    const unidades = data || [];
+    document.getElementById('tabla-unidades').innerHTML = unidades.map((u, i) => `
+        <tr>
+            <td>${i + 1}</td>
+            <td>${esc(u.titulo)}</td>
+            <td class="acciones-fila">
+                <button class="btn pequeno secundario" ${i === 0 ? 'disabled' : ''} onclick="moverUnidad('${u.id}', -1)"><i class="fa-solid fa-arrow-up"></i></button>
+                <button class="btn pequeno secundario" ${i === unidades.length - 1 ? 'disabled' : ''} onclick="moverUnidad('${u.id}', 1)"><i class="fa-solid fa-arrow-down"></i></button>
+                <button class="btn pequeno peligro" onclick="eliminarUnidad('${u.id}')">Eliminar</button>
+            </td>
+        </tr>
+    `).join('') || '<tr><td colspan="3" class="muted">Sin unidades todavía.</td></tr>';
+}
+
+async function agregarUnidad() {
+    const msgEl = document.getElementById('msg-unidad');
+    const titulo = document.getElementById('uni-titulo').value.trim();
+    if (!titulo) { mostrarMsg(msgEl, 'Escribe el título de la unidad.', 'error'); return; }
+    const { data: existentes } = await supabaseClient.from('metodo_unidades').select('orden').eq('metodo_id', metodoActualId).order('orden', { ascending: false }).limit(1);
+    const siguienteOrden = (existentes && existentes[0] ? existentes[0].orden : 0) + 1;
+    const { error } = await supabaseClient.from('metodo_unidades').insert({ metodo_id: metodoActualId, orden: siguienteOrden, titulo });
+    if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
+    document.getElementById('uni-titulo').value = '';
+    await cargarUnidades();
+    await cargarMetodos();
+}
+
+async function eliminarUnidad(id) {
+    if (!confirm('¿Eliminar esta unidad?')) return;
+    await supabaseClient.from('metodo_unidades').delete().eq('id', id);
+    await cargarUnidades();
+    await cargarMetodos();
+}
+
+// Intercambia una unidad con la vecina (arriba/abajo). Renumera en dos pasadas
+// con un desplazamiento temporal para no chocar con la restricción unique
+// (metodo_id, orden) a mitad de camino.
+async function moverUnidad(id, delta) {
+    const { data } = await supabaseClient.from('metodo_unidades').select('*').eq('metodo_id', metodoActualId).order('orden');
+    const unidades = data || [];
+    const i = unidades.findIndex(u => u.id === id);
+    const j = i + delta;
+    if (i < 0 || j < 0 || j >= unidades.length) return;
+    [unidades[i], unidades[j]] = [unidades[j], unidades[i]];
+
+    await Promise.all(unidades.map((u, idx) => supabaseClient.from('metodo_unidades').update({ orden: idx + 1000 }).eq('id', u.id)));
+    await Promise.all(unidades.map((u, idx) => supabaseClient.from('metodo_unidades').update({ orden: idx + 1 }).eq('id', u.id)));
+    await cargarUnidades();
 }
 
 iniciar();
