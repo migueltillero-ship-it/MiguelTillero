@@ -1417,20 +1417,6 @@
    }
   },
   {
-   "id": "r-rodaje-entrevista",
-   "cat": "medios",
-   "src": "assets/images/relato/rodaje-entrevista.jpg",
-   "thumb": "assets/images/galeria/t/r-rodaje-entrevista.jpg",
-   "w": 1500,
-   "h": 844,
-   "alt": "Entrevista con cámaras en la Alianza Francesa de San Cristóbal",
-   "pie": {
-    "es": "Entrevista a cámara · Alianza Francesa de San Cristóbal",
-    "fr": "Interview face caméra · Alliance Française de San Cristóbal",
-    "en": "On-camera interview · Alliance Française de San Cristóbal"
-   }
-  },
-  {
    "id": "r-rodaje-af",
    "cat": "medios",
    "src": "assets/images/relato/rodaje-af.jpg",
@@ -1585,6 +1571,20 @@
    }
   },
   {
+   "id": "r-rodaje-entrevista",
+   "cat": "mexico",
+   "src": "assets/images/relato/rodaje-entrevista.jpg",
+   "thumb": "assets/images/galeria/t/r-rodaje-entrevista.jpg",
+   "w": 1500,
+   "h": 844,
+   "alt": "Entrevista a cámara para el video de presentación de la Alianza Francesa de San Cristóbal",
+   "pie": {
+    "es": "Entrevista para el video de presentación de la Alianza Francesa de San Cristóbal",
+    "fr": "Interview pour la vidéo de présentation de l’Alliance Française de San Cristóbal",
+    "en": "Interview for the Alliance Française de San Cristóbal’s presentation video"
+   }
+  },
+  {
    "id": "r-journees-reseau-panel",
    "cat": "mexico",
    "src": "assets/images/trayectoria/journees-reseau-panel.jpg",
@@ -1621,9 +1621,9 @@
    "h": 825,
    "alt": "Visita al Colegio ITAES, San Cristóbal de Las Casas",
    "pie": {
-    "es": "Colegio ITAES · con la directora general, Patricia Berumen de Alba, y el departamento de idiomas",
-    "fr": "Colegio ITAES · avec la directrice générale, Patricia Berumen de Alba, et le département de langues",
-    "en": "Colegio ITAES · with the principal, Patricia Berumen de Alba, and the languages department"
+    "es": "Colegio ITAES · con la directora general, Patricia Berumen de Alba, y Karen Elizabeth, coordinadora de lenguas",
+    "fr": "Colegio ITAES · avec la directrice générale, Patricia Berumen de Alba, et Karen Elizabeth, coordinatrice de langues",
+    "en": "Colegio ITAES · with the principal, Patricia Berumen de Alba, and Karen Elizabeth, languages coordinator"
    }
   },
   {
@@ -1675,11 +1675,11 @@
    "thumb": "assets/images/galeria/t/r-consulado.jpg",
    "w": 1500,
    "h": 674,
-   "alt": "Con el cónsul honorario de Francia en Chiapas",
+   "alt": "Con Patrick de Bréon, cónsul honorario de Francia en Chiapas y Tabasco",
    "pie": {
-    "es": "Con el cónsul honorario de Francia en Chiapas",
-    "fr": "Avec le consul honoraire de France au Chiapas",
-    "en": "With the honorary consul of France in Chiapas"
+    "es": "En memoria de Patrick de Bréon, cónsul honorario de Francia en Chiapas y Tabasco (†2026)",
+    "fr": "À la mémoire de Patrick de Bréon, consul honoraire de France au Chiapas et au Tabasco (†2026)",
+    "en": "In memory of Patrick de Bréon, honorary consul of France in Chiapas and Tabasco (†2026)"
    }
   },
   {

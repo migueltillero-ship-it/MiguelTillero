@@ -926,6 +926,18 @@
             "fr": "Alliances Françaises du Mexique · Journées du Réseau 2025",
             "en": "Alliances Françaises of Mexico · Journées du Réseau 2025"
           }
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/rodaje-entrevista.jpg",
+          "alt": "Entrevista a cámara para el video de presentación de la Alianza Francesa de San Cristóbal",
+          "pie": {
+            "es": "Entrevista para el video de presentación de la Alianza Francesa de San Cristóbal",
+            "fr": "Interview pour la vidéo de présentation de l’Alliance Française de San Cristóbal",
+            "en": "Interview for the Alliance Française de San Cristóbal’s presentation video"
+          },
+          "ratio": "16/9",
+          "ancha": true
         }
       ]
     },
@@ -944,9 +956,9 @@
         "en": "A language grows when it finds open doors."
       },
       "texto": {
-        "es": "Dirigir una Alianza Francesa es, sobre todo, salir a tocar puertas: colegios como el ITAES y La Salle, la Secretaría de Educación del estado, la radio universitaria de la UNICACH en Tuxtla y el Consulado Honorario de Francia en Chiapas, a cargo de Patrick de Bréon.",
-        "fr": "Diriger une Alliance Française, c’est avant tout aller frapper aux portes : des établissements comme l’ITAES et La Salle, le Secrétariat à l’Éducation de l’État, la radio universitaire de l’UNICACH à Tuxtla et le Consulat honoraire de France au Chiapas, confié à Patrick de Bréon.",
-        "en": "Leading an Alliance Française is, above all, knocking on doors: schools such as ITAES and La Salle, the State Secretariat of Education, the UNICACH university radio in Tuxtla and the Honorary Consulate of France in Chiapas, led by Patrick de Bréon."
+        "es": "Dirigir una Alianza Francesa es, sobre todo, salir a tocar puertas: colegios como el ITAES y La Salle, la Secretaría de Educación del estado, la radio universitaria de la UNICACH en Tuxtla y el Consulado Honorario de Francia en Chiapas y Tabasco, con su cónsul Patrick de Bréon, fallecido en 2026.",
+        "fr": "Diriger une Alliance Française, c’est avant tout aller frapper aux portes : des établissements comme l’ITAES et La Salle, le Secrétariat à l’Éducation de l’État, la radio universitaire de l’UNICACH à Tuxtla et le Consulat honoraire de France au Chiapas et au Tabasco, avec son consul Patrick de Bréon, décédé en 2026.",
+        "en": "Leading an Alliance Française is, above all, knocking on doors: schools such as ITAES and La Salle, the State Secretariat of Education, the UNICACH university radio in Tuxtla and the Honorary Consulate of France in Chiapas and Tabasco, with its consul Patrick de Bréon, who passed away in 2026."
       },
       "medios": [
         {
@@ -954,9 +966,9 @@
           "archivo": "assets/images/relato/itaes.jpg",
           "alt": "Visita al Colegio ITAES, San Cristóbal de Las Casas",
           "pie": {
-            "es": "Colegio ITAES · con la directora general, Patricia Berumen de Alba, y el departamento de idiomas",
-            "fr": "Colegio ITAES · avec la directrice générale, Patricia Berumen de Alba, et le département de langues",
-            "en": "Colegio ITAES · with the principal, Patricia Berumen de Alba, and the languages department"
+            "es": "Colegio ITAES · con la directora general, Patricia Berumen de Alba, y Karen Elizabeth, coordinadora de lenguas",
+            "fr": "Colegio ITAES · avec la directrice générale, Patricia Berumen de Alba, et Karen Elizabeth, coordinatrice de langues",
+            "en": "Colegio ITAES · with the principal, Patricia Berumen de Alba, and Karen Elizabeth, languages coordinator"
           },
           "ratio": "4/3"
         },
@@ -996,11 +1008,11 @@
         {
           "tipo": "foto",
           "archivo": "assets/images/relato/consulado.jpg",
-          "alt": "Con el cónsul honorario de Francia en Chiapas",
+          "alt": "Con Patrick de Bréon, cónsul honorario de Francia en Chiapas y Tabasco",
           "pie": {
-            "es": "Con el cónsul honorario de Francia en Chiapas",
-            "fr": "Avec le consul honoraire de France au Chiapas",
-            "en": "With the honorary consul of France in Chiapas"
+            "es": "En memoria de Patrick de Bréon, cónsul honorario de Francia en Chiapas y Tabasco (†2026)",
+            "fr": "À la mémoire de Patrick de Bréon, consul honoraire de France au Chiapas et au Tabasco (†2026)",
+            "en": "In memory of Patrick de Bréon, honorary consul of France in Chiapas and Tabasco (†2026)"
           },
           "ratio": "1500/674",
           "ancha": true
@@ -1084,18 +1096,6 @@
         "en": "As director of the Alliance Française de San Cristóbal, I presented the renovated premises, its activities and its cultural offering in “Destination francophonie”, TV5MONDE’s documentary series hosted by Ivan Kabacoff, which travels the world in search of initiatives for French. The episode “Destination Mexique” premieres on September 28 and airs again on Saturday, October 3, 2026."
       },
       "medios": [
-        {
-          "tipo": "foto",
-          "archivo": "assets/images/relato/rodaje-entrevista.jpg",
-          "alt": "Entrevista con cámaras en la Alianza Francesa de San Cristóbal",
-          "pie": {
-            "es": "Entrevista a cámara · Alianza Francesa de San Cristóbal",
-            "fr": "Interview face caméra · Alliance Française de San Cristóbal",
-            "en": "On-camera interview · Alliance Française de San Cristóbal"
-          },
-          "ratio": "16/9",
-          "ancha": true
-        },
         {
           "tipo": "foto",
           "archivo": "assets/images/relato/rodaje-af.jpg",
