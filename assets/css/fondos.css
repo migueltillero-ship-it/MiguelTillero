@@ -16,7 +16,7 @@
 .banda-foto .eyebrow::before { background: #e6cf9c; }
 .banda-foto h2 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.05; margin: 0.7rem 0 1rem; color: #fff; text-wrap: balance; }
 .banda-foto p { color: rgba(255,255,255,0.86); }
-.banda-foto .btn-ghost { color: #fff; border-color: rgba(255,255,255,0.55); }
+.banda-foto .btn-ghost { color: #fff; border-color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.1); }
 .banda-foto .btn-ghost:hover { background: rgba(255,255,255,0.14); }
 .banda-cita { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; font-size: clamp(1.4rem, 3.2vw, 2.2rem); line-height: 1.3; margin: 0.6rem 0 0; max-width: 34ch; color: #fff; text-wrap: balance; }
 .banda-cita::before { content: '«'; color: #e6cf9c; margin-right: 0.2em; }

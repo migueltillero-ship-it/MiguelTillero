@@ -1585,6 +1585,20 @@
    }
   },
   {
+   "id": "r-premiere-cartel",
+   "cat": "medios",
+   "src": "assets/images/relato/premiere-cartel.jpg",
+   "thumb": "assets/images/galeria/t/r-premiere-cartel.jpg",
+   "w": 900,
+   "h": 1054,
+   "alt": "Invitación a la première de «Destination Francophonie au Mexique», 26 de septiembre de 2026",
+   "pie": {
+    "es": "Invitación a la première · San Cristóbal, 26 de septiembre de 2026 · 18:00",
+    "fr": "Invitation à la première · San Cristóbal, 26 septembre 2026 · 18 h",
+    "en": "Premiere invitation · San Cristóbal, September 26, 2026 · 6:00 pm"
+   }
+  },
+  {
    "id": "r-rodaje-entrevista",
    "cat": "mexico",
    "src": "assets/images/relato/rodaje-entrevista.jpg",
