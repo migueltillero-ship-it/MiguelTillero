@@ -23,7 +23,7 @@ main { padding: 3.5rem 5%; max-width: 640px; margin: 0 auto; flex-grow: 1; width
 .lede { max-width: 520px; margin: 1rem auto 0; text-align:center; color: var(--text-light); line-height:1.7; font-size:0.95rem; }
 .card { background: var(--card-bg); padding: 2.2rem; border: 1px solid var(--border); border-radius: var(--r-md); box-shadow: var(--shadow-card); }
 .form-field { margin-bottom: 1.1rem; }
-.form-field label { display: block; font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-green); margin-bottom: 0.45rem; }
+.form-field label { display: block; font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-green); margin-bottom: 0.45rem; }
 .form-field input, .form-field select { width: 100%; padding: 0.85rem; border: 1px solid var(--border); border-radius: 8px; font-family: 'Syne', sans-serif; font-size: 0.95rem; background: #fff; }
 .form-row { display:grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
@@ -33,8 +33,12 @@ main { padding: 3.5rem 5%; max-width: 640px; margin: 0 auto; flex-grow: 1; width
 .msg { margin-top: 1.1rem; padding: 0.9rem 1rem; border-radius: var(--r-xs); font-size: 0.85rem; display:none; }
 .msg.error { background: rgba(180,50,40,0.1); color: #a13324; border: 1px solid rgba(180,50,40,0.25); }
 .msg.ok { background: rgba(43,69,53,0.1); color: var(--accent-green); border: 1px solid rgba(43,69,53,0.25); }
-.back-link { display:block; text-align:center; margin-top:1.8rem; font-family:'Space Mono',monospace; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color: var(--text-light); text-decoration:none; }
+.back-link { display:block; text-align:center; margin-top:1.8rem; font-family:'Space Mono',monospace; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color: var(--text-light); padding:0.9rem 0; text-decoration:none; }
 .hint { font-size: 0.75rem; color: var(--text-light); margin-top: -0.6rem; margin-bottom: 1rem; }
+.bloque-rep { border:1px solid var(--border); border-radius: var(--r-sm); padding:1.2rem 1.3rem;
+              margin: 0 0 1.3rem; background: rgba(43,69,53,0.035); }
+.rep-titulo { font-family:'Space Mono',monospace; font-size:0.66rem; letter-spacing:0.11em;
+              text-transform:uppercase; color: var(--accent-green); margin:0 0 0.5rem; }
 #pantalla-exito { display:none; text-align:center; }
 #pantalla-exito i { font-size: 2.6rem; color: var(--accent-green); margin-bottom: 1rem; }
 /* Paso 2: el pago, justo después de crear la cuenta */
@@ -88,6 +92,33 @@ main { padding: 3.5rem 5%; max-width: 640px; margin: 0 auto; flex-grow: 1; width
                     <option value="">Cargando cursos disponibles…</option>
                 </select>
             </div>
+            <div class="bloque-rep">
+                <p class="rep-titulo">¿El estudiante es menor de edad?</p>
+                <p class="hint" style="margin:0 0 1rem;">Si eres el padre, la madre o el tutor y estás registrando
+                    a tu hijo o hija, deja arriba <strong>el nombre del estudiante</strong> y completa aquí tus datos.
+                    Si el estudiante es mayor de edad, salta esta parte.</p>
+                <div class="form-field">
+                    <label>Nombre del representante</label>
+                    <input type="text" id="f-rep-nombre" placeholder="Tu nombre y apellido" autocomplete="name">
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label>Parentesco</label>
+                        <select id="f-rep-parentesco">
+                            <option value="">—</option>
+                            <option>Madre</option>
+                            <option>Padre</option>
+                            <option>Tutor o tutora</option>
+                            <option>Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label>Teléfono del representante</label>
+                        <input type="tel" id="f-rep-telefono" placeholder="+52 ...">
+                    </div>
+                </div>
+            </div>
+
             <div class="form-row">
                 <div class="form-field">
                     <label>Contraseña *</label>
@@ -138,8 +169,8 @@ main { padding: 3.5rem 5%; max-width: 640px; margin: 0 auto; flex-grow: 1; width
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="../assets/js/supabase-config.js?v=1790361288"></script>
-<script src="../assets/js/auth-helpers.js?v=1790361288"></script>
+<script src="../assets/js/supabase-config.js?v=1790366366"></script>
+<script src="../assets/js/auth-helpers.js?v=1790366366"></script>
 <script>
 function mostrarMsg(el, texto, tipo) {
     el.textContent = texto;
@@ -330,6 +361,9 @@ document.getElementById('form-inscripcion').addEventListener('submit', async (e)
     const nombre_completo = document.getElementById('f-nombre').value.trim();
     const email = document.getElementById('f-correo').value.trim();
     const telefono = document.getElementById('f-telefono').value.trim();
+    const representante_nombre = document.getElementById('f-rep-nombre').value.trim();
+    const representante_parentesco = document.getElementById('f-rep-parentesco').value;
+    const representante_telefono = document.getElementById('f-rep-telefono').value.trim();
     const grupo_id = grupoElegido();
     const curso_id = cursoElegido();
 
@@ -343,7 +377,10 @@ document.getElementById('form-inscripcion').addEventListener('submit', async (e)
         email,
         password,
         options: {
-            data: { nombre_completo, telefono, curso_id, grupo_id },
+            data: {
+                nombre_completo, telefono, curso_id, grupo_id,
+                representante_nombre, representante_parentesco, representante_telefono
+            },
             // new URL() normaliza el "..": si no, el correo viaja con
             // …/registro/../login.html dentro, que es válido pero feo y
             // depende de cómo lo compare la lista de Redirect URLs.

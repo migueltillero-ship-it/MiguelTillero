@@ -2290,3 +2290,24 @@ body { animation: pageFadeIn 0.5s ease; }
 @media (max-width: 560px) {
   #event-popup { left: 1rem; right: 1rem; width: auto; top: 5.5rem; }
 }
+
+/* ---------------------------------------------------------------------------
+   Ajustes táctiles para teléfono (auditoría móvil)
+   En escritorio el diseño se queda igual: estas reglas solo entran por debajo
+   de 700px, donde se navega con el dedo y no con el ratón.
+   --------------------------------------------------------------------------- */
+@media (max-width: 700px) {
+  /* Chips de las modalidades: eran texto de 8px en un objetivo de 21px. */
+  .af-chip {
+    font-size: 0.64rem;
+    letter-spacing: 0.12em;
+    padding: 0.6rem 0.9rem;
+  }
+  .af-chips { gap: 0.5rem; }
+
+  /* Descargas del resumen en PDF: enlaces de 12px de alto. */
+  .cv-resumen a {
+    display: inline-block;
+    padding: 0.7rem 0.4rem;
+  }
+}

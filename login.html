@@ -21,18 +21,18 @@ main { flex-grow:1; display:flex; align-items:center; justify-content:center; pa
 .eyebrow { font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--primary-color); display:block; margin-bottom:0.4rem; }
 h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--accent-green); margin: 0 0 1.6rem; }
 .form-field { margin-bottom: 1.1rem; }
-.form-field label { display: block; font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-green); margin-bottom: 0.4rem; }
+.form-field label { display: block; font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-green); margin-bottom: 0.4rem; }
 .form-field input { width: 100%; padding: 0.85rem; border: 1px solid var(--border); border-radius: 8px; font-family: 'Syne', sans-serif; font-size: 0.95rem; background: #fff; }
 .btn-gold { display: inline-flex; align-items:center; justify-content:center; gap:0.5rem; background: var(--primary-color); color: #fff; padding: 0.9rem 1.6rem; font-family: 'Syne', sans-serif; font-size: 0.92rem; text-decoration: none; border-radius: var(--r-pill); font-weight: 600; border:none; cursor:pointer; width:100%; transition: background 0.3s, transform 0.2s; }
 .btn-gold:hover { background: var(--primary-hover); transform: translateY(-2px); }
 .btn-gold:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
 .links-row { display:flex; justify-content:space-between; margin-top:1.2rem; font-family:'Space Mono',monospace; font-size:0.68rem; }
-.links-row a { color: var(--primary-color); text-decoration:none; }
+.links-row a { color: var(--primary-color); text-decoration:none; padding:0.6rem 0; display:inline-block; }
 .links-row a:hover { text-decoration:underline; }
 .msg { margin-top: 1rem; padding: 0.8rem 1rem; border-radius: var(--r-xs); font-size: 0.85rem; display:none; }
 .msg.error { background: rgba(180,50,40,0.1); color: #a13324; border: 1px solid rgba(180,50,40,0.25); }
 .msg.ok { background: rgba(43,69,53,0.1); color: var(--accent-green); border: 1px solid rgba(43,69,53,0.25); }
-.back-link { display:block; text-align:center; margin-top:1.6rem; font-family:'Space Mono',monospace; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color: var(--text-light); text-decoration:none; }
+.back-link { display:block; text-align:center; margin-top:1.6rem; font-family:'Space Mono',monospace; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color: var(--text-light); padding:0.9rem 0; text-decoration:none; }
 </style>
 </head>
 <body>
@@ -69,8 +69,8 @@ h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--a
 <a href="index.html" class="back-link"><i class="fa fa-arrow-left"></i> Volver al inicio</a>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="assets/js/supabase-config.js?v=1790361288"></script>
-<script src="assets/js/auth-helpers.js?v=1790361288"></script>
+<script src="assets/js/supabase-config.js?v=1790366366"></script>
+<script src="assets/js/auth-helpers.js?v=1790366366"></script>
 <script>
 /* Si un panel no pudo confirmar la sesión y nos devolvió aquí, se dice por qué. */
 (function () {
@@ -80,8 +80,15 @@ h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--a
     document.addEventListener('DOMContentLoaded', function () {
         var el = document.getElementById('msg-login');
         if (!el) return;
-        el.textContent = 'Inicia sesión para abrir tu panel. Si acabas de entrar y volviste a esta pantalla, avisa a Miguel con este detalle: ' + d;
-        el.className = 'msg error'; el.style.display = 'block';
+        /* Que no haya token guardado es lo normal cuando la sesión caduca o
+           se entra desde un enlace viejo: eso no es un fallo y no debe
+           mostrarse en rojo. Solo se pide avisar cuando algo va mal de veras. */
+        var soloCaducada = d.indexOf('sin token guardado') !== -1;
+        el.textContent = soloCaducada
+            ? 'Tu sesión se cerró por inactividad. Vuelve a entrar para abrir tu espacio.'
+            : 'No pudimos abrir tu panel. Vuelve a intentarlo y, si se repite, avisa a Miguel con este detalle: ' + d;
+        el.className = 'msg ' + (soloCaducada ? 'ok' : 'error');
+        el.style.display = 'block';
     });
 })();
 function mostrarMsg(el, texto, tipo) {
@@ -140,7 +147,18 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
     // con un cliente que lleva la cabecera de autorización puesta a mano.
     if (!perfil && data.session && window.supabase) {
         try {
+            // Este cliente es de usar y tirar: NO debe tocar la sesión
+            // guardada. Sin persistSession:false y una storageKey propia,
+            // serían dos clientes de Supabase peleándose por el mismo
+            // refresh token, y cuando uno lo consume el otro se queda sin
+            // sesión — el panel entonces devuelve al login.
             const clienteConToken = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+                auth: {
+                    persistSession: false,
+                    autoRefreshToken: false,
+                    detectSessionInUrl: false,
+                    storageKey: 'mt-consulta-puntual'
+                },
                 global: { headers: { Authorization: 'Bearer ' + data.session.access_token } }
             });
             const resp = await clienteConToken.from('profiles').select('*').eq('id', data.user.id).maybeSingle();

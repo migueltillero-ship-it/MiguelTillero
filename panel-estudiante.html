@@ -17,7 +17,7 @@ body { background-color: var(--bg-color); color: var(--text-dark); font-family: 
 nav.main-nav { background: #ffffff; border-bottom: 1px solid rgba(43, 69, 53, 0.2); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap:wrap; gap:0.8rem; }
 .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--accent-green); text-decoration: none; }
 .nav-right { display:flex; align-items:center; gap:1rem; font-family:'Space Mono',monospace; font-size:0.72rem; }
-.nav-right button { color: var(--primary-color); background:none; border:none; cursor:pointer; font-family:'Space Mono',monospace; font-size:0.72rem; }
+.nav-right button { color: var(--primary-color); background:none; border:none; cursor:pointer; font-family:'Space Mono',monospace; font-size:0.72rem; padding:0.7rem 0.4rem; }
 main { padding: 2rem 5% 4rem; max-width: 1000px; margin: 0 auto; }
 h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--accent-green); margin: 0 0 0.3rem;}
 .muted { color: var(--text-light); font-size:0.9rem; }
@@ -53,6 +53,9 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
              border:1px solid rgba(238,240,229,0.5); text-decoration:none; padding:0.65rem 1.2rem;
              border-radius:var(--r-pill); font-weight:600; font-size:0.85rem; }
 .btn-borde:hover { background:rgba(238,240,229,0.12); }
+.aviso-enlaces { margin:0; font-size:0.85rem; line-height:1.6; color:rgba(238,240,229,0.82);
+                 background:rgba(238,240,229,0.1); border-radius:var(--r-sm); padding:0.8rem 1.05rem; }
+.aviso-enlaces i { margin-right:0.45rem; opacity:0.8; }
 .bienvenida { font-size:0.95rem; line-height:1.72; color:var(--text-light); }
 .ruta { list-style:none; padding:0; margin:0; }
 .ruta li { position:relative; padding:0 0 1.3rem 2.1rem; border-left:2px solid var(--border); margin-left:0.55rem; }
@@ -256,8 +259,8 @@ select { padding:0.7rem; border:1px solid var(--border); border-radius:8px; font
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="assets/js/supabase-config.js?v=1790361288"></script>
-<script src="assets/js/auth-helpers.js?v=1790361288"></script>
+<script src="assets/js/supabase-config.js?v=1790366366"></script>
+<script src="assets/js/auth-helpers.js?v=1790366366"></script>
 <script>
 let perfilEstudiante = null;
 let inscripciones = [];
@@ -486,17 +489,41 @@ function pintarCabeceraCurso(curso, grupo, insc) {
     document.getElementById('curso-meta').innerHTML =
         chips.map(c => `<span class="chip">${esc(c)}</span>`).join('');
 
-    // Zoom y WhatsApp solo aparecen si el docente ya los cargó.
+}
+
+// Los enlaces de clase viven en grupo_enlaces, no en grupos: la base solo se
+// los entrega a quien tiene la inscripción activa. Si la consulta no devuelve
+// nada es porque el pago todavía no está confirmado.
+async function pintarEnlacesClase(grupo, insc) {
+    const caja = document.getElementById('curso-acciones');
+    if (!grupo.id) { caja.innerHTML = ''; return; }
+
+    const { data } = await supabaseClient
+        .from('grupo_enlaces')
+        .select('enlace_zoom, enlace_whatsapp')
+        .eq('grupo_id', grupo.id)
+        .maybeSingle();
+
     const acciones = [];
-    if (grupo.enlace_zoom) {
-        acciones.push(`<a class="btn-claro" href="${esc(grupo.enlace_zoom)}" target="_blank" rel="noopener">
+    if (data && data.enlace_zoom) {
+        acciones.push(`<a class="btn-claro" href="${esc(data.enlace_zoom)}" target="_blank" rel="noopener">
             <i class="fa-solid fa-video"></i> Entrar a la clase</a>`);
     }
-    if (grupo.enlace_whatsapp) {
-        acciones.push(`<a class="btn-borde" href="${esc(grupo.enlace_whatsapp)}" target="_blank" rel="noopener">
+    if (data && data.enlace_whatsapp) {
+        acciones.push(`<a class="btn-borde" href="${esc(data.enlace_whatsapp)}" target="_blank" rel="noopener">
             <i class="fa-brands fa-whatsapp"></i> Grupo de WhatsApp</a>`);
     }
-    document.getElementById('curso-acciones').innerHTML = acciones.join('');
+
+    if (acciones.length) {
+        caja.innerHTML = acciones.join('');
+    } else if (insc.estado !== 'activa' && insc.estado !== 'finalizada') {
+        caja.innerHTML = `<p class="aviso-enlaces">
+            <i class="fa-solid fa-lock"></i>
+            El enlace de la clase y el del grupo de WhatsApp se activan aquí en cuanto
+            el profesor confirme tu inscripción.</p>`;
+    } else {
+        caja.innerHTML = '';
+    }
 }
 
 async function pintarRecorrido(grupo) {
@@ -547,6 +574,7 @@ async function seleccionarInscripcion(inscripcionId) {
 
     const grupo = insc.grupos || {};
     pintarCabeceraCurso(curso, grupo, insc);
+    await pintarEnlacesClase(grupo, insc);
     await pintarRecorrido(grupo);
 
     // Los materiales son del grupo, no de la inscripción: se ven aunque la
