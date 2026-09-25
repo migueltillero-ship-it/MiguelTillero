@@ -11,6 +11,16 @@
       "descripcion_en": "“Venez vivre le français”: learning a language means discovering, improvising and connecting with others. Individual and group classes, plus a conversation club."
     },
     {
+      "archivo": "mi-trayectoria-16x9.mp4",
+      "poster": "assets/images/videos/mi-trayectoria-16x9.jpg",
+      "titulo": "Mi trayectoria en imágenes",
+      "titulo_fr": "Mon parcours en images",
+      "titulo_en": "My career in pictures",
+      "descripcion": "Un recorrido por Francia, Venezuela, Ecuador y México: los alumnos, las aulas, los equipos y los eventos que marcaron mi camino. Comprometido con cada estudiante.",
+      "descripcion_fr": "Un parcours à travers la France, le Venezuela, l'Équateur et le Mexique : les élèves, les salles de classe, les équipes et les événements qui ont marqué mon chemin. Engagé auprès de chaque élève.",
+      "descripcion_en": "A journey through France, Venezuela, Ecuador and Mexico: the students, classrooms, teams and events that shaped my path. Committed to every student."
+    },
+    {
       "archivo": "gout-de-la-france-la-salle.mp4",
       "formato": "vertical",
       "poster": "assets/images/videos/gout-de-la-france.jpg",
