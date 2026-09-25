@@ -1,0 +1,2330 @@
+{
+ "categorias": [
+  {
+   "id": "todo",
+   "es": "Todo",
+   "fr": "Tout",
+   "en": "All"
+  },
+  {
+   "id": "trayectoria",
+   "es": "Caracas y Francia",
+   "fr": "Caracas et France",
+   "en": "Caracas & France"
+  },
+  {
+   "id": "ecuador",
+   "es": "Ecuador",
+   "fr": "Équateur",
+   "en": "Ecuador"
+  },
+  {
+   "id": "medios",
+   "es": "Medios y cámaras",
+   "fr": "Médias et caméras",
+   "en": "Media & cameras"
+  },
+  {
+   "id": "mexico",
+   "es": "México",
+   "fr": "Mexique",
+   "en": "Mexico"
+  },
+  {
+   "id": "clases",
+   "es": "Clases y estudiantes",
+   "fr": "Cours et étudiants",
+   "en": "Classes & students"
+  },
+  {
+   "id": "retratos",
+   "es": "Retratos",
+   "fr": "Portraits",
+   "en": "Portraits"
+  }
+ ],
+ "fotos": [
+  {
+   "id": "r-graduacion",
+   "cat": "trayectoria",
+   "src": "assets/images/relato/graduacion.jpg",
+   "thumb": "assets/images/galeria/t/r-graduacion.jpg",
+   "w": 1000,
+   "h": 1250,
+   "alt": "Miguel Tillero el día de su graduación en el Instituto Pedagógico de Caracas",
+   "pie": {
+    "es": "Mi graduación · Instituto Pedagógico de Caracas (UPEL)",
+    "fr": "Ma remise de diplôme · Instituto Pedagógico de Caracas (UPEL)",
+    "en": "My graduation · Instituto Pedagógico de Caracas (UPEL)"
+   }
+  },
+  {
+   "id": "r-magna-cum-laude",
+   "cat": "trayectoria",
+   "src": "assets/images/relato/magna-cum-laude.jpg",
+   "thumb": "assets/images/galeria/t/r-magna-cum-laude.jpg",
+   "w": 1200,
+   "h": 1138,
+   "alt": "Diploma con la distinción Magna Cum Laude, especialidad Francés, 2016",
+   "pie": {
+    "es": "Diploma con la distinción Magna Cum Laude · Caracas, 2016",
+    "fr": "Diplôme avec la mention Magna Cum Laude · Caracas, 2016",
+    "en": "Diploma with Magna Cum Laude distinction · Caracas, 2016"
+   }
+  },
+  {
+   "id": "r-upel-honor",
+   "cat": "trayectoria",
+   "src": "assets/images/relato/upel-honor.jpg",
+   "thumb": "assets/images/galeria/t/r-upel-honor.jpg",
+   "w": 1000,
+   "h": 750,
+   "alt": "Miguel Tillero recibe una distinción de la UPEL, Instituto Pedagógico de Caracas",
+   "pie": {
+    "es": "Distinción de la UPEL · noviembre de 2016",
+    "fr": "Distinction de l’UPEL · novembre 2016",
+    "en": "UPEL honour · November 2016"
+   }
+  },
+  {
+   "id": "r-feria-francia",
+   "cat": "trayectoria",
+   "src": "assets/images/relato/feria-francia.jpg",
+   "thumb": "assets/images/galeria/t/r-feria-francia.jpg",
+   "w": 1000,
+   "h": 757,
+   "alt": "Miguel Tillero en la Feria «Francia tuya» de Caracas",
+   "pie": {
+    "es": "Feria «Francia tuya» · Caracas, junio de 2016",
+    "fr": "Salon « Francia tuya » · Caracas, juin 2016",
+    "en": "“Francia tuya” fair · Caracas, June 2016"
+   }
+  },
+  {
+   "id": "r-ninos-esferas",
+   "cat": "trayectoria",
+   "src": "assets/images/relato/ninos-esferas.jpg",
+   "thumb": "assets/images/galeria/t/r-ninos-esferas.jpg",
+   "w": 1000,
+   "h": 785,
+   "alt": "Figuras de bolitas de colores, regalo de mis alumnos",
+   "pie": {
+    "es": "Un regalo de mis alumnos · enero de 2015",
+    "fr": "Un cadeau de mes élèves · janvier 2015",
+    "en": "A gift from my students · January 2015"
+   }
+  },
+  {
+   "id": "r-ninos-torre",
+   "cat": "trayectoria",
+   "src": "assets/images/relato/ninos-torre.jpg",
+   "thumb": "assets/images/galeria/t/r-ninos-torre.jpg",
+   "w": 1000,
+   "h": 819,
+   "alt": "Dibujo de la Torre Eiffel hecho por un alumno",
+   "pie": {
+    "es": "Otro regalo · noviembre de 2014",
+    "fr": "Un autre cadeau · novembre 2014",
+    "en": "Another gift · November 2014"
+   }
+  },
+  {
+   "id": "r-ninos-tarjeta",
+   "cat": "trayectoria",
+   "src": "assets/images/relato/ninos-tarjeta.jpg",
+   "thumb": "assets/images/galeria/t/r-ninos-tarjeta.jpg",
+   "w": 1000,
+   "h": 1000,
+   "alt": "Tarjeta de mis alumnos: «Tu es mon prof adoré»",
+   "pie": {
+    "es": "«Tu es mon prof adoré» · abril de 2015",
+    "fr": "« Tu es mon prof adoré » · avril 2015",
+    "en": "“Tu es mon prof adoré” · April 2015"
+   }
+  },
+  {
+   "id": "r-cle-montpellier",
+   "cat": "trayectoria",
+   "src": "assets/images/relato/cle-montpellier.jpg",
+   "thumb": "assets/images/galeria/t/r-cle-montpellier.jpg",
+   "w": 1000,
+   "h": 465,
+   "alt": "Journée CLE Formation, Montpellier 2015",
+   "pie": {
+    "es": "Journée CLE Formation · Montpellier, 2015",
+    "fr": "Journée CLE Formation · Montpellier, 2015",
+    "en": "Journée CLE Formation · Montpellier, 2015"
+   }
+  },
+  {
+   "id": "r-canada-embajador",
+   "cat": "trayectoria",
+   "src": "assets/images/relato/canada-embajador.jpg",
+   "thumb": "assets/images/galeria/t/r-canada-embajador.jpg",
+   "w": 1000,
+   "h": 1250,
+   "alt": "Con el embajador de Canadá, Ben Rowswell, en Caracas",
+   "pie": {
+    "es": "Con el embajador de Canadá, Ben Rowswell · Caracas, marzo de 2017",
+    "fr": "Avec l’ambassadeur du Canada, Ben Rowswell · Caracas, mars 2017",
+    "en": "With Canada’s ambassador, Ben Rowswell · Caracas, March 2017"
+   }
+  },
+  {
+   "id": "r-francophonie-venezuela",
+   "cat": "trayectoria",
+   "src": "assets/images/relato/francophonie-venezuela.jpg",
+   "thumb": "assets/images/galeria/t/r-francophonie-venezuela.jpg",
+   "w": 1000,
+   "h": 917,
+   "alt": "Con una alumna y su diploma de premio especial, Francophonie Venezuela 2017",
+   "pie": {
+    "es": "Con una alumna, premio especial de fotografía · «Francophonie Venezuela 2017»",
+    "fr": "Avec une élève, prix spécial de photographie · « Francophonie Venezuela 2017 »",
+    "en": "With a student, special photography prize · “Francophonie Venezuela 2017”"
+   }
+  },
+  {
+   "id": "r-millau-viaducto",
+   "cat": "trayectoria",
+   "src": "assets/images/relato/millau-viaducto.jpg",
+   "thumb": "assets/images/galeria/t/r-millau-viaducto.jpg",
+   "w": 1000,
+   "h": 806,
+   "alt": "Miguel Tillero bajo el viaducto de Millau",
+   "pie": {
+    "es": "Bajo el viaducto de Millau · octubre de 2017",
+    "fr": "Sous le viaduc de Millau · octobre 2017",
+    "en": "Under the Millau Viaduct · October 2017"
+   }
+  },
+  {
+   "id": "r-toulouse-conferencia",
+   "cat": "trayectoria",
+   "src": "assets/images/relato/toulouse-conferencia.jpg",
+   "thumb": "assets/images/galeria/t/r-toulouse-conferencia.jpg",
+   "w": 1000,
+   "h": 1152,
+   "alt": "Conferencia en un aula de Blagnac, Toulouse",
+   "pie": {
+    "es": "Conferencias · Blagnac, Toulouse · diciembre de 2017",
+    "fr": "Conférences · Blagnac, Toulouse · décembre 2017",
+    "en": "Talks · Blagnac, Toulouse · December 2017"
+   }
+  },
+  {
+   "id": "r-avenprof-olivier",
+   "cat": "trayectoria",
+   "src": "assets/images/relato/avenprof-olivier.jpg",
+   "thumb": "assets/images/galeria/t/r-avenprof-olivier.jpg",
+   "w": 1000,
+   "h": 1152,
+   "alt": "Con Olivier Plançon, entonces director de la Alianza Francesa de Caracas",
+   "pie": {
+    "es": "Con Olivier Plançon, entonces director de la Alianza Francesa de Caracas · noviembre de 2022",
+    "fr": "Avec Olivier Plançon, alors directeur de l’Alliance Française de Caracas · novembre 2022",
+    "en": "With Olivier Plançon, then director of the Alliance Française de Caracas · November 2022"
+   }
+  },
+  {
+   "id": "r-avenprof-pedro",
+   "cat": "trayectoria",
+   "src": "assets/images/relato/avenprof-pedro.jpg",
+   "thumb": "assets/images/galeria/t/r-avenprof-pedro.jpg",
+   "w": 1000,
+   "h": 1040,
+   "alt": "Con Pedro Alemán Guillén, profesor de francés de la Universidad Central de Venezuela",
+   "pie": {
+    "es": "Con Pedro Alemán Guillén, profesor de francés de la UCV",
+    "fr": "Avec Pedro Alemán Guillén, professeur de français à l’UCV",
+    "en": "With Pedro Alemán Guillén, French teacher at the UCV"
+   }
+  },
+  {
+   "id": "r-embajador-caracas",
+   "cat": "trayectoria",
+   "src": "assets/images/relato/embajador-caracas.jpg",
+   "thumb": "assets/images/galeria/t/r-embajador-caracas.jpg",
+   "w": 1000,
+   "h": 938,
+   "alt": "Con Su Excelencia el Embajador, en Caracas",
+   "pie": {
+    "es": "Con Su Excelencia el Embajador · Caracas, 2023",
+    "fr": "Avec Son Excellence l’Ambassadeur · Caracas, 2023",
+    "en": "With His Excellency the Ambassador · Caracas, 2023"
+   }
+  },
+  {
+   "id": "z1-034",
+   "cat": "trayectoria",
+   "src": "assets/images/galeria/z1-034.jpg",
+   "thumb": "assets/images/galeria/t/z1-034.jpg",
+   "w": 750,
+   "h": 1000,
+   "alt": "Con la bandera de Venezuela",
+   "pie": {
+    "es": "Con la bandera de Venezuela",
+    "fr": "Avec le drapeau du Venezuela",
+    "en": "With the flag of Venezuela"
+   }
+  },
+  {
+   "id": "z2-000",
+   "cat": "trayectoria",
+   "src": "assets/images/galeria/z2-000.jpg",
+   "thumb": "assets/images/galeria/t/z2-000.jpg",
+   "w": 1000,
+   "h": 992,
+   "alt": "Camino al teatro con mis alumnos · diciembre de 2014",
+   "pie": {
+    "es": "Camino al teatro con mis alumnos · diciembre de 2014",
+    "fr": "En route pour le théâtre avec mes élèves · décembre 2014",
+    "en": "On the way to the theatre with my students · December 2014"
+   }
+  },
+  {
+   "id": "z2-006",
+   "cat": "trayectoria",
+   "src": "assets/images/galeria/z2-006.jpg",
+   "thumb": "assets/images/galeria/t/z2-006.jpg",
+   "w": 1000,
+   "h": 1144,
+   "alt": "Material de la formación CLE · Montpellier, abril de 2015",
+   "pie": {
+    "es": "Material de la formación CLE · Montpellier, abril de 2015",
+    "fr": "Matériel de la formation CLE · Montpellier, avril 2015",
+    "en": "CLE training materials · Montpellier, April 2015"
+   }
+  },
+  {
+   "id": "z2-007",
+   "cat": "trayectoria",
+   "src": "assets/images/galeria/z2-007.jpg",
+   "thumb": "assets/images/galeria/t/z2-007.jpg",
+   "w": 1000,
+   "h": 1112,
+   "alt": "Primavera en Francia · abril de 2015",
+   "pie": {
+    "es": "Primavera en Francia · abril de 2015",
+    "fr": "Le printemps en France · avril 2015",
+    "en": "Spring in France · April 2015"
+   }
+  },
+  {
+   "id": "z2-011",
+   "cat": "trayectoria",
+   "src": "assets/images/galeria/z2-011.jpg",
+   "thumb": "assets/images/galeria/t/z2-011.jpg",
+   "w": 1000,
+   "h": 1160,
+   "alt": "Día de graduación · Caracas, julio de 2016",
+   "pie": {
+    "es": "Día de graduación · Caracas, julio de 2016",
+    "fr": "Jour de remise des diplômes · Caracas, juillet 2016",
+    "en": "Graduation day · Caracas, July 2016"
+   }
+  },
+  {
+   "id": "z2-013",
+   "cat": "trayectoria",
+   "src": "assets/images/galeria/z2-013.jpg",
+   "thumb": "assets/images/galeria/t/z2-013.jpg",
+   "w": 1000,
+   "h": 1368,
+   "alt": "«Una nacionalidad va más allá de una bandera» · septiembre de 2016",
+   "pie": {
+    "es": "«Una nacionalidad va más allá de una bandera» · septiembre de 2016",
+    "fr": "« Une nationalité dépasse un drapeau » · septembre 2016",
+    "en": "“A nationality goes beyond a flag” · September 2016"
+   }
+  },
+  {
+   "id": "z2-014",
+   "cat": "trayectoria",
+   "src": "assets/images/galeria/z2-014.jpg",
+   "thumb": "assets/images/galeria/t/z2-014.jpg",
+   "w": 1000,
+   "h": 1064,
+   "alt": "Construyendo un jardín con niños · noviembre de 2016",
+   "pie": {
+    "es": "Construyendo un jardín con niños · noviembre de 2016",
+    "fr": "Un jardin construit avec des enfants · novembre 2016",
+    "en": "Building a garden with children · November 2016"
+   }
+  },
+  {
+   "id": "z2-017",
+   "cat": "trayectoria",
+   "src": "assets/images/galeria/z2-017.jpg",
+   "thumb": "assets/images/galeria/t/z2-017.jpg",
+   "w": 1000,
+   "h": 1160,
+   "alt": "Con mis alumnos · febrero de 2017",
+   "pie": {
+    "es": "Con mis alumnos · febrero de 2017",
+    "fr": "Avec mes élèves · février 2017",
+    "en": "With my students · February 2017"
+   }
+  },
+  {
+   "id": "z2-019",
+   "cat": "trayectoria",
+   "src": "assets/images/galeria/z2-019.jpg",
+   "thumb": "assets/images/galeria/t/z2-019.jpg",
+   "w": 1000,
+   "h": 1344,
+   "alt": "Día Mundial de la Poesía · marzo de 2017",
+   "pie": {
+    "es": "Día Mundial de la Poesía · marzo de 2017",
+    "fr": "Journée mondiale de la poésie · mars 2017",
+    "en": "World Poetry Day · March 2017"
+   }
+  },
+  {
+   "id": "z2-021",
+   "cat": "trayectoria",
+   "src": "assets/images/galeria/z2-021.jpg",
+   "thumb": "assets/images/galeria/t/z2-021.jpg",
+   "w": 1000,
+   "h": 1160,
+   "alt": "Con mis alumnos · febrero de 2017",
+   "pie": {
+    "es": "Con mis alumnos · febrero de 2017",
+    "fr": "Avec mes élèves · février 2017",
+    "en": "With my students · February 2017"
+   }
+  },
+  {
+   "id": "z2-024",
+   "cat": "trayectoria",
+   "src": "assets/images/galeria/z2-024.jpg",
+   "thumb": "assets/images/galeria/t/z2-024.jpg",
+   "w": 1000,
+   "h": 1008,
+   "alt": "Festival de música · Caracas, julio de 2017",
+   "pie": {
+    "es": "Festival de música · Caracas, julio de 2017",
+    "fr": "Festival de musique · Caracas, juillet 2017",
+    "en": "Music festival · Caracas, July 2017"
+   }
+  },
+  {
+   "id": "z2-025",
+   "cat": "trayectoria",
+   "src": "assets/images/galeria/z2-025.jpg",
+   "thumb": "assets/images/galeria/t/z2-025.jpg",
+   "w": 1000,
+   "h": 848,
+   "alt": "«Compartamos un instante» · festival de música, julio de 2017",
+   "pie": {
+    "es": "«Compartamos un instante» · festival de música, julio de 2017",
+    "fr": "« Partageons un instant » · festival de musique, juillet 2017",
+    "en": "“Let’s share a moment” · music festival, July 2017"
+   }
+  },
+  {
+   "id": "z2-026",
+   "cat": "trayectoria",
+   "src": "assets/images/galeria/z2-026.jpg",
+   "thumb": "assets/images/galeria/t/z2-026.jpg",
+   "w": 1000,
+   "h": 824,
+   "alt": "Recibiendo una distinción · junio de 2017",
+   "pie": {
+    "es": "Recibiendo una distinción · junio de 2017",
+    "fr": "Recevant une distinction · juin 2017",
+    "en": "Receiving an honour · June 2017"
+   }
+  },
+  {
+   "id": "z2-027",
+   "cat": "trayectoria",
+   "src": "assets/images/galeria/z2-027.jpg",
+   "thumb": "assets/images/galeria/t/z2-027.jpg",
+   "w": 1000,
+   "h": 712,
+   "alt": "Presentando el festival de música · julio de 2017",
+   "pie": {
+    "es": "Presentando el festival de música · julio de 2017",
+    "fr": "À la présentation du festival de musique · juillet 2017",
+    "en": "Hosting the music festival · July 2017"
+   }
+  },
+  {
+   "id": "z2-028",
+   "cat": "trayectoria",
+   "src": "assets/images/galeria/z2-028.jpg",
+   "thumb": "assets/images/galeria/t/z2-028.jpg",
+   "w": 1000,
+   "h": 1152,
+   "alt": "Compartiendo entre profes · julio de 2017",
+   "pie": {
+    "es": "Compartiendo entre profes · julio de 2017",
+    "fr": "Entre profs · juillet 2017",
+    "en": "Sharing among teachers · July 2017"
+   }
+  },
+  {
+   "id": "z2-029",
+   "cat": "trayectoria",
+   "src": "assets/images/galeria/z2-029.jpg",
+   "thumb": "assets/images/galeria/t/z2-029.jpg",
+   "w": 1000,
+   "h": 1120,
+   "alt": "Con una amiga · octubre de 2017",
+   "pie": {
+    "es": "Con una amiga · octubre de 2017",
+    "fr": "Avec une amie · octobre 2017",
+    "en": "With a friend · October 2017"
+   }
+  },
+  {
+   "id": "z2-031",
+   "cat": "trayectoria",
+   "src": "assets/images/galeria/z2-031.jpg",
+   "thumb": "assets/images/galeria/t/z2-031.jpg",
+   "w": 1000,
+   "h": 1152,
+   "alt": "Festival de música · Caracas, julio de 2017",
+   "pie": {
+    "es": "Festival de música · Caracas, julio de 2017",
+    "fr": "Festival de musique · Caracas, juillet 2017",
+    "en": "Music festival · Caracas, July 2017"
+   }
+  },
+  {
+   "id": "z2-033",
+   "cat": "trayectoria",
+   "src": "assets/images/galeria/z2-033.jpg",
+   "thumb": "assets/images/galeria/t/z2-033.jpg",
+   "w": 1000,
+   "h": 952,
+   "alt": "Conferencias en Blagnac (Toulouse), segundo día · diciembre de 2017",
+   "pie": {
+    "es": "Conferencias en Blagnac (Toulouse), segundo día · diciembre de 2017",
+    "fr": "Conférences à Blagnac (Toulouse), deuxième jour · décembre 2017",
+    "en": "Talks in Blagnac (Toulouse), day two · December 2017"
+   }
+  },
+  {
+   "id": "z2-035",
+   "cat": "trayectoria",
+   "src": "assets/images/galeria/z2-035.jpg",
+   "thumb": "assets/images/galeria/t/z2-035.jpg",
+   "w": 1000,
+   "h": 752,
+   "alt": "Millau, octubre de 2017",
+   "pie": {
+    "es": "Millau, octubre de 2017",
+    "fr": "Millau, octobre 2017",
+    "en": "Millau, October 2017"
+   }
+  },
+  {
+   "id": "z2-075",
+   "cat": "trayectoria",
+   "src": "assets/images/galeria/z2-075.jpg",
+   "thumb": "assets/images/galeria/t/z2-075.jpg",
+   "w": 1000,
+   "h": 1152,
+   "alt": "Journée internationale du professeur de français · Alianza Francesa de Caracas, noviembre de 2022",
+   "pie": {
+    "es": "Journée internationale du professeur de français · Alianza Francesa de Caracas, noviembre de 2022",
+    "fr": "Journée internationale du professeur de français · Alliance Française de Caracas, novembre 2022",
+    "en": "International French Teacher’s Day · Alliance Française de Caracas, November 2022"
+   }
+  },
+  {
+   "id": "z2-078",
+   "cat": "trayectoria",
+   "src": "assets/images/galeria/z2-078.jpg",
+   "thumb": "assets/images/galeria/t/z2-078.jpg",
+   "w": 1000,
+   "h": 488,
+   "alt": "Caracas · marzo de 2023",
+   "pie": {
+    "es": "Caracas · marzo de 2023",
+    "fr": "Caracas · mars 2023",
+    "en": "Caracas · March 2023"
+   }
+  },
+  {
+   "id": "z2-079",
+   "cat": "trayectoria",
+   "src": "assets/images/galeria/z2-079.jpg",
+   "thumb": "assets/images/galeria/t/z2-079.jpg",
+   "w": 1000,
+   "h": 1000,
+   "alt": "Caracas · marzo de 2023",
+   "pie": {
+    "es": "Caracas · marzo de 2023",
+    "fr": "Caracas · mars 2023",
+    "en": "Caracas · March 2023"
+   }
+  },
+  {
+   "id": "z2-080",
+   "cat": "trayectoria",
+   "src": "assets/images/galeria/z2-080.jpg",
+   "thumb": "assets/images/galeria/t/z2-080.jpg",
+   "w": 1000,
+   "h": 864,
+   "alt": "Journée internationale du professeur de français · Alianza Francesa de Caracas, noviembre de 2022",
+   "pie": {
+    "es": "Journée internationale du professeur de français · Alianza Francesa de Caracas, noviembre de 2022",
+    "fr": "Journée internationale du professeur de français · Alliance Française de Caracas, novembre 2022",
+    "en": "International French Teacher’s Day · Alliance Française de Caracas, November 2022"
+   }
+  },
+  {
+   "id": "r-cuenca-escritorio",
+   "cat": "ecuador",
+   "src": "assets/images/relato/cuenca-escritorio.jpg",
+   "thumb": "assets/images/galeria/t/r-cuenca-escritorio.jpg",
+   "w": 1500,
+   "h": 750,
+   "alt": "En mi escritorio de director pedagógico, Alianza Francesa de Cuenca",
+   "pie": {
+    "es": "En mi despacho · Alianza Francesa de Cuenca",
+    "fr": "Dans mon bureau · Alliance Française de Cuenca",
+    "en": "At my desk · Alliance Française de Cuenca"
+   }
+  },
+  {
+   "id": "r-cuenca-director",
+   "cat": "ecuador",
+   "src": "assets/images/relato/cuenca-director.jpg",
+   "thumb": "assets/images/galeria/t/r-cuenca-director.jpg",
+   "w": 900,
+   "h": 1123,
+   "alt": "Presentación institucional: Miguel Tillero, Director Pedagógico, AF Cuenca",
+   "pie": {
+    "es": "«Miguel Tillero, Director Pedagógico · AF Cuenca»",
+    "fr": "« Miguel Tillero, Directeur pédagogique · AF Cuenca »",
+    "en": "“Miguel Tillero, Pedagogical Director · AF Cuenca”"
+   }
+  },
+  {
+   "id": "r-cuenca-atril",
+   "cat": "ecuador",
+   "src": "assets/images/relato/cuenca-atril.jpg",
+   "thumb": "assets/images/galeria/t/r-cuenca-atril.jpg",
+   "w": 1000,
+   "h": 1250,
+   "alt": "Hablando desde el atril de la Alianza Francesa de Cuenca",
+   "pie": {
+    "es": "Palabras en un acto de la Alianza",
+    "fr": "Prise de parole lors d’un événement de l’Alliance",
+    "en": "Speaking at an Alliance event"
+   }
+  },
+  {
+   "id": "r-cuenca-oficina-1",
+   "cat": "ecuador",
+   "src": "assets/images/relato/cuenca-oficina-1.jpg",
+   "thumb": "assets/images/galeria/t/r-cuenca-oficina-1.jpg",
+   "w": 1000,
+   "h": 1016,
+   "alt": "En mi oficina de la Alianza Francesa de Cuenca",
+   "pie": {
+    "es": "En mi oficina de la Alianza",
+    "fr": "Dans mon bureau à l’Alliance",
+    "en": "In my office at the Alliance"
+   }
+  },
+  {
+   "id": "r-cuenca-oficina-2",
+   "cat": "ecuador",
+   "src": "assets/images/relato/cuenca-oficina-2.jpg",
+   "thumb": "assets/images/galeria/t/r-cuenca-oficina-2.jpg",
+   "w": 1000,
+   "h": 1000,
+   "alt": "Un momento en mi oficina, Alianza Francesa de Cuenca",
+   "pie": {
+    "es": "Un buen momento en la oficina",
+    "fr": "Un bon moment au bureau",
+    "en": "A good moment at the office"
+   }
+  },
+  {
+   "id": "r-af-cuenca",
+   "cat": "ecuador",
+   "src": "assets/images/trayectoria/af-cuenca.jpg",
+   "thumb": "assets/images/galeria/t/r-af-cuenca.jpg",
+   "w": 1080,
+   "h": 964,
+   "alt": "Alianza Francesa de Cuenca, Ecuador",
+   "pie": {
+    "es": "Alianza Francesa de Cuenca, Ecuador",
+    "fr": "Alliance Française de Cuenca, Équateur",
+    "en": "Alliance Française de Cuenca, Ecuador"
+   }
+  },
+  {
+   "id": "r-ilustracion-vilcabamba",
+   "cat": "ecuador",
+   "src": "assets/images/relato/ilustracion-vilcabamba.jpg",
+   "thumb": "assets/images/galeria/t/r-ilustracion-vilcabamba.jpg",
+   "w": 1000,
+   "h": 882,
+   "alt": "Café con la ilustradora Karine Bernadou en Vilcabamba",
+   "pie": {
+    "es": "Café con Karine Bernadou · Vilcabamba, mayo de 2019",
+    "fr": "Café avec Karine Bernadou · Vilcabamba, mai 2019",
+    "en": "Coffee with Karine Bernadou · Vilcabamba, May 2019"
+   }
+  },
+  {
+   "id": "r-ilustracion-miguel",
+   "cat": "ecuador",
+   "src": "assets/images/relato/ilustracion-miguel.jpg",
+   "thumb": "assets/images/galeria/t/r-ilustracion-miguel.jpg",
+   "w": 1000,
+   "h": 1250,
+   "alt": "Miguel Tillero con la ilustración que le dedicó Karine Bernadou",
+   "pie": {
+    "es": "Con la ilustración de Karine Bernadou",
+    "fr": "Avec l’illustration de Karine Bernadou",
+    "en": "With Karine Bernadou’s illustration"
+   }
+  },
+  {
+   "id": "r-ilustracion-artista",
+   "cat": "ecuador",
+   "src": "assets/images/relato/ilustracion-artista.jpg",
+   "thumb": "assets/images/galeria/t/r-ilustracion-artista.jpg",
+   "w": 1100,
+   "h": 1012,
+   "alt": "Ilustración «Miguel David» de Karine Bernadou",
+   "pie": {
+    "es": "«Miguel David» · dibujo de Karine Bernadou",
+    "fr": "« Miguel David » · dessin de Karine Bernadou",
+    "en": "“Miguel David” · drawing by Karine Bernadou"
+   }
+  },
+  {
+   "id": "r-escena-lauren",
+   "cat": "ecuador",
+   "src": "assets/images/relato/escena-lauren.jpg",
+   "thumb": "assets/images/galeria/t/r-escena-lauren.jpg",
+   "w": 1000,
+   "h": 958,
+   "alt": "Miguel Tillero con Lauren y el cuadro «Ceci n’est pas une pipe»",
+   "pie": {
+    "es": "Tras el espectáculo de Lauren · «Ceci n’est pas une pipe»",
+    "fr": "Après le spectacle de Lauren · « Ceci n’est pas une pipe »",
+    "en": "After Lauren’s show · “Ceci n’est pas une pipe”"
+   }
+  },
+  {
+   "id": "r-escena-teatro",
+   "cat": "ecuador",
+   "src": "assets/images/relato/escena-teatro.jpg",
+   "thumb": "assets/images/galeria/t/r-escena-teatro.jpg",
+   "w": 1000,
+   "h": 826,
+   "alt": "Taller de teatro con estudiantes en la Alianza Francesa de Cuenca",
+   "pie": {
+    "es": "Taller de teatro · septiembre de 2020",
+    "fr": "Atelier de théâtre · septembre 2020",
+    "en": "Theatre workshop · September 2020"
+   }
+  },
+  {
+   "id": "r-convenio-panel",
+   "cat": "ecuador",
+   "src": "assets/images/relato/convenio-panel.jpg",
+   "thumb": "assets/images/galeria/t/r-convenio-panel.jpg",
+   "w": 1000,
+   "h": 608,
+   "alt": "Encuentro entre la Alianza Francesa de Cuenca y el Grupo Industrial Graiman",
+   "pie": {
+    "es": "Alianza Francesa de Cuenca × Graiman · agosto de 2019",
+    "fr": "Alliance Française de Cuenca × Graiman · août 2019",
+    "en": "Alliance Française de Cuenca × Graiman · August 2019"
+   }
+  },
+  {
+   "id": "r-convenio-estudiantes",
+   "cat": "ecuador",
+   "src": "assets/images/relato/convenio-estudiantes.jpg",
+   "thumb": "assets/images/galeria/t/r-convenio-estudiantes.jpg",
+   "w": 1000,
+   "h": 608,
+   "alt": "Estudiantes con sus certificados junto a representantes de la Alianza y de Graiman",
+   "pie": {
+    "es": "Estudiantes con sus certificados · agosto de 2019",
+    "fr": "Étudiants avec leurs certificats · août 2019",
+    "en": "Students with their certificates · August 2019"
+   }
+  },
+  {
+   "id": "r-ceremonia-delf",
+   "cat": "ecuador",
+   "src": "assets/images/relato/ceremonia-delf.jpg",
+   "thumb": "assets/images/galeria/t/r-ceremonia-delf.jpg",
+   "w": 1000,
+   "h": 625,
+   "alt": "Preparando la ceremonia de entrega de diplomas DELF",
+   "pie": {
+    "es": "Preparando la entrega de diplomas DELF · diciembre de 2019",
+    "fr": "Préparation de la remise des diplômes DELF · décembre 2019",
+    "en": "Preparing the DELF diploma ceremony · December 2019"
+   }
+  },
+  {
+   "id": "r-arquitectos-pergola",
+   "cat": "ecuador",
+   "src": "assets/images/relato/arquitectos-pergola.jpg",
+   "thumb": "assets/images/galeria/t/r-arquitectos-pergola.jpg",
+   "w": 1000,
+   "h": 812,
+   "alt": "Con Sebastián y Rosita, arquitectos de la renovación de la pérgola",
+   "pie": {
+    "es": "Con Sebastián y Rosita, arquitectos de la pérgola · enero de 2021",
+    "fr": "Avec Sebastián et Rosita, architectes de la pergola · janvier 2021",
+    "en": "With Sebastián and Rosita, the pergola architects · January 2021"
+   }
+  },
+  {
+   "id": "r-becarios-embajada",
+   "cat": "ecuador",
+   "src": "assets/images/relato/becarios-embajada.jpg",
+   "thumb": "assets/images/galeria/t/r-becarios-embajada.jpg",
+   "w": 1000,
+   "h": 938,
+   "alt": "Con los becarios y el Primer Consejero de la Embajada de Francia",
+   "pie": {
+    "es": "Con los becarios y el Primer Consejero de la Embajada de Francia · mayo de 2021",
+    "fr": "Avec les boursiers et le Premier Conseiller de l’Ambassade de France · mai 2021",
+    "en": "With the scholarship students and the French Embassy’s First Counsellor · May 2021"
+   }
+  },
+  {
+   "id": "r-catorce-2019",
+   "cat": "ecuador",
+   "src": "assets/images/relato/catorce-2019.jpg",
+   "thumb": "assets/images/galeria/t/r-catorce-2019.jpg",
+   "w": 1000,
+   "h": 625,
+   "alt": "Preparando la recepción del Día Nacional de Francia de 2019",
+   "pie": {
+    "es": "Preparando la recepción · julio de 2019",
+    "fr": "Préparation de la réception · juillet 2019",
+    "en": "Preparing the reception · July 2019"
+   }
+  },
+  {
+   "id": "r-catorce-2020",
+   "cat": "ecuador",
+   "src": "assets/images/relato/catorce-2020.jpg",
+   "thumb": "assets/images/galeria/t/r-catorce-2020.jpg",
+   "w": 1000,
+   "h": 799,
+   "alt": "Palabras en el Día Nacional de Francia de 2020",
+   "pie": {
+    "es": "Palabras del 14 de julio de 2020",
+    "fr": "Discours du 14 juillet 2020",
+    "en": "Speech on July 14, 2020"
+   }
+  },
+  {
+   "id": "r-catorce-grabacion",
+   "cat": "ecuador",
+   "src": "assets/images/relato/catorce-grabacion.jpg",
+   "thumb": "assets/images/galeria/t/r-catorce-grabacion.jpg",
+   "w": 1000,
+   "h": 1222,
+   "alt": "Grabación previa para el 14 de julio de 2020",
+   "pie": {
+    "es": "Grabación · julio de 2020",
+    "fr": "Enregistrement · juillet 2020",
+    "en": "Recording · July 2020"
+   }
+  },
+  {
+   "id": "r-catorce-grupo",
+   "cat": "ecuador",
+   "src": "assets/images/relato/catorce-grupo.jpg",
+   "thumb": "assets/images/galeria/t/r-catorce-grupo.jpg",
+   "w": 1000,
+   "h": 944,
+   "alt": "Con la cónsul honoraria, la presidenta y el director de la Alianza Francesa de Cuenca",
+   "pie": {
+    "es": "Con la cónsul honoraria Carmen Moreno, la presidenta Cecilia Andrade y el director Antoine Lissorgues",
+    "fr": "Avec la consule honoraire Carmen Moreno, la présidente Cecilia Andrade et le directeur Antoine Lissorgues",
+    "en": "With honorary consul Carmen Moreno, president Cecilia Andrade and director Antoine Lissorgues"
+   }
+  },
+  {
+   "id": "r-defi-inter-af",
+   "cat": "ecuador",
+   "src": "assets/images/relato/defi-inter-af.jpg",
+   "thumb": "assets/images/galeria/t/r-defi-inter-af.jpg",
+   "w": 1100,
+   "h": 1100,
+   "alt": "Cartel del primer Défi Inter-AF: Alianza Francesa de Cuenca contra Alianza Francesa de Querétaro",
+   "pie": {
+    "es": "Cartel del primer Défi Inter-AF · 22 de mayo de 2020",
+    "fr": "Affiche du premier Défi Inter-AF · 22 mai 2020",
+    "en": "Poster of the first Défi Inter-AF · May 22, 2020"
+   }
+  },
+  {
+   "id": "r-meirieu-conferencia",
+   "cat": "ecuador",
+   "src": "assets/images/relato/meirieu-conferencia.jpg",
+   "thumb": "assets/images/galeria/t/r-meirieu-conferencia.jpg",
+   "w": 1000,
+   "h": 625,
+   "alt": "Philippe Meirieu ofrece la conferencia «Y si la escuela enseñara a pensar» en el Teatro Sucre",
+   "pie": {
+    "es": "Philippe Meirieu · «Y si la escuela enseñara a pensar» · Teatro Sucre, noviembre de 2019",
+    "fr": "Philippe Meirieu · « Et si l’école enseignait à penser » · Théâtre Sucre, novembre 2019",
+    "en": "Philippe Meirieu · “What if school taught us to think” · Teatro Sucre, November 2019"
+   }
+  },
+  {
+   "id": "r-libro-evento",
+   "cat": "ecuador",
+   "src": "assets/images/relato/libro-evento.jpg",
+   "thumb": "assets/images/galeria/t/r-libro-evento.jpg",
+   "w": 1000,
+   "h": 1250,
+   "alt": "Miguel Tillero con el libro «Cuentos contados desde la artesanía»",
+   "pie": {
+    "es": "«Cuentos contados desde la artesanía» · Alianza Francesa de Cuenca",
+    "fr": "« Cuentos contados desde la artesanía » · Alliance Française de Cuenca",
+    "en": "“Cuentos contados desde la artesanía” · Alliance Française de Cuenca"
+   }
+  },
+  {
+   "id": "r-libro-lanzamiento",
+   "cat": "ecuador",
+   "src": "assets/images/relato/libro-lanzamiento.jpg",
+   "thumb": "assets/images/galeria/t/r-libro-lanzamiento.jpg",
+   "w": 1000,
+   "h": 1000,
+   "alt": "Miguel Tillero levanta el libro en el lanzamiento de la segunda edición",
+   "pie": {
+    "es": "Lanzamiento de la segunda edición · junio de 2022",
+    "fr": "Lancement de la deuxième édition · juin 2022",
+    "en": "Second edition launch · June 2022"
+   }
+  },
+  {
+   "id": "r-embajador-francia",
+   "cat": "ecuador",
+   "src": "assets/images/trayectoria/embajador-francia.jpg",
+   "thumb": "assets/images/galeria/t/r-embajador-francia.jpg",
+   "w": 1080,
+   "h": 917,
+   "alt": "Con el Embajador de Francia, Fiesta de la Francofonía",
+   "pie": {
+    "es": "Con el Embajador de Francia · Fiesta de la Francofonía",
+    "fr": "Avec l'Ambassadeur de France · Fête de la Francophonie",
+    "en": "With the Ambassador of France · Francophonie Festival"
+   }
+  },
+  {
+   "id": "r-af-guayaquil",
+   "cat": "ecuador",
+   "src": "assets/images/trayectoria/af-guayaquil.jpg",
+   "thumb": "assets/images/galeria/t/r-af-guayaquil.jpg",
+   "w": 1080,
+   "h": 936,
+   "alt": "Con colegas de la Alianza Francesa de Guayaquil",
+   "pie": {
+    "es": "Con colegas · Alianza Francesa de Guayaquil",
+    "fr": "Avec des collègues · Alliance Française de Guayaquil",
+    "en": "With colleagues · Alliance Française of Guayaquil"
+   }
+  },
+  {
+   "id": "r-conferencia-colegas",
+   "cat": "ecuador",
+   "src": "assets/images/trayectoria/conferencia-colegas.jpg",
+   "thumb": "assets/images/galeria/t/r-conferencia-colegas.jpg",
+   "w": 960,
+   "h": 720,
+   "alt": "Encuentro de colegas de las Alianzas Francesas",
+   "pie": {
+    "es": "Encuentro de colegas de las Alianzas Francesas",
+    "fr": "Rencontre de collègues des Alliances Françaises",
+    "en": "Gathering of Alliance Française colleagues"
+   }
+  },
+  {
+   "id": "r-quito-rfi-banderas",
+   "cat": "ecuador",
+   "src": "assets/images/trayectoria/quito-rfi-banderas.jpg",
+   "thumb": "assets/images/galeria/t/r-quito-rfi-banderas.jpg",
+   "w": 1080,
+   "h": 696,
+   "alt": "Quito, con las banderas de la Unión Europea, Ecuador y Francia",
+   "pie": {
+    "es": "Quito · banderas de la UE, Ecuador y Francia",
+    "fr": "Quito · drapeaux de l'UE, de l'Équateur et de la France",
+    "en": "Quito · EU, Ecuador and France flags"
+   }
+  },
+  {
+   "id": "r-cuenca-homenaje",
+   "cat": "ecuador",
+   "src": "assets/images/relato/cuenca-homenaje.jpg",
+   "thumb": "assets/images/galeria/t/r-cuenca-homenaje.jpg",
+   "w": 1000,
+   "h": 1333,
+   "alt": "Homenaje del Consejo Directivo de la Alianza Francesa de Cuenca",
+   "pie": {
+    "es": "Homenaje del Consejo Directivo",
+    "fr": "Hommage du Conseil d’administration",
+    "en": "Tribute from the Board"
+   }
+  },
+  {
+   "id": "r-cuenca-despedida",
+   "cat": "ecuador",
+   "src": "assets/images/relato/cuenca-despedida.jpg",
+   "thumb": "assets/images/galeria/t/r-cuenca-despedida.jpg",
+   "w": 900,
+   "h": 1124,
+   "alt": "Despedida desde el carro en Cuenca",
+   "pie": {
+    "es": "La despedida, desde el carro",
+    "fr": "Les adieux, depuis la voiture",
+    "en": "The farewell, from the car"
+   }
+  },
+  {
+   "id": "r-comite-estudiantil",
+   "cat": "ecuador",
+   "src": "assets/images/relato/comite-estudiantil.jpg",
+   "thumb": "assets/images/galeria/t/r-comite-estudiantil.jpg",
+   "w": 1000,
+   "h": 625,
+   "alt": "Con uno de los estudiantes que fundó el Comité Estudiantil",
+   "pie": {
+    "es": "Con uno de los fundadores del Comité Estudiantil",
+    "fr": "Avec l’un des fondateurs du Comité étudiant",
+    "en": "With one of the founders of the Student Committee"
+   }
+  },
+  {
+   "id": "z1-023",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z1-023.jpg",
+   "thumb": "assets/images/galeria/t/z1-023.jpg",
+   "w": 960,
+   "h": 1280,
+   "alt": "La despedida, desde el carro",
+   "pie": {
+    "es": "La despedida, desde el carro",
+    "fr": "Les adieux, depuis la voiture",
+    "en": "The farewell, from the car"
+   }
+  },
+  {
+   "id": "z1-027",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z1-027.jpg",
+   "thumb": "assets/images/galeria/t/z1-027.jpg",
+   "w": 960,
+   "h": 1279,
+   "alt": "La despedida, desde el carro",
+   "pie": {
+    "es": "La despedida, desde el carro",
+    "fr": "Les adieux, depuis la voiture",
+    "en": "The farewell, from the car"
+   }
+  },
+  {
+   "id": "z1-029",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z1-029.jpg",
+   "thumb": "assets/images/galeria/t/z1-029.jpg",
+   "w": 1280,
+   "h": 960,
+   "alt": "«Cuentos contados desde la artesanía» · Alianza Francesa de Cuenca",
+   "pie": {
+    "es": "«Cuentos contados desde la artesanía» · Alianza Francesa de Cuenca",
+    "fr": "« Cuentos contados desde la artesanía » · Alliance Française de Cuenca",
+    "en": "“Cuentos contados desde la artesanía” · Alliance Française de Cuenca"
+   }
+  },
+  {
+   "id": "z1-031",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z1-031.jpg",
+   "thumb": "assets/images/galeria/t/z1-031.jpg",
+   "w": 810,
+   "h": 1080,
+   "alt": "Un momento de humor en un evento cultural",
+   "pie": {
+    "es": "Un momento de humor en un evento cultural",
+    "fr": "Un moment d’humour lors d’un événement culturel",
+    "en": "A humorous moment at a cultural event"
+   }
+  },
+  {
+   "id": "z1-033",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z1-033.jpg",
+   "thumb": "assets/images/galeria/t/z1-033.jpg",
+   "w": 960,
+   "h": 1280,
+   "alt": "Frente a la Alianza Francesa de Cuenca",
+   "pie": {
+    "es": "Frente a la Alianza Francesa de Cuenca",
+    "fr": "Devant l’Alliance Française de Cuenca",
+    "en": "In front of the Alliance Française de Cuenca"
+   }
+  },
+  {
+   "id": "z1-039",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z1-039.jpg",
+   "thumb": "assets/images/galeria/t/z1-039.jpg",
+   "w": 810,
+   "h": 1080,
+   "alt": "Frente a las banderas de la Unión Europea, Ecuador y Francia",
+   "pie": {
+    "es": "Frente a las banderas de la Unión Europea, Ecuador y Francia",
+    "fr": "Devant les drapeaux de l’Union européenne, de l’Équateur et de la France",
+    "en": "In front of the European Union, Ecuador and France flags"
+   }
+  },
+  {
+   "id": "z1-040",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z1-040.jpg",
+   "thumb": "assets/images/galeria/t/z1-040.jpg",
+   "w": 960,
+   "h": 1280,
+   "alt": "Entrega de una certificación TCF · France Éducation international",
+   "pie": {
+    "es": "Entrega de una certificación TCF · France Éducation international",
+    "fr": "Remise d’une certification TCF · France Éducation international",
+    "en": "Handing over a TCF certification · France Éducation international"
+   }
+  },
+  {
+   "id": "z1-046",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z1-046.jpg",
+   "thumb": "assets/images/galeria/t/z1-046.jpg",
+   "w": 957,
+   "h": 1280,
+   "alt": "Con la ilustración de Karine Bernadou, bajo las banderas",
+   "pie": {
+    "es": "Con la ilustración de Karine Bernadou, bajo las banderas",
+    "fr": "Avec l’illustration de Karine Bernadou, sous les drapeaux",
+    "en": "With Karine Bernadou’s illustration, under the flags"
+   }
+  },
+  {
+   "id": "z1-048",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z1-048.jpg",
+   "thumb": "assets/images/galeria/t/z1-048.jpg",
+   "w": 810,
+   "h": 1080,
+   "alt": "Bajo las banderas de la Unión Europea, Ecuador y Francia",
+   "pie": {
+    "es": "Bajo las banderas de la Unión Europea, Ecuador y Francia",
+    "fr": "Sous les drapeaux de l’Union européenne, de l’Équateur et de la France",
+    "en": "Under the flags of the European Union, Ecuador and France"
+   }
+  },
+  {
+   "id": "z1-058",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z1-058.jpg",
+   "thumb": "assets/images/galeria/t/z1-058.jpg",
+   "w": 957,
+   "h": 1280,
+   "alt": "Con una ilustración, frente a la Alianza Francesa de Cuenca",
+   "pie": {
+    "es": "Con una ilustración, frente a la Alianza Francesa de Cuenca",
+    "fr": "Avec une illustration, devant l’Alliance Française de Cuenca",
+    "en": "With an illustration, outside the Alliance Française de Cuenca"
+   }
+  },
+  {
+   "id": "z1-061",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z1-061.jpg",
+   "thumb": "assets/images/galeria/t/z1-061.jpg",
+   "w": 522,
+   "h": 1080,
+   "alt": "En un concierto de la Alianza Francesa de Cuenca",
+   "pie": {
+    "es": "En un concierto de la Alianza Francesa de Cuenca",
+    "fr": "Lors d’un concert de l’Alliance Française de Cuenca",
+    "en": "At an Alliance Française de Cuenca concert"
+   }
+  },
+  {
+   "id": "z1-062",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z1-062.jpg",
+   "thumb": "assets/images/galeria/t/z1-062.jpg",
+   "w": 720,
+   "h": 1200,
+   "alt": "En la sala de reuniones, con la taza de la Alianza Francesa",
+   "pie": {
+    "es": "En la sala de reuniones, con la taza de la Alianza Francesa",
+    "fr": "En salle de réunion, avec la tasse de l’Alliance Française",
+    "en": "In the meeting room, with the Alliance Française mug"
+   }
+  },
+  {
+   "id": "z1-065",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z1-065.jpg",
+   "thumb": "assets/images/galeria/t/z1-065.jpg",
+   "w": 1080,
+   "h": 521,
+   "alt": "En un acto en el auditorio de la Alianza Francesa",
+   "pie": {
+    "es": "En un acto en el auditorio de la Alianza Francesa",
+    "fr": "Lors d’un événement dans l’auditorium de l’Alliance Française",
+    "en": "At an event in the Alliance Française auditorium"
+   }
+  },
+  {
+   "id": "z1-068",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z1-068.jpg",
+   "thumb": "assets/images/galeria/t/z1-068.jpg",
+   "w": 522,
+   "h": 1080,
+   "alt": "En mi oficina de la Alianza Francesa de Cuenca",
+   "pie": {
+    "es": "En mi oficina de la Alianza Francesa de Cuenca",
+    "fr": "Dans mon bureau à l’Alliance Française de Cuenca",
+    "en": "In my office at the Alliance Française de Cuenca"
+   }
+  },
+  {
+   "id": "z1-071",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z1-071.jpg",
+   "thumb": "assets/images/galeria/t/z1-071.jpg",
+   "w": 1080,
+   "h": 607,
+   "alt": "En un evento cultural",
+   "pie": {
+    "es": "En un evento cultural",
+    "fr": "Lors d’un événement culturel",
+    "en": "At a cultural event"
+   }
+  },
+  {
+   "id": "z1-104",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z1-104.jpg",
+   "thumb": "assets/images/galeria/t/z1-104.jpg",
+   "w": 576,
+   "h": 1064,
+   "alt": "En mi oficina, bajo la palabra «Pédagogie»",
+   "pie": {
+    "es": "En mi oficina, bajo la palabra «Pédagogie»",
+    "fr": "Dans mon bureau, sous le mot « Pédagogie »",
+    "en": "In my office, under the word “Pédagogie”"
+   }
+  },
+  {
+   "id": "z2-034",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z2-034.jpg",
+   "thumb": "assets/images/galeria/t/z2-034.jpg",
+   "w": 1000,
+   "h": 1240,
+   "alt": "Con una colega, en un evento · abril de 2018",
+   "pie": {
+    "es": "Con una colega, en un evento · abril de 2018",
+    "fr": "Avec une collègue, lors d’un événement · avril 2018",
+    "en": "With a colleague at an event · April 2018"
+   }
+  },
+  {
+   "id": "z2-036",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z2-036.jpg",
+   "thumb": "assets/images/galeria/t/z2-036.jpg",
+   "w": 1000,
+   "h": 720,
+   "alt": "Casa abierta del Instituto Tecnológico Sudamericano · agosto de 2018",
+   "pie": {
+    "es": "Casa abierta del Instituto Tecnológico Sudamericano · agosto de 2018",
+    "fr": "Portes ouvertes de l’Instituto Tecnológico Sudamericano · août 2018",
+    "en": "Open house at the Instituto Tecnológico Sudamericano · August 2018"
+   }
+  },
+  {
+   "id": "z2-037",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z2-037.jpg",
+   "thumb": "assets/images/galeria/t/z2-037.jpg",
+   "w": 1000,
+   "h": 576,
+   "alt": "En un auditorio de Loja · agosto de 2018",
+   "pie": {
+    "es": "En un auditorio de Loja · agosto de 2018",
+    "fr": "Dans un auditorium de Loja · août 2018",
+    "en": "In an auditorium in Loja · August 2018"
+   }
+  },
+  {
+   "id": "z2-040",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z2-040.jpg",
+   "thumb": "assets/images/galeria/t/z2-040.jpg",
+   "w": 1000,
+   "h": 1016,
+   "alt": "En un acto de una Alianza Francesa · junio de 2018",
+   "pie": {
+    "es": "En un acto de una Alianza Francesa · junio de 2018",
+    "fr": "Lors d’un événement d’une Alliance Française · juin 2018",
+    "en": "At an Alliance Française event · June 2018"
+   }
+  },
+  {
+   "id": "z2-042",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z2-042.jpg",
+   "thumb": "assets/images/galeria/t/z2-042.jpg",
+   "w": 1000,
+   "h": 1112,
+   "alt": "En una feria educativa, con un alumno · mayo de 2019",
+   "pie": {
+    "es": "En una feria educativa, con un alumno · mayo de 2019",
+    "fr": "Dans un salon éducatif, avec un élève · mai 2019",
+    "en": "At an education fair, with a student · May 2019"
+   }
+  },
+  {
+   "id": "z2-050",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z2-050.jpg",
+   "thumb": "assets/images/galeria/t/z2-050.jpg",
+   "w": 1000,
+   "h": 608,
+   "alt": "Alianza Francesa de Cuenca × Graiman · agosto de 2019",
+   "pie": {
+    "es": "Alianza Francesa de Cuenca × Graiman · agosto de 2019",
+    "fr": "Alliance Française de Cuenca × Graiman · août 2019",
+    "en": "Alliance Française de Cuenca × Graiman · August 2019"
+   }
+  },
+  {
+   "id": "z2-066",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z2-066.jpg",
+   "thumb": "assets/images/galeria/t/z2-066.jpg",
+   "w": 1000,
+   "h": 720,
+   "alt": "Taller de teatro · septiembre de 2020",
+   "pie": {
+    "es": "Taller de teatro · septiembre de 2020",
+    "fr": "Atelier de théâtre · septembre 2020",
+    "en": "Theatre workshop · September 2020"
+   }
+  },
+  {
+   "id": "z2-069",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z2-069.jpg",
+   "thumb": "assets/images/galeria/t/z2-069.jpg",
+   "w": 1000,
+   "h": 776,
+   "alt": "Con colegas de la Alianza Francesa de Guayaquil · marzo de 2022",
+   "pie": {
+    "es": "Con colegas de la Alianza Francesa de Guayaquil · marzo de 2022",
+    "fr": "Avec des collègues de l’Alliance Française de Guayaquil · mars 2022",
+    "en": "With colleagues from the Alliance Française de Guayaquil · March 2022"
+   }
+  },
+  {
+   "id": "z2-073",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/z2-073.jpg",
+   "thumb": "assets/images/galeria/t/z2-073.jpg",
+   "w": 1000,
+   "h": 976,
+   "alt": "Quito · diciembre de 2021",
+   "pie": {
+    "es": "Quito · diciembre de 2021",
+    "fr": "Quito · décembre 2021",
+    "en": "Quito · December 2021"
+   }
+  },
+  {
+   "id": "r-tv5monde",
+   "cat": "medios",
+   "src": "assets/images/trayectoria/tv5monde.jpg",
+   "thumb": "assets/images/galeria/t/r-tv5monde.jpg",
+   "w": 1080,
+   "h": 962,
+   "alt": "Con Ivan Kabacoff, presentador de Destination Francophonie en TV5MONDE, y Fabrice Hacout, de su equipo",
+   "pie": {
+    "es": "Con Ivan Kabacoff (TV5MONDE) y Fabrice Hacout, de su equipo · abril de 2022",
+    "fr": "Avec Ivan Kabacoff (TV5MONDE) et Fabrice Hacout, de son équipe · avril 2022",
+    "en": "With Ivan Kabacoff (TV5MONDE) and Fabrice Hacout, from his team · April 2022"
+   }
+  },
+  {
+   "id": "r-entrevista-tv",
+   "cat": "medios",
+   "src": "assets/images/trayectoria/entrevista-tv.jpg",
+   "thumb": "assets/images/galeria/t/r-entrevista-tv.jpg",
+   "w": 1080,
+   "h": 840,
+   "alt": "Entrevista, Le jour du prof de français",
+   "pie": {
+    "es": "Entrevista · «Le jour du prof de français»",
+    "fr": "Interview · « Le jour du prof de français »",
+    "en": "Interview · “Le jour du prof de français”"
+   }
+  },
+  {
+   "id": "r-rfi-entrevista",
+   "cat": "medios",
+   "src": "assets/images/relato/rfi-entrevista.jpg",
+   "thumb": "assets/images/galeria/t/r-rfi-entrevista.jpg",
+   "w": 1000,
+   "h": 597,
+   "alt": "Entrevista en Radio Francia Internacional (RFI)",
+   "pie": {
+    "es": "Entrevista en RFI · agosto de 2019",
+    "fr": "Interview sur RFI · août 2019",
+    "en": "RFI interview · August 2019"
+   }
+  },
+  {
+   "id": "r-quito-jour-prof",
+   "cat": "medios",
+   "src": "assets/images/relato/quito-jour-prof.jpg",
+   "thumb": "assets/images/galeria/t/r-quito-jour-prof.jpg",
+   "w": 1000,
+   "h": 624,
+   "alt": "Grabación de «Le jour du prof de français» en Quito",
+   "pie": {
+    "es": "«Le jour du prof de français» · Quito, diciembre de 2021",
+    "fr": "« Le jour du prof de français » · Quito, décembre 2021",
+    "en": "“Le jour du prof de français” · Quito, December 2021"
+   }
+  },
+  {
+   "id": "r-rodaje-entrevista",
+   "cat": "medios",
+   "src": "assets/images/relato/rodaje-entrevista.jpg",
+   "thumb": "assets/images/galeria/t/r-rodaje-entrevista.jpg",
+   "w": 1500,
+   "h": 844,
+   "alt": "Entrevista con cámaras en la Alianza Francesa de San Cristóbal",
+   "pie": {
+    "es": "Entrevista a cámara · Alianza Francesa de San Cristóbal",
+    "fr": "Interview face caméra · Alliance Française de San Cristóbal",
+    "en": "On-camera interview · Alliance Française de San Cristóbal"
+   }
+  },
+  {
+   "id": "r-rodaje-af",
+   "cat": "medios",
+   "src": "assets/images/relato/rodaje-af.jpg",
+   "thumb": "assets/images/galeria/t/r-rodaje-af.jpg",
+   "w": 1100,
+   "h": 1375,
+   "alt": "Rodaje frente a la Alianza Francesa de San Cristóbal",
+   "pie": {
+    "es": "Rodaje en la Alianza Francesa",
+    "fr": "Tournage à l’Alliance Française",
+    "en": "Filming at the Alliance Française"
+   }
+  },
+  {
+   "id": "r-tv5-destination",
+   "cat": "medios",
+   "src": "assets/images/relato/tv5-destination.jpg",
+   "thumb": "assets/images/galeria/t/r-tv5-destination.jpg",
+   "w": 900,
+   "h": 1250,
+   "alt": "Ficha del episodio «Destination Mexique» en la guía de TV5MONDE",
+   "pie": {
+    "es": "En la guía de TV5MONDE · sáb. 3 oct., 23:58",
+    "fr": "Dans le guide TV5MONDE · sam. 3 oct., 23 h 58",
+    "en": "In the TV5MONDE guide · Sat, Oct 3, 23:58"
+   }
+  },
+  {
+   "id": "z1-016",
+   "cat": "medios",
+   "src": "assets/images/galeria/z1-016.jpg",
+   "thumb": "assets/images/galeria/t/z1-016.jpg",
+   "w": 1080,
+   "h": 810,
+   "alt": "Detrás del micrófono",
+   "pie": {
+    "es": "Detrás del micrófono",
+    "fr": "Derrière le micro",
+    "en": "Behind the microphone"
+   }
+  },
+  {
+   "id": "z1-018",
+   "cat": "medios",
+   "src": "assets/images/galeria/z1-018.jpg",
+   "thumb": "assets/images/galeria/t/z1-018.jpg",
+   "w": 810,
+   "h": 1080,
+   "alt": "Detrás del micrófono",
+   "pie": {
+    "es": "Detrás del micrófono",
+    "fr": "Derrière le micro",
+    "en": "Behind the microphone"
+   }
+  },
+  {
+   "id": "z1-019",
+   "cat": "medios",
+   "src": "assets/images/galeria/z1-019.jpg",
+   "thumb": "assets/images/galeria/t/z1-019.jpg",
+   "w": 1280,
+   "h": 960,
+   "alt": "Grabando un podcast",
+   "pie": {
+    "es": "Grabando un podcast",
+    "fr": "Enregistrement d’un podcast",
+    "en": "Recording a podcast"
+   }
+  },
+  {
+   "id": "z1-020",
+   "cat": "medios",
+   "src": "assets/images/galeria/z1-020.jpg",
+   "thumb": "assets/images/galeria/t/z1-020.jpg",
+   "w": 1280,
+   "h": 960,
+   "alt": "Grabando un podcast",
+   "pie": {
+    "es": "Grabando un podcast",
+    "fr": "Enregistrement d’un podcast",
+    "en": "Recording a podcast"
+   }
+  },
+  {
+   "id": "z1-021",
+   "cat": "medios",
+   "src": "assets/images/galeria/z1-021.jpg",
+   "thumb": "assets/images/galeria/t/z1-021.jpg",
+   "w": 1280,
+   "h": 960,
+   "alt": "Grabando un podcast",
+   "pie": {
+    "es": "Grabando un podcast",
+    "fr": "Enregistrement d’un podcast",
+    "en": "Recording a podcast"
+   }
+  },
+  {
+   "id": "z1-022",
+   "cat": "medios",
+   "src": "assets/images/galeria/z1-022.jpg",
+   "thumb": "assets/images/galeria/t/z1-022.jpg",
+   "w": 1280,
+   "h": 960,
+   "alt": "Grabando un podcast",
+   "pie": {
+    "es": "Grabando un podcast",
+    "fr": "Enregistrement d’un podcast",
+    "en": "Recording a podcast"
+   }
+  },
+  {
+   "id": "z1-053",
+   "cat": "medios",
+   "src": "assets/images/galeria/z1-053.jpg",
+   "thumb": "assets/images/galeria/t/z1-053.jpg",
+   "w": 518,
+   "h": 1078,
+   "alt": "Grabando un video en la mediateca de la Alianza Francesa de Cuenca",
+   "pie": {
+    "es": "Grabando un video en la mediateca de la Alianza Francesa de Cuenca",
+    "fr": "Tournage d’une vidéo à la médiathèque de l’Alliance Française de Cuenca",
+    "en": "Filming a video in the Alliance Française de Cuenca media library"
+   }
+  },
+  {
+   "id": "z1-060",
+   "cat": "medios",
+   "src": "assets/images/galeria/z1-060.jpg",
+   "thumb": "assets/images/galeria/t/z1-060.jpg",
+   "w": 1080,
+   "h": 518,
+   "alt": "Grabando un video en la mediateca",
+   "pie": {
+    "es": "Grabando un video en la mediateca",
+    "fr": "Tournage d’une vidéo à la médiathèque",
+    "en": "Filming a video in the media library"
+   }
+  },
+  {
+   "id": "z2-070",
+   "cat": "medios",
+   "src": "assets/images/galeria/z2-070.jpg",
+   "thumb": "assets/images/galeria/t/z2-070.jpg",
+   "w": 1000,
+   "h": 760,
+   "alt": "Con Ivan Kabacoff y Fabrice Hacout · abril de 2022",
+   "pie": {
+    "es": "Con Ivan Kabacoff y Fabrice Hacout · abril de 2022",
+    "fr": "Avec Ivan Kabacoff et Fabrice Hacout · avril 2022",
+    "en": "With Ivan Kabacoff and Fabrice Hacout · April 2022"
+   }
+  },
+  {
+   "id": "r-journees-reseau-panel",
+   "cat": "mexico",
+   "src": "assets/images/trayectoria/journees-reseau-panel.jpg",
+   "thumb": "assets/images/galeria/t/r-journees-reseau-panel.jpg",
+   "w": 960,
+   "h": 720,
+   "alt": "Panel de trabajo, Journées du Réseau 2025",
+   "pie": {
+    "es": "Panel de trabajo · Journées du Réseau 2025",
+    "fr": "Table ronde · Journées du Réseau 2025",
+    "en": "Working panel · Journées du Réseau 2025"
+   }
+  },
+  {
+   "id": "r-journees-reseau-grupo",
+   "cat": "mexico",
+   "src": "assets/images/trayectoria/journees-reseau-grupo.jpg",
+   "thumb": "assets/images/galeria/t/r-journees-reseau-grupo.jpg",
+   "w": 960,
+   "h": 720,
+   "alt": "Alianzas Francesas de México, Journées du Réseau 2025",
+   "pie": {
+    "es": "Alianzas Francesas de México · Journées du Réseau 2025",
+    "fr": "Alliances Françaises du Mexique · Journées du Réseau 2025",
+    "en": "Alliances Françaises of Mexico · Journées du Réseau 2025"
+   }
+  },
+  {
+   "id": "r-itaes",
+   "cat": "mexico",
+   "src": "assets/images/relato/itaes.jpg",
+   "thumb": "assets/images/galeria/t/r-itaes.jpg",
+   "w": 1100,
+   "h": 825,
+   "alt": "Visita al Colegio ITAES, San Cristóbal de Las Casas",
+   "pie": {
+    "es": "Colegio ITAES · con la directora general, Patricia Berumen de Alba, y el departamento de idiomas",
+    "fr": "Colegio ITAES · avec la directrice générale, Patricia Berumen de Alba, et le département de langues",
+    "en": "Colegio ITAES · with the principal, Patricia Berumen de Alba, and the languages department"
+   }
+  },
+  {
+   "id": "r-secretaria",
+   "cat": "mexico",
+   "src": "assets/images/relato/secretaria.jpg",
+   "thumb": "assets/images/galeria/t/r-secretaria.jpg",
+   "w": 1000,
+   "h": 1250,
+   "alt": "Encuentro con la Secretaría de Educación de Chiapas",
+   "pie": {
+    "es": "Con la Secretaría de Educación de Chiapas",
+    "fr": "Avec le Secrétariat à l’Éducation du Chiapas",
+    "en": "With the Chiapas Secretariat of Education"
+   }
+  },
+  {
+   "id": "r-la-salle",
+   "cat": "mexico",
+   "src": "assets/images/relato/la-salle.jpg",
+   "thumb": "assets/images/galeria/t/r-la-salle.jpg",
+   "w": 1000,
+   "h": 1333,
+   "alt": "Con directivos y docentes del Colegio La Salle San Cristóbal",
+   "pie": {
+    "es": "Con directivos y docentes · Colegio La Salle",
+    "fr": "Avec direction et enseignants · Colegio La Salle",
+    "en": "With staff and teachers · Colegio La Salle"
+   }
+  },
+  {
+   "id": "r-radio-unicach",
+   "cat": "mexico",
+   "src": "assets/images/relato/radio-unicach.jpg",
+   "thumb": "assets/images/galeria/t/r-radio-unicach.jpg",
+   "w": 900,
+   "h": 1201,
+   "alt": "Visita a la radio de la UNICACH en Tuxtla Gutiérrez",
+   "pie": {
+    "es": "Visita a la radio de la UNICACH · Tuxtla",
+    "fr": "Visite à la radio de l’UNICACH · Tuxtla",
+    "en": "Visit to the UNICACH radio · Tuxtla"
+   }
+  },
+  {
+   "id": "r-consulado",
+   "cat": "mexico",
+   "src": "assets/images/relato/consulado.jpg",
+   "thumb": "assets/images/galeria/t/r-consulado.jpg",
+   "w": 1500,
+   "h": 674,
+   "alt": "Con el cónsul honorario de Francia en Chiapas",
+   "pie": {
+    "es": "Con el cónsul honorario de Francia en Chiapas",
+    "fr": "Avec le consul honoraire de France au Chiapas",
+    "en": "With the honorary consul of France in Chiapas"
+   }
+  },
+  {
+   "id": "r-quebec",
+   "cat": "mexico",
+   "src": "assets/images/relato/quebec.jpg",
+   "thumb": "assets/images/galeria/t/r-quebec.jpg",
+   "w": 1400,
+   "h": 874,
+   "alt": "Ceremonia de entrega de diplomas con la delegación de Québec",
+   "pie": {
+    "es": "Ceremonia con la delegación de Québec",
+    "fr": "Cérémonie avec la délégation du Québec",
+    "en": "Ceremony with the Québec delegation"
+   }
+  },
+  {
+   "id": "r-entrega-certificados",
+   "cat": "mexico",
+   "src": "assets/images/relato/entrega-certificados.jpg",
+   "thumb": "assets/images/galeria/t/r-entrega-certificados.jpg",
+   "w": 1000,
+   "h": 1249,
+   "alt": "Entrega de un certificado frente a las banderas de Francia y México",
+   "pie": {
+    "es": "Entrega de un certificado",
+    "fr": "Remise d’un certificat",
+    "en": "Handing over a certificate"
+   }
+  },
+  {
+   "id": "r-firma-diplomas",
+   "cat": "mexico",
+   "src": "assets/images/relato/firma-diplomas.jpg",
+   "thumb": "assets/images/galeria/t/r-firma-diplomas.jpg",
+   "w": 1100,
+   "h": 825,
+   "alt": "Firmando diplomas junto a un estudiante",
+   "pie": {
+    "es": "Firmando diplomas con un estudiante",
+    "fr": "Signature de diplômes avec un étudiant",
+    "en": "Signing diplomas with a student"
+   }
+  },
+  {
+   "id": "z1-002",
+   "cat": "mexico",
+   "src": "assets/images/galeria/z1-002.jpg",
+   "thumb": "assets/images/galeria/t/z1-002.jpg",
+   "w": 1050,
+   "h": 1400,
+   "alt": "Rodaje frente a la Alianza Francesa de San Cristóbal",
+   "pie": {
+    "es": "Rodaje frente a la Alianza Francesa de San Cristóbal",
+    "fr": "Tournage devant l’Alliance Française de San Cristóbal",
+    "en": "Filming outside the Alliance Française de San Cristóbal"
+   }
+  },
+  {
+   "id": "z1-003",
+   "cat": "mexico",
+   "src": "assets/images/galeria/z1-003.jpg",
+   "thumb": "assets/images/galeria/t/z1-003.jpg",
+   "w": 814,
+   "h": 1081,
+   "alt": "Con un certificado, frente al banner de Campus France",
+   "pie": {
+    "es": "Con un certificado, frente al banner de Campus France",
+    "fr": "Avec un certificat, devant la bannière de Campus France",
+    "en": "With a certificate, in front of the Campus France banner"
+   }
+  },
+  {
+   "id": "z1-009",
+   "cat": "mexico",
+   "src": "assets/images/galeria/z1-009.jpg",
+   "thumb": "assets/images/galeria/t/z1-009.jpg",
+   "w": 1280,
+   "h": 960,
+   "alt": "Taller de cocina en la Alianza Francesa",
+   "pie": {
+    "es": "Taller de cocina en la Alianza Francesa",
+    "fr": "Atelier de cuisine à l’Alliance Française",
+    "en": "Cooking workshop at the Alliance Française"
+   }
+  },
+  {
+   "id": "z1-010",
+   "cat": "mexico",
+   "src": "assets/images/galeria/z1-010.jpg",
+   "thumb": "assets/images/galeria/t/z1-010.jpg",
+   "w": 814,
+   "h": 1081,
+   "alt": "En el Centro de Lenguas",
+   "pie": {
+    "es": "En el Centro de Lenguas",
+    "fr": "Au Centro de Lenguas",
+    "en": "At the Centro de Lenguas"
+   }
+  },
+  {
+   "id": "z1-011",
+   "cat": "mexico",
+   "src": "assets/images/galeria/z1-011.jpg",
+   "thumb": "assets/images/galeria/t/z1-011.jpg",
+   "w": 1280,
+   "h": 960,
+   "alt": "Trabajando desde casa, con las montañas de fondo",
+   "pie": {
+    "es": "Trabajando desde casa, con las montañas de fondo",
+    "fr": "Au travail à la maison, avec les montagnes en fond",
+    "en": "Working from home, with the mountains behind"
+   }
+  },
+  {
+   "id": "z1-013",
+   "cat": "mexico",
+   "src": "assets/images/galeria/z1-013.jpg",
+   "thumb": "assets/images/galeria/t/z1-013.jpg",
+   "w": 1280,
+   "h": 780,
+   "alt": "El patio de la Alianza Francesa de San Cristóbal",
+   "pie": {
+    "es": "El patio de la Alianza Francesa de San Cristóbal",
+    "fr": "Le patio de l’Alliance Française de San Cristóbal",
+    "en": "The courtyard of the Alliance Française de San Cristóbal"
+   }
+  },
+  {
+   "id": "z1-077",
+   "cat": "mexico",
+   "src": "assets/images/galeria/z1-077.jpg",
+   "thumb": "assets/images/galeria/t/z1-077.jpg",
+   "w": 607,
+   "h": 1080,
+   "alt": "Con la Secretaría de Educación de Chiapas",
+   "pie": {
+    "es": "Con la Secretaría de Educación de Chiapas",
+    "fr": "Avec le Secrétariat à l’Éducation du Chiapas",
+    "en": "With the Chiapas Secretariat of Education"
+   }
+  },
+  {
+   "id": "z1-078",
+   "cat": "mexico",
+   "src": "assets/images/galeria/z1-078.jpg",
+   "thumb": "assets/images/galeria/t/z1-078.jpg",
+   "w": 1080,
+   "h": 810,
+   "alt": "Colegio ITAES, San Cristóbal de Las Casas",
+   "pie": {
+    "es": "Colegio ITAES, San Cristóbal de Las Casas",
+    "fr": "Colegio ITAES, San Cristóbal de Las Casas",
+    "en": "Colegio ITAES, San Cristóbal de Las Casas"
+   }
+  },
+  {
+   "id": "z1-083",
+   "cat": "mexico",
+   "src": "assets/images/galeria/z1-083.jpg",
+   "thumb": "assets/images/galeria/t/z1-083.jpg",
+   "w": 1080,
+   "h": 813,
+   "alt": "Entrega de un reconocimiento a una estudiante",
+   "pie": {
+    "es": "Entrega de un reconocimiento a una estudiante",
+    "fr": "Remise d’une distinction à une étudiante",
+    "en": "Presenting an award to a student"
+   }
+  },
+  {
+   "id": "z1-084",
+   "cat": "mexico",
+   "src": "assets/images/galeria/z1-084.jpg",
+   "thumb": "assets/images/galeria/t/z1-084.jpg",
+   "w": 1080,
+   "h": 607,
+   "alt": "Ceremonia de entrega en una escuela",
+   "pie": {
+    "es": "Ceremonia de entrega en una escuela",
+    "fr": "Cérémonie de remise dans une école",
+    "en": "Award ceremony at a school"
+   }
+  },
+  {
+   "id": "z1-089",
+   "cat": "mexico",
+   "src": "assets/images/galeria/z1-089.jpg",
+   "thumb": "assets/images/galeria/t/z1-089.jpg",
+   "w": 1080,
+   "h": 813,
+   "alt": "Firmando diplomas con un estudiante",
+   "pie": {
+    "es": "Firmando diplomas con un estudiante",
+    "fr": "Signature de diplômes avec un étudiant",
+    "en": "Signing diplomas with a student"
+   }
+  },
+  {
+   "id": "z1-090",
+   "cat": "mexico",
+   "src": "assets/images/galeria/z1-090.jpg",
+   "thumb": "assets/images/galeria/t/z1-090.jpg",
+   "w": 814,
+   "h": 1081,
+   "alt": "Con un diploma, entre las plantas del patio",
+   "pie": {
+    "es": "Con un diploma, entre las plantas del patio",
+    "fr": "Avec un diplôme, parmi les plantes du patio",
+    "en": "With a diploma, among the courtyard plants"
+   }
+  },
+  {
+   "id": "z1-093",
+   "cat": "mexico",
+   "src": "assets/images/galeria/z1-093.jpg",
+   "thumb": "assets/images/galeria/t/z1-093.jpg",
+   "w": 814,
+   "h": 1081,
+   "alt": "Tras una presentación sobre la Cité internationale de la langue française",
+   "pie": {
+    "es": "Tras una presentación sobre la Cité internationale de la langue française",
+    "fr": "Après une présentation sur la Cité internationale de la langue française",
+    "en": "After a talk on the Cité internationale de la langue française"
+   }
+  },
+  {
+   "id": "z1-095",
+   "cat": "mexico",
+   "src": "assets/images/galeria/z1-095.jpg",
+   "thumb": "assets/images/galeria/t/z1-095.jpg",
+   "w": 576,
+   "h": 860,
+   "alt": "Un café con colegas",
+   "pie": {
+    "es": "Un café con colegas",
+    "fr": "Un café entre collègues",
+    "en": "Coffee with colleagues"
+   }
+  },
+  {
+   "id": "z1-096",
+   "cat": "mexico",
+   "src": "assets/images/galeria/z1-096.jpg",
+   "thumb": "assets/images/galeria/t/z1-096.jpg",
+   "w": 814,
+   "h": 1081,
+   "alt": "En la plaza, bajo el «Viva México»",
+   "pie": {
+    "es": "En la plaza, bajo el «Viva México»",
+    "fr": "Sur la place, sous le « Viva México »",
+    "en": "In the square, under the “Viva México”"
+   }
+  },
+  {
+   "id": "z1-097",
+   "cat": "mexico",
+   "src": "assets/images/galeria/z1-097.jpg",
+   "thumb": "assets/images/galeria/t/z1-097.jpg",
+   "w": 1080,
+   "h": 813,
+   "alt": "Encuentro con colegas, en una cena",
+   "pie": {
+    "es": "Encuentro con colegas, en una cena",
+    "fr": "Rencontre entre collègues, autour d’un dîner",
+    "en": "Gathering with colleagues over dinner"
+   }
+  },
+  {
+   "id": "z2-082",
+   "cat": "mexico",
+   "src": "assets/images/galeria/z2-082.jpg",
+   "thumb": "assets/images/galeria/t/z2-082.jpg",
+   "w": 1000,
+   "h": 768,
+   "alt": "Journées du Réseau 2025 · Alianzas Francesas de México",
+   "pie": {
+    "es": "Journées du Réseau 2025 · Alianzas Francesas de México",
+    "fr": "Journées du Réseau 2025 · Alliances Françaises du Mexique",
+    "en": "Journées du Réseau 2025 · Alliances Françaises of Mexico"
+   }
+  },
+  {
+   "id": "r-clase-presencial",
+   "cat": "clases",
+   "src": "assets/images/trayectoria/clase-presencial.jpg",
+   "thumb": "assets/images/galeria/t/r-clase-presencial.jpg",
+   "w": 1080,
+   "h": 774,
+   "alt": "En clase con estudiantes",
+   "pie": {
+    "es": "En clase — «Profesor se escribe con P de pasión»",
+    "fr": "En classe — « Professeur s'écrit avec P de passion »",
+    "en": "In class — “Teacher is spelled with P for passion”"
+   }
+  },
+  {
+   "id": "r-clase-aula",
+   "cat": "clases",
+   "src": "assets/images/relato/clase-aula.jpg",
+   "thumb": "assets/images/galeria/t/r-clase-aula.jpg",
+   "w": 1100,
+   "h": 825,
+   "alt": "Dando clase a un grupo de estudiantes",
+   "pie": {
+    "es": "Con un grupo, en el aula",
+    "fr": "Avec un groupe, en classe",
+    "en": "With a group, in class"
+   }
+  },
+  {
+   "id": "z1-045",
+   "cat": "clases",
+   "src": "assets/images/galeria/z1-045.jpg",
+   "thumb": "assets/images/galeria/t/z1-045.jpg",
+   "w": 800,
+   "h": 600,
+   "alt": "Clase en línea · «Bienvenue»",
+   "pie": {
+    "es": "Clase en línea · «Bienvenue»",
+    "fr": "Cours en ligne · « Bienvenue »",
+    "en": "Online class · “Bienvenue”"
+   }
+  },
+  {
+   "id": "z1-064",
+   "cat": "clases",
+   "src": "assets/images/galeria/z1-064.jpg",
+   "thumb": "assets/images/galeria/t/z1-064.jpg",
+   "w": 522,
+   "h": 1080,
+   "alt": "En clase",
+   "pie": {
+    "es": "En clase",
+    "fr": "En classe",
+    "en": "In class"
+   }
+  },
+  {
+   "id": "z1-066",
+   "cat": "clases",
+   "src": "assets/images/galeria/z1-066.jpg",
+   "thumb": "assets/images/galeria/t/z1-066.jpg",
+   "w": 522,
+   "h": 1080,
+   "alt": "En la pizarra",
+   "pie": {
+    "es": "En la pizarra",
+    "fr": "Au tableau",
+    "en": "At the board"
+   }
+  },
+  {
+   "id": "z1-069",
+   "cat": "clases",
+   "src": "assets/images/galeria/z1-069.jpg",
+   "thumb": "assets/images/galeria/t/z1-069.jpg",
+   "w": 1280,
+   "h": 959,
+   "alt": "Selfie con estudiantes",
+   "pie": {
+    "es": "Selfie con estudiantes",
+    "fr": "Selfie avec des étudiants",
+    "en": "Selfie with students"
+   }
+  },
+  {
+   "id": "z1-072",
+   "cat": "clases",
+   "src": "assets/images/galeria/z1-072.jpg",
+   "thumb": "assets/images/galeria/t/z1-072.jpg",
+   "w": 1080,
+   "h": 607,
+   "alt": "Con estudiantes, tras una actividad",
+   "pie": {
+    "es": "Con estudiantes, tras una actividad",
+    "fr": "Avec des étudiants, après une activité",
+    "en": "With students, after an activity"
+   }
+  },
+  {
+   "id": "z1-073",
+   "cat": "clases",
+   "src": "assets/images/galeria/z1-073.jpg",
+   "thumb": "assets/images/galeria/t/z1-073.jpg",
+   "w": 1080,
+   "h": 810,
+   "alt": "Con un grupo de estudiantes",
+   "pie": {
+    "es": "Con un grupo de estudiantes",
+    "fr": "Avec un groupe d’étudiants",
+    "en": "With a group of students"
+   }
+  },
+  {
+   "id": "z1-085",
+   "cat": "clases",
+   "src": "assets/images/galeria/z1-085.jpg",
+   "thumb": "assets/images/galeria/t/z1-085.jpg",
+   "w": 1080,
+   "h": 810,
+   "alt": "Clase nocturna con un grupo pequeño",
+   "pie": {
+    "es": "Clase nocturna con un grupo pequeño",
+    "fr": "Cours du soir avec un petit groupe",
+    "en": "Evening class with a small group"
+   }
+  },
+  {
+   "id": "z1-099",
+   "cat": "clases",
+   "src": "assets/images/galeria/z1-099.jpg",
+   "thumb": "assets/images/galeria/t/z1-099.jpg",
+   "w": 1080,
+   "h": 810,
+   "alt": "Con estudiantes y colegas",
+   "pie": {
+    "es": "Con estudiantes y colegas",
+    "fr": "Avec des étudiants et des collègues",
+    "en": "With students and colleagues"
+   }
+  },
+  {
+   "id": "z2-081",
+   "cat": "clases",
+   "src": "assets/images/galeria/z2-081.jpg",
+   "thumb": "assets/images/galeria/t/z2-081.jpg",
+   "w": 1000,
+   "h": 1128,
+   "alt": "En clase · marzo de 2024",
+   "pie": {
+    "es": "En clase · marzo de 2024",
+    "fr": "En classe · mars 2024",
+    "en": "In class · March 2024"
+   }
+  },
+  {
+   "id": "z1-005",
+   "cat": "retratos",
+   "src": "assets/images/galeria/z1-005.jpg",
+   "thumb": "assets/images/galeria/t/z1-005.jpg",
+   "w": 1024,
+   "h": 1024,
+   "alt": "Retrato · banderas de México, la Unión Europea y Francia",
+   "pie": {
+    "es": "Retrato · banderas de México, la Unión Europea y Francia",
+    "fr": "Portrait · drapeaux du Mexique, de l’Union européenne et de la France",
+    "en": "Portrait · Mexico, European Union and France flags"
+   }
+  },
+  {
+   "id": "z1-006",
+   "cat": "retratos",
+   "src": "assets/images/galeria/z1-006.jpg",
+   "thumb": "assets/images/galeria/t/z1-006.jpg",
+   "w": 853,
+   "h": 1280,
+   "alt": "Retrato",
+   "pie": {
+    "es": "Retrato",
+    "fr": "Portrait",
+    "en": "Portrait"
+   }
+  },
+  {
+   "id": "z1-007",
+   "cat": "retratos",
+   "src": "assets/images/galeria/z1-007.jpg",
+   "thumb": "assets/images/galeria/t/z1-007.jpg",
+   "w": 853,
+   "h": 1280,
+   "alt": "Retrato",
+   "pie": {
+    "es": "Retrato",
+    "fr": "Portrait",
+    "en": "Portrait"
+   }
+  },
+  {
+   "id": "z1-008",
+   "cat": "retratos",
+   "src": "assets/images/galeria/z1-008.jpg",
+   "thumb": "assets/images/galeria/t/z1-008.jpg",
+   "w": 1280,
+   "h": 853,
+   "alt": "Retrato",
+   "pie": {
+    "es": "Retrato",
+    "fr": "Portrait",
+    "en": "Portrait"
+   }
+  },
+  {
+   "id": "z1-014",
+   "cat": "retratos",
+   "src": "assets/images/galeria/z1-014.jpg",
+   "thumb": "assets/images/galeria/t/z1-014.jpg",
+   "w": 1080,
+   "h": 1080,
+   "alt": "Retrato · fondo rojo",
+   "pie": {
+    "es": "Retrato · fondo rojo",
+    "fr": "Portrait · fond rouge",
+    "en": "Portrait · red backdrop"
+   }
+  },
+  {
+   "id": "z1-015",
+   "cat": "retratos",
+   "src": "assets/images/galeria/z1-015.jpg",
+   "thumb": "assets/images/galeria/t/z1-015.jpg",
+   "w": 960,
+   "h": 1280,
+   "alt": "Una pausa entre reuniones",
+   "pie": {
+    "es": "Una pausa entre reuniones",
+    "fr": "Une pause entre deux réunions",
+    "en": "A break between meetings"
+   }
+  },
+  {
+   "id": "z1-035",
+   "cat": "retratos",
+   "src": "assets/images/galeria/z1-035.jpg",
+   "thumb": "assets/images/galeria/t/z1-035.jpg",
+   "w": 960,
+   "h": 1280,
+   "alt": "Retrato",
+   "pie": {
+    "es": "Retrato",
+    "fr": "Portrait",
+    "en": "Portrait"
+   }
+  },
+  {
+   "id": "z1-036",
+   "cat": "retratos",
+   "src": "assets/images/galeria/z1-036.jpg",
+   "thumb": "assets/images/galeria/t/z1-036.jpg",
+   "w": 606,
+   "h": 1078,
+   "alt": "Bajando las escaleras",
+   "pie": {
+    "es": "Bajando las escaleras",
+    "fr": "Dans l’escalier",
+    "en": "Coming down the stairs"
+   }
+  },
+  {
+   "id": "z1-037",
+   "cat": "retratos",
+   "src": "assets/images/galeria/z1-037.jpg",
+   "thumb": "assets/images/galeria/t/z1-037.jpg",
+   "w": 960,
+   "h": 1280,
+   "alt": "Retrato",
+   "pie": {
+    "es": "Retrato",
+    "fr": "Portrait",
+    "en": "Portrait"
+   }
+  },
+  {
+   "id": "z1-042",
+   "cat": "retratos",
+   "src": "assets/images/galeria/z1-042.jpg",
+   "thumb": "assets/images/galeria/t/z1-042.jpg",
+   "w": 600,
+   "h": 800,
+   "alt": "Retrato",
+   "pie": {
+    "es": "Retrato",
+    "fr": "Portrait",
+    "en": "Portrait"
+   }
+  },
+  {
+   "id": "z1-044",
+   "cat": "retratos",
+   "src": "assets/images/galeria/z1-044.jpg",
+   "thumb": "assets/images/galeria/t/z1-044.jpg",
+   "w": 600,
+   "h": 800,
+   "alt": "Retrato",
+   "pie": {
+    "es": "Retrato",
+    "fr": "Portrait",
+    "en": "Portrait"
+   }
+  },
+  {
+   "id": "z1-050",
+   "cat": "retratos",
+   "src": "assets/images/galeria/z1-050.jpg",
+   "thumb": "assets/images/galeria/t/z1-050.jpg",
+   "w": 600,
+   "h": 800,
+   "alt": "Retrato",
+   "pie": {
+    "es": "Retrato",
+    "fr": "Portrait",
+    "en": "Portrait"
+   }
+  },
+  {
+   "id": "z1-051",
+   "cat": "retratos",
+   "src": "assets/images/galeria/z1-051.jpg",
+   "thumb": "assets/images/galeria/t/z1-051.jpg",
+   "w": 1280,
+   "h": 720,
+   "alt": "Una llamada de noche, con luces de fondo",
+   "pie": {
+    "es": "Una llamada de noche, con luces de fondo",
+    "fr": "Un appel le soir, avec des lumières en fond",
+    "en": "An evening call, with lights behind"
+   }
+  },
+  {
+   "id": "z1-054",
+   "cat": "retratos",
+   "src": "assets/images/galeria/z1-054.jpg",
+   "thumb": "assets/images/galeria/t/z1-054.jpg",
+   "w": 1280,
+   "h": 1026,
+   "alt": "Entre flores",
+   "pie": {
+    "es": "Entre flores",
+    "fr": "Parmi les fleurs",
+    "en": "Among flowers"
+   }
+  },
+  {
+   "id": "z1-070",
+   "cat": "retratos",
+   "src": "assets/images/galeria/z1-070.jpg",
+   "thumb": "assets/images/galeria/t/z1-070.jpg",
+   "w": 960,
+   "h": 960,
+   "alt": "Retrato",
+   "pie": {
+    "es": "Retrato",
+    "fr": "Portrait",
+    "en": "Portrait"
+   }
+  }
+ ]
+}

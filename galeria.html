@@ -14,6 +14,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 
 <link rel="stylesheet" href="assets/css/sitio.css?v=1">
+<link rel="stylesheet" href="assets/css/album.css?v=1">
 <style>
 .hero-langs {
   display: flex; gap: 1.5rem; margin-bottom: 2.5rem;
@@ -351,6 +352,19 @@
         <i class="fa fa-arrow-up-right-from-square" style="font-size:0.62rem; opacity:0.7;"></i>
       </a>
     </div>
+  </div>
+</section>
+<section id="album" class="z10" data-page="galeria">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;margin-bottom:2rem;">
+      <p class="eyebrow" style="justify-content:center" data-es="Trece años en imágenes" data-fr="Treize ans en images" data-en="Thirteen years in pictures">Trece años en imágenes</p>
+      <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Álbum de la trayectoria" data-fr="Album de la trajectoire" data-en="Career album">Álbum de la trayectoria</em></h2>
+      <p style="max-width:620px;margin:1rem auto 0;color:var(--muted);font-size:0.95rem;line-height:1.7;"
+         data-es="Caracas, Francia, Ecuador y México: clases, ceremonias, rodajes y encuentros. Toca una foto para verla en grande y usa las flechas para recorrer el álbum."
+         data-fr="Caracas, France, Équateur et Mexique : cours, cérémonies, tournages et rencontres. Touchez une photo pour l’agrandir et utilisez les flèches pour parcourir l’album."
+         data-en="Caracas, France, Ecuador and Mexico: classes, ceremonies, film shoots and meetings. Tap a photo to enlarge it and use the arrows to browse the album.">Caracas, Francia, Ecuador y México: clases, ceremonias, rodajes y encuentros. Toca una foto para verla en grande y usa las flechas para recorrer el álbum.</p>
+    </div>
+    <div data-album="assets/data/galeria.json"></div>
   </div>
 </section>
 <section id="video-reel" class="z10" data-page="galeria">
@@ -1717,6 +1731,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
 <!-- CURSOR PERSONALIZADO -->
 
+<script src="assets/js/album.js"></script>
 </body>
 </html>
 

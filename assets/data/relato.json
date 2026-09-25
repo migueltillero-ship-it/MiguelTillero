@@ -32,9 +32,9 @@
         "en": "Before I taught, I learned to listen."
       },
       "texto": {
-        "es": "Estudié la Licenciatura en Educación, mención Francés, en el Instituto Pedagógico de Caracas (UPEL). El camino dejó tres reconocimientos: la distinción de excelencia académica de AVENPROF (2011), el Premio Talentum (2015) y la Mención Magna Cum Laude (2016).",
-        "fr": "J'ai suivi la Licence en éducation, mention français, à l'Instituto Pedagógico de Caracas (UPEL). Ce parcours m'a valu trois distinctions : l'excellence académique de l'AVENPROF (2011), le prix Talentum (2015) et la mention Magna Cum Laude (2016).",
-        "en": "I studied for my Bachelor's in Education, French, at the Instituto Pedagógico de Caracas (UPEL). Along the way came three distinctions: AVENPROF's academic excellence award (2011), the Talentum Prize (2015) and Magna Cum Laude honours (2016)."
+        "es": "Estudié la Licenciatura en Educación, mención Francés, en el Instituto Pedagógico de Caracas (UPEL). El camino dejó tres reconocimientos: la distinción de excelencia académica de AVENPROF (2011), el Premio Talentum (2015) y la Mención Magna Cum Laude (2016). En noviembre de 2016 la UPEL me galardonó en un acto público.",
+        "fr": "J’ai suivi la Licence en éducation, mention français, à l’Instituto Pedagógico de Caracas (UPEL). Ce parcours m’a valu trois distinctions : l’excellence académique de l’AVENPROF (2011), le prix Talentum (2015) et la mention Magna Cum Laude (2016). En novembre 2016, l’UPEL m’a distingué lors d’une cérémonie publique.",
+        "en": "I studied for my Bachelor’s in Education, French, at the Instituto Pedagógico de Caracas (UPEL). Along the way came three distinctions: AVENPROF’s academic excellence award (2011), the Talentum Prize (2015) and Magna Cum Laude honours (2016). In November 2016 the UPEL honoured me at a public ceremony."
       },
       "medios": [
         {
@@ -58,6 +58,94 @@
             "en": "Diploma with Magna Cum Laude distinction · Caracas, 2016"
           },
           "ratio": "1200/1138"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/upel-honor.jpg",
+          "alt": "Miguel Tillero recibe una distinción de la UPEL, Instituto Pedagógico de Caracas",
+          "pie": {
+            "es": "Distinción de la UPEL · noviembre de 2016",
+            "fr": "Distinction de l’UPEL · novembre 2016",
+            "en": "UPEL honour · November 2016"
+          },
+          "ratio": "1000/750"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/feria-francia.jpg",
+          "alt": "Miguel Tillero en la Feria «Francia tuya» de Caracas",
+          "pie": {
+            "es": "Feria «Francia tuya» · Caracas, junio de 2016",
+            "fr": "Salon « Francia tuya » · Caracas, juin 2016",
+            "en": "“Francia tuya” fair · Caracas, June 2016"
+          },
+          "ratio": "1000/757"
+        }
+      ]
+    },
+    {
+      "id": "francia",
+      "anio": "2014 — 2015",
+      "lugar": "Francia · Montpellier",
+      "titulo": {
+        "es": "Mis primeros alumnos",
+        "fr": "Mes premiers élèves",
+        "en": "My first students"
+      },
+      "cita": {
+        "es": "Los mejores diplomas los dibujan los niños.",
+        "fr": "Les plus beaux diplômes sont dessinés par les enfants.",
+        "en": "The best diplomas are drawn by children."
+      },
+      "texto": {
+        "es": "En Francia enseñé a niños de primaria y de escuela maternal: me dejaron dibujos, tarjetas y figuras hechas con bolitas de colores. En 2015 me formé además en Montpellier, en la Journée CLE Formation.",
+        "fr": "En France, j’ai enseigné à des enfants d’école primaire et d’école maternelle : ils m’ont laissé des dessins, des cartes et des figurines en petites billes colorées. En 2015, je me suis aussi formé à Montpellier, lors de la Journée CLE Formation.",
+        "en": "In France I taught primary- and nursery-school children: they left me drawings, cards and figures made of coloured beads. In 2015 I also trained in Montpellier, at the CLE Formation day."
+      },
+      "medios": [
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/ninos-esferas.jpg",
+          "alt": "Figuras de bolitas de colores, regalo de mis alumnos",
+          "pie": {
+            "es": "Un regalo de mis alumnos · enero de 2015",
+            "fr": "Un cadeau de mes élèves · janvier 2015",
+            "en": "A gift from my students · January 2015"
+          },
+          "ratio": "1000/785"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/ninos-torre.jpg",
+          "alt": "Dibujo de la Torre Eiffel hecho por un alumno",
+          "pie": {
+            "es": "Otro regalo · noviembre de 2014",
+            "fr": "Un autre cadeau · novembre 2014",
+            "en": "Another gift · November 2014"
+          },
+          "ratio": "1000/819"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/ninos-tarjeta.jpg",
+          "alt": "Tarjeta de mis alumnos: «Tu es mon prof adoré»",
+          "pie": {
+            "es": "«Tu es mon prof adoré» · abril de 2015",
+            "fr": "« Tu es mon prof adoré » · avril 2015",
+            "en": "“Tu es mon prof adoré” · April 2015"
+          },
+          "ratio": "1000/1000"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/cle-montpellier.jpg",
+          "alt": "Journée CLE Formation, Montpellier 2015",
+          "pie": {
+            "es": "Journée CLE Formation · Montpellier, 2015",
+            "fr": "Journée CLE Formation · Montpellier, 2015",
+            "en": "Journée CLE Formation · Montpellier, 2015"
+          },
+          "ratio": "1000/465"
         }
       ]
     },
@@ -76,32 +164,54 @@
         "en": "Those who emigrate need far more than vocabulary to start over."
       },
       "texto": {
-        "es": "En la Embajada de Francia trabajé con Campus France (2010–2012). En el Centro Cultural Canadiense fui consejero de migración hacia Quebec y director pedagógico (2011–2014). Fui asistente de idioma en Millau, Francia, y profesor y coordinador pedagógico en el Lycée Français de Caracas (2013–2017 y 2023).",
-        "fr": "À l'Ambassade de France, j'ai travaillé avec Campus France (2010–2012). Au Centre culturel canadien, j'ai été conseiller en migration vers le Québec et directeur pédagogique (2011–2014). J'ai été assistant de langue à Millau, en France, puis professeur et coordinateur pédagogique au Lycée Français de Caracas (2013–2017 et 2023).",
-        "en": "At the French Embassy I worked with Campus France (2010–2012). At the Canadian Cultural Centre I was a migration adviser for Quebec and pedagogical director (2011–2014). I was a language assistant in Millau, France, and a teacher and pedagogical coordinator at the Lycée Français de Caracas (2013–2017 and 2023)."
+        "es": "En la Embajada de Francia trabajé con Campus France (2010–2012). En el Centro Cultural Canadiense fui consejero de migración hacia Quebec y director pedagógico (2011–2014). Fui asistente de idioma en Millau, Francia, y profesor y coordinador pedagógico en el Lycée Français de Caracas (2013–2017 y 2023). En 2017 di conferencias sobre «Venezuela y sus medios de comunicación» en Blagnac, cerca de Toulouse.",
+        "fr": "À l'Ambassade de France, j'ai travaillé avec Campus France (2010–2012). Au Centre culturel canadien, j'ai été conseiller en migration vers le Québec et directeur pédagogique (2011–2014). J'ai été assistant de langue à Millau, en France, puis professeur et coordinateur pédagogique au Lycée Français de Caracas (2013–2017 et 2023). En 2017, j’ai donné des conférences sur « le Venezuela et ses médias » à Blagnac, près de Toulouse.",
+        "en": "At the French Embassy I worked with Campus France (2010–2012). At the Canadian Cultural Centre I was a migration adviser for Quebec and pedagogical director (2011–2014). I was a language assistant in Millau, France, and a teacher and pedagogical coordinator at the Lycée Français de Caracas (2013–2017 and 2023). In 2017 I gave talks on “Venezuela and its media” in Blagnac, near Toulouse."
       },
       "medios": [
         {
           "tipo": "foto",
-          "archivo": "assets/images/relato/lycee-caracas.jpg",
-          "pendiente": true,
-          "alt": "En el Lycée Français de Caracas",
+          "archivo": "assets/images/relato/canada-embajador.jpg",
+          "alt": "Con el embajador de Canadá, Ben Rowswell, en Caracas",
           "pie": {
-            "es": "Lycée Français de Caracas",
-            "fr": "Lycée Français de Caracas",
-            "en": "Lycée Français de Caracas"
-          }
+            "es": "Con el embajador de Canadá, Ben Rowswell · Caracas, marzo de 2017",
+            "fr": "Avec l’ambassadeur du Canada, Ben Rowswell · Caracas, mars 2017",
+            "en": "With Canada’s ambassador, Ben Rowswell · Caracas, March 2017"
+          },
+          "ratio": "1000/1250"
         },
         {
           "tipo": "foto",
-          "archivo": "assets/images/relato/millau.jpg",
-          "pendiente": true,
-          "alt": "En Millau, Francia",
+          "archivo": "assets/images/relato/francophonie-venezuela.jpg",
+          "alt": "Con una alumna y su diploma de premio especial, Francophonie Venezuela 2017",
           "pie": {
-            "es": "Millau, Francia",
-            "fr": "Millau, France",
-            "en": "Millau, France"
-          }
+            "es": "Con una alumna, premio especial de fotografía · «Francophonie Venezuela 2017»",
+            "fr": "Avec une élève, prix spécial de photographie · « Francophonie Venezuela 2017 »",
+            "en": "With a student, special photography prize · “Francophonie Venezuela 2017”"
+          },
+          "ratio": "1000/917"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/millau-viaducto.jpg",
+          "alt": "Miguel Tillero bajo el viaducto de Millau",
+          "pie": {
+            "es": "Bajo el viaducto de Millau · octubre de 2017",
+            "fr": "Sous le viaduc de Millau · octobre 2017",
+            "en": "Under the Millau Viaduct · October 2017"
+          },
+          "ratio": "1000/806"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/toulouse-conferencia.jpg",
+          "alt": "Conferencia en un aula de Blagnac, Toulouse",
+          "pie": {
+            "es": "Conferencias · Blagnac, Toulouse · diciembre de 2017",
+            "fr": "Conférences · Blagnac, Toulouse · décembre 2017",
+            "en": "Talks · Blagnac, Toulouse · December 2017"
+          },
+          "ratio": "1000/1152"
         }
       ]
     },
@@ -161,6 +271,28 @@
         },
         {
           "tipo": "foto",
+          "archivo": "assets/images/relato/cuenca-oficina-1.jpg",
+          "alt": "En mi oficina de la Alianza Francesa de Cuenca",
+          "pie": {
+            "es": "En mi oficina de la Alianza",
+            "fr": "Dans mon bureau à l’Alliance",
+            "en": "In my office at the Alliance"
+          },
+          "ratio": "1000/1016"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/cuenca-oficina-2.jpg",
+          "alt": "Un momento en mi oficina, Alianza Francesa de Cuenca",
+          "pie": {
+            "es": "Un buen momento en la oficina",
+            "fr": "Un bon moment au bureau",
+            "en": "A good moment at the office"
+          },
+          "ratio": "1000/1000"
+        },
+        {
+          "tipo": "foto",
           "archivo": "assets/images/trayectoria/af-cuenca.jpg",
           "alt": "Alianza Francesa de Cuenca, Ecuador",
           "pie": {
@@ -174,7 +306,7 @@
     {
       "id": "ilustracion",
       "anio": "2019",
-      "lugar": "Cuenca · Ecuador",
+      "lugar": "Vilcabamba · Cuenca",
       "titulo": {
         "es": "Mi historia, dibujada",
         "fr": "Mon histoire, dessinée",
@@ -186,11 +318,23 @@
         "en": "Someone listened to my story and turned it into a drawing."
       },
       "texto": {
-        "es": "Durante su residencia artística en Ecuador, la ilustradora francesa Karine Bernadou me entrevistó y dibujó lo que le conté sobre la situación política de Venezuela: un retrato en rojo y negro, con una multitud detrás. Compartió el resultado en Instagram.",
-        "fr": "Pendant sa résidence artistique en Équateur, l’illustratrice française Karine Bernadou m’a interviewé et a dessiné ce que je lui ai raconté sur la situation politique du Venezuela : un portrait en rouge et noir, avec une foule derrière. Elle a partagé le résultat sur Instagram.",
-        "en": "During her artistic residency in Ecuador, the French illustrator Karine Bernadou interviewed me and drew what I told her about Venezuela’s political situation: a portrait in red and black, with a crowd behind. She shared the result on Instagram."
+        "es": "En mayo de 2019, en Vilcabamba (Loja), la ilustradora francesa Karine Bernadou —en plena residencia artística en Ecuador— me entrevistó sobre Venezuela, café de por medio. Un mes después me sorprendió con un dibujo: un retrato en rojo y negro, con una multitud detrás. «Hablar de mi amada Venezuela no siempre es fácil», escribí al compartirlo. «Honrado de ser parte de tus dibujos».",
+        "fr": "En mai 2019, à Vilcabamba (Loja), l’illustratrice française Karine Bernadou — en pleine résidence artistique en Équateur — m’a interviewé sur le Venezuela, autour d’un café. Un mois plus tard, elle m’a surpris avec un dessin : un portrait en rouge et noir, avec une foule derrière. « Parler de mon cher Venezuela n’est pas toujours facile », ai-je écrit en le partageant. « Honoré de faire partie de tes dessins ».",
+        "en": "In May 2019, in Vilcabamba (Loja), the French illustrator Karine Bernadou — during her artistic residency in Ecuador — interviewed me about Venezuela over coffee. A month later she surprised me with a drawing: a portrait in red and black, with a crowd behind. “Talking about my beloved Venezuela is not always easy,” I wrote when sharing it. “Honoured to be part of your drawings.”"
       },
       "medios": [
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/ilustracion-vilcabamba.jpg",
+          "alt": "Café con la ilustradora Karine Bernadou en Vilcabamba",
+          "pie": {
+            "es": "Café con Karine Bernadou · Vilcabamba, mayo de 2019",
+            "fr": "Café avec Karine Bernadou · Vilcabamba, mai 2019",
+            "en": "Coffee with Karine Bernadou · Vilcabamba, May 2019"
+          },
+          "ratio": "1000/882",
+          "ancha": true
+        },
         {
           "tipo": "foto",
           "archivo": "assets/images/relato/ilustracion-miguel.jpg",
@@ -216,6 +360,194 @@
       ]
     },
     {
+      "id": "escena",
+      "anio": "2018 — 2020",
+      "lugar": "Ecuador",
+      "titulo": {
+        "es": "La cultura también entra al aula",
+        "fr": "La culture entre aussi dans la classe",
+        "en": "Culture walks into the classroom too"
+      },
+      "cita": {
+        "es": "Un espectáculo sublime que todavía me deja perplejo.",
+        "fr": "Un spectacle sublime qui me laisse toujours perplexe.",
+        "en": "A sublime show that still leaves me perplexed."
+      },
+      "texto": {
+        "es": "Una lengua se aprende también con arte: el espectáculo de Lauren, con Magritte de invitado («Ceci n’est pas une pipe»), y el regreso a clases con mascarillas en un taller de teatro, en septiembre de 2020.",
+        "fr": "Une langue s’apprend aussi par l’art : le spectacle de Lauren, avec Magritte en invité (« Ceci n’est pas une pipe »), et le retour en classe masqué lors d’un atelier de théâtre, en septembre 2020.",
+        "en": "A language is also learned through art: Lauren’s show, with Magritte as a guest (“Ceci n’est pas une pipe”), and back to class with masks in a theatre workshop, in September 2020."
+      },
+      "medios": [
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/escena-lauren.jpg",
+          "alt": "Miguel Tillero con Lauren y el cuadro «Ceci n’est pas une pipe»",
+          "pie": {
+            "es": "Tras el espectáculo de Lauren · «Ceci n’est pas une pipe»",
+            "fr": "Après le spectacle de Lauren · « Ceci n’est pas une pipe »",
+            "en": "After Lauren’s show · “Ceci n’est pas une pipe”"
+          },
+          "ratio": "1000/958"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/escena-teatro.jpg",
+          "alt": "Taller de teatro con estudiantes en la Alianza Francesa de Cuenca",
+          "pie": {
+            "es": "Taller de teatro · septiembre de 2020",
+            "fr": "Atelier de théâtre · septembre 2020",
+            "en": "Theatre workshop · September 2020"
+          },
+          "ratio": "1000/826"
+        }
+      ]
+    },
+    {
+      "id": "convenios",
+      "anio": "2019 — 2021",
+      "lugar": "Cuenca, Ecuador",
+      "titulo": {
+        "es": "Aliados que construyen",
+        "fr": "Des alliés qui construisent",
+        "en": "Allies who build"
+      },
+      "cita": {
+        "es": "La enseñanza del francés se impone.",
+        "fr": "L’enseignement du français s’impose.",
+        "en": "Teaching French is the way forward."
+      },
+      "texto": {
+        "es": "Una Alianza crece con sus aliados. En agosto de 2019 la Alianza Francesa de Cuenca y el Grupo Industrial Graiman dieron un paso a favor de la enseñanza del francés; ese diciembre preparamos la ceremonia de entrega de diplomas DELF; en 2021 felicité a los becarios junto al Primer Consejero de la Embajada de Francia y agradecí a Sebastián y Rosita, los arquitectos que renovaron la pérgola de la Alianza.",
+        "fr": "Une Alliance grandit avec ses alliés. En août 2019, l’Alliance Française de Cuenca et le Grupo Industrial Graiman ont fait un pas en faveur de l’enseignement du français ; en décembre, nous avons préparé la cérémonie de remise des diplômes DELF ; en 2021, j’ai félicité les boursiers aux côtés du Premier Conseiller de l’Ambassade de France et remercié Sebastián et Rosita, les architectes qui ont rénové la pergola de l’Alliance.",
+        "en": "An Alliance grows with its allies. In August 2019 the Alliance Française de Cuenca and the Grupo Industrial Graiman took a step for French teaching; that December we prepared the DELF diploma ceremony; in 2021 I congratulated the scholarship students alongside the First Counsellor of the French Embassy and thanked Sebastián and Rosita, the architects who renovated the Alliance’s pergola."
+      },
+      "medios": [
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/convenio-panel.jpg",
+          "alt": "Encuentro entre la Alianza Francesa de Cuenca y el Grupo Industrial Graiman",
+          "pie": {
+            "es": "Alianza Francesa de Cuenca × Graiman · agosto de 2019",
+            "fr": "Alliance Française de Cuenca × Graiman · août 2019",
+            "en": "Alliance Française de Cuenca × Graiman · August 2019"
+          },
+          "ratio": "1000/608",
+          "ancha": true
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/convenio-estudiantes.jpg",
+          "alt": "Estudiantes con sus certificados junto a representantes de la Alianza y de Graiman",
+          "pie": {
+            "es": "Estudiantes con sus certificados · agosto de 2019",
+            "fr": "Étudiants avec leurs certificats · août 2019",
+            "en": "Students with their certificates · August 2019"
+          },
+          "ratio": "1000/608"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/ceremonia-delf.jpg",
+          "alt": "Preparando la ceremonia de entrega de diplomas DELF",
+          "pie": {
+            "es": "Preparando la entrega de diplomas DELF · diciembre de 2019",
+            "fr": "Préparation de la remise des diplômes DELF · décembre 2019",
+            "en": "Preparing the DELF diploma ceremony · December 2019"
+          },
+          "ratio": "1000/625"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/arquitectos-pergola.jpg",
+          "alt": "Con Sebastián y Rosita, arquitectos de la renovación de la pérgola",
+          "pie": {
+            "es": "Con Sebastián y Rosita, arquitectos de la pérgola · enero de 2021",
+            "fr": "Avec Sebastián et Rosita, architectes de la pergola · janvier 2021",
+            "en": "With Sebastián and Rosita, the pergola architects · January 2021"
+          },
+          "ratio": "1000/812"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/becarios-embajada.jpg",
+          "alt": "Con los becarios y el Primer Consejero de la Embajada de Francia",
+          "pie": {
+            "es": "Con los becarios y el Primer Consejero de la Embajada de Francia · mayo de 2021",
+            "fr": "Avec les boursiers et le Premier Conseiller de l’Ambassade de France · mai 2021",
+            "en": "With the scholarship students and the French Embassy’s First Counsellor · May 2021"
+          },
+          "ratio": "1000/938"
+        }
+      ]
+    },
+    {
+      "id": "catorce-julio",
+      "anio": "2019 — 2020",
+      "lugar": "Cuenca, Ecuador",
+      "titulo": {
+        "es": "El 14 de julio, en Cuenca",
+        "fr": "Le 14 juillet, à Cuenca",
+        "en": "July 14th, in Cuenca"
+      },
+      "cita": {
+        "es": "Todo depende del ojo con que lo mires.",
+        "fr": "Tout dépend de l’œil avec lequel on regarde.",
+        "en": "It all depends on the eye you look with."
+      },
+      "texto": {
+        "es": "Preparamos la recepción del Día Nacional de Francia de 2019 y, en 2020, lo celebramos con mascarillas y una grabación previa, junto a la cónsul honoraria de Francia, Carmen Moreno; la presidenta de la Alianza, Cecilia Andrade, y el director, Antoine Lissorgues.",
+        "fr": "Nous avons préparé la réception de la Fête nationale de 2019 et, en 2020, nous l’avons célébrée masqués, avec un enregistrement préalable, aux côtés de la consule honoraire de France, Carmen Moreno ; de la présidente de l’Alliance, Cecilia Andrade, et du directeur, Antoine Lissorgues.",
+        "en": "We prepared the 2019 Bastille Day reception and, in 2020, celebrated it with masks and a pre-recorded message, alongside France’s honorary consul, Carmen Moreno; the Alliance’s president, Cecilia Andrade, and its director, Antoine Lissorgues."
+      },
+      "medios": [
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/catorce-2019.jpg",
+          "alt": "Preparando la recepción del Día Nacional de Francia de 2019",
+          "pie": {
+            "es": "Preparando la recepción · julio de 2019",
+            "fr": "Préparation de la réception · juillet 2019",
+            "en": "Preparing the reception · July 2019"
+          },
+          "ratio": "1000/625"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/catorce-2020.jpg",
+          "alt": "Palabras en el Día Nacional de Francia de 2020",
+          "pie": {
+            "es": "Palabras del 14 de julio de 2020",
+            "fr": "Discours du 14 juillet 2020",
+            "en": "Speech on July 14, 2020"
+          },
+          "ratio": "1000/799"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/catorce-grabacion.jpg",
+          "alt": "Grabación previa para el 14 de julio de 2020",
+          "pie": {
+            "es": "Grabación · julio de 2020",
+            "fr": "Enregistrement · juillet 2020",
+            "en": "Recording · July 2020"
+          },
+          "ratio": "1000/1222"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/catorce-grupo.jpg",
+          "alt": "Con la cónsul honoraria, la presidenta y el director de la Alianza Francesa de Cuenca",
+          "pie": {
+            "es": "Con la cónsul honoraria Carmen Moreno, la presidenta Cecilia Andrade y el director Antoine Lissorgues",
+            "fr": "Avec la consule honoraire Carmen Moreno, la présidente Cecilia Andrade et le directeur Antoine Lissorgues",
+            "en": "With honorary consul Carmen Moreno, president Cecilia Andrade and director Antoine Lissorgues"
+          },
+          "ratio": "1000/944"
+        }
+      ]
+    },
+    {
       "id": "defi",
       "anio": "22 may 2020",
       "lugar": "Cuenca × Querétaro",
@@ -230,9 +562,9 @@
         "en": "Two cities, one screen and a will to play in French."
       },
       "texto": {
-        "es": "En pleno confinamiento, la Alianza Francesa de Cuenca y la de Querétaro (México) enfrentaron a sus mejores estudiantes en un quiz cultural transmitido en vivo. Fui parte del equipo fundador de ese primer Défi Inter-Alliances, hoy una competencia internacional de la red de Alianzas Francesas, organizada con la Fundación de las Alianzas Francesas y TV5MONDE, con Ivan Kabacoff como animador de la final.",
-        "fr": "En plein confinement, l’Alliance Française de Cuenca et celle de Querétaro (Mexique) ont opposé leurs meilleurs apprenants lors d’un quiz culturel en direct. J’ai fait partie de l’équipe fondatrice de ce premier Défi Inter-Alliances, devenu une compétition internationale du réseau des Alliances Françaises, organisée avec la Fondation des Alliances Françaises et TV5MONDE, avec Ivan Kabacoff à l’animation de la finale.",
-        "en": "In the middle of lockdown, the Alliances Françaises of Cuenca and Querétaro (Mexico) pitted their best students against each other in a live cultural quiz. I was part of the founding team of that first Défi Inter-Alliances, today an international competition of the Alliance Française network, run with the Fondation des Alliances Françaises and TV5MONDE, with Ivan Kabacoff hosting the final."
+        "es": "En pleno confinamiento, la Alianza Francesa de Cuenca y la de Querétaro (México) enfrentaron a sus mejores estudiantes en un quiz cultural transmitido en vivo. Fui parte del equipo fundador de ese primer Défi Inter-Alliances, hoy una competencia internacional de la red de Alianzas Francesas, organizada con la Fundación de las Alianzas Francesas y TV5MONDE, con Ivan Kabacoff como animador de la final. Aquel primer duelo lo animó, en directo desde París, Fabrice Placet, de la Fundación.",
+        "fr": "En plein confinement, l’Alliance Française de Cuenca et celle de Querétaro (Mexique) ont opposé leurs meilleurs apprenants lors d’un quiz culturel en direct. J’ai fait partie de l’équipe fondatrice de ce premier Défi Inter-Alliances, devenu une compétition internationale du réseau des Alliances Françaises, organisée avec la Fondation des Alliances Françaises et TV5MONDE, avec Ivan Kabacoff à l’animation de la finale. Ce premier duel fut animé en direct depuis Paris par Fabrice Placet, de la Fondation.",
+        "en": "In the middle of lockdown, the Alliances Françaises of Cuenca and Querétaro (Mexico) pitted their best students against each other in a live cultural quiz. I was part of the founding team of that first Défi Inter-Alliances, today an international competition of the Alliance Française network, run with the Fondation des Alliances Françaises and TV5MONDE, with Ivan Kabacoff hosting the final. That first duel was hosted live from Paris by Fabrice Placet, of the Foundation."
       },
       "medios": [
         {
@@ -251,7 +583,7 @@
     },
     {
       "id": "traductor",
-      "anio": "2020 — 2022",
+      "anio": "2019 — 2022",
       "lugar": "Cuenca · Azogues, Ecuador",
       "titulo": {
         "es": "Traducir también es enseñar",
@@ -264,11 +596,23 @@
         "en": "Carrying an idea from one language to another without breaking it."
       },
       "texto": {
-        "es": "Además de las aulas, traduzco. Traduje «Cuentos contados desde la artesanía», colección publicada en español, inglés y francés, cuya segunda edición se presentó en Cuenca en junio de 2022. Y mi trabajo más prestigioso: la versión al español de «Pédagogie : le devoir de résister», de Philippe Meirieu —uno de los grandes pedagogos de hoy—, publicada como «Pedagogía: el deber de resistir» por la Universidad Nacional de Educación (UNAE) del Ecuador, en colaboración con la Alianza Francesa de Cuenca (2020).",
-        "fr": "En plus des salles de classe, je traduis. J’ai traduit « Cuentos contados desde la artesanía », collection publiée en espagnol, anglais et français, dont la deuxième édition a été présentée à Cuenca en juin 2022. Et mon travail le plus prestigieux : la version espagnole de « Pédagogie : le devoir de résister » de Philippe Meirieu — l’un des grands pédagogues d’aujourd’hui —, publiée sous le titre « Pedagogía: el deber de resistir » par l’Universidad Nacional de Educación (UNAE) d’Équateur, en collaboration avec l’Alliance Française de Cuenca (2020).",
-        "en": "Besides classrooms, I translate. I translated “Cuentos contados desde la artesanía”, a collection published in Spanish, English and French, whose second edition was launched in Cuenca in June 2022. And my most prestigious work: the Spanish version of Philippe Meirieu’s “Pédagogie : le devoir de résister” — one of today’s great educators — published as “Pedagogía: el deber de resistir” by Ecuador’s Universidad Nacional de Educación (UNAE), in collaboration with the Alliance Française de Cuenca (2020)."
+        "es": "Además de las aulas, traduzco. Traduje «Cuentos contados desde la artesanía», colección publicada en español, inglés y francés, cuya segunda edición se presentó en Cuenca en junio de 2022. Y mi trabajo más prestigioso: la versión al español de «Pédagogie : le devoir de résister», de Philippe Meirieu —uno de los grandes pedagogos de hoy—, publicada como «Pedagogía: el deber de resistir» por la Universidad Nacional de Educación (UNAE) del Ecuador, en colaboración con la Alianza Francesa de Cuenca (2020). En noviembre de 2019 tuve además el honor de traducir su conferencia «Y si la escuela enseñara a pensar», en el Teatro Sucre de Cuenca.",
+        "fr": "En plus des salles de classe, je traduis. J’ai traduit « Cuentos contados desde la artesanía », collection publiée en espagnol, anglais et français, dont la deuxième édition a été présentée à Cuenca en juin 2022. Et mon travail le plus prestigieux : la version espagnole de « Pédagogie : le devoir de résister » de Philippe Meirieu — l’un des grands pédagogues d’aujourd’hui —, publiée sous le titre « Pedagogía: el deber de resistir » par l’Universidad Nacional de Educación (UNAE) d’Équateur, en collaboration avec l’Alliance Française de Cuenca (2020). En novembre 2019, j’ai aussi eu l’honneur de traduire sa conférence « Et si l’école enseignait à penser », au Théâtre Sucre de Cuenca.",
+        "en": "Besides classrooms, I translate. I translated “Cuentos contados desde la artesanía”, a collection published in Spanish, English and French, whose second edition was launched in Cuenca in June 2022. And my most prestigious work: the Spanish version of Philippe Meirieu’s “Pédagogie : le devoir de résister” — one of today’s great educators — published as “Pedagogía: el deber de resistir” by Ecuador’s Universidad Nacional de Educación (UNAE), in collaboration with the Alliance Française de Cuenca (2020). In November 2019 I also had the honour of translating his lecture “What if school taught us to think”, at Cuenca’s Teatro Sucre."
       },
       "medios": [
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/meirieu-conferencia.jpg",
+          "alt": "Philippe Meirieu ofrece la conferencia «Y si la escuela enseñara a pensar» en el Teatro Sucre",
+          "pie": {
+            "es": "Philippe Meirieu · «Y si la escuela enseñara a pensar» · Teatro Sucre, noviembre de 2019",
+            "fr": "Philippe Meirieu · « Et si l’école enseignait à penser » · Théâtre Sucre, novembre 2019",
+            "en": "Philippe Meirieu · “What if school taught us to think” · Teatro Sucre, November 2019"
+          },
+          "ratio": "1000/625",
+          "ancha": true
+        },
         {
           "tipo": "foto",
           "archivo": "assets/images/relato/libro-evento.jpg",
@@ -358,7 +702,7 @@
     {
       "id": "camaras",
       "anio": "Ecuador",
-      "lugar": "TV5MONDE · Le jour du prof de français",
+      "lugar": "TV5MONDE · RFI · Le jour du prof de français",
       "titulo": {
         "es": "Hablar del francés ante las cámaras",
         "fr": "Parler du français devant les caméras",
@@ -370,19 +714,19 @@
         "en": "A language is also defended by telling why it is worth the effort."
       },
       "texto": {
-        "es": "Con el equipo de TV5MONDE y el Delegado de las Alianzas Francesas en Ecuador, y en la entrevista «Le jour du prof de français».",
-        "fr": "Avec l'équipe de TV5MONDE et le Délégué des Alliances Françaises en Équateur, et lors de l'interview « Le jour du prof de français ».",
-        "en": "With the TV5MONDE team and the Delegate of the Alliances Françaises in Ecuador, and in the interview “Le jour du prof de français”."
+        "es": "Con Ivan Kabacoff, presentador de «Destination Francophonie» en TV5MONDE, y Fabrice Hacout, de su equipo; ante el micrófono de Radio Francia Internacional (RFI) y en la entrevista «Le jour du prof de français», en Quito.",
+        "fr": "Avec Ivan Kabacoff, présentateur de « Destination francophonie » sur TV5MONDE, et Fabrice Hacout, de son équipe ; au micro de Radio France Internationale (RFI) et lors de l’interview « Le jour du prof de français », à Quito.",
+        "en": "With Ivan Kabacoff, host of “Destination francophonie” on TV5MONDE, and Fabrice Hacout, from his team; at the microphone of Radio France Internationale (RFI) and in the interview “Le jour du prof de français”, in Quito."
       },
       "medios": [
         {
           "tipo": "foto",
           "archivo": "assets/images/trayectoria/tv5monde.jpg",
-          "alt": "Con el equipo de TV5MONDE y el Delegado de las Alianzas Francesas en Ecuador",
+          "alt": "Con Ivan Kabacoff, presentador de Destination Francophonie en TV5MONDE, y Fabrice Hacout, de su equipo",
           "pie": {
-            "es": "Con TV5MONDE y el Delegado de las Alianzas Francesas en Ecuador",
-            "fr": "Avec TV5MONDE et le Délégué des Alliances Françaises en Équateur",
-            "en": "With TV5MONDE and the Delegate of the Alliances Françaises in Ecuador"
+            "es": "Con Ivan Kabacoff (TV5MONDE) y Fabrice Hacout, de su equipo · abril de 2022",
+            "fr": "Avec Ivan Kabacoff (TV5MONDE) et Fabrice Hacout, de son équipe · avril 2022",
+            "en": "With Ivan Kabacoff (TV5MONDE) and Fabrice Hacout, from his team · April 2022"
           }
         },
         {
@@ -394,6 +738,29 @@
             "fr": "Interview · « Le jour du prof de français »",
             "en": "Interview · “Le jour du prof de français”"
           }
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/rfi-entrevista.jpg",
+          "alt": "Entrevista en Radio Francia Internacional (RFI)",
+          "pie": {
+            "es": "Entrevista en RFI · agosto de 2019",
+            "fr": "Interview sur RFI · août 2019",
+            "en": "RFI interview · August 2019"
+          },
+          "ratio": "1000/597"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/quito-jour-prof.jpg",
+          "alt": "Grabación de «Le jour du prof de français» en Quito",
+          "pie": {
+            "es": "«Le jour du prof de français» · Quito, diciembre de 2021",
+            "fr": "« Le jour du prof de français » · Quito, décembre 2021",
+            "en": "“Le jour du prof de français” · Quito, December 2021"
+          },
+          "ratio": "1000/624",
+          "ancha": true
         }
       ]
     },
@@ -412,9 +779,9 @@
         "en": "You never entirely leave the places you helped build."
       },
       "texto": {
-        "es": "El Consejo Directivo de la Alianza Francesa de Cuenca me despidió con un homenaje —yo, con el traje verde— y me fui saludando desde el carro, agradecido por los años, el equipo y los estudiantes.",
-        "fr": "Le Conseil d’administration de l’Alliance Française de Cuenca m’a rendu hommage — moi, en costume vert — et je suis parti en saluant depuis la voiture, reconnaissant pour les années, l’équipe et les étudiants.",
-        "en": "The Board of the Alliance Française de Cuenca paid me a tribute — me in the green suit — and I left waving from the car, grateful for the years, the team and the students."
+        "es": "El Consejo Directivo de la Alianza Francesa de Cuenca me despidió con un homenaje —yo, con el traje verde— y me fui saludando desde el carro, agradecido por los años, el equipo y los estudiantes. Dije «hasta luego» también a estudiantes como el fundador del Comité Estudiantil, con quien aprendimos juntos.",
+        "fr": "Le Conseil d’administration de l’Alliance Française de Cuenca m’a rendu hommage — moi, en costume vert — et je suis parti en saluant depuis la voiture, reconnaissant pour les années, l’équipe et les étudiants. J’ai aussi dit « à bientôt » à des étudiants comme le fondateur du Comité étudiant, avec qui nous avons appris ensemble.",
+        "en": "The Board of the Alliance Française de Cuenca paid me a tribute — me in the green suit — and I left waving from the car, grateful for the years, the team and the students. I also said “see you soon” to students like the founder of the Student Committee, with whom we learned together."
       },
       "medios": [
         {
@@ -438,6 +805,74 @@
             "en": "The farewell, from the car"
           },
           "ratio": "4/5"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/comite-estudiantil.jpg",
+          "alt": "Con uno de los estudiantes que fundó el Comité Estudiantil",
+          "pie": {
+            "es": "Con uno de los fundadores del Comité Estudiantil",
+            "fr": "Avec l’un des fondateurs du Comité étudiant",
+            "en": "With one of the founders of the Student Committee"
+          },
+          "ratio": "1000/625",
+          "ancha": true
+        }
+      ]
+    },
+    {
+      "id": "avenprof",
+      "anio": "Nov 2022",
+      "lugar": "Alianza Francesa de Caracas",
+      "titulo": {
+        "es": "Reencuentros en Caracas",
+        "fr": "Retrouvailles à Caracas",
+        "en": "Reunions in Caracas"
+      },
+      "cita": {
+        "es": "El amor es incondicional.",
+        "fr": "L’amour est inconditionnel.",
+        "en": "Love is unconditional."
+      },
+      "texto": {
+        "es": "En la Journée internationale du professeur de français, en la Alianza Francesa de Caracas, volví a encontrarme con colegas de la Asociación Venezolana de Profesores de Francés (AVENPROF), entre ellos Olivier Plançon, entonces director de la Alianza Francesa de Caracas, y Pedro Alemán Guillén, profesor de francés de la Universidad Central de Venezuela. En 2023 tuve también el privilegio de compartir con el Embajador.",
+        "fr": "Lors de la Journée internationale du professeur de français, à l’Alliance Française de Caracas, j’ai retrouvé des collègues de l’Association vénézuélienne des professeurs de français (AVENPROF), dont Olivier Plançon, alors directeur de l’Alliance Française de Caracas, et Pedro Alemán Guillén, professeur de français à l’Universidad Central de Venezuela. En 2023, j’ai aussi eu le privilège de partager un moment avec l’Ambassadeur.",
+        "en": "At the International French Teacher’s Day, at the Alliance Française de Caracas, I met again colleagues from the Venezuelan Association of French Teachers (AVENPROF), among them Olivier Plançon, then director of the Alliance Française de Caracas, and Pedro Alemán Guillén, French teacher at the Universidad Central de Venezuela. In 2023 I also had the privilege of sharing a moment with the Ambassador."
+      },
+      "medios": [
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/avenprof-olivier.jpg",
+          "alt": "Con Olivier Plançon, entonces director de la Alianza Francesa de Caracas",
+          "pie": {
+            "es": "Con Olivier Plançon, entonces director de la Alianza Francesa de Caracas · noviembre de 2022",
+            "fr": "Avec Olivier Plançon, alors directeur de l’Alliance Française de Caracas · novembre 2022",
+            "en": "With Olivier Plançon, then director of the Alliance Française de Caracas · November 2022"
+          },
+          "ratio": "1000/1152"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/avenprof-pedro.jpg",
+          "alt": "Con Pedro Alemán Guillén, profesor de francés de la Universidad Central de Venezuela",
+          "pie": {
+            "es": "Con Pedro Alemán Guillén, profesor de francés de la UCV",
+            "fr": "Avec Pedro Alemán Guillén, professeur de français à l’UCV",
+            "en": "With Pedro Alemán Guillén, French teacher at the UCV"
+          },
+          "ratio": "1000/1040"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/embajador-caracas.jpg",
+          "alt": "Con Su Excelencia el Embajador, en Caracas",
+          "pie": {
+            "es": "Con Su Excelencia el Embajador · Caracas, 2023",
+            "fr": "Avec Son Excellence l’Ambassadeur · Caracas, 2023",
+            "en": "With His Excellency the Ambassador · Caracas, 2023"
+          },
+          "ratio": "1000/938",
+          "ancha": true
         }
       ]
     },
@@ -509,9 +944,9 @@
         "en": "A language grows when it finds open doors."
       },
       "texto": {
-        "es": "Dirigir una Alianza Francesa es, sobre todo, salir a tocar puertas: colegios como el ITAES y La Salle, la Secretaría de Educación del estado, la radio universitaria de la UNICACH en Tuxtla y el Consulado Honorario de Francia para Chiapas y Tabasco.",
-        "fr": "Diriger une Alliance Française, c’est avant tout aller frapper aux portes : des établissements comme l’ITAES et La Salle, le Secrétariat à l’Éducation de l’État, la radio universitaire de l’UNICACH à Tuxtla et le Consulat honoraire de France pour le Chiapas et le Tabasco.",
-        "en": "Leading an Alliance Française is, above all, knocking on doors: schools such as ITAES and La Salle, the State Secretariat of Education, the UNICACH university radio in Tuxtla and the Honorary Consulate of France for Chiapas and Tabasco."
+        "es": "Dirigir una Alianza Francesa es, sobre todo, salir a tocar puertas: colegios como el ITAES y La Salle, la Secretaría de Educación del estado, la radio universitaria de la UNICACH en Tuxtla y el Consulado Honorario de Francia en Chiapas, a cargo de Patrick de Bréon.",
+        "fr": "Diriger une Alliance Française, c’est avant tout aller frapper aux portes : des établissements comme l’ITAES et La Salle, le Secrétariat à l’Éducation de l’État, la radio universitaire de l’UNICACH à Tuxtla et le Consulat honoraire de France au Chiapas, confié à Patrick de Bréon.",
+        "en": "Leading an Alliance Française is, above all, knocking on doors: schools such as ITAES and La Salle, the State Secretariat of Education, the UNICACH university radio in Tuxtla and the Honorary Consulate of France in Chiapas, led by Patrick de Bréon."
       },
       "medios": [
         {
@@ -519,9 +954,9 @@
           "archivo": "assets/images/relato/itaes.jpg",
           "alt": "Visita al Colegio ITAES, San Cristóbal de Las Casas",
           "pie": {
-            "es": "Colegio ITAES · con la dirección y el departamento de idiomas",
-            "fr": "Colegio ITAES · avec la direction et le département de langues",
-            "en": "Colegio ITAES · with the principal and the languages department"
+            "es": "Colegio ITAES · con la directora general, Patricia Berumen de Alba, y el departamento de idiomas",
+            "fr": "Colegio ITAES · avec la directrice générale, Patricia Berumen de Alba, et le département de langues",
+            "en": "Colegio ITAES · with the principal, Patricia Berumen de Alba, and the languages department"
           },
           "ratio": "4/3"
         },
@@ -561,11 +996,11 @@
         {
           "tipo": "foto",
           "archivo": "assets/images/relato/consulado.jpg",
-          "alt": "Con el cónsul honorario de Francia para Chiapas y Tabasco",
+          "alt": "Con el cónsul honorario de Francia en Chiapas",
           "pie": {
-            "es": "Con el cónsul honorario de Francia para Chiapas y Tabasco",
-            "fr": "Avec le consul honoraire de France pour le Chiapas et le Tabasco",
-            "en": "With the honorary consul of France for Chiapas and Tabasco"
+            "es": "Con el cónsul honorario de Francia en Chiapas",
+            "fr": "Avec le consul honoraire de France au Chiapas",
+            "en": "With the honorary consul of France in Chiapas"
           },
           "ratio": "1500/674",
           "ancha": true
