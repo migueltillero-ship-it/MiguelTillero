@@ -40,34 +40,47 @@ function limpiarSesionRancia() {
     refProyecto = (SUPABASE_URL || '').replace(/^https?:\/\//, '').split('.')[0];
   } catch (e) { /* sin config: se limpia igual lo que parezca de Supabase */ }
 
-  var deEsteProyecto = 0, deOtroProyecto = 0, caducados = 0;
+  var hallados = 0, borradosOtroProyecto = 0, borradosCaducados = 0, conservados = 0;
   var aBorrar = [];
 
   try {
     for (var i = 0; i < localStorage.length; i++) {
       var k = localStorage.key(i);
       if (!/^sb-.+-auth-token$/.test(k)) continue;
-      var esNuestro = refProyecto && k.indexOf('sb-' + refProyecto + '-') === 0;
-      if (esNuestro) deEsteProyecto++; else deOtroProyecto++;
+      hallados++;
 
-      // ¿Caducado? Se mira el "exp" del propio token, sin llamar a la red.
+      // De otro proyecto de Supabase: no nos sirve, fuera.
+      if (refProyecto && k.indexOf('sb-' + refProyecto + '-') !== 0) {
+        aBorrar.push(k); borradosOtroProyecto++; continue;
+      }
+
+      // De este proyecto: solo se retira si está demostrablemente caducado
+      // o ilegible. Un token que todavía vale NO se toca: si el cliente no
+      // lo leyó puede ser un problema de tiempos, y borrarlo convertiría un
+      // fallo pasajero en quedarse fuera para siempre.
+      var caducado = null;
       try {
         var v = JSON.parse(localStorage.getItem(k) || 'null');
         var t = v && (v.access_token || (v.currentSession && v.currentSession.access_token));
-        var exp = t && JSON.parse(atob(t.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))).exp;
-        if (exp && exp * 1000 <= Date.now()) caducados++;
-      } catch (e) { /* ilegible: se trata como rancio igualmente */ }
+        if (!t) { caducado = true; }
+        else {
+          var exp = JSON.parse(atob(t.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))).exp;
+          caducado = !exp || exp * 1000 <= Date.now();
+        }
+      } catch (e) { caducado = true; }
 
-      aBorrar.push(k);
+      if (caducado) { aBorrar.push(k); borradosCaducados++; }
+      else { conservados++; }
     }
     aBorrar.forEach(function (k) { localStorage.removeItem(k); });
   } catch (e) {
     return 'el navegador bloquea el almacenamiento local';
   }
 
-  if (!aBorrar.length) return 'sin token guardado';
-  if (deOtroProyecto && !deEsteProyecto) return 'había un token de otro proyecto de Supabase; se limpió';
-  if (caducados) return 'la sesión guardada había caducado; se limpió';
+  if (!hallados) return 'sin token guardado';
+  if (conservados) return 'el token guardado sigue vigente pero el cliente no lo usó (no se borró)';
+  if (borradosCaducados) return 'la sesión guardada había caducado; se limpió';
+  if (borradosOtroProyecto) return 'había un token de otro proyecto de Supabase; se limpió';
   return 'la sesión guardada ya no era válida; se limpió';
 }
 

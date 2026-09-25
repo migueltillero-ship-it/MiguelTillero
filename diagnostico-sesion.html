@@ -36,7 +36,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="assets/js/supabase-config.js"></script>
+<script>document.write('<script src="assets/js/supabase-config.js?d=' + Date.now() + '"><\/script>');</script>
 <script>
 var lineas = [];
 try { lineas = JSON.parse(sessionStorage.getItem('mt_diag_log') || '[]'); if (lineas.length) lineas.push('', '═══ (se recargó la página) ═══'); } catch (e) {}
@@ -55,6 +55,19 @@ async function estado(titulo) {
     var claves = [];
     for (var i = 0; i < localStorage.length; i++) { var k = localStorage.key(i); if (k.indexOf('sb-') === 0) claves.push(k + ' (' + (localStorage.getItem(k) || '').length + ' caracteres)'); }
     p('sesión guardada en el navegador: ' + (claves.length ? claves.join(', ') : 'NINGUNA'));
+    for (var j = 0; j < localStorage.length; j++) {
+      var kk = localStorage.key(j);
+      if (!/^sb-.+-auth-token$/.test(kk)) continue;
+      try {
+        var vv = JSON.parse(localStorage.getItem(kk) || 'null');
+        var tt = vv && (vv.access_token || (vv.currentSession && vv.currentSession.access_token));
+        if (!tt) { p('   ' + kk + ': SIN access_token dentro'); continue; }
+        var ex = JSON.parse(atob(tt.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'))).exp;
+        var mins = Math.round((ex * 1000 - Date.now()) / 60000);
+        p('   ' + kk + ': ' + (mins > 0 ? 'vigente, caduca en ' + mins + ' min' : 'CADUCADO hace ' + (-mins) + ' min')
+          + ' · refresh_token: ' + (vv.refresh_token ? 'sí' : 'NO'));
+      } catch (e) { p('   ' + kk + ': ilegible (' + e.message + ')'); }
+    }
   } catch (e) { p('no se pudo leer el almacenamiento: ' + e.message); }
   var listo = typeof supabaseConfigurado !== 'undefined' && supabaseConfigurado;
   p('librería de Supabase cargada: ' + !!window.supabase + ' · cliente listo: ' + listo);
@@ -63,6 +76,10 @@ async function estado(titulo) {
     var r = await supabaseClient.auth.getSession();
     p('getSession: ' + (r.data && r.data.session ? 'HAY sesión' : 'SIN sesión') + (r.error ? ' · error: ' + r.error.message : ''));
   } catch (e) { p('getSession excepción: ' + e.message); }
+  try {
+    var u = await supabaseClient.auth.getUser();
+    p('getUser: ' + (u.data && u.data.user ? 'HAY usuario' : 'SIN usuario') + (u.error ? ' · error: ' + u.error.message : ''));
+  } catch (e) { p('getUser excepción: ' + e.message); }
 }
 document.getElementById('f').addEventListener('submit', async function (ev) {
   ev.preventDefault();
