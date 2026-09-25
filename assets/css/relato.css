@@ -49,7 +49,7 @@
 .rel-btn2 { display: inline-flex; align-items: center; padding: 0.85rem 1.5rem; border: 1px solid var(--gold); border-radius: 999px; color: var(--gold2); text-decoration: none; font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.85rem; transition: background 0.3s, color 0.3s; }
 .rel-btn2:hover { background: var(--gold); color: #fff; }
 
-.rel-media { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+.rel-media { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; align-items: start; }
 .rel-foto {
   position: relative; overflow: hidden; border-radius: var(--r-md, 18px); box-shadow: var(--shadow-card);
   aspect-ratio: 4 / 3; background: var(--deep); cursor: zoom-in;
@@ -58,6 +58,8 @@
   transition-delay: calc(var(--i, 0) * 140ms);
 }
 .rel-foto:first-child, .rel-foto:last-child:nth-child(even) { grid-column: 1 / -1; aspect-ratio: 16 / 10; }
+.rel-media .rel-foto.libre { grid-column: auto; }
+.rel-media .rel-foto.libre.ancha { grid-column: 1 / -1; }
 .rel-cap.on .rel-foto { opacity: 1; transform: none; }
 .rel-foto img, .rel-foto video { width: 100%; height: 100%; object-fit: cover; display: block; }
 .rel-foto img { transform: scale(1.08); transition: transform 9s ease-out; }
@@ -73,11 +75,16 @@
 .rel-play:hover span { transform: scale(1.1); }
 .rel-play.oculto { display: none; }
 
+.rel-badge { display: inline-block; margin-left: 0.7rem; padding: 0.18rem 0.6rem; border-radius: 999px; background: var(--gold); color: #fff; font-size: 0.56rem; letter-spacing: 0.16em; vertical-align: 1px; animation: rel-pulso 2.4s ease-in-out infinite; }
+.rel-novedad .rel-titulo { color: var(--gold2); }
+@keyframes rel-pulso { 0%, 100% { box-shadow: 0 0 0 0 rgba(165,130,74,0.45); } 50% { box-shadow: 0 0 0 7px rgba(165,130,74,0); } }
+
 @media (max-width: 860px) {
   .rel-cap, .rel-cap:nth-of-type(even) { grid-template-columns: minmax(0, 1fr); }
   .rel-cap:nth-of-type(even) .rel-media { order: 0; }
   .rel-txt { position: static; }
 }
 @media (prefers-reduced-motion: reduce) {
+  .rel-badge { animation: none; }
   .rel-txt > *, .rel-foto, .rel-foto img { opacity: 1 !important; transform: none !important; transition: none !important; }
 }

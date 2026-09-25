@@ -40,24 +40,24 @@
         {
           "tipo": "foto",
           "archivo": "assets/images/relato/graduacion.jpg",
-          "pendiente": true,
-          "alt": "Graduación de Miguel Tillero, UPEL",
+          "alt": "Miguel Tillero el día de su graduación en el Instituto Pedagógico de Caracas",
           "pie": {
-            "es": "Mi graduación · UPEL, Caracas",
-            "fr": "Ma remise de diplôme · UPEL, Caracas",
-            "en": "My graduation · UPEL, Caracas"
-          }
+            "es": "Mi graduación · Instituto Pedagógico de Caracas (UPEL)",
+            "fr": "Ma remise de diplôme · Instituto Pedagógico de Caracas (UPEL)",
+            "en": "My graduation · Instituto Pedagógico de Caracas (UPEL)"
+          },
+          "ratio": "4/5"
         },
         {
           "tipo": "foto",
           "archivo": "assets/images/relato/magna-cum-laude.jpg",
-          "pendiente": true,
-          "alt": "Entrega de la Mención Magna Cum Laude",
+          "alt": "Diploma con la distinción Magna Cum Laude, especialidad Francés, 2016",
           "pie": {
-            "es": "Mención Magna Cum Laude · 2016",
-            "fr": "Mention Magna Cum Laude · 2016",
-            "en": "Magna Cum Laude honours · 2016"
-          }
+            "es": "Diploma con la distinción Magna Cum Laude · Caracas, 2016",
+            "fr": "Diplôme avec la mention Magna Cum Laude · Caracas, 2016",
+            "en": "Diploma with Magna Cum Laude distinction · Caracas, 2016"
+          },
+          "ratio": "1200/1138"
         }
       ]
     },
@@ -127,14 +127,37 @@
       "medios": [
         {
           "tipo": "foto",
-          "archivo": "assets/images/relato/nombramiento-cuenca.jpg",
-          "pendiente": true,
-          "alt": "Nombramiento como director pedagógico de la Alianza Francesa de Cuenca",
+          "archivo": "assets/images/relato/cuenca-escritorio.jpg",
+          "alt": "En mi escritorio de director pedagógico, Alianza Francesa de Cuenca",
           "pie": {
-            "es": "Nombramiento como director pedagógico",
-            "fr": "Nomination au poste de directeur pédagogique",
-            "en": "Appointment as pedagogical director"
-          }
+            "es": "En mi despacho · Alianza Francesa de Cuenca",
+            "fr": "Dans mon bureau · Alliance Française de Cuenca",
+            "en": "At my desk · Alliance Française de Cuenca"
+          },
+          "ratio": "2/1",
+          "ancha": true
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/cuenca-director.jpg",
+          "alt": "Presentación institucional: Miguel Tillero, Director Pedagógico, AF Cuenca",
+          "pie": {
+            "es": "«Miguel Tillero, Director Pedagógico · AF Cuenca»",
+            "fr": "« Miguel Tillero, Directeur pédagogique · AF Cuenca »",
+            "en": "“Miguel Tillero, Pedagogical Director · AF Cuenca”"
+          },
+          "ratio": "4/5"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/cuenca-atril.jpg",
+          "alt": "Hablando desde el atril de la Alianza Francesa de Cuenca",
+          "pie": {
+            "es": "Palabras en un acto de la Alianza",
+            "fr": "Prise de parole lors d’un événement de l’Alliance",
+            "en": "Speaking at an Alliance event"
+          },
+          "ratio": "4/5"
         },
         {
           "tipo": "foto",
@@ -145,6 +168,128 @@
             "fr": "Alliance Française de Cuenca, Équateur",
             "en": "Alliance Française de Cuenca, Ecuador"
           }
+        }
+      ]
+    },
+    {
+      "id": "ilustracion",
+      "anio": "2019",
+      "lugar": "Cuenca · Ecuador",
+      "titulo": {
+        "es": "Mi historia, dibujada",
+        "fr": "Mon histoire, dessinée",
+        "en": "My story, drawn"
+      },
+      "cita": {
+        "es": "Alguien escuchó mi historia y la convirtió en un dibujo.",
+        "fr": "Quelqu’un a écouté mon histoire et l’a transformée en dessin.",
+        "en": "Someone listened to my story and turned it into a drawing."
+      },
+      "texto": {
+        "es": "Durante su residencia artística en Ecuador, la ilustradora francesa Karine Bernadou me entrevistó y dibujó lo que le conté sobre la situación política de Venezuela: un retrato en rojo y negro, con una multitud detrás. Compartió el resultado en Instagram.",
+        "fr": "Pendant sa résidence artistique en Équateur, l’illustratrice française Karine Bernadou m’a interviewé et a dessiné ce que je lui ai raconté sur la situation politique du Venezuela : un portrait en rouge et noir, avec une foule derrière. Elle a partagé le résultat sur Instagram.",
+        "en": "During her artistic residency in Ecuador, the French illustrator Karine Bernadou interviewed me and drew what I told her about Venezuela’s political situation: a portrait in red and black, with a crowd behind. She shared the result on Instagram."
+      },
+      "medios": [
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/ilustracion-miguel.jpg",
+          "alt": "Miguel Tillero con la ilustración que le dedicó Karine Bernadou",
+          "pie": {
+            "es": "Con la ilustración de Karine Bernadou",
+            "fr": "Avec l’illustration de Karine Bernadou",
+            "en": "With Karine Bernadou’s illustration"
+          },
+          "ratio": "4/5"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/ilustracion-artista.jpg",
+          "alt": "Ilustración «Miguel David» de Karine Bernadou",
+          "pie": {
+            "es": "«Miguel David» · dibujo de Karine Bernadou",
+            "fr": "« Miguel David » · dessin de Karine Bernadou",
+            "en": "“Miguel David” · drawing by Karine Bernadou"
+          },
+          "ratio": "1100/1012"
+        }
+      ]
+    },
+    {
+      "id": "defi",
+      "anio": "22 may 2020",
+      "lugar": "Cuenca × Querétaro",
+      "titulo": {
+        "es": "El duelo que se volvió mundial",
+        "fr": "Le duel devenu mondial",
+        "en": "The duel that went global"
+      },
+      "cita": {
+        "es": "Dos ciudades, una pantalla y muchas ganas de jugar en francés.",
+        "fr": "Deux villes, un écran et l’envie de jouer en français.",
+        "en": "Two cities, one screen and a will to play in French."
+      },
+      "texto": {
+        "es": "En pleno confinamiento, la Alianza Francesa de Cuenca y la de Querétaro (México) enfrentaron a sus mejores estudiantes en un quiz cultural transmitido en vivo. Fui parte del equipo fundador de ese primer Défi Inter-Alliances, hoy una competencia internacional de la red de Alianzas Francesas, organizada con la Fundación de las Alianzas Francesas y TV5MONDE, con Ivan Kabacoff como animador de la final.",
+        "fr": "En plein confinement, l’Alliance Française de Cuenca et celle de Querétaro (Mexique) ont opposé leurs meilleurs apprenants lors d’un quiz culturel en direct. J’ai fait partie de l’équipe fondatrice de ce premier Défi Inter-Alliances, devenu une compétition internationale du réseau des Alliances Françaises, organisée avec la Fondation des Alliances Françaises et TV5MONDE, avec Ivan Kabacoff à l’animation de la finale.",
+        "en": "In the middle of lockdown, the Alliances Françaises of Cuenca and Querétaro (Mexico) pitted their best students against each other in a live cultural quiz. I was part of the founding team of that first Défi Inter-Alliances, today an international competition of the Alliance Française network, run with the Fondation des Alliances Françaises and TV5MONDE, with Ivan Kabacoff hosting the final."
+      },
+      "medios": [
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/defi-inter-af.jpg",
+          "alt": "Cartel del primer Défi Inter-AF: Alianza Francesa de Cuenca contra Alianza Francesa de Querétaro",
+          "pie": {
+            "es": "Cartel del primer Défi Inter-AF · 22 de mayo de 2020",
+            "fr": "Affiche du premier Défi Inter-AF · 22 mai 2020",
+            "en": "Poster of the first Défi Inter-AF · May 22, 2020"
+          },
+          "ratio": "1/1",
+          "ancha": true
+        }
+      ]
+    },
+    {
+      "id": "traductor",
+      "anio": "2020 — 2022",
+      "lugar": "Cuenca · Azogues, Ecuador",
+      "titulo": {
+        "es": "Traducir también es enseñar",
+        "fr": "Traduire, c’est aussi enseigner",
+        "en": "Translating is teaching too"
+      },
+      "cita": {
+        "es": "Pasar una idea de una lengua a otra sin romperla.",
+        "fr": "Faire passer une idée d’une langue à l’autre sans la briser.",
+        "en": "Carrying an idea from one language to another without breaking it."
+      },
+      "texto": {
+        "es": "Además de las aulas, traduzco. Traduje «Cuentos contados desde la artesanía», colección publicada en español, inglés y francés, cuya segunda edición se presentó en Cuenca en junio de 2022. Y mi trabajo más prestigioso: la versión al español de «Pédagogie : le devoir de résister», de Philippe Meirieu —uno de los grandes pedagogos de hoy—, publicada como «Pedagogía: el deber de resistir» por la Universidad Nacional de Educación (UNAE) del Ecuador, en colaboración con la Alianza Francesa de Cuenca (2020).",
+        "fr": "En plus des salles de classe, je traduis. J’ai traduit « Cuentos contados desde la artesanía », collection publiée en espagnol, anglais et français, dont la deuxième édition a été présentée à Cuenca en juin 2022. Et mon travail le plus prestigieux : la version espagnole de « Pédagogie : le devoir de résister » de Philippe Meirieu — l’un des grands pédagogues d’aujourd’hui —, publiée sous le titre « Pedagogía: el deber de resistir » par l’Universidad Nacional de Educación (UNAE) d’Équateur, en collaboration avec l’Alliance Française de Cuenca (2020).",
+        "en": "Besides classrooms, I translate. I translated “Cuentos contados desde la artesanía”, a collection published in Spanish, English and French, whose second edition was launched in Cuenca in June 2022. And my most prestigious work: the Spanish version of Philippe Meirieu’s “Pédagogie : le devoir de résister” — one of today’s great educators — published as “Pedagogía: el deber de resistir” by Ecuador’s Universidad Nacional de Educación (UNAE), in collaboration with the Alliance Française de Cuenca (2020)."
+      },
+      "medios": [
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/libro-evento.jpg",
+          "alt": "Miguel Tillero con el libro «Cuentos contados desde la artesanía»",
+          "pie": {
+            "es": "«Cuentos contados desde la artesanía» · Alianza Francesa de Cuenca",
+            "fr": "« Cuentos contados desde la artesanía » · Alliance Française de Cuenca",
+            "en": "“Cuentos contados desde la artesanía” · Alliance Française de Cuenca"
+          },
+          "ratio": "4/5"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/libro-lanzamiento.jpg",
+          "alt": "Miguel Tillero levanta el libro en el lanzamiento de la segunda edición",
+          "pie": {
+            "es": "Lanzamiento de la segunda edición · junio de 2022",
+            "fr": "Lancement de la deuxième édition · juin 2022",
+            "en": "Second edition launch · June 2022"
+          },
+          "ratio": "1/1"
         }
       ]
     },
@@ -253,6 +398,50 @@
       ]
     },
     {
+      "id": "despedida",
+      "anio": "Cuenca",
+      "lugar": "Ecuador",
+      "titulo": {
+        "es": "Hasta pronto, Cuenca",
+        "fr": "À bientôt, Cuenca",
+        "en": "See you soon, Cuenca"
+      },
+      "cita": {
+        "es": "Uno nunca se va del todo de los lugares que ayudó a construir.",
+        "fr": "On ne quitte jamais tout à fait les lieux qu’on a aidé à construire.",
+        "en": "You never entirely leave the places you helped build."
+      },
+      "texto": {
+        "es": "El Consejo Directivo de la Alianza Francesa de Cuenca me despidió con un homenaje —yo, con el traje verde— y me fui saludando desde el carro, agradecido por los años, el equipo y los estudiantes.",
+        "fr": "Le Conseil d’administration de l’Alliance Française de Cuenca m’a rendu hommage — moi, en costume vert — et je suis parti en saluant depuis la voiture, reconnaissant pour les années, l’équipe et les étudiants.",
+        "en": "The Board of the Alliance Française de Cuenca paid me a tribute — me in the green suit — and I left waving from the car, grateful for the years, the team and the students."
+      },
+      "medios": [
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/cuenca-homenaje.jpg",
+          "alt": "Homenaje del Consejo Directivo de la Alianza Francesa de Cuenca",
+          "pie": {
+            "es": "Homenaje del Consejo Directivo",
+            "fr": "Hommage du Conseil d’administration",
+            "en": "Tribute from the Board"
+          },
+          "ratio": "3/4"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/cuenca-despedida.jpg",
+          "alt": "Despedida desde el carro en Cuenca",
+          "pie": {
+            "es": "La despedida, desde el carro",
+            "fr": "Les adieux, depuis la voiture",
+            "en": "The farewell, from the car"
+          },
+          "ratio": "4/5"
+        }
+      ]
+    },
+    {
       "id": "mexico",
       "anio": "Oct 2024 — Ago 2026",
       "lugar": "San Cristóbal de Las Casas, México",
@@ -306,6 +495,197 @@
       ]
     },
     {
+      "id": "comunidad",
+      "anio": "2024 — 2026",
+      "lugar": "San Cristóbal · Tuxtla · Chiapas",
+      "titulo": {
+        "es": "Tejer alianzas en Chiapas",
+        "fr": "Tisser des alliances au Chiapas",
+        "en": "Weaving alliances across Chiapas"
+      },
+      "cita": {
+        "es": "Un idioma crece cuando encuentra puertas abiertas.",
+        "fr": "Une langue grandit quand elle trouve des portes ouvertes.",
+        "en": "A language grows when it finds open doors."
+      },
+      "texto": {
+        "es": "Dirigir una Alianza Francesa es, sobre todo, salir a tocar puertas: colegios como el ITAES y La Salle, la Secretaría de Educación del estado, la radio universitaria de la UNICACH en Tuxtla y el Consulado Honorario de Francia para Chiapas y Tabasco.",
+        "fr": "Diriger une Alliance Française, c’est avant tout aller frapper aux portes : des établissements comme l’ITAES et La Salle, le Secrétariat à l’Éducation de l’État, la radio universitaire de l’UNICACH à Tuxtla et le Consulat honoraire de France pour le Chiapas et le Tabasco.",
+        "en": "Leading an Alliance Française is, above all, knocking on doors: schools such as ITAES and La Salle, the State Secretariat of Education, the UNICACH university radio in Tuxtla and the Honorary Consulate of France for Chiapas and Tabasco."
+      },
+      "medios": [
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/itaes.jpg",
+          "alt": "Visita al Colegio ITAES, San Cristóbal de Las Casas",
+          "pie": {
+            "es": "Colegio ITAES · con la dirección y el departamento de idiomas",
+            "fr": "Colegio ITAES · avec la direction et le département de langues",
+            "en": "Colegio ITAES · with the principal and the languages department"
+          },
+          "ratio": "4/3"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/secretaria.jpg",
+          "alt": "Encuentro con la Secretaría de Educación de Chiapas",
+          "pie": {
+            "es": "Con la Secretaría de Educación de Chiapas",
+            "fr": "Avec le Secrétariat à l’Éducation du Chiapas",
+            "en": "With the Chiapas Secretariat of Education"
+          },
+          "ratio": "4/5"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/la-salle.jpg",
+          "alt": "Con directivos y docentes del Colegio La Salle San Cristóbal",
+          "pie": {
+            "es": "Con directivos y docentes · Colegio La Salle",
+            "fr": "Avec direction et enseignants · Colegio La Salle",
+            "en": "With staff and teachers · Colegio La Salle"
+          },
+          "ratio": "3/4"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/radio-unicach.jpg",
+          "alt": "Visita a la radio de la UNICACH en Tuxtla Gutiérrez",
+          "pie": {
+            "es": "Visita a la radio de la UNICACH · Tuxtla",
+            "fr": "Visite à la radio de l’UNICACH · Tuxtla",
+            "en": "Visit to the UNICACH radio · Tuxtla"
+          },
+          "ratio": "3/4"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/consulado.jpg",
+          "alt": "Con el cónsul honorario de Francia para Chiapas y Tabasco",
+          "pie": {
+            "es": "Con el cónsul honorario de Francia para Chiapas y Tabasco",
+            "fr": "Avec le consul honoraire de France pour le Chiapas et le Tabasco",
+            "en": "With the honorary consul of France for Chiapas and Tabasco"
+          },
+          "ratio": "1500/674",
+          "ancha": true
+        }
+      ]
+    },
+    {
+      "id": "delf",
+      "anio": "2024 — 2026",
+      "lugar": "San Cristóbal de Las Casas",
+      "titulo": {
+        "es": "Cerrar un ciclo con un diploma",
+        "fr": "Clore un cycle avec un diplôme",
+        "en": "Closing a cycle with a diploma"
+      },
+      "cita": {
+        "es": "Cada diploma es la prueba de un esfuerzo que solo su dueño conoce.",
+        "fr": "Chaque diplôme est la preuve d’un effort que seul son titulaire connaît.",
+        "en": "Every diploma proves an effort only its owner knows."
+      },
+      "texto": {
+        "es": "Como responsable del centro de examen DELF de San Cristóbal, tuve el privilegio de entregar diplomas y certificados a quienes cerraban un nivel, y de acompañar una ceremonia junto a la delegación de Québec.",
+        "fr": "Responsable du centre d’examen DELF de San Cristóbal, j’ai eu le privilège de remettre diplômes et certificats à ceux qui terminaient un niveau, et d’accompagner une cérémonie avec la délégation du Québec.",
+        "en": "As head of the DELF exam centre in San Cristóbal, I had the privilege of handing out diplomas and certificates to those completing a level, and of joining a ceremony with the Québec delegation."
+      },
+      "medios": [
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/quebec.jpg",
+          "alt": "Ceremonia de entrega de diplomas con la delegación de Québec",
+          "pie": {
+            "es": "Ceremonia con la delegación de Québec",
+            "fr": "Cérémonie avec la délégation du Québec",
+            "en": "Ceremony with the Québec delegation"
+          },
+          "ratio": "16/10",
+          "ancha": true
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/entrega-certificados.jpg",
+          "alt": "Entrega de un certificado frente a las banderas de Francia y México",
+          "pie": {
+            "es": "Entrega de un certificado",
+            "fr": "Remise d’un certificat",
+            "en": "Handing over a certificate"
+          },
+          "ratio": "4/5"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/firma-diplomas.jpg",
+          "alt": "Firmando diplomas junto a un estudiante",
+          "pie": {
+            "es": "Firmando diplomas con un estudiante",
+            "fr": "Signature de diplômes avec un étudiant",
+            "en": "Signing diplomas with a student"
+          },
+          "ratio": "4/3"
+        }
+      ]
+    },
+    {
+      "id": "documental",
+      "novedad": true,
+      "anio": "Oct 2026",
+      "lugar": "TV5MONDE · Destination Francophonie",
+      "titulo": {
+        "es": "Del aula a la pantalla",
+        "fr": "De la salle de classe à l’écran",
+        "en": "From the classroom to the screen"
+      },
+      "cita": {
+        "es": "Contar lo que hacemos por el francés también es una manera de hacerlo crecer.",
+        "fr": "Raconter ce que l’on fait pour le français, c’est aussi une façon de le faire grandir.",
+        "en": "Telling what we do for French is also a way of helping it grow."
+      },
+      "texto": {
+        "es": "Participé en «Destination Francophonie», la serie documental de TV5MONDE presentada por Ivan Kabacoff, que recorre el mundo tras las iniciativas a favor del francés. El episodio «Destination Mexique» se estrena el 28 de septiembre y vuelve a emitirse el sábado 3 de octubre de 2026.",
+        "fr": "J’ai participé à « Destination francophonie », la série documentaire de TV5MONDE présentée par Ivan Kabacoff, qui parcourt le monde à la rencontre des initiatives en faveur du français. L’épisode « Destination Mexique » est diffusé le 28 septembre et à nouveau le samedi 3 octobre 2026.",
+        "en": "I took part in “Destination francophonie”, TV5MONDE’s documentary series hosted by Ivan Kabacoff, which travels the world in search of initiatives for French. The episode “Destination Mexique” premieres on September 28 and airs again on Saturday, October 3, 2026."
+      },
+      "medios": [
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/rodaje-entrevista.jpg",
+          "alt": "Entrevista con cámaras en la Alianza Francesa de San Cristóbal",
+          "pie": {
+            "es": "Entrevista a cámara · Alianza Francesa de San Cristóbal",
+            "fr": "Interview face caméra · Alliance Française de San Cristóbal",
+            "en": "On-camera interview · Alliance Française de San Cristóbal"
+          },
+          "ratio": "16/9",
+          "ancha": true
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/rodaje-af.jpg",
+          "alt": "Rodaje frente a la Alianza Francesa de San Cristóbal",
+          "pie": {
+            "es": "Rodaje en la Alianza Francesa",
+            "fr": "Tournage à l’Alliance Française",
+            "en": "Filming at the Alliance Française"
+          },
+          "ratio": "4/5"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/tv5-destination.jpg",
+          "alt": "Ficha del episodio «Destination Mexique» en la guía de TV5MONDE",
+          "pie": {
+            "es": "En la guía de TV5MONDE · sáb. 3 oct., 23:58",
+            "fr": "Dans le guide TV5MONDE · sam. 3 oct., 23 h 58",
+            "en": "In the TV5MONDE guide · Sat, Oct 3, 23:58"
+          },
+          "ratio": "18/25"
+        }
+      ]
+    },
+    {
       "id": "aula",
       "anio": "Hoy",
       "lugar": "Con mis estudiantes",
@@ -333,7 +713,19 @@
             "es": "En clase — «Profesor se escribe con P de pasión»",
             "fr": "En classe — « Professeur s'écrit avec P de passion »",
             "en": "In class — “Teacher is spelled with P for passion”"
-          }
+          },
+          "ratio": "4/3"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/clase-aula.jpg",
+          "alt": "Dando clase a un grupo de estudiantes",
+          "pie": {
+            "es": "Con un grupo, en el aula",
+            "fr": "Avec un groupe, en classe",
+            "en": "With a group, in class"
+          },
+          "ratio": "4/3"
         }
       ],
       "cta": [

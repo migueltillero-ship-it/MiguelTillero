@@ -29,7 +29,11 @@
 
   function foto(m, i) {
     var f = el('figure', 'rel-foto'); f.style.setProperty('--i', i);
+    /* "ratio" (p. ej. "4/5") y "ancha" liberan la foto de la rejilla por defecto
+       para que retratos verticales y capturas conserven su encuadre editado. */
+    if (m.ratio) { f.style.aspectRatio = m.ratio; f.classList.add('libre'); if (m.ancha) f.classList.add('ancha'); }
     var img = el('img'); img.loading = 'lazy'; img.alt = m.alt || ''; img.src = m.archivo;
+    if (m.enfoque) img.style.objectPosition = m.enfoque;
     f.appendChild(img);
     f.appendChild(tri(el('figcaption'), m.pie));
     f.addEventListener('click', function () {
@@ -62,6 +66,10 @@
     var txt = el('div', 'rel-txt');
     var meta = el('p', 'rel-meta'); meta.appendChild(el('b', null, c.anio));
     meta.appendChild(document.createTextNode(' · ' + c.lugar));
+    if (c.novedad) {
+      art.classList.add('rel-novedad');
+      meta.appendChild(tri(el('span', 'rel-badge'), { es: 'Novedad', fr: 'Nouveauté', en: 'News' }));
+    }
     txt.appendChild(meta);
     txt.appendChild(tri(el('h3', 'rel-titulo'), c.titulo));
     txt.appendChild(tri(el('blockquote', 'rel-cita'), c.cita));
