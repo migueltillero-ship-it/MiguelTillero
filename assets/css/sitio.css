@@ -1496,6 +1496,12 @@ body.intro-active { overflow: hidden; }
   animation: vendrediGradiente 5s ease infinite, vendrediPulso 2.6s ease-in-out infinite;
   transition: padding 0.3s ease, transform 0.3s ease;
 }
+/* Cerrado por defecto para no tapar el contenido (videos, fotos) al borde derecho:
+   solo se ve el icono; el texto se despliega al pasar el cursor o al enfocarlo. */
+#vendredi-fab { gap: 0; }
+#vendredi-fab .vf-text { max-width: 0; overflow: hidden; opacity: 0; margin-left: 0; transition: max-width 0.35s ease, opacity 0.25s ease, margin 0.35s ease; }
+#vendredi-fab:hover, #vendredi-fab:focus-visible { gap: 0.55rem; }
+#vendredi-fab:hover .vf-text, #vendredi-fab:focus-visible .vf-text { max-width: 14rem; opacity: 1; }
 #vendredi-fab:hover { padding-right: 1.7rem; transform: translateY(-50%) scale(1.05); }
 #vendredi-fab i { font-size: 1.05rem; }
 @keyframes vendrediGradiente { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }

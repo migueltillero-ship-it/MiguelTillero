@@ -1599,6 +1599,34 @@
    }
   },
   {
+   "id": "r-rodaje-af-2",
+   "cat": "medios",
+   "src": "assets/images/relato/rodaje-af-2.jpg",
+   "thumb": "assets/images/galeria/t/r-rodaje-af-2.jpg",
+   "w": 1000,
+   "h": 1333,
+   "alt": "Rodaje de Destination Francophonie: presentando la sede de la Alianza Francesa de San Cristóbal frente al camarógrafo",
+   "pie": {
+    "es": "Rodaje: la sede de la Alianza ante la cámara",
+    "fr": "Tournage : le siège de l’Alliance devant la caméra",
+    "en": "Filming: the Alliance’s premises on camera"
+   }
+  },
+  {
+   "id": "r-rodaje-af-3",
+   "cat": "medios",
+   "src": "assets/images/relato/rodaje-af-3.jpg",
+   "thumb": "assets/images/galeria/t/r-rodaje-af-3.jpg",
+   "w": 1000,
+   "h": 1333,
+   "alt": "Rodaje de Destination Francophonie: Miguel Tillero sonríe mientras el camarógrafo graba",
+   "pie": {
+    "es": "Rodaje: presentando la oferta cultural de la Alianza",
+    "fr": "Tournage : présentation de l’offre culturelle de l’Alliance",
+    "en": "Filming: presenting the Alliance’s cultural offering"
+   }
+  },
+  {
    "id": "r-rodaje-entrevista",
    "cat": "mexico",
    "src": "assets/images/relato/rodaje-entrevista.jpg",
