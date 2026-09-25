@@ -70,6 +70,48 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
              border-radius:var(--r-xs); padding:1rem 1.2rem; font-size:0.9rem; line-height:1.65; color:var(--text-dark); }
 .aviso-cierre { background:rgba(43,69,53,0.07); border-radius:var(--r-xs); padding:1rem 1.2rem;
                 font-size:0.88rem; line-height:1.65; color:var(--accent-green); margin-top:1rem; }
+/* Barra de secciones del panel */
+.secciones { display:flex; gap:0.4rem; flex-wrap:wrap; margin:0 0 1.8rem; }
+.sec-btn { background:none; border:1px solid var(--border); color:var(--text-light);
+           font-family:'Space Mono',monospace; font-size:0.66rem; letter-spacing:0.09em;
+           text-transform:uppercase; padding:0.55rem 1.1rem; border-radius:var(--r-pill);
+           cursor:pointer; transition:all 0.2s; }
+.sec-btn:hover { border-color:var(--primary-color); color:var(--primary-color); }
+.sec-btn.activo { background:var(--accent-green); border-color:var(--accent-green); color:#eef0e5; }
+.sec-btn .cuenta { background:var(--primary-color); color:#fff; border-radius:var(--r-pill);
+                   padding:0.05rem 0.4rem; margin-left:0.4rem; font-size:0.6rem; }
+
+/* Mis resultados */
+.resultado { border:1px solid var(--border); border-radius:var(--r-sm); padding:1.2rem 1.4rem; margin-bottom:1rem; }
+.resultado-cab { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap; }
+.resultado-tit { font-weight:600; font-size:1.02rem; color:var(--text-dark); }
+.resultado-fecha { font-family:'Space Mono',monospace; font-size:0.62rem; letter-spacing:0.06em;
+                   text-transform:uppercase; color:var(--primary-color); margin-top:0.25rem; }
+.resultado-nota { font-family:'Cormorant Garamond',serif; font-size:2.4rem; line-height:1;
+                  color:var(--accent-green); white-space:nowrap; }
+.resultado-nota small { font-size:0.9rem; color:var(--text-light); }
+.resultado-nota.sin { font-size:0.85rem; font-family:'Space Mono',monospace; color:var(--text-light);
+                      text-transform:uppercase; letter-spacing:0.07em; }
+.resultado-desc { font-size:0.85rem; color:var(--text-light); margin-top:0.55rem; line-height:1.6; }
+.comentario { background:rgba(140,115,75,0.09); border-left:3px solid var(--primary-color);
+              border-radius:var(--r-xs); padding:0.85rem 1.1rem; margin-top:0.9rem;
+              font-size:0.89rem; line-height:1.66; color:var(--text-dark); }
+.comentario .quien { display:block; font-family:'Space Mono',monospace; font-size:0.58rem;
+                     letter-spacing:0.1em; text-transform:uppercase; color:var(--primary-color);
+                     margin-bottom:0.4rem; }
+
+/* Materiales */
+.materiales { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:1rem; }
+.material { display:block; border:1px solid var(--border); border-radius:var(--r-sm);
+            padding:1.1rem 1.2rem; text-decoration:none; color:inherit; transition:all 0.2s; background:#fff; }
+.material:hover { border-color:var(--primary-color); transform:translateY(-2px); box-shadow:var(--shadow-card); }
+.material .cat { font-family:'Space Mono',monospace; font-size:0.58rem; letter-spacing:0.1em;
+                 text-transform:uppercase; color:var(--primary-color); }
+.material .tit { font-weight:600; font-size:0.97rem; color:var(--accent-green); margin:0.35rem 0 0.4rem; }
+.material .des { font-size:0.82rem; line-height:1.55; color:var(--text-light); }
+.material.actual { border-color:var(--primary-color); background:rgba(140,115,75,0.06); }
+.vacio { color:var(--text-light); font-size:0.9rem; line-height:1.65; }
+
 .select-curso { max-width: 320px; margin-bottom:1rem; }
 .select-curso select { width:100%; padding:0.7rem; border:1px solid var(--border); border-radius:8px; font-family:'Syne',sans-serif; font-size:0.9rem; }
 .msg { margin-top: 0.8rem; padding: 0.7rem 0.9rem; border-radius: var(--r-xs); font-size: 0.82rem; }
@@ -105,12 +147,21 @@ select { padding:0.7rem; border:1px solid var(--border); border-radius:8px; font
         </div>
 
 
+        <nav class="secciones" id="secciones">
+            <button class="sec-btn activo" data-sec="inicio" onclick="cambiarSeccion('inicio')">Inicio</button>
+            <button class="sec-btn" data-sec="curso" onclick="cambiarSeccion('curso')">Mi curso</button>
+            <button class="sec-btn" data-sec="resultados" onclick="cambiarSeccion('resultados')">Mis resultados</button>
+            <button class="sec-btn" data-sec="materiales" onclick="cambiarSeccion('materiales')">Materiales</button>
+            <button class="sec-btn" data-sec="pagos" onclick="cambiarSeccion('pagos')">Mis pagos</button>
+        </nav>
+
         <section class="panel-curso" id="panel-resumen">
             <h2 id="titulo-curso"></h2>
             <div class="curso-meta" id="curso-meta"></div>
             <div class="curso-acciones" id="curso-acciones"></div>
         </section>
 
+        <div class="seccion" id="sec-inicio">
         <section class="panel" id="panel-bienvenida" style="display:none;">
             <h2>Antes de empezar</h2>
             <p class="bienvenida" id="texto-bienvenida"></p>
@@ -129,10 +180,12 @@ select { padding:0.7rem; border:1px solid var(--border); border-radius:8px; font
         </section>
 
         <section class="panel" id="panel-pendiente" style="display:none;">
-            <p class="muted">Tu inscripción está pendiente de aprobación por el docente. Cuando sea aprobada, verás aquí la planificación, calendario, asistencia y notas.</p>
+            <p class="muted">Tu inscripción está pendiente de aprobación por el docente. Cuando sea aprobada, verás aquí la planificación, tu asistencia y tus resultados.</p>
         </section>
+        </div><!-- /sec-inicio -->
 
         <div id="panel-detalle" style="display:none;">
+            <div class="seccion" id="sec-curso" style="display:none;">
             <section class="panel">
                 <h2>Planificación y progresión</h2>
                 <table>
@@ -153,13 +206,13 @@ select { padding:0.7rem; border:1px solid var(--border); border-radius:8px; font
                     <tbody id="tabla-asistencia"></tbody>
                 </table>
             </section>
+            </div><!-- /sec-curso -->
 
+            <div class="seccion" id="sec-resultados" style="display:none;">
             <section class="panel">
-                <h2>Mis notas</h2>
-                <table>
-                    <thead><tr><th>Evaluación</th><th>Fecha</th><th>Ponderación</th><th>Calificación</th><th>Comentario</th></tr></thead>
-                    <tbody id="tabla-notas"></tbody>
-                </table>
+                <h2>Mis resultados</h2>
+                <p class="muted" style="margin:-0.5rem 0 1.3rem;">Cada validación con la nota y el comentario del profesor.</p>
+                <div id="lista-resultados"></div>
             </section>
 
             <section class="panel" id="panel-constancias">
@@ -177,8 +230,19 @@ select { padding:0.7rem; border:1px solid var(--border); border-radius:8px; font
                     <tbody id="tabla-constancias"></tbody>
                 </table>
             </section>
+            </div><!-- /sec-resultados -->
         </div>
 
+        <div class="seccion" id="sec-materiales" style="display:none;">
+            <section class="panel">
+                <h2>Tu repositorio</h2>
+                <p class="muted" style="margin:-0.5rem 0 1.3rem;">Todo lo que hemos trabajado, con sus refuerzos y sus juegos. Vuelve cuando quieras.</p>
+                <div class="materiales" id="lista-materiales"></div>
+                <p class="vacio" id="sin-materiales" style="display:none;">Todavía no hay materiales cargados para tu curso.</p>
+            </section>
+        </div>
+
+        <div class="seccion" id="sec-pagos" style="display:none;">
         <section class="panel" id="panel-pagos" style="display:none;">
             <h2>Mis pagos</h2>
             <table>
@@ -186,6 +250,8 @@ select { padding:0.7rem; border:1px solid var(--border); border-radius:8px; font
                 <tbody id="tabla-pagos"></tbody>
             </table>
         </section>
+        <p class="vacio" id="sin-pagos" style="display:none;">Todavía no hay pagos registrados a tu nombre.</p>
+        </div>
     </div>
 </main>
 
@@ -251,6 +317,7 @@ async function cargarMisPagos() {
     const { data, error } = await supabaseClient.rpc('mis_pagos');
     const pagos = error ? [] : (data || []);
     document.getElementById('panel-pagos').style.display = pagos.length ? 'block' : 'none';
+    document.getElementById('sin-pagos').style.display = pagos.length ? 'none' : 'block';
     document.getElementById('tabla-pagos').innerHTML = pagos.map(p => `
         <tr>
             <td>${esc(p.concepto) || '—'}</td>
@@ -291,6 +358,95 @@ async function solicitarConstancia() {
     msgEl.textContent = 'Solicitud enviada. Te avisaremos cuando esté lista.';
     msgEl.className = 'msg ok';
     await cargarSolicitudesConstancia(inscripcionId);
+}
+
+// Las secciones "curso" y "resultados" viven dentro de #panel-detalle, que se
+// oculta entero mientras la inscripción está pendiente de aprobación.
+function cambiarSeccion(sec) {
+    document.querySelectorAll('.seccion').forEach(d => {
+        d.style.display = d.id === 'sec-' + sec ? 'block' : 'none';
+    });
+    document.querySelectorAll('.sec-btn').forEach(b => {
+        b.classList.toggle('activo', b.dataset.sec === sec);
+    });
+}
+
+function marcarSeccionesBloqueadas(pendiente) {
+    ['curso', 'resultados'].forEach(sec => {
+        const b = document.querySelector(`.sec-btn[data-sec="${sec}"]`);
+        if (!b) return;
+        b.disabled = pendiente;
+        b.style.opacity = pendiente ? '0.45' : '';
+        b.style.cursor = pendiente ? 'not-allowed' : '';
+        b.title = pendiente ? 'Disponible cuando el profesor apruebe tu inscripción' : '';
+    });
+}
+
+const CATEGORIA = { material: 'Material', refuerzo: 'Refuerzo', juego: 'Juego', evaluacion: 'Evaluación' };
+
+async function cargarMateriales(grupo) {
+    const lista = document.getElementById('lista-materiales');
+    const vacio = document.getElementById('sin-materiales');
+    if (!grupo.id) { lista.innerHTML = ''; vacio.style.display = 'block'; return; }
+
+    const { data } = await supabaseClient
+        .from('materiales')
+        .select('*')
+        .eq('grupo_id', grupo.id)
+        .order('orden');
+
+    const materiales = data || [];
+    vacio.style.display = materiales.length ? 'none' : 'block';
+    // Se resalta el módulo de la unidad que se está trabajando ahora.
+    const unidadHoy = grupo.unidad_actual || '';
+    lista.innerHTML = materiales.map(m => {
+        const esActual = m.unidad && unidadHoy.includes(m.unidad.replace(/Unité\s*/, '').split('-')[0].trim());
+        return `<a class="material${esActual ? ' actual' : ''}" href="${esc(m.url)}" target="_blank" rel="noopener">
+            <span class="cat">${esc(CATEGORIA[m.categoria] || m.categoria)}${m.unidad ? ' · ' + esc(m.unidad) : ''}${esActual ? ' · ahora' : ''}</span>
+            <div class="tit">${esc(m.titulo)}</div>
+            ${m.descripcion ? `<div class="des">${esc(m.descripcion)}</div>` : ''}
+        </a>`;
+    }).join('');
+}
+
+function pintarResultados(evaluaciones, notas) {
+    const porEval = {};
+    (notas || []).forEach(n => { porEval[n.evaluacion_id] = n; });
+
+    const cuerpo = (evaluaciones || []).map(ev => {
+        const n = porEval[ev.id];
+        const tieneNota = n && n.calificacion !== null && n.calificacion !== undefined;
+        const maxima = ev.nota_maxima || 100;
+        return `
+        <div class="resultado">
+            <div class="resultado-cab">
+                <div>
+                    <div class="resultado-tit">${esc(ev.nombre)}</div>
+                    <div class="resultado-fecha">${ev.fecha ? fechaCorta(ev.fecha) : 'sin fecha'}${ev.ponderacion ? ' · vale ' + ev.ponderacion + '%' : ''}</div>
+                </div>
+                ${tieneNota
+                    ? `<div class="resultado-nota">${esc(String(n.calificacion))}<small> / ${esc(String(maxima))}</small></div>`
+                    : `<div class="resultado-nota sin">Aún sin validar</div>`}
+            </div>
+            ${ev.descripcion ? `<div class="resultado-desc">${esc(ev.descripcion)}</div>` : ''}
+            ${tieneNota && n.comentario
+                ? `<div class="comentario"><span class="quien">Comentario del profesor</span>${esc(n.comentario)}</div>`
+                : ''}
+        </div>`;
+    }).join('');
+
+    document.getElementById('lista-resultados').innerHTML = cuerpo ||
+        '<p class="vacio">Todavía no hay evaluaciones cargadas. Las dos primeras clases de este ciclo son la evaluación del ciclo anterior, y las dos últimas la de este.</p>';
+
+    // Contador en el botón: cuántos resultados ya tienen nota.
+    const validados = (evaluaciones || []).filter(ev => {
+        const n = porEval[ev.id];
+        return n && n.calificacion !== null && n.calificacion !== undefined;
+    }).length;
+    const btn = document.querySelector('.sec-btn[data-sec="resultados"]');
+    if (btn) {
+        btn.innerHTML = 'Mis resultados' + (validados ? ` <span class="cuenta">${validados}</span>` : '');
+    }
 }
 
 const MODALIDAD = { virtual: 'En línea', presencial: 'Presencial', hibrido: 'Híbrido' };
@@ -393,11 +549,16 @@ async function seleccionarInscripcion(inscripcionId) {
     pintarCabeceraCurso(curso, grupo, insc);
     await pintarRecorrido(grupo);
 
+    // Los materiales son del grupo, no de la inscripción: se ven aunque la
+    // aprobación esté pendiente, para que pueda ir repasando desde ya.
+    await cargarMateriales(grupo);
+
     const pendiente = insc.estado !== 'activa' && insc.estado !== 'finalizada';
     document.getElementById('panel-pendiente').style.display = pendiente ? 'block' : 'none';
     document.getElementById('panel-detalle').style.display = pendiente ? 'none' : 'block';
+    marcarSeccionesBloqueadas(pendiente);
 
-    if (pendiente) return;
+    if (pendiente) { cambiarSeccion('inicio'); return; }
 
     const [sesionesRes, asistenciaRes, evaluacionesRes, notasRes] = await Promise.all([
         supabaseClient.from('sesiones').select('*').eq('curso_id', curso.id).order('fecha'),
@@ -431,18 +592,7 @@ async function seleccionarInscripcion(inscripcionId) {
     document.getElementById('stat-ausentes').textContent = registradas - presentes;
     document.getElementById('stat-porcentaje').textContent = registradas ? Math.round((presentes / registradas) * 100) + '%' : '—';
 
-    const evaluaciones = evaluacionesRes.data || [];
-    const notasPorEvaluacion = {};
-    (notasRes.data || []).forEach(n => notasPorEvaluacion[n.evaluacion_id] = n);
-
-    document.getElementById('tabla-notas').innerHTML = evaluaciones.map(e => {
-        const n = notasPorEvaluacion[e.id];
-        return `<tr>
-            <td>${esc(e.nombre)}</td><td>${e.fecha || '—'}</td><td>${e.ponderacion !== null ? e.ponderacion + '%' : '—'}</td>
-            <td>${n && n.calificacion !== null ? n.calificacion : '—'}</td>
-            <td>${esc(n ? n.comentario : '')}</td>
-        </tr>`;
-    }).join('') || '<tr><td colspan="5" class="muted">Aún no hay evaluaciones registradas.</td></tr>';
+    pintarResultados(evaluacionesRes.data || [], notasRes.data || []);
 }
 
 iniciar();
