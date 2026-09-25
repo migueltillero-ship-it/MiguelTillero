@@ -652,9 +652,9 @@
         "en": "An Alliance Française never works alone."
       },
       "texto": {
-        "es": "Encuentros con colegas de otras Alianzas Francesas, la Fiesta de la Francofonía junto al Embajador de Francia y un momento en Quito bajo las banderas de la Unión Europea, Ecuador y Francia.",
-        "fr": "Rencontres avec des collègues d'autres Alliances Françaises, la Fête de la Francophonie aux côtés de l'Ambassadeur de France et un moment à Quito sous les drapeaux de l'Union européenne, de l'Équateur et de la France.",
-        "en": "Meetings with colleagues from other Alliances Françaises, the Francophonie Festival alongside the Ambassador of France, and a moment in Quito under the flags of the European Union, Ecuador and France."
+        "es": "Encuentros con colegas de otras Alianzas Francesas, la Fiesta de la Francofonía junto al Embajador de Francia, un momento en Quito bajo las banderas de la Unión Europea, Ecuador y Francia, y L’Étape Ecuador by Tour de France, en Cuenca, con el embajador Frédéric Desagneaux.",
+        "fr": "Rencontres avec des collègues d’autres Alliances Françaises, la Fête de la Francophonie aux côtés de l’Ambassadeur de France, un moment à Quito sous les drapeaux de l’Union européenne, de l’Équateur et de la France, et L’Étape Équateur by Tour de France, à Cuenca, avec l’ambassadeur Frédéric Desagneaux.",
+        "en": "Meetings with colleagues from other Alliances Françaises, the Francophonie Festival alongside the Ambassador of France, a moment in Quito under the flags of the European Union, Ecuador and France, and L’Étape Ecuador by Tour de France, in Cuenca, with Ambassador Frédéric Desagneaux."
       },
       "medios": [
         {
@@ -685,6 +685,17 @@
             "es": "Encuentro de colegas de las Alianzas Francesas",
             "fr": "Rencontre de collègues des Alliances Françaises",
             "en": "Gathering of Alliance Française colleagues"
+          }
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/tour-francia.jpg",
+          "ratio": "1000/981",
+          "alt": "Con el embajador de Francia en Ecuador, Frédéric Desagneaux, y camisetas de lunares rojos del Tour de Francia, en Cuenca",
+          "pie": {
+            "es": "L’Étape Ecuador by Tour de France · con el embajador Frédéric Desagneaux · Cuenca, 19 de febrero de 2022",
+            "fr": "L’Étape Équateur by Tour de France · avec l’ambassadeur Frédéric Desagneaux · Cuenca, 19 février 2022",
+            "en": "L’Étape Ecuador by Tour de France · with Ambassador Frédéric Desagneaux · Cuenca, February 19, 2022"
           }
         },
         {
@@ -835,9 +846,9 @@
         "en": "Love is unconditional."
       },
       "texto": {
-        "es": "En la Journée internationale du professeur de français, en la Alianza Francesa de Caracas, volví a encontrarme con colegas de la Asociación Venezolana de Profesores de Francés (AVENPROF), entre ellos Olivier Plançon, entonces director de la Alianza Francesa de Caracas, y Pedro Alemán Guillén, profesor de francés de la Universidad Central de Venezuela. En 2023 tuve también el privilegio de compartir con el Embajador.",
-        "fr": "Lors de la Journée internationale du professeur de français, à l’Alliance Française de Caracas, j’ai retrouvé des collègues de l’Association vénézuélienne des professeurs de français (AVENPROF), dont Olivier Plançon, alors directeur de l’Alliance Française de Caracas, et Pedro Alemán Guillén, professeur de français à l’Universidad Central de Venezuela. En 2023, j’ai aussi eu le privilège de partager un moment avec l’Ambassadeur.",
-        "en": "At the International French Teacher’s Day, at the Alliance Française de Caracas, I met again colleagues from the Venezuelan Association of French Teachers (AVENPROF), among them Olivier Plançon, then director of the Alliance Française de Caracas, and Pedro Alemán Guillén, French teacher at the Universidad Central de Venezuela. In 2023 I also had the privilege of sharing a moment with the Ambassador."
+        "es": "En la Journée internationale du professeur de français, en la Alianza Francesa de Caracas, volví a encontrarme con colegas de la Asociación Venezolana de Profesores de Francés (AVENPROF), entre ellos Olivier Plançon, entonces director de la Alianza Francesa de Caracas, y Pedro Alemán Guillén, profesor de francés de la Universidad Central de Venezuela. En marzo de 2023 tuve además el privilegio de compartir con el embajador de Francia en Venezuela, Romain Nadal.",
+        "fr": "Lors de la Journée internationale du professeur de français, à l’Alliance Française de Caracas, j’ai retrouvé des collègues de l’Association vénézuélienne des professeurs de français (AVENPROF), dont Olivier Plançon, alors directeur de l’Alliance Française de Caracas, et Pedro Alemán Guillén, professeur de français à l’Universidad Central de Venezuela. En mars 2023, j’ai aussi eu le privilège de partager un moment avec l’ambassadeur de France au Venezuela, Romain Nadal.",
+        "en": "At the International French Teacher’s Day, at the Alliance Française de Caracas, I met again colleagues from the Venezuelan Association of French Teachers (AVENPROF), among them Olivier Plançon, then director of the Alliance Française de Caracas, and Pedro Alemán Guillén, French teacher at the Universidad Central de Venezuela. In March 2023 I also had the privilege of sharing a moment with the French ambassador to Venezuela, Romain Nadal."
       },
       "medios": [
         {
@@ -865,11 +876,11 @@
         {
           "tipo": "foto",
           "archivo": "assets/images/relato/embajador-caracas.jpg",
-          "alt": "Con Su Excelencia el Embajador, en Caracas",
+          "alt": "Con Romain Nadal, embajador de Francia en Venezuela, y el cónsul",
           "pie": {
-            "es": "Con Su Excelencia el Embajador · Caracas, 2023",
-            "fr": "Avec Son Excellence l’Ambassadeur · Caracas, 2023",
-            "en": "With His Excellency the Ambassador · Caracas, 2023"
+            "es": "Con Su Excelencia Romain Nadal, embajador de Francia en Venezuela, y el cónsul · Caracas, marzo de 2023",
+            "fr": "Avec Son Excellence Romain Nadal, ambassadeur de France au Venezuela, et le consul · Caracas, mars 2023",
+            "en": "With His Excellency Romain Nadal, French ambassador to Venezuela, and the consul · Caracas, March 2023"
           },
           "ratio": "1000/938",
           "ancha": true

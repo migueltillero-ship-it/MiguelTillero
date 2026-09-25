@@ -247,11 +247,11 @@
    "thumb": "assets/images/galeria/t/r-embajador-caracas.jpg",
    "w": 1000,
    "h": 938,
-   "alt": "Con Su Excelencia el Embajador, en Caracas",
+   "alt": "Con Romain Nadal, embajador de Francia en Venezuela, y el cónsul",
    "pie": {
-    "es": "Con Su Excelencia el Embajador · Caracas, 2023",
-    "fr": "Avec Son Excellence l’Ambassadeur · Caracas, 2023",
-    "en": "With His Excellency the Ambassador · Caracas, 2023"
+    "es": "Con Su Excelencia Romain Nadal, embajador de Francia en Venezuela, y el cónsul · Caracas, marzo de 2023",
+    "fr": "Avec Son Excellence Romain Nadal, ambassadeur de France au Venezuela, et le consul · Caracas, mars 2023",
+    "en": "With His Excellency Romain Nadal, French ambassador to Venezuela, and the consul · Caracas, March 2023"
    }
   },
   {
@@ -1358,6 +1358,20 @@
     "es": "Quito · diciembre de 2021",
     "fr": "Quito · décembre 2021",
     "en": "Quito · December 2021"
+   }
+  },
+  {
+   "id": "r-tour-francia",
+   "cat": "ecuador",
+   "src": "assets/images/relato/tour-francia.jpg",
+   "thumb": "assets/images/galeria/t/r-tour-francia.jpg",
+   "w": 1000,
+   "h": 981,
+   "alt": "Con el embajador de Francia en Ecuador, Frédéric Desagneaux, y camisetas de lunares rojos del Tour de Francia, en Cuenca",
+   "pie": {
+    "es": "L’Étape Ecuador by Tour de France · con el embajador Frédéric Desagneaux · Cuenca, 19 de febrero de 2022",
+    "fr": "L’Étape Équateur by Tour de France · avec l’ambassadeur Frédéric Desagneaux · Cuenca, 19 février 2022",
+    "en": "L’Étape Ecuador by Tour de France · with Ambassador Frédéric Desagneaux · Cuenca, February 19, 2022"
    }
   },
   {
