@@ -1079,9 +1079,9 @@
         "en": "Telling what we do for French is also a way of helping it grow."
       },
       "texto": {
-        "es": "Participé en «Destination Francophonie», la serie documental de TV5MONDE presentada por Ivan Kabacoff, que recorre el mundo tras las iniciativas a favor del francés. El episodio «Destination Mexique» se estrena el 28 de septiembre y vuelve a emitirse el sábado 3 de octubre de 2026.",
-        "fr": "J’ai participé à « Destination francophonie », la série documentaire de TV5MONDE présentée par Ivan Kabacoff, qui parcourt le monde à la rencontre des initiatives en faveur du français. L’épisode « Destination Mexique » est diffusé le 28 septembre et à nouveau le samedi 3 octobre 2026.",
-        "en": "I took part in “Destination francophonie”, TV5MONDE’s documentary series hosted by Ivan Kabacoff, which travels the world in search of initiatives for French. The episode “Destination Mexique” premieres on September 28 and airs again on Saturday, October 3, 2026."
+        "es": "Como director de la Alianza Francesa de San Cristóbal, presenté la sede renovada, sus actividades y su oferta cultural en «Destination Francophonie», la serie documental de TV5MONDE presentada por Ivan Kabacoff, que recorre el mundo tras las iniciativas a favor del francés. El episodio «Destination Mexique» se estrena el 28 de septiembre y vuelve a emitirse el sábado 3 de octubre de 2026.",
+        "fr": "En tant que directeur de l’Alliance Française de San Cristóbal, j’ai présenté le siège rénové, ses activités et son offre culturelle dans « Destination francophonie », la série documentaire de TV5MONDE présentée par Ivan Kabacoff, qui parcourt le monde à la rencontre des initiatives en faveur du français. L’épisode « Destination Mexique » est diffusé le 28 septembre et à nouveau le samedi 3 octobre 2026.",
+        "en": "As director of the Alliance Française de San Cristóbal, I presented the renovated premises, its activities and its cultural offering in “Destination francophonie”, TV5MONDE’s documentary series hosted by Ivan Kabacoff, which travels the world in search of initiatives for French. The episode “Destination Mexique” premieres on September 28 and airs again on Saturday, October 3, 2026."
       },
       "medios": [
         {
@@ -1099,11 +1099,11 @@
         {
           "tipo": "foto",
           "archivo": "assets/images/relato/rodaje-af.jpg",
-          "alt": "Rodaje frente a la Alianza Francesa de San Cristóbal",
+          "alt": "Rodaje de Destination Francophonie frente a la Alianza Francesa de San Cristóbal",
           "pie": {
-            "es": "Rodaje en la Alianza Francesa",
-            "fr": "Tournage à l’Alliance Française",
-            "en": "Filming at the Alliance Française"
+            "es": "Rodaje: presentando la sede renovada de la Alianza Francesa",
+            "fr": "Tournage : présentation du siège rénové de l’Alliance Française",
+            "en": "Filming: presenting the Alliance Française’s renovated premises"
           },
           "ratio": "4/5"
         },
