@@ -19,7 +19,41 @@ const credencialesPuestas = !SUPABASE_URL.includes('TU-PROYECTO') && !SUPABASE_A
 
 let supabaseClient = null;
 if (credencialesPuestas && window.supabase) {
-  supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  /* En algunas ventanas (p. ej. InPrivate de Edge) el cliente no siempre adjunta
+     el token de la sesión a las consultas y la base de datos nos trata como
+     visitante anónimo: el panel recibe cero filas y devuelve al login. Este
+     fetch añade el token guardado (si sigue vigente) cuando la petición a la
+     base de datos saliera solo con la clave pública. */
+  function tokenVigenteGuardado() {
+    try {
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (!/^sb-.+-auth-token$/.test(k)) continue;
+        var v = JSON.parse(localStorage.getItem(k) || 'null');
+        var t = v && (v.access_token || (v.currentSession && v.currentSession.access_token));
+        if (!t) continue;
+        var exp = JSON.parse(atob(t.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))).exp;
+        if (exp && exp * 1000 > Date.now() + 15000) return t;
+      }
+    } catch (e) { /* sin almacenamiento: seguimos con el comportamiento normal */ }
+    return null;
+  }
+  function fetchConToken(input, init) {
+    try {
+      var url = typeof input === 'string' ? input : (input && input.url) || '';
+      if (url.indexOf('/rest/v1/') !== -1) {
+        init = init || {};
+        var h = new Headers(init.headers || (typeof input !== 'string' && input.headers) || {});
+        var auth = h.get('Authorization');
+        if (!auth || auth === 'Bearer ' + SUPABASE_ANON_KEY) {
+          var t = tokenVigenteGuardado();
+          if (t) { h.set('Authorization', 'Bearer ' + t); init.headers = h; }
+        }
+      }
+    } catch (e) { /* ante cualquier duda, la petición sale como estaba */ }
+    return fetch(input, init);
+  }
+  supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, { global: { fetch: fetchConToken } });
 }
 
 /* La plataforma solo es utilizable si además de las credenciales llegó la

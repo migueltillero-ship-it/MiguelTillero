@@ -14,6 +14,7 @@
 
 <link rel="stylesheet" href="assets/css/sitio.css?v=1">
 <link rel="stylesheet" href="assets/css/relato.css">
+<link rel="stylesheet" href="assets/css/video-carrusel.css">
 <link rel="stylesheet" href="assets/css/fondos.css?v=1">
 <style>
 .hero-langs {
@@ -418,7 +419,7 @@
         <div class="nov-pill"><small data-es="Estreno" data-fr="Première" data-en="Premiere">Estreno</small><b data-es="Lun. 28 sept. · 19:32" data-fr="Lun. 28 sept. · 19 h 32" data-en="Mon, Sept 28 · 19:32">Lun. 28 sept. · 19:32</b></div>
         <div class="nov-pill" style="border-color:#e6cf9c;"><small data-es="Nueva emisión" data-fr="Nouvelle diffusion" data-en="Rerun">Nueva emisión</small><b data-es="Sáb. 3 oct. · 23:58" data-fr="Sam. 3 oct. · 23 h 58" data-en="Sat, Oct 3 · 23:58">Sáb. 3 oct. · 23:58</b></div>
       </div>
-      <p class="nov-texto" data-es="Participé en la serie documental de TV5MONDE presentada por Ivan Kabacoff, que viaja por el mundo tras las iniciativas a favor del francés. El episodio «Destination Mexique» llega a pantalla el 28 de septiembre y vuelve a emitirse el sábado 3 de octubre de 2026." data-fr="J’ai participé à la série documentaire de TV5MONDE présentée par Ivan Kabacoff, qui parcourt le monde à la rencontre des initiatives en faveur du français. L’épisode « Destination Mexique » est diffusé le 28 septembre et à nouveau le samedi 3 octobre 2026." data-en="I took part in TV5MONDE’s documentary series hosted by Ivan Kabacoff, which travels the world in search of initiatives for French. The episode “Destination Mexique” airs on September 28 and again on Saturday, October 3, 2026.">Participé en la serie documental de TV5MONDE presentada por Ivan Kabacoff, que viaja por el mundo tras las iniciativas a favor del francés. El episodio «Destination Mexique» llega a pantalla el 28 de septiembre y vuelve a emitirse el sábado 3 de octubre de 2026.</p>
+      <p class="nov-texto" data-es="Como director de la Alianza Francesa de San Cristóbal presenté la sede renovada, sus actividades y su oferta cultural en la serie documental de TV5MONDE presentada por Ivan Kabacoff, que viaja por el mundo tras las iniciativas a favor del francés. El episodio «Destination Mexique» llega a pantalla el 28 de septiembre y vuelve a emitirse el sábado 3 de octubre de 2026." data-fr="En tant que directeur de l’Alliance Française de San Cristóbal, j’ai présenté le siège rénové, ses activités et son offre culturelle dans la série documentaire de TV5MONDE présentée par Ivan Kabacoff, qui parcourt le monde à la rencontre des initiatives en faveur du français. L’épisode « Destination Mexique » est diffusé le 28 septembre et à nouveau le samedi 3 octobre 2026." data-en="As director of the Alliance Française de San Cristóbal, I presented the renovated premises, its activities and its cultural offering in TV5MONDE’s documentary series hosted by Ivan Kabacoff, which travels the world in search of initiatives for French. The episode “Destination Mexique” airs on September 28 and again on Saturday, October 3, 2026.">Como director de la Alianza Francesa de San Cristóbal presenté la sede renovada, sus actividades y su oferta cultural en la serie documental de TV5MONDE presentada por Ivan Kabacoff, que viaja por el mundo tras las iniciativas a favor del francés. El episodio «Destination Mexique» llega a pantalla el 28 de septiembre y vuelve a emitirse el sábado 3 de octubre de 2026.</p>
       <a href="#rel-documental" class="btn btn-gold"><span data-es="Ver el detrás de cámaras" data-fr="Voir les coulisses" data-en="See behind the scenes">Ver el detrás de cámaras</span></a>
       <p class="nov-nota" data-es="Horarios según la guía de TV5MONDE Amérique latine." data-fr="Horaires selon le guide de TV5MONDE Amérique latine." data-en="Times as listed in the TV5MONDE Latin America guide.">Horarios según la guía de TV5MONDE Amérique latine.</p>
     </div>
@@ -428,6 +429,48 @@
     </figure>
   </div>
 </section>
+<section id="mi-trayectoria" class="z10" data-page="perfil">
+  <div class="container">
+    <div class="mc-wrap reveal">
+      <div class="mc-texto">
+        <p class="eyebrow" data-es="Mi trayectoria en video" data-fr="Mon parcours en vidéo" data-en="My career on video">Mi trayectoria en video</p>
+        <h2 class="mc-titulo"><em data-es="Comprometido con cada estudiante." data-fr="Engagé auprès de chaque élève." data-en="Committed to every student.">Comprometido con cada estudiante.</em></h2>
+        <p class="mc-desc" data-es="Cincuenta y dos segundos para recorrer Francia, Venezuela, Ecuador y México: los alumnos, las aulas, los equipos y los eventos que han marcado mi camino como profesor de francés." data-fr="Cinquante-deux secondes pour parcourir la France, le Venezuela, l'Équateur et le Mexique : les élèves, les salles de classe, les équipes et les événements qui ont marqué mon chemin de professeur de français." data-en="Fifty-two seconds to travel through France, Venezuela, Ecuador and Mexico: the students, classrooms, teams and events that have marked my path as a French teacher.">Cincuenta y dos segundos para recorrer Francia, Venezuela, Ecuador y México: los alumnos, las aulas, los equipos y los eventos que han marcado mi camino como profesor de francés.</p>
+        <div class="hero-cta">
+          <a href="#relato" class="btn btn-gold"><i class="fa fa-route"></i><span data-es="Leer mi historia" data-fr="Lire mon histoire" data-en="Read my story">Leer mi historia</span></a>
+        </div>
+      </div>
+      <figure class="mc-video" id="tr-video">
+        <video id="tr-v" preload="none" playsinline poster="assets/images/videos/mi-trayectoria-16x9.jpg"></video>
+        <button class="mc-play" id="tr-play" type="button" aria-label="Ver el video de mi trayectoria" data-es-aria="Ver el video de mi trayectoria" data-fr-aria="Voir la vidéo de mon parcours" data-en-aria="Watch the video of my career"><span><i class="fa fa-play"></i></span></button>
+      </figure>
+    </div>
+  </div>
+</section>
+<script>
+(function () {
+  var v = document.getElementById('tr-v'), b = document.getElementById('tr-play'), f = document.getElementById('tr-video');
+  if (!v) return;
+  var mq = window.matchMedia('(max-width: 700px)');
+  var H = { src: 'mi-trayectoria-16x9.mp4', poster: 'assets/images/videos/mi-trayectoria-16x9.jpg' };
+  var V = { src: 'mi-trayectoria-9x16.mp4', poster: 'assets/images/videos/mi-trayectoria-9x16.jpg' };
+  function ajustar() {
+    if (v.getAttribute('src')) return;
+    var vert = mq.matches, d = vert ? V : H;
+    f.classList.toggle('mc-vertical', vert);
+    v.poster = d.poster; v.dataset.src = d.src;
+  }
+  ajustar();
+  if (mq.addEventListener) mq.addEventListener('change', ajustar);
+  b.addEventListener('click', function () {
+    if (!v.getAttribute('src')) v.src = v.dataset.src;
+    v.controls = true;
+    var p = v.play(); if (p && p.then) p.then(function () { b.classList.add('oculto'); }).catch(function () {});
+  });
+  v.addEventListener('pause', function () { if (!v.ended) return; b.classList.remove('oculto'); });
+  v.addEventListener('ended', function () { b.classList.remove('oculto'); });
+})();
+</script>
 <section id="relato" class="alt z10" data-page="perfil">
   <div class="container">
     <div class="relato" data-relato="assets/data/relato.json"></div>

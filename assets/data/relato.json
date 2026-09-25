@@ -652,9 +652,9 @@
         "en": "An Alliance Française never works alone."
       },
       "texto": {
-        "es": "Encuentros con colegas de otras Alianzas Francesas, la Fiesta de la Francofonía junto al Embajador de Francia y un momento en Quito bajo las banderas de la Unión Europea, Ecuador y Francia.",
-        "fr": "Rencontres avec des collègues d'autres Alliances Françaises, la Fête de la Francophonie aux côtés de l'Ambassadeur de France et un moment à Quito sous les drapeaux de l'Union européenne, de l'Équateur et de la France.",
-        "en": "Meetings with colleagues from other Alliances Françaises, the Francophonie Festival alongside the Ambassador of France, and a moment in Quito under the flags of the European Union, Ecuador and France."
+        "es": "Encuentros con colegas de otras Alianzas Francesas, la Fiesta de la Francofonía junto al Embajador de Francia, un momento en Quito bajo las banderas de la Unión Europea, Ecuador y Francia, y L’Étape Ecuador by Tour de France, en Cuenca, con el embajador Frédéric Desagneaux.",
+        "fr": "Rencontres avec des collègues d’autres Alliances Françaises, la Fête de la Francophonie aux côtés de l’Ambassadeur de France, un moment à Quito sous les drapeaux de l’Union européenne, de l’Équateur et de la France, et L’Étape Équateur by Tour de France, à Cuenca, avec l’ambassadeur Frédéric Desagneaux.",
+        "en": "Meetings with colleagues from other Alliances Françaises, the Francophonie Festival alongside the Ambassador of France, a moment in Quito under the flags of the European Union, Ecuador and France, and L’Étape Ecuador by Tour de France, in Cuenca, with Ambassador Frédéric Desagneaux."
       },
       "medios": [
         {
@@ -685,6 +685,17 @@
             "es": "Encuentro de colegas de las Alianzas Francesas",
             "fr": "Rencontre de collègues des Alliances Françaises",
             "en": "Gathering of Alliance Française colleagues"
+          }
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/tour-francia.jpg",
+          "ratio": "1000/981",
+          "alt": "Con el embajador de Francia en Ecuador, Frédéric Desagneaux, y camisetas de lunares rojos del Tour de Francia, en Cuenca",
+          "pie": {
+            "es": "L’Étape Ecuador by Tour de France · con el embajador Frédéric Desagneaux · Cuenca, 19 de febrero de 2022",
+            "fr": "L’Étape Équateur by Tour de France · avec l’ambassadeur Frédéric Desagneaux · Cuenca, 19 février 2022",
+            "en": "L’Étape Ecuador by Tour de France · with Ambassador Frédéric Desagneaux · Cuenca, February 19, 2022"
           }
         },
         {
@@ -835,9 +846,9 @@
         "en": "Love is unconditional."
       },
       "texto": {
-        "es": "En la Journée internationale du professeur de français, en la Alianza Francesa de Caracas, volví a encontrarme con colegas de la Asociación Venezolana de Profesores de Francés (AVENPROF), entre ellos Olivier Plançon, entonces director de la Alianza Francesa de Caracas, y Pedro Alemán Guillén, profesor de francés de la Universidad Central de Venezuela. En 2023 tuve también el privilegio de compartir con el Embajador.",
-        "fr": "Lors de la Journée internationale du professeur de français, à l’Alliance Française de Caracas, j’ai retrouvé des collègues de l’Association vénézuélienne des professeurs de français (AVENPROF), dont Olivier Plançon, alors directeur de l’Alliance Française de Caracas, et Pedro Alemán Guillén, professeur de français à l’Universidad Central de Venezuela. En 2023, j’ai aussi eu le privilège de partager un moment avec l’Ambassadeur.",
-        "en": "At the International French Teacher’s Day, at the Alliance Française de Caracas, I met again colleagues from the Venezuelan Association of French Teachers (AVENPROF), among them Olivier Plançon, then director of the Alliance Française de Caracas, and Pedro Alemán Guillén, French teacher at the Universidad Central de Venezuela. In 2023 I also had the privilege of sharing a moment with the Ambassador."
+        "es": "En la Journée internationale du professeur de français, en la Alianza Francesa de Caracas, volví a encontrarme con colegas de la Asociación Venezolana de Profesores de Francés (AVENPROF), entre ellos Olivier Plançon, entonces director de la Alianza Francesa de Caracas, y Pedro Alemán Guillén, profesor de francés de la Universidad Central de Venezuela. En marzo de 2023 tuve además el privilegio de compartir con el embajador de Francia en Venezuela, Romain Nadal.",
+        "fr": "Lors de la Journée internationale du professeur de français, à l’Alliance Française de Caracas, j’ai retrouvé des collègues de l’Association vénézuélienne des professeurs de français (AVENPROF), dont Olivier Plançon, alors directeur de l’Alliance Française de Caracas, et Pedro Alemán Guillén, professeur de français à l’Universidad Central de Venezuela. En mars 2023, j’ai aussi eu le privilège de partager un moment avec l’ambassadeur de France au Venezuela, Romain Nadal.",
+        "en": "At the International French Teacher’s Day, at the Alliance Française de Caracas, I met again colleagues from the Venezuelan Association of French Teachers (AVENPROF), among them Olivier Plançon, then director of the Alliance Française de Caracas, and Pedro Alemán Guillén, French teacher at the Universidad Central de Venezuela. In March 2023 I also had the privilege of sharing a moment with the French ambassador to Venezuela, Romain Nadal."
       },
       "medios": [
         {
@@ -865,11 +876,11 @@
         {
           "tipo": "foto",
           "archivo": "assets/images/relato/embajador-caracas.jpg",
-          "alt": "Con Su Excelencia el Embajador, en Caracas",
+          "alt": "Con Romain Nadal, embajador de Francia en Venezuela, y el cónsul",
           "pie": {
-            "es": "Con Su Excelencia el Embajador · Caracas, 2023",
-            "fr": "Avec Son Excellence l’Ambassadeur · Caracas, 2023",
-            "en": "With His Excellency the Ambassador · Caracas, 2023"
+            "es": "Con Su Excelencia Romain Nadal, embajador de Francia en Venezuela, y el cónsul · Caracas, marzo de 2023",
+            "fr": "Avec Son Excellence Romain Nadal, ambassadeur de France au Venezuela, et le consul · Caracas, mars 2023",
+            "en": "With His Excellency Romain Nadal, French ambassador to Venezuela, and the consul · Caracas, March 2023"
           },
           "ratio": "1000/938",
           "ancha": true
@@ -926,6 +937,18 @@
             "fr": "Alliances Françaises du Mexique · Journées du Réseau 2025",
             "en": "Alliances Françaises of Mexico · Journées du Réseau 2025"
           }
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/rodaje-entrevista.jpg",
+          "alt": "Entrevista a cámara para el video promocional de la Alianza Francesa de San Cristóbal",
+          "pie": {
+            "es": "Entrevista para el video promocional de la Alianza Francesa de San Cristóbal · producción y cámara: Jaime Casanova",
+            "fr": "Interview pour la vidéo promotionnelle de l’Alliance Française de San Cristóbal · production et caméra : Jaime Casanova",
+            "en": "Interview for the Alliance Française de San Cristóbal promotional video · production and camera: Jaime Casanova"
+          },
+          "ratio": "16/9",
+          "ancha": true
         }
       ]
     },
@@ -944,9 +967,9 @@
         "en": "A language grows when it finds open doors."
       },
       "texto": {
-        "es": "Dirigir una Alianza Francesa es, sobre todo, salir a tocar puertas: colegios como el ITAES y La Salle, la Secretaría de Educación del estado, la radio universitaria de la UNICACH en Tuxtla y el Consulado Honorario de Francia en Chiapas, a cargo de Patrick de Bréon.",
-        "fr": "Diriger une Alliance Française, c’est avant tout aller frapper aux portes : des établissements comme l’ITAES et La Salle, le Secrétariat à l’Éducation de l’État, la radio universitaire de l’UNICACH à Tuxtla et le Consulat honoraire de France au Chiapas, confié à Patrick de Bréon.",
-        "en": "Leading an Alliance Française is, above all, knocking on doors: schools such as ITAES and La Salle, the State Secretariat of Education, the UNICACH university radio in Tuxtla and the Honorary Consulate of France in Chiapas, led by Patrick de Bréon."
+        "es": "Dirigir una Alianza Francesa es, sobre todo, salir a tocar puertas: colegios como el ITAES y La Salle, la Secretaría de Educación del estado, la radio universitaria de la UNICACH en Tuxtla y el Consulado Honorario de Francia en Chiapas y Tabasco, con su cónsul Patrick de Bréon, fallecido en 2026.",
+        "fr": "Diriger une Alliance Française, c’est avant tout aller frapper aux portes : des établissements comme l’ITAES et La Salle, le Secrétariat à l’Éducation de l’État, la radio universitaire de l’UNICACH à Tuxtla et le Consulat honoraire de France au Chiapas et au Tabasco, avec son consul Patrick de Bréon, décédé en 2026.",
+        "en": "Leading an Alliance Française is, above all, knocking on doors: schools such as ITAES and La Salle, the State Secretariat of Education, the UNICACH university radio in Tuxtla and the Honorary Consulate of France in Chiapas and Tabasco, with its consul Patrick de Bréon, who passed away in 2026."
       },
       "medios": [
         {
@@ -954,9 +977,9 @@
           "archivo": "assets/images/relato/itaes.jpg",
           "alt": "Visita al Colegio ITAES, San Cristóbal de Las Casas",
           "pie": {
-            "es": "Colegio ITAES · con la directora general, Patricia Berumen de Alba, y el departamento de idiomas",
-            "fr": "Colegio ITAES · avec la directrice générale, Patricia Berumen de Alba, et le département de langues",
-            "en": "Colegio ITAES · with the principal, Patricia Berumen de Alba, and the languages department"
+            "es": "Colegio ITAES · con la directora general, Patricia Berumen de Alba, y Karen Elizabeth, coordinadora de lenguas",
+            "fr": "Colegio ITAES · avec la directrice générale, Patricia Berumen de Alba, et Karen Elizabeth, coordinatrice de langues",
+            "en": "Colegio ITAES · with the principal, Patricia Berumen de Alba, and Karen Elizabeth, languages coordinator"
           },
           "ratio": "4/3"
         },
@@ -974,11 +997,11 @@
         {
           "tipo": "foto",
           "archivo": "assets/images/relato/la-salle.jpg",
-          "alt": "Con directivos y docentes del Colegio La Salle San Cristóbal",
+          "alt": "Con Maura Carpio, directora de La Salle San Cristóbal, y colegas",
           "pie": {
-            "es": "Con directivos y docentes · Colegio La Salle",
-            "fr": "Avec direction et enseignants · Colegio La Salle",
-            "en": "With staff and teachers · Colegio La Salle"
+            "es": "Con Maura Carpio, directora de La Salle San Cristóbal, y colegas",
+            "fr": "Avec Maura Carpio, directrice de La Salle San Cristóbal, et des collègues",
+            "en": "With Maura Carpio, principal of La Salle San Cristóbal, and colleagues"
           },
           "ratio": "3/4"
         },
@@ -996,11 +1019,11 @@
         {
           "tipo": "foto",
           "archivo": "assets/images/relato/consulado.jpg",
-          "alt": "Con el cónsul honorario de Francia en Chiapas",
+          "alt": "Con Gloria Ramos, arquitecta, alumna y colaboradora de la Alianza, y Patrick de Bréon, cónsul honorario de Francia en Chiapas y Tabasco",
           "pie": {
-            "es": "Con el cónsul honorario de Francia en Chiapas",
-            "fr": "Avec le consul honoraire de France au Chiapas",
-            "en": "With the honorary consul of France in Chiapas"
+            "es": "Con Gloria Ramos, arquitecta, alumna y colaboradora de la Alianza, y en memoria de Patrick de Bréon, cónsul honorario de Francia en Chiapas y Tabasco (†2026)",
+            "fr": "Avec Gloria Ramos, architecte, élève et collaboratrice de l’Alliance, et à la mémoire de Patrick de Bréon, consul honoraire de France au Chiapas et au Tabasco (†2026)",
+            "en": "With Gloria Ramos, architect, student and collaborator of the Alliance, and in memory of Patrick de Bréon, honorary consul of France in Chiapas and Tabasco (†2026)"
           },
           "ratio": "1500/674",
           "ancha": true
@@ -1079,31 +1102,19 @@
         "en": "Telling what we do for French is also a way of helping it grow."
       },
       "texto": {
-        "es": "Participé en «Destination Francophonie», la serie documental de TV5MONDE presentada por Ivan Kabacoff, que recorre el mundo tras las iniciativas a favor del francés. El episodio «Destination Mexique» se estrena el 28 de septiembre y vuelve a emitirse el sábado 3 de octubre de 2026.",
-        "fr": "J’ai participé à « Destination francophonie », la série documentaire de TV5MONDE présentée par Ivan Kabacoff, qui parcourt le monde à la rencontre des initiatives en faveur du français. L’épisode « Destination Mexique » est diffusé le 28 septembre et à nouveau le samedi 3 octobre 2026.",
-        "en": "I took part in “Destination francophonie”, TV5MONDE’s documentary series hosted by Ivan Kabacoff, which travels the world in search of initiatives for French. The episode “Destination Mexique” premieres on September 28 and airs again on Saturday, October 3, 2026."
+        "es": "Como director de la Alianza Francesa de San Cristóbal, presenté la sede renovada, sus actividades y su oferta cultural en «Destination Francophonie», la serie documental de TV5MONDE presentada por Ivan Kabacoff, que recorre el mundo tras las iniciativas a favor del francés. El episodio «Destination Mexique» se estrena el 28 de septiembre y vuelve a emitirse el sábado 3 de octubre de 2026.",
+        "fr": "En tant que directeur de l’Alliance Française de San Cristóbal, j’ai présenté le siège rénové, ses activités et son offre culturelle dans « Destination francophonie », la série documentaire de TV5MONDE présentée par Ivan Kabacoff, qui parcourt le monde à la rencontre des initiatives en faveur du français. L’épisode « Destination Mexique » est diffusé le 28 septembre et à nouveau le samedi 3 octobre 2026.",
+        "en": "As director of the Alliance Française de San Cristóbal, I presented the renovated premises, its activities and its cultural offering in “Destination francophonie”, TV5MONDE’s documentary series hosted by Ivan Kabacoff, which travels the world in search of initiatives for French. The episode “Destination Mexique” premieres on September 28 and airs again on Saturday, October 3, 2026."
       },
       "medios": [
         {
           "tipo": "foto",
-          "archivo": "assets/images/relato/rodaje-entrevista.jpg",
-          "alt": "Entrevista con cámaras en la Alianza Francesa de San Cristóbal",
-          "pie": {
-            "es": "Entrevista a cámara · Alianza Francesa de San Cristóbal",
-            "fr": "Interview face caméra · Alliance Française de San Cristóbal",
-            "en": "On-camera interview · Alliance Française de San Cristóbal"
-          },
-          "ratio": "16/9",
-          "ancha": true
-        },
-        {
-          "tipo": "foto",
           "archivo": "assets/images/relato/rodaje-af.jpg",
-          "alt": "Rodaje frente a la Alianza Francesa de San Cristóbal",
+          "alt": "Rodaje de Destination Francophonie frente a la Alianza Francesa de San Cristóbal",
           "pie": {
-            "es": "Rodaje en la Alianza Francesa",
-            "fr": "Tournage à l’Alliance Française",
-            "en": "Filming at the Alliance Française"
+            "es": "Rodaje: presentando la sede renovada de la Alianza Francesa",
+            "fr": "Tournage : présentation du siège rénové de l’Alliance Française",
+            "en": "Filming: presenting the Alliance Française’s renovated premises"
           },
           "ratio": "4/5"
         },

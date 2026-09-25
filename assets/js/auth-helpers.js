@@ -73,6 +73,7 @@ async function requerirSesion(rolRequerido) {
   if (!supabaseConfigurado) return null;
   const contexto = await obtenerPerfilActual();
   if (!contexto) {
+    try { sessionStorage.setItem('mt_diag', window.__ultimoDiagPerfil || 'sin detalle'); } catch (e) {}
     window.location.href = 'login.html';
     return null;
   }
