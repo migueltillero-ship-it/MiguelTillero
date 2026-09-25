@@ -979,6 +979,17 @@
         if (id === 'vue-jeux') { initFlashcards(); demarrerMemoire(); }
     }
 
+    /* Permite llegar directo a un módulo desde fuera, por ejemplo
+       .../estudiantes/a1.html#vue-mod4 desde el panel del estudiante. */
+    function abrirVistaDelHash() {
+        const id = (location.hash || '').replace('#', '');
+        if (id && document.getElementById(id) && document.getElementById(id).classList.contains('vue')) {
+            naviguer(id);
+        }
+    }
+    window.addEventListener('hashchange', abrirVistaDelHash);
+    window.addEventListener('load', abrirVistaDelHash);
+
     /* ============================================================
        MODE SOMBRE
        ============================================================ */
