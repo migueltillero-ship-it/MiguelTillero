@@ -69,9 +69,21 @@ h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--a
 <a href="index.html" class="back-link"><i class="fa fa-arrow-left"></i> Volver al inicio</a>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="assets/js/supabase-config.js?v=1789509476"></script>
-<script src="assets/js/auth-helpers.js?v=1789509476"></script>
+<script src="assets/js/supabase-config.js?v=1790361288"></script>
+<script src="assets/js/auth-helpers.js?v=1790361288"></script>
 <script>
+/* Si un panel no pudo confirmar la sesión y nos devolvió aquí, se dice por qué. */
+(function () {
+    var d = null;
+    try { d = sessionStorage.getItem('mt_diag'); sessionStorage.removeItem('mt_diag'); } catch (e) {}
+    if (!d) return;
+    document.addEventListener('DOMContentLoaded', function () {
+        var el = document.getElementById('msg-login');
+        if (!el) return;
+        el.textContent = 'Inicia sesión para abrir tu panel. Si acabas de entrar y volviste a esta pantalla, avisa a Miguel con este detalle: ' + d;
+        el.className = 'msg error'; el.style.display = 'block';
+    });
+})();
 function mostrarMsg(el, texto, tipo) {
     el.textContent = texto;
     el.className = 'msg ' + tipo;
@@ -142,7 +154,7 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
         btn.disabled = false;
         return;
     }
-    window.location.href = perfil.role === 'docente' ? 'panel-docente.html' : 'panel-estudiante.html';
+    window.location.href = (perfil.role === 'docente' || perfil.role === 'admin') ? 'panel-docente.html' : 'panel-estudiante.html';
 });
 
 document.getElementById('link-recuperar').addEventListener('click', async (e) => {
