@@ -87,8 +87,27 @@ document.getElementById('f').addEventListener('submit', async function (ev) {
   p('');
   p('— Paso 1: iniciando sesión —');
   var r = await supabaseClient.auth.signInWithPassword({ email: document.getElementById('email').value.trim(), password: document.getElementById('clave').value });
-  if (r.error) { p('signInWithPassword ERROR: ' + r.error.message); return; }
-  p('signInWithPassword: correcto');
+  if (r.error) {
+    p('signInWithPassword ERROR: ' + r.error.message + ' · código: ' + (r.error.code || r.error.status || '?'));
+    return;
+  }
+  /* Que no haya error NO garantiza que haya sesión: hay configuraciones en
+     las que Supabase devuelve el usuario sin sesión. Ese es justo el caso
+     que hay que distinguir. */
+  var hayU = !!(r.data && r.data.user), hayS = !!(r.data && r.data.session);
+  p('signInWithPassword: sin error · devuelve usuario: ' + hayU + ' · devuelve SESIÓN: ' + hayS);
+  if (hayU) {
+    p('   usuario: ' + (r.data.user.email || '?') + ' · id: ' + (r.data.user.id || '?').slice(0, 8) + '…');
+    p('   correo confirmado: ' + (r.data.user.email_confirmed_at ? 'SÍ (' + r.data.user.email_confirmed_at.slice(0,10) + ')' : 'NO'));
+    p('   rol del token: ' + (r.data.user.role || '?') + ' · aud: ' + (r.data.user.aud || '?'));
+  }
+  if (hayS) {
+    p('   la sesión trae access_token: ' + !!r.data.session.access_token + ' · refresh_token: ' + !!r.data.session.refresh_token);
+    p('   caduca en: ' + Math.round(((r.data.session.expires_at || 0) * 1000 - Date.now()) / 60000) + ' min');
+  } else {
+    p('   ⚠ NO llegó sesión: por eso las páginas siguientes no encuentran nada que guardar.');
+  }
+  try { p('clave de almacenamiento del cliente: ' + (supabaseClient.auth.storageKey || '(no expuesta)')); } catch (e) {}
   await estado('justo después de entrar');
   try {
     var pr = await supabaseClient.from('profiles').select('role').eq('id', r.data.user.id).maybeSingle();
