@@ -344,7 +344,10 @@ document.getElementById('form-inscripcion').addEventListener('submit', async (e)
         password,
         options: {
             data: { nombre_completo, telefono, curso_id, grupo_id },
-            emailRedirectTo: window.location.origin + window.location.pathname.replace('inscripcion.html', '') + '../login.html'
+            // new URL() normaliza el "..": si no, el correo viaja con
+            // …/registro/../login.html dentro, que es válido pero feo y
+            // depende de cómo lo compare la lista de Redirect URLs.
+            emailRedirectTo: new URL('../login.html', window.location.href).href
         }
     });
 
