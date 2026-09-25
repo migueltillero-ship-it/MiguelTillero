@@ -44,6 +44,7 @@
 
   function construirDiapositiva(video, indice, total) {
     var slide = crear('article', 'vc-slide');
+    if (video.formato === 'vertical') slide.classList.add('vc-vertical');
     var titulo = video.titulo || 'Vídeo ' + (indice + 1);
     slide.setAttribute('role', 'group');
     slide.setAttribute('aria-roledescription', 'diapositiva');

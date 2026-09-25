@@ -1,6 +1,10 @@
 {
   "apertura": {
-    "eyebrow": { "es": "Mi historia", "fr": "Mon histoire", "en": "My story" },
+    "eyebrow": {
+      "es": "Mi historia",
+      "fr": "Mon histoire",
+      "en": "My story"
+    },
     "cita": {
       "es": "El francés es un idioma que nos acerca. Aprenderlo es una travesía de descubrimientos y sorpresas: escuchar, entender al otro y dejar que el otro nos entienda.",
       "fr": "Le français est une langue qui nous rapproche. L'apprendre, c'est une traversée faite de découvertes et de surprises : écouter, comprendre l'autre et se laisser comprendre.",
@@ -17,7 +21,11 @@
       "id": "caracas",
       "anio": "2009 — 2016",
       "lugar": "Caracas · UPEL",
-      "titulo": { "es": "Donde empezó todo", "fr": "Là où tout a commencé", "en": "Where it all began" },
+      "titulo": {
+        "es": "Donde empezó todo",
+        "fr": "Là où tout a commencé",
+        "en": "Where it all began"
+      },
       "cita": {
         "es": "Antes de enseñar, aprendí a escuchar.",
         "fr": "Avant d'enseigner, j'ai appris à écouter.",
@@ -29,17 +37,39 @@
         "en": "I studied for my Bachelor's in Education, French, at the Instituto Pedagógico de Caracas (UPEL). Along the way came three distinctions: AVENPROF's academic excellence award (2011), the Talentum Prize (2015) and Magna Cum Laude honours (2016)."
       },
       "medios": [
-        { "tipo": "foto", "archivo": "assets/images/relato/graduacion.jpg", "pendiente": true, "alt": "Graduación de Miguel Tillero, UPEL",
-          "pie": { "es": "Mi graduación · UPEL, Caracas", "fr": "Ma remise de diplôme · UPEL, Caracas", "en": "My graduation · UPEL, Caracas" } },
-        { "tipo": "foto", "archivo": "assets/images/relato/magna-cum-laude.jpg", "pendiente": true, "alt": "Entrega de la Mención Magna Cum Laude",
-          "pie": { "es": "Mención Magna Cum Laude · 2016", "fr": "Mention Magna Cum Laude · 2016", "en": "Magna Cum Laude honours · 2016" } }
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/graduacion.jpg",
+          "pendiente": true,
+          "alt": "Graduación de Miguel Tillero, UPEL",
+          "pie": {
+            "es": "Mi graduación · UPEL, Caracas",
+            "fr": "Ma remise de diplôme · UPEL, Caracas",
+            "en": "My graduation · UPEL, Caracas"
+          }
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/magna-cum-laude.jpg",
+          "pendiente": true,
+          "alt": "Entrega de la Mención Magna Cum Laude",
+          "pie": {
+            "es": "Mención Magna Cum Laude · 2016",
+            "fr": "Mention Magna Cum Laude · 2016",
+            "en": "Magna Cum Laude honours · 2016"
+          }
+        }
       ]
     },
     {
       "id": "puertas",
       "anio": "2010 — 2017",
       "lugar": "Caracas · Millau",
-      "titulo": { "es": "Puertas abiertas al mundo", "fr": "Des portes ouvertes sur le monde", "en": "Doors opening onto the world" },
+      "titulo": {
+        "es": "Puertas abiertas al mundo",
+        "fr": "Des portes ouvertes sur le monde",
+        "en": "Doors opening onto the world"
+      },
       "cita": {
         "es": "Quien emigra necesita algo más que vocabulario para empezar de nuevo.",
         "fr": "Celui qui émigre a besoin de bien plus que du vocabulaire pour recommencer.",
@@ -51,17 +81,39 @@
         "en": "At the French Embassy I worked with Campus France (2010–2012). At the Canadian Cultural Centre I was a migration adviser for Quebec and pedagogical director (2011–2014). I was a language assistant in Millau, France, and a teacher and pedagogical coordinator at the Lycée Français de Caracas (2013–2017 and 2023)."
       },
       "medios": [
-        { "tipo": "foto", "archivo": "assets/images/relato/lycee-caracas.jpg", "pendiente": true, "alt": "En el Lycée Français de Caracas",
-          "pie": { "es": "Lycée Français de Caracas", "fr": "Lycée Français de Caracas", "en": "Lycée Français de Caracas" } },
-        { "tipo": "foto", "archivo": "assets/images/relato/millau.jpg", "pendiente": true, "alt": "En Millau, Francia",
-          "pie": { "es": "Millau, Francia", "fr": "Millau, France", "en": "Millau, France" } }
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/lycee-caracas.jpg",
+          "pendiente": true,
+          "alt": "En el Lycée Français de Caracas",
+          "pie": {
+            "es": "Lycée Français de Caracas",
+            "fr": "Lycée Français de Caracas",
+            "en": "Lycée Français de Caracas"
+          }
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/millau.jpg",
+          "pendiente": true,
+          "alt": "En Millau, Francia",
+          "pie": {
+            "es": "Millau, Francia",
+            "fr": "Millau, France",
+            "en": "Millau, France"
+          }
+        }
       ]
     },
     {
       "id": "cuenca",
       "anio": "2019 — 2022",
       "lugar": "Cuenca, Ecuador",
-      "titulo": { "es": "Una comunidad que crece", "fr": "Une communauté qui grandit", "en": "A community that grows" },
+      "titulo": {
+        "es": "Una comunidad que crece",
+        "fr": "Une communauté qui grandit",
+        "en": "A community that grows"
+      },
       "cita": {
         "es": "Lo que más recuerdo son los rostros de quienes aprobaron su primer DELF.",
         "fr": "Ce dont je me souviens le plus, ce sont les visages de ceux qui ont réussi leur premier DELF.",
@@ -73,17 +125,38 @@
         "en": "As pedagogical director of the Alliance Française de Cuenca I coordinated a team of 12 teachers, organised the official DELF exams and official translations, and watched enrollment grow 34.7% in three years."
       },
       "medios": [
-        { "tipo": "foto", "archivo": "assets/images/relato/nombramiento-cuenca.jpg", "pendiente": true, "alt": "Nombramiento como director pedagógico de la Alianza Francesa de Cuenca",
-          "pie": { "es": "Nombramiento como director pedagógico", "fr": "Nomination au poste de directeur pédagogique", "en": "Appointment as pedagogical director" } },
-        { "tipo": "foto", "archivo": "assets/images/trayectoria/af-cuenca.jpg", "alt": "Alianza Francesa de Cuenca, Ecuador",
-          "pie": { "es": "Alianza Francesa de Cuenca, Ecuador", "fr": "Alliance Française de Cuenca, Équateur", "en": "Alliance Française de Cuenca, Ecuador" } }
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/nombramiento-cuenca.jpg",
+          "pendiente": true,
+          "alt": "Nombramiento como director pedagógico de la Alianza Francesa de Cuenca",
+          "pie": {
+            "es": "Nombramiento como director pedagógico",
+            "fr": "Nomination au poste de directeur pédagogique",
+            "en": "Appointment as pedagogical director"
+          }
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/trayectoria/af-cuenca.jpg",
+          "alt": "Alianza Francesa de Cuenca, Ecuador",
+          "pie": {
+            "es": "Alianza Francesa de Cuenca, Ecuador",
+            "fr": "Alliance Française de Cuenca, Équateur",
+            "en": "Alliance Française de Cuenca, Ecuador"
+          }
+        }
       ]
     },
     {
       "id": "red",
       "anio": "Ecuador",
       "lugar": "Quito · Guayaquil",
-      "titulo": { "es": "Una red de colegas y aliados", "fr": "Un réseau de collègues et d'alliés", "en": "A network of colleagues and allies" },
+      "titulo": {
+        "es": "Una red de colegas y aliados",
+        "fr": "Un réseau de collègues et d'alliés",
+        "en": "A network of colleagues and allies"
+      },
       "cita": {
         "es": "Una Alianza Francesa nunca trabaja sola.",
         "fr": "Une Alliance Française ne travaille jamais seule.",
@@ -95,21 +168,57 @@
         "en": "Meetings with colleagues from other Alliances Françaises, the Francophonie Festival alongside the Ambassador of France, and a moment in Quito under the flags of the European Union, Ecuador and France."
       },
       "medios": [
-        { "tipo": "foto", "archivo": "assets/images/trayectoria/embajador-francia.jpg", "alt": "Con el Embajador de Francia, Fiesta de la Francofonía",
-          "pie": { "es": "Con el Embajador de Francia · Fiesta de la Francofonía", "fr": "Avec l'Ambassadeur de France · Fête de la Francophonie", "en": "With the Ambassador of France · Francophonie Festival" } },
-        { "tipo": "foto", "archivo": "assets/images/trayectoria/af-guayaquil.jpg", "alt": "Con colegas de la Alianza Francesa de Guayaquil",
-          "pie": { "es": "Con colegas · Alianza Francesa de Guayaquil", "fr": "Avec des collègues · Alliance Française de Guayaquil", "en": "With colleagues · Alliance Française of Guayaquil" } },
-        { "tipo": "foto", "archivo": "assets/images/trayectoria/conferencia-colegas.jpg", "alt": "Encuentro de colegas de las Alianzas Francesas",
-          "pie": { "es": "Encuentro de colegas de las Alianzas Francesas", "fr": "Rencontre de collègues des Alliances Françaises", "en": "Gathering of Alliance Française colleagues" } },
-        { "tipo": "foto", "archivo": "assets/images/trayectoria/quito-rfi-banderas.jpg", "alt": "Quito, con las banderas de la Unión Europea, Ecuador y Francia",
-          "pie": { "es": "Quito · banderas de la UE, Ecuador y Francia", "fr": "Quito · drapeaux de l'UE, de l'Équateur et de la France", "en": "Quito · EU, Ecuador and France flags" } }
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/trayectoria/embajador-francia.jpg",
+          "alt": "Con el Embajador de Francia, Fiesta de la Francofonía",
+          "pie": {
+            "es": "Con el Embajador de Francia · Fiesta de la Francofonía",
+            "fr": "Avec l'Ambassadeur de France · Fête de la Francophonie",
+            "en": "With the Ambassador of France · Francophonie Festival"
+          }
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/trayectoria/af-guayaquil.jpg",
+          "alt": "Con colegas de la Alianza Francesa de Guayaquil",
+          "pie": {
+            "es": "Con colegas · Alianza Francesa de Guayaquil",
+            "fr": "Avec des collègues · Alliance Française de Guayaquil",
+            "en": "With colleagues · Alliance Française of Guayaquil"
+          }
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/trayectoria/conferencia-colegas.jpg",
+          "alt": "Encuentro de colegas de las Alianzas Francesas",
+          "pie": {
+            "es": "Encuentro de colegas de las Alianzas Francesas",
+            "fr": "Rencontre de collègues des Alliances Françaises",
+            "en": "Gathering of Alliance Française colleagues"
+          }
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/trayectoria/quito-rfi-banderas.jpg",
+          "alt": "Quito, con las banderas de la Unión Europea, Ecuador y Francia",
+          "pie": {
+            "es": "Quito · banderas de la UE, Ecuador y Francia",
+            "fr": "Quito · drapeaux de l'UE, de l'Équateur et de la France",
+            "en": "Quito · EU, Ecuador and France flags"
+          }
+        }
       ]
     },
     {
       "id": "camaras",
       "anio": "Ecuador",
       "lugar": "TV5MONDE · Le jour du prof de français",
-      "titulo": { "es": "Hablar del francés ante las cámaras", "fr": "Parler du français devant les caméras", "en": "Speaking about French on camera" },
+      "titulo": {
+        "es": "Hablar del francés ante las cámaras",
+        "fr": "Parler du français devant les caméras",
+        "en": "Speaking about French on camera"
+      },
       "cita": {
         "es": "Un idioma también se defiende contando por qué vale la pena.",
         "fr": "On défend aussi une langue en racontant pourquoi elle vaut la peine.",
@@ -121,58 +230,129 @@
         "en": "With the TV5MONDE team and the Delegate of the Alliances Françaises in Ecuador, and in the interview “Le jour du prof de français”."
       },
       "medios": [
-        { "tipo": "foto", "archivo": "assets/images/trayectoria/tv5monde.jpg", "alt": "Con el equipo de TV5MONDE y el Delegado de las Alianzas Francesas en Ecuador",
-          "pie": { "es": "Con TV5MONDE y el Delegado de las Alianzas Francesas en Ecuador", "fr": "Avec TV5MONDE et le Délégué des Alliances Françaises en Équateur", "en": "With TV5MONDE and the Delegate of the Alliances Françaises in Ecuador" } },
-        { "tipo": "foto", "archivo": "assets/images/trayectoria/entrevista-tv.jpg", "alt": "Entrevista, Le jour du prof de français",
-          "pie": { "es": "Entrevista · «Le jour du prof de français»", "fr": "Interview · « Le jour du prof de français »", "en": "Interview · “Le jour du prof de français”" } }
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/trayectoria/tv5monde.jpg",
+          "alt": "Con el equipo de TV5MONDE y el Delegado de las Alianzas Francesas en Ecuador",
+          "pie": {
+            "es": "Con TV5MONDE y el Delegado de las Alianzas Francesas en Ecuador",
+            "fr": "Avec TV5MONDE et le Délégué des Alliances Françaises en Équateur",
+            "en": "With TV5MONDE and the Delegate of the Alliances Françaises in Ecuador"
+          }
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/trayectoria/entrevista-tv.jpg",
+          "alt": "Entrevista, Le jour du prof de français",
+          "pie": {
+            "es": "Entrevista · «Le jour du prof de français»",
+            "fr": "Interview · « Le jour du prof de français »",
+            "en": "Interview · “Le jour du prof de français”"
+          }
+        }
       ]
     },
     {
       "id": "mexico",
-      "anio": "Oct 2024",
+      "anio": "Oct 2024 — Ago 2026",
       "lugar": "San Cristóbal de Las Casas, México",
-      "titulo": { "es": "Un lugar donde el francés es posible", "fr": "Un lieu où le français devient possible", "en": "A place where French becomes possible" },
+      "titulo": {
+        "es": "Un lugar donde el francés es posible",
+        "fr": "Un lieu où le français devient possible",
+        "en": "A place where French becomes possible"
+      },
       "cita": {
         "es": "Construir, de nuevo, un lugar donde el francés se vuelve posible.",
         "fr": "Construire, à nouveau, un lieu où le français devient possible.",
         "en": "Building, once again, a place where French becomes possible."
       },
       "texto": {
-        "es": "Desde octubre de 2024 dirigí la Alianza Francesa de San Cristóbal de Las Casas: pilotamos el plan de relanzamiento institucional, pusimos en marcha protocolos administrativos, financieros y de recursos humanos, tejimos alianzas con el Institut Parmentier y el Colegio La Salle y lanzamos el proyecto STAFE «Potager Innovant», de agricultura urbana y educación culinaria.",
-        "fr": "Depuis octobre 2024, j'ai dirigé l'Alliance Française de San Cristóbal de Las Casas : pilotage du plan de relance institutionnel, protocoles administratifs, financiers et RH, partenariats avec l'Institut Parmentier et le Colegio La Salle, et lancement du projet STAFE « Potager Innovant », d'agriculture urbaine et d'éducation culinaire.",
-        "en": "From October 2024 I led the Alliance Française de San Cristóbal de Las Casas: steering the institutional recovery plan, putting administrative, financial and HR protocols in place, building alliances with the Institut Parmentier and the Colegio La Salle, and launching the STAFE “Potager Innovant” project on urban farming and culinary education."
+        "es": "De octubre de 2024 a agosto de 2026 dirigí la Alianza Francesa de San Cristóbal de Las Casas: pilotamos el plan de relanzamiento institucional, pusimos en marcha protocolos administrativos, financieros y de recursos humanos, tejimos alianzas con el Institut Parmentier y el Colegio La Salle y lanzamos el proyecto STAFE «Potager Innovant», de agricultura urbana y educación culinaria.",
+        "fr": "D'octobre 2024 à août 2026, j'ai dirigé l'Alliance Française de San Cristóbal de Las Casas : pilotage du plan de relance institutionnel, protocoles administratifs, financiers et RH, partenariats avec l'Institut Parmentier et le Colegio La Salle, et lancement du projet STAFE « Potager Innovant », d'agriculture urbaine et d'éducation culinaire.",
+        "en": "From October 2024 to August 2026 I led the Alliance Française de San Cristóbal de Las Casas: steering the institutional recovery plan, putting administrative, financial and HR protocols in place, building alliances with the Institut Parmentier and the Colegio La Salle, and launching the STAFE “Potager Innovant” project on urban farming and culinary education."
       },
       "medios": [
-        { "tipo": "video", "archivo": "presentacion-1.mp4", "poster": "assets/images/videos/presentacion-1.jpg", "alt": "Firma del acuerdo con el CAVILAM",
-          "pie": { "es": "La firma del acuerdo con el CAVILAM", "fr": "La signature de l'accord avec le CAVILAM", "en": "Signing the agreement with CAVILAM" } },
-        { "tipo": "foto", "archivo": "assets/images/trayectoria/journees-reseau-panel.jpg", "alt": "Panel de trabajo, Journées du Réseau 2025",
-          "pie": { "es": "Panel de trabajo · Journées du Réseau 2025", "fr": "Table ronde · Journées du Réseau 2025", "en": "Working panel · Journées du Réseau 2025" } },
-        { "tipo": "foto", "archivo": "assets/images/trayectoria/journees-reseau-grupo.jpg", "alt": "Alianzas Francesas de México, Journées du Réseau 2025",
-          "pie": { "es": "Alianzas Francesas de México · Journées du Réseau 2025", "fr": "Alliances Françaises du Mexique · Journées du Réseau 2025", "en": "Alliances Françaises of Mexico · Journées du Réseau 2025" } }
+        {
+          "tipo": "video",
+          "archivo": "presentacion-1.mp4",
+          "poster": "assets/images/videos/presentacion-1.jpg",
+          "alt": "Firma del acuerdo con el CAVILAM",
+          "pie": {
+            "es": "La firma del acuerdo con el CAVILAM",
+            "fr": "La signature de l'accord avec le CAVILAM",
+            "en": "Signing the agreement with CAVILAM"
+          }
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/trayectoria/journees-reseau-panel.jpg",
+          "alt": "Panel de trabajo, Journées du Réseau 2025",
+          "pie": {
+            "es": "Panel de trabajo · Journées du Réseau 2025",
+            "fr": "Table ronde · Journées du Réseau 2025",
+            "en": "Working panel · Journées du Réseau 2025"
+          }
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/trayectoria/journees-reseau-grupo.jpg",
+          "alt": "Alianzas Francesas de México, Journées du Réseau 2025",
+          "pie": {
+            "es": "Alianzas Francesas de México · Journées du Réseau 2025",
+            "fr": "Alliances Françaises du Mexique · Journées du Réseau 2025",
+            "en": "Alliances Françaises of Mexico · Journées du Réseau 2025"
+          }
+        }
       ]
     },
     {
       "id": "aula",
       "anio": "Hoy",
       "lugar": "Con mis estudiantes",
-      "titulo": { "es": "Y siempre, el aula", "fr": "Et toujours, la salle de classe", "en": "And always, the classroom" },
+      "titulo": {
+        "es": "Y siempre, el aula",
+        "fr": "Et toujours, la salle de classe",
+        "en": "And always, the classroom"
+      },
       "cita": {
         "es": "Profesor se escribe con P de pasión.",
         "fr": "Professeur s'écrit avec P de passion.",
         "en": "“Profesor” is spelled with a P for passion."
       },
       "texto": {
-        "es": "Detrás de los cargos y los diplomas hay algo que no cambia: un profesor disponible para sus estudiantes. Si el francés es la puerta que estás buscando, te acompaño a abrirla, a tu ritmo y con escucha.",
-        "fr": "Derrière les postes et les diplômes, il y a quelque chose qui ne change pas : un professeur disponible pour ses étudiants. Si le français est la porte que vous cherchez, je vous accompagne pour l'ouvrir, à votre rythme et à l'écoute.",
-        "en": "Behind the titles and the diplomas there is something that never changes: a teacher available to his students. If French is the door you are looking for, I will help you open it, at your pace and with careful listening."
+        "es": "Detrás de los cargos y los diplomas hay algo que no cambia: un profesor disponible para sus estudiantes. Hoy me dedico a las asesorías y tutorías individualizadas, para garantizar mejores resultados. Si el francés es la puerta que buscas, te acompaño a abrirla, a tu ritmo y con escucha.",
+        "fr": "Derrière les postes et les diplômes, il y a quelque chose qui ne change pas : un professeur disponible pour ses étudiants. Aujourd'hui, je me consacre au conseil et au tutorat individualisés, pour garantir de meilleurs résultats. Si le français est la porte que vous cherchez, je vous accompagne pour l'ouvrir, à votre rythme et à l'écoute.",
+        "en": "Behind the titles and the diplomas there is something that never changes: a teacher available to his students. Today I devote myself to individual advising and tutoring, to secure better results. If French is the door you are looking for, I will help you open it, at your pace and with careful listening."
       },
       "medios": [
-        { "tipo": "foto", "archivo": "assets/images/trayectoria/clase-presencial.jpg", "alt": "En clase con estudiantes",
-          "pie": { "es": "En clase — «Profesor se escribe con P de pasión»", "fr": "En classe — « Professeur s'écrit avec P de passion »", "en": "In class — “Teacher is spelled with P for passion”" } }
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/trayectoria/clase-presencial.jpg",
+          "alt": "En clase con estudiantes",
+          "pie": {
+            "es": "En clase — «Profesor se escribe con P de pasión»",
+            "fr": "En classe — « Professeur s'écrit avec P de passion »",
+            "en": "In class — “Teacher is spelled with P for passion”"
+          }
+        }
       ],
       "cta": [
-        { "href": "reservar.html", "texto": { "es": "Reservar una clase de prueba", "fr": "Réserver un cours d'essai", "en": "Book a trial class" } },
-        { "href": "contacto.html", "texto": { "es": "Escribirme", "fr": "M'écrire", "en": "Write to me" } }
+        {
+          "href": "reservar.html",
+          "texto": {
+            "es": "Reservar una clase de prueba",
+            "fr": "Réserver un cours d'essai",
+            "en": "Book a trial class"
+          }
+        },
+        {
+          "href": "contacto.html",
+          "texto": {
+            "es": "Escribirme",
+            "fr": "M'écrire",
+            "en": "Write to me"
+          }
+        }
       ]
     }
   ]

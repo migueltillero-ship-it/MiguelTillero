@@ -162,3 +162,30 @@
   .vc-play, .vc-play-circle, .vc-nav, .vc-dot { transition: none; }
   .vc-nav:hover:not(:disabled), .vc-play:hover .vc-play-circle { transform: none; }
 }
+
+/* Vídeos verticales (9:16) dentro del carrusel */
+.vc-slide.vc-vertical { flex-basis: min(330px, 72%); }
+.vc-slide.vc-vertical .vc-video { aspect-ratio: 9 / 16; }
+
+/* Sección "Así son mis clases" (inicio) */
+.mc-wrap { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(1.6rem, 4vw, 3rem); align-items: center; }
+.mc-titulo { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: clamp(2rem, 4.2vw, 3.2rem); line-height: 1.08; margin: 0.6rem 0 1rem; color: var(--white); }
+.mc-desc { font-size: 0.98rem; line-height: 1.75; color: var(--text); margin: 0 0 1.5rem; }
+.mc-video { position: relative; margin: 0; border-radius: var(--r-md, 18px); overflow: hidden; box-shadow: var(--shadow-card), var(--glow); background: #12291c; aspect-ratio: 16 / 9; }
+.mc-video video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mc-video video[controls] { object-fit: contain; }
+.mc-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; border: 0; cursor: pointer; background: linear-gradient(0deg, rgba(18,41,28,0.35), rgba(18,41,28,0.05)); }
+.mc-play span { width: clamp(72px, 9vw, 96px); height: clamp(72px, 9vw, 96px); border-radius: 50%; background: rgba(255,255,255,0.94); color: var(--gold2); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 0 0 10px rgba(255,255,255,0.22); transition: transform 0.3s; }
+.mc-play:hover span { transform: scale(1.08); }
+.mc-play.oculto { display: none; }
+@media (max-width: 860px) {
+  .mc-wrap { grid-template-columns: minmax(0, 1fr); }
+  .mc-video.mc-vertical { aspect-ratio: 9 / 16; max-width: 340px; max-height: 78vh; margin: 0 auto; }
+}
+
+/* Botón del hero que lleva al video de las clases */
+.hero-cta .btn-clases { background: var(--cyan); border-color: var(--cyan); color: #fff; }
+.hero-cta .btn-clases:hover { background: #0a6444; border-color: #0a6444; }
+.hero-cta .btn-clases i { animation: mcPulso 1.8s ease-in-out infinite; }
+@keyframes mcPulso { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3); } }
+@media (prefers-reduced-motion: reduce) { .hero-cta .btn-clases i { animation: none; } }

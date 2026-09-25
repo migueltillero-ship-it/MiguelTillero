@@ -1,6 +1,27 @@
 {
   "videos": [
     {
+      "archivo": "venez-vivre-francais-16x9.mp4",
+      "poster": "assets/images/videos/venez-vivre-16x9.jpg",
+      "titulo": "Así son mis clases",
+      "titulo_fr": "Mes cours en images",
+      "titulo_en": "What my classes are like",
+      "descripcion": "«Venez vivre le français»: aprender un idioma es descubrir, improvisar y conectar con el otro. Clases individuales, en grupo y club de conversación.",
+      "descripcion_fr": "« Venez vivre le français » : apprendre une langue, c'est découvrir, improviser et se connecter à l'autre. Cours individuels, en groupe et club de conversation.",
+      "descripcion_en": "“Venez vivre le français”: learning a language means discovering, improvising and connecting with others. Individual and group classes, plus a conversation club."
+    },
+    {
+      "archivo": "gout-de-la-france-la-salle.mp4",
+      "formato": "vertical",
+      "poster": "assets/images/videos/gout-de-la-france.jpg",
+      "titulo": "Le Goût de la France · Colegio La Salle",
+      "titulo_fr": "Le Goût de la France · Colegio La Salle",
+      "titulo_en": "Le Goût de la France · Colegio La Salle",
+      "descripcion": "Una clase-taller con los grupos de 3.º A y 3.º B del Colegio La Salle San Cristóbal: el sabor de Francia, aprendido cocinando.",
+      "descripcion_fr": "Un atelier avec les classes de 3.º A et 3.º B du Colegio La Salle San Cristóbal : la saveur de la France, apprise en cuisinant.",
+      "descripcion_en": "A workshop class with the 3.º A and 3.º B groups of Colegio La Salle San Cristóbal: the taste of France, learned by cooking."
+    },
+    {
       "archivo": "presentacion-1.mp4",
       "poster": "assets/images/videos/presentacion-1.jpg",
       "titulo": "Alianza con el CAVILAM",
@@ -47,6 +68,17 @@
       "descripcion": "El club de conversación semanal: una nueva destinación francófona cada viernes.",
       "descripcion_fr": "Le club de conversation hebdomadaire : une nouvelle destination francophone chaque vendredi.",
       "descripcion_en": "The weekly conversation club: a new francophone destination every Friday."
+    },
+    {
+      "archivo": "venez-vivre-francais-15s.mp4",
+      "formato": "vertical",
+      "poster": "assets/images/videos/venez-vivre-15s.jpg",
+      "titulo": "Venez vivre le français · en 15 segundos",
+      "titulo_fr": "Venez vivre le français · en 15 secondes",
+      "titulo_en": "Venez vivre le français · in 15 seconds",
+      "descripcion": "La invitación, en versión corta para compartir.",
+      "descripcion_fr": "L'invitation, en version courte à partager.",
+      "descripcion_en": "The invitation, in a short version to share."
     }
   ]
 }

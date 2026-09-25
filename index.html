@@ -88,11 +88,10 @@
   "url": "https://migueltillero-ship-it.github.io/MiguelTillero/",
   "image": "https://migueltillero-ship-it.github.io/MiguelTillero/assets/images/portrait-miguel-1.jpg",
   "jobTitle": "Profesor de francés · Especialista FLE",
-  "worksFor": {"@type": "Organization", "name": "Alliance Française de San Cristóbal de Las Casas"},
   "address": {"@type": "PostalAddress", "addressLocality": "San Cristóbal de Las Casas", "addressRegion": "Chiapas", "addressCountry": "MX"},
   "email": "mailto:migueltillero@gmail.com",
   "knowsLanguage": ["es", "fr", "en"],
-  "description": "Profesor especialista en FLE. Director de Alliance Française, formador, traductor ES-FR y gestor cultural con 13 años de experiencia.",
+  "description": "Profesor especialista en FLE. Ex director de Alliance Française, asesor y tutor de francés, formador, traductor ES-FR y gestor cultural con 13 años de experiencia.",
   "alumniOf": {"@type": "EducationalOrganization", "name": "Universidad Pedagógica Experimental Libertador (UPEL)"}
 }
 </script>
@@ -316,7 +315,7 @@
     <div class="hero-inner">
       <div>
         <div class="hero-pre">
-          <span>Direction Générale · FLE Specialist</span>
+          <span data-es="Asesorías y tutorías de francés · FLE" data-fr="Conseil et tutorat de français · FLE" data-en="French advising &amp; tutoring · FLE">Asesorías y tutorías de francés · FLE</span>
         </div>
         <h1 class="hero-name">
           Miguel
@@ -328,6 +327,7 @@
         <div class="hero-cta">
           <button onclick="openModal('modal-clase')" class="btn btn-gold"><i class="fa fa-graduation-cap"></i><span data-es="Clase de prueba gratuita" data-fr="Cours d'essai gratuit" data-en="Free trial class">Clase de prueba gratuita</span></button>
           <a href="contacto.html#contact" class="btn btn-ghost"><i class="fa fa-envelope"></i><span data-es="Escribirme" data-fr="Me contacter" data-en="Contact me">Escribirme</span></a>
+          <a href="#mis-clases" class="btn btn-ghost btn-clases"><i class="fa fa-play"></i><span data-es="Así son mis clases" data-fr="Mes cours en images" data-en="What my classes are like">Así son mis clases</span></a>
           <!-- CV dropdown -->
           <div style="position:relative;display:inline-block" id="cv-drop-wrap">
             <button class="btn btn-ghost" onclick="document.getElementById('cv-drop').classList.toggle('open')" style="gap:.5rem">
@@ -450,6 +450,48 @@
     </div>
   </div>
 </section>
+<section id="mis-clases" class="z10" data-page="inicio">
+  <div class="container">
+    <div class="mc-wrap reveal">
+      <div class="mc-texto">
+        <p class="eyebrow" data-es="Así son mis clases" data-fr="Mes cours en images" data-en="What my classes are like">Así son mis clases</p>
+        <h2 class="mc-titulo"><em data-es="Venez vivre le français." data-fr="Venez vivre le français." data-en="Venez vivre le français.">Venez vivre le français.</em></h2>
+        <p class="mc-desc" data-es="Aprender un idioma no es un simple ejercicio académico: es una invitación a vivir, a romper los esquemas de siempre, a descubrir y a conectar de verdad con el otro. Clases individuales, en grupo y club de conversación, con acompañamiento cercano." data-fr="Apprendre une langue n'est pas un simple exercice académique : c'est une invitation à vivre, à briser les schémas habituels, à découvrir et à se connecter vraiment à l'autre. Cours individuels, en groupe et club de conversation, avec un accompagnement de près." data-en="Learning a language is not a simple academic exercise: it is an invitation to live, to break the usual patterns, to discover and to truly connect with others. Individual and group classes and a conversation club, with close support.">Aprender un idioma no es un simple ejercicio académico: es una invitación a vivir, a romper los esquemas de siempre, a descubrir y a conectar de verdad con el otro. Clases individuales, en grupo y club de conversación, con acompañamiento cercano.</p>
+        <div class="hero-cta">
+          <button onclick="openModal('modal-clase')" class="btn btn-gold"><i class="fa fa-graduation-cap"></i><span data-es="Clase de prueba gratuita" data-fr="Cours d'essai gratuit" data-en="Free trial class">Clase de prueba gratuita</span></button>
+        </div>
+      </div>
+      <figure class="mc-video" id="mc-video">
+        <video id="mc-v" preload="none" playsinline poster="assets/images/videos/venez-vivre-16x9.jpg"></video>
+        <button class="mc-play" id="mc-play" type="button" aria-label="Ver el video de mis clases" data-es-aria="Ver el video de mis clases" data-fr-aria="Voir la vidéo de mes cours" data-en-aria="Watch the video of my classes"><span><i class="fa fa-play"></i></span></button>
+      </figure>
+    </div>
+  </div>
+</section>
+<script>
+(function () {
+  var v = document.getElementById('mc-v'), b = document.getElementById('mc-play'), f = document.getElementById('mc-video');
+  if (!v) return;
+  var mq = window.matchMedia('(max-width: 700px)');
+  var H = { src: 'venez-vivre-francais-16x9.mp4', poster: 'assets/images/videos/venez-vivre-16x9.jpg' };
+  var V = { src: 'venez-vivre-francais-9x16.mp4', poster: 'assets/images/videos/venez-vivre-9x16.jpg' };
+  function ajustar() {
+    if (v.getAttribute('src')) return;
+    var vert = mq.matches, d = vert ? V : H;
+    f.classList.toggle('mc-vertical', vert);
+    v.poster = d.poster; v.dataset.src = d.src;
+  }
+  ajustar();
+  if (mq.addEventListener) mq.addEventListener('change', ajustar);
+  b.addEventListener('click', function () {
+    if (!v.getAttribute('src')) v.src = v.dataset.src;
+    v.controls = true;
+    var p = v.play(); if (p && p.then) p.then(function () { b.classList.add('oculto'); }).catch(function () {});
+  });
+  v.addEventListener('pause', function () { if (!v.ended) return; b.classList.remove('oculto'); });
+  v.addEventListener('ended', function () { b.classList.remove('oculto'); });
+})();
+</script>
 <section id="proximo-evento" class="z10" data-page="inicio">
   <div class="container">
     <div class="panel bracket reveal" style="max-width:840px;margin:0 auto;padding:clamp(1.8rem,4vw,3rem);display:grid;grid-template-columns:auto 1fr;gap:clamp(1.5rem,4vw,2.5rem);align-items:center;">
