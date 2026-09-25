@@ -69,8 +69,8 @@ h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--a
 <a href="index.html" class="back-link"><i class="fa fa-arrow-left"></i> Volver al inicio</a>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="assets/js/supabase-config.js?v=1790366366"></script>
-<script src="assets/js/auth-helpers.js?v=1790366366"></script>
+<script src="assets/js/supabase-config.js?v=1790367453"></script>
+<script src="assets/js/auth-helpers.js?v=1790367453"></script>
 <script>
 /* Si un panel no pudo confirmar la sesión y nos devolvió aquí, se dice por qué. */
 (function () {
@@ -83,7 +83,7 @@ h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--a
         /* Que no haya token guardado es lo normal cuando la sesión caduca o
            se entra desde un enlace viejo: eso no es un fallo y no debe
            mostrarse en rojo. Solo se pide avisar cuando algo va mal de veras. */
-        var soloCaducada = d.indexOf('sin token guardado') !== -1;
+        var soloCaducada = d.indexOf('sin token guardado') !== -1 || d.indexOf('se limpió') !== -1;
         el.textContent = soloCaducada
             ? 'Tu sesión se cerró por inactividad. Vuelve a entrar para abrir tu espacio.'
             : 'No pudimos abrir tu panel. Vuelve a intentarlo y, si se repite, avisa a Miguel con este detalle: ' + d;

@@ -24,6 +24,53 @@ function mostrarAvisoSinConfigurar(elId) {
  * Reintenta una vez más si la primera lectura no encuentra sesión, por
  * si el cliente todavía estaba inicializándose.
  */
+/**
+ * Cuando el cliente no encuentra sesión pero en el navegador sí quedó un
+ * token, lo normal no es que haya un fallo: es que ese token está rancio
+ * (caducó y su refresh token ya no sirve, o es de otro proyecto de
+ * Supabase). Mientras siga ahí, cada visita al panel vuelve a rebotar y el
+ * usuario se queda encerrado sin entender por qué.
+ *
+ * Esta función lo limpia para que el siguiente intento parta de cero, y
+ * devuelve en pocas palabras qué se encontró.
+ */
+function limpiarSesionRancia() {
+  var refProyecto = '';
+  try {
+    refProyecto = (SUPABASE_URL || '').replace(/^https?:\/\//, '').split('.')[0];
+  } catch (e) { /* sin config: se limpia igual lo que parezca de Supabase */ }
+
+  var deEsteProyecto = 0, deOtroProyecto = 0, caducados = 0;
+  var aBorrar = [];
+
+  try {
+    for (var i = 0; i < localStorage.length; i++) {
+      var k = localStorage.key(i);
+      if (!/^sb-.+-auth-token$/.test(k)) continue;
+      var esNuestro = refProyecto && k.indexOf('sb-' + refProyecto + '-') === 0;
+      if (esNuestro) deEsteProyecto++; else deOtroProyecto++;
+
+      // ¿Caducado? Se mira el "exp" del propio token, sin llamar a la red.
+      try {
+        var v = JSON.parse(localStorage.getItem(k) || 'null');
+        var t = v && (v.access_token || (v.currentSession && v.currentSession.access_token));
+        var exp = t && JSON.parse(atob(t.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))).exp;
+        if (exp && exp * 1000 <= Date.now()) caducados++;
+      } catch (e) { /* ilegible: se trata como rancio igualmente */ }
+
+      aBorrar.push(k);
+    }
+    aBorrar.forEach(function (k) { localStorage.removeItem(k); });
+  } catch (e) {
+    return 'el navegador bloquea el almacenamiento local';
+  }
+
+  if (!aBorrar.length) return 'sin token guardado';
+  if (deOtroProyecto && !deEsteProyecto) return 'había un token de otro proyecto de Supabase; se limpió';
+  if (caducados) return 'la sesión guardada había caducado; se limpió';
+  return 'la sesión guardada ya no era válida; se limpió';
+}
+
 async function obtenerPerfilActual() {
   if (!supabaseClient) { window.__ultimoDiagPerfil = 'no hay supabaseClient'; return null; }
   try {
@@ -46,16 +93,7 @@ async function obtenerPerfilActual() {
       }
     }
     if (!user) {
-      /* Distinguir entre "no hay nada guardado" (sesión caducada o cerrada,
-         que es lo normal) y "hay un token guardado pero el cliente no lo ve"
-         (un fallo de verdad) ahorra mucho tiempo al diagnosticar. */
-      var huella = 'sin token guardado';
-      try {
-        for (var i = 0; i < localStorage.length; i++) {
-          if (/^sb-.+-auth-token$/.test(localStorage.key(i))) { huella = 'hay token guardado pero el cliente no lo leyó'; break; }
-        }
-      } catch (e) { huella = 'el navegador bloquea el almacenamiento local'; }
-      window.__ultimoDiagPerfil = 'sin sesión · ' + huella;
+      window.__ultimoDiagPerfil = 'sin sesión · ' + limpiarSesionRancia();
       return null;
     }
     const { data: perfil, error } = await supabaseClient
