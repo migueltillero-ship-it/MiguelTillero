@@ -36,7 +36,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="assets/js/supabase-config.js"></script>
+<script>document.write('<script src="assets/js/supabase-config.js?d=' + Date.now() + '"><\/script>');</script>
 <script>
 var lineas = [];
 try { lineas = JSON.parse(sessionStorage.getItem('mt_diag_log') || '[]'); if (lineas.length) lineas.push('', '═══ (se recargó la página) ═══'); } catch (e) {}
@@ -49,12 +49,39 @@ async function estado(titulo) {
   p('— ' + titulo + ' —');
   p('sitio: ' + location.origin + location.pathname);
   try { localStorage.setItem('mt_t', '1'); p('localStorage guarda datos: ' + (localStorage.getItem('mt_t') === '1')); localStorage.removeItem('mt_t'); } catch (e) { p('localStorage ERROR: ' + e.message); }
+  /* Guardar la sesión son unos 3 KB. Una escritura de un carácter puede
+     caber donde una de 4 KB ya no: por eso se prueban los dos tamaños. */
+  try {
+    var grande = new Array(4097).join('x');
+    localStorage.setItem('mt_t4', grande);
+    p('localStorage admite 4 KB (el tamaño de una sesión): ' + (localStorage.getItem('mt_t4') === grande));
+    localStorage.removeItem('mt_t4');
+  } catch (e) { p('localStorage 4 KB FALLA: ' + e.name + ' — ' + e.message); }
+  try {
+    var total = 0, n = 0;
+    for (var q = 0; q < localStorage.length; q++) { var kq = localStorage.key(q); total += (kq + (localStorage.getItem(kq) || '')).length; n++; }
+    p('localStorage ocupado: ' + Math.round(total / 1024) + ' KB en ' + n + ' entradas');
+  } catch (e) {}
+  p('almacén elegido por el cliente: ' + (window.__mtAlmacenSesion || '(no informado)'));
   try { sessionStorage.setItem('mt_t', '1'); p('sessionStorage guarda datos: ' + (sessionStorage.getItem('mt_t') === '1')); sessionStorage.removeItem('mt_t'); } catch (e) { p('sessionStorage ERROR: ' + e.message); }
   p('cookies activadas: ' + navigator.cookieEnabled + ' · navigator.locks: ' + !!navigator.locks);
   try {
     var claves = [];
     for (var i = 0; i < localStorage.length; i++) { var k = localStorage.key(i); if (k.indexOf('sb-') === 0) claves.push(k + ' (' + (localStorage.getItem(k) || '').length + ' caracteres)'); }
     p('sesión guardada en el navegador: ' + (claves.length ? claves.join(', ') : 'NINGUNA'));
+    for (var j = 0; j < localStorage.length; j++) {
+      var kk = localStorage.key(j);
+      if (!/^sb-.+-auth-token$/.test(kk)) continue;
+      try {
+        var vv = JSON.parse(localStorage.getItem(kk) || 'null');
+        var tt = vv && (vv.access_token || (vv.currentSession && vv.currentSession.access_token));
+        if (!tt) { p('   ' + kk + ': SIN access_token dentro'); continue; }
+        var ex = JSON.parse(atob(tt.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'))).exp;
+        var mins = Math.round((ex * 1000 - Date.now()) / 60000);
+        p('   ' + kk + ': ' + (mins > 0 ? 'vigente, caduca en ' + mins + ' min' : 'CADUCADO hace ' + (-mins) + ' min')
+          + ' · refresh_token: ' + (vv.refresh_token ? 'sí' : 'NO'));
+      } catch (e) { p('   ' + kk + ': ilegible (' + e.message + ')'); }
+    }
   } catch (e) { p('no se pudo leer el almacenamiento: ' + e.message); }
   var listo = typeof supabaseConfigurado !== 'undefined' && supabaseConfigurado;
   p('librería de Supabase cargada: ' + !!window.supabase + ' · cliente listo: ' + listo);
@@ -63,6 +90,10 @@ async function estado(titulo) {
     var r = await supabaseClient.auth.getSession();
     p('getSession: ' + (r.data && r.data.session ? 'HAY sesión' : 'SIN sesión') + (r.error ? ' · error: ' + r.error.message : ''));
   } catch (e) { p('getSession excepción: ' + e.message); }
+  try {
+    var u = await supabaseClient.auth.getUser();
+    p('getUser: ' + (u.data && u.data.user ? 'HAY usuario' : 'SIN usuario') + (u.error ? ' · error: ' + u.error.message : ''));
+  } catch (e) { p('getUser excepción: ' + e.message); }
 }
 document.getElementById('f').addEventListener('submit', async function (ev) {
   ev.preventDefault();
@@ -70,8 +101,27 @@ document.getElementById('f').addEventListener('submit', async function (ev) {
   p('');
   p('— Paso 1: iniciando sesión —');
   var r = await supabaseClient.auth.signInWithPassword({ email: document.getElementById('email').value.trim(), password: document.getElementById('clave').value });
-  if (r.error) { p('signInWithPassword ERROR: ' + r.error.message); return; }
-  p('signInWithPassword: correcto');
+  if (r.error) {
+    p('signInWithPassword ERROR: ' + r.error.message + ' · código: ' + (r.error.code || r.error.status || '?'));
+    return;
+  }
+  /* Que no haya error NO garantiza que haya sesión: hay configuraciones en
+     las que Supabase devuelve el usuario sin sesión. Ese es justo el caso
+     que hay que distinguir. */
+  var hayU = !!(r.data && r.data.user), hayS = !!(r.data && r.data.session);
+  p('signInWithPassword: sin error · devuelve usuario: ' + hayU + ' · devuelve SESIÓN: ' + hayS);
+  if (hayU) {
+    p('   usuario: ' + (r.data.user.email || '?') + ' · id: ' + (r.data.user.id || '?').slice(0, 8) + '…');
+    p('   correo confirmado: ' + (r.data.user.email_confirmed_at ? 'SÍ (' + r.data.user.email_confirmed_at.slice(0,10) + ')' : 'NO'));
+    p('   rol del token: ' + (r.data.user.role || '?') + ' · aud: ' + (r.data.user.aud || '?'));
+  }
+  if (hayS) {
+    p('   la sesión trae access_token: ' + !!r.data.session.access_token + ' · refresh_token: ' + !!r.data.session.refresh_token);
+    p('   caduca en: ' + Math.round(((r.data.session.expires_at || 0) * 1000 - Date.now()) / 60000) + ' min');
+  } else {
+    p('   ⚠ NO llegó sesión: por eso las páginas siguientes no encuentran nada que guardar.');
+  }
+  try { p('clave de almacenamiento del cliente: ' + (supabaseClient.auth.storageKey || '(no expuesta)')); } catch (e) {}
   await estado('justo después de entrar');
   try {
     var pr = await supabaseClient.from('profiles').select('role').eq('id', r.data.user.id).maybeSingle();

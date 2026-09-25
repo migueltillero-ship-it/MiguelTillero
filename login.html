@@ -69,8 +69,8 @@ h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--a
 <a href="index.html" class="back-link"><i class="fa fa-arrow-left"></i> Volver al inicio</a>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="assets/js/supabase-config.js?v=1790367453"></script>
-<script src="assets/js/auth-helpers.js?v=1790367453"></script>
+<script src="assets/js/supabase-config.js?v=1790373799"></script>
+<script src="assets/js/auth-helpers.js?v=1790373799"></script>
 <script>
 /* Si un panel no pudo confirmar la sesión y nos devolvió aquí, se dice por qué. */
 (function () {
@@ -172,6 +172,32 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
         btn.disabled = false;
         return;
     }
+
+    /* Antes de saltar al panel, se comprueba que la sesión haya quedado
+       guardada de verdad. Si no, el panel no la encontrará y devolverá aquí:
+       en vez de meter al usuario en ese bucle, se le dice qué ocurre y qué
+       hacer. La causa habitual es tener otras pestañas del sitio abiertas,
+       porque comparten el almacén y una pestaña con la sesión caducada puede
+       borrarla para todas. */
+    let sesionGuardada = null;
+    for (let intento = 0; intento < 3 && !sesionGuardada; intento++) {
+        if (intento > 0) await new Promise(r => setTimeout(r, 350));
+        try {
+            const { data: s } = await supabaseClient.auth.getSession();
+            sesionGuardada = s && s.session;
+        } catch (e) { /* se reintenta */ }
+    }
+
+    if (!sesionGuardada) {
+        const donde = window.__mtAlmacenSesion || 'el navegador';
+        mostrarMsg(msgEl,
+            'Tu usuario y tu contraseña son correctos, pero este navegador no está conservando la sesión '
+            + '(almacén en uso: ' + donde + '). Cierra las demás pestañas de este sitio y vuelve a intentarlo. '
+            + 'Si sigue igual, borra los datos del sitio en tu navegador y entra de nuevo.', 'error');
+        btn.disabled = false;
+        return;
+    }
+
     window.location.href = (perfil.role === 'docente' || perfil.role === 'admin') ? 'panel-docente.html' : 'panel-estudiante.html';
 });
 

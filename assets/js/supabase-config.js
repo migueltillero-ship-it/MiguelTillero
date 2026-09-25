@@ -53,7 +53,59 @@ if (credencialesPuestas && window.supabase) {
     } catch (e) { /* ante cualquier duda, la petición sale como estaba */ }
     return fetch(input, init);
   }
-  supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, { global: { fetch: fetchConToken } });
+  /* Almacenamiento a prueba de fallos.
+     Guardar la sesión son unos 3 KB. Si localStorage está lleno, o el
+     navegador lo restringe, esa escritura falla EN SILENCIO: supabase-js no
+     avisa, y como getSession() lee del almacenamiento, la sesión desaparece
+     nada más crearse y el panel devuelve al login sin explicación.
+     Aquí se comprueba con una escritura real del tamaño que hace falta, y
+     si no cabe se pasa a sessionStorage (que sobrevive a moverse entre
+     páginas de la misma pestaña) y, en último caso, a memoria. */
+  function sirveParaGuardar(almacen) {
+    try {
+      var k = '__mt_prueba__', v = new Array(4097).join('x');   // 4 KB
+      almacen.setItem(k, v);
+      var vale = almacen.getItem(k) === v;
+      almacen.removeItem(k);
+      return vale;
+    } catch (e) { return false; }
+  }
+
+  function almacenamientoResistente() {
+    var elegido = null, cual = 'memoria';
+    try { if (window.localStorage && sirveParaGuardar(window.localStorage)) { elegido = window.localStorage; cual = 'localStorage'; } } catch (e) {}
+    if (!elegido) {
+      try { if (window.sessionStorage && sirveParaGuardar(window.sessionStorage)) { elegido = window.sessionStorage; cual = 'sessionStorage'; } } catch (e) {}
+    }
+    var memoria = {};
+    window.__mtAlmacenSesion = cual;   // visible para la página de diagnóstico
+    return {
+      getItem: function (k) {
+        try { if (elegido) { var v = elegido.getItem(k); if (v !== null) return v; } } catch (e) {}
+        return Object.prototype.hasOwnProperty.call(memoria, k) ? memoria[k] : null;
+      },
+      setItem: function (k, v) {
+        /* Se verifica que lo escrito se pueda releer. Si no, se guarda en
+           memoria para que al menos la página actual funcione. */
+        try { if (elegido) { elegido.setItem(k, v); if (elegido.getItem(k) === v) { delete memoria[k]; return; } } } catch (e) {}
+        memoria[k] = v;
+      },
+      removeItem: function (k) {
+        try { if (elegido) elegido.removeItem(k); } catch (e) {}
+        delete memoria[k];
+      }
+    };
+  }
+
+  supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    auth: {
+      storage: almacenamientoResistente(),
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: true
+    },
+    global: { fetch: fetchConToken }
+  });
 }
 
 /* La plataforma solo es utilizable si además de las credenciales llegó la
