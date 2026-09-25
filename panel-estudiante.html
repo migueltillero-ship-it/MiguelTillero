@@ -37,6 +37,39 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
 .stat .lbl { font-family:'Space Mono',monospace; font-size:0.6rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-light); }
 .pill-si { color: var(--accent-green); font-weight:600; }
 .pill-no { color: #a13324; font-weight:600; }
+/* --- Bienvenida y recorrido del curso --- */
+.hola { font-family:'Cormorant Garamond',serif; font-size:2.4rem; color:var(--accent-green); margin:0 0 0.2rem; line-height:1.15; }
+.hola em { font-style:italic; color:var(--primary-color); }
+.panel-curso { background:var(--accent-green); color:#eef0e5; border-radius:var(--r-md); padding:1.7rem; margin-bottom:1.6rem; }
+.panel-curso h2 { font-family:'Cormorant Garamond',serif; font-size:1.75rem; color:#fff; margin:0 0 0.5rem; }
+.curso-meta { display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:1.1rem; }
+.chip { font-family:'Space Mono',monospace; font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase;
+        background:rgba(238,240,229,0.16); color:#eef0e5; padding:0.3rem 0.7rem; border-radius:var(--r-pill); }
+.curso-acciones { display:flex; flex-wrap:wrap; gap:0.6rem; }
+.btn-claro { display:inline-flex; align-items:center; gap:0.45rem; background:#eef0e5; color:var(--accent-green);
+             text-decoration:none; padding:0.65rem 1.2rem; border-radius:var(--r-pill); font-weight:600; font-size:0.85rem; }
+.btn-claro:hover { background:#fff; }
+.btn-borde { display:inline-flex; align-items:center; gap:0.45rem; background:transparent; color:#eef0e5;
+             border:1px solid rgba(238,240,229,0.5); text-decoration:none; padding:0.65rem 1.2rem;
+             border-radius:var(--r-pill); font-weight:600; font-size:0.85rem; }
+.btn-borde:hover { background:rgba(238,240,229,0.12); }
+.bienvenida { font-size:0.95rem; line-height:1.72; color:var(--text-light); }
+.ruta { list-style:none; padding:0; margin:0; }
+.ruta li { position:relative; padding:0 0 1.3rem 2.1rem; border-left:2px solid var(--border); margin-left:0.55rem; }
+.ruta li:last-child { border-left-color:transparent; padding-bottom:0; }
+.ruta li::before { content:''; position:absolute; left:-0.6rem; top:0.25rem; width:1.1rem; height:1.1rem;
+                   border-radius:50%; background:var(--card-bg); border:2px solid var(--border); }
+.ruta li.vista::before { background:var(--accent-green); border-color:var(--accent-green); }
+.ruta li.en_curso::before { background:var(--primary-color); border-color:var(--primary-color);
+                            box-shadow:0 0 0 4px rgba(140,115,75,0.18); }
+.ruta .u-tit { font-weight:600; font-size:1rem; color:var(--text-dark); }
+.ruta .u-det { font-family:'Space Mono',monospace; font-size:0.64rem; letter-spacing:0.05em;
+               text-transform:uppercase; color:var(--primary-color); margin:0.2rem 0 0.4rem; }
+.ruta .u-obj { font-size:0.85rem; line-height:1.62; color:var(--text-light); }
+.meta-caja { background:rgba(140,115,75,0.09); border-left:3px solid var(--primary-color);
+             border-radius:var(--r-xs); padding:1rem 1.2rem; font-size:0.9rem; line-height:1.65; color:var(--text-dark); }
+.aviso-cierre { background:rgba(43,69,53,0.07); border-radius:var(--r-xs); padding:1rem 1.2rem;
+                font-size:0.88rem; line-height:1.65; color:var(--accent-green); margin-top:1rem; }
 .select-curso { max-width: 320px; margin-bottom:1rem; }
 .select-curso select { width:100%; padding:0.7rem; border:1px solid var(--border); border-radius:8px; font-family:'Syne',sans-serif; font-size:0.9rem; }
 .msg { margin-top: 0.8rem; padding: 0.7rem 0.9rem; border-radius: var(--r-xs); font-size: 0.82rem; }
@@ -64,22 +97,35 @@ select { padding:0.7rem; border:1px solid var(--border); border-radius:8px; font
     </div>
 
     <div id="contenido-panel" style="display:none;">
-        <section class="panel" id="panel-pagos" style="display:none;">
-            <h2>Mis pagos</h2>
-            <table>
-                <thead><tr><th>Concepto</th><th>Monto</th><th>Estado</th><th>Fecha</th></tr></thead>
-                <tbody id="tabla-pagos"></tbody>
-            </table>
-        </section>
+        <h1 class="hola" id="saludo"></h1>
+        <p class="muted" id="subsaludo" style="margin:0 0 1.4rem;">Aquí tienes tu curso, tu calendario y tu avance.</p>
 
         <div class="select-curso">
             <select id="selector-curso" onchange="seleccionarInscripcion(this.value)"></select>
         </div>
 
-        <section class="panel" id="panel-resumen">
+
+        <section class="panel-curso" id="panel-resumen">
             <h2 id="titulo-curso"></h2>
-            <p class="muted" id="fechas-curso"></p>
-            <span class="badge" id="badge-estado"></span>
+            <div class="curso-meta" id="curso-meta"></div>
+            <div class="curso-acciones" id="curso-acciones"></div>
+        </section>
+
+        <section class="panel" id="panel-bienvenida" style="display:none;">
+            <h2>Antes de empezar</h2>
+            <p class="bienvenida" id="texto-bienvenida"></p>
+        </section>
+
+        <section class="panel" id="panel-ruta" style="display:none;">
+            <h2>Tu recorrido hasta aquí</h2>
+            <p class="muted" style="margin:-0.5rem 0 1.3rem;">Lo que ya trabajaste, lo que estamos viendo y lo que viene.</p>
+            <ul class="ruta" id="lista-ruta"></ul>
+        </section>
+
+        <section class="panel" id="panel-meta" style="display:none;">
+            <h2>Hasta dónde vamos a llegar</h2>
+            <div class="meta-caja" id="texto-meta"></div>
+            <div class="aviso-cierre" id="aviso-cierre"></div>
         </section>
 
         <section class="panel" id="panel-pendiente" style="display:none;">
@@ -132,6 +178,14 @@ select { padding:0.7rem; border:1px solid var(--border); border-radius:8px; font
                 </table>
             </section>
         </div>
+
+        <section class="panel" id="panel-pagos" style="display:none;">
+            <h2>Mis pagos</h2>
+            <table>
+                <thead><tr><th>Concepto</th><th>Monto</th><th>Estado</th><th>Fecha</th></tr></thead>
+                <tbody id="tabla-pagos"></tbody>
+            </table>
+        </section>
     </div>
 </main>
 
@@ -157,9 +211,13 @@ async function iniciar() {
     perfilEstudiante = contexto.perfil;
     document.getElementById('nombre-estudiante').textContent = perfilEstudiante.nombre_completo;
 
+    // El primer nombre basta para el saludo; el completo ya sale en la barra.
+    const primerNombre = (perfilEstudiante.nombre_completo || '').trim().split(/\s+/)[0] || '';
+    document.getElementById('saludo').innerHTML = 'Bienvenido a tu espacio, <em>' + esc(primerNombre) + '</em>';
+
     const { data: insc } = await supabaseClient
         .from('inscripciones')
-        .select('*, cursos(*)')
+        .select('*, cursos(*), grupos(*)')
         .eq('estudiante_id', perfilEstudiante.id)
         .order('created_at', { ascending: false });
 
@@ -172,6 +230,8 @@ async function iniciar() {
     document.getElementById('contenido-panel').style.display = 'block';
     const sel = document.getElementById('selector-curso');
     sel.innerHTML = inscripciones.map(i => `<option value="${i.id}">${esc(i.cursos.nombre)} (${i.estado})</option>`).join('');
+    // Con un solo curso el desplegable no aporta nada y estorba.
+    sel.closest('.select-curso').style.display = inscripciones.length > 1 ? 'block' : 'none';
 
     const { data: tipos } = await supabaseClient.from('tipos_constancia').select('*').eq('activo', true).order('nombre');
     tiposConstancia = tipos || [];
@@ -233,15 +293,105 @@ async function solicitarConstancia() {
     await cargarSolicitudesConstancia(inscripcionId);
 }
 
+const MODALIDAD = { virtual: 'En línea', presencial: 'Presencial', hibrido: 'Híbrido' };
+const DIAS_ORDEN = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'];
+
+function fechaCorta(iso) {
+    if (!iso) return '—';
+    const [a, m, d] = iso.split('-').map(Number);
+    return new Date(a, m - 1, d).toLocaleDateString('es-MX', { day: 'numeric', month: 'long' });
+}
+
+// El horario del grupo viene como jsonb: { dias:[...], hora_inicio, hora_fin }
+function horarioTexto(grupo) {
+    const h = grupo.horario;
+    if (!h || !h.dias || !h.dias.length) return '';
+    const dias = h.dias.slice().sort((x, y) => DIAS_ORDEN.indexOf(x) - DIAS_ORDEN.indexOf(y));
+    const lista = dias.length > 1
+        ? dias.slice(0, -1).join(', ') + ' y ' + dias[dias.length - 1]
+        : dias[0];
+    const franja = h.hora_inicio && h.hora_fin ? ` · ${h.hora_inicio} – ${h.hora_fin}` : '';
+    return lista.charAt(0).toUpperCase() + lista.slice(1) + franja;
+}
+
+function pintarCabeceraCurso(curso, grupo, insc) {
+    // El título lleva el módulo y, si está, la unidad que se trabaja.
+    const titulo = curso.nombre + (grupo.unidad_actual ? ' · ' + grupo.unidad_actual : '');
+    document.getElementById('titulo-curso').textContent = titulo;
+
+    const chips = [];
+    if (grupo.modalidad) chips.push(MODALIDAD[grupo.modalidad] || grupo.modalidad);
+    const horario = horarioTexto(grupo);
+    if (horario) chips.push(horario);
+    const desde = grupo.fecha_inicio || curso.fecha_inicio;
+    const hasta = grupo.fecha_fin || curso.fecha_fin;
+    if (desde) chips.push(`Del ${fechaCorta(desde)} al ${fechaCorta(hasta)}`);
+    chips.push(insc.estado === 'activa' ? 'Inscripción confirmada' : 'Inscripción ' + insc.estado);
+    document.getElementById('curso-meta').innerHTML =
+        chips.map(c => `<span class="chip">${esc(c)}</span>`).join('');
+
+    // Zoom y WhatsApp solo aparecen si el docente ya los cargó.
+    const acciones = [];
+    if (grupo.enlace_zoom) {
+        acciones.push(`<a class="btn-claro" href="${esc(grupo.enlace_zoom)}" target="_blank" rel="noopener">
+            <i class="fa-solid fa-video"></i> Entrar a la clase</a>`);
+    }
+    if (grupo.enlace_whatsapp) {
+        acciones.push(`<a class="btn-borde" href="${esc(grupo.enlace_whatsapp)}" target="_blank" rel="noopener">
+            <i class="fa-brands fa-whatsapp"></i> Grupo de WhatsApp</a>`);
+    }
+    document.getElementById('curso-acciones').innerHTML = acciones.join('');
+}
+
+async function pintarRecorrido(grupo) {
+    const bienvenida = document.getElementById('panel-bienvenida');
+    if (grupo.mensaje_bienvenida) {
+        document.getElementById('texto-bienvenida').textContent = grupo.mensaje_bienvenida;
+        bienvenida.style.display = 'block';
+    } else {
+        bienvenida.style.display = 'none';
+    }
+
+    const panelMeta = document.getElementById('panel-meta');
+    if (grupo.meta_ciclo) {
+        document.getElementById('texto-meta').textContent = grupo.meta_ciclo;
+        document.getElementById('aviso-cierre').innerHTML =
+            '<strong>Cómo cierra el ciclo:</strong> las dos últimas clases son la evaluación de cierre. '
+          + 'Las verás marcadas abajo, en la planificación, para que llegues preparado y sin sorpresas.';
+        panelMeta.style.display = 'block';
+    } else {
+        panelMeta.style.display = 'none';
+    }
+
+    const panelRuta = document.getElementById('panel-ruta');
+    if (!grupo.id) { panelRuta.style.display = 'none'; return; }
+
+    const { data } = await supabaseClient
+        .from('grupo_progresion')
+        .select('*')
+        .eq('grupo_id', grupo.id)
+        .order('orden');
+
+    const unidades = data || [];
+    if (!unidades.length) { panelRuta.style.display = 'none'; return; }
+
+    document.getElementById('lista-ruta').innerHTML = unidades.map(u => `
+        <li class="${esc(u.estado)}">
+            <div class="u-tit">${esc(u.unidad)}</div>
+            ${u.detalle ? `<div class="u-det">${esc(u.detalle)}</div>` : ''}
+            ${u.objetivos ? `<div class="u-obj">${esc(u.objetivos)}</div>` : ''}
+        </li>
+    `).join('');
+    panelRuta.style.display = 'block';
+}
+
 async function seleccionarInscripcion(inscripcionId) {
     const insc = inscripciones.find(i => i.id === inscripcionId);
     const curso = insc.cursos;
 
-    document.getElementById('titulo-curso').textContent = curso.nombre + (curso.nivel ? ' · ' + curso.nivel : '');
-    document.getElementById('fechas-curso').textContent = `${curso.fecha_inicio || '—'} → ${curso.fecha_fin || '—'}`;
-    const badge = document.getElementById('badge-estado');
-    badge.textContent = insc.estado;
-    badge.className = 'badge ' + insc.estado;
+    const grupo = insc.grupos || {};
+    pintarCabeceraCurso(curso, grupo, insc);
+    await pintarRecorrido(grupo);
 
     const pendiente = insc.estado !== 'activa' && insc.estado !== 'finalizada';
     document.getElementById('panel-pendiente').style.display = pendiente ? 'block' : 'none';
