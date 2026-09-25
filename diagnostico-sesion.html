@@ -49,6 +49,20 @@ async function estado(titulo) {
   p('— ' + titulo + ' —');
   p('sitio: ' + location.origin + location.pathname);
   try { localStorage.setItem('mt_t', '1'); p('localStorage guarda datos: ' + (localStorage.getItem('mt_t') === '1')); localStorage.removeItem('mt_t'); } catch (e) { p('localStorage ERROR: ' + e.message); }
+  /* Guardar la sesión son unos 3 KB. Una escritura de un carácter puede
+     caber donde una de 4 KB ya no: por eso se prueban los dos tamaños. */
+  try {
+    var grande = new Array(4097).join('x');
+    localStorage.setItem('mt_t4', grande);
+    p('localStorage admite 4 KB (el tamaño de una sesión): ' + (localStorage.getItem('mt_t4') === grande));
+    localStorage.removeItem('mt_t4');
+  } catch (e) { p('localStorage 4 KB FALLA: ' + e.name + ' — ' + e.message); }
+  try {
+    var total = 0, n = 0;
+    for (var q = 0; q < localStorage.length; q++) { var kq = localStorage.key(q); total += (kq + (localStorage.getItem(kq) || '')).length; n++; }
+    p('localStorage ocupado: ' + Math.round(total / 1024) + ' KB en ' + n + ' entradas');
+  } catch (e) {}
+  p('almacén elegido por el cliente: ' + (window.__mtAlmacenSesion || '(no informado)'));
   try { sessionStorage.setItem('mt_t', '1'); p('sessionStorage guarda datos: ' + (sessionStorage.getItem('mt_t') === '1')); sessionStorage.removeItem('mt_t'); } catch (e) { p('sessionStorage ERROR: ' + e.message); }
   p('cookies activadas: ' + navigator.cookieEnabled + ' · navigator.locks: ' + !!navigator.locks);
   try {
