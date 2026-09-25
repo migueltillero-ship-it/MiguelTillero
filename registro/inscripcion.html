@@ -37,6 +37,20 @@ main { padding: 3.5rem 5%; max-width: 640px; margin: 0 auto; flex-grow: 1; width
 .hint { font-size: 0.75rem; color: var(--text-light); margin-top: -0.6rem; margin-bottom: 1rem; }
 #pantalla-exito { display:none; text-align:center; }
 #pantalla-exito i { font-size: 2.6rem; color: var(--accent-green); margin-bottom: 1rem; }
+/* Paso 2: el pago, justo después de crear la cuenta */
+.pago-bloque { text-align:left; margin-top:2rem; border-top:1px solid var(--border); padding-top:1.8rem; }
+.pago-monto { display:flex; align-items:baseline; justify-content:center; gap:0.6rem; margin:0.4rem 0 0.3rem; }
+.pago-monto strong { font-family:'Cormorant Garamond',serif; font-size:2.8rem; font-weight:600; color:var(--accent-green); line-height:1; }
+.pago-monto span { font-family:'Space Mono',monospace; font-size:0.8rem; color:var(--primary-color); }
+.pago-limite { text-align:center; font-size:0.85rem; color:#a13324; font-weight:600; margin-bottom:1.4rem; }
+.pago-metodo { border:1px solid var(--border); border-radius:var(--r-sm); padding:0.9rem 1.1rem; margin-bottom:0.7rem; background:#fff; }
+.pago-metodo h4 { margin:0 0 0.35rem; font-family:'Syne',sans-serif; font-size:0.92rem; color:var(--accent-green); display:flex; align-items:center; gap:0.45rem; }
+.pago-metodo h4 i { font-size:0.9rem; color:var(--primary-color); margin:0; }
+.pago-metodo p { margin:0.15rem 0; font-size:0.82rem; color:var(--text-light); line-height:1.55; }
+.pago-dato { font-family:'Space Mono',monospace; font-size:0.86rem; color:var(--text-dark); letter-spacing:0.02em; word-break:break-word; }
+.pago-copiar { background:none; border:1px solid var(--border); border-radius:var(--r-pill); font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--primary-color); padding:0.2rem 0.6rem; cursor:pointer; margin-left:0.4rem; }
+.pago-copiar:hover { background:rgba(140,115,75,0.1); }
+.pago-aviso { background:rgba(43,69,53,0.07); border-radius:var(--r-xs); padding:0.9rem 1.1rem; font-size:0.82rem; color:var(--accent-green); line-height:1.6; margin-top:1rem; }
 </style>
 </head>
 <body>
@@ -93,10 +107,30 @@ main { padding: 3.5rem 5%; max-width: 640px; margin: 0 auto; flex-grow: 1; width
 
         <div id="pantalla-exito">
             <i class="fa-solid fa-envelope-circle-check"></i>
-            <h3>¡Ya casi! Revisa tu correo</h3>
-            <p class="lede">Te enviamos un enlace de verificación. Confírmalo y luego inicia sesión para entrar a tu espacio.</p>
+            <h3>Paso 1 listo: revisa tu correo</h3>
+            <p class="lede">Te enviamos un enlace de verificación. Confírmalo y ya podrás entrar a tu espacio de estudiante.</p>
             <br>
             <a href="../login.html" class="btn-gold" style="display:inline-flex; width:auto; padding:0.9rem 2rem;">Ir a iniciar sesión</a>
+
+            <div class="pago-bloque" id="bloque-pago" style="display:none;">
+                <p class="eyebrow" style="text-align:center;">Paso 2 · Reserva tu lugar</p>
+                <div class="pago-monto"><strong id="pago-cifra"></strong><span id="pago-moneda"></span></div>
+                <p class="pago-limite" id="pago-limite"></p>
+                <div id="pago-metodos"></div>
+                <div class="pago-aviso">
+                    <strong>Cuando hagas el pago, mándame el comprobante por WhatsApp</strong> y yo activo tu
+                    inscripción el mismo día. Hasta ese momento tu lugar aparece como <em>pendiente</em>.
+                    <br><br>
+                    <a href="https://wa.me/584122465331" target="_blank" rel="noopener"
+                       style="color:var(--primary-color); font-weight:600;">Enviar comprobante por WhatsApp →</a>
+                </div>
+                <p style="text-align:center; margin-top:1rem;">
+                    <a href="../pagos.html" target="_blank" rel="noopener"
+                       style="font-family:'Space Mono',monospace; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-light);">
+                        Ver todos los métodos de pago
+                    </a>
+                </p>
+            </div>
         </div>
     </div>
 
@@ -119,8 +153,78 @@ const campoCurso = selectCurso.closest('.form-field');
 // El enlace puede traer un grupo concreto (…/inscripcion.html?grupo=ID) —
 // lo normal desde el panel docente — o, por compatibilidad con enlaces
 // viejos, un curso (…?curso=ID), que se resuelve a su grupo automáticamente.
-const grupoDelEnlace = new URLSearchParams(window.location.search).get('grupo');
-const cursoDelEnlace = new URLSearchParams(window.location.search).get('curso');
+const params = new URLSearchParams(window.location.search);
+const grupoDelEnlace = params.get('grupo');
+const cursoDelEnlace = params.get('curso');
+
+// El enlace puede venir personalizado (…&nombre=Ana%20López) para que el
+// estudiante no tenga que escribir su nombre. Sigue pudiendo corregirlo.
+const nombreDelEnlace = (params.get('nombre') || '').trim();
+if (nombreDelEnlace) {
+    document.getElementById('f-nombre').value = nombreDelEnlace.slice(0, 80);
+}
+
+// Guardamos el grupo elegido para poder mostrar su costo en el paso de pago.
+let grupoActual = null;
+
+// Datos de pago tal y como están publicados en pagos.html.
+const METODOS_PAGO = [
+    { icono: 'fa-solid fa-building-columns', titulo: 'Transferencia · Albo',
+      lineas: [['CLABE', '7211 8010 0037 9159 95'], ['Beneficiario', 'Miguel David Tillero Álvarez']] },
+    { icono: 'fa-solid fa-building-columns', titulo: 'Transferencia · Nu',
+      lineas: [['CLABE', '6381 8000 0116 2530 75'], ['Beneficiario', 'Miguel David Tillero Álvarez']] },
+    { icono: 'fa-solid fa-store', titulo: 'Depósito en efectivo',
+      nota: 'Válido en OXXO, Walmart, Soriana, Chedraui, Kiosko y Farmacias del Ahorro.',
+      lineas: [['Código Nu', '5101 2532 3062 6677']] },
+    { icono: 'fa-solid fa-globe', titulo: 'Desde el extranjero · Remitly',
+      nota: 'Envío directo a mi Pay Tag desde cualquier país.',
+      lineas: [['Pay Tag', 'remitly.com/pay/miguelt4540']] },
+    { icono: 'fa-solid fa-comment-dollar', titulo: 'Zelle',
+      nota: 'Por seguridad, los datos de Zelle solo se comparten por WhatsApp.' }
+];
+
+function copiar(texto, boton) {
+    navigator.clipboard.writeText(texto).then(() => {
+        const antes = boton.textContent;
+        boton.textContent = 'Copiado';
+        setTimeout(() => { boton.textContent = antes; }, 1600);
+    }).catch(() => {});
+}
+
+function fechaLarga(iso) {
+    if (!iso) return '';
+    const [a, m, d] = iso.split('-').map(Number);
+    return new Date(a, m - 1, d).toLocaleDateString('es-MX',
+        { weekday: 'long', day: 'numeric', month: 'long' });
+}
+
+function pintarPago() {
+    if (!grupoActual) return;
+    const monto = Number(grupoActual.costo);
+    if (!monto || monto <= 0) return;   // curso gratuito: no hay paso de pago
+
+    document.getElementById('pago-cifra').textContent = '$' + monto.toLocaleString('es-MX');
+    document.getElementById('pago-moneda').textContent = grupoActual.moneda || 'MXN';
+    document.getElementById('pago-limite').textContent =
+        'Para apartar tu lugar, paga antes del ' + fechaLarga(grupoActual.fecha_inicio) + '.';
+
+    document.getElementById('pago-metodos').innerHTML = METODOS_PAGO.map(m => `
+        <div class="pago-metodo">
+            <h4><i class="${m.icono}"></i>${m.titulo}</h4>
+            ${(m.lineas || []).map(([et, val]) => `
+                <p>${et}:<br><span class="pago-dato">${val}</span>
+                   <button type="button" class="pago-copiar" data-copiar="${val.replace(/\s/g, '')}">Copiar</button></p>
+            `).join('')}
+            ${m.nota ? `<p>${m.nota}</p>` : ''}
+        </div>
+    `).join('');
+
+    document.querySelectorAll('.pago-copiar').forEach(b => {
+        b.addEventListener('click', () => copiar(b.dataset.copiar, b));
+    });
+
+    document.getElementById('bloque-pago').style.display = 'block';
+}
 
 function costoTexto(g) {
     if (g.costo === null || g.costo === undefined) return '';
@@ -129,6 +233,7 @@ function costoTexto(g) {
 }
 
 function mostrarGrupoFijo(g) {
+    grupoActual = g;
     campoCurso.innerHTML = `
         <label>Te vas a inscribir en</label>
         <div style="padding:0.95rem 1.1rem; border:1px solid var(--border); border-radius:10px; background:rgba(43,69,53,0.05);">
@@ -194,6 +299,11 @@ if (!supabaseConfigurado) {
         }
         selectCurso.innerHTML = '<option value="">Selecciona un curso</option>' +
             disponibles.map(g => `<option value="${g.id}" data-curso="${g.curso_id}">${g.curso_nombre}${g.curso_nivel ? ' — ' + g.curso_nivel : ''} (${g.cupo_disponible} cupo${g.cupo_disponible === 1 ? '' : 's'}${costoTexto(g) ? ' · ' + costoTexto(g) : ''})</option>`).join('');
+
+        // Al elegir del desplegable, guardamos el grupo para el paso de pago.
+        selectCurso.addEventListener('change', () => {
+            grupoActual = disponibles.find(g => g.id === selectCurso.value) || null;
+        });
     })();
 }
 
@@ -248,6 +358,8 @@ document.getElementById('form-inscripcion').addEventListener('submit', async (e)
 
     document.getElementById('form-inscripcion').style.display = 'none';
     document.getElementById('pantalla-exito').style.display = 'block';
+    pintarPago();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 </script>
 </body>
