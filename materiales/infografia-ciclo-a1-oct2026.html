@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Ciclo A1 · Octubre 2026</title>
+<style>
+/* Lienzo vertical 1080x1490: encaja en WhatsApp sin recortes.
+   Tipografías del sistema elegidas por cercanía a la identidad del sitio:
+   Charter ≈ Cormorant Garamond · DejaVu Sans ≈ Syne · DejaVu Sans Mono ≈ Space Mono. */
+:root {
+  --crema:  #eef0e5;
+  --oro:    #8c734b;
+  --verde:  #2b4535;
+  --tinta:  #1a2e24;
+  --suave:  #5a665f;
+  --linea:  rgba(165,130,74,0.34);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { width: 1080px; height: 1490px; background: var(--crema); color: var(--tinta);
+       font-family: 'DejaVu Sans', sans-serif; overflow: hidden; position: relative; }
+
+/* Trazo de acento en la esquina superior derecha */
+body::before { content: ''; position: absolute; top: -220px; right: -220px;
+  width: 560px; height: 560px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(140,115,75,0.16) 0%, rgba(140,115,75,0) 70%); }
+
+.hoja { position: relative; padding: 70px 88px 0; height: 100%; display: flex; flex-direction: column; }
+
+.marca { font-family: 'Charter','Bitstream Charter',serif; font-size: 30px; color: var(--verde);
+         letter-spacing: 0.01em; }
+.marca span { color: var(--oro); }
+
+.eyebrow { font-family: 'DejaVu Sans Mono', monospace; font-size: 17px; letter-spacing: 0.22em;
+           text-transform: uppercase; color: var(--oro); margin-top: 54px; }
+
+h1 { font-family: 'Charter','Bitstream Charter',serif; font-weight: normal; font-size: 86px;
+     line-height: 0.98; color: var(--verde); margin-top: 16px; letter-spacing: -0.015em; }
+h1 em { font-style: italic; color: var(--oro); }
+
+.bajada { font-size: 24px; line-height: 1.55; color: var(--suave); margin-top: 22px; max-width: 800px; }
+
+.regla { height: 1px; background: var(--linea); margin: 38px 0 0; }
+
+/* Datos del ciclo */
+.datos { display: grid; grid-template-columns: 1fr 1fr; gap: 0 58px; margin-top: 34px; }
+.dato { padding: 19px 0; border-bottom: 1px solid var(--linea); }
+.dato .et { font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; letter-spacing: 0.16em;
+            text-transform: uppercase; color: var(--oro); margin-bottom: 9px; }
+.dato .va { font-size: 26px; line-height: 1.32; color: var(--tinta); }
+.dato .va b { font-weight: bold; }
+.dato .nota { font-size: 19px; color: var(--suave); margin-top: 5px; }
+
+/* Bloque del precio */
+.precio { margin-top: 38px; background: var(--verde); border-radius: 20px;
+          padding: 34px 44px; display: flex; align-items: center; justify-content: space-between;
+          color: var(--crema); }
+.precio .izq .et { font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; letter-spacing: 0.18em;
+                   text-transform: uppercase; color: rgba(238,240,229,0.72); margin-bottom: 10px; }
+.precio .izq .cifra { font-family: 'Charter','Bitstream Charter',serif; font-size: 78px; line-height: 1; }
+.precio .izq .cifra small { font-size: 30px; color: rgba(238,240,229,0.78); margin-left: 10px; }
+.precio .der { text-align: right; max-width: 380px; }
+.precio .der .titulo { font-size: 22px; font-weight: bold; margin-bottom: 8px; }
+.precio .der .texto { font-size: 19px; line-height: 1.5; color: rgba(238,240,229,0.86); }
+
+/* Qué incluye */
+.incluye { margin-top: 36px; }
+.incluye .et { font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; letter-spacing: 0.16em;
+               text-transform: uppercase; color: var(--oro); margin-bottom: 18px; }
+.incluye ul { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 58px; }
+.incluye li { font-size: 22px; line-height: 1.4; color: var(--tinta); padding-left: 30px; position: relative; }
+.incluye li::before { content: ''; position: absolute; left: 4px; top: 12px; width: 11px; height: 11px;
+                      border: 1.6px solid var(--oro); border-radius: 50%; }
+
+.pie { margin-top: auto; border-top: 1px solid var(--linea); padding: 26px 0 34px;
+       display: flex; justify-content: space-between; align-items: flex-end; }
+.pie .izq { font-family: 'DejaVu Sans Mono', monospace; font-size: 16px; letter-spacing: 0.1em;
+            color: var(--suave); line-height: 1.7; }
+.pie .der { font-family: 'Charter','Bitstream Charter',serif; font-size: 27px; color: var(--verde);
+            text-align: right; line-height: 1.3; }
+.pie .der small { display: block; font-family: 'DejaVu Sans Mono', monospace; font-size: 15px;
+                  letter-spacing: 0.12em; color: var(--oro); margin-top: 7px; }
+</style>
+</head>
+<body>
+<div class="hoja">
+    <div class="marca">Miguel <span>Tillero</span></div>
+
+    <p class="eyebrow">Nouveau cycle · Niveau A1</p>
+    <h1>Français A1<br><em>Défi 1</em></h1>
+    <p class="bajada">
+        Seis semanas para cerrar la <b>Unité 4 «Entre quatre murs»</b> y entrar de lleno
+        en la <b>Unité 5 «Métro, boulot, dodo»</b>. Grupo reducido, clases en vivo y tu
+        propio espacio en línea para seguir tu avance.
+    </p>
+
+    <div class="regla"></div>
+
+    <div class="datos">
+        <div class="dato">
+            <div class="et">Cuándo empieza</div>
+            <div class="va"><b>Martes 29 de septiembre</b></div>
+            <div class="nota">Cierra el jueves 5 de noviembre</div>
+        </div>
+        <div class="dato">
+            <div class="et">Horario</div>
+            <div class="va"><b>Martes y jueves</b></div>
+            <div class="nota">19:00 a 20:00 · hora de Ciudad de México</div>
+        </div>
+        <div class="dato">
+            <div class="et">Duración</div>
+            <div class="va"><b>6 semanas · 12 clases</b></div>
+            <div class="nota">Una hora cada sesión, en vivo</div>
+        </div>
+        <div class="dato">
+            <div class="et">Las dos primeras</div>
+            <div class="va"><b>Son de evaluación</b></div>
+            <div class="nota">Colectiva el 29 · individual el 1 de octubre</div>
+        </div>
+    </div>
+
+    <div class="precio">
+        <div class="izq">
+            <div class="et">Ciclo completo</div>
+            <div class="cifra">$1,900<small>MXN</small></div>
+        </div>
+        <div class="der">
+            <div class="titulo">Aparta tu lugar antes del 29 de septiembre</div>
+            <div class="texto">Transferencia, depósito en efectivo, Remitly o Zelle.
+                Manda el comprobante por WhatsApp.</div>
+        </div>
+    </div>
+
+    <div class="incluye">
+        <div class="et">Qué incluye</div>
+        <ul>
+            <li>12 clases en vivo conmigo</li>
+            <li>Tu espacio en línea personal</li>
+            <li>Calendario con el contenido de cada clase</li>
+            <li>Control de asistencia y notas</li>
+            <li>Evaluación inicial y final</li>
+            <li>Materiales y seguimiento personalizado</li>
+        </ul>
+    </div>
+
+    <div class="pie">
+        <div class="izq">
+            Inscripción por el enlace<br>
+            que te envié por mensaje
+        </div>
+        <div class="der">
+            WhatsApp +58 412-2465331
+            <small>migueltillero.com</small>
+        </div>
+    </div>
+</div>
+</body>
+</html>
