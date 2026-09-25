@@ -345,8 +345,8 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="assets/js/supabase-config.js?v=1790372948"></script>
-<script src="assets/js/auth-helpers.js?v=1790372948"></script>
+<script src="assets/js/supabase-config.js?v=1790373799"></script>
+<script src="assets/js/auth-helpers.js?v=1790373799"></script>
 <script>
 let perfilDocente = null;
 let cursos = [];
@@ -1168,7 +1168,36 @@ async function guardarNotas() {
     mostrarMsg(msgEl, 'Notas guardadas.', 'ok');
 }
 
-iniciar();
+/* ---------------------------------------------------------------------------
+   Si algo falla al cargar, que se vea.
+   Una excepción a medio camino dejaba la página en blanco, sin ninguna pista
+   de qué había pasado. Ahora el error aparece arriba, con su detalle, para
+   poder arreglarlo sin tener que abrir las herramientas del navegador.
+   --------------------------------------------------------------------------- */
+function mostrarFalloCarga(detalle) {
+    var caja = document.getElementById('fallo-carga');
+    if (!caja) {
+        caja = document.createElement('div');
+        caja.id = 'fallo-carga';
+        caja.style.cssText = 'margin:1rem 5%; padding:1rem 1.2rem; border-radius:10px;'
+            + 'background:rgba(180,50,40,0.1); border:1px solid rgba(180,50,40,0.3);'
+            + 'color:#a13324; font-family:Syne,sans-serif; font-size:0.88rem; line-height:1.6;';
+        var main = document.querySelector('main') || document.body;
+        main.insertBefore(caja, main.firstChild);
+    }
+    caja.innerHTML = '<strong>No se pudo cargar del todo esta página.</strong><br>'
+        + 'Mándale esta línea a Miguel:<br><code style="word-break:break-all;">'
+        + String(detalle).replace(/[<>&]/g, '') + '</code>';
+}
+window.addEventListener('error', function (ev) {
+    mostrarFalloCarga((ev.message || 'error') + ' · ' + (ev.filename || '').split('/').pop() + ':' + ev.lineno);
+});
+window.addEventListener('unhandledrejection', function (ev) {
+    var r = ev.reason;
+    mostrarFalloCarga('promesa sin capturar · ' + ((r && (r.message || r.error_description)) || r));
+});
+
+iniciar().catch(function (e) { mostrarFalloCarga((e && e.message) || e); });
 </script>
 </body>
 </html>
