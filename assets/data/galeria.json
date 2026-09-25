@@ -255,20 +255,6 @@
    }
   },
   {
-   "id": "z1-034",
-   "cat": "trayectoria",
-   "src": "assets/images/galeria/z1-034.jpg",
-   "thumb": "assets/images/galeria/t/z1-034.jpg",
-   "w": 750,
-   "h": 1000,
-   "alt": "Con la bandera de Venezuela",
-   "pie": {
-    "es": "Con la bandera de Venezuela",
-    "fr": "Avec le drapeau du Venezuela",
-    "en": "With the flag of Venezuela"
-   }
-  },
-  {
    "id": "z2-000",
    "cat": "trayectoria",
    "src": "assets/images/galeria/z2-000.jpg",
@@ -297,20 +283,6 @@
    }
   },
   {
-   "id": "z2-007",
-   "cat": "trayectoria",
-   "src": "assets/images/galeria/z2-007.jpg",
-   "thumb": "assets/images/galeria/t/z2-007.jpg",
-   "w": 1000,
-   "h": 1112,
-   "alt": "Primavera en Francia · abril de 2015",
-   "pie": {
-    "es": "Primavera en Francia · abril de 2015",
-    "fr": "Le printemps en France · avril 2015",
-    "en": "Spring in France · April 2015"
-   }
-  },
-  {
    "id": "z2-011",
    "cat": "trayectoria",
    "src": "assets/images/galeria/z2-011.jpg",
@@ -322,20 +294,6 @@
     "es": "Día de graduación · Caracas, julio de 2016",
     "fr": "Jour de remise des diplômes · Caracas, juillet 2016",
     "en": "Graduation day · Caracas, July 2016"
-   }
-  },
-  {
-   "id": "z2-013",
-   "cat": "trayectoria",
-   "src": "assets/images/galeria/z2-013.jpg",
-   "thumb": "assets/images/galeria/t/z2-013.jpg",
-   "w": 1000,
-   "h": 1368,
-   "alt": "«Una nacionalidad va más allá de una bandera» · septiembre de 2016",
-   "pie": {
-    "es": "«Una nacionalidad va más allá de una bandera» · septiembre de 2016",
-    "fr": "« Une nationalité dépasse un drapeau » · septembre 2016",
-    "en": "“A nationality goes beyond a flag” · September 2016"
    }
   },
   {
@@ -462,20 +420,6 @@
     "es": "Compartiendo entre profes · julio de 2017",
     "fr": "Entre profs · juillet 2017",
     "en": "Sharing among teachers · July 2017"
-   }
-  },
-  {
-   "id": "z2-029",
-   "cat": "trayectoria",
-   "src": "assets/images/galeria/z2-029.jpg",
-   "thumb": "assets/images/galeria/t/z2-029.jpg",
-   "w": 1000,
-   "h": 1120,
-   "alt": "Con una amiga · octubre de 2017",
-   "pie": {
-    "es": "Con una amiga · octubre de 2017",
-    "fr": "Avec une amie · octobre 2017",
-    "en": "With a friend · October 2017"
    }
   },
   {
@@ -1050,20 +994,6 @@
     "es": "«Cuentos contados desde la artesanía» · Alianza Francesa de Cuenca",
     "fr": "« Cuentos contados desde la artesanía » · Alliance Française de Cuenca",
     "en": "“Cuentos contados desde la artesanía” · Alliance Française de Cuenca"
-   }
-  },
-  {
-   "id": "z1-031",
-   "cat": "ecuador",
-   "src": "assets/images/galeria/z1-031.jpg",
-   "thumb": "assets/images/galeria/t/z1-031.jpg",
-   "w": 810,
-   "h": 1080,
-   "alt": "Un momento de humor en un evento cultural",
-   "pie": {
-    "es": "Un momento de humor en un evento cultural",
-    "fr": "Un moment d’humour lors d’un événement culturel",
-    "en": "A humorous moment at a cultural event"
    }
   },
   {
@@ -1837,20 +1767,6 @@
    }
   },
   {
-   "id": "z1-011",
-   "cat": "mexico",
-   "src": "assets/images/galeria/z1-011.jpg",
-   "thumb": "assets/images/galeria/t/z1-011.jpg",
-   "w": 1280,
-   "h": 960,
-   "alt": "Trabajando desde casa, con las montañas de fondo",
-   "pie": {
-    "es": "Trabajando desde casa, con las montañas de fondo",
-    "fr": "Au travail à la maison, avec les montagnes en fond",
-    "en": "Working from home, with the mountains behind"
-   }
-  },
-  {
    "id": "z1-013",
    "cat": "mexico",
    "src": "assets/images/galeria/z1-013.jpg",
@@ -1955,11 +1871,11 @@
    "thumb": "assets/images/galeria/t/z1-093.jpg",
    "w": 814,
    "h": 1081,
-   "alt": "Tras una presentación sobre la Cité internationale de la langue française",
+   "alt": "Con Paul Rondin, director de la Cité internationale de la langue française, tras una presentación",
    "pie": {
-    "es": "Tras una presentación sobre la Cité internationale de la langue française",
-    "fr": "Après une présentation sur la Cité internationale de la langue française",
-    "en": "After a talk on the Cité internationale de la langue française"
+    "es": "Con Paul Rondin, director de la Cité internationale de la langue française, tras una presentación",
+    "fr": "Avec Paul Rondin, directeur de la Cité internationale de la langue française, après une présentation",
+    "en": "With Paul Rondin, director of the Cité internationale de la langue française, after a talk"
    }
   },
   {
@@ -1974,20 +1890,6 @@
     "es": "Un café con colegas",
     "fr": "Un café entre collègues",
     "en": "Coffee with colleagues"
-   }
-  },
-  {
-   "id": "z1-096",
-   "cat": "mexico",
-   "src": "assets/images/galeria/z1-096.jpg",
-   "thumb": "assets/images/galeria/t/z1-096.jpg",
-   "w": 814,
-   "h": 1081,
-   "alt": "En la plaza, bajo el «Viva México»",
-   "pie": {
-    "es": "En la plaza, bajo el «Viva México»",
-    "fr": "Sur la place, sous le « Viva México »",
-    "en": "In the square, under the “Viva México”"
    }
   },
   {
@@ -2240,132 +2142,6 @@
     "es": "Retrato · fondo rojo",
     "fr": "Portrait · fond rouge",
     "en": "Portrait · red backdrop"
-   }
-  },
-  {
-   "id": "z1-015",
-   "cat": "retratos",
-   "src": "assets/images/galeria/z1-015.jpg",
-   "thumb": "assets/images/galeria/t/z1-015.jpg",
-   "w": 960,
-   "h": 1280,
-   "alt": "Una pausa entre reuniones",
-   "pie": {
-    "es": "Una pausa entre reuniones",
-    "fr": "Une pause entre deux réunions",
-    "en": "A break between meetings"
-   }
-  },
-  {
-   "id": "z1-035",
-   "cat": "retratos",
-   "src": "assets/images/galeria/z1-035.jpg",
-   "thumb": "assets/images/galeria/t/z1-035.jpg",
-   "w": 960,
-   "h": 1280,
-   "alt": "Retrato",
-   "pie": {
-    "es": "Retrato",
-    "fr": "Portrait",
-    "en": "Portrait"
-   }
-  },
-  {
-   "id": "z1-036",
-   "cat": "retratos",
-   "src": "assets/images/galeria/z1-036.jpg",
-   "thumb": "assets/images/galeria/t/z1-036.jpg",
-   "w": 606,
-   "h": 1078,
-   "alt": "Bajando las escaleras",
-   "pie": {
-    "es": "Bajando las escaleras",
-    "fr": "Dans l’escalier",
-    "en": "Coming down the stairs"
-   }
-  },
-  {
-   "id": "z1-037",
-   "cat": "retratos",
-   "src": "assets/images/galeria/z1-037.jpg",
-   "thumb": "assets/images/galeria/t/z1-037.jpg",
-   "w": 960,
-   "h": 1280,
-   "alt": "Retrato",
-   "pie": {
-    "es": "Retrato",
-    "fr": "Portrait",
-    "en": "Portrait"
-   }
-  },
-  {
-   "id": "z1-042",
-   "cat": "retratos",
-   "src": "assets/images/galeria/z1-042.jpg",
-   "thumb": "assets/images/galeria/t/z1-042.jpg",
-   "w": 600,
-   "h": 800,
-   "alt": "Retrato",
-   "pie": {
-    "es": "Retrato",
-    "fr": "Portrait",
-    "en": "Portrait"
-   }
-  },
-  {
-   "id": "z1-044",
-   "cat": "retratos",
-   "src": "assets/images/galeria/z1-044.jpg",
-   "thumb": "assets/images/galeria/t/z1-044.jpg",
-   "w": 600,
-   "h": 800,
-   "alt": "Retrato",
-   "pie": {
-    "es": "Retrato",
-    "fr": "Portrait",
-    "en": "Portrait"
-   }
-  },
-  {
-   "id": "z1-050",
-   "cat": "retratos",
-   "src": "assets/images/galeria/z1-050.jpg",
-   "thumb": "assets/images/galeria/t/z1-050.jpg",
-   "w": 600,
-   "h": 800,
-   "alt": "Retrato",
-   "pie": {
-    "es": "Retrato",
-    "fr": "Portrait",
-    "en": "Portrait"
-   }
-  },
-  {
-   "id": "z1-051",
-   "cat": "retratos",
-   "src": "assets/images/galeria/z1-051.jpg",
-   "thumb": "assets/images/galeria/t/z1-051.jpg",
-   "w": 1280,
-   "h": 720,
-   "alt": "Una llamada de noche, con luces de fondo",
-   "pie": {
-    "es": "Una llamada de noche, con luces de fondo",
-    "fr": "Un appel le soir, avec des lumières en fond",
-    "en": "An evening call, with lights behind"
-   }
-  },
-  {
-   "id": "z1-054",
-   "cat": "retratos",
-   "src": "assets/images/galeria/z1-054.jpg",
-   "thumb": "assets/images/galeria/t/z1-054.jpg",
-   "w": 1280,
-   "h": 1026,
-   "alt": "Entre flores",
-   "pie": {
-    "es": "Entre flores",
-    "fr": "Parmi les fleurs",
-    "en": "Among flowers"
    }
   },
   {
