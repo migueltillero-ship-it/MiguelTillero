@@ -941,11 +941,11 @@
         {
           "tipo": "foto",
           "archivo": "assets/images/relato/rodaje-entrevista.jpg",
-          "alt": "Entrevista a cámara para el video de presentación de la Alianza Francesa de San Cristóbal",
+          "alt": "Entrevista a cámara para el video promocional de la Alianza Francesa de San Cristóbal",
           "pie": {
-            "es": "Entrevista para el video de presentación de la Alianza Francesa de San Cristóbal",
-            "fr": "Interview pour la vidéo de présentation de l’Alliance Française de San Cristóbal",
-            "en": "Interview for the Alliance Française de San Cristóbal’s presentation video"
+            "es": "Entrevista para el video promocional de la Alianza Francesa de San Cristóbal · producción y cámara: Jaime Casanova",
+            "fr": "Interview pour la vidéo promotionnelle de l’Alliance Française de San Cristóbal · production et caméra : Jaime Casanova",
+            "en": "Interview for the Alliance Française de San Cristóbal promotional video · production and camera: Jaime Casanova"
           },
           "ratio": "16/9",
           "ancha": true
@@ -997,11 +997,11 @@
         {
           "tipo": "foto",
           "archivo": "assets/images/relato/la-salle.jpg",
-          "alt": "Con directivos y docentes del Colegio La Salle San Cristóbal",
+          "alt": "Con Maura Carpio, directora de La Salle San Cristóbal, y colegas",
           "pie": {
-            "es": "Con directivos y docentes · Colegio La Salle",
-            "fr": "Avec direction et enseignants · Colegio La Salle",
-            "en": "With staff and teachers · Colegio La Salle"
+            "es": "Con Maura Carpio, directora de La Salle San Cristóbal, y colegas",
+            "fr": "Avec Maura Carpio, directrice de La Salle San Cristóbal, et des collègues",
+            "en": "With Maura Carpio, principal of La Salle San Cristóbal, and colleagues"
           },
           "ratio": "3/4"
         },
