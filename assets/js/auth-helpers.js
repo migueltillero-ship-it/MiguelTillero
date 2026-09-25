@@ -46,7 +46,16 @@ async function obtenerPerfilActual() {
       }
     }
     if (!user) {
-      window.__ultimoDiagPerfil = 'sin sesión tras varios intentos (getSession/getUser no devolvieron usuario)';
+      /* Distinguir entre "no hay nada guardado" (sesión caducada o cerrada,
+         que es lo normal) y "hay un token guardado pero el cliente no lo ve"
+         (un fallo de verdad) ahorra mucho tiempo al diagnosticar. */
+      var huella = 'sin token guardado';
+      try {
+        for (var i = 0; i < localStorage.length; i++) {
+          if (/^sb-.+-auth-token$/.test(localStorage.key(i))) { huella = 'hay token guardado pero el cliente no lo leyó'; break; }
+        }
+      } catch (e) { huella = 'el navegador bloquea el almacenamiento local'; }
+      window.__ultimoDiagPerfil = 'sin sesión · ' + huella;
       return null;
     }
     const { data: perfil, error } = await supabaseClient
@@ -73,7 +82,10 @@ async function requerirSesion(rolRequerido) {
   if (!supabaseConfigurado) return null;
   const contexto = await obtenerPerfilActual();
   if (!contexto) {
-    try { sessionStorage.setItem('mt_diag', window.__ultimoDiagPerfil || 'sin detalle'); } catch (e) {}
+    /* Se guarda también de qué página vino el rebote: sin eso, el aviso del
+       login no dice si falló el panel docente o el del estudiante. */
+    var origen = (window.location.pathname.split('/').pop() || 'desconocida');
+    try { sessionStorage.setItem('mt_diag', (window.__ultimoDiagPerfil || 'sin detalle') + ' · desde ' + origen); } catch (e) {}
     window.location.href = 'login.html';
     return null;
   }
