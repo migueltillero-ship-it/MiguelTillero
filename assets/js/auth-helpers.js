@@ -206,7 +206,17 @@ function pedirCredencialesEnPagina(rolRequerido, detalle) {
 
         var rol = resp.data.role;
         var cumple = !rolRequerido || rol === rolRequerido || (rolRequerido === 'docente' && rol === 'admin');
-        if (!cumple) { aviso('Esta página no es para tu tipo de cuenta.'); btn.disabled = false; return; }
+        if (!cumple) {
+          /* La cuenta es buena, solo que esta no es su página. En vez de
+             dejarla ahí parada, se la lleva a la suya. Se deja puesta la
+             marca para que allí también se le pida la contraseña, ya que
+             este navegador no conserva la sesión entre páginas. */
+          var destino = (rol === 'docente' || rol === 'admin') ? 'panel-docente.html' : 'panel-estudiante.html';
+          aviso('Tu cuenta es de ' + rol + '. Te llevamos a tu panel…');
+          try { sessionStorage.setItem('mt_viene_del_login', '1'); } catch (e) {}
+          setTimeout(function () { window.location.href = destino; }, 1200);
+          return;
+        }
 
         // A partir de aquí toda la página usa el cliente con el token puesto.
         window.supabaseClient = cli;
