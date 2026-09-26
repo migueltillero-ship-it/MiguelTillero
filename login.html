@@ -69,8 +69,8 @@ h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--a
 <a href="index.html" class="back-link"><i class="fa fa-arrow-left"></i> Volver al inicio</a>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="assets/js/supabase-config.js?v=1790377227"></script>
-<script src="assets/js/auth-helpers.js?v=1790377227"></script>
+<script src="assets/js/supabase-config.js?v=1790411264"></script>
+<script src="assets/js/auth-helpers.js?v=1790411264"></script>
 <script>
 /* Si un panel no pudo confirmar la sesión y nos devolvió aquí, se dice por qué. */
 (function () {
@@ -188,14 +188,13 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
         } catch (e) { /* se reintenta */ }
     }
 
+    /* Aunque la sesión no haya quedado guardada, se sigue al panel: allí se
+       pide la contraseña en la propia página y se entra con la sesión en
+       memoria, sin depender del almacenamiento. Esta marca le avisa de que
+       viene del login, para que no rebote de vuelta. */
+    try { sessionStorage.setItem('mt_viene_del_login', '1'); } catch (e) {}
     if (!sesionGuardada) {
-        const donde = window.__mtAlmacenSesion || 'el navegador';
-        mostrarMsg(msgEl,
-            'Tu usuario y tu contraseña son correctos, pero este navegador no está conservando la sesión '
-            + '(almacén en uso: ' + donde + '). Cierra las demás pestañas de este sitio y vuelve a intentarlo. '
-            + 'Si sigue igual, borra los datos del sitio en tu navegador y entra de nuevo.', 'error');
-        btn.disabled = false;
-        return;
+        mostrarMsg(msgEl, 'Entrando… este navegador no conserva la sesión, así que te la pediremos una vez más en la página.', 'ok');
     }
 
     window.location.href = (perfil.role === 'docente' || perfil.role === 'admin') ? 'panel-docente.html' : 'panel-estudiante.html';

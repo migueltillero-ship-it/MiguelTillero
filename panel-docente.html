@@ -345,8 +345,8 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="assets/js/supabase-config.js?v=1790377227"></script>
-<script src="assets/js/auth-helpers.js?v=1790377227"></script>
+<script src="assets/js/supabase-config.js?v=1790411264"></script>
+<script src="assets/js/auth-helpers.js?v=1790411264"></script>
 <script>
 let perfilDocente = null;
 let cursos = [];
@@ -499,14 +499,34 @@ async function iniciar() {
     perfilDocente = contexto.perfil;
     document.getElementById('nombre-docente').textContent = perfilDocente.nombre_completo;
     document.getElementById('contenido-panel').style.display = 'block';
-    const { data: fer } = await supabaseClient.from('feriados').select('fecha');
-    feriados = new Set((fer || []).map(f => f.fecha));
-    const { data: met } = await supabaseClient.from('metodos').select('*').eq('activo', true).order('nombre');
-    metodos = met || [];
-    poblarSelectMetodo('nc-metodo');
-    poblarSelectMetodo('ec-metodo');
-    await cargarCursos();
-    await cargarDatosGlobales();
+
+    /* Cada parte se carga por separado. Antes, un fallo en cualquiera de
+       ellas cortaba el resto y dejaba el panel en blanco; ahora lo que
+       funcione se ve igual, y lo que falle se avisa arriba. Los cursos son
+       lo principal, así que van primero. */
+    async function paso(nombre, fn) {
+        try { await fn(); }
+        catch (e) { mostrarFalloCarga(nombre + ' · ' + ((e && e.message) || e)); }
+    }
+
+    await paso('cargar los cursos', cargarCursos);
+
+    await paso('cargar los días feriados', async () => {
+        const { data: fer } = await supabaseClient.from('feriados').select('fecha');
+        feriados = new Set((fer || []).map(f => f.fecha));
+    });
+
+    await paso('cargar los métodos', async () => {
+        const { data: met } = await supabaseClient.from('metodos').select('*').eq('activo', true).order('nombre');
+        metodos = met || [];
+        poblarSelectMetodo('nc-metodo');
+        poblarSelectMetodo('ec-metodo');
+    });
+
+    // Los cursos se repintan para que salga el nombre del método, que no
+    // estaba disponible en la primera pasada.
+    await paso('actualizar la lista de cursos', cargarCursos);
+    await paso('cargar el calendario y las clases de hoy', cargarDatosGlobales);
 }
 
 // ---- DATOS DE TODOS LOS CURSOS (para Hoy y Calendario) ----
