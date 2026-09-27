@@ -226,9 +226,10 @@ Desde ese momento el estudiante ve, en su espacio:
 **Los correos automáticos todavía no salen de tu dominio.** Supabase está
 usando su remitente de prueba, con límite diario y con alta probabilidad de
 caer en spam. Para que los correos de verificación y los recordatorios salgan
-bien hay que conectar el SMTP de Resend en Supabase — son las instrucciones
-que te pasé antes. Mientras eso no esté, **los recordatorios mándalos tú por
-WhatsApp** con el texto de arriba: es lo que de verdad funciona hoy.
+bien hay que conectar el SMTP de Resend en Supabase: el paso a paso completo
+está en **`GUIA-correo-resend.md`**, en esta misma carpeta. Mientras eso no
+esté, **los recordatorios mándalos tú por WhatsApp** con el texto de arriba: es
+lo que de verdad funciona hoy.
 
 **El ZIP llegó vacío.** Vuélvemelo a mandar y ajusto el plan con los
 resultados reales de la última evaluación: si hay un punto flojo concreto
