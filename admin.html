@@ -76,6 +76,7 @@ details.form-toggle > summary { cursor:pointer; font-family:'Space Mono',monospa
 
         <div class="tabs">
             <button class="tab-btn activo" data-tab="grupos" onclick="cambiarTabPrincipal('grupos')"><i class="fa-solid fa-users-rectangle"></i> Grupos</button>
+            <button class="tab-btn" data-tab="estudiantes" onclick="cambiarTabPrincipal('estudiantes')"><i class="fa-solid fa-user-graduate"></i> Estudiantes <span id="badge-sin-grupo" class="badge pendiente" style="display:none;margin-left:0.3rem;"></span></button>
             <button class="tab-btn" data-tab="docentes" onclick="cambiarTabPrincipal('docentes')"><i class="fa-solid fa-chalkboard-user"></i> Docentes</button>
             <button class="tab-btn" data-tab="finanzas" onclick="cambiarTabPrincipal('finanzas')"><i class="fa-solid fa-sack-dollar"></i> Finanzas</button>
             <button class="tab-btn" data-tab="eventos" onclick="cambiarTabPrincipal('eventos')"><i class="fa-solid fa-calendar-days"></i> Eventos</button>
@@ -124,6 +125,24 @@ details.form-toggle > summary { cursor:pointer; font-family:'Space Mono',monospa
                     <tbody id="tabla-grupos"></tbody>
                 </table>
                 <div id="msg-grupos" class="msg"></div>
+            </section>
+        </div>
+
+        <!-- ═══ ESTUDIANTES ═══ -->
+        <div class="tab-content" id="tabp-estudiantes">
+            <section class="panel">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+                    <h2 style="margin:0;">Estudiantes</h2>
+                    <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.9rem;"><input type="checkbox" id="est-solo-sin-grupo" checked onchange="pintarEstudiantes()"> Mostrar solo los que no tienen grupo</label>
+                </div>
+                <p class="muted" style="margin:0.4rem 0 0;">Quien se registra desde el enlace de inscripción aparece aquí aunque todavía no exista su grupo. Elige el grupo y pulsa <strong>Asignar</strong>: queda como <em>pendiente</em> hasta que registres su pago, o como <em>activa</em> si ya pagó.</p>
+                <div style="overflow-x:auto;">
+                <table style="margin-top:1.2rem;">
+                    <thead><tr><th>Estudiante</th><th>Contacto</th><th>Registro</th><th>Grupos</th><th>Asignar a</th></tr></thead>
+                    <tbody id="tabla-estudiantes"></tbody>
+                </table>
+                </div>
+                <div id="msg-estudiantes" class="msg"></div>
             </section>
         </div>
 
@@ -310,6 +329,7 @@ let docentesCache = [];
 let gruposCache = [];
 let inscripcionesCache = [];
 let metodosCache = [];
+let estudiantesCache = [];
 let metodoActualId = null;
 
 function mostrarMsg(el, texto, tipo) {
@@ -340,6 +360,7 @@ async function iniciar() {
 
     await Promise.all([cargarCursos(), cargarDocentes(), cargarInscripcionesTodas()]);
     await cargarGrupos();
+    await cargarEstudiantes();
     await cargarFinanzas();
     await cargarEventos();
     await cargarConstancias();
@@ -450,6 +471,56 @@ async function cambiarEstadoGrupo(id, estado) {
     const msgEl = document.getElementById('msg-grupos');
     if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
     await cargarGrupos();
+}
+
+// ───────────────────────── ESTUDIANTES ─────────────────────────
+async function cargarEstudiantes() {
+    const msgEl = document.getElementById('msg-estudiantes');
+    const { data, error } = await supabaseClient.rpc('admin_estudiantes');
+    if (error) {
+        estudiantesCache = [];
+        mostrarMsg(msgEl, 'No se pudo cargar la lista de estudiantes: ' + error.message + ' — falta correr supabase/estudiantes-sin-grupo.sql en Supabase.', 'error');
+        document.getElementById('tabla-estudiantes').innerHTML = '';
+        return;
+    }
+    msgEl.style.display = 'none';
+    estudiantesCache = data || [];
+    pintarEstudiantes();
+}
+
+function pintarEstudiantes() {
+    const solo = document.getElementById('est-solo-sin-grupo').checked;
+    const sinGrupo = estudiantesCache.filter(e => !e.total_inscripciones).length;
+    const badge = document.getElementById('badge-sin-grupo');
+    badge.textContent = sinGrupo; badge.style.display = sinGrupo ? 'inline-block' : 'none';
+    const lista = estudiantesCache.filter(e => !solo || !e.total_inscripciones);
+    const grupos = gruposCache.filter(g => g.estado !== 'finalizado');
+    const opciones = grupos.map(g => `<option value="${g.id}">${esc(g.codigo)} — ${esc((g.cursos || {}).nombre || '')} (${g.cupo_actual}/${g.cupo_maximo})</option>`).join('');
+    document.getElementById('tabla-estudiantes').innerHTML = lista.map(e => `
+        <tr>
+            <td><strong>${esc(e.nombre_completo)}</strong>${e.representante_nombre ? '<br><span class="muted">Representante: ' + esc(e.representante_nombre) + '</span>' : ''}</td>
+            <td>${esc(e.email || '')}${e.telefono ? '<br><span class="muted">' + esc(e.telefono) + '</span>' : ''}</td>
+            <td>${e.created_at ? new Date(e.created_at).toLocaleDateString('es-MX') : '—'}</td>
+            <td>${e.grupos ? esc(e.grupos) : '<span class="muted">Sin grupo</span>'}</td>
+            <td class="acciones-fila">
+                ${grupos.length ? `<select id="asg-g-${e.id}">${opciones}</select>
+                <select id="asg-e-${e.id}"><option value="pendiente">Pendiente de pago</option><option value="activa">Activa</option></select>
+                <button class="btn pequeno" onclick="asignarEstudiante('${e.id}')">Asignar</button>` : '<span class="muted">Crea primero un grupo en la pestaña Grupos.</span>'}
+            </td>
+        </tr>
+    `).join('') || '<tr><td colspan="5" class="muted">' + (solo ? 'No hay estudiantes sin grupo.' : 'Aún no hay estudiantes registrados.') + '</td></tr>';
+}
+
+async function asignarEstudiante(estudianteId) {
+    const msgEl = document.getElementById('msg-estudiantes');
+    const grupoId = document.getElementById('asg-g-' + estudianteId).value;
+    const estado = document.getElementById('asg-e-' + estudianteId).value;
+    const { error } = await supabaseClient.rpc('asignar_estudiante_a_grupo', { p_estudiante: estudianteId, p_grupo: grupoId, p_estado: estado });
+    if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
+    mostrarMsg(msgEl, 'Estudiante asignado al grupo.', 'ok');
+    await Promise.all([cargarInscripcionesTodas(), cargarGrupos()]);
+    await cargarEstudiantes();
+    msgEl.style.display = 'block';
 }
 
 // ───────────────────────── FINANZAS ─────────────────────────

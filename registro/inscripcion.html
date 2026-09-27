@@ -87,10 +87,11 @@ main { padding: 3.5rem 5%; max-width: 640px; margin: 0 auto; flex-grow: 1; width
                 </div>
             </div>
             <div class="form-field">
-                <label>Curso *</label>
-                <select id="f-curso" required>
+                <label>Curso o grupo <span style="font-weight:400;opacity:0.7;">(opcional)</span></label>
+                <select id="f-curso">
                     <option value="">Cargando cursos disponibles…</option>
                 </select>
+                <p class="hint" style="margin:0.5rem 0 0;">¿Aún no ves tu curso, o todavía no está abierto? Crea tu cuenta igual: yo te asigno al grupo que corresponda y te aviso.</p>
             </div>
             <div class="bloque-rep">
                 <p class="rep-titulo">¿El estudiante es menor de edad?</p>
@@ -142,6 +143,15 @@ main { padding: 3.5rem 5%; max-width: 640px; margin: 0 auto; flex-grow: 1; width
             <p class="lede">Te enviamos un enlace de verificación. Confírmalo y ya podrás entrar a tu espacio de estudiante.</p>
             <br>
             <a href="../login.html" class="btn-gold" style="display:inline-flex; width:auto; padding:0.9rem 2rem;">Ir a iniciar sesión</a>
+
+            <div id="bloque-sin-grupo" class="pago-aviso" style="display:none; margin-top:1.6rem;">
+                <strong>Tu cuenta quedó creada sin grupo, y está bien así.</strong>
+                Yo te asigno el que corresponda a tu nivel y horario, y en cuanto lo haga aparecerá en tu espacio.
+                Si quieres adelantarlo, escríbeme por WhatsApp.
+                <br><br>
+                <a href="https://wa.me/584122465331" target="_blank" rel="noopener"
+                   style="color:var(--primary-color); font-weight:600;">Escribirme por WhatsApp →</a>
+            </div>
 
             <div class="pago-bloque" id="bloque-pago" style="display:none;">
                 <p class="eyebrow" style="text-align:center;">Paso 2 · Reserva tu lugar</p>
@@ -315,7 +325,7 @@ if (!supabaseConfigurado) {
                 return;
             }
             mostrarMsg(document.getElementById('msg-form'),
-                'Ese curso ya no tiene cupo disponible para inscripciones. Elige otro de la lista.', 'error');
+                'Ese grupo todavía no está abierto o ya no tiene cupo. Puedes crear tu cuenta igualmente: yo te asigno el grupo que corresponda.', 'ok');
         }
 
         const { data: grupos, error } = await supabaseClient
@@ -325,10 +335,10 @@ if (!supabaseConfigurado) {
 
         const disponibles = (grupos || []).filter(g => g.cupo_disponible > 0);
         if (error || disponibles.length === 0) {
-            selectCurso.innerHTML = '<option value="">No hay cursos abiertos por ahora</option>';
+            selectCurso.innerHTML = '<option value="">Aún no hay cursos abiertos — crea tu cuenta y te asignaré un grupo</option>';
             return;
         }
-        selectCurso.innerHTML = '<option value="">Selecciona un curso</option>' +
+        selectCurso.innerHTML = '<option value="">Aún no elijo — quiero crear mi cuenta y que me asignen un grupo</option>' +
             disponibles.map(g => `<option value="${g.id}" data-curso="${g.curso_id}">${g.curso_nombre}${g.curso_nivel ? ' — ' + g.curso_nivel : ''} (${g.cupo_disponible} cupo${g.cupo_disponible === 1 ? '' : 's'}${costoTexto(g) ? ' · ' + costoTexto(g) : ''})</option>`).join('');
 
         // Al elegir del desplegable, guardamos el grupo para el paso de pago.
@@ -367,12 +377,7 @@ document.getElementById('form-inscripcion').addEventListener('submit', async (e)
     const grupo_id = grupoElegido();
     const curso_id = cursoElegido();
 
-    if (!grupo_id) {
-        mostrarMsg(msgEl, 'Selecciona el curso al que quieres inscribirte.', 'error');
-        btn.disabled = false;
-        return;
-    }
-
+    // El grupo es opcional: sin grupo se crea solo la cuenta y el administrador asigna después.
     const { error } = await supabaseClient.auth.signUp({
         email,
         password,
@@ -398,6 +403,7 @@ document.getElementById('form-inscripcion').addEventListener('submit', async (e)
 
     document.getElementById('form-inscripcion').style.display = 'none';
     document.getElementById('pantalla-exito').style.display = 'block';
+    document.getElementById('bloque-sin-grupo').style.display = grupo_id ? 'none' : 'block';
     pintarPago();
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
