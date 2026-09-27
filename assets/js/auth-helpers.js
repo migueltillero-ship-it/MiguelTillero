@@ -211,7 +211,7 @@ function pedirCredencialesEnPagina(rolRequerido, detalle) {
              dejarla ahí parada, se la lleva a la suya. Se deja puesta la
              marca para que allí también se le pida la contraseña, ya que
              este navegador no conserva la sesión entre páginas. */
-          var destino = (rol === 'docente' || rol === 'admin') ? 'panel-docente.html' : 'panel-estudiante.html';
+          var destino = destinoParaRol(rol);
           aviso('Tu cuenta es de ' + rol + '. Te llevamos a tu panel…');
           try { sessionStorage.setItem('mt_viene_del_login', '1'); } catch (e) {}
           setTimeout(function () { window.location.href = destino; }, 1200);
@@ -241,6 +241,15 @@ function pedirCredencialesEnPagina(rolRequerido, detalle) {
  * escondía el problema: el login volvía a mandar al panel y el usuario
  * daba vueltas sin ver nunca una explicación.
  */
+
+/* A qué panel manda cada rol. 'admin' tiene el suyo propio desde que Miguel
+   usa una cuenta aparte para administrar (antes era la misma que la de dar
+   clases, por eso antes admin caía siempre en panel-docente.html). */
+function destinoParaRol(rol) {
+  if (rol === 'admin') return 'admin.html';
+  if (rol === 'docente') return 'panel-docente.html';
+  return 'panel-estudiante.html';
+}
 
 async function requerirSesion(rolRequerido) {
   if (!supabaseConfigurado) return null;
@@ -276,7 +285,7 @@ async function requerirSesion(rolRequerido) {
   // por ahora, la coordinación general es la misma persona que da clases.
   const cumpleRol = !rolRequerido || rol === rolRequerido || (rolRequerido === 'docente' && rol === 'admin');
   if (!cumpleRol) {
-    window.location.href = (rol === 'docente' || rol === 'admin') ? 'panel-docente.html' : 'panel-estudiante.html';
+    window.location.href = destinoParaRol(rol);
     return null;
   }
   return contexto;
