@@ -233,9 +233,10 @@
   <i class="fa fa-mug-hot"></i>
   <span class="vf-text" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</span>
 </a>
-<audio id="bg-audio" loop preload="none">
+<audio id="bg-audio" preload="none">
   <source src="Une_Promenade_en_Soleil.mp3" type="audio/mpeg">
 </audio>
+<script src="assets/js/musica-fondo.js?v=1790900000"></script>
 
 <!-- WHATSAPP FLOAT -->
 <div id="wa-float">
@@ -1002,67 +1003,11 @@ window.addEventListener('mousemove', e => {
   });
 });
 
-/* ── AUDIO ───────────────────────────────── */
-const bgAudio  = document.getElementById('bg-audio');
-const audioBtn = document.getElementById('audio-btn');
-let playing = false;
-if (bgAudio) bgAudio.volume = 0.4;
-if (audioBtn && bgAudio) {
-  audioBtn.addEventListener('click', () => {
-    if (playing) {
-      bgAudio.pause();
-      audioBtn.classList.remove('playing');
-      audioBtn.innerHTML = '<i class="fa fa-music"></i>';
-    } else {
-      bgAudio.play().catch(()=>{});
-      audioBtn.classList.add('playing');
-      audioBtn.innerHTML = '<i class="fa fa-pause"></i>';
-    }
-    playing = !playing;
-  });
-}
-
-/* Intento de arranque inmediato de la música al cargar la página.
-   Los navegadores bloquean el audio con sonido sin gesto del usuario;
-   si el intento inmediato falla, queda armado para arrancar en cuanto
-   ocurra la primera interacción (clic, toque, tecla o scroll),
-   sin depender de un botón concreto. */
-(function tryAutoStartMusic() {
-  if (!bgAudio || playing) return;
-  var p = bgAudio.play();
-  if (!p || !p.then) return;
-  p.then(function () {
-    playing = true;
-    if (audioBtn) { audioBtn.classList.add('playing'); audioBtn.innerHTML = '<i class="fa fa-pause"></i>'; }
-  }).catch(function () {
-    var eventos = ['click', 'touchstart', 'keydown', 'scroll'];
-    var desbloquear = function () {
-      eventos.forEach(function (ev) { document.removeEventListener(ev, desbloquear); });
-      tryAutoStartMusic();
-    };
-    eventos.forEach(function (ev) { document.addEventListener(ev, desbloquear, { once: true, passive: true }); });
-  });
-})();
-
-/* Arranque automático de la música al terminar el vídeo de intro.
-   Se permite porque la cadena viene del clic en «Entrar». */
-window.startBgMusic = function() {
-  if (!bgAudio || playing) return;
-  var p = bgAudio.play();
-  playing = true;
-  if (audioBtn) {
-    audioBtn.classList.add('playing');
-    audioBtn.innerHTML = '<i class="fa fa-pause"></i>';
-  }
-  /* Si el navegador lo bloquea, dejamos el botón listo para un clic manual */
-  if (p && p.catch) p.catch(function() {
-    playing = false;
-    if (audioBtn) {
-      audioBtn.classList.remove('playing');
-      audioBtn.innerHTML = '<i class="fa fa-music"></i>';
-    }
-  });
-};
+/* ── AUDIO ─────────────────────────────────
+   La música de fondo vive ahora en assets/js/musica-fondo.js: suena una
+   sola vez por visita (sin bucle, continuando entre páginas) y se corta
+   en cuanto el visitante reproduce un vídeo. */
+const bgAudio = document.getElementById('bg-audio');
 
 /* ── PORTRAIT CAROUSEL ─────────────────────── */
 (function(){
