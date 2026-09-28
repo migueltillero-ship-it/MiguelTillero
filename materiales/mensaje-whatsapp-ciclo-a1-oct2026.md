@@ -22,7 +22,7 @@ En la imagen tienen todos los detalles. Lo esencial:
 🕖 *Martes y jueves, de 7:00 a 8:00 p.m.*
 🏫 Modalidad *híbrida*: en el salón o por Zoom, como les convenga
 💰 *$1,900 MXN* el ciclo completo
-⏳ Para apartar el lugar, el pago va *antes del martes 29*
+⏳ Hay plazo para inscribirse y pagar *hasta el mismo martes 29*, el día que empezamos. Después de esa fecha ya no se admiten inscripciones para este ciclo.
 
 Las *evaluaciones de cierre* serán el *martes 3 de noviembre* (en grupo) y el *jueves 5* (individual). Ese mismo jueves entrego los *resultados*, uno por uno.
 
@@ -87,7 +87,7 @@ algún día creas otro ciclo, ese id cambia: lo saca el panel docente en
 ## 3 · Recordatorio de pago (si hace falta, domingo 27 o lunes 28)
 
 ```
-Hola 👋 Un recordatorio corto: para apartar el lugar de *[nombre]* en el ciclo que arranca el *martes 29*, el pago va antes de esa fecha.
+Hola 👋 Un recordatorio corto: el plazo para inscribir a *[nombre]* en el ciclo termina el *martes 29*, el mismo día que empezamos. Después de ese día ya no puedo incluirlo en este ciclo.
 
 Los datos están en la imagen que mandé al grupo; si te queda más cómodo te los paso por aquí. Con que me mandes el comprobante es suficiente.
 
