@@ -458,18 +458,32 @@ async function cargarGrupos() {
             <td>${g.cupo_actual}/${g.cupo_maximo}</td>
             <td>${g.fecha_inicio || '—'}</td>
             <td><span class="badge ${esc(g.estado)}">${esc(g.estado)}</span></td>
-            <td class="acciones-fila">
-                <button class="btn pequeno secundario" onclick="cambiarEstadoGrupo('${g.id}','cerrado')">Cerrar</button>
-                <button class="btn pequeno secundario" onclick="cambiarEstadoGrupo('${g.id}','finalizado')">Finalizar</button>
-            </td>
+            <td class="acciones-fila">${accionesGrupo(g)}</td>
         </tr>
     `).join('') || '<tr><td colspan="7" class="muted">Sin grupos todavía.</td></tr>';
+}
+
+// Qué botones tiene sentido ofrecer según el estado actual — así "Cerrar"
+// no se queda ahí sin que haya luego forma de deshacerlo con un clic.
+function accionesGrupo(g) {
+    if (g.estado === 'abierto' || g.estado === 'en_curso') {
+        return `<button class="btn pequeno secundario" onclick="cambiarEstadoGrupo('${g.id}','cerrado')">Cerrar</button>
+                <button class="btn pequeno secundario" onclick="cambiarEstadoGrupo('${g.id}','finalizado')">Finalizar</button>`;
+    }
+    if (g.estado === 'cerrado') {
+        return `<button class="btn pequeno" onclick="cambiarEstadoGrupo('${g.id}','abierto')">Reabrir</button>
+                <button class="btn pequeno secundario" onclick="cambiarEstadoGrupo('${g.id}','finalizado')">Finalizar</button>`;
+    }
+    // 'finalizado' es el estado de cierre del ciclo: se puede reabrir por si acaso,
+    // pero sin proponerlo como flujo normal.
+    return `<button class="btn pequeno secundario" onclick="cambiarEstadoGrupo('${g.id}','abierto')">Reabrir</button>`;
 }
 
 async function cambiarEstadoGrupo(id, estado) {
     const { error } = await supabaseClient.from('grupos').update({ estado }).eq('id', id);
     const msgEl = document.getElementById('msg-grupos');
     if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
+    mostrarMsg(msgEl, estado === 'abierto' ? 'Grupo reabierto: vuelve a aceptar inscripciones.' : 'Estado del grupo actualizado.', 'ok');
     await cargarGrupos();
 }
 
