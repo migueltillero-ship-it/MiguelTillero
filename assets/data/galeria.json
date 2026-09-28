@@ -821,11 +821,11 @@
    "thumb": "assets/images/galeria/t/r-meirieu-conferencia.jpg",
    "w": 1000,
    "h": 625,
-   "alt": "Philippe Meirieu ofrece la conferencia «Y si la escuela enseñara a pensar» en el Teatro Sucre",
+   "alt": "Philippe Meirieu en el podio; a la mesa, Miguel Tillero interpreta en vivo del francés al español",
    "pie": {
-    "es": "Philippe Meirieu · «Y si la escuela enseñara a pensar» · Teatro Sucre, noviembre de 2019",
-    "fr": "Philippe Meirieu · « Et si l’école enseignait à penser » · Théâtre Sucre, novembre 2019",
-    "en": "Philippe Meirieu · “What if school taught us to think” · Teatro Sucre, November 2019"
+    "es": "Philippe Meirieu · «Y si la escuela enseñara a pensar» · UNAE, noviembre de 2019",
+    "fr": "Philippe Meirieu · « Et si l’école enseignait à penser » · UNAE, novembre 2019",
+    "en": "Philippe Meirieu · “What if school taught us to think” · UNAE, November 2019"
    }
   },
   {
@@ -1302,6 +1302,34 @@
     "es": "L’Étape Ecuador by Tour de France · con el embajador Frédéric Desagneaux · Cuenca, 19 de febrero de 2022",
     "fr": "L’Étape Équateur by Tour de France · avec l’ambassadeur Frédéric Desagneaux · Cuenca, 19 février 2022",
     "en": "L’Étape Ecuador by Tour de France · with Ambassador Frédéric Desagneaux · Cuenca, February 19, 2022"
+   }
+  },
+  {
+   "id": "r-meirieu-libro",
+   "cat": "ecuador",
+   "src": "assets/images/relato/meirieu-libro.jpg",
+   "thumb": "assets/images/galeria/t/r-meirieu-libro.jpg",
+   "w": 900,
+   "h": 1266,
+   "alt": "Portada de «Pedagogía: el deber de resistir», de Philippe Meirieu, traducida por Miguel Tillero",
+   "pie": {
+    "es": "«Pedagogía: el deber de resistir» · UNAE, UNIPE y Alianza Francesa, 2020",
+    "fr": "« Pedagogía: el deber de resistir » · UNAE, UNIPE et Alliance Française, 2020",
+    "en": "“Pedagogía: el deber de resistir” · UNAE, UNIPE and Alliance Française, 2020"
+   }
+  },
+  {
+   "id": "r-meirieu-auditorio",
+   "cat": "ecuador",
+   "src": "assets/images/relato/meirieu-auditorio.jpg",
+   "thumb": "assets/images/galeria/t/r-meirieu-auditorio.jpg",
+   "w": 1100,
+   "h": 631,
+   "alt": "Vista del auditorio completo durante la conferencia de Philippe Meirieu en la UNAE",
+   "pie": {
+    "es": "El auditorio de la UNAE, durante la conferencia",
+    "fr": "L’auditorium de l’UNAE, pendant la conférence",
+    "en": "The UNAE auditorium, during the lecture"
    }
   },
   {
