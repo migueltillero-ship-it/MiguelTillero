@@ -32,7 +32,7 @@ Así que el primer paso depende de tu situación:
 |---|---|
 | **Ya tengo un dominio** (cualquiera, aunque no sea `migueltillero.com`) | Salta al **Paso 1**. Usa ese. |
 | **No tengo dominio** | Cómpralo primero — ver el recuadro de abajo. Son 10-15 USD al año. |
-| **No quiero comprar dominio ahora** | Entonces Resend no te sirve todavía. Ve a **«Plan B sin dominio»** al final. |
+| **No quiero comprar dominio ahora** | Entonces Resend no te sirve todavía. Usa **`GUIA-correo-gmail.md`**: el mismo resultado hoy, sin comprar nada. |
 
 > ### Comprar el dominio (recomendado, y no solo por el correo)
 >
@@ -230,12 +230,15 @@ y se compensa avisando —el mensaje de WhatsApp ya lleva ese aviso— y estando
 pendiente de quien no encuentre el correo. **Para arrancar el martes, es
 perfectamente suficiente.**
 
-**2 · SMTP de Gmail** — *no lo recomiendo*
-Hay que activar la verificación en dos pasos y generar una «contraseña de
-aplicación». Sale gratis y los correos llegan bien, pero Google limita a ~100
-al día, puede bloquear la cuenta si detecta un patrón raro, y estarías metiendo
-la contraseña de tu Gmail personal en un servicio externo. Para una plataforma
-que va a crecer, es un parche.
+**2 · SMTP de Gmail** — *el puente, y para arrancar es el mejor*
+→ **Paso a paso en `GUIA-correo-gmail.md`.** Diez minutos, sin comprar nada y
+sin esperar a ningún DNS. Los correos salen de `migueltillero@gmail.com`, una
+dirección que tus representantes ya conocen, y de Gmail a Gmail entran a
+bandeja de entrada casi siempre — hoy, mejor incluso que un dominio recién
+comprado, que para los filtros de spam es un desconocido.
+No escala a cientos de alumnos y lleva tu dirección personal, así que sigue
+siendo un puente hacia la opción de arriba. Pero para tres familias y con la
+clase encima, es la decisión correcta.
 
 **3 · Resend con `onboarding@resend.dev`** — *no sirve para esto*
 Resend deja usar ese remitente sin verificar dominio, pero **solo puede
