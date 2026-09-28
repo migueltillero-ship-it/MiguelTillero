@@ -69,8 +69,8 @@ h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--a
 <a href="index.html" class="back-link"><i class="fa fa-arrow-left"></i> Volver al inicio</a>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="assets/js/supabase-config.js?v=1790462574"></script>
-<script src="assets/js/auth-helpers.js?v=1790462574"></script>
+<script src="assets/js/supabase-config.js?v=1790500000"></script>
+<script src="assets/js/auth-helpers.js?v=1790500000"></script>
 <script>
 /* Si un panel no pudo confirmar la sesión y nos devolvió aquí, se dice por qué. */
 (function () {
@@ -197,7 +197,7 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
         mostrarMsg(msgEl, 'Entrando… este navegador no conserva la sesión, así que te la pediremos una vez más en la página.', 'ok');
     }
 
-    window.location.href = (perfil.role === 'docente' || perfil.role === 'admin') ? 'panel-docente.html' : 'panel-estudiante.html';
+    window.location.href = destinoParaRol(perfil.role);
 });
 
 document.getElementById('link-recuperar').addEventListener('click', async (e) => {

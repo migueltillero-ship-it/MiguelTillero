@@ -98,6 +98,7 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
     <a href="index.html" class="nav-brand">Miguel Tillero · Panel docente</a>
     <div class="nav-right">
         <span id="nombre-docente"></span>
+        <a href="admin.html" id="link-panel-admin" style="display:none;">Panel admin</a>
         <button onclick="cerrarSesion()"><i class="fa-solid fa-right-from-bracket"></i> Salir</button>
     </div>
 </nav>
@@ -345,8 +346,8 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="assets/js/supabase-config.js?v=1790462574"></script>
-<script src="assets/js/auth-helpers.js?v=1790462574"></script>
+<script src="assets/js/supabase-config.js?v=1790500000"></script>
+<script src="assets/js/auth-helpers.js?v=1790500000"></script>
 <script>
 let perfilDocente = null;
 let cursos = [];
@@ -498,6 +499,7 @@ async function iniciar() {
     if (!contexto) return;
     perfilDocente = contexto.perfil;
     document.getElementById('nombre-docente').textContent = perfilDocente.nombre_completo;
+    if (perfilDocente.role === 'admin') document.getElementById('link-panel-admin').style.display = '';
     document.getElementById('contenido-panel').style.display = 'block';
 
     /* Cada parte se carga por separado. Antes, un fallo en cualquiera de
