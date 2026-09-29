@@ -1,14 +1,21 @@
 -- ===========================================================================
--- PLAZO DE INSCRIPCIÓN POR GRUPO
+-- PLAZOS DEL GRUPO: INSCRIBIRSE Y PAGAR
 -- ===========================================================================
--- Hasta ahora un grupo estaba «abierto» o «cerrado» y había que cerrarlo a
--- mano. La regla que queremos es otra: hay plazo hasta el primer día del
--- ciclo inclusive —quien llegue ese martes todavía entra— y a partir del día
--- siguiente, no.
+-- Son dos plazos distintos y conviene no confundirlos:
 --
--- Se añade una fecha de cierre por grupo, con el primer día del ciclo como
--- valor de partida, y se hace que el plazo se respete solo: ni la página de
--- inscripción ofrece el grupo pasado el plazo, ni el alta lo engancha.
+--   · INSCRIBIRSE (darse de alta en la plataforma) — hay plazo hasta el
+--     primer día del ciclo inclusive. Quien llegue ese martes todavía entra;
+--     a partir del día siguiente, no.
+--
+--   · PAGAR — es más holgado: se puede pagar durante la primera semana,
+--     hasta la clase del martes siguiente. Lo ideal es antes de la primera
+--     clase, pero no se le cierra la puerta a nadie por eso.
+--
+-- Hasta ahora un grupo estaba «abierto» o «cerrado» y había que cerrarlo a
+-- mano. Se añaden las dos fechas por grupo y se hace que el plazo de
+-- inscripción se respete solo: ni la página de inscripción ofrece el grupo
+-- pasado el plazo, ni el alta lo engancha. El de pago no cierra nada: es
+-- información, para que la plataforma diga la fecha correcta.
 --
 -- Todo se compara en hora de Ciudad de México. Con la hora UTC que trae
 -- Postgres por defecto, el martes a las 18:00 de México ya sería miércoles y
@@ -20,24 +27,39 @@
 -- ===========================================================================
 
 -- ---------------------------------------------------------------------------
--- 1. La fecha de cierre
+-- 1. Las dos fechas
 -- ---------------------------------------------------------------------------
 
 alter table public.grupos
   add column if not exists fecha_cierre_inscripcion date;
 
+alter table public.grupos
+  add column if not exists fecha_limite_pago date;
+
 comment on column public.grupos.fecha_cierre_inscripcion is
   'Último día en que se admiten inscripciones, inclusive. Si está vacío, se '
   'toma el primer día del ciclo.';
+
+comment on column public.grupos.fecha_limite_pago is
+  'Último día para pagar, inclusive. No cierra nada: es la fecha que muestra '
+  'la plataforma. Si está vacío, se toma el cierre de inscripción.';
 
 -- Los grupos que ya existen se quedan con el primer día del ciclo.
 update public.grupos
    set fecha_cierre_inscripcion = fecha_inicio
  where fecha_cierre_inscripcion is null;
 
--- El ciclo de octubre: se admite gente durante todo el martes 29.
+-- A falta de otra cosa, pagar el primer día.
 update public.grupos
-   set fecha_cierre_inscripcion = date '2026-09-29'
+   set fecha_limite_pago = coalesce(fecha_cierre_inscripcion, fecha_inicio)
+ where fecha_limite_pago is null;
+
+-- El ciclo de octubre:
+--   · inscripción, durante todo el martes 29 (primer día)
+--   · pago, hasta la clase del martes siguiente — una semana de margen
+update public.grupos
+   set fecha_cierre_inscripcion = date '2026-09-29',
+       fecha_limite_pago        = date '2026-10-06'
  where codigo = 'A1-OCT2026';
 
 -- ---------------------------------------------------------------------------
@@ -78,6 +100,8 @@ select
   (g.cupo_maximo - g.cupo_actual) as cupo_disponible,
   g.fecha_inicio, g.fecha_fin, g.horario, g.costo, g.moneda, g.estado,
   coalesce(g.fecha_cierre_inscripcion, g.fecha_inicio) as fecha_cierre_inscripcion,
+  coalesce(g.fecha_limite_pago,
+           g.fecha_cierre_inscripcion, g.fecha_inicio)  as fecha_limite_pago,
   (coalesce(g.fecha_cierre_inscripcion, g.fecha_inicio) >= public.hoy_mexico())
     as inscripcion_abierta,
   p.nombre_completo as docente_nombre
@@ -154,6 +178,9 @@ select
   g.fecha_inicio                                as primer_dia,
   coalesce(g.fecha_cierre_inscripcion,
            g.fecha_inicio)                      as ultimo_dia_para_inscribirse,
+  coalesce(g.fecha_limite_pago,
+           g.fecha_cierre_inscripcion,
+           g.fecha_inicio)                      as ultimo_dia_para_pagar,
   public.hoy_mexico()                           as hoy_en_mexico,
   case when public.inscripcion_abierta(g.id)
        then 'SÍ, todavía se puede'

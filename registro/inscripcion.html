@@ -254,9 +254,16 @@ function pintarPago() {
 
     document.getElementById('pago-cifra').textContent = '$' + monto.toLocaleString('es-MX');
     document.getElementById('pago-moneda').textContent = grupoActual.moneda || 'MXN';
+    /* Pagar tiene más margen que inscribirse: hay hasta la clase de la
+       semana siguiente. Lo ideal es antes de empezar, pero nadie se queda
+       fuera por eso. */
+    const limitePago = grupoActual.fecha_limite_pago
+        || grupoActual.fecha_cierre_inscripcion || grupoActual.fecha_inicio;
     document.getElementById('pago-limite').textContent =
-        'Para apartar tu lugar, paga a más tardar el ' +
-        fechaLarga(grupoActual.fecha_cierre_inscripcion || grupoActual.fecha_inicio) + '.';
+        limitePago === grupoActual.fecha_inicio
+            ? 'Para apartar tu lugar, paga a más tardar el ' + fechaLarga(limitePago) + '.'
+            : 'Tienes hasta el ' + fechaLarga(limitePago) + ' para pagar. '
+              + 'Lo ideal es hacerlo antes de la primera clase.';
 
     document.getElementById('pago-metodos').innerHTML = METODOS_PAGO.map(m => `
         <div class="pago-metodo">
