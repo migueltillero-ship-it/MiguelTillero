@@ -239,6 +239,14 @@ function fechaLarga(iso) {
         { weekday: 'long', day: 'numeric', month: 'long' });
 }
 
+/* Hay plazo hasta el último día inclusive. Quien todavía no haya corrido
+   supabase/plazo-inscripcion.sql no tiene la columna en la vista: entonces
+   no hay plazo que comprobar y el grupo sigue abierto como antes. */
+function plazoAbierto(g) {
+    if (!g || g.inscripcion_abierta === undefined || g.inscripcion_abierta === null) return true;
+    return g.inscripcion_abierta === true;
+}
+
 function pintarPago() {
     if (!grupoActual) return;
     const monto = Number(grupoActual.costo);
@@ -246,8 +254,16 @@ function pintarPago() {
 
     document.getElementById('pago-cifra').textContent = '$' + monto.toLocaleString('es-MX');
     document.getElementById('pago-moneda').textContent = grupoActual.moneda || 'MXN';
+    /* Pagar tiene más margen que inscribirse: hay hasta la clase de la
+       semana siguiente. Lo ideal es antes de empezar, pero nadie se queda
+       fuera por eso. */
+    const limitePago = grupoActual.fecha_limite_pago
+        || grupoActual.fecha_cierre_inscripcion || grupoActual.fecha_inicio;
     document.getElementById('pago-limite').textContent =
-        'Para apartar tu lugar, paga antes del ' + fechaLarga(grupoActual.fecha_inicio) + '.';
+        limitePago === grupoActual.fecha_inicio
+            ? 'Para apartar tu lugar, paga a más tardar el ' + fechaLarga(limitePago) + '.'
+            : 'Tienes hasta el ' + fechaLarga(limitePago) + ' para pagar. '
+              + 'Lo ideal es hacerlo antes de la primera clase.';
 
     document.getElementById('pago-metodos').innerHTML = METODOS_PAGO.map(m => `
         <div class="pago-metodo">
@@ -320,12 +336,18 @@ if (!supabaseConfigurado) {
                 const { data } = await supabaseClient.from('v_grupos_disponibles').select('*').eq('curso_id', cursoDelEnlace).order('fecha_inicio').limit(1);
                 grupo = data && data[0];
             }
-            if (grupo && grupo.cupo_disponible > 0) {
+            if (grupo && grupo.cupo_disponible > 0 && plazoAbierto(grupo)) {
                 mostrarGrupoFijo(grupo);
                 return;
             }
+            /* Decirle por qué: «el plazo cerró el martes 29» se entiende; una
+               lista vacía, no. La cuenta se crea igual y Miguel decide. */
             mostrarMsg(document.getElementById('msg-form'),
-                'Ese grupo todavía no está abierto o ya no tiene cupo. Puedes crear tu cuenta igualmente: yo te asigno el grupo que corresponda.', 'ok');
+                grupo && !plazoAbierto(grupo)
+                    ? 'El plazo de inscripción de este grupo terminó el ' + fechaLarga(grupo.fecha_cierre_inscripcion) +
+                      '. Puedes crear tu cuenta igualmente y escribirme: te asigno al grupo que corresponda.'
+                    : 'Ese grupo todavía no está abierto o ya no tiene cupo. Puedes crear tu cuenta igualmente: yo te asigno el grupo que corresponda.',
+                'ok');
         }
 
         const { data: grupos, error } = await supabaseClient
@@ -333,7 +355,7 @@ if (!supabaseConfigurado) {
             .select('*')
             .order('curso_nombre');
 
-        const disponibles = (grupos || []).filter(g => g.cupo_disponible > 0);
+        const disponibles = (grupos || []).filter(g => g.cupo_disponible > 0 && plazoAbierto(g));
         if (error || disponibles.length === 0) {
             selectCurso.innerHTML = '<option value="">Aún no hay cursos abiertos — crea tu cuenta y te asignaré un grupo</option>';
             return;

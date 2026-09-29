@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Cómo entrar a tu espacio</title>
+<style>
+/* Lienzo vertical 1080x1500, mismo lenguaje visual que la infografía del
+   ciclo: Charter ≈ Cormorant Garamond · DejaVu Sans ≈ Syne. */
+:root {
+  --crema:  #eef0e5;
+  --oro:    #8c734b;
+  --verde:  #2b4535;
+  --tinta:  #1a2e24;
+  --suave:  #5a665f;
+  --linea:  rgba(165,130,74,0.32);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { width: 1080px; height: 1500px; background: var(--crema); color: var(--tinta);
+       font-family: 'DejaVu Sans', sans-serif; overflow: hidden; position: relative; }
+body::before { content: ''; position: absolute; top: -240px; left: -200px;
+  width: 560px; height: 560px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(140,115,75,0.15) 0%, rgba(140,115,75,0) 70%); }
+
+.hoja { position: relative; padding: 60px 74px 0; height: 100%; display: flex; flex-direction: column; }
+
+.marca { font-family: 'Charter','Bitstream Charter',serif; font-size: 26px; color: var(--verde); }
+.marca span { color: var(--oro); }
+
+.eyebrow { font-family: 'DejaVu Sans Mono', monospace; font-size: 15px; letter-spacing: 0.22em;
+           text-transform: uppercase; color: var(--oro); margin-top: 40px; }
+h1 { font-family: 'Charter','Bitstream Charter',serif; font-weight: normal; font-size: 68px;
+     line-height: 1.02; color: var(--verde); margin-top: 12px; letter-spacing: -0.015em; }
+h1 em { font-style: italic; color: var(--oro); }
+.bajada { font-size: 21px; line-height: 1.55; color: var(--suave); margin-top: 16px; max-width: 830px; }
+
+/* Pasos */
+.pasos { margin-top: 40px; display: flex; flex-direction: column; gap: 20px; }
+.paso { display: grid; grid-template-columns: 92px 1fr; gap: 26px; align-items: start;
+        background: #fff; border: 1px solid var(--linea); border-radius: 16px; padding: 26px 30px; }
+.paso .num { font-family: 'Charter','Bitstream Charter',serif; font-size: 62px; line-height: 0.9;
+             color: var(--oro); text-align: center; }
+.paso h2 { font-family: 'Charter','Bitstream Charter',serif; font-weight: normal;
+           font-size: 33px; color: var(--verde); line-height: 1.15; }
+.paso p { font-size: 19px; line-height: 1.55; color: var(--suave); margin-top: 7px; }
+.paso p b { color: var(--tinta); }
+
+/* Aviso del correo */
+.aviso { background: var(--verde); border-radius: 16px; padding: 24px 30px; margin-top: 22px;
+         display: grid; grid-template-columns: 58px 1fr; gap: 22px; align-items: center; }
+.aviso .ico { font-family: 'Charter','Bitstream Charter',serif; font-size: 44px;
+              color: var(--crema); text-align: center; line-height: 1; }
+.aviso p { font-size: 19px; line-height: 1.5; color: rgba(238,240,229,0.94); }
+.aviso p b { color: #fff; }
+
+.pie { margin-top: auto; border-top: 1px solid var(--linea); padding: 24px 0 34px;
+       display: flex; justify-content: space-between; align-items: flex-end; }
+.pie .izq { font-size: 20px; color: var(--suave); line-height: 1.5; max-width: 470px; }
+.pie .izq b { color: var(--verde); }
+.pie .der { font-family: 'Charter','Bitstream Charter',serif; font-size: 24px; color: var(--verde);
+            text-align: right; line-height: 1.3; }
+/* En una sola línea: partida en dos parece un enlace roto. */
+.pie .der small { display: block; font-family: 'DejaVu Sans Mono', monospace; font-size: 12px;
+                  letter-spacing: 0.04em; color: var(--oro); margin-top: 6px; white-space: nowrap; }
+</style>
+</head>
+<body>
+<div class="hoja">
+    <div class="marca">Miguel <span>Tillero</span></div>
+
+    <p class="eyebrow">Français A1.4 · Tu espacio en línea</p>
+    <h1>Cómo entrar,<br><em>en cuatro pasos</em></h1>
+    <p class="bajada">
+        No hace falta instalar nada. Se hace una sola vez, desde el teléfono
+        o la computadora, y toma unos tres minutos.
+    </p>
+
+    <div class="pasos">
+        <div class="paso">
+            <div class="num">1</div>
+            <div>
+                <h2>Abre tu enlace</h2>
+                <p>Te lo envié <b>por mensaje privado</b>. Es distinto para cada estudiante
+                   y ya trae el curso seleccionado: no hay que buscar nada.</p>
+            </div>
+        </div>
+        <div class="paso">
+            <div class="num">2</div>
+            <div>
+                <h2>Crea la cuenta</h2>
+                <p>Nombre del estudiante, un correo y una contraseña. Si eres el padre,
+                   la madre o el representante, <b>hay un apartado para tus datos</b>:
+                   arriba va el nombre del estudiante, abajo el tuyo.</p>
+            </div>
+        </div>
+        <div class="paso">
+            <div class="num">3</div>
+            <div>
+                <h2>Confirma el correo</h2>
+                <p>Llegará un mensaje de <b>Miguel Tillero</b>. Ábrelo y pulsa el enlace
+                   de confirmación. Sin ese paso la cuenta no se activa.</p>
+            </div>
+        </div>
+        <div class="paso">
+            <div class="num">4</div>
+            <div>
+                <h2>Entra a tu espacio</h2>
+                <p>Con ese mismo correo y contraseña. Dentro está el <b>calendario del
+                   ciclo</b>, el material de todo lo trabajado, el enlace de la clase
+                   y, más adelante, las notas con mi comentario.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="aviso">
+        <div class="ico">✉</div>
+        <p>¿No ves el correo de confirmación? Revisa la carpeta de
+           <b>correo no deseado</b> y márcalo como «No es spam».</p>
+    </div>
+
+    <div class="pie">
+        <div class="izq">
+            <b>¿Algo no funciona?</b> Escríbeme por WhatsApp y lo resolvemos.
+            No te quedes fuera por un problema técnico.
+        </div>
+        <div class="der">
+            WhatsApp +58 412-2465331
+            <small>migueltillero-ship-it.github.io/MiguelTillero</small>
+        </div>
+    </div>
+</div>
+</body>
+</html>
