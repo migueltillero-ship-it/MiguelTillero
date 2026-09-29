@@ -596,22 +596,55 @@
         "en": "Carrying an idea from one language to another without breaking it."
       },
       "texto": {
-        "es": "Además de las aulas, traduzco. Traduje «Cuentos contados desde la artesanía», colección publicada en español, inglés y francés, cuya segunda edición se presentó en Cuenca en junio de 2022. Y mi trabajo más prestigioso: la versión al español de «Pédagogie : le devoir de résister», de Philippe Meirieu —uno de los grandes pedagogos de hoy—, publicada como «Pedagogía: el deber de resistir» por la Universidad Nacional de Educación (UNAE) del Ecuador, en colaboración con la Alianza Francesa de Cuenca (2020). En noviembre de 2019 tuve además el honor de traducir su conferencia «Y si la escuela enseñara a pensar», en el Teatro Sucre de Cuenca.",
-        "fr": "En plus des salles de classe, je traduis. J’ai traduit « Cuentos contados desde la artesanía », collection publiée en espagnol, anglais et français, dont la deuxième édition a été présentée à Cuenca en juin 2022. Et mon travail le plus prestigieux : la version espagnole de « Pédagogie : le devoir de résister » de Philippe Meirieu — l’un des grands pédagogues d’aujourd’hui —, publiée sous le titre « Pedagogía: el deber de resistir » par l’Universidad Nacional de Educación (UNAE) d’Équateur, en collaboration avec l’Alliance Française de Cuenca (2020). En novembre 2019, j’ai aussi eu l’honneur de traduire sa conférence « Et si l’école enseignait à penser », au Théâtre Sucre de Cuenca.",
-        "en": "Besides classrooms, I translate. I translated “Cuentos contados desde la artesanía”, a collection published in Spanish, English and French, whose second edition was launched in Cuenca in June 2022. And my most prestigious work: the Spanish version of Philippe Meirieu’s “Pédagogie : le devoir de résister” — one of today’s great educators — published as “Pedagogía: el deber de resistir” by Ecuador’s Universidad Nacional de Educación (UNAE), in collaboration with the Alliance Française de Cuenca (2020). In November 2019 I also had the honour of translating his lecture “What if school taught us to think”, at Cuenca’s Teatro Sucre."
+        "es": "Además de las aulas, traduzco. Traduje «Cuentos contados desde la artesanía», colección publicada en español, inglés y francés, cuya segunda edición se presentó en Cuenca en junio de 2022. Y mi trabajo más prestigioso: la versión al español de «Pédagogie : le devoir de résister», de Philippe Meirieu —uno de los grandes pedagogos de hoy—, publicada como «Pedagogía: el deber de resistir» por la Universidad Nacional de Educación (UNAE) del Ecuador, junto con la Universidad Pedagógica Nacional (UNIPE) de Argentina y la Alianza Francesa de Cuenca (2020). El miércoles 13 de noviembre de 2019 tuve además el honor de ser su intérprete en vivo, del francés al español, en su conferencia «¿Y si la escuela aprendiera a pensar?», en el Teatro Sucre de Cuenca.",
+        "fr": "En plus des salles de classe, je traduis. J’ai traduit « Cuentos contados desde la artesanía », collection publiée en espagnol, anglais et français, dont la deuxième édition a été présentée à Cuenca en juin 2022. Et mon travail le plus prestigieux : la version espagnole de « Pédagogie : le devoir de résister » de Philippe Meirieu — l’un des grands pédagogues d’aujourd’hui —, publiée sous le titre « Pedagogía: el deber de resistir » par l’Universidad Nacional de Educación (UNAE) d’Équateur, avec l’Universidad Pedagógica Nacional (UNIPE) d’Argentine et l’Alliance Française de Cuenca (2020). Le mercredi 13 novembre 2019, j’ai aussi eu l’honneur d’être son interprète en direct, du français vers l’espagnol, lors de sa conférence « Et si l’école apprenait à penser ? », au Théâtre Sucre de Cuenca.",
+        "en": "Besides classrooms, I translate. I translated “Cuentos contados desde la artesanía”, a collection published in Spanish, English and French, whose second edition was launched in Cuenca in June 2022. And my most prestigious work: the Spanish version of Philippe Meirieu’s “Pédagogie : le devoir de résister” — one of today’s great educators — published as “Pedagogía: el deber de resistir” by Ecuador’s Universidad Nacional de Educación (UNAE), together with Argentina’s Universidad Pedagógica Nacional (UNIPE) and the Alliance Française de Cuenca (2020). On Wednesday, November 13, 2019, I also had the honour of being his live interpreter, from French into Spanish, at his lecture “What if school learned to think?”, at Cuenca’s Teatro Sucre."
       },
       "medios": [
         {
           "tipo": "foto",
           "archivo": "assets/images/relato/meirieu-conferencia.jpg",
-          "alt": "Philippe Meirieu ofrece la conferencia «Y si la escuela enseñara a pensar» en el Teatro Sucre",
+          "alt": "Philippe Meirieu en el podio; a la mesa, Miguel Tillero interpreta en vivo del francés al español",
           "pie": {
-            "es": "Philippe Meirieu · «Y si la escuela enseñara a pensar» · Teatro Sucre, noviembre de 2019",
-            "fr": "Philippe Meirieu · « Et si l’école enseignait à penser » · Théâtre Sucre, novembre 2019",
-            "en": "Philippe Meirieu · “What if school taught us to think” · Teatro Sucre, November 2019"
+            "es": "Philippe Meirieu · «¿Y si la escuela aprendiera a pensar?» · Teatro Sucre, Cuenca",
+            "fr": "Philippe Meirieu · « Et si l’école apprenait à penser ? » · Théâtre Sucre, Cuenca",
+            "en": "Philippe Meirieu · “What if school learned to think?” · Teatro Sucre, Cuenca"
           },
-          "ratio": "1000/625",
+          "ratio": "1100/638",
           "ancha": true
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/meirieu-flyer.jpg",
+          "ratio": "1000/565",
+          "alt": "Volante de la conferencia «¿Y si la escuela aprendiera a pensar?», UNAE y Alianza Francesa de Cuenca",
+          "pie": {
+            "es": "Miércoles 13 de noviembre · 19:00–21:00 · Teatro Sucre, Cuenca",
+            "fr": "Mercredi 13 novembre · 19 h–21 h · Théâtre Sucre, Cuenca",
+            "en": "Wednesday, November 13 · 19:00–21:00 · Teatro Sucre, Cuenca"
+          }
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/meirieu-libro.jpg",
+          "alt": "Portada de «Pedagogía: el deber de resistir», de Philippe Meirieu, traducida por Miguel Tillero",
+          "pie": {
+            "es": "«Pedagogía: el deber de resistir» · UNAE, UNIPE y Alianza Francesa, 2020",
+            "fr": "« Pedagogía: el deber de resistir » · UNAE, UNIPE et Alliance Française, 2020",
+            "en": "“Pedagogía: el deber de resistir” · UNAE, UNIPE and Alliance Française, 2020"
+          },
+          "ratio": "900/1266"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/meirieu-auditorio.jpg",
+          "alt": "Vista del auditorio completo durante la conferencia de Philippe Meirieu en la UNAE",
+          "pie": {
+            "es": "El auditorio de la UNAE, durante la conferencia",
+            "fr": "L’auditorium de l’UNAE, pendant la conférence",
+            "en": "The UNAE auditorium, during the lecture"
+          },
+          "ratio": "1100/631"
         },
         {
           "tipo": "foto",
