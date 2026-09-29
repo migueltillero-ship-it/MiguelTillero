@@ -57,6 +57,35 @@ Miguel
 
 ---
 
+## 1b · Mensaje con el instructivo, al grupo
+
+Va con la imagen **`infografia-como-registrarse.png`**. Mándalo después del
+mensaje del ciclo, o más tarde, cuando ya tengan sus enlaces personales.
+
+```
+Como les prometí, aquí va el paso a paso para entrar a su espacio 👇
+
+En la imagen está todo, pero en resumen:
+
+1️⃣ Abren el enlace personal que les mandé por privado
+2️⃣ Llenan sus datos y crean una contraseña
+3️⃣ Confirman el correo que les llega
+4️⃣ Entran con ese mismo correo y contraseña
+
+Son unos tres minutos y se hace una sola vez. No hay que instalar nada.
+
+*Si eres el papá, la mamá o el representante:* arriba va el nombre del estudiante, y más abajo hay un apartado para tus datos.
+
+Para entrar de aquí en adelante, siempre desde este enlace:
+https://migueltillero-ship-it.github.io/MiguelTillero/login.html
+
+Si el correo de confirmación no aparece en la bandeja de entrada, revisen la carpeta de correo no deseado.
+
+Cualquier problema me escriben y lo resolvemos. ¡Nos vemos mañana! 🇫🇷
+```
+
+---
+
 ## 2 · Mensaje privado con el enlace personal
 
 Uno por familia. **El enlace lleva el nombre del estudiante dentro, así que no
@@ -69,13 +98,20 @@ Este es el enlace personal de *[nombre del estudiante]* para entrar a la platafo
 
 [ENLACE]
 
-Solo hay que abrirlo, llenar los datos y crear una contraseña. El curso ya viene seleccionado, no hay que buscar nada.
+Es de un solo uso y ya trae el curso seleccionado. Solo hay que:
 
-Después llegará un correo de verificación: hay que abrirlo y confirmar para activar la cuenta. *Si no aparece en la bandeja de entrada, revisen el correo no deseado.*
+1️⃣ Abrirlo y llenar los datos
+2️⃣ Crear una contraseña
+3️⃣ Confirmar el correo que llega enseguida
+4️⃣ Entrar con ese correo y contraseña
 
-Ya dentro van a ver el calendario del ciclo, el enlace de Zoom, el material de todo lo que hemos trabajado y, a partir de las evaluaciones, las notas con mi comentario.
+*Si eres el representante:* arriba va el nombre de *[nombre del estudiante]*, y más abajo hay un apartado para tus datos.
 
-Cualquier cosa me escriben. ¡Nos vemos mañana!
+Si el correo de confirmación no aparece, revisa la carpeta de correo no deseado.
+
+Ya dentro van a ver el calendario del ciclo, el enlace de la clase, el material de todo lo que hemos trabajado y, a partir de las evaluaciones, las notas con mi comentario.
+
+Cualquier cosa me escribes. ¡Nos vemos mañana!
 ```
 
 ### Los tres enlaces
