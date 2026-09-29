@@ -11,14 +11,9 @@ mandar mensajes.
 
 ### 1a · SMTP
 
-**https://supabase.com/dashboard/project/yfrdlzveleevkjqekdoq/auth/templates**
+**https://supabase.com/dashboard/project/yfrdlzveleevkjqekdoq/auth/smtp**
 
-> Si esa dirección te da 404, entra por
-> **https://supabase.com/dashboard/project/yfrdlzveleevkjqekdoq**
-> y en el menú izquierdo, bajo **NOTIFICATIONS**, haz clic en **Emails**.
-> Es la pantalla correcta: la vi en tu captura.
-
-Busca **SMTP Settings** y activa **Enable Custom SMTP**:
+Activa **Enable Custom SMTP**:
 
 | Campo | Valor |
 |---|---|
@@ -31,8 +26,17 @@ Busca **SMTP Settings** y activa **Enable Custom SMTP**:
 
 → **Save**
 
-*(Si perdiste las 16 letras, se generan otra vez en
-https://myaccount.google.com/apppasswords — nombre: `Supabase plataforma`.)*
+> ⚠️ En **Password** va la **contraseña de aplicación de Google** —16 letras
+> sueltas, tipo `abcdefghijklmnop`—, **no** la contraseña con la que entras a
+> la plataforma ni la de tu Gmail. Si pones otra cosa, Google rechaza la
+> conexión y no sale ningún correo.
+>
+> Se genera en **https://myaccount.google.com/apppasswords**, nombre
+> `Supabase plataforma`. Google solo la muestra una vez.
+
+> El aviso amarillo de Supabase («este proveedor es para correo personal, no
+> transaccional») no es un error: es verdad, y es la decisión que tomamos a
+> propósito. Con tres familias va bien. Guarda igual.
 
 ### 1b · Subir el límite
 
