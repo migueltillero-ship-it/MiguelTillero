@@ -823,9 +823,9 @@
    "h": 625,
    "alt": "Philippe Meirieu en el podio; a la mesa, Miguel Tillero interpreta en vivo del francés al español",
    "pie": {
-    "es": "Philippe Meirieu · «Y si la escuela enseñara a pensar» · UNAE, noviembre de 2019",
-    "fr": "Philippe Meirieu · « Et si l’école enseignait à penser » · UNAE, novembre 2019",
-    "en": "Philippe Meirieu · “What if school taught us to think” · UNAE, November 2019"
+    "es": "Philippe Meirieu · «¿Y si la escuela aprendiera a pensar?» · Teatro Sucre, Cuenca",
+    "fr": "Philippe Meirieu · « Et si l’école apprenait à penser ? » · Théâtre Sucre, Cuenca",
+    "en": "Philippe Meirieu · “What if school learned to think?” · Teatro Sucre, Cuenca"
    }
   },
   {
@@ -1330,6 +1330,20 @@
     "es": "El auditorio de la UNAE, durante la conferencia",
     "fr": "L’auditorium de l’UNAE, pendant la conférence",
     "en": "The UNAE auditorium, during the lecture"
+   }
+  },
+  {
+   "id": "r-meirieu-flyer",
+   "cat": "ecuador",
+   "src": "assets/images/relato/meirieu-flyer.jpg",
+   "thumb": "assets/images/galeria/t/r-meirieu-flyer.jpg",
+   "w": 1000,
+   "h": 565,
+   "alt": "Volante de la conferencia «¿Y si la escuela aprendiera a pensar?», UNAE y Alianza Francesa de Cuenca",
+   "pie": {
+    "es": "Miércoles 13 de noviembre · 19:00–21:00 · Teatro Sucre, Cuenca",
+    "fr": "Mercredi 13 novembre · 19 h–21 h · Théâtre Sucre, Cuenca",
+    "en": "Wednesday, November 13 · 19:00–21:00 · Teatro Sucre, Cuenca"
    }
   },
   {
