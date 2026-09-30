@@ -1,0 +1,962 @@
+<!doctype html>
+<html lang="fr" translate="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="google" content="notranslate">
+<title>Chez les Moreau · Évaluation A1.4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="../../assets/js/supabase-config.js"></script>
+<style>
+:root{
+  --cream:#eef4ee; --paper:#ffffff; --ink:#12291c; --ink2:#0d3b2e;
+  --muted:rgba(18,41,28,.64); --hint:rgba(18,41,28,.42); --line:rgba(18,41,28,.13);
+  --gold:#a5824a; --gold2:#e3c68e; --blue:#0d7f57; --red:#b4533a; --green:#0d7f57;
+  --co:#0d7f57; --ce:#9a7440; --pe:#b4533a;
+  --display:'Cormorant Garamond',Georgia,serif; --sans:'Syne',system-ui,sans-serif; --mono:'Space Mono',monospace;
+  --r:14px; --shadow:0 4px 20px rgba(20,45,32,.07),0 1px 2px rgba(20,45,32,.05);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+body.exam{user-select:none;-webkit-user-select:none}
+body.exam input,body.exam textarea{user-select:text;-webkit-user-select:text}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+.hidden{display:none!important}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.1}
+.mono{font-family:var(--mono)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.4rem;border-radius:999px;background:var(--ink);color:#fff;font-weight:700;letter-spacing:.02em;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-1px);background:var(--ink2)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn.gold{background:var(--gold);color:#fff}
+.btn.ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+/* ───── Accueil ───── */
+#accueil{min-height:100vh;display:grid;grid-template-columns:1.1fr 1fr}
+.hero{background:radial-gradient(ellipse at 20% 0%,#1a5c45,#0d3b2e 60%,#0a2e24);color:#fff;padding:48px 40px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;gap:2rem}
+.hero h1{font-size:clamp(2.6rem,6vw,4.4rem);color:#fff}
+.hero h1 em{color:var(--gold2);font-style:italic}
+.hero p{color:rgba(255,255,255,.78);max-width:34ch}
+.route{display:flex;gap:0;margin-top:1rem}
+.route .st{flex:1;position:relative;padding-top:26px;font-size:.8rem;color:rgba(255,255,255,.8)}
+.route .st::before{content:"";position:absolute;top:8px;left:0;right:0;height:4px;background:var(--c)}
+.route .st::after{content:"";position:absolute;top:1px;left:0;width:18px;height:18px;border-radius:50%;background:#fff;border:4px solid var(--c)}
+.route .st b{display:block;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;color:#fff}
+.hero .deco{position:absolute;right:-60px;bottom:-80px;font-family:var(--display);font-size:22rem;line-height:1;color:rgba(255,255,255,.04);pointer-events:none}
+.entry{padding:40px;display:flex;flex-direction:column;gap:1.1rem;justify-content:center;max-width:520px;width:100%;margin:0 auto}
+.field label{display:block;font-size:.8rem;font-weight:700;margin-bottom:.3rem}
+.field input{width:100%;padding:.8rem 1rem;border:1.5px solid var(--line);border-radius:10px;font:inherit;background:#fff}
+.field input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(53,89,177,.15)}
+.rules{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:1rem 1.1rem;font-size:.85rem;color:var(--muted)}
+.rules li{margin:.25rem 0 .25rem 1.1rem}
+.pledge{display:flex;gap:.7rem;align-items:flex-start;font-size:.85rem;background:rgba(201,164,78,.12);border:1px solid rgba(201,164,78,.5);padding:.8rem 1rem;border-radius:10px}
+.pledge input{margin-top:.25rem;width:18px;height:18px;accent-color:var(--ink)}
+.err{color:var(--red);font-size:.85rem;min-height:1.2em}
+.soundtest{display:flex;align-items:center;gap:.8rem;font-size:.85rem}
+
+/* ───── Barra superior ───── */
+#top{position:sticky;top:0;z-index:50;background:rgba(238,244,238,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+#top .wrap{display:flex;align-items:center;gap:1rem;height:64px}
+.brand{font-family:var(--display);font-size:1.35rem;font-weight:700;white-space:nowrap}
+.brand small{font-family:var(--mono);font-size:.65rem;color:var(--muted);margin-left:.4rem}
+.line{flex:1;display:flex;align-items:center;gap:0;min-width:0}
+.line .stop{flex:1;display:flex;align-items:center;gap:.4rem;font-size:.72rem;font-weight:700;color:var(--hint);position:relative}
+.line .stop i{width:14px;height:14px;border-radius:50%;border:3px solid currentColor;background:#fff;flex:none}
+.line .stop::after{content:"";flex:1;height:3px;background:currentColor;opacity:.3;margin-right:.4rem}
+.line .stop:last-child::after{display:none}
+.line .stop.on{color:var(--c)} .line .stop.done{color:var(--c);opacity:.55}
+.line .stop.on i{background:var(--c)}
+.timer{font-family:var(--mono);font-weight:700;font-size:1.05rem;padding:.35rem .8rem;border-radius:999px;background:var(--ink);color:#fff;min-width:88px;text-align:center}
+.timer.warn{background:var(--red);animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.7}}
+.save{font-family:var(--mono);font-size:.65rem;color:var(--muted);width:78px;text-align:right}
+.eye{font-size:.65rem;font-family:var(--mono);color:var(--green);display:flex;align-items:center;gap:.3rem;white-space:nowrap}
+.eye::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+
+/* ───── Secciones y ejercicios ───── */
+main{padding:28px 0 120px}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
+.sec-head h2{font-size:clamp(2rem,4vw,2.8rem)}
+.sec-head h2 span{color:var(--c)}
+.sec-head .meta{font-size:.8rem;color:var(--muted);text-align:right}
+.tabs{display:flex;gap:.4rem;flex-wrap:wrap;margin:1rem 0 1.2rem}
+.tab{padding:.45rem .9rem;border-radius:999px;border:1.5px solid var(--line);font-size:.8rem;font-weight:700;background:#fff}
+.tab.on{background:var(--c);border-color:var(--c);color:#fff}
+.tab.ok::after{content:" ✓";color:var(--green)}
+.tab.on.ok::after{color:#fff}
+.ex{display:none;animation:fade .3s}
+.ex.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:24px}
+.ex-title{display:flex;gap:.8rem;align-items:baseline;margin-bottom:.4rem;flex-wrap:wrap}
+.ex-title h3{font-size:1.7rem}
+.pts{font-family:var(--mono);font-size:.72rem;background:rgba(13,31,51,.06);padding:.15rem .5rem;border-radius:6px}
+.consigne{color:var(--muted);font-size:.92rem;margin-bottom:1.1rem}
+.consigne b{color:var(--ink)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.q{margin:1rem 0}
+.q>p{font-weight:700;font-size:.95rem;margin-bottom:.45rem}
+.q>p .n{font-family:var(--mono);color:var(--c);margin-right:.35rem}
+.choices{display:flex;flex-wrap:wrap;gap:.5rem}
+.opt{padding:.6rem 1rem;border-radius:12px;border:1.5px solid var(--line);background:#fff;font-weight:600;font-size:.9rem;text-align:left;transition:all .12s;display:flex;align-items:center;gap:.5rem}
+.opt:hover{border-color:var(--c)}
+.opt.sel{background:var(--c);border-color:var(--c);color:#fff}
+.opt .ico{font-size:1.4rem;line-height:1}
+.opt.big{flex-direction:column;min-width:96px;justify-content:center;padding:.8rem}
+.inp{padding:.6rem .9rem;border:1.5px solid var(--line);border-radius:10px;font:inherit;font-family:var(--mono);font-size:1.1rem;letter-spacing:.3em;width:10ch}
+.inp:focus{outline:none;border-color:var(--c)}
+.next-row{display:flex;justify-content:space-between;gap:1rem;margin-top:1.4rem;flex-wrap:wrap}
+
+/* Reproductor */
+.player{display:flex;align-items:center;gap:1rem;padding:14px 16px;border-radius:14px;background:var(--ink2);color:#fff}
+.player .play{width:52px;height:52px;border-radius:50%;background:var(--gold2);color:var(--ink);font-size:1.3rem;flex:none;display:grid;place-items:center}
+.player .play:disabled{background:rgba(255,255,255,.2);color:rgba(255,255,255,.5);cursor:not-allowed}
+.player .bar{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.18);overflow:hidden}
+.player .bar i{display:block;height:100%;width:0;background:var(--gold2);transition:width .2s linear}
+.player .left{font-family:var(--mono);font-size:.7rem;color:rgba(255,255,255,.75);white-space:nowrap}
+.player .lbl{font-size:.8rem;font-weight:700}
+.playing .play{animation:pulse 1s infinite}
+
+/* Teléfono / buzón */
+.phone{background:linear-gradient(160deg,#1a5c45,#0d3b2e);color:#fff;border-radius:26px;padding:22px;position:relative}
+.phone .who{display:flex;gap:.8rem;align-items:center;margin-bottom:1rem}
+.phone .av{width:46px;height:46px;border-radius:50%;background:var(--gold);color:var(--ink);display:grid;place-items:center;font-weight:800}
+.phone small{color:rgba(255,255,255,.6);font-family:var(--mono);font-size:.7rem}
+.notecard{background:#fffbea;border:1px dashed var(--gold);border-radius:14px;padding:18px;transform:rotate(-.4deg)}
+.notecard h4{font-family:var(--display);font-size:1.3rem;margin-bottom:.4rem}
+
+/* Cesta */
+.basket{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem}
+.basket .opt{flex-direction:column;justify-content:center;min-height:92px}
+.basket .opt .ico{font-size:2rem}
+
+/* Mapa */
+.map svg{width:100%;height:auto;display:block;border-radius:14px;border:1px solid var(--line)}
+.bld{cursor:pointer}
+.bld rect{fill:#fff;stroke:#0d1f33;stroke-width:2;transition:fill .15s}
+.bld:hover rect{fill:#e8eefc}
+.bld.sel rect{fill:var(--co)}
+.bld text{font-family:var(--mono);font-weight:700;font-size:22px;fill:#0d1f33;pointer-events:none}
+.bld.sel text{fill:#fff}
+.lm{font-family:var(--sans);font-size:11px;font-weight:700;fill:#0d1f33}
+
+/* Clasificación */
+.sort-row{display:grid;grid-template-columns:1.2fr 2fr;gap:.6rem;align-items:center;padding:.5rem 0;border-bottom:1px dashed var(--line)}
+.sort-row .what{font-weight:700;font-size:.92rem;display:flex;gap:.5rem;align-items:center}
+.sort-row .what .ico{font-size:1.4rem}
+.sort-row .choices .opt{padding:.4rem .7rem;font-size:.8rem}
+
+/* Anuncios */
+.ann{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.ann .card{padding:16px}
+.ann .where{display:flex;gap:.5rem;align-items:center;font-weight:800;margin-bottom:.6rem}
+.ann .where .ico{font-size:1.6rem}
+
+/* Anuncios inmobiliarios */
+.ads{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.ad{border:1.5px solid var(--line);border-radius:14px;padding:14px;background:#fff;position:relative}
+.ad .L{position:absolute;top:-12px;left:12px;background:var(--ce);color:#fff;font-family:var(--mono);font-weight:700;width:30px;height:30px;border-radius:50%;display:grid;place-items:center}
+.ad h4{font-size:.95rem;margin:.3rem 0}
+.ad p{font-size:.85rem;color:var(--muted)}
+.ad .price{font-family:var(--mono);font-weight:700;color:var(--ink)}
+.profile{display:grid;grid-template-columns:1.5fr 1fr;gap:.8rem;align-items:center;padding:.8rem 0;border-bottom:1px dashed var(--line)}
+.profile .pp{display:flex;gap:.7rem;align-items:flex-start;font-size:.88rem}
+.profile .pp .ico{font-size:1.8rem}
+
+/* Correo */
+.mail{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+.mail .mh{background:#f1f6f1;padding:10px 14px;font-size:.8rem;border-bottom:1px solid var(--line)}
+.mail .mh b{font-family:var(--mono);font-size:.72rem;color:var(--muted);display:inline-block;width:52px}
+.mail .mb{padding:16px;font-family:var(--display);font-size:1.12rem;line-height:1.55}
+.sent{border-radius:4px;transition:background .15s;padding:1px 0}
+.picking .sent{cursor:pointer;background:rgba(14,154,167,.08)}
+.picking .sent:hover{background:rgba(14,154,167,.25)}
+.sent.chosen{background:rgba(201,164,78,.35)}
+.sent sup{font-family:var(--mono);font-size:.62rem;background:var(--ce);color:#fff;border-radius:4px;padding:0 .25rem;margin-left:.15rem}
+.stmt{border:1.5px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;background:#fff}
+.stmt.active{border-color:var(--ce);box-shadow:0 0 0 3px rgba(14,154,167,.15)}
+.stmt p{font-weight:700;font-size:.92rem;margin-bottom:.5rem}
+.stmt .row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.stmt .proof{font-size:.8rem;color:var(--muted);font-style:italic;margin-top:.4rem}
+.pick{font-size:.78rem;padding:.45rem .8rem;border-radius:10px;border:1.5px dashed var(--ce);color:var(--ce);font-weight:700}
+.pick.on{background:var(--ce);color:#fff;border-style:solid}
+.mail-sticky{position:sticky;top:80px}
+
+/* Afiche */
+.poster{background:#f1dca8;border-radius:16px;padding:20px;color:var(--ink);position:relative;overflow:hidden}
+.poster h4{font-family:var(--display);font-size:1.9rem;line-height:1;margin-bottom:.2rem}
+.poster .sub{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;margin-bottom:.8rem}
+.poster .ev{background:rgba(255,255,255,.72);border-radius:10px;padding:8px 10px;margin:.45rem 0;font-size:.84rem}
+.poster .ev b{font-family:var(--mono);font-size:.75rem;display:block}
+
+/* Chat */
+.chat{background:#dfeae1;border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:.5rem;max-width:380px}
+.chat .hd{text-align:center;font-weight:800;font-size:.85rem;margin-bottom:.3rem}
+.bub{max-width:82%;padding:.55rem .8rem;border-radius:16px;font-size:.88rem;line-height:1.35}
+.bub.in{background:#fff;align-self:flex-start;border-bottom-left-radius:4px}
+.bub.out{background:var(--ce);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.chat .time{align-self:center;font-family:var(--mono);font-size:.62rem;color:var(--muted)}
+
+/* Producción */
+.form-sheet{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;grid-template-columns:1fr 1fr;gap:.8rem 1rem}
+.form-sheet .full{grid-column:1/-1}
+.form-sheet label{font-size:.75rem;font-weight:700;display:block;margin-bottom:.2rem}
+.form-sheet input{width:100%;padding:.55rem .75rem;border:1.5px solid var(--line);border-radius:8px;font:inherit}
+.form-sheet input:focus,.compose textarea:focus{outline:none;border-color:var(--pe)}
+.compose{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+.compose textarea{width:100%;min-height:300px;border:0;padding:16px;font:inherit;font-family:var(--display);font-size:1.2rem;line-height:1.6;resize:vertical}
+.wc{display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:#f7f7f4;border-top:1px solid var(--line);font-family:var(--mono);font-size:.75rem}
+.wc .meter{flex:1;height:6px;background:var(--line);border-radius:3px;margin:0 1rem;overflow:hidden}
+.wc .meter i{display:block;height:100%;background:var(--pe);width:0}
+.checklist{font-size:.85rem;color:var(--muted)}
+.checklist li{margin:.25rem 0 .25rem 1.1rem}
+
+/* Capas de vigilancia */
+#wm{position:fixed;inset:0;pointer-events:none;z-index:40;opacity:.05;background-repeat:repeat}
+.veil{position:fixed;inset:0;z-index:200;background:rgba(13,31,51,.96);color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px}
+.veil .box{max-width:520px}
+.veil h3{font-size:2rem;margin-bottom:.6rem;color:var(--gold2)}
+.veil p{color:rgba(255,255,255,.8);margin-bottom:1.2rem}
+body.shield main{filter:blur(14px)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:.7rem 1.1rem;border-radius:12px;font-size:.85rem;z-index:300;box-shadow:var(--shadow);max-width:92vw}
+.demo-banner{background:var(--gold);color:#fff;text-align:center;font-family:var(--mono);font-size:.72rem;padding:.3rem;font-weight:700;letter-spacing:.1em}
+
+/* Final */
+#fin{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center}
+#fin .card{max-width:560px}
+#fin h2{font-size:2.6rem;margin:.6rem 0}
+.recibo{font-family:var(--mono);font-size:1.6rem;letter-spacing:.2em;background:var(--ink);color:var(--gold2);padding:.6rem 1rem;border-radius:12px;display:inline-block;margin:1rem 0}
+
+@media (max-width:820px){
+  #accueil{grid-template-columns:1fr}
+  .hero{padding:32px 20px}
+  .entry{padding:28px 16px}
+  .grid2,.ann,.ads,.form-sheet{grid-template-columns:1fr!important}
+  .basket{grid-template-columns:repeat(2,1fr)}
+  .line .stop span{display:none}
+  .brand small,.eye{display:none}
+  .sort-row,.profile{grid-template-columns:1fr}
+  .mail-sticky{position:static}
+  .card{padding:16px}
+}
+</style>
+</head>
+<body>
+<div id="demo-banner" class="demo-banner hidden">APERÇU DU PROFESSEUR · rien n'est enregistré</div>
+
+<section id="accueil">
+  <div class="hero">
+    <div>
+      <div class="kicker" style="color:var(--gold2)">Vive el francés · Prof. Miguel Tillero · Français A1.4</div>
+      <h1 style="margin-top:.8rem">Chez les<br><em>Moreau</em></h1>
+      <p style="margin-top:1rem">Tu pars en échange scolaire à Lyon, chez ta correspondante Léa et sa famille. Pendant 40 minutes, tu vas écouter, lire et écrire comme si tu y étais.</p>
+      <p style="margin-top:.6rem;font-size:.8rem;color:rgba(255,255,255,.6)">Évaluation collective · Dossier de découverte, Unités 1 à 4</p>
+    </div>
+    <div class="route">
+      <div class="st" style="--c:var(--co)"><b>01 · ÉCOUTER</b>Compréhension orale<br><span class="mono">15 pts · ~12 min</span></div>
+      <div class="st" style="--c:var(--ce)"><b>02 · LIRE</b>Compréhension écrite<br><span class="mono">15 pts · ~12 min</span></div>
+      <div class="st" style="--c:var(--pe)"><b>03 · ÉCRIRE</b>Production écrite<br><span class="mono">20 pts · ~16 min</span></div>
+    </div>
+    <div class="deco">M</div>
+  </div>
+
+  <form class="entry" id="f-entry" autocomplete="off">
+    <div>
+      <div class="kicker">Accès à l'évaluation</div>
+      <h2 style="font-size:2rem;margin-top:.3rem">Bienvenue !</h2>
+    </div>
+    <div class="field"><label for="i-nom">Nombre completo</label><input id="i-nom" required minlength="3" maxlength="80"></div>
+    <div class="field"><label for="i-mail">Correo electrónico (el mismo de la plataforma)</label><input id="i-mail" type="email" required maxlength="120"></div>
+    <div class="field"><label for="i-code">Code d'accès (te lo da el profesor)</label><input id="i-code" required maxlength="20" style="text-transform:uppercase;font-family:var(--mono);letter-spacing:.15em"></div>
+
+    <div class="rules">
+      <strong style="color:var(--ink)">Antes de empezar</strong>
+      <ul>
+        <li>Usa una <b>computadora</b> con audífonos, en un lugar tranquilo.</li>
+        <li>Tienes <b>un solo intento</b> y <b>40 minutos</b>. El reloj es del servidor y no se detiene.</li>
+        <li>El examen se hace en <b>pantalla completa</b>. Salir, cambiar de pestaña, copiar, pegar o traducir queda registrado.</li>
+        <li>Cada audio se escucha <b>máximo 2 veces</b>.</li>
+        <li>Las secciones van en orden: al pasar a la siguiente <b>no se puede volver</b>.</li>
+        <li>Tus respuestas se guardan solas. Si se cae el internet, vuelve a entrar con el mismo correo.</li>
+      </ul>
+    </div>
+
+    <div class="soundtest">
+      <button type="button" class="btn ghost" id="b-sound">🔊 Probar el sonido</button>
+      <span id="sound-msg" style="color:var(--muted)">Verifica que escuchas bien.</span>
+    </div>
+
+    <label class="pledge"><input type="checkbox" id="i-pledge" required>
+      <span><b>Déclaration sur l'honneur.</b> Je fais cette évaluation seul·e, sans l'aide d'une autre personne, sans traducteur, sans intelligence artificielle et sans documents.</span></label>
+
+    <div class="err" id="err-entry"></div>
+    <button class="btn gold" id="b-start" type="submit" style="align-self:flex-start">Commencer →</button>
+  </form>
+</section>
+
+<div id="examen" class="hidden">
+  <div id="wm"></div>
+  <header id="top"><div class="wrap">
+    <div class="brand">Chez les Moreau <small>A1.4</small></div>
+    <div class="line">
+      <div class="stop" data-stop="0" style="--c:var(--co)"><i></i><span>Écouter</span></div>
+      <div class="stop" data-stop="1" style="--c:var(--ce)"><i></i><span>Lire</span></div>
+      <div class="stop" data-stop="2" style="--c:var(--pe)"><i></i><span>Écrire</span></div>
+    </div>
+    <div class="eye">surveillé</div>
+    <div class="save" id="save">—</div>
+    <div class="timer" id="timer">40:00</div>
+  </div></header>
+
+  <main><div class="wrap">
+
+<section class="sec hidden" data-sec="0" style="--c:var(--co)">
+  <div class="sec-head">
+    <div><div class="kicker">Section 1 / 3</div><h2>Écouter · <span>Compréhension orale</span></h2></div>
+    <div class="meta">15 points · temps conseillé 12 min<br>Chaque document : <b>2 écoutes maximum</b></div>
+  </div>
+  <div class="tabs"></div>
+
+  <article class="ex" data-title="1 · Léa">
+    <div class="card">
+      <div class="ex-title"><h3>Le message de ta correspondante</h3><span class="pts">5 pts</span></div>
+      <p class="consigne">Léa, ta correspondante française, te laisse un message vocal. Écoute et complète ta fiche.</p>
+      <div class="grid2">
+        <div class="phone">
+          <div class="who"><div class="av">LM</div><div><b>Léa</b><br><small>Message vocal · Lyon</small></div></div>
+          <div class="player" style="background:rgba(255,255,255,.08)" data-a="co1" data-src="b44920dc717a"><button class="play" type="button">▶</button><div style="flex:1"><div class="lbl">Écouter le message</div><div class="bar"><i></i></div></div><div class="left"></div></div>
+        </div>
+        <div class="notecard">
+          <h4>📒 Ma correspondante</h4>
+          <div class="q"><p><span class="n">1.</span>Son nom de famille (écris les lettres) :</p><input class="inp" data-q="co1b" data-kind="letters" maxlength="10" autocomplete="off" spellcheck="false" style="width:12ch"></div>
+          <div class="q"><p><span class="n">2.</span>Léa a…</p><div class="choices" data-q="co1a" data-shuffle><button class="opt" data-v="a13">13 ans</button><button class="opt" data-v="a15">15 ans</button><button class="opt" data-v="a16">16 ans</button></div></div>
+          <div class="q"><p><span class="n">3.</span>Léa est…</p><div class="choices" data-q="co1c" data-shuffle style="flex-direction:column"><button class="opt" data-v="blonde">grande · cheveux blonds · yeux verts</button><button class="opt" data-v="brune">petite · cheveux bruns · yeux bleus</button><button class="opt" data-v="rousse">grande · cheveux roux · yeux verts</button></div></div>
+          <div class="q"><p><span class="n">4.</span>Dans sa famille, il y a…</p><div class="choices" data-q="co1d" data-shuffle><button class="opt" data-v="frere12">un frère de 12 ans</button><button class="opt" data-v="soeur12">une sœur de 12 ans</button><button class="opt" data-v="frere15">un frère de 15 ans</button></div></div>
+          <div class="q"><p><span class="n">5.</span>Léa déteste…</p><div class="choices" data-q="co1e" data-shuffle><button class="opt big" data-v="foot"><span class="ico">⚽</span>le football</button><button class="opt big" data-v="basket"><span class="ico">🏀</span>le basket</button><button class="opt big" data-v="musique"><span class="ico">🎵</span>la musique</button></div></div>
+          
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="ex" data-title="2 · La maison">
+    <div class="card">
+      <div class="ex-title"><h3>Bienvenue chez nous !</h3><span class="pts">5 pts</span></div>
+      <p class="consigne">Tu arrives chez les Moreau. La mère de Léa te montre la maison. Écoute et <b>touche seulement les objets qui sont dans TA chambre</b>.</p>
+      <div class="player" data-a="co2" data-src="4148849f1ca5"><button class="play" type="button">▶</button><div style="flex:1"><div class="lbl">Visite de la maison</div><div class="bar"><i></i></div></div><div class="left"></div></div>
+      <div class="q"><p><span class="n">1.</span>🛏️ Dans ta chambre, il y a… <span style="font-weight:400;color:var(--muted)">(plusieurs réponses)</span></p><div class="basket multi" data-q="co2a" data-shuffle><button class="opt" data-v="lit"><span class="ico">🛏️</span>un lit</button><button class="opt" data-v="bureau"><span class="ico">🗄️</span>un bureau</button><button class="opt" data-v="armoire"><span class="ico">🚪</span>une armoire</button><button class="opt" data-v="lampe"><span class="ico">💡</span>une lampe</button><button class="opt" data-v="canape"><span class="ico">🛋️</span>un canapé</button><button class="opt" data-v="tele"><span class="ico">📺</span>une télé</button><button class="opt" data-v="frigo"><span class="ico">🧊</span>un frigo</button><button class="opt" data-v="douche"><span class="ico">🚿</span>une douche</button></div></div>
+      <div class="grid2">
+        <div class="q"><p><span class="n">2.</span>L'armoire est…</p><div class="choices" data-q="co2b" data-shuffle><button class="opt" data-v="bleue">bleue</button><button class="opt" data-v="verte">verte</button><button class="opt" data-v="blanche">blanche</button></div></div>
+        <div class="q"><p><span class="n">3.</span>La lampe sert à…</p><div class="choices" data-q="co2c" data-shuffle><button class="opt" data-v="lire">📖 lire le soir</button><button class="opt" data-v="dormir">😴 dormir</button><button class="opt" data-v="manger">🍽️ manger</button></div></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="ex" data-title="3 · La photo">
+    <div class="card">
+      <div class="ex-title"><h3>La photo de famille</h3><span class="pts">5 pts</span></div>
+      <p class="consigne">Léa te montre une photo de sa famille. Écoute et trouve <b>la lettre de chaque personne</b>.</p>
+      <div class="player" data-a="co3" data-src="b3b3e1155b29"><button class="play" type="button">▶</button><div style="flex:1"><div class="lbl">Léa présente sa famille</div><div class="bar"><i></i></div></div><div class="left"></div></div>
+      <div style="margin:1rem 0"><svg viewBox="0 0 700 320" role="img" aria-label="Photo de famille"><rect width="700" height="320" rx="16" fill="#f4efe3"/><rect x="0" y="280" width="700" height="40" fill="#e3d9c3"/><g><rect x="43.0" y="210.0" width="15.0" height="70.0" rx="4" fill="#2d3a33"/><rect x="62" y="210.0" width="15.0" height="70.0" rx="4" fill="#2d3a33"/><rect x="37.0" y="102.0" width="46" height="114.0" rx="14" fill="#3b6ea5"/><circle cx="60" cy="74.0" r="24" fill="#f1c9a5"/><path d="M36 72.0 A24 24 0 0 1 84 72.0 Q60 60.8 36 72.0Z" fill="#6b4226"/><circle cx="50.879999999999995" cy="76.0" r="2.6" fill="#1b1b1b"/><circle cx="69.12" cy="76.0" r="2.6" fill="#1b1b1b"/><g fill="none" stroke="#1b1b1b" stroke-width="2"><circle cx="50.879999999999995" cy="76.0" r="7"/><circle cx="69.12" cy="76.0" r="7"/><line x1="57.879999999999995" y1="76.0" x2="62.120000000000005" y2="76.0"/></g><path d="M40.8 81.2 Q60 108.8 79.2 81.2 Q60 92.0 40.8 81.2Z" fill="#6b4226"/><circle cx="60" cy="306" r="15" fill="#0d3b2e"/><text x="60" y="312" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="17" fill="#fff">A</text></g><g><rect x="143.0" y="210.0" width="15.0" height="70.0" rx="4" fill="#2d3a33"/><rect x="162" y="210.0" width="15.0" height="70.0" rx="4" fill="#2d3a33"/><rect x="137.0" y="102.0" width="46" height="114.0" rx="14" fill="#7a8f3b"/><circle cx="160" cy="74.0" r="24" fill="#f1c9a5"/><path d="M136 72.0 A24 24 0 0 1 184 72.0 Q160 60.8 136 72.0Z" fill="#1b1b1b"/><circle cx="150.88" cy="76.0" r="2.6" fill="#1b1b1b"/><circle cx="169.12" cy="76.0" r="2.6" fill="#1b1b1b"/><g fill="none" stroke="#1b1b1b" stroke-width="2"><circle cx="150.88" cy="76.0" r="7"/><circle cx="169.12" cy="76.0" r="7"/><line x1="157.88" y1="76.0" x2="162.12" y2="76.0"/></g><path d="M154 86.0 Q160 91.28 166 86.0" stroke="#8a4b3a" stroke-width="2" fill="none"/><circle cx="160" cy="306" r="15" fill="#0d3b2e"/><text x="160" y="312" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="17" fill="#fff">B</text></g><g><rect x="240.76" y="225.4" width="12.239999999999998" height="54.6" rx="4" fill="#2d3a33"/><rect x="257" y="225.4" width="12.239999999999998" height="54.6" rx="4" fill="#2d3a33"/><rect x="234.76" y="149.23999999999998" width="40.48" height="82.16000000000003" rx="14" fill="#b4533a"/><rect x="229.68" y="118.91999999999999" width="50.64" height="42.408" rx="12" fill="#c4551f"/><circle cx="255" cy="122.91999999999999" r="22.32" fill="#f1c9a5"/><path d="M232.68 120.91999999999999 A22.32 22.32 0 0 1 277.32 120.91999999999999 Q255 110.64399999999999 232.68 120.91999999999999Z" fill="#c4551f"/><circle cx="246.51839999999999" cy="124.91999999999999" r="2.6" fill="#1b1b1b"/><circle cx="263.4816" cy="124.91999999999999" r="2.6" fill="#1b1b1b"/><path d="M249 134.07999999999998 Q255 138.9904 261 134.07999999999998" stroke="#8a4b3a" stroke-width="2" fill="none"/><circle cx="255" cy="306" r="15" fill="#0d3b2e"/><text x="255" y="312" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="17" fill="#fff">C</text></g><g><rect x="333.0" y="213.5" width="15.0" height="66.5" rx="4" fill="#2d3a33"/><rect x="352" y="213.5" width="15.0" height="66.5" rx="4" fill="#2d3a33"/><rect x="327.0" y="113.5" width="46" height="106.0" rx="14" fill="#a5824a"/><rect x="323" y="81.5" width="54" height="45.599999999999994" rx="12" fill="#e7c46a"/><circle cx="350" cy="85.5" r="24" fill="#f1c9a5"/><path d="M326 83.5 A24 24 0 0 1 374 83.5 Q350 72.3 326 83.5Z" fill="#e7c46a"/><circle cx="340.88" cy="87.5" r="2.6" fill="#1b1b1b"/><circle cx="359.12" cy="87.5" r="2.6" fill="#1b1b1b"/><path d="M344 97.5 Q350 102.78 356 97.5" stroke="#8a4b3a" stroke-width="2" fill="none"/><circle cx="350" cy="306" r="15" fill="#0d3b2e"/><text x="350" y="312" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="17" fill="#fff">D</text></g><g><rect x="428.0" y="215.6" width="15.0" height="64.4" rx="4" fill="#2d3a33"/><rect x="447" y="215.6" width="15.0" height="64.4" rx="4" fill="#2d3a33"/><rect x="422.0" y="120.39999999999998" width="46" height="101.20000000000002" rx="14" fill="#5b5b7a"/><circle cx="445" cy="92.39999999999998" r="24" fill="#f1c9a5"/><path d="M421 90.39999999999998 A24 24 0 0 1 469 90.39999999999998 Q445 79.19999999999997 421 90.39999999999998Z" fill="#eeeeee"/><circle cx="435.88" cy="94.39999999999998" r="2.6" fill="#1b1b1b"/><circle cx="454.12" cy="94.39999999999998" r="2.6" fill="#1b1b1b"/><path d="M439 104.39999999999998 Q445 109.67999999999998 451 104.39999999999998" stroke="#8a4b3a" stroke-width="2" fill="none"/><circle cx="445" cy="306" r="15" fill="#0d3b2e"/><text x="445" y="312" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="17" fill="#fff">E</text></g><g><rect x="524.9" y="238.0" width="8.099999999999998" height="42.0" rx="4" fill="#2d3a33"/><rect x="537" y="238.0" width="8.099999999999998" height="42.0" rx="4" fill="#2d3a33"/><rect x="518.9" y="182.0" width="32.199999999999996" height="62.0" rx="14" fill="#0d7f57"/><circle cx="535" cy="160.0" r="18.0" fill="#f1c9a5"/><path d="M517.0 158.0 A18.0 18.0 0 0 1 553.0 158.0 Q535 150.1 517.0 158.0Z" fill="#6b4226"/><circle cx="528.16" cy="162.0" r="2.6" fill="#1b1b1b"/><circle cx="541.84" cy="162.0" r="2.6" fill="#1b1b1b"/><path d="M529 169.0 Q535 172.96 541 169.0" stroke="#8a4b3a" stroke-width="2" fill="none"/><g fill="#e08a2e"><ellipse cx="565.1" cy="262" rx="16" ry="11"/><circle cx="578.1" cy="250" r="9"/><path d="M571.1 244 l3 -9 l5 7z M580.1 243 l5 -8 l3 9z"/><path d="M550.1 262 q-12 -6 -8 -20" stroke="#e08a2e" stroke-width="4" fill="none"/></g><circle cx="535" cy="306" r="15" fill="#0d3b2e"/><text x="535" y="312" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="17" fill="#fff">F</text></g><g><rect x="629.44" y="236.6" width="8.559999999999999" height="43.4" rx="4" fill="#2d3a33"/><rect x="642" y="236.6" width="8.559999999999999" height="43.4" rx="4" fill="#2d3a33"/><rect x="623.44" y="178.35999999999999" width="33.12" height="64.24000000000001" rx="14" fill="#c44a6a"/><circle cx="640" cy="155.88" r="18.48" fill="#f1c9a5"/><path d="M621.52 153.88 A18.48 18.48 0 0 1 658.48 153.88 Q640 145.716 621.52 153.88Z" fill="#6b4226"/><circle cx="632.9776" cy="157.88" r="2.6" fill="#1b1b1b"/><circle cx="647.0224" cy="157.88" r="2.6" fill="#1b1b1b"/><path d="M634 165.12 Q640 169.1856 646 165.12" stroke="#8a4b3a" stroke-width="2" fill="none"/><circle cx="640" cy="306" r="15" fill="#0d3b2e"/><text x="640" y="312" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="17" fill="#fff">G</text></g></svg></div>
+      <div class="grid2">
+        <div><div class="q"><p><span class="n">1.</span>Paul, le père :</p><div class="choices" data-q="co3paul"><button class="opt mono" data-v="A">A</button><button class="opt mono" data-v="B">B</button><button class="opt mono" data-v="C">C</button><button class="opt mono" data-v="D">D</button><button class="opt mono" data-v="E">E</button><button class="opt mono" data-v="F">F</button><button class="opt mono" data-v="G">G</button></div></div><div class="q"><p><span class="n">2.</span>Claire, la mère :</p><div class="choices" data-q="co3claire"><button class="opt mono" data-v="A">A</button><button class="opt mono" data-v="B">B</button><button class="opt mono" data-v="C">C</button><button class="opt mono" data-v="D">D</button><button class="opt mono" data-v="E">E</button><button class="opt mono" data-v="F">F</button><button class="opt mono" data-v="G">G</button></div></div></div>
+        <div><div class="q"><p><span class="n">3.</span>Henri, le grand-père :</p><div class="choices" data-q="co3henri"><button class="opt mono" data-v="A">A</button><button class="opt mono" data-v="B">B</button><button class="opt mono" data-v="C">C</button><button class="opt mono" data-v="D">D</button><button class="opt mono" data-v="E">E</button><button class="opt mono" data-v="F">F</button><button class="opt mono" data-v="G">G</button></div></div><div class="q"><p><span class="n">4.</span>Hugo, le frère :</p><div class="choices" data-q="co3hugo"><button class="opt mono" data-v="A">A</button><button class="opt mono" data-v="B">B</button><button class="opt mono" data-v="C">C</button><button class="opt mono" data-v="D">D</button><button class="opt mono" data-v="E">E</button><button class="opt mono" data-v="F">F</button><button class="opt mono" data-v="G">G</button></div></div></div>
+      </div>
+      <div class="q"><p><span class="n">5.</span>Le chat s'appelle…</p><div class="choices" data-q="co3chat" data-shuffle><button class="opt" data-v="caramel">Caramel</button><button class="opt" data-v="chocolat">Chocolat</button><button class="opt" data-v="calin">Câlin</button></div></div>
+    </div>
+  </article>
+
+</section>
+
+<section class="sec hidden" data-sec="1" style="--c:var(--ce)">
+  <div class="sec-head">
+    <div><div class="kicker">Section 2 / 3</div><h2>Lire · <span>Compréhension écrite</span></h2></div>
+    <div class="meta">15 points · temps conseillé 12 min</div>
+  </div>
+  <div class="tabs"></div>
+
+  <article class="ex" data-title="1 · Correspondants">
+    <div class="card">
+      <div class="ex-title"><h3>Trouve le bon correspondant</h3><span class="pts">6 pts</span></div>
+      <p class="consigne">Trois camarades de ta classe cherchent un correspondant français. Lis les annonces et choisis <b>la meilleure annonce pour chaque camarade</b>. Attention : une annonce ne correspond à personne.</p>
+      <div class="ads">
+        <div class="ad"><span class="L">A</span><h4>Tom · 14 ans · Nice 🇫🇷</h4><p>J'adore le football et les jeux vidéo. Je parle anglais et un peu espagnol. Je voudrais parler espagnol avec mon correspondant !</p></div>
+        <div class="ad"><span class="L">B</span><h4>Inès · 15 ans · Bordeaux 🇫🇷</h4><p>J'aime la danse et la musique. Je déteste le sport ! J'ai deux chats et un lapin.</p></div>
+        <div class="ad"><span class="L">C</span><h4>Jules · 16 ans · Montréal 🇨🇦</h4><p>J'adore la nature et la photographie. J'ai une grande famille : trois frères et une sœur.</p></div>
+        <div class="ad"><span class="L">D</span><h4>Chloé · 13 ans · Paris 🇫🇷</h4><p>J'aime lire et dessiner. Je n'ai pas de frère, pas de sœur : je suis fille unique.</p></div>
+      </div>
+      <div style="margin-top:1.2rem">
+        <div class="profile"><div class="pp"><span class="ico">💃</span><div><b>Valeria</b> adore danser et elle aime beaucoup les animaux. Elle n'aime pas le sport.</div></div><div class="choices" data-q="ce1valeria"><button class="opt mono" data-v="A">A</button><button class="opt mono" data-v="B">B</button><button class="opt mono" data-v="C">C</button><button class="opt mono" data-v="D">D</button></div></div>
+        <div class="profile"><div class="pp"><span class="ico">⚽</span><div><b>Santiago</b> joue au football tous les jours. Il veut un correspondant qui parle un peu espagnol.</div></div><div class="choices" data-q="ce1santiago"><button class="opt mono" data-v="A">A</button><button class="opt mono" data-v="B">B</button><button class="opt mono" data-v="C">C</button><button class="opt mono" data-v="D">D</button></div></div>
+        <div class="profile"><div class="pp"><span class="ico">📷</span><div><b>Mateo</b> aime prendre des photos à la montagne. Il a quatre frères et sœurs.</div></div><div class="choices" data-q="ce1mateo"><button class="opt mono" data-v="A">A</button><button class="opt mono" data-v="B">B</button><button class="opt mono" data-v="C">C</button><button class="opt mono" data-v="D">D</button></div></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="ex" data-title="2 · Le courriel">
+    <div class="card">
+      <div class="ex-title"><h3>Le courriel de Léa</h3><span class="pts">9 pts</span></div>
+      <p class="consigne">Lis le courriel. Pour chaque phrase, réponds <b>Vrai</b> ou <b>Faux</b>, puis <b>prouve-le</b> : touche « Choisir la preuve » et clique sur <b>la phrase du texte</b> qui justifie ta réponse.</p>
+      <div class="grid2">
+        <div class="mail-sticky"><div class="mail" id="mail">
+          <div class="mh"><b>DE</b> lea.moreau@mail.fr<br><b>À</b> toi<br><b>OBJET</b> Notre maison 🏠</div>
+          <div class="mb">Salut !<br><br><span class="sent" data-s="s1">Merci pour ton message !</span> <span class="sent" data-s="s2">Je vais te présenter notre maison.</span> <span class="sent" data-s="s3">Elle n'est pas très grande, mais elle est jolie.</span> <br><br><span class="sent" data-s="s4">Au rez-de-chaussée, il y a le salon, la cuisine et le bureau de mon père.</span> <span class="sent" data-s="s5">Ma mère travaille à la maison : elle est dessinatrice.</span> <br><br><span class="sent" data-s="s6">Ma chambre est au premier étage, à côté de la chambre de mon frère.</span> <span class="sent" data-s="s7">Mes murs sont violets et mes rideaux sont orange.</span> <span class="sent" data-s="s8">J'ai un grand bureau : il sert à faire mes devoirs et à dessiner.</span> <br><br><span class="sent" data-s="s9">Mon frère n'a pas de bureau dans sa chambre.</span> <span class="sent" data-s="s10">Il fait ses devoirs dans la cuisine, avec notre chat Caramel !</span> <br><br><span class="sent" data-s="s11">Dans ta chambre, tu peux utiliser l'armoire et les deux étagères.</span> <span class="sent" data-s="s12">Tu peux aussi regarder la télé dans le salon avec nous.</span> <span class="sent" data-s="s13">Tu aimes les animaux ?</span> <br><br>Bisous,<br>Léa</div></div></div>
+        <div><div class="stmt" data-n="1"><p>1. La maison de Léa est très grande.</p><div class="row"><div class="choices" data-q="ce2v1"><button class="opt" data-v="V">Vrai</button><button class="opt" data-v="F">Faux</button></div><button type="button" class="pick" data-q="ce2p1">📍 Choisir la preuve</button></div><div class="proof"></div></div><div class="stmt" data-n="2"><p>2. Les rideaux de Léa sont orange.</p><div class="row"><div class="choices" data-q="ce2v2"><button class="opt" data-v="V">Vrai</button><button class="opt" data-v="F">Faux</button></div><button type="button" class="pick" data-q="ce2p2">📍 Choisir la preuve</button></div><div class="proof"></div></div><div class="stmt" data-n="3"><p>3. Hugo fait ses devoirs dans sa chambre.</p><div class="row"><div class="choices" data-q="ce2v3"><button class="opt" data-v="V">Vrai</button><button class="opt" data-v="F">Faux</button></div><button type="button" class="pick" data-q="ce2p3">📍 Choisir la preuve</button></div><div class="proof"></div></div><div class="stmt" data-n="4"><p>4. Tu peux regarder la télé avec la famille.</p><div class="row"><div class="choices" data-q="ce2v4"><button class="opt" data-v="V">Vrai</button><button class="opt" data-v="F">Faux</button></div><button type="button" class="pick" data-q="ce2p4">📍 Choisir la preuve</button></div><div class="proof"></div></div></div>
+      </div>
+    </div>
+  </article>
+
+</section>
+
+<section class="sec hidden" data-sec="2" style="--c:var(--pe)">
+  <div class="sec-head">
+    <div><div class="kicker">Section 3 / 3</div><h2>Écrire · <span>Production écrite</span></h2></div>
+    <div class="meta">20 points · temps conseillé 16 min<br>Correcteur, traducteur et « coller » désactivés</div>
+  </div>
+  <div class="tabs"></div>
+
+  <article class="ex" data-title="1 · La fiche">
+    <div class="card">
+      <div class="ex-title"><h3>Fiche d'échange scolaire</h3><span class="pts">5 pts</span></div>
+      <p class="consigne">Pour ton échange à Lyon, <b>complète ta fiche</b> en français, avec tes informations personnelles.</p>
+      <div class="form-sheet"><div><label>Nom</label><input data-q="pe1nom" data-w="pe1" maxlength="160" autocomplete="off" spellcheck="false"></div><div><label>Prénom</label><input data-q="pe1prenom" data-w="pe1" maxlength="160" autocomplete="off" spellcheck="false"></div><div><label>Âge</label><input data-q="pe1age" data-w="pe1" maxlength="160" autocomplete="off" spellcheck="false"></div><div><label>Nationalité</label><input data-q="pe1nat" data-w="pe1" maxlength="160" autocomplete="off" spellcheck="false"></div><div><label>Ville et pays</label><input data-q="pe1ville" data-w="pe1" maxlength="160" autocomplete="off" spellcheck="false"></div></div>
+    </div>
+  </article>
+
+  <article class="ex" data-title="2 · Le message">
+    <div class="card">
+      <div class="ex-title"><h3>Réponds à Léa</h3><span class="pts">15 pts</span></div>
+      <p class="consigne">Léa veut mieux te connaître avant ton arrivée. Tu lui réponds (<b>40 à 60 mots</b>).</p>
+      <div class="grid2" style="grid-template-columns:2fr 1fr">
+        <div class="compose">
+          <div class="mail"><div class="mh" style="border-radius:0"><b>À</b> lea.moreau@mail.fr<br><b>OBJET</b> RE : Notre maison 🏠</div></div>
+          <textarea data-q="pe2" data-w="pe2" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Salut Léa, …"></textarea>
+          <div class="wc"><span id="wc-n">0 mot</span><div class="meter"><i id="wc-bar"></i></div><span>40–60</span></div>
+        </div>
+        <div>
+          <p class="kicker" style="margin-bottom:.4rem">Dans ton message :</p>
+          <ul class="checklist">
+            <li>tu <b>te présentes</b> (âge, nationalité, ville) et tu <b>te décris</b> ;</li>
+            <li>tu parles de <b>ta famille</b> ;</li>
+            <li>tu dis ce que tu <b>aimes</b> et ce que tu <b>n'aimes pas</b> ;</li>
+            <li>tu <b>décris ta chambre</b> : les meubles, les couleurs, à quoi ils servent.</li>
+          </ul>
+          <p class="checklist" style="margin-top:1rem">N'oublie pas de saluer et de dire au revoir. Écris avec <b>tes</b> mots : ta façon d'écrire est enregistrée.</p>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<div class="next-row" id="nav">
+  <button type="button" class="btn ghost" id="b-prev">← Précédent</button>
+  <button type="button" class="btn" id="b-next">Suivant →</button>
+</div>
+  </div></main>
+</div>
+
+<!-- ═════════ VOILES ═════════ -->
+<div class="veil hidden" id="v-fs"><div class="box"><h3>Reviens en plein écran</h3><p>Tu as quitté le plein écran. Cette sortie a été enregistrée. L'évaluation continue : le temps ne s'arrête pas.</p><button class="btn gold" id="b-fs">Revenir à l'évaluation</button></div></div>
+<div class="veil hidden" id="v-tab"><div class="box"><h3>Évaluation déjà ouverte</h3><p>L'évaluation est ouverte dans un autre onglet ou une autre fenêtre. Ferme cette page et continue dans l'autre.</p></div></div>
+<div class="veil hidden" id="v-confirm"><div class="box"><h3 id="c-title">Passer à la section suivante ?</h3><p id="c-text">Tu ne pourras plus revenir en arrière.</p><div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap"><button class="btn ghost" id="c-no" style="color:#fff;border-color:rgba(255,255,255,.4)">Pas encore</button><button class="btn gold" id="c-yes">Oui, continuer</button></div></div></div>
+
+<!-- ═════════ FIN ═════════ -->
+<section id="fin" class="hidden"><div class="card">
+  <div class="kicker">Évaluation envoyée</div>
+  <h2>Merci et bravo !</h2>
+  <p>Tes réponses sont bien arrivées. Ton professeur te donnera les résultats.</p>
+  <div class="recibo" id="recibo">——</div>
+  <p style="font-size:.85rem;color:var(--muted)">Numéro de reçu. Tu peux fermer cette page.</p>
+</div></section>
+<div class="toast hidden" id="toast"></div>
+<script>
+(function(){
+'use strict';
+const EXAM_ID = 'a14-chez-les-moreau';
+const AUDIO = 'audio/';
+const MAX_PLAYS = 2;
+const TEST_AUDIO = 'e6c0317d0ddd';
+const DEMO = new URLSearchParams(location.search).has('apercu');
+const $  = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+
+let sb = null, att = null, offset = 0;
+let A = { _m:{ plays:{}, sec:0, ex:[0,0,0], ts:0 } };
+let W = { pe1:{ log:[], t0:0 }, pe2:{ log:[], t0:0 } };
+let EV = [];
+let dirty = false, wDirty = false, saving = false, started = false, finished = false;
+let timers = [];
+let who = { nom:'', mail:'' };
+
+const now = () => Date.now() + offset;
+const active = () => started && !finished;
+
+/* ───────── utilidades ───────── */
+function hash(str){ let h1=0xdeadbeef, h2=0x41c6ce57; for(let i=0;i<str.length;i++){const c=str.charCodeAt(i);h1=Math.imul(h1^c,2654435761);h2=Math.imul(h2^c,1597334677);} h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909); h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909); return (4294967296*(2097151&h2)+(h1>>>0)); }
+function rng(seed){ let a = seed>>>0; return () => { a|=0; a=a+0x6D2B79F5|0; let t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+function toast(msg, ms=3500){ const t=$('#toast'); t.textContent=msg; t.classList.remove('hidden'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.add('hidden'), ms); }
+function log(k, x){ if(!active() && k!=='inicio') return; EV.push(Object.assign({ k, t: now(), s: A._m.sec, e: A._m.ex[A._m.sec] }, x||{})); }
+function lsSet(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+function lsGet(k){ try{ return JSON.parse(localStorage.getItem(k)||'null'); }catch(e){ return null; } }
+function lsDel(k){ try{ localStorage.removeItem(k); }catch(e){} }
+const bkKey = () => 'exam_' + EXAM_ID + '_' + (att ? att.id : 'x');
+
+function fingerprint(){
+  let c = '';
+  try{ const cv=document.createElement('canvas'); cv.width=200; cv.height=40; const x=cv.getContext('2d');
+    x.textBaseline='top'; x.font='16px Arial'; x.fillStyle='#f60'; x.fillRect(0,0,80,20); x.fillStyle='#069'; x.fillText('Lyon·A1.4 ✓ éàç', 2, 4); c = cv.toDataURL(); }catch(e){}
+  return hash([c, navigator.userAgent, screen.width, screen.height, screen.colorDepth, navigator.hardwareConcurrency, Intl.DateTimeFormat().resolvedOptions().timeZone].join('|')).toString(36);
+}
+function device(){
+  return { ua:navigator.userAgent, lang:(navigator.languages||[]).join(','), tz:Intl.DateTimeFormat().resolvedOptions().timeZone,
+    scr:screen.width+'x'+screen.height, win:innerWidth+'x'+innerHeight, dpr:devicePixelRatio, touch:navigator.maxTouchPoints||0,
+    ext:(typeof screen.isExtended==='boolean')?screen.isExtended:null, cores:navigator.hardwareConcurrency||null, fp:fingerprint() };
+}
+
+/* ───────── acceso ───────── */
+if(DEMO){ $('#demo-banner').classList.remove('hidden'); $('#i-code').value='APERCU'; }
+$('#b-sound').addEventListener('click', () => {
+  const a = new Audio(AUDIO + TEST_AUDIO + '.mp3');
+  a.play().then(()=>{ $('#sound-msg').textContent='¿Lo escuchas? Si no, sube el volumen o revisa tus audífonos.'; })
+          .catch(()=>{ $('#sound-msg').textContent='No se pudo reproducir. Revisa tu navegador.'; });
+});
+
+const ERR = {
+  CODIGO_INCORRECTO:'El código de acceso no es correcto.',
+  YA_ENVIADO:'Ya enviaste este examen con este correo. Solo se permite un intento.',
+  EXAMEN_CERRADO:'El examen está cerrado en este momento. Consulta a tu profesor.',
+  EXAMEN_NO_EXISTE:'Examen no encontrado.',
+  EMAIL_INVALIDO:'Revisa tu correo electrónico.',
+  NOMBRE_INVALIDO:'Escribe tu nombre completo.'
+};
+function errText(err){ const m = (err && err.message) || ''; for(const k in ERR) if(m.includes(k)) return ERR[k]; return 'Problema de conexión. Revisa tu internet e intenta de nuevo.'; }
+
+$('#f-entry').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const err = $('#err-entry'); err.textContent = '';
+  who.nom = $('#i-nom').value.trim(); who.mail = $('#i-mail').value.trim().toLowerCase();
+  const code = $('#i-code').value.trim();
+  if(!$('#i-pledge').checked){ err.textContent = 'Debes aceptar la declaración sur l\'honneur.'; return; }
+  goFullscreen(); // dentro del gesto del usuario
+  const b = $('#b-start'); b.disabled = true; b.textContent = 'Connexion…';
+  try{
+    let r;
+    if(DEMO){
+      r = { id:'demo', token:'demo', semilla: Math.floor(Math.random()*1e9), limite_en: new Date(Date.now()+60*60000).toISOString(), ahora: new Date().toISOString(), respuestas:{}, escritura:{}, reanudado:false };
+    } else {
+      sb = sb || (typeof supabaseClient !== 'undefined' ? supabaseClient : null);
+      if(!sb) throw new Error('SIN_CONFIG');
+      const { data, error } = await sb.rpc('examen_iniciar', { p_examen:EXAM_ID, p_codigo:code, p_nombre:who.nom, p_email:who.mail, p_dispositivo:device() });
+      if(error) throw error;
+      r = data;
+    }
+    att = { id:r.id, token:r.token, semilla:r.semilla, limite:new Date(r.limite_en).getTime() };
+    offset = new Date(r.ahora).getTime() - Date.now();
+    if(r.respuestas && r.respuestas._m) A = r.respuestas;
+    if(r.escritura && r.escritura.pe2) W = r.escritura;
+    const bk = lsGet(bkKey());
+    if(bk && bk.A && bk.A._m && bk.A._m.ts > (A._m.ts||0)){ A = bk.A; if(bk.W) W = bk.W; dirty = wDirty = true; }
+    begin(r.reanudado);
+  }catch(ex){
+    err.textContent = errText(ex);
+    b.disabled = false; b.textContent = 'Commencer →';
+    if(document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+  }
+});
+
+/* ───────── arranque ───────── */
+function begin(resumed){
+  started = true;
+  document.body.classList.add('exam');
+  $('#accueil').classList.add('hidden');
+  $('#examen').classList.remove('hidden');
+  watermark();
+  shuffleAll();
+  bindAnswers();
+  bindWriting();
+  setupPlayers();
+  setupNav();
+  monitors();
+  tabLock();
+  restoreUI();
+  showSec(A._m.sec, true);
+  log('inicio', { reanudado:!!resumed, fs:!!document.fullscreenElement });
+  if(resumed) toast('Evaluación reanudada. El tiempo siguió corriendo.', 5000);
+  timers.push(setInterval(tick, 500));
+  timers.push(setInterval(save, 15000));
+  timers.push(setInterval(idleCheck, 30000));
+  save();
+}
+
+function watermark(){
+  const txt = (who.nom + ' · ' + who.mail + ' · ' + new Date().toLocaleDateString('fr-FR')).replace(/[<&>"]/g,'');
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='460' height='220'><text x='20' y='130' transform='rotate(-24 230 110)' font-family='monospace' font-size='15' fill='#0d1f33'>${txt}</text></svg>`;
+  $('#wm').style.backgroundImage = 'url("data:image/svg+xml;utf8,' + encodeURIComponent(svg) + '")';
+}
+
+function shuffleAll(){
+  $$('[data-shuffle]').forEach(g => {
+    const r = rng(att.semilla ^ hash(g.dataset.q||'x'));
+    const kids = [...g.children];
+    for(let i=kids.length-1;i>0;i--){ const j=Math.floor(r()*(i+1)); [kids[i],kids[j]]=[kids[j],kids[i]]; }
+    kids.forEach(k => g.appendChild(k));
+  });
+  $$('[data-shuffle-rows]').forEach(g => {
+    const r = rng(att.semilla ^ 77);
+    const kids = [...g.children];
+    for(let i=kids.length-1;i>0;i--){ const j=Math.floor(r()*(i+1)); [kids[i],kids[j]]=[kids[j],kids[i]]; }
+    kids.forEach(k => g.appendChild(k));
+  });
+}
+
+/* ───────── respuestas ───────── */
+function setA(q, v, silent){
+  if(!active()) return;
+  A[q] = v; A._m.ts = now(); dirty = true;
+  if(!silent) log('r', { q, v: String(v).slice(0,40) });
+  lsSet(bkKey(), { A, W });
+  markTabs();
+}
+let proofQ = null;
+function bindAnswers(){
+  document.addEventListener('click', (e) => {
+    if(!active()) return;
+    const o = e.target.closest('.opt');
+    if(o){
+      const g = o.closest('[data-q]'); if(!g) return;
+      if(g.classList.contains('multi')){
+        o.classList.toggle('sel');
+        setA(g.dataset.q, $$('.opt.sel', g).map(x=>x.dataset.v).sort().join(','));
+      } else {
+        $$('.opt', g).forEach(x => x.classList.toggle('sel', x===o));
+        setA(g.dataset.q, o.dataset.v);
+      }
+      return;
+    }
+    const bl = e.target.closest('.bld');
+    if(bl){ setA('co3a', bl.dataset.v); paintMap(); return; }
+    const pk = e.target.closest('.pick');
+    if(pk){ proofQ = (proofQ === pk.dataset.q) ? null : pk.dataset.q; paintProofs(); return; }
+    const st = e.target.closest('.sent');
+    if(st && proofQ){ setA(proofQ, st.dataset.s); proofQ = null; paintProofs(); return; }
+  });
+  $$('input.inp[data-q]').forEach(el => el.addEventListener('input', () => {
+    el.value = el.dataset.kind === 'letters' ? el.value.toUpperCase().replace(/[^A-ZÀ-Ÿ-]/g,'').slice(0,10) : el.value.replace(/\D/g,'').slice(0,4);
+    setA(el.dataset.q, el.value);
+  }));
+}
+function paintMap(){
+  if(!$('#map-pick')) return;
+  $$('.bld').forEach(b => b.classList.toggle('sel', b.dataset.v === A.co3a));
+  $('#map-pick').textContent = A.co3a || '—';
+}
+function paintProofs(){
+  $('#mail').classList.toggle('picking', !!proofQ);
+  $$('.sent').forEach(s => { s.classList.remove('chosen'); const sup = s.querySelector('sup'); if(sup) sup.remove(); });
+  $$('.stmt').forEach(st => {
+    const pk = $('.pick', st), q = pk.dataset.q, n = st.dataset.n;
+    st.classList.toggle('active', proofQ === q);
+    pk.classList.toggle('on', proofQ === q);
+    pk.textContent = proofQ === q ? '👆 Cliquez sur une phrase du texte' : (A[q] ? '📍 Changer la preuve' : '📍 Choisir la preuve');
+    const s = A[q] && $('.sent[data-s="'+A[q]+'"]');
+    $('.proof', st).textContent = s ? '« ' + s.textContent.trim() + ' »' : '';
+    if(s){ s.classList.add('chosen'); const sup=document.createElement('sup'); sup.textContent=n; s.appendChild(sup); }
+  });
+}
+function restoreUI(){
+  $$('[data-q]').forEach(g => {
+    const v = A[g.dataset.q]; if(v == null) return;
+    if(g.matches('input,textarea')) g.value = v;
+    else if(g.classList.contains('multi')){ const s = String(v).split(','); $$('.opt',g).forEach(o => o.classList.toggle('sel', s.includes(o.dataset.v))); }
+    else $$('.opt',g).forEach(o => o.classList.toggle('sel', o.dataset.v === v));
+  });
+  paintMap(); paintProofs(); wordCount(); markTabs();
+}
+
+/* ───────── escritura vigilada ───────── */
+function diff(a, b){
+  let p = 0; while(p < a.length && p < b.length && a[p] === b[p]) p++;
+  let s = 0; while(s < a.length-p && s < b.length-p && a[a.length-1-s] === b[b.length-1-s]) s++;
+  return { pos:p, del:a.length-p-s, ins:b.slice(p, b.length-s) };
+}
+function bindWriting(){
+  $$('[data-w]').forEach(el => {
+    const w = el.dataset.w, q = el.dataset.q;
+    let prev = el.value, type = '';
+    el.addEventListener('focus', () => { prev = el.value; });
+    el.addEventListener('beforeinput', (e) => {
+      type = e.inputType || '';
+      if(/FromPaste|FromDrop|FromYank/.test(type)){ e.preventDefault(); log('pegar_bloqueado', { q }); toast('Pegar está desactivado. Escribe con tus propias palabras.'); }
+    });
+    el.addEventListener('input', () => {
+      const cur = el.value; const d = diff(prev, cur); prev = cur;
+      const L = W[w]; if(!L.t0) L.t0 = now();
+      const code = type.startsWith('delete') ? 'd' : type === 'insertText' || type === 'insertLineBreak' ? 'i'
+                 : type === 'insertReplacementText' ? 'r' : type.startsWith('insertComposition') ? 'c' : 'x';
+      const row = [now() - L.t0, code, d.pos, d.del, d.ins];
+      if(w === 'pe1') row.push(q);
+      L.log.push(row); wDirty = true;
+      if(d.ins.length >= 12 && code !== 'c') log('insercion_masiva', { q, n:d.ins.length, tipo:type || '?' });
+      if(code === 'r') log('autocorreccion', { q });
+      type = '';
+      setA(q, cur, true);
+      if(q === 'pe2') wordCount();
+    });
+  });
+}
+function wordCount(){
+  const t = (A.pe2 || '').trim(); const n = t ? t.split(/\s+/).length : 0;
+  $('#wc-n').textContent = n + (n === 1 ? ' mot' : ' mots');
+  $('#wc-bar').style.width = Math.min(100, n/60*100) + '%';
+  $('#wc-bar').style.background = n < 40 ? 'var(--gold)' : n <= 60 ? 'var(--green)' : 'var(--red)';
+}
+
+/* ───────── audio ───────── */
+let playing = null;
+function setupPlayers(){ $$('.player').forEach(p => { $('.play', p).addEventListener('click', () => play(p)); }); paintPlayers(); }
+function paintPlayers(){
+  $$('.player').forEach(p => {
+    const n = A._m.plays[p.dataset.a] || 0, left = MAX_PLAYS - n;
+    $('.left', p).textContent = left > 0 ? left + (left === 1 ? ' écoute restante' : ' écoutes restantes') : 'écoutes terminées';
+    const b = $('.play', p);
+    b.disabled = left <= 0 || (playing && playing.p !== p);
+    b.textContent = playing && playing.p === p ? '♪' : left > 0 ? '▶' : '✓';
+  });
+}
+function play(p){
+  const a = p.dataset.a, n = A._m.plays[a] || 0;
+  if(n >= MAX_PLAYS || playing) return;
+  const au = new Audio(AUDIO + p.dataset.src + '.mp3');
+  playing = { p, au };
+  A._m.plays[a] = n + 1; A._m.ts = now(); dirty = true;
+  log('audio', { a, n:n+1 });
+  p.classList.add('playing'); paintPlayers();
+  const bar = $('.bar i', p); bar.style.width = '0';
+  au.addEventListener('timeupdate', () => { if(au.duration) bar.style.width = (au.currentTime/au.duration*100) + '%'; });
+  const end = (ok) => {
+    if(!playing || playing.au !== au) return;
+    if(!ok && au.currentTime < 1){ A._m.plays[a] = n; toast('No se pudo cargar el audio. Intenta de nuevo (no se contó la escucha).'); }
+    playing = null; p.classList.remove('playing'); if(ok) bar.style.width = '100%';
+    log('audio_fin', { a, ok });
+    paintPlayers(); lsSet(bkKey(), { A, W });
+  };
+  au.addEventListener('ended', () => end(true));
+  au.addEventListener('error', () => end(false));
+  au.play().catch(() => end(false));
+}
+
+/* ───────── navegación ───────── */
+function showSec(i, initial){
+  A._m.sec = i;
+  $$('.sec').forEach(s => s.classList.toggle('hidden', +s.dataset.sec !== i));
+  $$('.stop').forEach(s => { const k = +s.dataset.stop; s.classList.toggle('on', k === i); s.classList.toggle('done', k < i); });
+  const sec = $('.sec[data-sec="'+i+'"]');
+  document.documentElement.style.setProperty('--c', getComputedStyle(sec).getPropertyValue('--c'));
+  showEx(A._m.ex[i] || 0);
+  if(!initial) window.scrollTo({ top:0, behavior:'smooth' });
+}
+function exs(){ return $$('.sec[data-sec="'+A._m.sec+'"] .ex'); }
+function showEx(j){
+  const list = exs(); j = Math.max(0, Math.min(j, list.length-1));
+  A._m.ex[A._m.sec] = j;
+  list.forEach((x,k) => x.classList.toggle('on', k === j));
+  $$('.sec[data-sec="'+A._m.sec+'"] .tab').forEach((t,k) => t.classList.toggle('on', k === j));
+  $('#b-prev').style.visibility = j === 0 ? 'hidden' : 'visible';
+  const last = j === list.length-1;
+  $('#b-next').textContent = !last ? 'Suivant →' : A._m.sec < 2 ? 'Section suivante →' : 'Envoyer ✓';
+  $('#b-next').classList.toggle('gold', last);
+  proofQ = null; if($('#mail')) paintProofs();
+}
+function answered(g){ const v = A[g.dataset.q]; return v != null && String(v).trim() !== ''; }
+function markTabs(){
+  $$('.sec').forEach(sec => {
+    const tabs = $$('.tab', sec);
+    $$('.ex', sec).forEach((x,k) => { const qs = $$('[data-q]', x); if(tabs[k]) tabs[k].classList.toggle('ok', qs.length && qs.every(answered)); });
+  });
+}
+function pending(i){ return $$('.sec[data-sec="'+i+'"] [data-q]').filter(g => !answered(g)).length; }
+function setupNav(){
+  $$('.sec').forEach(sec => {
+    const tabs = $('.tabs', sec);
+    $$('.ex', sec).forEach((x,k) => { const b = document.createElement('button'); b.type='button'; b.className='tab'; b.textContent = x.dataset.title; b.onclick = () => { showEx(k); log('nav', { ex:k }); }; tabs.appendChild(b); });
+  });
+  $('#b-prev').onclick = () => showEx(A._m.ex[A._m.sec] - 1);
+  $('#b-next').onclick = () => {
+    const j = A._m.ex[A._m.sec], last = j === exs().length - 1;
+    if(!last){ showEx(j+1); window.scrollTo({ top:0, behavior:'smooth' }); return; }
+    const p = pending(A._m.sec);
+    if(A._m.sec < 2){
+      confirmBox('Passer à la section suivante ?', (p ? '⚠️ Il reste ' + p + ' réponse(s) vide(s) dans cette section. ' : '') + 'Tu ne pourras plus revenir en arrière.', () => {
+        log('seccion', { de:A._m.sec }); A._m.ex[A._m.sec+1] = 0; showSec(A._m.sec + 1); A._m.ts = now(); dirty = true; save();
+      });
+    } else {
+      const words = (A.pe2||'').trim() ? A.pe2.trim().split(/\s+/).length : 0;
+      confirmBox('Envoyer l\'évaluation ?', (p ? '⚠️ Il reste ' + p + ' champ(s) vide(s). ' : '') + (words < 40 ? 'Ton message a ' + words + ' mots (40 minimum). ' : '') + 'Après l\'envoi, tu ne pourras plus rien modifier.', () => submit('manual'));
+    }
+  };
+  $('#c-no').onclick = () => $('#v-confirm').classList.add('hidden');
+}
+function confirmBox(t, x, yes){
+  $('#c-title').textContent = t; $('#c-text').textContent = x;
+  $('#v-confirm').classList.remove('hidden');
+  $('#c-yes').onclick = () => { $('#v-confirm').classList.add('hidden'); yes(); };
+}
+
+/* ───────── reloj y guardado ───────── */
+const warned = {};
+function tick(){
+  if(!active()) return;
+  const rem = att.limite - now();
+  const s = Math.max(0, Math.floor(rem/1000));
+  $('#timer').textContent = String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+  $('#timer').classList.toggle('warn', s <= 300);
+  [[600,'Quedan 10 minutos.'],[300,'Quedan 5 minutos.'],[60,'¡Queda 1 minuto! El examen se enviará solo.']].forEach(([t,m]) => { if(s <= t && !warned[t]){ warned[t] = 1; toast('⏱ ' + m, 5000); } });
+  if(rem <= 0) submit('tiempo');
+}
+async function save(){
+  if(!att || saving || finished) return;
+  if(!dirty && !wDirty && !EV.length) return;
+  const ev = EV.splice(0);
+  const payload = { p_id:att.id, p_token:att.token, p_respuestas:A, p_eventos:ev, p_escritura: wDirty ? W : null };
+  const wasW = wDirty; dirty = false; wDirty = false; saving = true;
+  $('#save').textContent = 'guardando…';
+  try{
+    if(DEMO){ await new Promise(r => setTimeout(r, 200)); }
+    else {
+      const { data, error } = await sb.rpc('examen_guardar', payload);
+      if(error) throw error;
+      if(data && data.ahora) offset = new Date(data.ahora).getTime() - Date.now();
+      if(data && data.ok === false){ saving = false; submit('tiempo'); return; }
+    }
+    $('#save').textContent = '✓ ' + new Date(now()).toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+  }catch(e){
+    EV = ev.concat(EV); dirty = true; if(wasW) wDirty = true;
+    $('#save').textContent = '⚠ sin conexión';
+  }
+  saving = false;
+}
+async function submit(motivo){
+  if(finished) return;
+  finished = true;
+  timers.forEach(clearInterval);
+  if(playing){ try{ playing.au.pause(); }catch(e){} }
+  EV.push({ k:'envio', t:now(), s:A._m.sec, motivo });
+  $('#v-confirm').classList.add('hidden');
+  $('#b-next').disabled = true;
+  if(motivo === 'tiempo') toast('⏱ Tiempo terminado. Enviando tus respuestas…', 8000);
+  let recibo = null;
+  for(let i = 0; i < 6 && !recibo; i++){
+    try{
+      if(DEMO){ recibo = 'APERÇU'; break; }
+      while(saving) await new Promise(r => setTimeout(r, 200));
+      const { data, error } = await sb.rpc('examen_enviar', { p_id:att.id, p_token:att.token, p_respuestas:A, p_eventos:EV, p_escritura:W, p_motivo:motivo });
+      if(error) throw error;
+      recibo = data.recibo;
+    }catch(e){ await new Promise(r => setTimeout(r, 1500 * (i+1))); }
+  }
+  if(!recibo){
+    toast('No se pudo enviar. NO cierres esta página: reintentando…', 10000);
+    finished = false; setTimeout(() => submit(motivo), 5000); return;
+  }
+  lsDel(bkKey());
+  window.removeEventListener('beforeunload', onLeave);
+  if(document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+  document.body.classList.remove('exam','shield');
+  $$('.veil').forEach(v => v.classList.add('hidden'));
+  $('#examen').classList.add('hidden');
+  $('#recibo').textContent = recibo;
+  $('#fin').classList.remove('hidden');
+}
+
+/* ───────── Sentinelle: vigilancia ───────── */
+function goFullscreen(){ const d = document.documentElement; if(d.requestFullscreen) return d.requestFullscreen().catch(()=>{}); }
+let hiddenAt = 0, blurAt = 0, lastAct = Date.now(), idleLogged = false, lastMouseOut = 0;
+function onLeave(e){ if(!active()) return; log('intento_salir'); save(); e.preventDefault(); e.returnValue = ''; }
+function monitors(){
+  const fsOK = !!document.documentElement.requestFullscreen;
+  if(!fsOK) log('fs_no_soportado');
+  document.addEventListener('fullscreenchange', () => {
+    if(!active()) return;
+    if(!document.fullscreenElement){ log('fs_salida'); if(!DEMO) $('#v-fs').classList.remove('hidden'); }
+    else { log('fs_retorno'); $('#v-fs').classList.add('hidden'); }
+  });
+  $('#b-fs').onclick = () => { goFullscreen(); $('#v-fs').classList.add('hidden'); };
+  if(fsOK && !document.fullscreenElement && !DEMO) setTimeout(() => { if(active() && !document.fullscreenElement) $('#v-fs').classList.remove('hidden'); }, 800);
+
+  document.addEventListener('visibilitychange', () => {
+    if(!active()) return;
+    if(document.hidden){ hiddenAt = now(); log('oculto'); save(); }
+    else { log('visible', { d: now() - hiddenAt }); toast('⚠️ Saliste de la página del examen. Quedó registrado.', 4500); }
+  });
+  window.addEventListener('blur', () => { if(!active()) return; blurAt = now(); document.body.classList.add('shield'); log('blur'); });
+  window.addEventListener('focus', () => { if(!active()) return; document.body.classList.remove('shield'); if(blurAt) log('focus', { d: now() - blurAt }); blurAt = 0; });
+
+  ['copy','cut','paste','drop','dragstart','contextmenu'].forEach(t => document.addEventListener(t, (e) => {
+    if(!active()) return; e.preventDefault(); log('bloqueado_' + t);
+    if(t !== 'dragstart') toast('Acción desactivada durante el examen.');
+  }));
+  const keyHandler = (e) => {
+    if(!active()) return;
+    const k = (e.key || '').toLowerCase(), mod = e.ctrlKey || e.metaKey;
+    if(k === 'printscreen'){ log('captura_pantalla'); toast('Las capturas de pantalla quedan registradas.'); return; }
+    if(e.type !== 'keydown') return;
+    if(k === 'f12' || (mod && e.shiftKey && ['i','j','c','s'].includes(k)) || (mod && ['c','v','x','a','p','s','u','f','g'].includes(k))){
+      e.preventDefault(); log('tecla', { key: (mod ? 'Ctrl+' : '') + (e.shiftKey ? 'Shift+' : '') + e.key });
+    }
+    if(e.metaKey && e.shiftKey && ['3','4','5','s'].includes(k)) log('captura_pantalla');
+  };
+  document.addEventListener('keydown', keyHandler, true);
+  document.addEventListener('keyup', keyHandler, true);
+  window.addEventListener('beforeprint', () => { if(active()) log('imprimir'); });
+  window.addEventListener('beforeunload', onLeave);
+  window.addEventListener('online',  () => { if(active()){ log('online'); save(); } });
+  window.addEventListener('offline', () => { if(active()) log('offline'); });
+
+  let rz; window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => {
+    if(!active()) return;
+    const small = innerWidth < screen.availWidth * 0.75;
+    const dev = (outerWidth - innerWidth > 220) || (outerHeight - innerHeight > 260);
+    log('ventana', { w:innerWidth, h:innerHeight, reducida:small, devtools:dev });
+  }, 600); });
+  document.documentElement.addEventListener('mouseleave', () => {
+    if(!active() || Date.now() - lastMouseOut < 5000) return; lastMouseOut = Date.now(); log('raton_fuera');
+  });
+  ['mousemove','keydown','click','touchstart','scroll'].forEach(t => document.addEventListener(t, () => { lastAct = Date.now(); idleLogged = false; }, { passive:true }));
+
+  // Traductores, correctores y extensiones que modifican la página
+  const seen = {};
+  const flag = (k, x) => { if(seen[k]) return; seen[k] = 1; log(k, x); };
+  const check = () => {
+    const h = document.documentElement;
+    if(/translated/.test(h.className) || h.getAttribute('lang') !== 'fr') flag('traductor', { cls:h.className, lang:h.getAttribute('lang') });
+    if(document.querySelector('font[style], .goog-te-banner-frame, #goog-gt-tt, [class*="immersive-translate"], [data-immersive-translate-walked]')) flag('traductor', { tipo:'dom' });
+    if(document.querySelector('grammarly-desktop-integration, grammarly-extension, [data-gramm], [data-lt-installed], lt-toolbar, lt-mirror, [data-quillbot-element], quillbot-extension-portal')) flag('extension_escritura');
+    const odd = [...document.body.children].find(el => el.tagName.includes('-'));
+    if(odd) flag('extension_dom', { tag: odd.tagName.toLowerCase().slice(0,40) });
+  };
+  check();
+  new MutationObserver(check).observe(document.documentElement, { attributes:true, attributeFilter:['class','lang'], childList:true, subtree:true });
+}
+function idleCheck(){
+  if(!active()) return;
+  if(Date.now() - lastAct > 4*60000 && !idleLogged){ idleLogged = true; log('inactivo', { min: Math.round((Date.now()-lastAct)/60000) }); }
+}
+function tabLock(){
+  if(!('BroadcastChannel' in window)) return;
+  const ch = new BroadcastChannel('exam-' + EXAM_ID);
+  ch.onmessage = (m) => {
+    if(m.data === 'hola' && active()) ch.postMessage('aqui');
+    if(m.data === 'aqui' && active()){ log('doble_pestana'); finished = true; timers.forEach(clearInterval); $('#v-tab').classList.remove('hidden'); }
+  };
+  ch.postMessage('hola');
+}
+})();
+</script>
+
+</body>
+</html>
