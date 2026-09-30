@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Sentinelle · Evaluaciones</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="../assets/js/supabase-config.js"></script>
+<style>
+:root{--cream:#eef4ee;--ink:#12291c;--ink2:#0d3b2e;--muted:rgba(18,41,28,.64);--line:rgba(18,41,28,.13);--gold:#a5824a;--gold2:#e3c68e;--blue:#0d7f57;--cyan:#0d7f57;--red:#b4533a;--green:#0d7f57;--amber:#d97706;
+--display:'Cormorant Garamond',Georgia,serif;--sans:'Syne',system-ui,sans-serif;--mono:'Space Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.45}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+input,select,textarea{font:inherit}
+.hidden{display:none!important}
+.wrap{max-width:1280px;margin:0 auto;padding:0 16px}
+h1,h2,h3{font-family:var(--display);line-height:1.1}
+.mono{font-family:var(--mono)}
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.55rem 1rem;border-radius:999px;background:var(--ink);color:#fff;font-weight:700;font-size:.85rem}
+.btn.ghost{background:#fff;border:1.5px solid var(--line);color:var(--ink)}
+.btn.gold{background:var(--gold);color:var(--ink)}
+.btn.red{background:var(--red)}
+.btn:disabled{opacity:.4}
+header{background:var(--ink2);color:#fff}
+header .wrap{display:flex;align-items:center;gap:1rem;height:64px}
+header h1{font-size:1.6rem}
+header h1 em{color:var(--gold2);font-style:normal}
+header .sp{flex:1}
+.pill{font-family:var(--mono);font-size:.72rem;padding:.2rem .6rem;border-radius:999px;background:rgba(255,255,255,.12)}
+#login{max-width:380px;margin:80px auto;background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:.8rem}
+#login input{padding:.7rem .9rem;border:1.5px solid var(--line);border-radius:10px}
+.bar{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;padding:18px 0}
+.bar select{padding:.5rem .8rem;border-radius:10px;border:1.5px solid var(--line);background:#fff;font-weight:700}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}
+.kpi b{display:block;font-family:var(--display);font-size:2rem}
+.kpi span{font-size:.75rem;color:var(--muted)}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+th,td{padding:.6rem .7rem;text-align:left;border-bottom:1px solid var(--line);font-size:.85rem;vertical-align:middle}
+th{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);background:#f7f6f1;cursor:pointer;white-space:nowrap}
+tr.row{cursor:pointer} tr.row:hover td{background:#f7f9ff}
+.tag{display:inline-block;font-family:var(--mono);font-size:.68rem;padding:.15rem .5rem;border-radius:6px;font-weight:700;white-space:nowrap}
+.t-ok{background:#dcfce7;color:#166534}.t-warn{background:#fef3c7;color:#92400e}.t-bad{background:#fee2e2;color:#991b1b}.t-live{background:#dbeafe;color:#1e40af}.t-grey{background:#eee;color:#555}
+.score{font-family:var(--mono);font-weight:700}
+.empty{padding:40px;text-align:center;color:var(--muted)}
+/* detalle */
+#drawer{position:fixed;inset:0;background:rgba(13,31,51,.5);z-index:50;display:flex;justify-content:flex-end}
+#drawer .pane{width:min(1100px,100%);background:var(--cream);height:100%;overflow:auto;padding:24px}
+.dhead{display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;flex-wrap:wrap;margin-bottom:14px}
+.dhead h2{font-size:2.2rem}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:16px}
+.box h3{font-size:1.35rem;margin-bottom:.6rem}
+.kv{display:grid;grid-template-columns:140px 1fr;gap:.2rem .8rem;font-size:.82rem}
+.kv dt{color:var(--muted)}
+.flag{display:flex;gap:.6rem;align-items:flex-start;padding:.45rem 0;border-bottom:1px dashed var(--line);font-size:.85rem}
+.flag .pts{font-family:var(--mono);font-size:.7rem;min-width:38px;text-align:right;color:var(--red);font-weight:700}
+.gauge{height:10px;border-radius:5px;background:linear-gradient(90deg,#16a34a 0 15%,#d97706 15% 40%,#d42b3a 40%);position:relative;margin:.6rem 0 .3rem}
+.gauge i{position:absolute;top:-5px;width:4px;height:20px;background:var(--ink);border-radius:2px}
+.tl{max-height:320px;overflow:auto;font-family:var(--mono);font-size:.72rem}
+.tl div{padding:.15rem 0;border-bottom:1px solid #f0efe9;display:flex;gap:.6rem}
+.tl .tm{color:var(--muted);min-width:52px}
+.tl .bad{color:var(--red);font-weight:700}
+.items{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px}
+.it{font-family:var(--mono);font-size:.7rem;padding:.35rem .5rem;border-radius:8px;border:1px solid var(--line)}
+.it.y{background:#f0fdf4;border-color:#bbf7d0}.it.n{background:#fef2f2;border-color:#fecaca}
+.it b{display:block;font-size:.72rem}
+.pe-text{font-family:var(--display);font-size:1.15rem;line-height:1.6;white-space:pre-wrap;background:#fffdf5;border:1px solid var(--line);border-radius:10px;padding:14px;min-height:120px}
+.replay .caret{display:inline-block;width:2px;height:1.1em;background:var(--red);vertical-align:text-bottom;animation:bl 1s infinite}
+@keyframes bl{50%{opacity:0}}
+.rb{display:grid;grid-template-columns:1fr auto;gap:.4rem .8rem;align-items:center;font-size:.85rem;padding:.35rem 0;border-bottom:1px dashed var(--line)}
+.rb input[type=number]{width:70px;padding:.3rem .4rem;border:1.5px solid var(--line);border-radius:8px;font-family:var(--mono)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:.6rem 0}
+.stat{background:#f7f6f1;border-radius:10px;padding:8px}
+.stat b{display:block;font-family:var(--mono);font-size:1rem}
+.stat span{font-size:.68rem;color:var(--muted)}
+.hint{font-size:.75rem;color:var(--muted)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:.6rem 1rem;border-radius:10px;z-index:99}
+@media(max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}.grid,.stats{grid-template-columns:1fr 1fr}.hide-m{display:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1><em>Sentinelle</em> · evaluaciones</h1><div class="sp"></div>
+  <span class="pill" id="me"></span>
+  <button class="btn ghost hidden" id="b-out" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.3)">Salir</button>
+</div></header>
+
+<form id="login">
+  <h2 style="font-size:2rem">Acceso docente</h2>
+  <p class="hint">Usa tu cuenta de docente de la plataforma Vive el francés.</p>
+  <input id="l-mail" type="email" placeholder="correo" required>
+  <input id="l-pass" type="password" placeholder="contraseña" required>
+  <button class="btn" type="submit">Entrar</button>
+  <div id="l-err" style="color:var(--red);font-size:.85rem"></div>
+</form>
+
+<div id="app" class="hidden"><div class="wrap">
+  <div class="bar">
+    <select id="s-exam"></select>
+    <span id="ex-state"></span>
+    <button class="btn ghost" id="b-toggle">—</button>
+    <span class="hint" id="ex-code"></span>
+    <div style="flex:1"></div>
+    <label class="hint"><input type="checkbox" id="auto" checked> actualizar cada 20 s</label>
+    <button class="btn ghost" id="b-refresh">↻</button>
+    <button class="btn ghost" id="b-csv">⬇ CSV</button>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><b id="k-n">0</b><span>intentos</span></div>
+    <div class="kpi"><b id="k-live">0</b><span>en curso ahora</span></div>
+    <div class="kpi"><b id="k-done">0</b><span>enviados</span></div>
+    <div class="kpi"><b id="k-pend">0</b><span>PE por calificar</span></div>
+    <div class="kpi"><b id="k-alert">0</b><span>con alerta roja</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th data-s="nombre">Alumno</th><th data-s="estado">Estado</th><th data-s="dur" class="hide-m">Duración</th>
+      <th data-s="co">CO /15</th><th data-s="ce">CE /15</th><th data-s="pe">PE /20</th><th data-s="tot">Total /50</th><th data-s="risk">Integridad</th>
+    </tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <p class="hint" style="margin:12px 0 40px">Los indicadores de integridad señalan comportamientos a revisar; no son prueba de fraude por sí solos. Úsalos para decidir con quién conversar.</p>
+</div></div>
+
+<div id="drawer" class="hidden"><div class="pane" id="pane"></div></div>
+<div class="toast hidden" id="toast"></div>
+
+<script>
+(function(){
+'use strict';
+const $ = (s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sb = supabaseClient;
+let exams = [], exam = null, key = {}, rows = [], sortBy = 'nombre', sortDir = 1, poll = null;
+
+function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.remove('hidden'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.add('hidden'),3000); }
+const fmtT = ms => { const s=Math.max(0,Math.round(ms/1000)); return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); };
+const hm = d => d ? new Date(d).toLocaleString('es-MX',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : '—';
+
+/* ───────── sesión ───────── */
+$('#login').addEventListener('submit', async e => {
+  e.preventDefault(); $('#l-err').textContent='';
+  const { error } = await sb.auth.signInWithPassword({ email:$('#l-mail').value.trim(), password:$('#l-pass').value });
+  if(error){ $('#l-err').textContent = 'Correo o contraseña incorrectos.'; return; }
+  boot();
+});
+$('#b-out').onclick = async () => { await sb.auth.signOut(); location.reload(); };
+async function boot(){
+  const { data:{ user } } = await sb.auth.getUser();
+  if(!user) return;
+  const { data, error } = await sb.from('examenes').select('*').order('creado_en', { ascending:false });
+  if(error || !data || !data.length){ $('#l-err').textContent = 'Tu cuenta no tiene permisos de docente, o aún no ejecutaste el SQL de evaluaciones.'; return; }
+  $('#login').classList.add('hidden'); $('#app').classList.remove('hidden'); $('#b-out').classList.remove('hidden');
+  $('#me').textContent = user.email;
+  exams = data;
+  $('#s-exam').innerHTML = exams.map(x => `<option value="${esc(x.id)}">${esc(x.titulo)}</option>`).join('');
+  const want = new URLSearchParams(location.search).get('examen');
+  if(want && exams.some(x=>x.id===want)) $('#s-exam').value = want;
+  $('#s-exam').onchange = pickExam;
+  pickExam();
+}
+sb.auth.getSession().then(({ data }) => { if(data.session) boot(); });
+
+async function pickExam(){
+  exam = exams.find(x => x.id === $('#s-exam').value);
+  const { data } = await sb.from('examenes_claves').select('clave').eq('examen_id', exam.id).maybeSingle();
+  key = (data && data.clave) || {};
+  paintExam(); load();
+  clearInterval(poll); poll = setInterval(() => { if($('#auto').checked && $('#drawer').classList.contains('hidden')) load(); }, 20000);
+}
+function paintExam(){
+  $('#ex-state').innerHTML = exam.abierto ? '<span class="tag t-ok">ABIERTO</span>' : '<span class="tag t-grey">CERRADO</span>';
+  $('#b-toggle').textContent = exam.abierto ? 'Cerrar acceso' : 'Abrir acceso';
+  $('#ex-code').innerHTML = `Código: <b class="mono">${esc(exam.codigo_acceso)}</b> · ${exam.duracion_min} min`;
+}
+$('#b-toggle').onclick = async () => {
+  const { error } = await sb.from('examenes').update({ abierto: !exam.abierto }).eq('id', exam.id);
+  if(error) return toast('No se pudo cambiar: ' + error.message);
+  exam.abierto = !exam.abierto; paintExam();
+  toast(exam.abierto ? 'Acceso abierto: los alumnos ya pueden iniciar.' : 'Acceso cerrado: nadie nuevo puede iniciar (los que están dentro terminan).');
+};
+$('#b-refresh').onclick = load;
+
+/* ───────── carga y análisis ───────── */
+async function load(){
+  const { data, error } = await sb.from('examenes_intentos').select('*').eq('examen_id', exam.id).order('iniciado_en');
+  if(error) return toast(error.message);
+  rows = data.map(analyze);
+  crossChecks(rows);
+  paintTable();
+}
+const num = v => Number(v) || 0;
+function peTotal(r){ const c = r.calif_pe; return c && c.total != null ? num(c.total) : null; }
+function analyze(r){
+  const sec = (r.puntaje_auto && r.puntaje_auto.secciones) || {};
+  const ev = Array.isArray(r.eventos) ? r.eventos : [];
+  const t0 = new Date(r.iniciado_en).getTime();
+  const end = r.enviado_en ? new Date(r.enviado_en).getTime() : (r.ultimo_guardado ? new Date(r.ultimo_guardado).getTime() : Date.now());
+  const x = { ...r, ev, t0, dur: end - t0, co: sec.co != null ? num(sec.co) : null, ce: sec.ce != null ? num(sec.ce) : null, pe: peTotal(r) };
+  x.tot = (x.co ?? 0) + (x.ce ?? 0) + (x.pe ?? 0);
+  x.flags = []; x.ws = writingStats(r.escritura && r.escritura.pe2);
+  const F = (pts, txt) => x.flags.push({ pts, txt });
+  const cnt = k => ev.filter(e => e.k === k).length;
+
+  // Salidas de la página
+  const hid = ev.filter(e => e.k === 'visible'), awayMs = hid.reduce((s,e)=>s+num(e.d),0);
+  const blurs = ev.filter(e => e.k === 'focus'), blurMs = blurs.reduce((s,e)=>s+num(e.d),0);
+  const outs = Math.max(hid.length, blurs.length), outMs = Math.max(awayMs, blurMs);
+  if(outs) F(Math.min(30, outs*5 + Math.floor(outMs/30000)*3), `Salió de la página ${outs} ${outs===1?'vez':'veces'} (${fmtT(outMs)} fuera en total)`);
+  if(cnt('fs_salida')) F(Math.min(15, cnt('fs_salida')*4), `Salió de pantalla completa ${cnt('fs_salida')} vez/veces`);
+  if(cnt('fs_no_soportado')) F(0, 'Dispositivo sin pantalla completa (probablemente celular/iPad)');
+  const paste = cnt('bloqueado_paste') + cnt('pegar_bloqueado');
+  if(paste) F(Math.min(24, paste*8), `Intentó pegar texto ${paste} vez/veces (bloqueado)`);
+  if(cnt('bloqueado_copy') + cnt('bloqueado_cut')) F(Math.min(12, (cnt('bloqueado_copy')+cnt('bloqueado_cut'))*4), `Intentó copiar contenido del examen ${cnt('bloqueado_copy')+cnt('bloqueado_cut')} vez/veces`);
+  const keys = ev.filter(e => e.k === 'tecla');
+  if(keys.length) F(Math.min(12, keys.length*2), 'Atajos de teclado bloqueados: ' + esc([...new Set(keys.map(e => e.key))].join(', ')));
+  if(cnt('captura_pantalla')) F(8*cnt('captura_pantalla'), `Tecla de captura de pantalla ${cnt('captura_pantalla')} vez/veces`);
+  if(cnt('imprimir')) F(8, 'Intentó imprimir la página');
+  if(cnt('traductor')) F(25, 'Traductor automático activado sobre el examen');
+  if(cnt('extension_escritura')) F(15, 'Extensión de escritura detectada (Grammarly, LanguageTool, QuillBot…)');
+  if(cnt('extension_dom')) F(4, 'Una extensión del navegador modificó la página');
+  const big = ev.filter(e => e.k === 'insercion_masiva');
+  if(big.length) F(Math.min(40, big.length*15), `${big.length} bloque(s) de texto insertado(s) de golpe (${big.map(e=>e.n+' car.').join(', ')}): dictado, autocompletar o pegado por otra vía`);
+  if(cnt('autocorreccion')) F(Math.min(9, cnt('autocorreccion')*3), `${cnt('autocorreccion')} autocorrección(es) del sistema`);
+  if(cnt('doble_pestana')) F(10, 'Abrió el examen en dos pestañas');
+  if(ev.some(e => e.k === 'ventana' && e.devtools)) F(10, 'Posibles herramientas de desarrollador abiertas');
+  if(ev.some(e => e.k === 'ventana' && e.reducida)) F(5, 'Redujo la ventana (posible pantalla dividida)');
+  if(r.reanudaciones) F(Math.min(10, r.reanudaciones*3), `Reanudó el examen ${r.reanudaciones} vez/veces`);
+  const devs = new Set((r.dispositivos||[]).map(d => d.fp)); if(devs.size > 1) F(15, `Usó ${devs.size} dispositivos distintos`);
+  if((r.dispositivos||[]).some(d => d.ext === true)) F(5, 'Tiene una segunda pantalla conectada');
+  if(r.enviado_tarde) F(5, 'Envío fuera de tiempo');
+  if(cnt('inactivo')) F(3, `Periodos de inactividad > 4 min: ${cnt('inactivo')}`);
+
+  // Respuestas de CO antes de escuchar
+  const firstPlay = {}; ev.forEach(e => { if(e.k === 'audio' && firstPlay[e.a] == null) firstPlay[e.a] = e.t; });
+  const audioOf = q => q.startsWith('co4') ? q : q.slice(0,3);
+  const early = ev.filter(e => e.k === 'r' && /^co/.test(e.q||'') && (firstPlay[audioOf(e.q)] == null || e.t < firstPlay[audioOf(e.q)]));
+  const earlyQ = [...new Set(early.map(e=>e.q))];
+  if(earlyQ.length) F(Math.min(12, earlyQ.length*2), `Respondió ${earlyQ.length} ítem(s) de CO antes de escuchar el audio (${earlyQ.join(', ')})`);
+  // Velocidad de CE
+  const secT = ev.filter(e => e.k === 'seccion');
+  const ceStart = (secT.find(e=>e.de===0)||{}).t, ceEnd = (secT.find(e=>e.de===1)||{}).t;
+  if(ceStart && ceEnd && ceEnd - ceStart < 4*60000) F(8, `Resolvió toda la CE en ${fmtT(ceEnd-ceStart)} (muy rápido)`);
+
+  // Escritura
+  const w = x.ws;
+  if(w && w.words >= 25){
+    if(w.revRatio < 0.03 && w.activeMin > 2) F(10, `Escritura casi sin correcciones (${Math.round(w.revRatio*100)} % borrado): patrón de copia de un texto ya hecho`);
+    if(w.cpm > 260) F(10, `Velocidad de tecleo muy alta para A1 (${Math.round(w.cpm)} caracteres/min)`);
+    if(w.typed < w.finalLen * 0.9) F(15, 'El texto final es más largo que lo tecleado: entró texto sin teclear');
+  }
+  const txt = (r.respuestas && r.respuestas.pe2 || '').toLowerCase();
+  const adv = ['je suis allé','je suis allée','j\'ai mangé','j\'ai visité','nous avons','hier','je vais aller','cependant','néanmoins','toutefois','en outre','par ailleurs','ainsi que','afin de','lorsque','dont','bien que','que je sois','que nous puissions','auquel','laquelle','lequel','j\'aurais','nous aurions','il faudrait','désormais','notamment'].filter(m => new RegExp('(^|[^a-zà-ÿ])' + m.replace(/'/g,"['’]") + '([^a-zà-ÿ]|$)').test(txt));
+  if(adv.length) F(Math.min(15, adv.length*5), `Estructuras que aún no se ven en el curso: «${adv.join('», «')}» (posible IA o ayuda externa)`);
+  const words = txt.trim() ? txt.trim().split(/\s+/).length : 0;
+  if(words > 130) F(5, `Texto muy largo para la consigna (${words} palabras)`);
+
+  x.risk = x.flags.reduce((s,f)=>s+f.pts,0);
+  return x;
+}
+function crossChecks(list){
+  const ipMap = {}, fpMap = {};
+  list.forEach(r => { (r.ips||[]).filter(ip => ip && ip !== '?').forEach(ip => (ipMap[ip] = ipMap[ip] || new Set()).add(r.id)); (r.dispositivos||[]).forEach(d => d.fp && (fpMap[d.fp] = fpMap[d.fp] || new Set()).add(r.id)); });
+  const byId = Object.fromEntries(list.map(r => [r.id, r]));
+  list.forEach(r => {
+    const sameIp = new Set(); (r.ips||[]).forEach(ip => ipMap[ip] && ipMap[ip].forEach(id => id !== r.id && sameIp.add(id)));
+    if(sameIp.size) { r.flags.push({ pts:12, txt:`Misma conexión (IP) que: ${[...sameIp].map(id=>esc(byId[id].nombre)).join(', ')}` }); }
+    const sameFp = new Set(); (r.dispositivos||[]).forEach(d => fpMap[d.fp] && fpMap[d.fp].forEach(id => id !== r.id && sameFp.add(id)));
+    if(sameFp.size) { r.flags.push({ pts:20, txt:`Mismo dispositivo que: ${[...sameFp].map(id=>esc(byId[id].nombre)).join(', ')}` }); }
+  });
+  // Similitud de textos PE2 (trigramas de palabras)
+  const grams = t => { const w = (t||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9\s]/g,' ').split(/\s+/).filter(Boolean); const s = new Set(); for(let i=0;i<w.length-2;i++) s.add(w[i]+' '+w[i+1]+' '+w[i+2]); return s; };
+  const G = list.map(r => grams(r.respuestas && r.respuestas.pe2));
+  list.forEach((r,i) => {
+    list.forEach((o,j) => { if(i===j || G[i].size < 8 || G[j].size < 8) return;
+      let inter = 0; G[i].forEach(g => G[j].has(g) && inter++);
+      const sim = inter / Math.min(G[i].size, G[j].size);
+      if(sim >= 0.2) r.flags.push({ pts: sim >= 0.4 ? 35 : 20, txt:`Texto de producción ${Math.round(sim*100)} % similar al de ${esc(o.nombre)}` });
+    });
+    r.risk = r.flags.reduce((s,f)=>s+f.pts,0);
+  });
+}
+function level(risk){ return risk >= 40 ? ['t-bad','ALTA SOSPECHA'] : risk >= 15 ? ['t-warn','REVISAR'] : ['t-ok','SIN ALERTAS']; }
+
+/* ───────── escritura: estadísticas y reproducción ───────── */
+function writingStats(L){
+  if(!L || !Array.isArray(L.log) || !L.log.length) return null;
+  let typed = 0, deleted = 0, active = 0, maxPause = 0, bursts = 0, prev = null;
+  const perMin = {};
+  L.log.forEach(r => { const [t, c, , del, ins] = r; typed += (ins||'').length; deleted += del||0;
+    if(prev != null){ const g = t - prev; if(g < 30000) active += g; if(g > maxPause) maxPause = g; }
+    prev = t; const m = Math.floor(t/60000); perMin[m] = (perMin[m]||0) + (ins||'').length;
+    if((ins||'').length >= 12 && c !== 'c') bursts++; });
+  const text = replayTo(L.log, L.log.length);
+  const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+  return { typed, deleted, activeMin: active/60000, maxPause, bursts, finalLen: text.length, words, revRatio: typed ? deleted/typed : 0, cpm: active ? typed/(active/60000) : 0, perMin, events: L.log.length };
+}
+function replayTo(log, n){
+  let s = '';
+  for(let i=0;i<n;i++){ const [, , pos, del, ins] = log[i]; s = s.slice(0,pos) + (ins||'') + s.slice(pos + (del||0)); }
+  return s;
+}
+
+/* ───────── tabla ───────── */
+function paintTable(){
+  const now = Date.now();
+  const live = rows.filter(r => r.estado === 'en_curso' && r.ultimo_guardado && now - new Date(r.ultimo_guardado).getTime() < 90000);
+  $('#k-n').textContent = rows.length;
+  $('#k-live').textContent = live.length;
+  $('#k-done').textContent = rows.filter(r => r.estado !== 'en_curso').length;
+  $('#k-pend').textContent = rows.filter(r => r.estado !== 'en_curso' && r.pe == null).length;
+  $('#k-alert').textContent = rows.filter(r => r.risk >= 40).length;
+  const sorted = [...rows].sort((a,b) => { const va = a[sortBy], vb = b[sortBy]; return (va > vb ? 1 : va < vb ? -1 : 0) * sortDir; });
+  $('#rows').innerHTML = sorted.length ? sorted.map(r => {
+    const [cls, lbl] = level(r.risk);
+    const st = r.estado === 'en_curso' ? (live.includes(r) ? '<span class="tag t-live">EN CURSO</span>' : '<span class="tag t-warn">INACTIVO</span>')
+             : r.estado === 'enviado' ? '<span class="tag t-ok">ENVIADO</span>' : '<span class="tag t-grey">CERRADO</span>';
+    const sc = v => v == null ? '<span class="hint">—</span>' : `<span class="score">${+v.toFixed(2)}</span>`;
+    return `<tr class="row" data-id="${r.id}"><td><b>${esc(r.nombre)}</b><br><span class="hint">${esc(r.email)}</span></td><td>${st}</td><td class="hide-m mono">${fmtT(r.dur)}</td>
+      <td>${sc(r.co)}</td><td>${sc(r.ce)}</td><td>${r.pe == null && r.estado !== 'en_curso' ? '<span class="tag t-warn">calificar</span>' : sc(r.pe)}</td><td>${sc(r.tot)}</td>
+      <td><span class="tag ${cls}">${lbl} · ${r.risk}</span> <span class="hint">${r.flags.filter(f=>f.pts>0).length} señal(es)</span></td></tr>`;
+  }).join('') : '<tr><td colspan="8" class="empty">Aún no hay intentos. Comparte el enlace y el código con tu grupo.</td></tr>';
+  $$('#rows tr.row').forEach(tr => tr.onclick = () => openDetail(tr.dataset.id));
+}
+$$('th[data-s]').forEach(th => th.onclick = () => { const s = th.dataset.s; sortDir = sortBy === s ? -sortDir : 1; sortBy = s; paintTable(); });
+
+/* ───────── detalle ───────── */
+const EVLBL = { inicio:'Inicio', r:'Respuesta', audio:'▶ Audio', audio_fin:'Audio terminado', seccion:'Cambio de sección', nav:'Navegación', oculto:'⚠ Página oculta (otra pestaña/app)', visible:'Regresó a la página', blur:'⚠ Ventana sin foco', focus:'Recuperó el foco', fs_salida:'⚠ Salió de pantalla completa', fs_retorno:'Volvió a pantalla completa', bloqueado_paste:'⚠ Intento de pegar', pegar_bloqueado:'⚠ Intento de pegar', bloqueado_copy:'⚠ Intento de copiar', bloqueado_cut:'⚠ Intento de cortar', bloqueado_contextmenu:'Clic derecho', bloqueado_drop:'⚠ Arrastrar y soltar', tecla:'⚠ Atajo bloqueado', captura_pantalla:'⚠ Captura de pantalla', imprimir:'⚠ Imprimir', traductor:'⚠ TRADUCTOR', extension_escritura:'⚠ Extensión de escritura', extension_dom:'Extensión en la página', insercion_masiva:'⚠ Texto insertado de golpe', autocorreccion:'Autocorrección', doble_pestana:'⚠ Doble pestaña', ventana:'Cambio de tamaño de ventana', raton_fuera:'Ratón fuera de la ventana', inactivo:'Inactividad', online:'Conexión recuperada', offline:'Sin conexión', reanudacion:'⚠ Reanudó el examen', intento_salir:'Intentó cerrar la página', envio:'Envío' };
+const BAD = /^(oculto|blur|fs_salida|bloqueado_(paste|copy|cut|drop)|pegar_bloqueado|tecla|captura_pantalla|imprimir|traductor|extension_escritura|insercion_masiva|doble_pestana|reanudacion)$/;
+const PE1 = [['pe1nom','Nom'],['pe1prenom','Prénom'],['pe1age','Âge'],['pe1nat','Nationalité'],['pe1ville','Ville et pays']];
+const RUB = [['consigne','Respect de la consigne (longueur, saluer / prendre congé, les 4 points)',2],['presenter','Se présenter et se décrire (être, avoir, âge, nationalité, adjectifs)',3],['famille','Famille et goûts (possessifs, aimer / adorer / détester, négation)',2],['chambre','Décrire sa chambre (il y a, meubles, couleurs, servir à, pouvoir)',3],['morpho','Morphosyntaxe et orthographe (accords, verbes au présent)',3],['coherence','Cohérence et cohésion (et, mais, aussi…)',2]];
+
+let cur = null, rp = { i:0, timer:null, speed:4 };
+function openDetail(id){
+  cur = rows.find(r => r.id === id); if(!cur) return;
+  const r = cur, [cls, lbl] = level(r.risk), resp = r.respuestas || {}, det = (r.puntaje_auto && r.puntaje_auto.detalle) || {};
+  const c = r.calif_pe || { pe1:{}, pe2:{} }; c.pe1 = c.pe1 || {}; c.pe2 = c.pe2 || {};
+  const dev = (r.dispositivos||[])[0] || {};
+  const items = Object.keys(key).sort((a,b)=>a.localeCompare(b,'fr',{numeric:true})).map(q => { const got = det[q], max = num(key[q].p), exp = key[q].r;
+    return `<div class="it ${got >= max ? 'y' : 'n'}"><b>${q} · ${got ?? 0}/${max}</b>resp: ${esc(resp[q] ?? '—')}<br>clave: ${esc(Array.isArray(exp) ? exp.join(',') : exp)}</div>`; }).join('');
+  const w = r.ws;
+  $('#pane').innerHTML = `
+  <div class="dhead"><div><div class="hint mono">${esc(r.email)} · recibo ${r.id.replace(/-/g,'').slice(0,8).toUpperCase()}</div><h2>${esc(r.nombre)}</h2></div>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap">${r.estado === 'en_curso' ? '<button class="btn red" id="b-close">Cerrar intento y calificar</button>' : ''}<button class="btn ghost" id="b-x">✕ Cerrar</button></div></div>
+  <div class="grid">
+    <div class="box"><h3>Integridad <span class="tag ${cls}" style="vertical-align:middle">${lbl} · ${r.risk}</span></h3>
+      <div class="gauge"><i style="left:${Math.min(100, r.risk)}%"></i></div><div class="hint" style="display:flex;justify-content:space-between"><span>0</span><span>15</span><span>40</span><span>100+</span></div>
+      <div style="margin-top:.6rem">${r.flags.length ? r.flags.sort((a,b)=>b.pts-a.pts).map(f => `<div class="flag"><span class="pts">+${f.pts}</span><span>${f.txt}</span></div>`).join('') : '<p class="hint">Ningún comportamiento sospechoso registrado.</p>'}</div></div>
+    <div class="box"><h3>Sesión</h3><dl class="kv">
+      <dt>Estado</dt><dd>${esc(r.estado)}${r.enviado_tarde ? ' (tarde)' : ''} · ${esc(r.motivo_envio || '')}</dd>
+      <dt>Inicio</dt><dd>${hm(r.iniciado_en)}</dd><dt>Envío</dt><dd>${hm(r.enviado_en)}</dd>
+      <dt>Duración</dt><dd class="mono">${fmtT(r.dur)}</dd><dt>Reanudaciones</dt><dd>${r.reanudaciones}</dd>
+      <dt>IP</dt><dd class="mono">${esc((r.ips||[]).join(', '))}</dd>
+      <dt>Dispositivo</dt><dd style="font-size:.75rem">${esc(dev.ua || '—')}</dd>
+      <dt>Pantalla</dt><dd class="mono">${esc(dev.scr || '')} · ventana ${esc(dev.win || '')} · táctil ${dev.touch ? 'sí' : 'no'}</dd>
+      <dt>Huella</dt><dd class="mono">${esc([...new Set((r.dispositivos||[]).map(d=>d.fp))].join(', '))}</dd>
+      <dt>Escuchas</dt><dd class="mono">${esc(Object.entries((resp._m && resp._m.plays) || {}).map(([a,n]) => a+'×'+n).join('  ') || '—')}</dd>
+    </dl></div>
+  </div>
+  <div class="box"><h3>Línea de tiempo</h3><div class="tl">${r.ev.map(e => `<div><span class="tm">${fmtT(e.t - r.t0)}</span><span class="${BAD.test(e.k) ? 'bad' : ''}">${EVLBL[e.k] || esc(e.k)}</span><span class="hint">${esc(evDetail(e))}</span></div>`).join('')}</div></div>
+  <div class="box"><h3>CO ${r.co ?? '—'}/15 · CE ${r.ce ?? '—'}/15 <span class="hint">(corrección automática en el servidor)</span></h3><div class="items">${items}</div></div>
+
+  <div class="box"><h3>PE · Ejercicio 1: la ficha <span class="hint" id="pe1t"></span></h3>
+    ${PE1.map(([q,l]) => `<div class="rb"><span><span class="hint">${l}:</span> <b>${esc(resp[q] || '—')}</b></span>
+      <select data-pe1="${q}">${[0,0.5,1].map(v => `<option value="${v}" ${num(c.pe1[q]) === v ? 'selected' : ''}>${v}</option>`).join('')}</select></div>`).join('')}
+  </div>
+
+  <div class="box"><h3>PE · Ejercicio 2: el mensaje <span class="hint">(${w ? w.words : 0} palabras)</span></h3>
+    <div class="grid">
+      <div>
+        <div class="pe-text">${esc(resp.pe2 || '—')}</div>
+        ${w ? `<div class="stats">
+          <div class="stat"><b>${w.activeMin.toFixed(1)} min</b><span>tiempo activo escribiendo</span></div>
+          <div class="stat"><b>${Math.round(w.cpm)}</b><span>caracteres / min</span></div>
+          <div class="stat"><b>${Math.round(w.revRatio*100)} %</b><span>borrado vs tecleado</span></div>
+          <div class="stat"><b>${w.bursts}</b><span>bloques insertados de golpe</span></div>
+        </div>
+        ${sparkline(w.perMin)}
+        <h3 style="font-size:1.1rem;margin:.8rem 0 .4rem">Repetición de la escritura</h3>
+        <div class="pe-text replay" id="rp-text"></div>
+        <div style="display:flex;gap:.5rem;align-items:center;margin-top:.5rem;flex-wrap:wrap">
+          <button class="btn" id="rp-play">▶ Reproducir</button>
+          <select id="rp-speed">${[1,4,16,64].map(v => `<option value="${v}" ${v===4?'selected':''}>×${v}</option>`).join('')}</select>
+          <input type="range" id="rp-range" min="0" max="${r.escritura.pe2.log.length}" value="0" style="flex:1">
+          <span class="mono hint" id="rp-t">0:00</span>
+        </div>` : '<p class="hint">Sin registro de escritura.</p>'}
+      </div>
+      <div>
+        ${RUB.map(([k,l,m]) => `<div class="rb"><span>${l}</span><span><input type="number" min="0" max="${m}" step="0.5" data-pe2="${k}" value="${c.pe2[k] ?? ''}"> <span class="hint">/ ${m}</span></span></div>`).join('')}
+        <div class="rb"><b>Total PE</b><b class="mono" id="pe-total">—</b></div>
+        <textarea id="coment" placeholder="Comentario para el alumno (opcional)" style="width:100%;min-height:90px;margin-top:.8rem;padding:.6rem;border:1.5px solid var(--line);border-radius:10px">${esc(r.comentario || '')}</textarea>
+        <div style="display:flex;gap:.6rem;align-items:center;margin-top:.8rem">
+          <button class="btn gold" id="b-save">Guardar calificación</button>
+          <span class="mono" id="final"></span>
+        </div>
+      </div>
+    </div>
+  </div>`;
+  $('#drawer').classList.remove('hidden');
+  $('#b-x').onclick = closeDetail;
+  if($('#b-close')) $('#b-close').onclick = async () => {
+    if(!confirm('¿Cerrar este intento? Se calificará con lo último que guardó el alumno.')) return;
+    const { error } = await sb.rpc('examen_cerrar_docente', { p_id: r.id });
+    if(error) return toast(error.message);
+    toast('Intento cerrado y calificado.'); closeDetail(); load();
+  };
+  $$('[data-pe1],[data-pe2]').forEach(el => el.addEventListener('input', sumPE));
+  sumPE();
+  $('#b-save').onclick = savePE;
+  if(w) setupReplay();
+}
+function evDetail(e){
+  const o = { ...e }; ['k','t','s','e'].forEach(k => delete o[k]);
+  if(o.d != null) o.d = fmtT(o.d);
+  return Object.entries(o).map(([k,v]) => k + ':' + (typeof v === 'object' ? JSON.stringify(v) : v)).join('  ');
+}
+function sparkline(perMin){
+  const ks = Object.keys(perMin).map(Number); if(!ks.length) return '';
+  const max = Math.max(...Object.values(perMin)), n = Math.max(...ks) + 1, W = 100 / n;
+  return `<div class="hint" style="margin-top:.4rem">Caracteres tecleados por minuto</div><svg viewBox="0 0 100 24" preserveAspectRatio="none" style="width:100%;height:48px;background:#f7f6f1;border-radius:8px">${
+    Array.from({ length:n }, (_, m) => { const h = (perMin[m]||0) / max * 22; return `<rect x="${m*W+0.3}" y="${24-h}" width="${Math.max(0.5, W-0.6)}" height="${h}" fill="#d42b3a"/>`; }).join('')}</svg>`;
+}
+function sumPE(){
+  const p1 = $$('[data-pe1]').reduce((s,el)=>s+num(el.value),0);
+  const p2 = $$('[data-pe2]').reduce((s,el)=>s+Math.min(num(el.max), Math.max(0, num(el.value))),0);
+  $('#pe1t').textContent = p1 + ' / 5';
+  $('#pe-total').textContent = (p1 + p2) + ' / 20';
+  $('#final').textContent = 'Total: ' + ((cur.co||0) + (cur.ce||0) + p1 + p2) + ' / 50';
+  return { p1, p2 };
+}
+async function savePE(){
+  const { p1, p2 } = sumPE();
+  const calif = { pe1:{}, pe2:{}, total: p1 + p2, pe1_total: p1, pe2_total: p2 };
+  $$('[data-pe1]').forEach(el => calif.pe1[el.dataset.pe1] = num(el.value));
+  $$('[data-pe2]').forEach(el => calif.pe2[el.dataset.pe2] = el.value === '' ? null : num(el.value));
+  const nota = (cur.co||0) + (cur.ce||0) + p1 + p2;
+  const { error } = await sb.from('examenes_intentos').update({ calif_pe: calif, nota_final: nota, comentario: $('#coment').value || null, revisado_en: new Date().toISOString() }).eq('id', cur.id);
+  if(error) return toast('Error: ' + error.message);
+  toast('Calificación guardada ✓'); load();
+}
+function setupReplay(){
+  const L = cur.escritura.pe2.log, R = $('#rp-range');
+  const paint = () => { const i = +R.value; $('#rp-text').innerHTML = esc(replayTo(L, i)) + '<span class="caret"></span>'; $('#rp-t').textContent = fmtT(i ? L[i-1][0] : 0); };
+  R.oninput = () => { stop(); paint(); };
+  const stop = () => { clearTimeout(rp.timer); rp.timer = null; $('#rp-play').textContent = '▶ Reproducir'; };
+  const step = () => {
+    let i = +R.value; if(i >= L.length){ stop(); return; }
+    R.value = i + 1; paint();
+    const gap = i + 1 < L.length ? L[i+1][0] - L[i][0] : 0;
+    rp.timer = setTimeout(step, Math.min(1500, gap / (+$('#rp-speed').value)));
+  };
+  $('#rp-play').onclick = () => { if(rp.timer) return stop(); if(+R.value >= L.length) R.value = 0; $('#rp-play').textContent = '❚❚ Pausa'; step(); };
+  paint();
+}
+function closeDetail(){ clearTimeout(rp.timer); rp.timer = null; $('#drawer').classList.add('hidden'); }
+$('#drawer').addEventListener('click', e => { if(e.target.id === 'drawer') closeDetail(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeDetail(); });
+
+/* ───────── CSV ───────── */
+$('#b-csv').onclick = () => {
+  const head = ['nombre','email','estado','inicio','envio','duracion_min','CO_15','CE_15','PE_20','total_50','integridad','nivel','senales','comentario'];
+  const lines = [head.join(',')].concat(rows.map(r => [r.nombre, r.email, r.estado, r.iniciado_en, r.enviado_en || '', (r.dur/60000).toFixed(1), r.co ?? '', r.ce ?? '', r.pe ?? '', r.tot, r.risk, level(r.risk)[1], r.flags.filter(f=>f.pts>0).map(f=>f.txt.replace(/<[^>]+>/g,'')).join(' | '), r.comentario || '']
+    .map(v => '"' + String(v).replace(/"/g,'""') + '"').join(',')));
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['﻿' + lines.join('\n')], { type:'text/csv' }));
+  a.download = exam.id + '_resultados.csv'; a.click();
+};
+})();
+</script>
+</body>
+</html>
