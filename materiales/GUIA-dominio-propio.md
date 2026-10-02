@@ -1,3 +1,19 @@
+> ## ⏸ Decidido en octubre de 2026: no se hace
+>
+> Miguel prefiere quedarse en GitHub Pages, en
+> `migueltillero-ship-it.github.io/MiguelTillero/`, y el correo sigue
+> saliendo por Gmail (ver `GUIA-correo-resend.md` → opción 2, que es la que
+> está en marcha y funciona).
+>
+> Esta guía se queda aquí por si algún día cambia la decisión. **No hay nada
+> pendiente de hacer en ella.** Las opciones gratuitas que se miraron
+> —`eu.org`, `is-a.dev`, renombrar la cuenta de GitHub— se descartaron: las
+> dos primeras por nombre poco presentable y por tardanza, y la tercera
+> porque rompería los enlaces de inscripción y los boletines que las
+> familias ya tienen en la mano.
+
+---
+
 # Pasar la plataforma a migueltillero.com
 
 De `migueltillero-ship-it.github.io/MiguelTillero/` a **`migueltillero.com`**,
