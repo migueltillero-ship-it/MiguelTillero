@@ -80,3 +80,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const idiomaGuardado = localStorage.getItem('preferenciaIdioma_MT') || 'es';
     setLang(idiomaGuardado);
 });
+
+/* Marca en el menú superior la pestaña de la página en la que estás.
+   Las páginas con ruta propia (data-route) ya lo hacen; esto cubre las demás
+   (Inscríbete, Reservar, Reglamento, Pagos, Mi espacio…). */
+document.addEventListener('DOMContentLoaded', () => {
+    const enlaces = Array.from(document.querySelectorAll('.nav-links a, .mobile-menu a'));
+    if (!enlaces.length) return;
+    if (document.querySelector('.nav-links a.active')) return;
+    const actual = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    const coincide = a => {
+        const href = a.getAttribute('href') || '';
+        if (/^https?:/i.test(href)) return false;
+        return href.split('#')[0].toLowerCase() === actual;
+    };
+    const exacto = enlaces.find(a => coincide(a) && (a.getAttribute('href') || '').includes('#') && location.hash && (a.getAttribute('href') || '').endsWith(location.hash));
+    const elegido = exacto
+        || enlaces.find(a => coincide(a) && !(a.getAttribute('href') || '').includes('#'))
+        || enlaces.find(coincide);
+    if (!elegido) return;
+    document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(a => {
+        if (a.getAttribute('href') === elegido.getAttribute('href')) a.classList.add('active');
+    });
+});
