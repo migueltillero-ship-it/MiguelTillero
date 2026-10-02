@@ -2317,3 +2317,64 @@ body { animation: pageFadeIn 0.5s ease; }
     padding: 0.7rem 0.4rem;
   }
 }
+
+/* ══════════════════════════════════════════════════════════
+   MENÚ SUPERIOR EN BOTONES
+   Cada enlace es una píldora con fondo, borde y sombra; la
+   página en curso se rellena en verde para ubicarse de un
+   vistazo. El resto de los enlaces conserva su destino.
+   ══════════════════════════════════════════════════════════ */
+.nav-links { gap: 0.35rem; row-gap: 0.4rem; align-items: center; }
+.nav-links a {
+  display: inline-flex; align-items: center;
+  font-size: 0.66rem; font-weight: 700; letter-spacing: 0.12em;
+  color: rgba(18,41,28,0.88);
+  padding: 0.55rem 0.9rem; border-radius: var(--r-pill);
+  background: rgba(255,255,255,0.66);
+  border: 1px solid rgba(165,130,74,0.34);
+  box-shadow: 0 1px 3px rgba(20,45,32,0.08);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  transition: background .25s, color .25s, border-color .25s, transform .25s, box-shadow .25s;
+}
+.nav-links a::after { display: none; }
+.nav-links a:hover {
+  color: var(--gold2); background: #fff; border-color: var(--gold);
+  transform: translateY(-1px); box-shadow: 0 6px 16px rgba(20,45,32,0.14);
+}
+.nav-links a.active {
+  color: #fff; background: linear-gradient(90deg, #2b4535, var(--cyan));
+  border-color: transparent; box-shadow: 0 4px 14px rgba(43,69,53,0.3);
+}
+.nav-links a[target="_blank"] {
+  color: var(--gold2) !important; background: rgba(201,169,110,0.22); border-color: var(--gold);
+}
+.mobile-menu a.active { font-weight: 700; }
+@media (max-width: 2000px) { .nav-links li.nav-sec { display: none; } }
+@media (max-width: 1180px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   LECTURA: texto justificado, con más contraste y un halo
+   claro que evita que las líneas del fondo se crucen con
+   las letras.
+   ══════════════════════════════════════════════════════════ */
+.about-text, .about-text p, .svc-desc, .crs-desc, .role-p, .pick-why, .faq-a,
+.rel-texto, .testi-text, .tl-list li, .pay-note p {
+  text-align: justify; text-justify: inter-word;
+  -webkit-hyphens: auto; hyphens: auto;
+  text-shadow: 0 0 7px rgba(233,241,231,0.95), 0 0 2px rgba(233,241,231,0.9);
+}
+.svc-desc, .crs-desc, .role-p, .pick-why { color: rgba(18,41,28,0.84); }
+.rel-txt {
+  padding: 1.5rem 1.6rem; border-radius: var(--r-md);
+  background: rgba(233,241,231,0); box-shadow: 0 6px 26px rgba(20,45,32,0);
+  transition: background 0.9s ease, box-shadow 0.9s ease;
+}
+.rel-cap.on .rel-txt {
+  background: rgba(233,241,231,0.8);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  box-shadow: 0 6px 26px rgba(20,45,32,0.08);
+}
+.rel-titulo, .rel-cita { text-shadow: 0 0 8px rgba(233,241,231,0.9); }
