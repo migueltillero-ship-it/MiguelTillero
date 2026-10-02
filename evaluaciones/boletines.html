@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Boletines · Resultados A1.4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../assets/js/supabase-config.js?v=1790500000"></script>
+<style>
+:root{--cream:#eef4ee;--ink:#12291c;--ink2:#0d3b2e;--muted:rgba(18,41,28,.64);--line:rgba(18,41,28,.13);--gold:#a5824a;--gold2:#e3c68e;--green:#0d7f57;--red:#b4533a;
+--display:'Cormorant Garamond',Georgia,serif;--sans:'Syne',system-ui,sans-serif;--mono:'Space Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.45}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+input{font:inherit}
+.hidden{display:none!important}
+.wrap{max-width:1280px;margin:0 auto;padding:0 16px}
+h1,h2{font-family:var(--display);line-height:1.1}
+.btn{display:inline-flex;align-items:center;gap:.35rem;padding:.5rem .95rem;border-radius:999px;background:var(--ink);color:#fff;font-weight:700;font-size:.82rem;text-decoration:none;white-space:nowrap}
+.btn.ghost{background:#fff;border:1.5px solid var(--line);color:var(--ink)}
+.btn.wa{background:#1f9d55}
+.btn.sm{padding:.32rem .7rem;font-size:.74rem}
+.btn:disabled{opacity:.4;cursor:default}
+header{background:var(--ink2);color:#fff}
+header .wrap{display:flex;align-items:center;gap:1rem;min-height:64px;flex-wrap:wrap}
+header h1{font-size:1.6rem}
+header h1 em{color:var(--gold2);font-style:normal}
+header .sp{flex:1}
+header a{color:#fff;font-size:.85rem}
+#login{max-width:380px;margin:80px auto;background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:.8rem}
+#login input{padding:.7rem .9rem;border:1.5px solid var(--line);border-radius:10px}
+#l-err{color:var(--red);font-size:.85rem}
+.intro{padding:22px 0 8px;max-width:75ch}
+.intro h2{font-size:2rem;margin-bottom:.3rem}
+.hint{color:var(--muted);font-size:.86rem}
+.bar{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;padding:14px 0}
+.bar input{padding:.5rem .8rem;border-radius:10px;border:1.5px solid var(--line);background:#fff;min-width:220px}
+.tbl{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:16px}
+table{width:100%;border-collapse:collapse;font-size:.86rem}
+th,td{padding:.6rem .7rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+tr:last-child td{border-bottom:0}
+th{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:400}
+td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+td.n .no{color:var(--muted)}
+td input{width:100%;min-width:130px;padding:.35rem .5rem;border:1.5px solid var(--line);border-radius:8px;background:#fff}
+td input.saved{border-color:var(--green)}
+.acc{display:flex;gap:.35rem;flex-wrap:wrap}
+.alumno b{display:block}
+.alumno small{color:var(--muted);font-size:.74rem}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:.6rem 1rem;border-radius:10px;font-size:.85rem;z-index:50}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1><em>Boletines</em> · resultados</h1><div class="sp"></div>
+  <a href="panel.html">Sentinelle</a>
+  <a href="a1-4/oral.html">Prueba oral</a>
+  <a href="../panel-docente.html">Panel docente</a>
+</div></header>
+
+<form id="login" class="hidden">
+  <h2 style="font-size:2rem">Acceso docente</h2>
+  <p class="hint">Usa tu cuenta de docente de la plataforma Vive el francés.</p>
+  <input id="l-mail" type="email" placeholder="correo" autocomplete="username" required>
+  <input id="l-pass" type="password" placeholder="contraseña" autocomplete="current-password" required>
+  <button class="btn" type="submit">Entrar</button>
+  <div id="l-err"></div>
+</form>
+
+<main id="app" class="hidden"><div class="wrap">
+  <div class="intro">
+    <h2>Grupo A1-OCT2026 · Évaluation A1.4</h2>
+    <p class="hint">Cada alumno tiene un boletín con enlace privado: la familia lo abre sin contraseña y ve las notas, el desglose y tus comentarios. Las notas llegan solas cuando publicas en Sentinelle (escrita) o en la herramienta oral. Aquí completas el representante y su WhatsApp, y envías.</p>
+  </div>
+  <div class="bar">
+    <input id="newname" placeholder="Nombre del alumno…" aria-label="Nombre del nuevo alumno">
+    <button class="btn ghost" id="add">Agregar alumno</button>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Alumno</th><th>Escrita</th><th>Oral</th><th>Total</th><th>Representante</th><th>WhatsApp</th><th>Enviar</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table></div>
+  <p class="hint" style="margin:12px 0 40px">Teléfonos de México: basta con los 10 dígitos. De otro país: con su código (p. ej. 58 412…). Si un alumno quedó repetido (por ejemplo «Isaac» y «Isaac Pérez»), elimina el que no tenga notas.</p>
+</div></main>
+<div class="toast hidden" id="toast"></div>
+
+<script>
+(function(){
+'use strict';
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const coma = v => String(v).replace('.', ',');
+const sb = typeof supabaseClient !== 'undefined' ? supabaseClient : null;
+const GRUPO = 'A1-OCT2026';
+let bols = [], notas = {};
+
+function toast(m){ const t = $('#toast'); t.textContent = m; t.classList.remove('hidden'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.add('hidden'), 2800); }
+function showLogin(m){ $('#app').classList.add('hidden'); $('#login').classList.remove('hidden'); $('#l-err').textContent = m || ''; }
+const enlace = b => new URL('boletin.html?t=' + b.token, location.href).href;
+function telefono(t){ const d = String(t || '').replace(/\D/g, ''); return d.length === 10 ? '52' + d : (d.length >= 11 ? d : ''); }
+
+$('#login').addEventListener('submit', async e => {
+  e.preventDefault();
+  const { error } = await sb.auth.signInWithPassword({ email:$('#l-mail').value.trim(), password:$('#l-pass').value });
+  if(error) return showLogin('Correo o contraseña incorrectos.');
+  boot();
+});
+
+async function boot(){
+  if(!sb) return showLogin('No se pudo conectar con la plataforma.');
+  const { data:{ user } } = await sb.auth.getUser();
+  if(!user) return showLogin();
+  const r = await sb.from('boletines').select('*').eq('grupo', GRUPO).order('alumno');
+  if(r.error) return showLogin('Falta preparar los boletines: ejecuta supabase/boletines.sql en Supabase, y entra con tu cuenta de docente.');
+  bols = r.data || [];
+  const ids = bols.map(b => b.id);
+  const { data:ns } = ids.length ? await sb.from('boletin_notas').select('*').in('boletin_id', ids) : { data:[] };
+  notas = {}; (ns || []).forEach(n => { (notas[n.boletin_id] = notas[n.boletin_id] || {})[n.prueba] = n; });
+  $('#login').classList.add('hidden'); $('#app').classList.remove('hidden');
+  paint();
+}
+
+function celda(n){ return n && n.nota != null ? `${coma(n.nota)} <span class="no">/ ${coma(n.maxima)}</span>` : '<span class="no">—</span>'; }
+function paint(){
+  $('#rows').innerHTML = bols.map(b => {
+    const n = notas[b.id] || {}, e = n.escrita, o = n.oral;
+    const tot = (e && e.nota != null ? Number(e.nota) : 0) + (o && o.nota != null ? Number(o.nota) : 0);
+    const tieneNotas = !!(e || o), tel = telefono(b.telefono);
+    return `<tr data-id="${b.id}">
+      <td class="alumno"><b>${esc(b.alumno)}</b>${b.email ? `<small>${esc(b.email)}</small>` : ''}</td>
+      <td class="n">${celda(e)}</td>
+      <td class="n">${celda(o)}</td>
+      <td class="n">${tieneNotas ? `<b>${coma(tot)}</b> <span class="no">/ 75</span>` : '<span class="no">—</span>'}</td>
+      <td><input data-f="representante" value="${esc(b.representante)}" placeholder="Nombre"></td>
+      <td><input data-f="telefono" value="${esc(b.telefono)}" placeholder="55 1234 5678" inputmode="tel"></td>
+      <td><div class="acc">
+        <button class="btn wa sm" data-a="wa" ${tieneNotas && tel ? '' : 'disabled'} title="${tel ? '' : 'Falta el WhatsApp del representante'}">WhatsApp</button>
+        <button class="btn ghost sm" data-a="copy" ${tieneNotas ? '' : 'disabled'}>Copiar enlace</button>
+        <a class="btn ghost sm" href="${enlace(b)}" target="_blank" rel="noopener">Ver</a>
+        ${tieneNotas ? '' : '<button class="btn ghost sm" data-a="del">Eliminar</button>'}
+      </div></td>
+    </tr>`;
+  }).join('') || '<tr><td colspan="7" class="hint">Todavía no hay alumnos. Publica la prueba escrita en Sentinelle o agrégalos arriba.</td></tr>';
+
+  $$('#rows input').forEach(inp => inp.onchange = async () => {
+    const id = inp.closest('tr').dataset.id, f = inp.dataset.f, v = inp.value.trim() || null;
+    const { error } = await sb.from('boletines').update({ [f]:v }).eq('id', id);
+    if(error) return toast('No se guardó: ' + error.message);
+    bols.find(b => b.id === id)[f] = v;
+    inp.classList.add('saved'); setTimeout(() => inp.classList.remove('saved'), 1200);
+    if(f === 'telefono') paint();
+  });
+  $$('#rows [data-a]').forEach(btn => btn.onclick = () => accion(btn.dataset.a, bols.find(b => b.id === btn.closest('tr').dataset.id)));
+}
+
+function mensaje(b){
+  const n = notas[b.id] || {};
+  const lineas = ['escrita', 'oral'].filter(k => n[k] && n[k].nota != null)
+    .map(k => `• Prueba ${k}: ${coma(n[k].nota)}/${coma(n[k].maxima)}`);
+  const saludo = b.representante ? `Hola, ${b.representante.split(' ')[0]}.` : 'Hola.';
+  return [
+    `${saludo} Les comparto los resultados de *${b.alumno}* en la evaluación de francés A1.4 (Unités 1 a 4):`,
+    '',
+    ...lineas,
+    '',
+    'Aquí pueden ver el detalle por habilidad y mis comentarios:',
+    enlace(b),
+    '',
+    'Cualquier duda, con gusto la conversamos.',
+    'Prof. Miguel Tillero · Vive el francés'
+  ].join('\n');
+}
+
+async function accion(a, b){
+  if(a === 'wa'){
+    window.open('https://wa.me/' + telefono(b.telefono) + '?text=' + encodeURIComponent(mensaje(b)), '_blank', 'noopener');
+  } else if(a === 'copy'){
+    try { await navigator.clipboard.writeText(mensaje(b)); toast('Mensaje con enlace copiado'); }
+    catch(e){ prompt('Copia el enlace:', enlace(b)); }
+  } else if(a === 'del'){
+    if(!confirm(`¿Eliminar a «${b.alumno}»? Solo se puede porque todavía no tiene notas.`)) return;
+    const { error } = await sb.from('boletines').delete().eq('id', b.id);
+    if(error) return toast('No se pudo eliminar: ' + error.message);
+    bols = bols.filter(x => x.id !== b.id); paint();
+  }
+}
+
+$('#add').onclick = async () => {
+  const n = $('#newname').value.trim(); if(!n) return;
+  const { data, error } = await sb.from('boletines').insert({ grupo:GRUPO, alumno:n }).select().single();
+  if(error) return toast('No se pudo agregar: ' + error.message);
+  bols.push(data); bols.sort((x, y) => x.alumno.localeCompare(y.alumno, 'es'));
+  $('#newname').value = ''; paint(); toast(n + ' agregado');
+};
+$('#newname').addEventListener('keydown', e => { if(e.key === 'Enter') $('#add').click(); });
+
+if(sb) sb.auth.getSession().then(({ data }) => data.session ? boot() : showLogin());
+else showLogin('No se pudo conectar con la plataforma.');
+})();
+</script>
+</body>
+</html>

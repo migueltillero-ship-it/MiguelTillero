@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Boletín de resultados · Vive el francés</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../assets/js/supabase-config.js?v=1790500000"></script>
+<style>
+:root{--bg:#eef4ee;--surface:#fff;--fg:#12291c;--muted:#4f6457;--line:rgba(18,41,28,.14);--em:#0d3b2e;--em2:#0d7f57;--gold:#a5824a;--gold-soft:#f3e8d2;
+--display:'Cormorant Garamond',Georgia,serif;--sans:'Syne',system-ui,sans-serif;--mono:'Space Mono',ui-monospace,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.55}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 48px}
+h1,h2{font-family:var(--display);line-height:1.1;margin:0}
+.kicker{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.top h1{font-size:clamp(2rem,6vw,2.8rem);margin:.3rem 0 .2rem}
+.top h1 em{color:var(--gold)}
+.top p{margin:.2rem 0 0;color:var(--muted)}
+.total{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:22px 0 14px;padding:16px 20px;border-radius:16px;background:var(--em);color:#fff}
+.total b{font-family:var(--display);font-size:2.6rem;line-height:1}
+.total small{font-family:var(--mono);font-size:.8rem;opacity:.85}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;margin-top:14px}
+.card-h{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.card h2{font-size:1.5rem}
+.nota{font-family:var(--display);font-size:2.4rem;font-weight:700;line-height:1;white-space:nowrap}
+.nota small{font-size:1rem;color:var(--muted)}
+.partes{display:grid;gap:.6rem;margin-top:14px}
+.parte{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.25rem .8rem;font-size:.9rem}
+.parte b{font-family:var(--mono);font-weight:400;font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.barra{grid-column:1/-1;height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.barra i{display:block;height:100%;background:var(--em2)}
+.com{margin-top:14px;padding:12px 14px;border-left:3px solid var(--gold);background:var(--gold-soft);border-radius:8px;font-size:.92rem}
+.com span{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:.3rem}
+.nota-pend{color:var(--muted);font-size:.9rem}
+.foot{margin-top:26px;font-size:.84rem;color:var(--muted)}
+.btn{display:inline-flex;padding:.55rem 1rem;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--fg);font:inherit;font-weight:700;font-size:.82rem;cursor:pointer}
+.msg{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:28px;margin-top:40px;text-align:center}
+@media print{body{background:#fff}.no-print{display:none}.card{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap" id="root"><p class="kicker" style="margin-top:40px">Cargando boletín…</p></div>
+<script>
+(function(){
+'use strict';
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const coma = v => String(v).replace('.', ',');
+const root = document.getElementById('root');
+const fallo = m => { root.innerHTML = `<div class="msg"><h2>Boletín no disponible</h2><p>${esc(m)}</p><p class="kicker">Vive el francés · Prof. Miguel Tillero</p></div>`; };
+const token = new URLSearchParams(location.search).get('t') || '';
+if(!/^[0-9a-f-]{36}$/i.test(token)) return fallo('El enlace está incompleto. Ábrelo tal como llegó por WhatsApp.');
+if(typeof supabaseClient === 'undefined' || !supabaseClient) return fallo('No se pudo conectar. Revisa tu conexión y vuelve a intentarlo.');
+
+const NOMBRES = { escrita:'Prueba escrita', oral:'Prueba oral' };
+const QUE = {
+  escrita:'En línea: comprensión de audios, comprensión de lectura y redacción breve.',
+  oral:'Individual con el profesor: presentarse, hacer preguntas y resolver una situación de la vida diaria.'
+};
+
+supabaseClient.rpc('ver_boletin', { p_token: token }).then(({ data, error }) => {
+  if(error) return fallo('No se pudo cargar el boletín. Vuelve a intentarlo en un momento.');
+  if(!data) return fallo('Este enlace no corresponde a ningún boletín. Pide al profesor que te lo reenvíe.');
+  const notas = (data.notas || []).filter(n => n.nota != null);
+  const suma = notas.reduce((a, n) => a + Number(n.nota), 0), max = notas.reduce((a, n) => a + Number(n.maxima), 0);
+  document.title = 'Boletín · ' + data.alumno;
+  root.innerHTML = `
+    <header class="top">
+      <div class="kicker">Vive el francés · Boletín de resultados</div>
+      <h1>${esc(data.alumno)}</h1>
+      <p>Français A1.4 · Évaluation <em>Chez les Moreau</em> · Unités 1 a 4 · Grupo ${esc(data.grupo)}</p>
+    </header>
+    ${notas.length > 1 ? `<div class="total"><div><div class="kicker" style="color:rgba(255,255,255,.75)">Resultado global</div><small>${Math.round(suma / max * 100)} %</small></div><div><b>${coma(suma)}</b> <small>/ ${coma(max)}</small></div></div>` : ''}
+    ${(data.notas || []).map(n => `
+      <section class="card">
+        <div class="card-h">
+          <div><div class="kicker">${esc(NOMBRES[n.prueba] || n.prueba)}</div><h2>${esc(n.titulo)}</h2></div>
+          ${n.nota != null ? `<div class="nota">${coma(n.nota)}<small> / ${coma(n.maxima)}</small></div>` : '<div class="nota-pend">En revisión</div>'}
+        </div>
+        <p style="margin:.5rem 0 0;color:var(--muted);font-size:.88rem">${esc(QUE[n.prueba] || '')}</p>
+        ${n.detalle && Array.isArray(n.detalle.partes) ? `<div class="partes">${n.detalle.partes.map(p => {
+          const pct = p.m ? Math.max(0, Math.min(100, Math.round(Number(p.p) / Number(p.m) * 100))) : 0;
+          return `<div class="parte"><span>${esc(p.n)}</span><b>${coma(p.p)} / ${coma(p.m)}</b><span class="barra"><i style="width:${pct}%"></i></span></div>`;
+        }).join('')}</div>` : ''}
+        ${n.comentario ? `<div class="com"><span>Comentario del profesor</span>${esc(n.comentario)}</div>` : ''}
+      </section>`).join('') || '<div class="msg"><p>Todavía no hay resultados publicados. Te avisaremos cuando estén listos.</p></div>'}
+    <div class="foot">
+      <p>Prof. Miguel Tillero · Vive el francés. Este enlace es privado: compártelo solo con la familia.</p>
+      <button class="btn no-print" onclick="window.print()">Imprimir o guardar en PDF</button>
+    </div>`;
+});
+})();
+</script>
+</body>
+</html>

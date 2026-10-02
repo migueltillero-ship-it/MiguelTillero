@@ -112,6 +112,7 @@ tr.row{cursor:pointer} tr.row:hover td{background:#f7f9ff}
     <button class="btn ghost" id="b-csv">⬇ CSV</button>
     <button class="btn" id="b-pub" title="Pasa las notas ya revisadas a «Mis resultados» del alumno y su representante">Publicar notas</button>
     <a class="btn ghost" id="b-oral" href="a1-4/oral.html">Prueba oral</a>
+    <a class="btn ghost" href="boletines.html">Boletines</a>
   </div>
   <div class="kpis">
     <div class="kpi"><b id="k-n">0</b><span>intentos</span></div>
@@ -468,12 +469,12 @@ document.addEventListener('keydown', e => { if(e.key === 'Escape') closeDetail()
 $('#b-pub').onclick = async () => {
   const listos = rows.filter(r => r.nota_final != null).length;
   if(!listos) return toast('Todavía no hay intentos revisados (con nota final) que publicar.');
-  if(!confirm(`Se publicarán ${listos} nota(s) de «${exam.titulo}» en «Mis resultados». Los alumnos y sus representantes las verán al entrar. ¿Continuar?`)) return;
-  const { data, error } = await sb.rpc('publicar_resultados_examen', { p_examen: exam.id });
-  if(error) return toast('No se pudo publicar: ' + error.message + ' (¿ejecutaste supabase/resultados-a1-4.sql?)');
-  const pend = (data && data.pendientes) || [];
-  toast(`${data.publicadas} nota(s) publicada(s)` + (pend.length ? ` · ${pend.length} sin emparejar` : ''));
-  if(pend.length) alert('No se pudieron publicar estas notas:\n\n' + pend.map(p => `· ${p.nombre} <${p.email}>: ${p.motivo}`).join('\n') + '\n\nRevisa que el alumno use el mismo correo de su cuenta (o el de su representante) y que su inscripción esté activa.');
+  if(!confirm(`Se publicarán ${listos} nota(s) de «${exam.titulo}» en el boletín de cada alumno (y en «Mis resultados» de quien tenga cuenta). ¿Continuar?`)) return;
+  const { data, error } = await sb.rpc('publicar_examen_en_boletines', { p_examen: exam.id });
+  if(error) return toast('No se pudo publicar: ' + error.message + ' (¿ejecutaste supabase/boletines.sql?)');
+  // Quien ya tiene cuenta en la plataforma también la ve en «Mis resultados».
+  await sb.rpc('publicar_resultados_examen', { p_examen: exam.id });
+  if(confirm(`${data.publicadas} nota(s) publicada(s) en los boletines. ¿Abrir «Boletines y envío» para mandarlos a las familias?`)) location.href = 'boletines.html';
 };
 $('#b-csv').onclick = () => {
   const head = ['nombre','email','estado','inicio','envio','duracion_min','CO_15','CE_15','PE_20','total_50','integridad','nivel','senales','comentario'];
