@@ -42,8 +42,16 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
 .stat { background: rgba(43,69,53,0.06); border-radius: var(--r-sm); padding: 0.9rem 1.3rem; min-width:120px; }
 .stat .num { font-family:'Cormorant Garamond',serif; font-size:1.8rem; color:var(--accent-green); display:block; }
 .stat .lbl { font-family:'Space Mono',monospace; font-size:0.6rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-light); }
-.pill-si { color: var(--accent-green); font-weight:600; }
-.pill-no { color: #a13324; font-weight:600; }
+.pill-si, .pill-no { display:inline-block; font-family:'Space Mono',monospace; font-size:0.6rem; font-weight:700;
+                     text-transform:uppercase; letter-spacing:0.06em; padding:0.22rem 0.65rem; border-radius:var(--r-pill); }
+.pill-si { background:rgba(13,127,87,0.12); color:var(--cyan); }
+.pill-no { background:rgba(161,51,36,0.1); color:#a13324; }
+.stat.ok { border-left:3px solid var(--cyan); }
+.stat.no { border-left:3px solid #a13324; }
+.stat.pct { border-left:3px solid var(--gold); }
+.asist-barra { height:10px; border-radius:var(--r-pill); background:rgba(43,69,53,0.1); overflow:hidden; margin:-0.4rem 0 1.4rem; }
+.asist-barra i { display:block; width:0; height:100%; border-radius:var(--r-pill);
+                 background:linear-gradient(90deg, var(--gold), var(--cyan)); transition:width .8s cubic-bezier(.16,1,.3,1); }
 /* --- Bienvenida y recorrido del curso --- */
 .hola { font-family:'Cormorant Garamond',serif; font-size:2.4rem; color:var(--accent-green); margin:0 0 0.2rem; line-height:1.15; }
 .hola em { font-style:italic; color:var(--primary-color); }
@@ -112,6 +120,13 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
 .resultado-nota small { font-size:0.9rem; color:var(--text-light); }
 .resultado-nota.sin { font-size:0.85rem; font-family:'Space Mono',monospace; color:var(--text-light);
                       text-transform:uppercase; letter-spacing:0.07em; }
+.resultado-nota.alto { color:var(--cyan); }
+.resultado-nota.medio { color:var(--gold2); }
+.resultado-nota.bajo { color:#a13324; }
+.nota-barra { height:8px; border-radius:var(--r-pill); background:rgba(43,69,53,0.1); overflow:hidden; margin-top:0.95rem; }
+.nota-barra i { display:block; height:100%; border-radius:var(--r-pill); background:linear-gradient(90deg, var(--gold), var(--cyan)); }
+.nota-barra.medio i { background:linear-gradient(90deg, #d2b06a, var(--gold)); }
+.nota-barra.bajo i { background:linear-gradient(90deg, #d38a6a, #a13324); }
 .resultado-desc { font-size:0.85rem; color:var(--text-light); margin-top:0.55rem; line-height:1.6; }
 .comentario { background:rgba(140,115,75,0.09); border-left:3px solid var(--primary-color);
               border-radius:var(--r-xs); padding:0.85rem 1.1rem; margin-top:0.9rem;
@@ -130,9 +145,14 @@ th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:upper
 
 /* Materiales */
 .materiales { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:1rem; }
-.material { display:block; border:1px solid var(--border); border-radius:var(--r-sm);
+.material { display:grid; grid-template-columns:auto 1fr; gap:0.95rem; align-items:start; border:1px solid var(--border); border-radius:var(--r-sm);
             padding:1.1rem 1.2rem; text-decoration:none; color:inherit; transition:all 0.2s; background:#fff;
             position:relative; overflow:hidden; }
+.mat-ico { width:2.6rem; height:2.6rem; border-radius:12px; display:flex; align-items:center; justify-content:center;
+           color:#fff; font-size:1rem; background:var(--cyan); box-shadow:0 4px 12px rgba(20,45,32,0.18); }
+.material.cat-refuerzo .mat-ico { background:var(--gold); }
+.material.cat-juego .mat-ico { background:#c2603c; }
+.material.cat-evaluacion .mat-ico { background:#3b6ea8; }
 .material::before { content:''; position:absolute; left:0; top:0; bottom:0; width:2px;
                     background:linear-gradient(180deg, var(--gold), var(--cyan)); transform:scaleY(0); transform-origin:top;
                     transition:transform .5s cubic-bezier(.16,1,.3,1); }
@@ -275,10 +295,11 @@ select { padding:0.7rem; border:1px solid var(--border); border-radius:8px; font
             <section class="panel">
                 <h2>Mi asistencia</h2>
                 <div class="stat-row">
-                    <div class="stat"><span class="num" id="stat-presentes">0</span><span class="lbl">Presentes</span></div>
-                    <div class="stat"><span class="num" id="stat-ausentes">0</span><span class="lbl">Ausencias</span></div>
-                    <div class="stat"><span class="num" id="stat-porcentaje">—</span><span class="lbl">% Asistencia</span></div>
+                    <div class="stat ok"><span class="num" id="stat-presentes">0</span><span class="lbl">Presentes</span></div>
+                    <div class="stat no"><span class="num" id="stat-ausentes">0</span><span class="lbl">Ausencias</span></div>
+                    <div class="stat pct"><span class="num" id="stat-porcentaje">—</span><span class="lbl">% Asistencia</span></div>
                 </div>
+                <div class="asist-barra"><i id="barra-asistencia"></i></div>
                 <table>
                     <thead><tr><th>Fecha</th><th>Tema</th><th>Asistencia</th><th>Observación</th></tr></thead>
                     <tbody id="tabla-asistencia"></tbody>
@@ -499,6 +520,7 @@ function marcarSeccionesBloqueadas(pendiente) {
 }
 
 const CATEGORIA = { material: 'Material', refuerzo: 'Refuerzo', juego: 'Juego', evaluacion: 'Evaluación' };
+const ICONO_MATERIAL = { material: 'fa-book-open', refuerzo: 'fa-dumbbell', juego: 'fa-gamepad', evaluacion: 'fa-clipboard-check' };
 
 async function cargarMateriales(grupo) {
     const lista = document.getElementById('lista-materiales');
@@ -517,10 +539,13 @@ async function cargarMateriales(grupo) {
     const unidadHoy = grupo.unidad_actual || '';
     lista.innerHTML = materiales.map(m => {
         const esActual = m.unidad && unidadHoy.includes(m.unidad.replace(/Unité\s*/, '').split('-')[0].trim());
-        return `<a class="material${esActual ? ' actual' : ''}" href="${esc(m.url)}" target="_blank" rel="noopener">
-            <span class="cat">${esc(CATEGORIA[m.categoria] || m.categoria)}${m.unidad ? ' · ' + esc(m.unidad) : ''}${esActual ? ' · ahora' : ''}</span>
-            <div class="tit">${esc(m.titulo)}</div>
-            ${m.descripcion ? `<div class="des">${esc(m.descripcion)}</div>` : ''}
+        return `<a class="material cat-${esc(m.categoria)}${esActual ? ' actual' : ''}" href="${esc(m.url)}" target="_blank" rel="noopener">
+            <span class="mat-ico"><i class="fa-solid ${ICONO_MATERIAL[m.categoria] || 'fa-file-lines'}"></i></span>
+            <div>
+                <span class="cat">${esc(CATEGORIA[m.categoria] || m.categoria)}${m.unidad ? ' · ' + esc(m.unidad) : ''}${esActual ? ' · ahora' : ''}</span>
+                <div class="tit">${esc(m.titulo)}</div>
+                ${m.descripcion ? `<div class="des">${esc(m.descripcion)}</div>` : ''}
+            </div>
         </a>`;
     }).join('');
 }
@@ -533,6 +558,9 @@ function pintarResultados(evaluaciones, notas) {
         const n = porEval[ev.id];
         const tieneNota = n && n.calificacion !== null && n.calificacion !== undefined;
         const maxima = ev.nota_maxima || 100;
+        const pctNota = tieneNota && Number(maxima) > 0 && !isNaN(Number(n.calificacion))
+            ? Math.max(0, Math.min(100, Math.round(Number(n.calificacion) / Number(maxima) * 100))) : null;
+        const nivel = pctNota === null ? '' : pctNota >= 80 ? 'alto' : pctNota >= 60 ? 'medio' : 'bajo';
         return `
         <div class="resultado">
             <div class="resultado-cab">
@@ -541,9 +569,10 @@ function pintarResultados(evaluaciones, notas) {
                     <div class="resultado-fecha">${ev.fecha ? fechaCorta(ev.fecha) : 'sin fecha'}${ev.ponderacion ? ' · vale ' + ev.ponderacion + '%' : ''}</div>
                 </div>
                 ${tieneNota
-                    ? `<div class="resultado-nota">${esc(String(n.calificacion))}<small> / ${esc(String(maxima))}</small></div>`
+                    ? `<div class="resultado-nota ${nivel}">${esc(String(n.calificacion))}<small> / ${esc(String(maxima))}</small></div>`
                     : `<div class="resultado-nota sin">Aún sin validar</div>`}
             </div>
+            ${pctNota !== null ? `<div class="nota-barra ${nivel}"><i style="width:${pctNota}%"></i></div>` : ''}
             ${ev.descripcion ? `<div class="resultado-desc">${esc(ev.descripcion)}</div>` : ''}
             ${tieneNota && n.detalle && Array.isArray(n.detalle.partes) && n.detalle.partes.length
                 ? `<div class="partes">${n.detalle.partes.map(p => {
@@ -738,6 +767,7 @@ async function seleccionarInscripcion(inscripcionId) {
     document.getElementById('stat-presentes').textContent = presentes;
     document.getElementById('stat-ausentes').textContent = registradas - presentes;
     document.getElementById('stat-porcentaje').textContent = registradas ? Math.round((presentes / registradas) * 100) + '%' : '—';
+    document.getElementById('barra-asistencia').style.width = registradas ? Math.round((presentes / registradas) * 100) + '%' : '0%';
 
     pintarResultados(evaluacionesRes.data || [], notasRes.data || []);
 }
