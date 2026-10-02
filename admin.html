@@ -191,7 +191,7 @@ details.form-toggle > summary { cursor:pointer; font-family:'Space Mono',monospa
                 <button class="btn pequeno" onclick="crearPago()"><i class="fa-solid fa-plus"></i> Registrar pago</button>
                 <div id="msg-pago" class="msg"></div>
                 <table style="margin-top:1.2rem;">
-                    <thead><tr><th>Fecha</th><th>Estudiante</th><th>Concepto</th><th>Monto</th><th>Estado</th><th>Cobro con Stripe</th></tr></thead>
+                    <thead><tr><th>Fecha</th><th>Estudiante</th><th>Concepto</th><th>Monto</th><th>Estado</th></tr></thead>
                     <tbody id="tabla-pagos"></tbody>
                 </table>
             </section>
@@ -558,16 +558,8 @@ async function cargarFinanzas() {
     document.getElementById('tabla-pagos').innerHTML = (pagos || []).map(p => {
         const insc = inscPorId[p.inscripcion_id];
         const nombre = insc ? (nombrePorId[insc.estudiante_id] || '—') : '—';
-        let colStripe;
-        if (p.checkout_url && p.estado !== 'pagado') {
-            colStripe = `<button class="btn pequeno secundario" onclick="copiarEnlaceCobro('${p.checkout_url}', this)">Copiar enlace</button>`;
-        } else if (p.estado === 'pagado') {
-            colStripe = '<span class="muted">—</span>';
-        } else {
-            colStripe = `<button class="btn pequeno" onclick="cobrarConStripe('${p.id}', this)">Cobrar con Stripe</button>`;
-        }
-        return `<tr><td>${new Date(p.created_at).toLocaleDateString()}</td><td>${esc(nombre)}</td><td>${esc(p.concepto) || '—'}</td><td>${money(p.monto, p.moneda)}</td><td><span class="badge ${esc(p.estado)}">${esc(p.estado)}</span></td><td>${colStripe}</td></tr>`;
-    }).join('') || '<tr><td colspan="6" class="muted">Sin pagos registrados.</td></tr>';
+        return `<tr><td>${new Date(p.created_at).toLocaleDateString()}</td><td>${esc(nombre)}</td><td>${esc(p.concepto) || '—'}</td><td>${money(p.monto, p.moneda)}</td><td><span class="badge ${esc(p.estado)}">${esc(p.estado)}</span></td></tr>`;
+    }).join('') || '<tr><td colspan="5" class="muted">Sin pagos registrados.</td></tr>';
 
     document.getElementById('tabla-egresos').innerHTML = (egresos || []).map(e => `
         <tr><td>${e.fecha}</td><td>${esc(e.concepto)}</td><td>${esc(e.categoria) || '—'}</td><td>${money(e.monto, e.moneda)}</td></tr>
@@ -592,24 +584,6 @@ async function crearPago() {
     document.getElementById('pg-monto').value = '';
     document.getElementById('pg-concepto').value = '';
     await cargarFinanzas();
-}
-
-async function cobrarConStripe(pagoId, btn) {
-    btn.disabled = true; const texto = btn.textContent; btn.textContent = 'Generando…';
-    const { data, error } = await supabaseClient.functions.invoke('crear-checkout', { body: { pago_id: pagoId } });
-    if (error || !data || data.error) {
-        alert('No se pudo generar el cobro: ' + (data?.error || error?.message || 'error desconocido'));
-        btn.disabled = false; btn.textContent = texto;
-        return;
-    }
-    await copiarEnlaceCobro(data.url, btn);
-    await cargarFinanzas();
-}
-
-async function copiarEnlaceCobro(url, btn) {
-    try { await navigator.clipboard.writeText(url); btn.textContent = 'Copiado ✓'; }
-    catch (e) { window.prompt('Copia el enlace de cobro:', url); }
-    setTimeout(cargarFinanzas, 1200);
 }
 
 async function crearEgreso() {
