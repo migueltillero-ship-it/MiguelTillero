@@ -22,8 +22,17 @@ create schema if not exists auth;
 create table if not exists auth.users (
   id uuid primary key default gen_random_uuid(),
   email text unique,
-  raw_user_meta_data jsonb default '{}'::jsonb
+  raw_user_meta_data jsonb default '{}'::jsonb,
+  -- Las trae la tabla real de Supabase y las usan las consultas del panel
+  -- («quién es quién», última conexión). Sin ellas, aquí pasaban consultas
+  -- que en producción habrían fallado.
+  created_at timestamptz not null default now(),
+  last_sign_in_at timestamptz
 );
+
+-- Para bases simuladas creadas antes de que existieran esas dos columnas.
+alter table auth.users add column if not exists created_at timestamptz not null default now();
+alter table auth.users add column if not exists last_sign_in_at timestamptz;
 
 -- auth.uid() lee el claim del "JWT" simulado vía variable de sesión
 create or replace function auth.uid()
