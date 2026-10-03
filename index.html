@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="assets/css/video-carrusel.css">
-<link rel="stylesheet" href="assets/css/fondos.css?v=2">
+<link rel="stylesheet" href="assets/css/fondos.css?v=7">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 
@@ -312,8 +312,17 @@
   </div>
 </nav>
 <!-- ═══ HERO ═══ -->
-<section id="hero" class="z10" data-page="inicio">
+<section id="hero" class="z10 hero-rotativo" data-page="inicio">
   <div class="container">
+    <div class="hero-escena">
+    <div class="hero-bg" id="heroBg" aria-hidden="true">
+      <div class="hero-slide retrato on" style="background-image:url('assets/images/portrait-miguel-3.jpg');"><img src="assets/images/portrait-miguel-3.jpg" alt=""></div>
+      <div class="hero-slide" data-bg="assets/images/videos/bienvenida.jpg" style="--bs:cover;--bp:50% 40%;"></div>
+      <div class="hero-slide" data-bg="assets/images/galeria/n-charla-uc-cuenca-2.jpg" style="--bs:125%;--bp:0% 30%;"></div>
+      <div class="hero-slide retrato" data-bg="assets/images/portrait-miguel-1.jpg"><img data-src="assets/images/portrait-miguel-1.jpg" alt=""></div>
+      <div class="hero-slide" data-bg="assets/images/portrait-miguel-paris.jpg" style="--bs:cover;--bp:50% 30%;"></div>
+    </div>
+    <div class="hero-dots" id="heroDots"></div>
     <div class="hero-inner">
       <div>
         <div class="hero-pre">
@@ -353,30 +362,6 @@
       </div>
 
       <div class="hero-portrait-panel">
-        <div class="portrait-hud bracket">
-          <div class="portrait-inner" id="portraitCarousel">
-            <!-- Carrusel — set oficial de fotos -->
-            <img class="portrait-slide active"
-                 src="assets/images/portrait-miguel-1.jpg"
-                 alt="Miguel Tillero — Profesor de francés, especialista FLE"
-                 style="object-fit:cover;object-position:center top"
-                 onerror="this.style.display='none'">
-            <img class="portrait-slide"
-                 src="assets/images/portrait-miguel-3.jpg"
-                 alt="Miguel Tillero — Spécialiste FLE"
-                 style="object-fit:cover;object-position:center top"
-                 onerror="this.style.display='none'">
-            <img class="portrait-slide"
-                 src="assets/images/portrait-miguel-4.jpg"
-                 alt="Miguel Tillero — Formateur FLE"
-                 style="object-fit:cover;object-position:center top"
-                 onerror="this.style.display='none'">
-                        <div class="portrait-data">
-              <div class="name-tag">MIGUEL TILLERO ÁLVAREZ</div>
-              <div class="loc"><i class="fa fa-map-marker-alt"></i> Profesor de francés · Especialista FLE</div>
-            </div>
-          </div>
-        </div>
         <div class="hud-data-box">
           <div class="row"><span data-es="Experiencia" data-fr="Expérience" data-en="Experience">Experiencia</span><span class="val" data-es="13 años · 5 países" data-fr="13 ans · 5 pays" data-en="13 years · 5 countries">13 años · 5 países</span></div>
           <div class="row"><span data-es="Certificaciones" data-fr="Certifications" data-en="Certifications">Certificaciones</span><span class="val">DELF · DALF · MCL</span></div>
@@ -384,6 +369,8 @@
         </div>
       </div>
     </div>
+
+    </div><!-- /hero-escena -->
 
     <!-- ── ACCESOS A LAS PÁGINAS ── -->
     <div class="portal-head reveal">
@@ -393,7 +380,8 @@
     </div>
 
     <div class="portal-grid">
-      <a href="cursos.html" class="portal-card feature reveal d1">
+      <a href="cursos.html" class="portal-card con-foto feature reveal d1" style="--c:#1f6f5b;">
+        <div class="portal-foto" role="img" aria-hidden="true" style="background-image:url('assets/images/galeria/z1-045.jpg');background-position:50% 28%;"></div>
         <span class="portal-num">01</span>
         <i class="fa fa-graduation-cap portal-icon"></i>
         <h3 class="portal-title" data-es="Cursos y exámenes" data-fr="Cours et examens" data-en="Courses & exams">Cursos y exámenes</h3>
@@ -401,7 +389,8 @@
         <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
       </a>
 
-      <a href="servicios.html" class="portal-card reveal d2">
+      <a href="servicios.html" class="portal-card con-foto reveal d2" style="--c:#c97b6b;">
+        <div class="portal-foto" role="img" aria-hidden="true" style="background-image:url('assets/images/galeria/n-meirieu-podio.jpg');background-position:50% 55%;"></div>
         <span class="portal-num">02</span>
         <i class="fa fa-briefcase portal-icon"></i>
         <h3 class="portal-title" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</h3>
@@ -409,7 +398,8 @@
         <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
       </a>
 
-      <a href="perfil.html" class="portal-card reveal d3">
+      <a href="perfil.html" class="portal-card con-foto reveal d3" style="--c:#6f8fc2;">
+        <div class="portal-foto" role="img" aria-hidden="true" style="background-image:url('assets/images/portrait-miguel-3.jpg');background-position:50% 36%;"></div>
         <span class="portal-num">03</span>
         <i class="fa fa-user portal-icon"></i>
         <h3 class="portal-title" data-es="Perfil" data-fr="Profil" data-en="Profile">Perfil</h3>
@@ -417,7 +407,8 @@
         <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
       </a>
 
-      <a href="galeria.html" class="portal-card reveal d4">
+      <a href="galeria.html" class="portal-card con-foto reveal d4" style="--c:#8e74b0;">
+        <div class="portal-foto" role="img" aria-hidden="true" style="background-image:url('assets/images/galeria/n-clase-magistral-60.jpg');background-position:50% 40%;"></div>
         <span class="portal-num">04</span>
         <i class="fa fa-photo-film portal-icon"></i>
         <h3 class="portal-title" data-es="Galería y vídeo" data-fr="Galerie et vidéo" data-en="Gallery & video">Galería y vídeo</h3>
@@ -425,7 +416,8 @@
         <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
       </a>
 
-      <a href="inscribete.html" class="portal-card reveal d5">
+      <a href="inscribete.html" class="portal-card con-foto reveal d5" style="--c:#c79a2c;">
+        <div class="portal-foto" role="img" aria-hidden="true" style="background-image:url('assets/images/relato/fondo-estudiantes.jpg');background-position:50% 30%;"></div>
         <span class="portal-num">05</span>
         <i class="fa fa-pen-to-square portal-icon"></i>
         <h3 class="portal-title" data-es="Inscripción" data-fr="Inscription" data-en="Enrolment">Inscripción</h3>
@@ -433,7 +425,8 @@
         <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
       </a>
 
-      <a href="contacto.html" class="portal-card reveal d6">
+      <a href="contacto.html" class="portal-card con-foto reveal d6" style="--c:#3f8576;">
+        <div class="portal-foto" role="img" aria-hidden="true" style="background-image:url('assets/images/relato/cuenca-escritorio.jpg');background-position:50% 45%;"></div>
         <span class="portal-num">06</span>
         <i class="fa fa-envelope portal-icon"></i>
         <h3 class="portal-title" data-es="Contacto y pagos" data-fr="Contact et paiements" data-en="Contact & payments">Contacto y pagos</h3>
@@ -441,7 +434,8 @@
         <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
       </a>
 
-      <a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" class="portal-card feature reveal d1" style="grid-column: 1 / -1;">
+      <a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" class="portal-card con-foto feature reveal d1" style="--c:#a5824a;grid-column: 1 / -1;">
+        <div class="portal-foto" role="img" aria-hidden="true" style="background-image:url('assets/images/relato/quebec.jpg');background-position:50% 40%;"></div>
         <span class="portal-num">07</span>
         <i class="fa fa-mug-hot portal-icon"></i>
         <h3 class="portal-title" data-es="Vendredi entre Amis · Club de conversación" data-fr="Vendredi entre Amis · Club de conversation" data-en="Vendredi entre Amis · Conversation club">Vendredi entre Amis · Club de conversación</h3>
@@ -1196,6 +1190,37 @@ window.addEventListener('mousemove', e => {
    sola vez por visita (sin bucle, continuando entre páginas) y se corta
    en cuanto el visitante reproduce un vídeo. */
 const bgAudio = document.getElementById('bg-audio');
+
+
+/* ── HERO ROTATIVO: 4 fotos en fundido, con puntos y pausa al pasar el mouse ── */
+(function(){
+  var bg = document.getElementById('heroBg'), dots = document.getElementById('heroDots');
+  if (!bg || !dots) return;
+  var slides = bg.querySelectorAll('.hero-slide'), cur = 0, timer = null;
+  slides.forEach(function(sl, i){
+    var b = document.createElement('button');
+    b.type = 'button'; b.setAttribute('aria-label', 'Foto ' + (i + 1));
+    if (i === 0) b.className = 'on';
+    b.addEventListener('click', function(){ show(i); restart(); });
+    dots.appendChild(b);
+  });
+  function load(i){ var sl = slides[i]; if (sl && sl.dataset.bg){ sl.style.backgroundImage = "url('" + sl.dataset.bg + "')"; delete sl.dataset.bg; var im = sl.querySelector('img[data-src]'); if (im){ im.src = im.dataset.src; im.removeAttribute('data-src'); } } }
+  function show(i){
+    load(i);
+    slides[cur].classList.remove('on'); dots.children[cur].classList.remove('on');
+    cur = i;
+    slides[cur].classList.remove('on'); void slides[cur].offsetWidth;
+    slides[cur].classList.add('on'); dots.children[cur].classList.add('on');
+    load((cur + 1) % slides.length);
+  }
+  function restart(){ clearInterval(timer); timer = setInterval(function(){ show((cur + 1) % slides.length); }, 6500); }
+  window.addEventListener('load', function(){ load(1); restart(); });
+  var hero = document.getElementById('hero');
+  if (hero){
+    hero.addEventListener('mouseenter', function(){ clearInterval(timer); });
+    hero.addEventListener('mouseleave', restart);
+  }
+})();
 
 /* ── PORTRAIT CAROUSEL ─────────────────────── */
 (function(){
