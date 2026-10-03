@@ -2425,17 +2425,45 @@
    }
   },
   {
-   "id": "n-conferencia-charla",
-   "cat": "clases",
-   "src": "assets/images/galeria/n-conferencia-charla.jpg",
-   "thumb": "assets/images/galeria/t/n-conferencia-charla.jpg",
-   "w": 784,
-   "h": 383,
-   "alt": "Miguel Tillero con micrófono dando una charla ante los asistentes, con el logo de la Alianza Francesa en pantalla",
+   "id": "n-charla-uc-cuenca-1",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/n-charla-uc-cuenca-1.jpg",
+   "thumb": "assets/images/galeria/t/n-charla-uc-cuenca-1.jpg",
+   "w": 1600,
+   "h": 892,
+   "alt": "Miguel Tillero hablando con micrófono ante el público; en la pantalla, Alianza Francesa y el Centro de Idiomas de la Universidad Católica de Cuenca",
    "pie": {
-    "es": "Charla · Alianza Francesa y Centro de Idiomas",
-    "fr": "Conférence · Alliance Française et Centre de langues",
-    "en": "Talk · Alliance Française and Language Center"
+    "es": "Charla en el Centro de Idiomas · Universidad Católica de Cuenca",
+    "fr": "Conférence au Centre de langues · Universidad Católica de Cuenca",
+    "en": "Talk at the Language Center · Universidad Católica de Cuenca"
+   }
+  },
+  {
+   "id": "n-charla-uc-cuenca-2",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/n-charla-uc-cuenca-2.jpg",
+   "thumb": "assets/images/galeria/t/n-charla-uc-cuenca-2.jpg",
+   "w": 1600,
+   "h": 1067,
+   "alt": "Miguel Tillero frente a la pantalla con el logo de la Alianza Francesa y del Centro de Idiomas, ante un auditorio",
+   "pie": {
+    "es": "Ante el auditorio · Centro de Idiomas, Universidad Católica de Cuenca",
+    "fr": "Devant l’auditorium · Centre de langues, Universidad Católica de Cuenca",
+    "en": "Before the audience · Language Center, Universidad Católica de Cuenca"
+   }
+  },
+  {
+   "id": "n-charla-uc-cuenca-3",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/n-charla-uc-cuenca-3.jpg",
+   "thumb": "assets/images/galeria/t/n-charla-uc-cuenca-3.jpg",
+   "w": 764,
+   "h": 385,
+   "alt": "Miguel Tillero con micrófono junto a la pantalla del Centro de Idiomas, con el público en primer plano",
+   "pie": {
+    "es": "Charla · Alianza Francesa y Universidad Católica de Cuenca",
+    "fr": "Conférence · Alliance Française et Universidad Católica de Cuenca",
+    "en": "Talk · Alliance Française and Universidad Católica de Cuenca"
    }
   }
  ]
