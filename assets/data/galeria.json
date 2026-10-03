@@ -707,8 +707,8 @@
    "cat": "ecuador",
    "src": "assets/images/relato/ceremonia-delf.jpg",
    "thumb": "assets/images/galeria/t/r-ceremonia-delf.jpg",
-   "w": 1000,
-   "h": 625,
+   "w": 1400,
+   "h": 712,
    "alt": "Preparando la ceremonia de entrega de diplomas DELF",
    "pie": {
     "es": "Preparando la entrega de diplomas DELF · diciembre de 2019",
@@ -826,6 +826,34 @@
     "es": "Philippe Meirieu · «¿Y si la escuela aprendiera a pensar?» · Teatro Sucre, Cuenca",
     "fr": "Philippe Meirieu · « Et si l’école apprenait à penser ? » · Théâtre Sucre, Cuenca",
     "en": "Philippe Meirieu · “What if school learned to think?” · Teatro Sucre, Cuenca"
+   }
+  },
+  {
+   "id": "n-meirieu-cultura",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/n-meirieu-cultura.jpg",
+   "thumb": "assets/images/galeria/t/n-meirieu-cultura.jpg",
+   "w": 932,
+   "h": 781,
+   "alt": "Philippe Meirieu en el podio durante su conferencia, con una diapositiva sobre el pensamiento y la cultura; Miguel Tillero, a la mesa",
+   "pie": {
+    "es": "Philippe Meirieu · conferencia en Cuenca, con interpretación en vivo",
+    "fr": "Philippe Meirieu · conférence à Cuenca, avec interprétation en direct",
+    "en": "Philippe Meirieu · lecture in Cuenca, with live interpreting"
+   }
+  },
+  {
+   "id": "n-meirieu-podio",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/n-meirieu-podio.jpg",
+   "thumb": "assets/images/galeria/t/n-meirieu-podio.jpg",
+   "w": 1112,
+   "h": 881,
+   "alt": "Philippe Meirieu en el podio y, a la mesa, Miguel Tillero con el micrófono, interpretando; pancartas de la UNAE y la Alianza Francesa",
+   "pie": {
+    "es": "Interpretando en vivo a Philippe Meirieu · UNAE y Alianza Francesa, Cuenca",
+    "fr": "En interprétation simultanée pour Philippe Meirieu · UNAE et Alliance Française, Cuenca",
+    "en": "Interpreting live for Philippe Meirieu · UNAE and Alliance Française, Cuenca"
    }
   },
   {
@@ -2198,6 +2226,76 @@
     "es": "Retrato",
     "fr": "Portrait",
     "en": "Portrait"
+   }
+  },
+  {
+   "id": "n-ucuenca-presentacion",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/n-ucuenca-presentacion.jpg",
+   "thumb": "assets/images/galeria/t/n-ucuenca-presentacion.jpg",
+   "w": 680,
+   "h": 750,
+   "alt": "Miguel Tillero presentando ante estudiantes en el Centro de Idiomas de la Universidad Católica de Cuenca",
+   "pie": {
+    "es": "Presentación ante estudiantes · Alianza Francesa y Centro de Idiomas de la Universidad Católica de Cuenca",
+    "fr": "Présentation devant les étudiants · Alliance Française et Centre de langues de l’Universidad Católica de Cuenca",
+    "en": "Presenting to students · Alliance Française and the Universidad Católica de Cuenca Language Center"
+   }
+  },
+  {
+   "id": "n-ucuenca-auditorio",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/n-ucuenca-auditorio.jpg",
+   "thumb": "assets/images/galeria/t/n-ucuenca-auditorio.jpg",
+   "w": 1130,
+   "h": 740,
+   "alt": "Miguel Tillero y una colega dirigiéndose a los estudiantes en el auditorio de la Universidad Católica de Cuenca",
+   "pie": {
+    "es": "En el auditorio del Centro de Idiomas de la Universidad Católica de Cuenca",
+    "fr": "Dans l’auditorium du Centre de langues de l’Universidad Católica de Cuenca",
+    "en": "In the Universidad Católica de Cuenca Language Center auditorium"
+   }
+  },
+  {
+   "id": "n-ucuenca-estudiantes",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/n-ucuenca-estudiantes.jpg",
+   "thumb": "assets/images/galeria/t/n-ucuenca-estudiantes.jpg",
+   "w": 649,
+   "h": 367,
+   "alt": "Miguel Tillero con el micrófono frente a un auditorio de estudiantes, con el logo de la Alianza Francesa en pantalla",
+   "pie": {
+    "es": "Hablando a los estudiantes · Alianza Francesa, Cuenca",
+    "fr": "Prise de parole devant les étudiants · Alliance Française, Cuenca",
+    "en": "Speaking to the students · Alliance Française, Cuenca"
+   }
+  },
+  {
+   "id": "n-zona-talentos",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/n-zona-talentos.jpg",
+   "thumb": "assets/images/galeria/t/n-zona-talentos.jpg",
+   "w": 1041,
+   "h": 486,
+   "alt": "Miguel Tillero en el podio presentando el panel «Zona Talentos» ante el público, en Cuenca",
+   "pie": {
+    "es": "Presentando el panel «Zona Talentos» · Cuenca, 2021",
+    "fr": "Présentation du panel « Zona Talentos » · Cuenca, 2021",
+    "en": "Hosting the “Zona Talentos” panel · Cuenca, 2021"
+   }
+  },
+  {
+   "id": "n-podcast-retrato",
+   "cat": "medios",
+   "src": "assets/images/galeria/n-podcast-retrato.jpg",
+   "thumb": "assets/images/galeria/t/n-podcast-retrato.jpg",
+   "w": 656,
+   "h": 766,
+   "alt": "Miguel Tillero con audífonos y micrófono de estudio, grabando un podcast",
+   "pie": {
+    "es": "Grabando un podcast",
+    "fr": "Enregistrement d’un podcast",
+    "en": "Recording a podcast"
    }
   }
  ]
