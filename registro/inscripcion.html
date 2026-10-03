@@ -118,6 +118,13 @@ main { padding: 3.5rem 5%; max-width: 640px; margin: 0 auto; flex-grow: 1; width
                         <input type="tel" id="f-rep-telefono" placeholder="+52 ...">
                     </div>
                 </div>
+                <div class="form-field">
+                    <label>Correo del representante</label>
+                    <input type="email" id="f-rep-email" placeholder="tu-correo@ejemplo.com" autocomplete="email">
+                    <p class="hint" style="margin:0.4rem 0 0;">Tiene que ser <strong>distinto</strong> del correo
+                        del estudiante que pusiste arriba: con este tendrás tu propia cuenta de representante,
+                        para seguir su avance sin compartir su contraseña.</p>
+                </div>
             </div>
 
             <div class="form-row">
@@ -396,6 +403,18 @@ document.getElementById('form-inscripcion').addEventListener('submit', async (e)
     const representante_nombre = document.getElementById('f-rep-nombre').value.trim();
     const representante_parentesco = document.getElementById('f-rep-parentesco').value;
     const representante_telefono = document.getElementById('f-rep-telefono').value.trim();
+    const representante_email = document.getElementById('f-rep-email').value.trim();
+    /* Si el correo del representante es el mismo del estudiante, no sirve de
+       nada: Supabase no deja dos cuentas con el mismo correo, así que el
+       representante nunca podría tener la suya. Mejor avisar aquí que
+       dejarle descubrirlo al intentar registrarse. */
+    if (representante_email && representante_email.toLowerCase() === email.toLowerCase()) {
+        mostrarMsg(msgEl, 'El correo del representante tiene que ser distinto del correo del estudiante. '
+            + 'Si solo tienes uno, deja el del representante en blanco y escríbeme para resolverlo.', 'error');
+        btn.disabled = false;
+        return;
+    }
+
     const grupo_id = grupoElegido();
     const curso_id = cursoElegido();
 
@@ -406,7 +425,8 @@ document.getElementById('form-inscripcion').addEventListener('submit', async (e)
         options: {
             data: {
                 nombre_completo, telefono, curso_id, grupo_id,
-                representante_nombre, representante_parentesco, representante_telefono
+                representante_nombre, representante_parentesco, representante_telefono,
+                representante_email
             },
             // new URL() normaliza el "..": si no, el correo viaja con
             // …/registro/../login.html dentro, que es válido pero feo y
