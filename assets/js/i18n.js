@@ -98,8 +98,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const elegido = exacto
         || enlaces.find(a => coincide(a) && !(a.getAttribute('href') || '').includes('#'))
         || enlaces.find(coincide);
-    if (!elegido) return;
+    const enCursos = location.pathname.toLowerCase().indexOf('/cursos/') !== -1;
+    const porSeccion = enCursos ? enlaces.find(a => /(^|\/)cursos\.html$/i.test(a.getAttribute('href') || '')) : null;
+    const marcar = elegido || porSeccion;
+    if (!marcar) return;
     document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(a => {
-        if (a.getAttribute('href') === elegido.getAttribute('href')) a.classList.add('active');
+        if (a.getAttribute('href') === marcar.getAttribute('href')) a.classList.add('active');
     });
 });
