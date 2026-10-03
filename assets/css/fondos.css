@@ -172,10 +172,11 @@ body:has(#hero.hero-rotativo) #nav:not(.scrolled) .ctrl-btn.active { background:
   filter: blur(34px) brightness(0.85) saturate(1.1);
 }
 .hero-slide.retrato img {
-  position: absolute; z-index: 1; right: 14%; top: 7%; height: 84%; width: auto; max-width: 42%; object-fit: cover;
+  position: absolute; z-index: 1; right: 9%; top: 50%; transform: translateY(-50%);
+  max-height: 80%; max-width: 40vw; width: auto; height: auto;
   border-radius: 22px; box-shadow: 0 30px 70px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.35);
 }
-@media (max-width: 900px) { .hero-slide.retrato img { right: 50%; transform: translateX(50%); top: 12%; height: 56%; max-width: 70%; } }
+@media (max-width: 900px) { .hero-slide.retrato img { right: 50%; transform: translate(50%, -50%); top: 52%; max-height: 52%; max-width: 78%; } }
 
 /* ══ Accesos del inicio («Elige por dónde empezar») con foto ══
    Foto arriba, ícono como círculo de color sobre el borde de la foto, texto más grande. */
@@ -194,5 +195,27 @@ body:has(#hero.hero-rotativo) #nav:not(.scrolled) .ctrl-btn.active { background:
 .portal-card.con-foto .portal-num { z-index: 3; color: #fff; opacity: .95; text-shadow: 0 1px 8px rgba(0,0,0,.55); }
 .portal-card.con-foto .portal-title { font-size: 1.2rem; }
 .portal-card.con-foto .portal-desc { font-size: 0.88rem; line-height: 1.7; color: rgba(18,41,28,0.8); text-align: justify; text-justify: inter-word; }
-.portal-card.con-foto[style*="grid-column"] .portal-foto { height: 215px; }
-.portal-card.con-foto[style*="grid-column"] .portal-icon { top: 215px; }
+.portal-card.con-foto[style*="grid-column"] .portal-foto { height: 270px; }
+.portal-card.con-foto[style*="grid-column"] .portal-icon { top: 270px; }
+
+/* Tarjetas del inicio con ilustración en lugar de foto (Inscripción, Contacto y pagos) */
+.portal-foto.ilustra { background-size: auto 88%; background-position: center; background-color: var(--bg, #f3f5f6); }
+.portal-foto.ilustra::after { display: none; }
+.portal-foto.ilustra ~ .portal-num { color: #4a71ad; text-shadow: none; }
+.portal-foto.ilustra-cubre { background-size: cover; background-color: #000e28; }
+
+/* Tarjeta del club (Vendredi entre Amis): ilustración a la izquierda y texto a la derecha */
+.portal-card.con-foto.club { display: grid; grid-template-columns: 250px minmax(0, 1fr); column-gap: 1.8rem; padding: 0 1.6rem 0 0; align-items: start; }
+.portal-card.con-foto.club > .portal-foto { grid-column: 1; grid-row: 1 / span 7; align-self: stretch; height: auto; min-height: 100%; margin: 0; background-position: top center; }
+.portal-card.con-foto.club > .portal-foto::after { display: none; }
+.portal-card.con-foto.club > *:not(.portal-foto):not(.portal-icon):not(.portal-num) { grid-column: 2; margin-left: 0; margin-right: 0; }
+.portal-card.con-foto.club .portal-icon { left: 250px; top: 50%; transform: translate(-50%, -50%); }
+.portal-card.con-foto.club .portal-title { margin-top: 1.7rem; }
+.portal-card.con-foto.club .portal-go { margin-bottom: 1.7rem; }
+@media (max-width: 760px) {
+  .portal-card.con-foto.club { display: block; padding: 0 0 0.2rem; }
+  .portal-card.con-foto.club > .portal-foto { height: 240px; background-position: center 25%; margin-bottom: 2.3rem; }
+  .portal-card.con-foto.club > *:not(.portal-foto):not(.portal-icon):not(.portal-num) { margin-left: 1.6rem; margin-right: 1.6rem; }
+  .portal-card.con-foto.club .portal-icon { left: 1.6rem; top: 240px; transform: translateY(-50%); }
+  .portal-card.con-foto.club .portal-title { margin-top: 0; }
+}

@@ -1183,6 +1183,18 @@
             "fr": "Tournage : présentation de l’offre culturelle de l’Alliance",
             "en": "Filming: presenting the Alliance’s cultural offering"
           }
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/galeria/n-tv5-ivan-k.jpg",
+          "ratio": "1212/812",
+          "ancha": true,
+          "alt": "Miguel Tillero sonriendo junto a Ivan Kabacoff, presentador de la serie documental de TV5MONDE",
+          "pie": {
+            "es": "Con Ivan Kabacoff, presentador de la serie documental de TV5MONDE",
+            "fr": "Avec Ivan Kabacoff, présentateur de la série documentaire de TV5MONDE",
+            "en": "With Ivan Kabacoff, host of the TV5MONDE documentary series"
+          }
         }
       ]
     },

@@ -2465,6 +2465,34 @@
     "fr": "Conférence · Alliance Française et Universidad Católica de Cuenca",
     "en": "Talk · Alliance Française and Universidad Católica de Cuenca"
    }
+  },
+  {
+   "id": "n-clase-adolescentes",
+   "cat": "clases",
+   "src": "assets/images/galeria/n-clase-adolescentes.jpg",
+   "thumb": "assets/images/galeria/t/n-clase-adolescentes.jpg",
+   "w": 1214,
+   "h": 807,
+   "alt": "Miguel Tillero con un grupo de estudiantes adolescentes sonriendo en el aula",
+   "pie": {
+    "es": "Clase con adolescentes",
+    "fr": "Cours avec des adolescents",
+    "en": "Class with teenagers"
+   }
+  },
+  {
+   "id": "n-tv5-ivan-k",
+   "cat": "medios",
+   "src": "assets/images/galeria/n-tv5-ivan-k.jpg",
+   "thumb": "assets/images/galeria/t/n-tv5-ivan-k.jpg",
+   "w": 1212,
+   "h": 812,
+   "alt": "Miguel Tillero sonriendo junto a Ivan Kabacoff, presentador de la serie documental de TV5MONDE",
+   "pie": {
+    "es": "Con Ivan Kabacoff, presentador de la serie «Destination Francophonie» · TV5MONDE",
+    "fr": "Avec Ivan Kabacoff, présentateur de la série « Destination Francophonie » · TV5MONDE",
+    "en": "With Ivan Kabacoff, host of the “Destination Francophonie” series · TV5MONDE"
+   }
   }
  ]
 }
