@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Espacio del representante | Miguel Tillero</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root { --bg-color:#eef0e5; --primary-color:#8c734b; --text-dark:#1a2e24; --text-light:#5a665f;
+  --card-bg:#fff; --accent-green:#2b4535; --border:rgba(165,130,74,0.3);
+  --r-xs:8px; --r-sm:14px; --r-md:18px; --r-pill:999px;
+  --shadow-card:0 4px 20px rgba(20,45,32,0.07), 0 1px 2px rgba(20,45,32,0.05);
+  --shadow-card-hover:0 20px 44px rgba(20,45,32,0.14);
+  --gold:#a5824a; --cyan:#0d7f57; }
+* { box-sizing:border-box; }
+body { background:var(--bg-color); color:var(--text-dark); font-family:'Syne',sans-serif; margin:0; }
+nav.main-nav { background:#fff; border-bottom:1px solid rgba(43,69,53,0.2); padding:1rem 5%;
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.8rem; }
+.nav-brand { font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:600;
+  color:var(--accent-green); text-decoration:none; }
+.nav-right { display:flex; align-items:center; gap:1rem; font-family:'Space Mono',monospace; font-size:0.72rem; }
+.nav-right button { color:var(--primary-color); background:none; border:none; cursor:pointer;
+  font-family:'Space Mono',monospace; font-size:0.72rem; padding:0.7rem 0.4rem; min-height:44px; }
+main { padding:2rem 5% 4rem; max-width:1000px; margin:0 auto; }
+.hola { font-family:'Cormorant Garamond',serif; font-size:2.4rem; color:var(--accent-green);
+  margin:0 0 0.2rem; line-height:1.15; }
+.hola em { font-style:italic; color:var(--primary-color); }
+.muted { color:var(--text-light); font-size:0.9rem; line-height:1.6; }
+.panel { background:var(--card-bg); border:1px solid var(--border); border-radius:var(--r-md);
+  box-shadow:var(--shadow-card); padding:1.6rem; margin-bottom:1.6rem; }
+.panel h2 { font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:var(--accent-green); margin:0 0 1rem; }
+
+/* Selector de hijos, solo si hay más de uno */
+.hijos-nav { display:flex; gap:0.5rem; flex-wrap:wrap; margin:1.6rem 0 1.2rem; }
+.hijo-btn { font-family:'Space Mono',monospace; font-size:0.68rem; letter-spacing:0.06em;
+  text-transform:uppercase; background:transparent; border:1px solid var(--border);
+  color:var(--text-light); padding:0.7rem 1.1rem; border-radius:var(--r-pill);
+  cursor:pointer; min-height:44px; }
+.hijo-btn.activo { background:var(--accent-green); border-color:var(--accent-green); color:#eef0e5; }
+
+/* Cabecera del curso */
+.panel-curso { background:var(--accent-green); color:#eef0e5; border-radius:var(--r-md);
+  padding:1.7rem; margin-bottom:1.6rem; position:relative; overflow:hidden; box-shadow:var(--shadow-card-hover); }
+.panel-curso::before { content:''; position:absolute; left:0; top:0; right:0; height:3px;
+  background:linear-gradient(90deg, var(--gold), var(--cyan)); }
+.panel-curso h2 { font-family:'Cormorant Garamond',serif; font-size:1.75rem; color:#fff; margin:0 0 0.5rem; }
+.curso-meta { display:flex; flex-wrap:wrap; gap:0.5rem; }
+.chip { font-family:'Space Mono',monospace; font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase;
+  background:rgba(238,240,229,0.16); color:#eef0e5; padding:0.3rem 0.7rem; border-radius:var(--r-pill); }
+
+.stat-row { display:flex; gap:1.2rem; flex-wrap:wrap; margin:0.6rem 0 1.2rem; }
+.stat { background:rgba(43,69,53,0.06); border-radius:var(--r-sm); padding:0.9rem 1.3rem; min-width:120px; }
+.stat .num { font-family:'Cormorant Garamond',serif; font-size:1.8rem; color:var(--accent-green); display:block; }
+.stat .lbl { font-family:'Space Mono',monospace; font-size:0.6rem; text-transform:uppercase;
+  letter-spacing:0.06em; color:var(--text-light); }
+.stat.ok { border-left:3px solid var(--cyan); }
+.stat.no { border-left:3px solid #a13324; }
+.stat.pct { border-left:3px solid var(--gold); }
+.barra { height:10px; border-radius:var(--r-pill); background:rgba(43,69,53,0.1); overflow:hidden; margin:0 0 1.2rem; }
+.barra i { display:block; width:0; height:100%; border-radius:var(--r-pill);
+  background:linear-gradient(90deg, var(--gold), var(--cyan)); transition:width .8s cubic-bezier(.16,1,.3,1); }
+
+table { width:100%; border-collapse:collapse; font-size:0.85rem; }
+th, td { text-align:left; padding:0.6rem 0.5rem; border-bottom:1px solid var(--border); vertical-align:top; }
+th { font-family:'Space Mono',monospace; font-size:0.62rem; text-transform:uppercase;
+  letter-spacing:0.06em; color:var(--text-light); }
+.pill-si, .pill-no { display:inline-block; font-family:'Space Mono',monospace; font-size:0.6rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:0.06em; padding:0.22rem 0.65rem; border-radius:var(--r-pill); }
+.pill-si { background:rgba(13,127,87,0.12); color:var(--cyan); }
+.pill-no { background:rgba(161,51,36,0.1); color:#a13324; }
+
+/* Notas con el comentario del profesor, que es lo que de verdad quieren leer */
+.nota-card { border:1px solid var(--border); border-left:4px solid var(--gold);
+  border-radius:var(--r-sm); padding:1.1rem 1.3rem; margin-bottom:0.9rem; background:var(--card-bg); }
+.nota-top { display:flex; justify-content:space-between; align-items:baseline; gap:1rem; flex-wrap:wrap; }
+.nota-nombre { font-weight:600; color:var(--accent-green); }
+.nota-cifra { font-family:'Cormorant Garamond',serif; font-size:1.9rem; color:var(--accent-green); line-height:1; }
+.nota-fecha { font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.06em;
+  text-transform:uppercase; color:var(--text-light); }
+.nota-coment { margin:0.7rem 0 0; font-size:0.9rem; line-height:1.65; color:var(--text-light);
+  border-top:1px solid var(--border); padding-top:0.7rem; }
+.nota-coment::before { content:'Comentario del profesor'; display:block;
+  font-family:'Space Mono',monospace; font-size:0.58rem; letter-spacing:0.1em;
+  text-transform:uppercase; color:var(--primary-color); margin-bottom:0.35rem; }
+
+.clase { padding:0 0 1.1rem 1.9rem; border-left:2px solid var(--border); margin-left:0.5rem; position:relative; }
+.clase:last-child { border-left-color:transparent; padding-bottom:0; }
+.clase::before { content:''; position:absolute; left:-7px; top:4px; width:12px; height:12px;
+  border-radius:50%; background:var(--card-bg); border:2px solid var(--gold); }
+.clase .f { font-family:'Space Mono',monospace; font-size:0.62rem; letter-spacing:0.06em;
+  text-transform:uppercase; color:var(--primary-color); }
+.clase .t { font-weight:600; color:var(--accent-green); margin:0.15rem 0 0.3rem; }
+.clase .c { font-size:0.85rem; line-height:1.6; color:var(--text-light); white-space:pre-line; }
+
+.vacio { color:var(--text-light); font-size:0.9rem; font-style:italic; }
+.aviso { background:rgba(140,115,75,0.1); border-left:3px solid var(--primary-color);
+  border-radius:var(--r-sm); padding:1rem 1.2rem; font-size:0.9rem; line-height:1.65; color:var(--text-dark); }
+.solo-lectura { font-family:'Space Mono',monospace; font-size:0.58rem; letter-spacing:0.1em;
+  text-transform:uppercase; color:var(--text-light); margin-top:1.2rem; display:block; }
+@media (max-width:700px) {
+  main { padding:1.5rem 1rem 3rem; }
+  .hola { font-size:1.9rem; }
+  .stat { min-width:calc(50% - 0.6rem); }
+}
+</style>
+</head>
+<body>
+
+<nav class="main-nav">
+    <a href="index.html" class="nav-brand">Miguel Tillero · <span style="color:var(--primary-color);">Representante</span></a>
+    <div class="nav-right">
+        <span id="nav-nombre" class="muted"></span>
+        <button onclick="cerrarSesion()"><i class="fa-solid fa-right-from-bracket"></i> Salir</button>
+    </div>
+</nav>
+
+<main>
+    <div id="cargando" class="panel"><p class="muted">Cargando…</p></div>
+
+    <div id="sin-hijos" class="panel" style="display:none;">
+        <h2>Tu cuenta está lista</h2>
+        <p class="muted">Todavía no apareces vinculado a ningún estudiante. Esto pasa cuando el
+        correo con el que acabas de registrarte no es el mismo que se anotó como correo del
+        representante al inscribir a tu hijo o hija.</p>
+        <p class="muted">Escríbeme por WhatsApp con el nombre del estudiante y lo enlazo en un minuto.</p>
+        <p><a href="https://wa.me/584122465331" target="_blank" rel="noopener" class="muted">Escribirle a Miguel por WhatsApp →</a></p>
+    </div>
+
+    <div id="contenido" style="display:none;">
+        <h1 class="hola" id="saludo"></h1>
+        <p class="muted" id="subsaludo"></p>
+
+        <nav class="hijos-nav" id="hijos-nav" style="display:none;"></nav>
+
+        <section class="panel-curso" id="cab-curso">
+            <h2 id="titulo-curso"></h2>
+            <div class="curso-meta" id="curso-meta"></div>
+        </section>
+
+        <section class="panel">
+            <h2>Asistencia</h2>
+            <div class="stat-row" id="stats-asistencia"></div>
+            <div class="barra"><i id="barra-asistencia"></i></div>
+            <div id="tabla-asistencia"></div>
+        </section>
+
+        <section class="panel">
+            <h2>Resultados</h2>
+            <div id="lista-notas"></div>
+        </section>
+
+        <section class="panel">
+            <h2>Próximas clases</h2>
+            <div id="lista-clases"></div>
+        </section>
+
+        <section class="panel">
+            <h2>Pagos</h2>
+            <div class="stat-row" id="stats-pagos"></div>
+            <div id="tabla-pagos"></div>
+        </section>
+
+        <span class="solo-lectura">Este espacio es de solo lectura · cualquier duda, escríbeme por WhatsApp</span>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/js/supabase-config.js?v=1790900000"></script>
+<script src="assets/js/auth-helpers.js?v=1790900000"></script>
+<script>
+let datos = null;
+let indiceHijo = 0;
+
+function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c =>
+        ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function fechaCorta(iso) {
+    if (!iso) return '';
+    const [a, m, d] = String(iso).slice(0, 10).split('-').map(Number);
+    return new Date(a, m - 1, d).toLocaleDateString('es-MX',
+        { weekday: 'short', day: 'numeric', month: 'short' });
+}
+function dinero(n) {
+    return '$' + Number(n || 0).toLocaleString('es-MX', { minimumFractionDigits: 0 });
+}
+
+function pintarHijo() {
+    const h = (datos.hijos || [])[indiceHijo];
+    if (!h) return;
+
+    /* Cabecera del curso */
+    const c = h.curso;
+    document.getElementById('titulo-curso').textContent =
+        c ? c.nombre : 'Sin curso asignado todavía';
+    const chips = [];
+    if (c) {
+        if (c.horario)   chips.push(c.horario);
+        if (c.modalidad) chips.push(c.modalidad);
+        if (c.inicio)    chips.push('Del ' + fechaCorta(c.inicio) + ' al ' + fechaCorta(c.fin));
+        if (c.estado_inscripcion && c.estado_inscripcion !== 'activa')
+            chips.push('Inscripción ' + c.estado_inscripcion);
+    }
+    document.getElementById('curso-meta').innerHTML =
+        chips.map(x => '<span class="chip">' + esc(x) + '</span>').join('');
+
+    /* Asistencia */
+    const a = h.asistencia || { presentes: 0, faltas: 0, total: 0, detalle: [] };
+    const pct = a.total ? Math.round(a.presentes * 100 / a.total) : 0;
+    document.getElementById('stats-asistencia').innerHTML =
+        '<div class="stat ok"><span class="num">' + a.presentes + '</span><span class="lbl">Presentes</span></div>' +
+        '<div class="stat no"><span class="num">' + a.faltas + '</span><span class="lbl">Faltas</span></div>' +
+        '<div class="stat pct"><span class="num">' + pct + '%</span><span class="lbl">Asistencia</span></div>';
+    setTimeout(() => { document.getElementById('barra-asistencia').style.width = pct + '%'; }, 60);
+
+    const det = a.detalle || [];
+    document.getElementById('tabla-asistencia').innerHTML = det.length
+        ? '<table><thead><tr><th>Fecha</th><th>Clase</th><th>¿Asistió?</th></tr></thead><tbody>' +
+          det.map(d => '<tr><td>' + esc(fechaCorta(d.fecha)) + '</td><td>' + esc(d.tema || '') + '</td>' +
+            '<td>' + (d.presente ? '<span class="pill-si">Sí</span>' : '<span class="pill-no">No</span>') +
+            (d.observacion ? '<div class="muted">' + esc(d.observacion) + '</div>' : '') +
+            '</td></tr>').join('') + '</tbody></table>'
+        : '<p class="vacio">Todavía no se ha registrado asistencia.</p>';
+
+    /* Notas, con el comentario destacado */
+    const notas = h.notas || [];
+    document.getElementById('lista-notas').innerHTML = notas.length
+        ? notas.map(n =>
+            '<div class="nota-card">' +
+              '<div class="nota-top">' +
+                '<div><div class="nota-nombre">' + esc(n.evaluacion) + '</div>' +
+                '<div class="nota-fecha">' + esc(fechaCorta(n.fecha)) + '</div></div>' +
+                '<div class="nota-cifra">' + (n.nota == null ? '—' : esc(n.nota)) + '</div>' +
+              '</div>' +
+              (n.comentario ? '<p class="nota-coment">' + esc(n.comentario) + '</p>' : '') +
+            '</div>').join('')
+        : '<p class="vacio">Todavía no hay resultados publicados. Aparecerán aquí después de cada evaluación, con mi comentario.</p>';
+
+    /* Próximas clases */
+    const clases = h.proximas_clases || [];
+    document.getElementById('lista-clases').innerHTML = clases.length
+        ? clases.map(s =>
+            '<div class="clase"><div class="f">' + esc(fechaCorta(s.fecha)) + '</div>' +
+            '<div class="t">' + esc(s.tema || '') + '</div>' +
+            '<div class="c">' + esc(s.contenido || '') + '</div></div>').join('')
+        : '<p class="vacio">No hay más clases programadas por ahora.</p>';
+
+    /* Pagos */
+    const p = h.pagos || { pagado: 0, por_cobrar: 0, detalle: [] };
+    document.getElementById('stats-pagos').innerHTML =
+        '<div class="stat ok"><span class="num">' + dinero(p.pagado) + '</span><span class="lbl">Pagado</span></div>' +
+        (Number(p.por_cobrar) > 0
+            ? '<div class="stat no"><span class="num">' + dinero(p.por_cobrar) + '</span><span class="lbl">Pendiente</span></div>'
+            : '');
+    const dp = (p.detalle || []).filter(x => x && x.monto != null);
+    document.getElementById('tabla-pagos').innerHTML = dp.length
+        ? '<table><thead><tr><th>Concepto</th><th>Monto</th><th>Estado</th><th>Fecha</th></tr></thead><tbody>' +
+          dp.map(x => '<tr><td>' + esc(x.concepto || '—') + '</td>' +
+            '<td>' + dinero(x.monto) + ' ' + esc(x.moneda || '') + '</td>' +
+            '<td>' + esc(x.estado) + '</td>' +
+            '<td>' + esc(x.fecha ? fechaCorta(x.fecha) : '—') + '</td></tr>').join('') +
+          '</tbody></table>'
+        : '<p class="vacio">Sin pagos registrados todavía.</p>';
+}
+
+function pintarSelectorHijos() {
+    const hijos = datos.hijos || [];
+    const nav = document.getElementById('hijos-nav');
+    if (hijos.length < 2) { nav.style.display = 'none'; return; }
+    nav.style.display = 'flex';
+    nav.innerHTML = hijos.map((h, i) =>
+        '<button class="hijo-btn' + (i === indiceHijo ? ' activo' : '') + '" data-i="' + i + '">' +
+        esc(h.nombre) + '</button>').join('');
+    nav.querySelectorAll('.hijo-btn').forEach(b => {
+        b.addEventListener('click', () => {
+            indiceHijo = Number(b.dataset.i);
+            pintarSelectorHijos();
+            pintarHijo();
+        });
+    });
+}
+
+(async function iniciar() {
+    const contexto = await requerirSesion('representante');
+    if (!contexto) return;
+
+    document.getElementById('nav-nombre').textContent = contexto.perfil.nombre_completo || '';
+
+    const { data, error } = await supabaseClient.rpc('panel_representante');
+    document.getElementById('cargando').style.display = 'none';
+
+    if (error) {
+        document.getElementById('sin-hijos').style.display = 'block';
+        document.getElementById('sin-hijos').querySelector('h2').textContent = 'No pude cargar la información';
+        document.getElementById('sin-hijos').querySelector('p').textContent = error.message;
+        return;
+    }
+
+    datos = data || {};
+    const hijos = datos.hijos || [];
+
+    if (!hijos.length) { document.getElementById('sin-hijos').style.display = 'block'; return; }
+
+    const nombre = (datos.representante && datos.representante.nombre) || '';
+    document.getElementById('saludo').innerHTML =
+        'Bienvenido a tu espacio, <em>' + esc(nombre.split(' ')[0] || '') + '</em>';
+    document.getElementById('subsaludo').textContent = hijos.length === 1
+        ? 'Aquí puedes seguir el avance de ' + hijos[0].nombre + ' sin tener que preguntar.'
+        : 'Aquí puedes seguir el avance de tus ' + hijos.length + ' estudiantes.';
+
+    document.getElementById('contenido').style.display = 'block';
+    pintarSelectorHijos();
+    pintarHijo();
+})();
+</script>
+</body>
+</html>

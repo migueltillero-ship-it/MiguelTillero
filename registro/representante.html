@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuenta de representante | Miguel Tillero</title>
+<meta name="description" content="Crea tu cuenta de padre, madre o representante para seguir el avance de tu hijo o hija.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root { --bg-color:#eef0e5; --primary-color:#8c734b; --primary-hover:#6f552f; --text-dark:#1a2e24;
+  --text-light:#5a665f; --card-bg:rgba(255,255,255,0.85); --accent-green:#2b4535;
+  --border:rgba(165,130,74,0.38); --r-sm:14px; --r-md:18px; --r-pill:999px;
+  --shadow-card:0 4px 20px rgba(20,45,32,0.07), 0 1px 2px rgba(20,45,32,0.05); }
+* { box-sizing:border-box; }
+body { background:var(--bg-color); color:var(--text-dark); font-family:'Syne',sans-serif; margin:0;
+  display:flex; flex-direction:column; min-height:100vh; }
+nav.main-nav { background:#fff; border-bottom:1px solid rgba(43,69,53,0.2); padding:1rem 5%;
+  display:flex; justify-content:space-between; align-items:center; }
+.nav-brand { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:600;
+  color:var(--accent-green); text-decoration:none; }
+main { padding:3.5rem 5%; max-width:640px; margin:0 auto; flex-grow:1; width:90%; }
+.sec-head { text-align:center; margin-bottom:2.2rem; }
+.eyebrow { font-family:'Space Mono',monospace; font-size:0.7rem; letter-spacing:0.16em;
+  text-transform:uppercase; color:var(--primary-color); margin-bottom:0.5rem; display:block; }
+.sec-title { font-family:'Cormorant Garamond',serif; font-size:2.6rem; font-weight:300;
+  color:var(--accent-green); margin:0; }
+.lede { max-width:520px; margin:1rem auto 0; text-align:center; color:var(--text-light);
+  line-height:1.7; font-size:0.95rem; }
+.card { background:var(--card-bg); padding:2.2rem; border:1px solid var(--border);
+  border-radius:var(--r-md); box-shadow:var(--shadow-card); }
+.form-field { margin-bottom:1.1rem; }
+.form-field label { display:block; font-family:'Space Mono',monospace; font-size:0.7rem;
+  letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-green); margin-bottom:0.45rem; }
+.form-field input { width:100%; padding:0.85rem; border:1px solid var(--border); border-radius:8px;
+  font-family:'Syne',sans-serif; font-size:0.95rem; background:#fff; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+@media (max-width:560px) { .form-row { grid-template-columns:1fr; } }
+.btn-gold { display:inline-flex; align-items:center; justify-content:center; gap:0.5rem;
+  background:var(--primary-color); color:#fff; padding:0.95rem 1.6rem; font-family:'Syne',sans-serif;
+  font-size:0.92rem; border-radius:var(--r-pill); font-weight:600; border:none; cursor:pointer;
+  width:100%; min-height:48px; transition:background .3s; }
+.btn-gold:hover { background:var(--primary-hover); }
+.btn-gold:disabled { opacity:0.6; cursor:default; }
+.hint { font-size:0.8rem; color:var(--text-light); line-height:1.6; margin-top:0.4rem; }
+.aviso { background:rgba(140,115,75,0.12); border-left:3px solid var(--primary-color);
+  border-radius:var(--r-sm); padding:1rem 1.2rem; font-size:0.88rem; line-height:1.65;
+  margin-bottom:1.6rem; color:var(--text-dark); }
+.msg { display:none; padding:0.9rem 1.1rem; border-radius:var(--r-sm); font-size:0.9rem;
+  line-height:1.6; margin-top:1.2rem; }
+.msg.error { background:rgba(161,51,36,0.1); color:#a13324; }
+.msg.ok { background:rgba(13,127,87,0.1); color:#0d7f57; }
+.listo { text-align:center; }
+.listo i { font-size:2.4rem; color:var(--primary-color); }
+.listo h2 { font-family:'Cormorant Garamond',serif; font-size:1.8rem; color:var(--accent-green);
+  margin:1rem 0 0.5rem; }
+.volver { display:block; text-align:center; margin-top:1.8rem; font-family:'Space Mono',monospace;
+  font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-light);
+  text-decoration:none; padding:0.8rem; }
+</style>
+</head>
+<body>
+
+<nav class="main-nav">
+    <a href="../index.html" class="nav-brand">Miguel <span style="color:var(--primary-color);">Tillero</span></a>
+</nav>
+
+<main>
+    <div class="sec-head">
+        <span class="eyebrow">Padres, madres y representantes</span>
+        <h1 class="sec-title">Tu propia cuenta</h1>
+        <p class="lede">Para seguir el avance de tu hijo o hija sin compartir su contraseña
+        y sin tener que preguntar: asistencia, resultados con mis comentarios, calendario y pagos.</p>
+    </div>
+
+    <div class="card" id="tarjeta-form">
+        <div class="aviso">
+            <strong>Usa el mismo correo</strong> que se anotó como correo del representante al
+            inscribir al estudiante. Es lo que permite que tu cuenta encuentre sola a tu hijo o hija.
+            Si no lo recuerdas o no cuadra, créala igual y escríbeme: lo enlazo en un minuto.
+        </div>
+
+        <div id="aviso-config"></div>
+
+        <form id="form-rep" novalidate>
+            <div class="form-field">
+                <label for="f-nombre">Tu nombre completo *</label>
+                <input type="text" id="f-nombre" required autocomplete="name">
+            </div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="f-email">Tu correo electrónico *</label>
+                    <input type="email" id="f-email" required autocomplete="email">
+                </div>
+                <div class="form-field">
+                    <label for="f-tel">Teléfono / WhatsApp</label>
+                    <input type="tel" id="f-tel" autocomplete="tel" placeholder="+52 …">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="f-pass">Contraseña *</label>
+                    <input type="password" id="f-pass" required minlength="6" autocomplete="new-password">
+                </div>
+                <div class="form-field">
+                    <label for="f-pass2">Confirmar contraseña *</label>
+                    <input type="password" id="f-pass2" required minlength="6" autocomplete="new-password">
+                </div>
+            </div>
+            <p class="hint">Mínimo 6 caracteres. Será solo tuya: el estudiante tiene la suya aparte.</p>
+
+            <button type="submit" class="btn-gold" id="btn-enviar">
+                <i class="fa-solid fa-user-plus"></i> Crear mi cuenta
+            </button>
+            <div class="msg" id="msg-form"></div>
+        </form>
+    </div>
+
+    <div class="card listo" id="tarjeta-listo" style="display:none;">
+        <i class="fa-solid fa-envelope-circle-check"></i>
+        <h2>Revisa tu correo</h2>
+        <p class="lede">Te envié un enlace de verificación. Confírmalo y ya podrás entrar a tu espacio.</p>
+        <p class="hint">Si no lo ves en la bandeja de entrada, revisa la carpeta de correo no deseado.</p>
+        <a href="../login.html" class="btn-gold" style="margin-top:1.2rem;">Ir a iniciar sesión</a>
+    </div>
+
+    <a href="../login.html" class="volver">← Ya tengo cuenta</a>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../assets/js/supabase-config.js?v=1790900000"></script>
+<script src="../assets/js/auth-helpers.js?v=1790900000"></script>
+<script>
+function mostrarMsg(el, texto, tipo) {
+    el.textContent = texto;
+    el.className = 'msg ' + (tipo || 'error');
+    el.style.display = 'block';
+}
+
+if (!supabaseConfigurado) mostrarAvisoSinConfigurar('aviso-config');
+
+/* Si el enlace trae ?nombre= o ?correo=, los dejamos puestos: un representante
+   que llega desde un mensaje privado no tendría por qué teclearlos. */
+(function prellenar() {
+    const q = new URLSearchParams(location.search);
+    if (q.get('nombre')) document.getElementById('f-nombre').value = q.get('nombre');
+    if (q.get('correo')) document.getElementById('f-email').value = q.get('correo');
+})();
+
+document.getElementById('form-rep').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const msgEl = document.getElementById('msg-form');
+    msgEl.style.display = 'none';
+
+    if (!supabaseConfigurado) {
+        mostrarMsg(msgEl, 'La plataforma todavía no está conectada.');
+        return;
+    }
+
+    const nombre = document.getElementById('f-nombre').value.trim();
+    const email  = document.getElementById('f-email').value.trim();
+    const pass   = document.getElementById('f-pass').value;
+    const pass2  = document.getElementById('f-pass2').value;
+
+    if (!nombre || !email) { mostrarMsg(msgEl, 'Faltan tu nombre o tu correo.'); return; }
+    if (pass !== pass2)    { mostrarMsg(msgEl, 'Las contraseñas no coinciden.'); return; }
+    if (pass.length < 6)   { mostrarMsg(msgEl, 'La contraseña necesita al menos 6 caracteres.'); return; }
+
+    const btn = document.getElementById('btn-enviar');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Creando…';
+
+    const { error } = await supabaseClient.auth.signUp({
+        email: email,
+        password: pass,
+        options: {
+            data: {
+                nombre_completo: nombre,
+                telefono: document.getElementById('f-tel').value.trim(),
+                /* Esto es lo que hace que el alta cree un representante y no
+                   un estudiante, y que busque a sus hijos por el correo. */
+                es_representante: true
+            },
+            emailRedirectTo: new URL('../login.html', window.location.href).href
+        }
+    });
+
+    if (error) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-user-plus"></i> Crear mi cuenta';
+        const yaExiste = /already registered|User already registered/i.test(error.message);
+        mostrarMsg(msgEl, yaExiste
+            ? 'Ya existe una cuenta con ese correo. Entra desde «Ya tengo cuenta», y si no recuerdas la contraseña usa «¿Olvidaste tu contraseña?».'
+            : error.message);
+        return;
+    }
+
+    document.getElementById('tarjeta-form').style.display = 'none';
+    document.getElementById('tarjeta-listo').style.display = 'block';
+});
+</script>
+</body>
+</html>
