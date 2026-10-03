@@ -435,7 +435,20 @@ async function boot(){
     const faltan = (ins || []).map(i => i.estudiante_id).filter(id => !bols.some(b => b.estudiante_id === id));
     if(faltan.length){
       const { data:perfiles } = await sb.from('profiles').select('id, nombre_completo, representante_nombre, representante_telefono, telefono').in('id', faltan);
-      const nuevos = (perfiles || []).map(p => ({ grupo:GRUPO, alumno:p.nombre_completo || '(sin nombre)', estudiante_id:p.id, representante:p.representante_nombre, telefono:p.representante_telefono || p.telefono }));
+      // Si ya tiene boletín sin cuenta (lo creó la prueba escrita o se agregó a
+      // mano), se enlaza ese por el primer nombre en vez de crear otro.
+      const norm = t => String(t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim().split(/\s+/)[0];
+      const sueltos = [];
+      for(const p of perfiles || []){
+        const b = bols.find(x => !x.estudiante_id && norm(x.alumno) && norm(x.alumno) === norm(p.nombre_completo));
+        if(!b){ sueltos.push(p); continue; }
+        const cambios = { estudiante_id:p.id };
+        if(!b.representante && p.representante_nombre) cambios.representante = p.representante_nombre;
+        if(!b.telefono && (p.representante_telefono || p.telefono)) cambios.telefono = p.representante_telefono || p.telefono;
+        const { error:e2 } = await sb.from('boletines').update(cambios).eq('id', b.id);
+        if(!e2) Object.assign(b, cambios);
+      }
+      const nuevos = sueltos.map(p => ({ grupo:GRUPO, alumno:p.nombre_completo || '(sin nombre)', estudiante_id:p.id, representante:p.representante_nombre, telefono:p.representante_telefono || p.telefono }));
       if(nuevos.length){ const r = await sb.from('boletines').insert(nuevos).select(); bols = bols.concat(r.data || []); }
     }
   }
