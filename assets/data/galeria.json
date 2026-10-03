@@ -2297,6 +2297,146 @@
     "fr": "Enregistrement d’un podcast",
     "en": "Recording a podcast"
    }
+  },
+  {
+   "id": "n-clase-magistral-60",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/n-clase-magistral-60.jpg",
+   "thumb": "assets/images/galeria/t/n-clase-magistral-60.jpg",
+   "w": 776,
+   "h": 486,
+   "alt": "Miguel Tillero con más de sesenta participantes tras una clase magistral en Cuenca",
+   "pie": {
+    "es": "Clase magistral con más de 60 participantes · Cuenca, 2022",
+    "fr": "Cours magistral avec plus de 60 participants · Cuenca, 2022",
+    "en": "Lecture with more than 60 participants · Cuenca, 2022"
+   }
+  },
+  {
+   "id": "n-grupo-cuenca-2022",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/n-grupo-cuenca-2022.jpg",
+   "thumb": "assets/images/galeria/t/n-grupo-cuenca-2022.jpg",
+   "w": 1162,
+   "h": 745,
+   "alt": "Miguel Tillero con un grupo de participantes posando divertidos en un auditorio de Cuenca",
+   "pie": {
+    "es": "Con el grupo, al terminar la charla · Cuenca, 2022",
+    "fr": "Avec le groupe, à la fin de la conférence · Cuenca, 2022",
+    "en": "With the group after the talk · Cuenca, 2022"
+   }
+  },
+  {
+   "id": "n-grupo-charla-2022",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/n-grupo-charla-2022.jpg",
+   "thumb": "assets/images/galeria/t/n-grupo-charla-2022.jpg",
+   "w": 767,
+   "h": 451,
+   "alt": "Miguel Tillero con participantes de una charla, haciendo el signo de la paz",
+   "pie": {
+    "es": "Participantes de la charla · Cuenca, 2022",
+    "fr": "Participants à la conférence · Cuenca, 2022",
+    "en": "Talk participants · Cuenca, 2022"
+   }
+  },
+  {
+   "id": "n-serpent-alphabetique",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/n-serpent-alphabetique.jpg",
+   "thumb": "assets/images/galeria/t/n-serpent-alphabetique.jpg",
+   "w": 767,
+   "h": 353,
+   "alt": "Participantes alineados frente a la diapositiva «Le Serpent Alphabétique» durante una actividad en el Centro de Idiomas",
+   "pie": {
+    "es": "Actividad «Le Serpent Alphabétique» · Centro de Idiomas, Universidad Católica de Cuenca, 2022",
+    "fr": "Activité « Le Serpent Alphabétique » · Centre de langues, Universidad Católica de Cuenca, 2022",
+    "en": "“Le Serpent Alphabétique” activity · Language Center, Universidad Católica de Cuenca, 2022"
+   }
+  },
+  {
+   "id": "n-charla-micro-2022",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/n-charla-micro-2022.jpg",
+   "thumb": "assets/images/galeria/t/n-charla-micro-2022.jpg",
+   "w": 703,
+   "h": 399,
+   "alt": "Miguel Tillero con micrófono frente a los asistentes de una charla, con el logo de la Alianza Francesa en pantalla",
+   "pie": {
+    "es": "Charla en el Centro de Idiomas · Universidad Católica de Cuenca, 2022",
+    "fr": "Conférence au Centre de langues · Universidad Católica de Cuenca, 2022",
+    "en": "Talk at the Language Center · Universidad Católica de Cuenca, 2022"
+   }
+  },
+  {
+   "id": "n-conferencia-auditorio",
+   "cat": "clases",
+   "src": "assets/images/galeria/n-conferencia-auditorio.jpg",
+   "thumb": "assets/images/galeria/t/n-conferencia-auditorio.jpg",
+   "w": 768,
+   "h": 401,
+   "alt": "Miguel Tillero con micrófono ante un auditorio lleno, con el público de pie y los brazos en alto",
+   "pie": {
+    "es": "Conferencia · el público de pie",
+    "fr": "Conférence · le public debout",
+    "en": "Lecture · the audience on its feet"
+   }
+  },
+  {
+   "id": "n-entrega-diploma",
+   "cat": "clases",
+   "src": "assets/images/galeria/n-entrega-diploma.jpg",
+   "thumb": "assets/images/galeria/t/n-entrega-diploma.jpg",
+   "w": 756,
+   "h": 350,
+   "alt": "Entrega de un diploma en un escenario; Miguel Tillero sostiene un certificado a la derecha",
+   "pie": {
+    "es": "Entrega de diplomas",
+    "fr": "Remise des diplômes",
+    "en": "Diploma ceremony"
+   }
+  },
+  {
+   "id": "n-formacion-docente-1",
+   "cat": "clases",
+   "src": "assets/images/galeria/n-formacion-docente-1.jpg",
+   "thumb": "assets/images/galeria/t/n-formacion-docente-1.jpg",
+   "w": 775,
+   "h": 535,
+   "alt": "Miguel Tillero dirige una sesión de formación docente frente a un grupo de profesores con una presentación proyectada",
+   "pie": {
+    "es": "Formación docente · taller con profesores",
+    "fr": "Formation d’enseignants · atelier",
+    "en": "Teacher training · workshop"
+   }
+  },
+  {
+   "id": "n-formacion-docente-2",
+   "cat": "clases",
+   "src": "assets/images/galeria/n-formacion-docente-2.jpg",
+   "thumb": "assets/images/galeria/t/n-formacion-docente-2.jpg",
+   "w": 765,
+   "h": 361,
+   "alt": "Grupo de profesores sentados en mesas durante una sesión de formación docente",
+   "pie": {
+    "es": "Formación docente · trabajo en mesas",
+    "fr": "Formation d’enseignants · travail en groupes",
+    "en": "Teacher training · table work"
+   }
+  },
+  {
+   "id": "n-conferencia-charla",
+   "cat": "clases",
+   "src": "assets/images/galeria/n-conferencia-charla.jpg",
+   "thumb": "assets/images/galeria/t/n-conferencia-charla.jpg",
+   "w": 784,
+   "h": 383,
+   "alt": "Miguel Tillero con micrófono dando una charla ante los asistentes, con el logo de la Alianza Francesa en pantalla",
+   "pie": {
+    "es": "Charla · Alianza Francesa y Centro de Idiomas",
+    "fr": "Conférence · Alliance Française et Centre de langues",
+    "en": "Talk · Alliance Française and Language Center"
+   }
   }
  ]
 }
