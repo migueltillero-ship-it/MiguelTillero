@@ -124,3 +124,8 @@ main.login-main {
   background-image: linear-gradient(to top, rgba(10,22,16,0.4) 0%, rgba(10,22,16,0) 60%), var(--fondo);
 }
 .hero-pagina .eyebrow { display: block; font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; }
+
+/* Saludo dentro del banner (panel del representante) */
+.hero-pagina .hola em { color: #d9bc80 !important; font-style: italic; }
+.hero-pagina .muted { color: rgba(255,255,255,0.9) !important; font-size: 0.95rem; }
+.hero-pagina.en-tarjeta { margin: -3rem -2.5rem 1.8rem; border-radius: 18px 18px 0 0; min-height: 150px; }
