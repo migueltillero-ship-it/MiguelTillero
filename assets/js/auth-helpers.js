@@ -248,6 +248,7 @@ function pedirCredencialesEnPagina(rolRequerido, detalle) {
 function destinoParaRol(rol) {
   if (rol === 'admin') return 'admin.html';
   if (rol === 'docente') return 'panel-docente.html';
+  if (rol === 'representante') return 'panel-representante.html';
   return 'panel-estudiante.html';
 }
 
