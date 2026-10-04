@@ -1270,9 +1270,9 @@ section::after {
   position: absolute; inset: 0; z-index: 2; pointer-events: none;
   background: radial-gradient(
     ellipse 90% 90% at 50% 50%,
-    transparent 40%,
-    rgba(0,0,0,0.35) 70%,
-    rgba(0,0,0,0.75) 100%
+    transparent 58%,
+    rgba(0,0,0,0.16) 82%,
+    rgba(0,0,0,0.42) 100%
   );
 }
 /* Overlay con branding sobre el vídeo */
@@ -1588,7 +1588,7 @@ body.intro-active { overflow: hidden; }
   opacity: 1;                          /* FASE 1: pantalla completa, brillo total */
   transition: opacity 1.4s ease;
 }
-#video-intro.dimmed #intro-video { opacity: 0.42; }
+#video-intro.dimmed #intro-video { opacity: 0.72; }
 /* FASE 2: atenuado al aparecer monograma */
 #video-intro.entered #intro-video { opacity: 1; }
 /* FASE 3: brillo total tras Entrar */

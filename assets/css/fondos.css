@@ -172,7 +172,7 @@ body:has(#hero.hero-rotativo) #nav:not(.scrolled) .ctrl-btn.active { background:
   filter: blur(34px) brightness(0.85) saturate(1.1);
 }
 .hero-slide.retrato img {
-  position: absolute; z-index: 1; right: 9%; top: 50%; transform: translateY(-50%);
+  position: absolute; z-index: 1; right: var(--lado); top: 50%; transform: translateY(-50%);
   max-height: 80%; max-width: 40vw; width: auto; height: auto;
   border-radius: 22px; box-shadow: 0 30px 70px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.35);
 }
@@ -280,7 +280,7 @@ body:has(#hero.hero-rotativo) #nav:not(.scrolled) .ctrl-btn.active { background:
 .portal-fila { position: relative; width: 100vw; margin-left: calc(50% - 50vw); }
 .portal-fila .portal-grid {
   display: flex; gap: 1.2rem; overflow-x: auto; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch;
-  padding: 1.3rem max(1.2rem, calc(50vw - 528px)) 1.9rem; scroll-padding-inline: max(1.2rem, calc(50vw - 528px));
+  padding: 1.3rem var(--lado) 1.9rem; scroll-padding-inline: var(--lado);
   scrollbar-width: thin; scrollbar-color: rgba(165,130,74,0.6) transparent;
 }
 .portal-fila .portal-grid::-webkit-scrollbar { height: 8px; }
@@ -329,3 +329,13 @@ body:has(#hero.hero-rotativo) #nav:not(.scrolled) .ctrl-btn.active { background:
   #hero.hero-rotativo .hud-data-box .row { flex-wrap: wrap; gap: 0.2rem 1rem; }
   #hero.hero-rotativo .hud-data-box .row .val { text-align: left; }
 }
+
+/* ── Un mismo margen lateral: menú, texto del hero, foto y fila de tarjetas ── */
+:root { --lado: clamp(1.25rem, 4.5vw, 6rem); }
+#hero.hero-rotativo > .container { width: 100%; max-width: none; margin: 0; padding-left: var(--lado); padding-right: var(--lado); }
+@media (min-width: 641px) {
+  body #nav, body #nav.scrolled { padding-left: var(--lado); padding-right: var(--lado); }
+}
+@media (min-width: 1700px) { .container { max-width: 1360px; } }
+.portal-flecha.izq { left: calc(var(--lado) * 0.4); }
+.portal-flecha.der { right: calc(var(--lado) * 0.4); }
