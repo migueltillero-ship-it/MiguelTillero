@@ -11,10 +11,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="assets/css/video-carrusel.css?v=41">
 <link rel="stylesheet" href="assets/css/fondos.css?v=69">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+<!-- three.js y Vanta (fondo 3D) ya no se piden aquí: se cargan al terminar la intro, ver arrancarVanta() -->
 
-<link rel="stylesheet" href="assets/css/sitio.css?v=45">
+<link rel="stylesheet" href="assets/css/sitio.css?v=46">
 <style>
 .services-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(210px,1fr));
@@ -171,7 +170,7 @@
 #intro-video { object-fit: cover !important; width: 100vw !important; height: 100vh !important; }
 #intro-monogram, #intro-title, #intro-sub, #intro-divider { display: none !important; }
 .intro-brand { justify-content: flex-end !important; padding-bottom: 12vh !important; }
-.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Space Mono', monospace !important; font-size: 0.82rem !important; letter-spacing: 0.25em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
+.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Space Mono', monospace !important; font-size: 0.82rem !important; letter-spacing: 0.25em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: none !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
 .intro-skip:hover { background: rgba(201,169,110,0.2) !important; border-color: #a5824a !important; color: #a5824a !important; transform: scale(1.05); }
 </style>
 </head>
@@ -735,15 +734,27 @@ function initVanta() {
     return true;
   }
 }
-/* Intentar inicializar Vanta, reintentando hasta que los CDN carguen */
-(function tryVanta(n) {
-  if (initVanta()) return;
-  if (n > 0) setTimeout(function(){ tryVanta(n-1); }, 250);
-  else {
-    var vb = document.getElementById('vanta-bg');
-    if (vb) vb.style.background = 'var(--bg-grad)';
-  }
-})(20);
+/* El fondo 3D no se descarga ni se dibuja mientras suena el video de entrada:
+   las dos librerías (~700 KB) competían con el video por la red y el WebGL
+   por la tarjeta gráfica, y el video se entrecortaba. Arranca al cerrar la intro. */
+var vantaArrancado = false;
+function cargarScriptVanta(src, listo) {
+  var s = document.createElement('script');
+  s.src = src; s.onload = listo;
+  document.head.appendChild(s);          /* si falla, queda el degradado del CSS */
+}
+window.arrancarVanta = function () {
+  if (vantaArrancado) return;
+  vantaArrancado = true;
+  cargarScriptVanta('https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js', function () {
+    cargarScriptVanta('https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js', initVanta);
+  });
+};
+(function () {
+  var introPendiente = true;
+  try { introPendiente = sessionStorage.getItem('introVisto') !== 'true'; } catch (e) {}
+  if (!introPendiente) window.arrancarVanta();
+})();
 
 /* ── NAV ─────────────────────────────────── */
 window.addEventListener('scroll', () => {
@@ -1228,7 +1239,7 @@ const bgAudio = document.getElementById('bg-audio');
     slides[cur].classList.add('on'); dots.children[cur].classList.add('on');
     load((cur + 1) % slides.length);
   }
-  function restart(){ clearInterval(timer); timer = setInterval(function(){ show((cur + 1) % slides.length); }, 6500); }
+  function restart(){ clearInterval(timer); timer = setInterval(function(){ if (document.body.classList.contains('intro-active')) return; show((cur + 1) % slides.length); }, 6500); }
   window.addEventListener('load', function(){ load(1); restart(); });
   var hero = document.getElementById('hero');
   if (hero){
@@ -1336,6 +1347,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
   if (!introEl || !introVid) {
     document.body.classList.remove('intro-active');
+    if (window.arrancarVanta) window.arrancarVanta();
     return;
   }
 
@@ -1347,6 +1359,7 @@ window.addEventListener('DOMContentLoaded', function() {
   if (yaVisto) {
     if (introEl.parentNode) introEl.parentNode.removeChild(introEl);
     document.body.classList.remove('intro-active');
+    if (window.arrancarVanta) window.arrancarVanta();
     return;
   }
 
@@ -1429,6 +1442,7 @@ window.addEventListener('DOMContentLoaded', function() {
     if (safetyT1) clearTimeout(safetyT1);
     if (introEl) introEl.classList.add('fade-out');
     document.body.classList.remove('intro-active');
+    if (window.arrancarVanta) window.arrancarVanta();
 
     /* La música de fondo entra sola en cuanto termina el vídeo de intro. */
     if (typeof window.startBgMusic === 'function') window.startBgMusic();
@@ -1794,7 +1808,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
   /* Auto-scroll continuo (pausa al hover/drag) */
   var autoScroll = function() {
-    if (isDown) return;
+    if (isDown || document.body.classList.contains('intro-active')) return;
     track.scrollLeft += 0.4;
     if (track.scrollLeft >= track.scrollWidth / 2) {
       track.scrollLeft = 0;

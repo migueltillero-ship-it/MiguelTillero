@@ -1358,6 +1358,9 @@ section::after {
 }
 /* Mientras el vídeo intro está activo, bloquear scroll */
 body.intro-active { overflow: hidden; }
+/* …y no pintar el resto de la página: lo que hay debajo no se ve, y dibujarlo
+   (fondo animado, hero, tarjetas) le quita fluidez al video. Se muestra al cerrar la intro. */
+body.intro-active > *:not(#video-intro):not(#cursor-dot):not(#cursor-ring) { visibility: hidden; }
 /* ════ SECCIÓN INSCRIPCIÓN ════ */
 #inscripcion { padding: 6rem 0; background: rgba(13,89,58,0.04); position: relative; z-index: 10; }
 .insc-intro {
@@ -1544,14 +1547,14 @@ body.intro-active { overflow: hidden; }
 /* ════ BOTÓN ENTRAR (intro) ════ */
 .intro-enter-btn {
   margin-top: 1.8rem; display: inline-flex; align-items: center; gap: 1rem;
-  background: rgba(201,169,110,0.06);
+  background: rgba(4,16,8,0.5);          /* sin backdrop-filter: desenfocar sobre un video en marcha lo entrecorta */
   border: 1px solid rgba(201,169,110,0.5);
   color: var(--gold2); cursor: pointer; pointer-events: auto;
   padding: 1rem 2.5rem;
   font-family: 'Space Mono', monospace; font-size: 0.83rem;
   letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700;
   transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
-  backdrop-filter: blur(8px); position: relative; overflow: hidden;
+  position: relative; overflow: hidden;
   opacity: 0; transform: translateY(20px);
 }
 .intro-enter-btn.show { opacity: 1; transform: translateY(0); }
