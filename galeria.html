@@ -9,13 +9,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="assets/css/video-carrusel.css">
+<link rel="stylesheet" href="assets/css/video-carrusel.css?v=41">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 
-<link rel="stylesheet" href="assets/css/sitio.css?v=2">
-<link rel="stylesheet" href="assets/css/fondos.css?v=2">
-<link rel="stylesheet" href="assets/css/album.css?v=1">
+<link rel="stylesheet" href="assets/css/sitio.css?v=44">
+<link rel="stylesheet" href="assets/css/fondos.css?v=46">
+<link rel="stylesheet" href="assets/css/album.css?v=41">
 <style>
 .hero-langs {
   display: flex; gap: 1.5rem; margin-bottom: 2.5rem;
@@ -44,7 +44,7 @@
   position: absolute; left: 0; right: 0; bottom: 0;
   background: linear-gradient(to top, rgba(2,12,6,0.88) 15%, transparent 100%);
   padding: 2.4rem 0.9rem 0.7rem;
-  font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.03em;
+  font-family: 'Space Mono', monospace; font-size: 0.83rem; letter-spacing: 0.03em;
   line-height: 1.35; color: rgba(255,255,255,0.92);
   z-index: 2; pointer-events: none;
 }
@@ -58,12 +58,12 @@
   /* Nav compacto: evita que el logo se encime con ES/FR/EN */
   #nav { padding: 1rem; }
   #nav.scrolled { padding: 0.7rem 1rem; }
-  .nav-brand { font-size: 1.02rem; letter-spacing: 0.02em; gap: 0.4rem; }
+  .nav-brand { font-size: 1.1rem; letter-spacing: 0.02em; gap: 0.4rem; }
   .nav-controls { gap: 0.35rem; }
   .ctrl-btn { padding: 0.3rem 0.45rem; letter-spacing: 0.1em; }
   .hamburger { width: 2rem; height: 2rem; }
 }
-.crs-icon { font-size: 1.2rem; color: var(--gold); display: block; margin-bottom: 1rem; }
+.crs-icon { font-size: 1.25rem; color: var(--gold); display: block; margin-bottom: 1rem; }
 #hero .hero-tagline, #hero .hero-langs { text-shadow: 0 1px 12px rgba(233,241,231,0.6); }
 /* Video de transicion entre secciones — una sola vez por pagina y sesion */
 #page-transition { position: fixed; inset: 0; z-index: 999999; background: var(--void); display: flex; align-items: center; justify-content: center; overflow: hidden; transition: opacity 0.5s ease; }
@@ -188,7 +188,7 @@
 #intro-video { object-fit: cover !important; width: 100vw !important; height: 100vh !important; }
 #intro-monogram, #intro-title, #intro-sub, #intro-divider { display: none !important; }
 .intro-brand { justify-content: flex-end !important; padding-bottom: 12vh !important; }
-.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Space Mono', monospace !important; font-size: 0.6rem !important; letter-spacing: 0.25em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
+.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Space Mono', monospace !important; font-size: 0.82rem !important; letter-spacing: 0.25em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
 .intro-skip:hover { background: rgba(201,169,110,0.2) !important; border-color: #a5824a !important; color: #a5824a !important; transform: scale(1.05); }
 </style>
 </head>
@@ -343,7 +343,7 @@
     </div>
 
     <div class="reveal" style="text-align:center; margin-top:3rem;">
-      <p style="max-width:540px; margin:0 auto 1.4rem; color:var(--muted); font-size:0.95rem; line-height:1.7;"
+      <p style="max-width:540px; margin:0 auto 1.4rem; color:var(--muted); font-size:1.06rem; line-height:1.7;"
          data-es="El carrete recoge una selección. El álbum completo se actualiza con cada nueva actividad."
          data-fr="La pellicule en montre une sélection. L'album complet est mis à jour à chaque nouvelle activité."
          data-en="The reel shows a selection. The full album is updated with every new activity.">
@@ -357,7 +357,7 @@
          aria-label="Abrir el álbum completo en Google Photos (se abre en una pestaña nueva)">
         <i class="fa-regular fa-images"></i>
         <span data-es="Ver el álbum completo" data-fr="Voir l'album complet" data-en="See the full album">Ver el álbum completo</span>
-        <i class="fa fa-arrow-up-right-from-square" style="font-size:0.62rem; opacity:0.7;"></i>
+        <i class="fa fa-arrow-up-right-from-square" style="font-size:0.83rem; opacity:0.7;"></i>
       </a>
     </div>
   </div>
@@ -367,7 +367,7 @@
     <div class="sec-head reveal" style="text-align:center;margin-bottom:2rem;">
       <p class="eyebrow" style="justify-content:center" data-es="Trece años en imágenes" data-fr="Treize ans en images" data-en="Thirteen years in pictures">Trece años en imágenes</p>
       <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Álbum de la trayectoria" data-fr="Album de la trajectoire" data-en="Career album">Álbum de la trayectoria</em></h2>
-      <p style="max-width:620px;margin:1rem auto 0;color:var(--muted);font-size:0.95rem;line-height:1.7;"
+      <p style="max-width:620px;margin:1rem auto 0;color:var(--muted);font-size:1.06rem;line-height:1.7;"
          data-es="Caracas, Francia, Ecuador y México: clases, ceremonias, rodajes y encuentros. Toca una foto para verla en grande y usa las flechas para recorrer el álbum."
          data-fr="Caracas, France, Équateur et Mexique : cours, cérémonies, tournages et rencontres. Touchez une photo pour l’agrandir et utilisez les flèches pour parcourir l’album."
          data-en="Caracas, France, Ecuador and Mexico: classes, ceremonies, film shoots and meetings. Tap a photo to enlarge it and use the arrows to browse the album.">Caracas, Francia, Ecuador y México: clases, ceremonias, rodajes y encuentros. Toca una foto para verla en grande y usa las flechas para recorrer el álbum.</p>

@@ -12,8 +12,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 
-<link rel="stylesheet" href="assets/css/sitio.css?v=2">
-<link rel="stylesheet" href="assets/css/fondos.css?v=2">
+<link rel="stylesheet" href="assets/css/sitio.css?v=44">
+<link rel="stylesheet" href="assets/css/fondos.css?v=46">
 <style>
 .hero-langs {
   display: flex; gap: 1.5rem; margin-bottom: 2.5rem;
@@ -48,12 +48,12 @@
   /* Nav compacto: evita que el logo se encime con ES/FR/EN */
   #nav { padding: 1rem; }
   #nav.scrolled { padding: 0.7rem 1rem; }
-  .nav-brand { font-size: 1.02rem; letter-spacing: 0.02em; gap: 0.4rem; }
+  .nav-brand { font-size: 1.1rem; letter-spacing: 0.02em; gap: 0.4rem; }
   .nav-controls { gap: 0.35rem; }
   .ctrl-btn { padding: 0.3rem 0.45rem; letter-spacing: 0.1em; }
   .hamburger { width: 2rem; height: 2rem; }
 }
-.crs-icon { font-size: 1.2rem; color: var(--gold); display: block; margin-bottom: 1rem; }
+.crs-icon { font-size: 1.25rem; color: var(--gold); display: block; margin-bottom: 1rem; }
 #hero .hero-tagline, #hero .hero-langs { text-shadow: 0 1px 12px rgba(233,241,231,0.6); }
 /* Video de transicion entre secciones — una sola vez por pagina y sesion */
 #page-transition { position: fixed; inset: 0; z-index: 999999; background: var(--void); display: flex; align-items: center; justify-content: center; overflow: hidden; transition: opacity 0.5s ease; }
@@ -177,7 +177,7 @@
 #intro-video { object-fit: cover !important; width: 100vw !important; height: 100vh !important; }
 #intro-monogram, #intro-title, #intro-sub, #intro-divider { display: none !important; }
 .intro-brand { justify-content: flex-end !important; padding-bottom: 12vh !important; }
-.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Space Mono', monospace !important; font-size: 0.6rem !important; letter-spacing: 0.25em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
+.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Space Mono', monospace !important; font-size: 0.82rem !important; letter-spacing: 0.25em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
 .intro-skip:hover { background: rgba(201,169,110,0.2) !important; border-color: #a5824a !important; color: #a5824a !important; transform: scale(1.05); }
 </style>
 </head>
@@ -328,17 +328,17 @@
 
       <div class="panel" style="padding:1.8rem;border-radius:var(--r-md);">
         <p class="eyebrow" style="margin:0 0 0.6rem;"><i class="fa fa-mobile-screen-button"></i>&nbsp; Albo</p>
-        <p style="font-size:0.92rem;color:var(--muted);margin:0 0 0.9rem;">
+        <p style="font-size:1.05rem;color:var(--muted);margin:0 0 0.9rem;">
           CLABE: <strong style="color:var(--white);">7211 8010 0037 9159 95</strong><br>
           <span data-es="Beneficiario" data-fr="Bénéficiaire" data-en="Beneficiary">Beneficiario</span>: Miguel David Tillero Álvarez
         </p>
-        <p style="font-size:0.85rem;color:var(--muted);margin:0 0 0.6rem;" data-es="¿Pagas desde Estados Unidos?" data-fr="Tu payes depuis les États-Unis ?" data-en="Paying from the United States?">¿Pagas desde Estados Unidos?</p>
-        <a href="https://send.albo.com/l/CK2moaxG" target="_blank" rel="noopener" class="btn btn-ghost" style="width:100%;justify-content:center;font-size:0.75rem;"><i class="fa fa-link"></i>&nbsp;<span data-es="Cobro internacional" data-fr="Paiement international" data-en="International payment">Cobro internacional</span></a>
+        <p style="font-size:1rem;color:var(--muted);margin:0 0 0.6rem;" data-es="¿Pagas desde Estados Unidos?" data-fr="Tu payes depuis les États-Unis ?" data-en="Paying from the United States?">¿Pagas desde Estados Unidos?</p>
+        <a href="https://send.albo.com/l/CK2moaxG" target="_blank" rel="noopener" class="btn btn-ghost" style="width:100%;justify-content:center;font-size:0.93rem;"><i class="fa fa-link"></i>&nbsp;<span data-es="Cobro internacional" data-fr="Paiement international" data-en="International payment">Cobro internacional</span></a>
       </div>
 
       <div class="panel" style="padding:1.8rem;border-radius:var(--r-md);">
         <p class="eyebrow" style="margin:0 0 0.6rem;"><i class="fa fa-mobile-screen-button"></i>&nbsp; Nu</p>
-        <p style="font-size:0.92rem;color:var(--muted);margin:0;">
+        <p style="font-size:1.05rem;color:var(--muted);margin:0;">
           CLABE: <strong style="color:var(--white);">6381 8000 0116 2530 75</strong><br>
           <span data-es="Beneficiario" data-fr="Bénéficiaire" data-en="Beneficiary">Beneficiario</span>: Miguel David Tillero Álvarez
         </p>
@@ -346,21 +346,21 @@
 
       <div class="panel" style="padding:1.8rem;border-radius:var(--r-md);">
         <p class="eyebrow" style="margin:0 0 0.6rem;"><i class="fa fa-money-bill-transfer"></i>&nbsp; Remitly</p>
-        <p style="font-size:0.92rem;color:var(--muted);margin:0 0 0.9rem;" data-es="Envía dinero directo a mi Pay Tag, desde cualquier país." data-fr="Envoie l'argent directement à mon Pay Tag, depuis n'importe quel pays." data-en="Send money directly to my Pay Tag, from any country.">Envía dinero directo a mi Pay Tag, desde cualquier país.</p>
-        <a href="https://remitly.com/pay/miguelt4540" target="_blank" rel="noopener" class="btn btn-ghost" style="width:100%;justify-content:center;font-size:0.75rem;"><i class="fa fa-link"></i>&nbsp; remitly.com/pay/miguelt4540</a>
+        <p style="font-size:1.05rem;color:var(--muted);margin:0 0 0.9rem;" data-es="Envía dinero directo a mi Pay Tag, desde cualquier país." data-fr="Envoie l'argent directement à mon Pay Tag, depuis n'importe quel pays." data-en="Send money directly to my Pay Tag, from any country.">Envía dinero directo a mi Pay Tag, desde cualquier país.</p>
+        <a href="https://remitly.com/pay/miguelt4540" target="_blank" rel="noopener" class="btn btn-ghost" style="width:100%;justify-content:center;font-size:0.93rem;"><i class="fa fa-link"></i>&nbsp; remitly.com/pay/miguelt4540</a>
       </div>
 
       <div class="panel" style="padding:1.8rem;border-radius:var(--r-md);">
         <p class="eyebrow" style="margin:0 0 0.6rem;"><i class="fa fa-sack-dollar"></i>&nbsp; <span data-es="Depósito en efectivo" data-fr="Dépôt en espèces" data-en="Cash deposit">Depósito en efectivo</span></p>
-        <p style="font-size:0.92rem;color:var(--muted);margin:0 0 0.6rem;" data-es="Código de depósito Nu, válido en Walmart, OXXO, Soriana, Chedraui, Kiosko, Farmacias del Ahorro y más tiendas en todo México." data-fr="Code de dépôt Nu, valable chez Walmart, OXXO, Soriana, Chedraui, Kiosko, Farmacias del Ahorro et plus, partout au Mexique." data-en="Nu deposit code, valid at Walmart, OXXO, Soriana, Chedraui, Kiosko, Farmacias del Ahorro and more stores across Mexico.">Código de depósito Nu, válido en Walmart, OXXO, Soriana, Chedraui, Kiosko, Farmacias del Ahorro y más tiendas en todo México.</p>
-        <p style="font-size:0.92rem;color:var(--muted);margin:0;">
+        <p style="font-size:1.05rem;color:var(--muted);margin:0 0 0.6rem;" data-es="Código de depósito Nu, válido en Walmart, OXXO, Soriana, Chedraui, Kiosko, Farmacias del Ahorro y más tiendas en todo México." data-fr="Code de dépôt Nu, valable chez Walmart, OXXO, Soriana, Chedraui, Kiosko, Farmacias del Ahorro et plus, partout au Mexique." data-en="Nu deposit code, valid at Walmart, OXXO, Soriana, Chedraui, Kiosko, Farmacias del Ahorro and more stores across Mexico.">Código de depósito Nu, válido en Walmart, OXXO, Soriana, Chedraui, Kiosko, Farmacias del Ahorro y más tiendas en todo México.</p>
+        <p style="font-size:1.05rem;color:var(--muted);margin:0;">
           <span data-es="Código" data-fr="Code" data-en="Code">Código</span>: <strong style="color:var(--white);">5101 2532 3062 6677</strong>
         </p>
       </div>
 
       <div class="panel" style="padding:1.8rem;border-radius:var(--r-md);">
         <p class="eyebrow" style="margin:0 0 0.6rem;"><i class="fa fa-bolt"></i>&nbsp; Zelle</p>
-        <p style="font-size:0.92rem;color:var(--muted);margin:0 0 1rem;" data-es="Por seguridad, los datos de Zelle solo se comparten por WhatsApp." data-fr="Par sécurité, les coordonnées Zelle sont partagées uniquement par WhatsApp." data-en="For security, Zelle details are shared only via WhatsApp.">Por seguridad, los datos de Zelle solo se comparten por WhatsApp.</p>
+        <p style="font-size:1.05rem;color:var(--muted);margin:0 0 1rem;" data-es="Por seguridad, los datos de Zelle solo se comparten por WhatsApp." data-fr="Par sécurité, les coordonnées Zelle sont partagées uniquement par WhatsApp." data-en="For security, Zelle details are shared only via WhatsApp.">Por seguridad, los datos de Zelle solo se comparten por WhatsApp.</p>
         <a href="https://wa.me/584122465331?text=Hola%20Miguel%2C%20%C2%BFme%20compartes%20los%20datos%20de%20Zelle%3F" target="_blank" rel="noopener" class="btn btn-ghost" style="width:100%;justify-content:center;"><i class="fab fa-whatsapp"></i><span data-es="Pedirlos por WhatsApp" data-fr="Les demander par WhatsApp" data-en="Request via WhatsApp">Pedirlos por WhatsApp</span></a>
       </div>
 

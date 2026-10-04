@@ -12,25 +12,25 @@
         :root { --bg-color: #eef0e5; --primary-color: #8c734b; --text-dark: #2c3e35; --text-light: #5a665f; --card-bg: #ffffff; --accent-green: #3b5346; }
         body { background-color: var(--bg-color); color: var(--text-dark); font-family: 'Syne', sans-serif; margin: 0; padding: 0; display:flex; flex-direction:column; min-height:100vh;}
         nav.main-nav { background: var(--card-bg); border-bottom: 1px solid rgba(140, 115, 75, 0.2); padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; position: sticky; top: 0; z-index: 100; }
-        .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--text-dark); text-decoration: none; }
+        .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.53rem; font-weight: 600; color: var(--text-dark); text-decoration: none; }
         .nav-links { display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; list-style: none; margin: 0; padding: 0; }
-        .nav-links a { text-decoration: none; color: var(--text-dark); font-size: 0.85rem; font-weight: 600; font-family: 'Space Mono', monospace; text-transform: uppercase; transition: color 0.3s; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-size: 1rem; font-weight: 600; font-family: 'Space Mono', monospace; text-transform: uppercase; transition: color 0.3s; }
         .nav-links a:hover { color: var(--primary-color); }
         .btn-nav-action { background: var(--accent-green) !important; color: #fff !important; padding: 0.5rem 1rem; border-radius: 20px; }
         main { flex-grow:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 2rem; text-align:center;}
         h1 { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--primary-color); text-transform: capitalize; margin-bottom: 0.5rem;}
         p { color: var(--text-light); max-width:600px; line-height: 1.6; }
         .lang-switcher { display: flex; gap: 0.4rem; align-items: center; }
-        .ctrl-btn { background: none; border: 1px solid rgba(140,115,75,0.3); padding: 0.3rem 0.6rem; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.7rem; cursor: pointer; }
+        .ctrl-btn { background: none; border: 1px solid rgba(140,115,75,0.3); padding: 0.3rem 0.6rem; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.88rem; cursor: pointer; }
         .ctrl-btn.active { background: var(--primary-color); color: #fff; border-color: var(--primary-color); }
         .niveles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.4rem; max-width: 980px; margin: 2.5rem auto 0; width: 100%; text-align: left; }
         .nivel-card { background: var(--card-bg); border: 1px solid rgba(140,115,75,0.25); border-radius: var(--r-md, 18px); padding: 1.8rem; box-shadow: var(--shadow-card, 0 4px 20px rgba(20,45,32,0.07)); text-decoration: none; color: inherit; transition: transform 0.35s, box-shadow 0.35s; display: block; }
         .nivel-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-card-hover, 0 20px 44px rgba(20,45,32,0.14)); }
-        .nivel-card .niv-code { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.14em; color: var(--primary-color); text-transform: uppercase; }
+        .nivel-card .niv-code { font-family: 'Space Mono', monospace; font-size: 0.88rem; letter-spacing: 0.14em; color: var(--primary-color); text-transform: uppercase; }
         .nivel-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; margin: 0.4rem 0 0.5rem; color: var(--accent-green); }
-        .nivel-card p { font-size: 0.85rem; color: var(--text-light); margin: 0; line-height: 1.55; }
+        .nivel-card p { font-size: 1rem; color: var(--text-light); margin: 0; line-height: 1.55; }
         .nivel-card.soon { opacity: 0.55; cursor: default; pointer-events: none; }
-        .nivel-card .niv-badge { display: inline-block; margin-top: 0.9rem; font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 999px; background: rgba(59,83,70,0.1); color: var(--accent-green); }
+        .nivel-card .niv-badge { display: inline-block; margin-top: 0.9rem; font-family: 'Space Mono', monospace; font-size: 0.83rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 999px; background: rgba(59,83,70,0.1); color: var(--accent-green); }
         .nivel-card.soon .niv-badge { background: rgba(90,102,95,0.12); color: var(--text-light); }
             .hamburger { display: none; background: none; border: none; font-size: 1.8rem; color: var(--accent-green); cursor: pointer; }
         .nav-container { display: flex; align-items: center; gap: 1.5rem; }
@@ -53,15 +53,15 @@
   --shadow-card:       0 4px 20px rgba(20,45,32,0.07), 0 1px 2px rgba(20,45,32,0.05);
   --shadow-card-hover: 0 20px 44px rgba(20,45,32,0.14);
 }
-.btn, .btn-gold, .btn-nav-action { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.92rem; letter-spacing: 0.005em; text-transform: none; border-radius: var(--r-pill); }
-@media (max-width: 640px){ .btn, .btn-gold{ font-size: 0.88rem; padding: 0.85rem 1.7rem; } }
+.btn, .btn-gold, .btn-nav-action { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 1.05rem; letter-spacing: 0.005em; text-transform: none; border-radius: var(--r-pill); }
+@media (max-width: 640px){ .btn, .btn-gold{ font-size: 1.03rem; padding: 0.85rem 1.7rem; } }
 .nav-links{ flex-wrap: wrap; row-gap: 0.5rem; }
-.nav-links a{ font-size: 0.68rem; letter-spacing: 0.1em; }
-.ctrl-btn{ font-size: 0.58rem; letter-spacing: 0.12em; border-radius: var(--r-xs); padding: 0.42rem 0.75rem; }
-.eyebrow, .hud-label, .hero-pre, .sec-head .eyebrow{ letter-spacing: 0.16em; font-size: 0.7rem; }
+.nav-links a{ font-size: 0.87rem; letter-spacing: 0.1em; }
+.ctrl-btn{ font-size: 0.81rem; letter-spacing: 0.12em; border-radius: var(--r-xs); padding: 0.42rem 0.75rem; }
+.eyebrow, .hud-label, .hero-pre, .sec-head .eyebrow{ letter-spacing: 0.16em; font-size: 0.88rem; }
 .eyebrow::before{ width: 18px; }
 .stat-lbl, .tl-date, .tl-org, .edu-year, .c-label, .footer-tag, .footer-copy, .exam-full, .exam-rows b, .pick-goal, .role-tag, .af-chip, .skill-tag, .form-field label, .pay-label, .pay-bank-sub, .qr-info, .pt-count, .svc-num, .lang-pill .lvl, .studybar-inner a, .portal-go{ letter-spacing: 0.12em; }
-.stat-lbl, .c-label, .footer-tag, .edu-year, .form-field label, .footer-copy, .af-chip, .studybar-inner a, .portal-go{ font-size: 0.64rem; }
+.stat-lbl, .c-label, .footer-tag, .edu-year, .form-field label, .footer-copy, .af-chip, .studybar-inner a, .portal-go{ font-size: 0.84rem; }
 .c-card, .cert-item, .hud-data-box{ border-radius: var(--r-sm); }
 .panel, .portal-card, .svc-card, .crs-card, .exam-card, .pick-card, .edu-card, .about-text, .tl-body, .role-panel, .stats-bar, .text-glass, .card, .video-wrapper, .faq-item { border-radius: var(--r-md); }
 .portrait-hud, .portrait-inner, .modal-box{ border-radius: var(--r-lg); }
@@ -88,7 +88,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   border: 1px solid rgba(201,169,110,0.5) !important;
   color: #eef8f3 !important;
   font-family: 'Space Mono', monospace !important;
-  font-size: 0.6rem !important;
+  font-size: 0.82rem !important;
   letter-spacing: 0.25em !important;
   text-transform: uppercase !important;
   padding: 0.6rem 1.4rem !important;
@@ -107,7 +107,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   color: #a5824a !important;
 }
 </style>
-<link rel="stylesheet" href="assets/css/lite.css?v=1">
+<link rel="stylesheet" href="assets/css/lite.css?v=41">
 </head>
 <body>
         <nav class="main-nav">

@@ -12,8 +12,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 
-<link rel="stylesheet" href="assets/css/sitio.css?v=2">
-<link rel="stylesheet" href="assets/css/fondos.css?v=2">
+<link rel="stylesheet" href="assets/css/sitio.css?v=44">
+<link rel="stylesheet" href="assets/css/fondos.css?v=46">
 <style>
 .hero-langs {
   display: flex; gap: 1.5rem; margin-bottom: 2.5rem;
@@ -48,12 +48,12 @@
   /* Nav compacto: evita que el logo se encime con ES/FR/EN */
   #nav { padding: 1rem; }
   #nav.scrolled { padding: 0.7rem 1rem; }
-  .nav-brand { font-size: 1.02rem; letter-spacing: 0.02em; gap: 0.4rem; }
+  .nav-brand { font-size: 1.1rem; letter-spacing: 0.02em; gap: 0.4rem; }
   .nav-controls { gap: 0.35rem; }
   .ctrl-btn { padding: 0.3rem 0.45rem; letter-spacing: 0.1em; }
   .hamburger { width: 2rem; height: 2rem; }
 }
-.crs-icon { font-size: 1.2rem; color: var(--gold); display: block; margin-bottom: 1rem; }
+.crs-icon { font-size: 1.25rem; color: var(--gold); display: block; margin-bottom: 1rem; }
 #hero .hero-tagline, #hero .hero-langs { text-shadow: 0 1px 12px rgba(233,241,231,0.6); }
 /* Video de transicion entre secciones — una sola vez por pagina y sesion */
 #page-transition { position: fixed; inset: 0; z-index: 999999; background: var(--void); display: flex; align-items: center; justify-content: center; overflow: hidden; transition: opacity 0.5s ease; }
@@ -177,7 +177,7 @@
 #intro-video { object-fit: cover !important; width: 100vw !important; height: 100vh !important; }
 #intro-monogram, #intro-title, #intro-sub, #intro-divider { display: none !important; }
 .intro-brand { justify-content: flex-end !important; padding-bottom: 12vh !important; }
-.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Space Mono', monospace !important; font-size: 0.6rem !important; letter-spacing: 0.25em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
+.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Space Mono', monospace !important; font-size: 0.82rem !important; letter-spacing: 0.25em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
 .intro-skip:hover { background: rgba(201,169,110,0.2) !important; border-color: #a5824a !important; color: #a5824a !important; transform: scale(1.05); }
 </style>
 </head>
@@ -377,15 +377,15 @@
         <p class="af-intro" style="margin:0 0 1.6rem;text-align:left;max-width:none;" data-es="Completar este formulario no genera ningún cobro automático. En cuanto la reciba, reviso mi disponibilidad y te escribo por WhatsApp o correo para confirmar el horario y enviarte el enlace o la dirección." data-fr="Remplir ce formulaire ne déclenche aucun paiement automatique. Dès réception, je vérifie mes disponibilités et je vous écris sur WhatsApp ou par courriel pour confirmer l'horaire et vous envoyer le lien ou l'adresse." data-en="Filling out this form does not trigger any automatic charge. As soon as I receive it, I check my availability and message you on WhatsApp or by email to confirm the time and send you the link or address.">Completar este formulario no genera ningún cobro automático. En cuanto la reciba, reviso mi disponibilidad y te escribo por WhatsApp o correo para confirmar el horario y enviarte el enlace o la dirección.</p>
         <div class="panel bracket" style="padding:1.6rem;margin-bottom:1.2rem;">
           <figure class="foto-lado" style="margin:0 0 1.1rem;"><img src="assets/images/galeria/z1-045.jpg" alt="Clase en línea: pizarra con la palabra Bienvenue" loading="lazy" style="height:150px;min-height:0;object-position:50% 30%;"></figure>
-          <i class="fa fa-video" style="font-size:1.4rem;color:var(--gold);margin-bottom:0.8rem;display:block;"></i>
-          <h3 style="font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);margin:0 0 0.6rem;" data-es="Modalidad en línea" data-fr="Format en ligne" data-en="Online format">Modalidad en línea</h3>
-          <p style="font-size:0.85rem;color:var(--muted);line-height:1.7;margin:0;" data-es="Las sesiones en línea se realizan por Zoom o Google Meet en alta calidad. Recibirás el enlace seguro apenas quede confirmada la cita — solo necesitas un lugar tranquilo y buena conexión." data-fr="Les séances en ligne se déroulent sur Zoom ou Google Meet en haute qualité. Vous recevrez le lien sécurisé dès la confirmation du rendez-vous — il vous suffit d'un endroit calme et d'une bonne connexion." data-en="Online sessions run on Zoom or Google Meet in high quality. You'll receive the secure link as soon as the appointment is confirmed — all you need is a quiet spot and a good connection.">Las sesiones en línea se realizan por Zoom o Google Meet en alta calidad. Recibirás el enlace seguro apenas quede confirmada la cita — solo necesitas un lugar tranquilo y buena conexión.</p>
+          <i class="fa fa-video" style="font-size:1.44rem;color:var(--gold);margin-bottom:0.8rem;display:block;"></i>
+          <h3 style="font-family:'Syne',sans-serif;font-size:1.12rem;font-weight:700;color:var(--text);margin:0 0 0.6rem;" data-es="Modalidad en línea" data-fr="Format en ligne" data-en="Online format">Modalidad en línea</h3>
+          <p style="font-size:1rem;color:var(--muted);line-height:1.7;margin:0;" data-es="Las sesiones en línea se realizan por Zoom o Google Meet en alta calidad. Recibirás el enlace seguro apenas quede confirmada la cita — solo necesitas un lugar tranquilo y buena conexión." data-fr="Les séances en ligne se déroulent sur Zoom ou Google Meet en haute qualité. Vous recevrez le lien sécurisé dès la confirmation du rendez-vous — il vous suffit d'un endroit calme et d'une bonne connexion." data-en="Online sessions run on Zoom or Google Meet in high quality. You'll receive the secure link as soon as the appointment is confirmed — all you need is a quiet spot and a good connection.">Las sesiones en línea se realizan por Zoom o Google Meet en alta calidad. Recibirás el enlace seguro apenas quede confirmada la cita — solo necesitas un lugar tranquilo y buena conexión.</p>
         </div>
         <div class="panel bracket" style="padding:1.6rem;">
           <figure class="foto-lado" style="margin:0 0 1.1rem;"><img src="assets/images/galeria/z1-013.jpg" alt="Patio de la Alianza Francesa en San Cristóbal" loading="lazy" style="height:150px;min-height:0;object-position:50% 45%;"></figure>
-          <i class="fa fa-map-location-dot" style="font-size:1.4rem;color:var(--gold);margin-bottom:0.8rem;display:block;"></i>
-          <h3 style="font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);margin:0 0 0.6rem;" data-es="Modalidad presencial en Chiapas" data-fr="Format en présentiel au Chiapas" data-en="In-person format in Chiapas">Modalidad presencial en Chiapas</h3>
-          <p style="font-size:0.85rem;color:var(--muted);line-height:1.7;margin:0;" data-es="Las sesiones presenciales se coordinan en San Cristóbal de Las Casas, sujetas a la disponibilidad del espacio. Confirmamos juntos el lugar exacto al agendar." data-fr="Les séances en présentiel se coordonnent à San Cristóbal de Las Casas, selon la disponibilité de l'espace. Nous confirmons ensemble le lieu exact lors de la réservation." data-en="In-person sessions are arranged in San Cristóbal de Las Casas, subject to space availability. We confirm the exact location together when booking.">Las sesiones presenciales se coordinan en San Cristóbal de Las Casas, sujetas a la disponibilidad del espacio. Confirmamos juntos el lugar exacto al agendar.</p>
+          <i class="fa fa-map-location-dot" style="font-size:1.44rem;color:var(--gold);margin-bottom:0.8rem;display:block;"></i>
+          <h3 style="font-family:'Syne',sans-serif;font-size:1.12rem;font-weight:700;color:var(--text);margin:0 0 0.6rem;" data-es="Modalidad presencial en Chiapas" data-fr="Format en présentiel au Chiapas" data-en="In-person format in Chiapas">Modalidad presencial en Chiapas</h3>
+          <p style="font-size:1rem;color:var(--muted);line-height:1.7;margin:0;" data-es="Las sesiones presenciales se coordinan en San Cristóbal de Las Casas, sujetas a la disponibilidad del espacio. Confirmamos juntos el lugar exacto al agendar." data-fr="Les séances en présentiel se coordonnent à San Cristóbal de Las Casas, selon la disponibilité de l'espace. Nous confirmons ensemble le lieu exact lors de la réservation." data-en="In-person sessions are arranged in San Cristóbal de Las Casas, subject to space availability. We confirm the exact location together when booking.">Las sesiones presenciales se coordinan en San Cristóbal de Las Casas, sujetas a la disponibilidad del espacio. Confirmamos juntos el lugar exacto al agendar.</p>
         </div>
         <div style="margin-top:2rem;text-align:center;">
           <a href="reglamento.html" class="btn btn-ghost" style="justify-content:center;">

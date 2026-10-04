@@ -35,7 +35,7 @@ nav.main-nav .nav-links a.btn-nav-action {
   border-color: transparent; color: #fff !important;
 }
 @media (max-width: 1400px) and (min-width: 901px) {
-  nav.main-nav .nav-links a { padding: 0.4rem 0.62rem; font-size: 0.62rem; letter-spacing: 0.05em; }
+  nav.main-nav .nav-links a { padding: 0.4rem 0.62rem; font-size: 0.83rem; letter-spacing: 0.05em; }
 }
 @media (max-width: 900px) {
   nav.main-nav .nav-links a { width: 100%; justify-content: center; }
@@ -53,7 +53,7 @@ nav.main-nav .nav-links a.btn-nav-action {
 .grid-2 .card:hover::before, .grid-3 .card:hover::before, .nivel-card:hover::before, .curso-card:hover::before { transform: scaleY(1); }
 .card-p { text-align: justify; text-justify: inter-word; -webkit-hyphens: auto; hyphens: auto; }
 .card-icon { width: 3rem; height: 3rem; border-radius: 12px; display: flex !important; align-items: center; justify-content: center;
-  font-size: 1.25rem !important; color: #fff !important; background: linear-gradient(135deg, var(--lite-gold), var(--lite-cyan));
+  font-size: 1.3rem !important; color: #fff !important; background: linear-gradient(135deg, var(--lite-gold), var(--lite-cyan));
   box-shadow: 0 4px 12px rgba(20,45,32,0.18); }
 
 /* ── Paneles de trabajo (docente y admin): acento sin mover el contenido ── */
@@ -92,7 +92,7 @@ nav.main-nav .nav-links a.btn-nav-action {
 .hero-pagina .eyebrow { color: #e6cf9c !important; text-shadow: 0 1px 8px rgba(0,0,0,.55); margin: 0 0 0.35rem; text-align: left; }
 .hero-pagina h1 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(1.9rem, 4vw, 2.9rem); line-height: 1.05;
   color: #fff !important; margin: 0 0 0.45rem !important; text-shadow: 0 1px 10px rgba(0,0,0,.55); text-transform: none; }
-.hero-pagina p { color: rgba(255,255,255,0.9) !important; text-shadow: 0 1px 8px rgba(0,0,0,.5); margin: 0 !important; font-size: 0.95rem; line-height: 1.55; max-width: none; text-align: left; }
+.hero-pagina p { color: rgba(255,255,255,0.9) !important; text-shadow: 0 1px 8px rgba(0,0,0,.5); margin: 0 !important; font-size: 1.06rem; line-height: 1.55; max-width: none; text-align: left; }
 @media (max-width: 600px) { .hero-pagina { min-height: 170px; } .hero-pagina-txt { padding: 1rem 1.1rem 1.2rem; } }
 
 /* ── Login con foto ── */
@@ -109,7 +109,7 @@ main.login-main {
   position: absolute; left: 0; right: 0; bottom: 0; padding: 3rem 1.7rem 1.6rem; color: #fff;
   background: linear-gradient(0deg, rgba(9,30,20,0.88), rgba(9,30,20,0));
 }
-.login-foto figcaption small { display: block; font-family: 'Space Mono', monospace; font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: #e6cf9c; margin-bottom: 0.4rem; }
+.login-foto figcaption small { display: block; font-family: 'Space Mono', monospace; font-size: 0.86rem; letter-spacing: 0.16em; text-transform: uppercase; color: #e6cf9c; margin-bottom: 0.4rem; }
 .login-foto figcaption b { display: block; font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 2rem; line-height: 1.1; text-shadow: 0 1px 10px rgba(0,0,0,.5); }
 .login-foto::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: linear-gradient(90deg, var(--lite-gold), var(--lite-cyan)); }
 @media (max-width: 860px) {
@@ -123,9 +123,9 @@ main.login-main {
   min-height: clamp(150px, 17vw, 210px);
   background-image: linear-gradient(to top, rgba(10,22,16,0.4) 0%, rgba(10,22,16,0) 60%), var(--fondo);
 }
-.hero-pagina .eyebrow { display: block; font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; }
+.hero-pagina .eyebrow { display: block; font-family: 'Space Mono', monospace; font-size: 0.87rem; letter-spacing: 0.16em; text-transform: uppercase; }
 
 /* Saludo dentro del banner (panel del representante) */
 .hero-pagina .hola em { color: #d9bc80 !important; font-style: italic; }
-.hero-pagina .muted { color: rgba(255,255,255,0.9) !important; font-size: 0.95rem; }
+.hero-pagina .muted { color: rgba(255,255,255,0.9) !important; font-size: 1.06rem; }
 .hero-pagina.en-tarjeta { margin: -3rem -2.5rem 1.8rem; border-radius: 18px 18px 0 0; min-height: 150px; }
