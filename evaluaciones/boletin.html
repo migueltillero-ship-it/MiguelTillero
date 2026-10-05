@@ -73,7 +73,7 @@ supabaseClient.rpc('ver_boletin', { p_token: token }).then(({ data, error }) => 
     <header class="top">
       <div class="kicker">Vive el francés · Boletín de resultados</div>
       <h1>${esc(data.alumno)}</h1>
-      <p>Français A1.4 · Évaluation <em>Chez les Moreau</em> · Unités 1 a 4 · Grupo ${esc(data.grupo)}</p>
+      <p>Français · Grupo ${esc(data.grupo)}</p>
     </header>
     ${notas.length > 1 ? `<div class="total"><div><div class="kicker" style="color:rgba(255,255,255,.75)">Resultado global</div><small>${Math.round(suma / max * 100)} %</small></div><div><b>${coma(suma)}</b> <small>/ ${coma(max)}</small></div></div>` : ''}
     ${(data.notas || []).map(n => `

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Boletines · Resultados A1.4</title>
+<title>Boletines · Resultados</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -73,7 +73,7 @@ td input.saved{border-color:var(--green)}
 
 <main id="app" class="hidden"><div class="wrap">
   <div class="intro">
-    <h2>Grupo A1-OCT2026 · Évaluation A1.4</h2>
+    <h2>Grupo <select id="grupo" aria-label="Grupo" style="font:inherit;font-size:1.6rem;border:0;border-bottom:2px solid var(--line);background:none;color:inherit;padding:0 .2rem"></select></h2>
     <p class="hint">Cada alumno tiene un boletín con enlace privado: la familia lo abre sin contraseña y ve las notas, el desglose y tus comentarios. Las notas llegan solas cuando publicas en Sentinelle (escrita) o en la herramienta oral. Aquí completas el representante y su WhatsApp, y envías.</p>
   </div>
   <div class="bar">
@@ -95,7 +95,7 @@ const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAl
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const coma = v => String(v).replace('.', ',');
 const sb = typeof supabaseClient !== 'undefined' ? supabaseClient : null;
-const GRUPO = 'A1-OCT2026';
+let GRUPO = new URLSearchParams(location.search).get('grupo') || 'A1-OCT2026';
 let bols = [], notas = {};
 
 function toast(m){ const t = $('#toast'); t.textContent = m; t.classList.remove('hidden'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.add('hidden'), 2800); }
@@ -114,6 +114,14 @@ async function boot(){
   if(!sb) return showLogin('No se pudo conectar con la plataforma.');
   const { data:{ user } } = await sb.auth.getUser();
   if(!user) return showLogin();
+  // Los grupos salen de la plataforma (y de los boletines que ya existan).
+  const [{ data:gs }, { data:bg }] = await Promise.all([
+    sb.from('grupos').select('codigo').order('codigo'),
+    sb.from('boletines').select('grupo')
+  ]);
+  const codigos = [...new Set([...(gs || []).map(g => g.codigo), ...(bg || []).map(b => b.grupo), GRUPO])].sort();
+  $('#grupo').innerHTML = codigos.map(c => `<option ${c === GRUPO ? 'selected' : ''}>${esc(c)}</option>`).join('');
+  $('#grupo').onchange = e => { GRUPO = e.target.value; history.replaceState(null, '', '?grupo=' + encodeURIComponent(GRUPO)); boot(); };
   const r = await sb.from('boletines').select('*').eq('grupo', GRUPO).order('alumno');
   if(r.error) return showLogin('Falta preparar los boletines: ejecuta supabase/boletines.sql en Supabase, y entra con tu cuenta de docente.');
   bols = r.data || [];
@@ -160,10 +168,10 @@ function paint(){
 function mensaje(b){
   const n = notas[b.id] || {};
   const lineas = ['escrita', 'oral'].filter(k => n[k] && n[k].nota != null)
-    .map(k => `• Prueba ${k}: ${coma(n[k].nota)}/${coma(n[k].maxima)}`);
+    .map(k => `• ${n[k].titulo || 'Prueba ' + k}: ${coma(n[k].nota)}/${coma(n[k].maxima)}`);
   const saludo = b.representante ? `Hola, ${b.representante.split(' ')[0]}.` : 'Hola.';
   return [
-    `${saludo} Les comparto los resultados de *${b.alumno}* en la evaluación de francés A1.4 (Unités 1 a 4):`,
+    `${saludo} Les comparto los resultados de *${b.alumno}* en francés:`,
     '',
     ...lineas,
     '',
