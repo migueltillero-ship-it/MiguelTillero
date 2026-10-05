@@ -10,8 +10,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<link rel="stylesheet" href="assets/css/sitio.css?v=101">
-<link rel="stylesheet" href="assets/css/fondos.css?v=101">
+<link rel="stylesheet" href="assets/css/sitio.css?v=102">
+<link rel="stylesheet" href="assets/css/fondos.css?v=102">
 <style>
 .hero-langs {
   display: flex; gap: 1.5rem; margin-bottom: 2.5rem;
@@ -1616,6 +1616,17 @@ window.addEventListener('DOMContentLoaded', function() {
 
 <!-- CURSOR PERSONALIZADO -->
 
+<script>
+/* En el flujo de la cuenta, el menú marca «Mi espacio» (y no «Contacto», que es solo la familia de la página). */
+(function () {
+  function ajustar() {
+    document.querySelectorAll('[data-route="contacto"]').forEach(function (a) { a.classList.remove('active'); });
+    document.querySelectorAll('a[href$="mi-espacio.html"]').forEach(function (a) { a.classList.add('active'); });
+  }
+  document.addEventListener('DOMContentLoaded', ajustar);
+  window.addEventListener('pagechange', ajustar);
+})();
+</script>
 </body>
 </html>
 
