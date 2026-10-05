@@ -27,7 +27,7 @@ declare
   v_docente_email  text    := 'migueltillero@gmail.com';
   v_curso_nombre   text    := 'Français B2';
   v_grupo_codigo   text    := 'B2-OCT2026';
-  v_costo          numeric := 1900;          -- ⚠ CONFIRMAR: pesos mexicanos, ciclo completo
+  v_costo          numeric := 2300;          -- pesos mexicanos, ciclo completo
   v_moneda         text    := 'MXN';
   v_cupo           integer := 8;
   v_inicio         date    := date '2026-10-05';
