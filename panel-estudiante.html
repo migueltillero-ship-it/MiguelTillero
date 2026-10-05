@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 :root { --bg-color: #eef0e5; --primary-color: #8c734b; --text-dark: #1a2e24; --text-light: #5a665f; --card-bg: #ffffff; --accent-green: #2b4535; --border: rgba(165,130,74,0.3);
@@ -17,8 +17,8 @@
 body { background-color: var(--bg-color); color: var(--text-dark); font-family: 'Syne', sans-serif; margin: 0; padding: 0; }
 nav.main-nav { background: #ffffff; border-bottom: 1px solid rgba(43, 69, 53, 0.2); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap:wrap; gap:0.8rem; }
 .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--accent-green); text-decoration: none; }
-.nav-right { display:flex; align-items:center; gap:1rem; font-family:'Space Mono',monospace; font-size:0.9rem; }
-.nav-right button { color: var(--primary-color); background:none; border:none; cursor:pointer; font-family:'Space Mono',monospace; font-size:0.9rem; padding:0.7rem 0.4rem; }
+.nav-right { display:flex; align-items:center; gap:1rem; font-family:'Syne', sans-serif; font-size:0.9rem; }
+.nav-right button { color: var(--primary-color); background:none; border:none; cursor:pointer; font-family:'Syne', sans-serif; font-size:0.9rem; padding:0.7rem 0.4rem; }
 main { padding: 2rem 5% 4rem; max-width: 1000px; margin: 0 auto; }
 h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--accent-green); margin: 0 0 0.3rem;}
 .muted { color: var(--text-light); font-size:1.04rem; }
@@ -30,19 +30,19 @@ h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--a
 .panel:hover { transform: translateY(-3px); box-shadow: var(--shadow-card-hover); }
 .panel:hover::before { transform: scaleY(1); }
 .panel h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.44rem; color: var(--accent-green); margin: 0 0 1rem; }
-.badge { font-family:'Space Mono',monospace; font-size:0.82rem; text-transform:uppercase; padding:0.25rem 0.65rem; border-radius:var(--r-pill); }
+.badge { font-family:'Syne', sans-serif; font-size:0.82rem; text-transform:uppercase; padding:0.25rem 0.65rem; border-radius:var(--r-pill); }
 .badge.pendiente { background:rgba(140,115,75,0.15); color:var(--primary-color); }
 .badge.activa { background:rgba(43,69,53,0.12); color:var(--accent-green); }
 .badge.rechazada { background:rgba(161,51,36,0.1); color:#a13324; }
 .badge.finalizada { background:rgba(90,102,95,0.15); color:var(--text-light); }
 table { width:100%; border-collapse: collapse; font-size:1rem; }
 th, td { text-align:left; padding:0.6rem 0.5rem; border-bottom:1px solid var(--border); }
-th { font-family:'Space Mono',monospace; font-size:0.83rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-light); }
+th { font-family:'Syne', sans-serif; font-size:0.83rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-light); }
 .stat-row { display:flex; gap:1.2rem; flex-wrap:wrap; margin: 0.6rem 0 1.4rem; }
 .stat { background: rgba(43,69,53,0.06); border-radius: var(--r-sm); padding: 0.9rem 1.3rem; min-width:120px; }
 .stat .num { font-family:'Cormorant Garamond',serif; font-size:1.8rem; color:var(--accent-green); display:block; }
-.stat .lbl { font-family:'Space Mono',monospace; font-size:0.82rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-light); }
-.pill-si, .pill-no { display:inline-block; font-family:'Space Mono',monospace; font-size:0.82rem; font-weight:700;
+.stat .lbl { font-family:'Syne', sans-serif; font-size:0.82rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-light); }
+.pill-si, .pill-no { display:inline-block; font-family:'Syne', sans-serif; font-size:0.82rem; font-weight:700;
                      text-transform:uppercase; letter-spacing:0.06em; padding:0.22rem 0.65rem; border-radius:var(--r-pill); }
 .pill-si { background:rgba(13,127,87,0.12); color:var(--cyan); }
 .pill-no { background:rgba(161,51,36,0.1); color:#a13324; }
@@ -61,7 +61,7 @@ th { font-family:'Space Mono',monospace; font-size:0.83rem; text-transform:upper
                        background: linear-gradient(90deg, var(--gold), var(--cyan)); }
 .panel-curso h2 { font-family:'Cormorant Garamond',serif; font-size:1.75rem; color:#fff; margin:0 0 0.5rem; }
 .curso-meta { display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:1.1rem; }
-.chip { font-family:'Space Mono',monospace; font-size:0.83rem; letter-spacing:0.08em; text-transform:uppercase;
+.chip { font-family:'Syne', sans-serif; font-size:0.83rem; letter-spacing:0.08em; text-transform:uppercase;
         background:rgba(238,240,229,0.16); color:#eef0e5; padding:0.3rem 0.7rem; border-radius:var(--r-pill); }
 .curso-acciones { display:flex; flex-wrap:wrap; gap:0.6rem; }
 .btn-claro { display:inline-flex; align-items:center; gap:0.45rem; background:#eef0e5; color:var(--accent-green);
@@ -84,7 +84,7 @@ th { font-family:'Space Mono',monospace; font-size:0.83rem; text-transform:upper
 .ruta li.en_curso::before { background:var(--primary-color); border-color:var(--primary-color);
                             box-shadow:0 0 0 4px rgba(140,115,75,0.18); }
 .ruta .u-tit { font-weight:600; font-size:1.08rem; color:var(--text-dark); }
-.ruta .u-det { font-family:'Space Mono',monospace; font-size:0.84rem; letter-spacing:0.05em;
+.ruta .u-det { font-family:'Syne', sans-serif; font-size:0.84rem; letter-spacing:0.05em;
                text-transform:uppercase; color:var(--primary-color); margin:0.2rem 0 0.4rem; }
 .ruta .u-obj { font-size:1rem; line-height:1.62; color:var(--text-light); }
 .meta-caja { background:rgba(140,115,75,0.09); border-left:3px solid var(--primary-color);
@@ -94,7 +94,7 @@ th { font-family:'Space Mono',monospace; font-size:0.83rem; text-transform:upper
 /* Barra de secciones del panel */
 .secciones { display:flex; gap:0.4rem; flex-wrap:wrap; margin:0 0 1.8rem; }
 .sec-btn { background:none; border:1px solid var(--border); color:var(--text-light);
-           font-family:'Space Mono',monospace; font-size:0.86rem; letter-spacing:0.09em;
+           font-family:'Syne', sans-serif; font-size:0.86rem; letter-spacing:0.09em;
            text-transform:uppercase; padding:0.55rem 1.1rem; border-radius:var(--r-pill);
            cursor:pointer; transition:all 0.2s; }
 .sec-btn:hover { border-color:var(--gold); color:var(--gold2); }
@@ -113,12 +113,12 @@ th { font-family:'Space Mono',monospace; font-size:0.83rem; text-transform:upper
 .resultado:hover::before { transform: scaleY(1); }
 .resultado-cab { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap; }
 .resultado-tit { font-weight:600; font-size:1.1rem; color:var(--text-dark); }
-.resultado-fecha { font-family:'Space Mono',monospace; font-size:0.83rem; letter-spacing:0.06em;
+.resultado-fecha { font-family:'Syne', sans-serif; font-size:0.83rem; letter-spacing:0.06em;
                    text-transform:uppercase; color:var(--primary-color); margin-top:0.25rem; }
 .resultado-nota { font-family:'Cormorant Garamond',serif; font-size:2.4rem; line-height:1;
                   color:var(--accent-green); white-space:nowrap; }
 .resultado-nota small { font-size:1.04rem; color:var(--text-light); }
-.resultado-nota.sin { font-size:1rem; font-family:'Space Mono',monospace; color:var(--text-light);
+.resultado-nota.sin { font-size:1rem; font-family:'Syne', sans-serif; color:var(--text-light);
                       text-transform:uppercase; letter-spacing:0.07em; }
 .resultado-nota.alto { color:var(--cyan); }
 .resultado-nota.medio { color:var(--gold2); }
@@ -131,14 +131,14 @@ th { font-family:'Space Mono',monospace; font-size:0.83rem; text-transform:upper
 .comentario { background:rgba(140,115,75,0.09); border-left:3px solid var(--primary-color);
               border-radius:var(--r-xs); padding:0.85rem 1.1rem; margin-top:0.9rem;
               font-size:1.03rem; line-height:1.66; color:var(--text-dark); }
-.comentario .quien { display:block; font-family:'Space Mono',monospace; font-size:0.81rem;
+.comentario .quien { display:block; font-family:'Syne', sans-serif; font-size:0.81rem;
                      letter-spacing:0.1em; text-transform:uppercase; color:var(--primary-color);
                      margin-bottom:0.4rem; }
 /* Desglose por partes de una nota */
 .partes { display:grid; gap:0.45rem; margin-top:0.9rem; }
 .parte { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:0.2rem 0.8rem; align-items:baseline;
          font-size:1rem; color:var(--text-dark); }
-.parte b { font-family:'Space Mono',monospace; font-size:0.92rem; font-weight:400; color:var(--text-light);
+.parte b { font-family:'Syne', sans-serif; font-size:0.92rem; font-weight:400; color:var(--text-light);
            font-variant-numeric:tabular-nums; }
 .parte .barra { grid-column:1 / -1; height:4px; border-radius:2px; background:var(--border); overflow:hidden; }
 .parte .barra i { display:block; height:100%; background:var(--primary-color); }
@@ -158,7 +158,7 @@ th { font-family:'Space Mono',monospace; font-size:0.83rem; text-transform:upper
                     transition:transform .5s cubic-bezier(.16,1,.3,1); }
 .material:hover { border-color:var(--primary-color); transform:translateY(-3px); box-shadow:var(--shadow-card-hover); }
 .material:hover::before { transform: scaleY(1); }
-.material .cat { font-family:'Space Mono',monospace; font-size:0.81rem; letter-spacing:0.1em;
+.material .cat { font-family:'Syne', sans-serif; font-size:0.81rem; letter-spacing:0.1em;
                  text-transform:uppercase; color:var(--primary-color); }
 .material .tit { font-weight:600; font-size:1.07rem; color:var(--accent-green); margin:0.35rem 0 0.4rem; }
 .material .des { font-size:0.98rem; line-height:1.55; color:var(--text-light); }
@@ -203,16 +203,16 @@ select { padding:0.7rem; border:1px solid var(--border); border-radius:8px; font
   transition:transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s; }
 .pay-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-card-hover); }
 .pay-bank-head { display:flex; align-items:center; gap:0.8rem; margin-bottom:1rem; }
-.pay-bank-icon { width:2.4rem; height:2.4rem; border-radius:50%; flex-shrink:0;
+.pay-bank-icon { min-width:2.9rem; width:auto; padding:0 0.8rem; height:2.7rem; border-radius:14px; flex-shrink:0;
   display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.06rem; }
 .pay-bank-name { font-family:'Syne',sans-serif; font-weight:700; font-size:1.12rem; color:var(--text-dark); }
-.pay-bank-sub { font-family:'Space Mono',monospace; font-size:0.81rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--text-light); margin-top:0.15rem; }
+.pay-bank-sub { font-family:'Syne', sans-serif; font-size:0.81rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-light); margin-top:0.15rem; }
 .pay-nu      { border-left-color:#7B2BF9; background:linear-gradient(180deg, rgba(123,43,249,.05), var(--card-bg) 40%); }
-.pay-nu .pay-bank-icon      { background:#7B2BF9; }
+.pay-nu .pay-bank-icon      { background:#820AD1; }
 .pay-albo    { border-left-color:#0A84FF; background:linear-gradient(180deg, rgba(10,132,255,.05), var(--card-bg) 40%); }
-.pay-albo .pay-bank-icon    { background:#0A84FF; }
+.pay-albo .pay-bank-icon    { background:#3743AA; }
 .pay-remitly { border-left-color:#E8871E; background:linear-gradient(180deg, rgba(232,135,30,.06), var(--card-bg) 40%); }
-.pay-remitly .pay-bank-icon { background:#E8871E; }
+.pay-remitly .pay-bank-icon { background:#16273C; }
 </style>
 </head>
 <body>
@@ -358,7 +358,7 @@ select { padding:0.7rem; border:1px solid var(--border); border-radius:8px; font
             <div class="pay-grid">
                 <div class="pay-card pay-nu">
                     <div class="pay-bank-head">
-                        <span class="pay-bank-icon"><i class="fa-solid fa-wallet"></i></span>
+                        <span class="pay-bank-icon"><img src="assets/images/pagos/nu.svg" alt="Nu" style="height:1.5rem;width:auto"></span>
                         <div><div class="pay-bank-name">Nu</div><div class="pay-bank-sub">Pago nacional · México</div></div>
                     </div>
                     <p style="margin:.2rem 0;"><strong>Beneficiario:</strong> Miguel David Tillero Álvarez</p>
@@ -370,7 +370,7 @@ select { padding:0.7rem; border:1px solid var(--border); border-radius:8px; font
                 </div>
                 <div class="pay-card pay-albo">
                     <div class="pay-bank-head">
-                        <span class="pay-bank-icon"><i class="fa-solid fa-mobile-screen-button"></i></span>
+                        <span class="pay-bank-icon"><img src="assets/images/pagos/albo.png" alt="albo" style="height:1.4rem;width:auto"></span>
                         <div><div class="pay-bank-name">Albo</div><div class="pay-bank-sub">Pago nacional · México</div></div>
                     </div>
                     <p style="margin:.2rem 0;"><strong>Beneficiario:</strong> Miguel David Tillero Álvarez</p>
@@ -379,7 +379,7 @@ select { padding:0.7rem; border:1px solid var(--border); border-radius:8px; font
                 </div>
                 <div class="pay-card pay-remitly">
                     <div class="pay-bank-head">
-                        <span class="pay-bank-icon"><i class="fa-solid fa-earth-americas"></i></span>
+                        <span class="pay-bank-icon"><img src="assets/images/pagos/remitly.svg" alt="Remitly" style="height:1.3rem;width:auto"></span>
                         <div><div class="pay-bank-name">Remitly</div><div class="pay-bank-sub">Pago internacional</div></div>
                     </div>
                     <p class="muted" style="margin:.2rem 0 .8rem;">Para quien me envíe desde el extranjero.</p>

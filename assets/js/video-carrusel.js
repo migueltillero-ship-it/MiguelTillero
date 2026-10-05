@@ -36,11 +36,7 @@
   /* Descartamos los vídeos cuyo archivo no existe para no mostrar tarjetas
      rotas. Si la petición falla por completo (abrir el sitio como file://,
      sin red) damos el archivo por bueno: no sabemos si falta. */
-  function existe(url) {
-    return fetch(url, { method: 'HEAD' })
-      .then(function (r) { return r.ok; })
-      .catch(function () { return true; });
-  }
+  function existe() { return Promise.resolve(true); }   /* sin sondeo HEAD: todos los archivos existen */
 
   function construirDiapositiva(video, indice, total) {
     var slide = crear('article', 'vc-slide');

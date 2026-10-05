@@ -7,15 +7,14 @@
 <title>Perfil · Miguel Tillero</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 
-<link rel="stylesheet" href="assets/css/sitio.css?v=45">
-<link rel="stylesheet" href="assets/css/relato.css?v=41">
-<link rel="stylesheet" href="assets/css/video-carrusel.css?v=41">
-<link rel="stylesheet" href="assets/css/fondos.css?v=49">
+<link rel="stylesheet" href="assets/css/sitio.css?v=98">
+<link rel="stylesheet" href="assets/css/relato.css?v=98">
+<link rel="stylesheet" href="assets/css/sobre-mi.css?v=98">
+<link rel="stylesheet" href="assets/css/video-carrusel.css?v=98">
+<link rel="stylesheet" href="assets/css/fondos.css?v=98">
 <style>
 .hero-langs {
   display: flex; gap: 1.5rem; margin-bottom: 2.5rem;
@@ -45,7 +44,7 @@
   position: absolute; left: 0; right: 0; bottom: 0;
   background: linear-gradient(to top, rgba(2,12,6,0.88) 15%, transparent 100%);
   padding: 2.4rem 0.9rem 0.7rem;
-  font-family: 'Space Mono', monospace; font-size: 0.83rem; letter-spacing: 0.03em;
+  font-family: 'Syne', sans-serif; font-size: 0.83rem; letter-spacing:0.03em;
   line-height: 1.35; color: rgba(255,255,255,0.92);
   z-index: 2; pointer-events: none;
 }
@@ -188,7 +187,7 @@
 #intro-video { object-fit: cover !important; width: 100vw !important; height: 100vh !important; }
 #intro-monogram, #intro-title, #intro-sub, #intro-divider { display: none !important; }
 .intro-brand { justify-content: flex-end !important; padding-bottom: 12vh !important; }
-.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Space Mono', monospace !important; font-size: 0.82rem !important; letter-spacing: 0.25em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
+.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Syne', sans-serif !important; font-size: 0.82rem !important; letter-spacing:0.1em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
 .intro-skip:hover { background: rgba(201,169,110,0.2) !important; border-color: #a5824a !important; color: #a5824a !important; transform: scale(1.05); }
 </style>
 </head>
@@ -321,117 +320,149 @@
   </div>
 </nav>
 <section id="about" class="alt z10" data-page="perfil">
-  <div class="reveal" style="position:relative;width:100%;height:52vh;min-height:340px;max-height:520px;overflow:hidden;margin-bottom:3rem;">
+  <div class="reveal" style="position:relative;width:100%;height:52vh;min-height:340px;max-height:520px;overflow:hidden;margin-bottom:0;">
     <img src="assets/images/portrait-miguel-paris.jpg" alt="Miguel Tillero en París" loading="lazy"
          style="width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block;">
     <div style="position:absolute;inset:0;background:linear-gradient(0deg, rgba(18,41,28,0.78) 0%, rgba(18,41,28,0.2) 48%, transparent 72%);"></div>
     <div style="position:absolute;left:0;right:0;bottom:0;padding:2rem clamp(1.5rem,5vw,4rem);">
-      <p style="font-family:'Space Mono',monospace;font-size:0.88rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin:0 0 0.5rem;" data-es="Asesorías y tutorías de francés · FLE" data-fr="Conseil et tutorat de français · FLE" data-en="French advising &amp; tutoring · FLE">Asesorías y tutorías de francés · FLE</p>
+      <p style="font-family:'Syne', sans-serif;font-size:0.88rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin:0 0 0.5rem;" data-es="Asesorías y tutorías de francés · FLE" data-fr="Conseil et tutorat de français · FLE" data-en="French advising &amp; tutoring · FLE">Asesorías y tutorías de francés · FLE</p>
       <h1 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2.2rem,5vw,3.6rem);color:#fff;margin:0;">Miguel Tillero</h1>
     </div>
   </div>
+  <!-- ── MANIFIESTO: el retrato dentro de un arco y la frase que se ilumina al bajar ── -->
+  <div class="sm-manifiesto">
+    <div class="container sm-mf-grid">
+      <figure class="sm-retrato reveal">
+        <img src="assets/images/portrait-miguel-3.jpg" alt="Miguel Tillero, profesor de francés" loading="lazy" width="1054" height="1600">
+      </figure>
+      <div class="sm-mf-texto">
+        <p class="eyebrow" data-es="Perfil profesional" data-fr="Profil professionnel" data-en="Professional profile">Perfil profesional</p>
+        <h2 class="sm-frase" id="smFrase" data-oro-es="una puerta" data-oro-fr="une porte" data-oro-en="a door"
+            data-es="Enseñar un idioma no es gramática. Es abrir una puerta."
+            data-fr="Enseigner une langue, ce n&#39;est pas de la grammaire. C&#39;est ouvrir une porte."
+            data-en="Teaching a language isn&#39;t grammar. It&#39;s opening a door.">Enseñar un idioma no es gramática. Es abrir una puerta.</h2>
+        <p class="sm-sub" data-es="Llevo trece años caminando ese oficio —pedagogo de formación, especialista en lenguas extranjeras— y cada aula ha sido, a su manera, un pequeño país nuevo por habitar." data-fr="Treize ans que je marche sur ce chemin —pédagogue de formation, spécialiste des langues étrangères— et chaque salle de classe a été, à sa manière, un petit pays nouveau à habiter." data-en="I have spent thirteen years walking this path —a trained educator, a foreign-language specialist— and every classroom has been, in its own way, a small new country to inhabit.">Llevo trece años caminando ese oficio —pedagogo de formación, especialista en lenguas extranjeras— y cada aula ha sido, a su manera, un pequeño país nuevo por habitar.</p>
+        <p class="sm-firma" data-es="Miguel Tillero · Profesor de francés" data-fr="Miguel Tillero · Professeur de français" data-en="Miguel Tillero · French teacher">Miguel Tillero · Profesor de francés</p>
+      </div>
+    </div>
+  </div>
   <div class="container">
-    <div class="reveal" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:900px;margin:0 auto 3rem;">
-      <img src="assets/images/portrait-miguel-3.jpg" alt="Miguel Tillero — retrato" loading="lazy"
-           style="width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;border-radius:var(--r-md);box-shadow:var(--shadow-card);">
-      <img src="assets/images/portrait-miguel-1.jpg" alt="Miguel Tillero — retrato" loading="lazy"
-           style="width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;border-radius:var(--r-md);box-shadow:var(--shadow-card);">
-      <img src="assets/images/portrait-miguel-4.jpg" alt="Miguel Tillero — retrato" loading="lazy"
-           style="width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;border-radius:var(--r-md);box-shadow:var(--shadow-card);">
+    <div class="stats-bar sm-cifras reveal">
+      <div class="stat-cell"><span class="stat-num"><span data-count="13">13</span></span><span class="stat-lbl" data-es="Años exp." data-fr="Ans d'exp." data-en="Years exp.">Años exp.</span></div>
+      <div class="stat-cell"><span class="stat-num" style="color:var(--cyan)">+<span data-count="34.7" data-dec="1">34,7</span><small style="font-size:1.44rem">%</small></span><span class="stat-lbl" data-es="Crecimiento matrícula" data-fr="Hausse étudiants" data-en="Enrollment growth">Crecimiento matrícula</span></div>
+      <div class="stat-cell"><span class="stat-num"><span data-count="3">3</span></span><span class="stat-lbl" data-es="Idiomas" data-fr="Langues" data-en="Languages">Idiomas</span></div>
+      <div class="stat-cell"><span class="stat-num"><span data-count="5">5</span></span><span class="stat-lbl" data-es="Países" data-fr="Pays" data-en="Countries">Países</span></div>
     </div>
 
-    <div class="stats-bar reveal">
-      <div class="stat-cell"><span class="stat-num">13</span><span class="stat-lbl" data-es="Años exp." data-fr="Ans d'exp." data-en="Years exp.">Años exp.</span></div>
-      <div class="stat-cell"><span class="stat-num" style="color:var(--cyan)">+34<small style="font-size:1.44rem">%</small></span><span class="stat-lbl" data-es="Crecimiento matrícula" data-fr="Hausse étudiants" data-en="Enrollment growth">Crecimiento matrícula</span></div>
-      <div class="stat-cell"><span class="stat-num">3</span><span class="stat-lbl" data-es="Idiomas" data-fr="Langues" data-en="Languages">Idiomas</span></div>
-      <div class="stat-cell"><span class="stat-num">5</span><span class="stat-lbl" data-es="Países" data-fr="Pays" data-en="Countries">Países</span></div>
+    <div class="sec-head sm-head reveal">
+      <p class="eyebrow" data-es="Elige tu camino" data-fr="Choisissez votre chemin" data-en="Choose your path">Elige tu camino</p>
+      <h2 class="sec-title"><em data-es="Una puerta para cada camino" data-fr="Une porte pour chaque chemin" data-en="A door for every path">Una puerta para cada camino</em></h2>
+      <p class="sm-head-sub" data-es="Cuéntame qué buscas y te muestro por dónde empezar." data-fr="Dites-moi ce que vous cherchez et je vous montre par où commencer." data-en="Tell me what you&#39;re looking for and I&#39;ll show you where to start.">Cuéntame qué buscas y te muestro por dónde empezar.</p>
+    </div>
+    <div class="puertas reveal" id="puertas">
+      <a class="puerta" href="cursos.html#certificaciones" style="--foto:url('../images/relato/entrega-certificados.jpg');--pos:44% 50%;">
+        <span class="pt-escena"><span class="pt-foto"></span></span>
+        <span class="pt-hoja izq"></span><span class="pt-hoja der"></span>
+        <i class="fa fa-award pt-icono" aria-hidden="true"></i>
+        <span class="pt-rotulo">
+          <b data-es="Certificar mi francés" data-fr="Certifier mon français" data-en="Certify my French">Certificar mi francés</b>
+          <small data-es="DELF · DALF" data-fr="DELF · DALF" data-en="DELF · DALF">DELF · DALF</small>
+          <span class="pt-desc" data-es="Examinador-corrector habilitado de DELF y DALF: conozco el examen desde dentro." data-fr="Examinateur-correcteur habilité DELF et DALF : je connais l&#39;examen de l&#39;intérieur." data-en="Certified DELF and DALF examiner: I know the exam from the inside.">Examinador-corrector habilitado de DELF y DALF: conozco el examen desde dentro.</span>
+          <span class="pt-ir" data-es="Ver cursos →" data-fr="Voir les cours →" data-en="See courses →">Ver cursos →</span>
+        </span>
+      </a>
+      <a class="puerta" href="contacto.html#contact" style="--foto:url('../images/relato/quebec.jpg');--pos:93% 40%;">
+        <span class="pt-escena"><span class="pt-foto"></span></span>
+        <span class="pt-hoja izq"></span><span class="pt-hoja der"></span>
+        <i class="fa fa-plane-departure pt-icono" aria-hidden="true"></i>
+        <span class="pt-rotulo">
+          <b data-es="Emigrar a Quebec" data-fr="Émigrer au Québec" data-en="Moving to Quebec">Emigrar a Quebec</b>
+          <small data-es="Francés para empezar de nuevo" data-fr="Du français pour recommencer" data-en="French to start over">Francés para empezar de nuevo</small>
+          <span class="pt-desc" data-es="He acompañado a quienes emigran a Quebec y necesitan más que vocabulario." data-fr="J&#39;ai accompagné des personnes qui émigrent au Québec et ont besoin de plus que du vocabulaire." data-en="I have guided people moving to Quebec who need more than vocabulary.">He acompañado a quienes emigran a Quebec y necesitan más que vocabulario.</span>
+          <span class="pt-ir" data-es="Hablemos →" data-fr="Parlons-en →" data-en="Let&#39;s talk →">Hablemos →</span>
+        </span>
+      </a>
+      <a class="puerta" href="servicios.html" style="--foto:url('../images/trayectoria/journees-reseau-panel.jpg');--size:auto 165%;--pos:44% 94%;">
+        <span class="pt-escena"><span class="pt-foto"></span></span>
+        <span class="pt-hoja izq"></span><span class="pt-hoja der"></span>
+        <i class="fa fa-people-group pt-icono" aria-hidden="true"></i>
+        <span class="pt-rotulo">
+          <b data-es="Formar a mi equipo docente" data-fr="Former mon équipe enseignante" data-en="Train my teaching team">Formar a mi equipo docente</b>
+          <small data-es="Asesoría y formación" data-fr="Conseil et formation" data-en="Advising and training">Asesoría y formación</small>
+          <span class="pt-desc" data-es="Formo equipos docentes y he ejercido la dirección de Alianzas Francesas." data-fr="Je forme des équipes d&#39;enseignants et j&#39;ai exercé la direction d&#39;Alliances Françaises." data-en="I train teaching teams and have held leadership roles at Alliances Françaises.">Formo equipos docentes y he ejercido la dirección de Alianzas Francesas.</span>
+          <span class="pt-ir" data-es="Ver servicios →" data-fr="Voir les services →" data-en="See services →">Ver servicios →</span>
+        </span>
+      </a>
+      <a class="puerta" href="servicios.html" style="--foto:url('../images/galeria/n-meirieu-podio.jpg');--size:auto 175%;--pos:77% 97%;">
+        <span class="pt-escena"><span class="pt-foto"></span></span>
+        <span class="pt-hoja izq"></span><span class="pt-hoja der"></span>
+        <i class="fa fa-language pt-icono" aria-hidden="true"></i>
+        <span class="pt-rotulo">
+          <b data-es="Traducir o interpretar" data-fr="Traduire ou interpréter" data-en="Translate or interpret">Traducir o interpretar</b>
+          <small data-es="ES ↔ FR" data-fr="ES ↔ FR" data-en="ES ↔ FR">ES ↔ FR</small>
+          <span class="pt-desc" data-es="Traductor oficial de obras pedagógicas e intérprete en conferencias." data-fr="Traducteur officiel d&#39;ouvrages pédagogiques et interprète en conférences." data-en="Official translator of pedagogical works and conference interpreter.">Traductor oficial de obras pedagógicas e intérprete en conferencias.</span>
+          <span class="pt-ir" data-es="Ver servicios →" data-fr="Voir les services →" data-en="See services →">Ver servicios →</span>
+        </span>
+      </a>
     </div>
 
-    <div class="sec-head reveal">
-      <p class="eyebrow" data-es="Perfil profesional" data-fr="Profil professionnel" data-en="Professional profile">Perfil profesional</p>
-      <h2 class="sec-title" style="margin-top:0.8rem;"><em data-es="Sobre mí" data-fr="À propos" data-en="About me">Sobre mí</em></h2>
-    </div>
-
-    <div class="about-grid">
-      <div class="about-text reveal d1" style="text-align:justify;">
-        <p data-es="Enseñar un idioma nunca ha sido, para mí, solo una cuestión de gramática. Es abrir una puerta que estaba cerrada y descubrir, del otro lado, una manera distinta de nombrar el mundo. Llevo trece años caminando ese oficio &mdash;pedagogo de formación, especialista en lenguas extranjeras&mdash; y cada aula ha sido, a su manera, un pequeño país nuevo por habitar." data-fr="Enseigner une langue n'a jamais été, pour moi, une simple affaire de grammaire. C'est ouvrir une porte qui était fermée et découvrir, de l'autre côté, une autre façon de nommer le monde. Treize ans que je marche sur ce chemin &mdash;pédagogue de formation, spécialiste des langues étrangères&mdash; et chaque salle de classe a été, à sa manière, un petit pays nouveau à habiter." data-en="Teaching a language has never been, for me, just a matter of grammar. It is opening a door that was closed and discovering, on the other side, a different way of naming the world. I have spent thirteen years walking this path &mdash;a trained educator, a foreign-language specialist&mdash; and every classroom has been, in its own way, a small new country to inhabit.">Enseñar un idioma nunca ha sido, para mí, solo una cuestión de gramática. Es abrir una puerta que estaba cerrada y descubrir, del otro lado, una manera distinta de nombrar el mundo. Llevo trece años caminando ese oficio &mdash;pedagogo de formación, especialista en lenguas extranjeras&mdash; y cada aula ha sido, a su manera, un pequeño país nuevo por habitar.</p>
-        <p data-es="Empecé en las aulas universitarias de Caracas, mi ciudad. Después vinieron Ecuador y la Embajada de Francia, y más tarde la dirección pedagógica de la Alianza Francesa de Cuenca, donde tuve el privilegio de ver crecer una comunidad entera: la matrícula aumentó un 34,7% en tres años, aunque lo que más recuerdo son los rostros de quienes aprobaron su primer DELF. Después dirigí la Alianza Francesa de San Cristóbal de Las Casas (de octubre de 2024 a agosto de 2026), y hoy sigo ese mismo camino de otra manera: con asesorías y tutorías individualizadas, acompañando de cerca a cada estudiante para garantizar mejores resultados." data-fr="J'ai commencé dans les universités de Caracas, ma ville. Puis sont venus l'Équateur et l'Ambassade de France, et plus tard la direction pédagogique de l'Alliance Française de Cuenca, où j'ai eu le privilège de voir grandir toute une communauté : les effectifs ont augmenté de 34,7 % en trois ans, mais ce dont je me souviens le plus, ce sont les visages de ceux qui ont réussi leur premier DELF. Puis j'ai dirigé l'Alliance Française de San Cristóbal de Las Casas (d'octobre 2024 à août 2026), et je poursuis aujourd'hui ce même chemin autrement : conseil et tutorat individualisés, un accompagnement de près de chaque étudiant pour garantir de meilleurs résultats." data-en="I began in the university halls of Caracas, my city. Then came Ecuador and the French Embassy, and later the pedagogical direction of the Alliance Française de Cuenca, where I had the privilege of watching an entire community grow: enrollment rose 34.7% in three years, though what I remember most are the faces of those who passed their first DELF. I then led the Alliance Française de San Cristóbal de Las Casas (October 2024 to August 2026), and today I carry that same path forward in a different way: individual advising and tutoring, following each student closely to secure better results.">Empecé en las aulas universitarias de Caracas, mi ciudad. Después vinieron Ecuador y la Embajada de Francia, y más tarde la dirección pedagógica de la Alianza Francesa de Cuenca, donde tuve el privilegio de ver crecer una comunidad entera: la matrícula aumentó un 34,7% en tres años, aunque lo que más recuerdo son los rostros de quienes aprobaron su primer DELF. Después dirigí la Alianza Francesa de San Cristóbal de Las Casas (de octubre de 2024 a agosto de 2026), y hoy sigo ese mismo camino de otra manera: con asesorías y tutorías individualizadas, acompañando de cerca a cada estudiante para garantizar mejores resultados.</p>
-        <p data-es="En el camino he acompañado a quienes emigran hacia Quebec y necesitan algo más que vocabulario para empezar de nuevo; he traducido oficialmente obras pedagógicas; y he formado equipos docentes que hoy enseñan con la misma convicción con la que a mí me enseñaron. Esta página es, en el fondo, una invitación: si el francés &mdash;o cualquier idioma&mdash; es la puerta que estás buscando, aquí hay alguien dispuesto a abrirla contigo." data-fr="En chemin, j'ai accompagné des personnes qui émigrent vers le Québec et qui ont besoin de bien plus que du vocabulaire pour recommencer ; j'ai traduit officiellement des ouvrages pédagogiques ; et j'ai formé des équipes d'enseignants qui transmettent aujourd'hui la même conviction qu'on m'a transmise. Cette page est, au fond, une invitation : si le français &mdash;ou toute autre langue&mdash; est la porte que vous cherchez, il y a ici quelqu'un de prêt à l'ouvrir avec vous." data-en="Along the way I have guided people emigrating to Quebec who needed far more than vocabulary to start over; I have worked as an official translator of pedagogical works; and I have built teaching teams that now teach with the same conviction I was once taught with. This page is, at heart, an invitation: if French &mdash;or any language&mdash; is the door you have been looking for, there is someone here ready to open it with you.">En el camino he acompañado a quienes emigran hacia Quebec y necesitan algo más que vocabulario para empezar de nuevo; he traducido oficialmente obras pedagógicas; y he formado equipos docentes que hoy enseñan con la misma convicción con la que a mí me enseñaron. Esta página es, en el fondo, una invitación: si el francés &mdash;o cualquier idioma&mdash; es la puerta que estás buscando, aquí hay alguien dispuesto a abrirla contigo.</p>
+    <div class="sm-cierre reveal">
+      <i class="fa fa-door-open" aria-hidden="true"></i>
+      <p class="sm-cierre-frase" data-es="Aquí hay alguien dispuesto a abrirla contigo." data-fr="Ici, quelqu&#39;un est prêt à l&#39;ouvrir avec vous." data-en="There is someone here ready to open it with you.">Aquí hay alguien dispuesto a abrirla contigo.</p>
+      <div class="sm-cierre-botones">
+        <button type="button" onclick="openModal('modal-clase')" class="btn btn-gold"><i class="fa fa-graduation-cap"></i><span data-es="Clase de prueba gratuita" data-fr="Cours d&#39;essai gratuit" data-en="Free trial class">Clase de prueba gratuita</span></button>
+        <a href="contacto.html#contact" class="btn btn-ghost"><i class="fa fa-envelope"></i><span data-es="Escribirme" data-fr="Me contacter" data-en="Contact me">Escribirme</span></a>
+        <a href="#relato" class="btn btn-ghost"><i class="fa fa-route"></i><span data-es="Leer mi historia completa" data-fr="Lire mon histoire complète" data-en="Read my full story">Leer mi historia completa</span></a>
       </div>
-      <div class="reveal d2">
-        <figure class="foto-lado" style="margin:0 0 1.2rem;"><img src="assets/images/galeria/z1-045.jpg" alt="Miguel Tillero en clase, escribiendo Bienvenue en el pizarrón" loading="lazy" style="height:260px;object-position:50% 28%;"><figcaption data-es="En clase · Bienvenue" data-fr="En classe · Bienvenue" data-en="In class · Bienvenue">En clase · Bienvenue</figcaption></figure>
-        <div class="panel bracket skills-panel">
-          <p class="hud-label" style="margin-bottom:1.5rem;" data-es="RESULTADOS VERIFICABLES" data-fr="RÉSULTATS VÉRIFIABLES" data-en="VERIFIABLE RESULTS">RESULTADOS VERIFICABLES</p>
-          <ul class="ach-list">
-            <li><strong>+34,7%</strong> <span data-es="de crecimiento de matrícula en 3 años (AF Cuenca)" data-fr="de croissance des effectifs en 3 ans (AF Cuenca)" data-en="enrollment growth in 3 years (AF Cuenca)">de crecimiento de matrícula en 3 años (AF Cuenca)</span></li>
-            <li><strong>13</strong> <span data-es="años de trayectoria docente y directiva en 5 países" data-fr="ans de parcours pédagogique et directif dans 5 pays" data-en="years of teaching and leadership across 5 countries">años de trayectoria docente y directiva en 5 países</span></li>
-            <li><strong>DELF · DALF</strong> <span data-es="examinador-corrector habilitado y coordinador de exámenes oficiales" data-fr="examinateur-correcteur habilité et coordinateur d'examens officiels" data-en="certified examiner and official exam coordinator">examinador-corrector habilitado y coordinador de exámenes oficiales</span></li>
-            <li><strong>Direction Générale</strong> <span data-es="Alianza Francesa de San Cristóbal de Las Casas (oct. 2024 – ago. 2026)" data-fr="Alliance Française de San Cristóbal de Las Casas (oct. 2024 – août 2026)" data-en="Alliance Française of San Cristóbal de Las Casas (Oct 2024 – Aug 2026)">Alianza Francesa de San Cristóbal de Las Casas (oct. 2024 – ago. 2026)</span></li>
-            <li><strong>ES ↔ FR</strong> <span data-es="traductor oficial de obras pedagógicas y documentos institucionales" data-fr="traducteur officiel d'ouvrages pédagogiques et documents institutionnels" data-en="official translator of pedagogical works and institutional documents">traductor oficial de obras pedagógicas y documentos institucionales</span></li>
-          </ul>
-          <div class="skill-tags">
-            <span class="skill-tag">FLE / ELE</span>
-            <span class="skill-tag">DELF · DALF</span>
-            <span class="skill-tag">Gestion pédagogique</span>
-            <span class="skill-tag">Diplomatie culturelle</span>
-            <span class="skill-tag">Leadership</span>
-            <span class="skill-tag">Formation formateurs</span>
-            <span class="skill-tag">Traduction ES↔FR</span>
-            <span class="skill-tag">Interculturalité</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── DESCARGA DE CV ── -->
-      <div class="cv-download-wrap reveal">
-        <a href="assets/docs/cv-miguel-tillero-es.pdf" download class="cv-btn" target="_blank" rel="noopener">
-          <span class="cv-flag">ES</span>
-          <i class="fa fa-file-pdf"></i>
-          <span data-es="Descargar CV en español" data-fr="Télécharger CV en espagnol" data-en="Download CV in Spanish">Descargar CV · Español</span>
-        </a>
-        <a href="assets/docs/cv-miguel-tillero-fr.pdf" download class="cv-btn" target="_blank" rel="noopener">
-          <span class="cv-flag">FR</span>
-          <i class="fa fa-file-pdf"></i>
-          <span data-es="Descargar CV en francés" data-fr="Télécharger CV en français" data-en="Download CV in French">Télécharger CV · Français</span>
-        </a>
-        <a href="assets/docs/cv-miguel-tillero-en.pdf" download class="cv-btn" target="_blank" rel="noopener">
-          <span class="cv-flag">EN</span>
-          <i class="fa fa-file-pdf"></i>
-          <span data-es="Descargar CV en inglés" data-fr="Télécharger CV en anglais" data-en="Download CV in English">Download CV · English</span>
-        </a>
-      </div>
-
-      <!-- El resumen de una página, para quien no quiere el CV completo -->
-      <p class="cv-resumen reveal">
-        <span data-es="¿Prefieres una sola página?" data-fr="Vous préférez une seule page ?" data-en="Prefer a single page?">¿Prefieres una sola página?</span>
-        <a href="assets/docs/resumen-miguel-tillero-es.pdf" download target="_blank" rel="noopener">Español</a> ·
-        <a href="assets/docs/resumen-miguel-tillero-fr.pdf" download target="_blank" rel="noopener">Français</a> ·
-        <a href="assets/docs/resumen-miguel-tillero-en.pdf" download target="_blank" rel="noopener">English</a>
-      </p>
-
     </div>
+
+    <!-- ── DESCARGA DE CV ── -->
+    <div class="cv-download-wrap reveal">
+      <a href="assets/docs/cv-miguel-tillero-es.pdf" download class="cv-btn" target="_blank" rel="noopener">
+        <span class="cv-flag">ES</span>
+        <i class="fa fa-file-pdf"></i>
+        <span data-es="Descargar CV en español" data-fr="Télécharger CV en espagnol" data-en="Download CV in Spanish">Descargar CV · Español</span>
+      </a>
+      <a href="assets/docs/cv-miguel-tillero-fr.pdf" download class="cv-btn" target="_blank" rel="noopener">
+        <span class="cv-flag">FR</span>
+        <i class="fa fa-file-pdf"></i>
+        <span data-es="Descargar CV en francés" data-fr="Télécharger CV en français" data-en="Download CV in French">Télécharger CV · Français</span>
+      </a>
+      <a href="assets/docs/cv-miguel-tillero-en.pdf" download class="cv-btn" target="_blank" rel="noopener">
+        <span class="cv-flag">EN</span>
+        <i class="fa fa-file-pdf"></i>
+        <span data-es="Descargar CV en inglés" data-fr="Télécharger CV en anglais" data-en="Download CV in English">Download CV · English</span>
+      </a>
+    </div>
+
+    <!-- El resumen de una página, para quien no quiere el CV completo -->
+    <p class="cv-resumen reveal">
+      <span data-es="¿Prefieres una sola página?" data-fr="Vous préférez une seule page ?" data-en="Prefer a single page?">¿Prefieres una sola página?</span>
+      <a href="assets/docs/resumen-miguel-tillero-es.pdf" download target="_blank" rel="noopener">Español</a> ·
+      <a href="assets/docs/resumen-miguel-tillero-fr.pdf" download target="_blank" rel="noopener">Français</a> ·
+      <a href="assets/docs/resumen-miguel-tillero-en.pdf" download target="_blank" rel="noopener">English</a>
+    </p>
   </div>
 </section>
 <section id="novedad" class="banda-foto z10" data-page="perfil" style="--fondo:url('../images/relato/rodaje-entrevista.jpg');--pos:50% 38%;--velo:linear-gradient(100deg,rgba(9,30,20,0.9) 0%,rgba(9,30,20,0.8) 55%,rgba(9,30,20,0.6) 100%);">
   <div class="container nov-grid">
     <div>
-      <p class="eyebrow"><span class="nov-punto"></span><span data-es="Novedad" data-fr="Nouveauté" data-en="News">Novedad</span></p>
+      <p class="eyebrow" data-es="Ya se emitió" data-fr="Déjà diffusé" data-en="Already aired">Ya se emitió</p>
       <h2>«Destination Francophonie au Mexique»</h2>
       <div class="nov-fechas">
-        <div class="nov-pill" style="border-color:#e6cf9c;"><small data-es="Première · San Cristóbal" data-fr="Première · San Cristóbal" data-en="Premiere · San Cristóbal">Première · San Cristóbal</small><b data-es="Sáb. 26 sept. · 18:00" data-fr="Sam. 26 sept. · 18 h" data-en="Sat, Sept 26 · 6:00 pm">Sáb. 26 sept. · 18:00</b></div>
-        <div class="nov-pill"><small data-es="TV5MONDE · estreno" data-fr="TV5MONDE · première diffusion" data-en="TV5MONDE · premiere">TV5MONDE · estreno</small><b data-es="Lun. 28 sept. · 19:32" data-fr="Lun. 28 sept. · 19 h 32" data-en="Mon, Sept 28 · 19:32">Lun. 28 sept. · 19:32</b></div>
-        <div class="nov-pill"><small data-es="TV5MONDE · nueva emisión" data-fr="TV5MONDE · nouvelle diffusion" data-en="TV5MONDE · rerun">TV5MONDE · nueva emisión</small><b data-es="Sáb. 3 oct. · 23:58" data-fr="Sam. 3 oct. · 23 h 58" data-en="Sat, Oct 3 · 23:58">Sáb. 3 oct. · 23:58</b></div>
+        <div class="nov-pill" style="border-color:#e6cf9c;"><small data-es="Première · San Cristóbal" data-fr="Première · San Cristóbal" data-en="Premiere · San Cristóbal">Première · San Cristóbal</small><b data-es="26 de sept. · El Rastro" data-fr="26 sept. · El Rastro" data-en="Sept 26 · El Rastro">26 de sept. · El Rastro</b></div>
+        <div class="nov-pill"><small data-es="TV5MONDE · estreno" data-fr="TV5MONDE · première diffusion" data-en="TV5MONDE · first airing">TV5MONDE · estreno</small><b data-es="28 de sept." data-fr="28 sept." data-en="Sept 28">28 de sept.</b></div>
+        <div class="nov-pill"><small data-es="TV5MONDE · última emisión" data-fr="TV5MONDE · dernière diffusion" data-en="TV5MONDE · last airing">TV5MONDE · última emisión</small><b data-es="3 de oct." data-fr="3 oct." data-en="Oct 3">3 de oct.</b></div>
       </div>
-      <p class="nov-texto" data-es="Como director de la Alianza Francesa de San Cristóbal presenté la sede renovada, sus actividades y su oferta cultural en la serie documental de TV5MONDE presentada por Ivan Kabacoff. La Alianza te invita a la première de la proyección: sábado 26 de septiembre de 2026, 6:00 pm, en el Centro de Desarrollo de Capacidades Creativas El Rastro (Blvd. Ignacio Allende 36B, Barrio de San Antonio). En TV5MONDE, el episodio «Destination Mexique» se emite el 28 de septiembre y el sábado 3 de octubre." data-fr="En tant que directeur de l’Alliance Française de San Cristóbal, j’ai présenté le siège rénové, ses activités et son offre culturelle dans la série documentaire de TV5MONDE présentée par Ivan Kabacoff. L’Alliance vous invite à la première de la projection : samedi 26 septembre 2026, 18 h, au Centro de Desarrollo de Capacidades Creativas El Rastro (Blvd. Ignacio Allende 36B, Barrio de San Antonio). Sur TV5MONDE, l’épisode « Destination Mexique » est diffusé le 28 septembre et le samedi 3 octobre." data-en="As director of the Alliance Française de San Cristóbal, I presented the renovated premises, its activities and its cultural offering in TV5MONDE’s documentary series hosted by Ivan Kabacoff. The Alliance invites you to the screening premiere: Saturday, September 26, 2026, 6:00 pm, at the Centro de Desarrollo de Capacidades Creativas El Rastro (Blvd. Ignacio Allende 36B, Barrio de San Antonio). On TV5MONDE, the episode “Destination Mexique” airs on September 28 and on Saturday, October 3.">Como director de la Alianza Francesa de San Cristóbal presenté la sede renovada, sus actividades y su oferta cultural en la serie documental de TV5MONDE presentada por Ivan Kabacoff. La Alianza te invita a la première de la proyección: sábado 26 de septiembre de 2026, 6:00 pm, en el Centro de Desarrollo de Capacidades Creativas El Rastro (Blvd. Ignacio Allende 36B, Barrio de San Antonio). En TV5MONDE, el episodio «Destination Mexique» se emite el 28 de septiembre y el sábado 3 de octubre.</p>
+      <p class="nov-texto" data-es="Como director de la Alianza Francesa de San Cristóbal presenté la sede renovada, sus actividades y su oferta cultural en la serie documental de TV5MONDE presentada por Ivan Kabacoff. La première de la proyección se celebró el 26 de septiembre de 2026 en El Rastro, en San Cristóbal de Las Casas, y el episodio «Destination Mexique» se emitió en TV5MONDE el 28 de septiembre y el 3 de octubre." data-fr="En tant que directeur de l’Alliance Française de San Cristóbal, j’ai présenté le siège rénové, ses activités et son offre culturelle dans la série documentaire de TV5MONDE présentée par Ivan Kabacoff. La première de la projection a eu lieu le 26 septembre 2026 à El Rastro, à San Cristóbal de Las Casas, et l’épisode « Destination Mexique » a été diffusé sur TV5MONDE les 28 septembre et 3 octobre." data-en="As director of the Alliance Française de San Cristóbal, I presented the renovated premises, its activities and its cultural offering in TV5MONDE’s documentary series hosted by Ivan Kabacoff. The screening premiere took place on September 26, 2026 at El Rastro in San Cristóbal de Las Casas, and the episode “Destination Mexique” aired on TV5MONDE on September 28 and October 3.">Como director de la Alianza Francesa de San Cristóbal presenté la sede renovada, sus actividades y su oferta cultural en la serie documental de TV5MONDE presentada por Ivan Kabacoff. La première de la proyección se celebró el 26 de septiembre de 2026 en El Rastro, en San Cristóbal de Las Casas, y el episodio «Destination Mexique» se emitió en TV5MONDE el 28 de septiembre y el 3 de octubre.</p>
       <div class="hero-cta" style="display:flex;gap:0.7rem;flex-wrap:wrap;">
-        <a href="https://www.google.com/maps/search/?api=1&query=Centro+de+Desarrollo+de+Capacidades+Creativas+El+Rastro%2C+Blvd.+Ignacio+Allende+36B%2C+San+Crist%C3%B3bal+de+Las+Casas" target="_blank" rel="noopener" class="btn btn-gold"><i class="fa fa-location-dot"></i> <span data-es="Cómo llegar a la première" data-fr="Comment venir à la première" data-en="How to get to the premiere">Cómo llegar a la première</span></a>
-        <a href="#rel-documental" class="btn btn-ghost"><span data-es="Ver el detrás de cámaras" data-fr="Voir les coulisses" data-en="See behind the scenes">Ver el detrás de cámaras</span></a>
+        <a href="#rel-documental" class="btn btn-gold"><i class="fa fa-film"></i> <span data-es="Ver el detrás de cámaras" data-fr="Voir les coulisses" data-en="See behind the scenes">Ver el detrás de cámaras</span></a>
+        <a href="galeria.html" class="btn btn-ghost"><i class="fa fa-images"></i> <span data-es="Ver la galería" data-fr="Voir la galerie" data-en="See the gallery">Ver la galería</span></a>
       </div>
-      <p class="nov-nota" data-es="Horarios de TV5MONDE en hora de México, según la guía de TV5MONDE Amérique latine." data-fr="Horaires TV5MONDE à l’heure du Mexique, selon le guide de TV5MONDE Amérique latine." data-en="TV5MONDE times in Mexico time, as listed in the TV5MONDE Latin America guide.">Horarios de TV5MONDE en hora de México, según la guía de TV5MONDE Amérique latine.</p>
     </div>
     <figure class="nov-tarjeta">
-      <img src="assets/images/relato/premiere-cartel.jpg" alt="Invitación a la première de «Destination Francophonie au Mexique»: sábado 26 de septiembre de 2026, 6:00 pm, en El Rastro, San Cristóbal de Las Casas" loading="lazy" width="900" height="1054">
-      <figcaption>Alianza Francesa de San Cristóbal · 26 · 09 · 2026</figcaption>
+      <img src="assets/images/relato/premiere-cartel.jpg" alt="Cartel de la première de «Destination Francophonie au Mexique», celebrada el 26 de septiembre de 2026 en El Rastro, San Cristóbal de Las Casas" loading="lazy" width="900" height="1054">
+      <figcaption>Alianza Francesa de San Cristóbal · première · 26 · 09 · 2026</figcaption>
     </figure>
   </div>
 </section>
@@ -486,31 +517,46 @@
   <div class="container">
     <div class="sec-head reveal">
       <p class="eyebrow" data-es="Mi formación académica" data-fr="Ma formation" data-en="My education">Mi formación académica</p>
-      <h2 class="sec-title" style="margin-top:0.8rem;"><em data-es="Formación y distinciones" data-fr="Formation et distinctions" data-en="Education & distinctions">Formación y distinciones</em></h2>
+      <h2 class="sec-title" style="margin-top:0.8rem;"><em data-es="Formación y distinciones" data-fr="Formation et distinctions" data-en="Education &amp; distinctions">Formación y distinciones</em></h2>
     </div>
-    <div class="edu-grid">
-      <div class="edu-card panel reveal d1">
-        <div class="edu-year">2017</div>
-        <div class="edu-deg" data-es="Diploma de Especialización en Enseñanza Universitaria" data-fr="Diplôme de spécialisation en enseignement universitaire" data-en="Specialization Diploma in University Teaching">Diploma de Especialización en Enseñanza Universitaria</div>
-        <div class="edu-inst">UPEL – Universidad Pedagógica Experimental Libertador · Caracas</div>
-      </div>
-      <div class="edu-card panel reveal d2">
-        <div class="edu-year">2009 — 2016</div>
-        <div class="edu-deg" data-es="Licenciatura en Educación, mención Francés" data-fr="Licence en éducation mention français" data-en="Bachelor's in Education, French">Licenciatura en Educación, mención Francés</div>
-        <div class="edu-inst">Instituto Pedagógico de Caracas – UPEL</div>
-        <ul class="dist-list">
-          <li>Mención Magna Cum Laude (2016)</li>
-          <li>Premio Talentum (2015)</li>
-          <li>Distinción excelencia académica AVENPROF (2011)</li>
-        </ul>
-      </div>
-    </div>
-    <p class="eyebrow reveal" style="margin:3rem 0 1.5rem;">Formations continues</p>
-    <div class="cert-grid">
-      <div class="cert-item reveal d1"><i class="fa fa-certificate"></i><span>France Éducation International — FLE, évaluation et motivation en classe</span></div>
-      <div class="cert-item reveal d2"><i class="fa fa-certificate"></i><span>Institut Français — Transition numérique et stratégie éducative</span></div>
-      <div class="cert-item reveal d3"><i class="fa fa-certificate"></i><span>CLE International – Montpellier — Didactique avancée du FLE</span></div>
-      <div class="cert-item reveal d4"><i class="fa fa-certificate"></i><span>CIEP – France — Certification officielle correction DELF-DALF</span></div>
+    <div class="fd-linea">
+      <article class="fd-hito reveal">
+        <span class="fd-punto"></span>
+        <div class="fd-coleccion">
+          <img class="fd-foto" src="assets/images/relato/graduacion.jpg" alt="Miguel Tillero el día de su graduación, Instituto Pedagógico de Caracas" loading="lazy" width="1000" height="1250">
+          <img class="fd-diploma" src="assets/images/relato/magna-cum-laude.jpg" alt="Diploma con la distinción Magna Cum Laude, Caracas, 2016" loading="lazy" width="1200" height="1138">
+        </div>
+        <div class="fd-cuerpo">
+          <p class="fd-anio">2009 — 2016</p>
+          <h3 class="fd-titulo" data-es="Licenciatura en Educación, mención Francés" data-fr="Licence en éducation, mention français" data-en="Bachelor&#39;s Degree in Education, French Major">Licenciatura en Educación, mención Francés</h3>
+          <p class="fd-inst">Instituto Pedagógico de Caracas – UPEL</p>
+          <p class="fd-sub"><span data-es="Tres reconocimientos en el camino" data-fr="Trois distinctions en chemin" data-en="Three honors along the way">Tres reconocimientos en el camino</span></p>
+          <ul class="fd-medallas">
+            <li><i class="fa fa-award" aria-hidden="true"></i><b>2016</b><span data-es="Mención Magna Cum Laude" data-fr="Mention Magna Cum Laude" data-en="Magna Cum Laude honors">Mención Magna Cum Laude</span></li>
+            <li><i class="fa fa-award" aria-hidden="true"></i><b>2015</b><span data-es="Premio Talentum" data-fr="Prix Talentum" data-en="Talentum Prize">Premio Talentum</span></li>
+            <li><i class="fa fa-award" aria-hidden="true"></i><b>2011</b><span data-es="Distinción de excelencia académica AVENPROF" data-fr="Distinction d&#39;excellence académique AVENPROF" data-en="AVENPROF academic excellence award">Distinción de excelencia académica AVENPROF</span></li>
+          </ul>
+        </div>
+      </article>
+      <article class="fd-hito fd-simple reveal">
+        <span class="fd-punto"></span>
+        <i class="fa fa-graduation-cap fd-icono" aria-hidden="true"></i>
+        <div class="fd-cuerpo">
+          <p class="fd-anio">2017</p>
+          <h3 class="fd-titulo" data-es="Diploma de Especialización en Enseñanza Universitaria" data-fr="Diplôme de spécialisation en enseignement universitaire" data-en="Specialization Diploma in University Teaching">Diploma de Especialización en Enseñanza Universitaria</h3>
+          <p class="fd-inst">UPEL – Universidad Pedagógica Experimental Libertador · Caracas</p>
+        </div>
+      </article>
+      <article class="fd-hito fd-continua reveal">
+        <span class="fd-punto"></span>
+        <p class="fd-anio fd-anio-chico"><span data-es="Formación continua" data-fr="Formations continues" data-en="Continuing education">Formación continua</span></p>
+        <div class="fd-instituciones">
+        <div class="fd-inst-card"><i class="fa fa-certificate" aria-hidden="true"></i><b>France Éducation International</b><span>FLE, évaluation et motivation en classe</span></div>
+        <div class="fd-inst-card"><i class="fa fa-certificate" aria-hidden="true"></i><b>Institut Français</b><span>Transition numérique et stratégie éducative</span></div>
+        <div class="fd-inst-card"><i class="fa fa-certificate" aria-hidden="true"></i><b>CLE International · Montpellier</b><span>Didactique avancée du FLE</span></div>
+        <div class="fd-inst-card"><i class="fa fa-certificate" aria-hidden="true"></i><b>CIEP · France</b><span>Certification officielle correction DELF-DALF</span></div>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -692,15 +738,22 @@ function initVanta() {
     return true;
   }
 }
-/* Intentar inicializar Vanta, reintentando hasta que los CDN carguen */
-(function tryVanta(n) {
-  if (initVanta()) return;
-  if (n > 0) setTimeout(function(){ tryVanta(n-1); }, 250);
-  else {
-    var vb = document.getElementById('vanta-bg');
-    if (vb) vb.style.background = 'var(--bg-grad)';
-  }
-})(20);
+/* El fondo 3D (three.js + Vanta, ~700 KB) se pide cuando la página ya cargó, no antes:
+   así no bloquea el texto ni las fotos. */
+var vantaArrancado = false;
+function cargarScriptVanta(src, listo) {
+  var s = document.createElement('script');
+  s.src = src; s.onload = listo;
+  document.head.appendChild(s);          /* si falla, queda el degradado del CSS */
+}
+function arrancarVanta() {
+  if (vantaArrancado) return;
+  vantaArrancado = true;
+  cargarScriptVanta('https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js', function () {
+    cargarScriptVanta('https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js', initVanta);
+  });
+}
+window.addEventListener('load', function () { setTimeout(arrancarVanta, 400); });
 
 /* ── NAV ─────────────────────────────────── */
 window.addEventListener('scroll', () => {
@@ -1819,6 +1872,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <!-- CURSOR PERSONALIZADO -->
 
 <script src="assets/js/relato.js"></script>
+<script src="assets/js/sobre-mi.js?v=1" defer></script>
 </body>
 </html>
 

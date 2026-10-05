@@ -7,13 +7,13 @@
 <title>Vive el francés · Con el profesor Miguel Tillero</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="assets/css/video-carrusel.css?v=41">
-<link rel="stylesheet" href="assets/css/fondos.css?v=70">
+<link rel="stylesheet" href="assets/css/video-carrusel.css?v=98">
+<link rel="stylesheet" href="assets/css/fondos.css?v=98">
 <!-- three.js y Vanta (fondo 3D) ya no se piden aquí: se cargan al terminar la intro, ver arrancarVanta() -->
 
-<link rel="stylesheet" href="assets/css/sitio.css?v=46">
+<link rel="stylesheet" href="assets/css/sitio.css?v=98">
 <style>
 .services-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(210px,1fr));
@@ -170,7 +170,7 @@
 #intro-video { object-fit: cover !important; width: 100vw !important; height: 100vh !important; }
 #intro-monogram, #intro-title, #intro-sub, #intro-divider { display: none !important; }
 .intro-brand { justify-content: flex-end !important; padding-bottom: 12vh !important; }
-.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Space Mono', monospace !important; font-size: 0.82rem !important; letter-spacing: 0.25em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: none !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
+.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Syne', sans-serif !important; font-size: 0.82rem !important; letter-spacing:0.1em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: none !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
 .intro-skip:hover { background: rgba(201,169,110,0.2) !important; border-color: #a5824a !important; color: #a5824a !important; transform: scale(1.05); }
 </style>
 </head>
@@ -188,8 +188,8 @@
   <!-- El vídeo de fondo (silencioso en preview) — fuente elegida por JS según orientación -->
   <video id="intro-video" autoplay muted playsinline loop
          poster="assets/images/videos/bienvenida.jpg"
-         data-src-h="bienvenida.mp4"
-         data-src-v="bienvenida.mp4"
+         data-src-h="bienvenida-720.mp4"
+         data-src-v="bienvenida-720.mp4"
          preload="auto"></video>
   <script>
   /* La descarga empieza ya, mientras se lee el HTML, y no cuando termina de cargar toda la página. */
@@ -342,7 +342,7 @@
           Miguel
           <em>Tillero</em>
         </h1>
-        <p class="hero-tagline" data-es="Profesor especialista en la enseñanza del francés como lengua extranjera · FLE · Gestión cultural." data-fr="Spécialiste de l'enseignement du français langue étrangère · FLE · Direction culturelle." data-en="French as a Foreign Language Specialist · FLE Teaching · Cultural Management.">
+        <p class="hero-tagline" data-es="Profesor especialista en la enseñanza del francés como lengua extranjera · FLE · Gestión cultural." data-fr="Spécialiste de l'enseignement du français langue étrangère · FLE · Direction culturelle." data-en="Specialist teacher of French as a foreign language · FLE · Cultural management.">
           Profesor especialista en la enseñanza del francés como lengua extranjera · FLE · Gestión cultural.
         </p>
         <ul class="hero-creds">
@@ -405,7 +405,7 @@
         <span class="portal-num">02</span>
         <i class="fa fa-briefcase portal-icon"></i>
         <h3 class="portal-title" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</h3>
-        <p class="portal-desc" data-es="Clases, asesoría pedagógica, proyectos educativos, gestión cultural, traducción e interpretación y formación a medida." data-fr="Cours, conseil pédagogique, projets éducatifs, direction culturelle, traduction et formation sur mesure." data-en="Classes, pedagogical consulting, educational projects, cultural management, translation and tailored training.">Clases, asesoría pedagógica, proyectos educativos, gestión cultural, traducción e interpretación y formación a medida.</p>
+        <p class="portal-desc" data-es="Clases, asesoría pedagógica, proyectos educativos, gestión cultural, traducción e interpretación y formación a medida." data-fr="Cours, conseil pédagogique, projets éducatifs, direction culturelle, traduction et formation sur mesure." data-en="Classes, pedagogical consulting, educational projects, cultural management, translation and interpreting, and tailored training.">Clases, asesoría pedagógica, proyectos educativos, gestión cultural, traducción e interpretación y formación a medida.</p>
         <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
       </a>
 
@@ -414,7 +414,7 @@
         <span class="portal-num">03</span>
         <i class="fa fa-user portal-icon"></i>
         <h3 class="portal-title" data-es="Perfil" data-fr="Profil" data-en="Profile">Perfil</h3>
-        <p class="portal-desc" data-es="Quién soy, mi trayectoria por Venezuela, Ecuador, México y Francia, y la formación que respalda mi trabajo." data-fr="Qui je suis, mon parcours entre le Venezuela, l'Équateur, le Mexique et la France, et ma formation." data-en="Who I am, my path through Venezuela, Ecuador, Mexico and France, and the training behind my work.">Quién soy, mi trayectoria por Venezuela, Ecuador, México y Francia, y la formación que respalda mi trabajo.</p>
+        <p class="portal-desc" data-es="Quién soy, mi trayectoria por Venezuela, Ecuador, México y Francia, y la formación que respalda mi trabajo." data-fr="Qui je suis, mon parcours entre le Venezuela, l'Équateur, le Mexique et la France, et ma formation." data-en="Who I am, my career across Venezuela, Ecuador, Mexico and France, and the training behind my work.">Quién soy, mi trayectoria por Venezuela, Ecuador, México y Francia, y la formación que respalda mi trabajo.</p>
         <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
       </a>
 
@@ -423,7 +423,7 @@
         <span class="portal-num">04</span>
         <i class="fa fa-photo-film portal-icon"></i>
         <h3 class="portal-title" data-es="Galería y vídeo" data-fr="Galerie et vidéo" data-en="Gallery & video">Galería y vídeo</h3>
-        <p class="portal-desc" data-es="Imágenes del aula y de los proyectos, y los vídeos donde me presento y cuento cómo trabajo." data-fr="Images de la classe et des projets, et les vidéos où je me présente et explique ma façon de travailler." data-en="Images from the classroom and projects, plus the videos where I introduce myself and how I work.">Imágenes del aula y de los proyectos, y los vídeos donde me presento y cuento cómo trabajo.</p>
+        <p class="portal-desc" data-es="Imágenes del aula y de los proyectos, y los vídeos donde me presento y cuento cómo trabajo." data-fr="Images de la classe et des projets, et les vidéos où je me présente et explique ma façon de travailler." data-en="Images from the classroom and projects, and the videos where I introduce myself and explain how I work.">Imágenes del aula y de los proyectos, y los vídeos donde me presento y cuento cómo trabajo.</p>
         <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
       </a>
 
@@ -431,7 +431,7 @@
         <div class="portal-foto ilustra" role="img" aria-hidden="true" style="background-image:url('assets/images/ilustra-inscripcion.jpg');--bg:#f3f5f6;"></div>
         <span class="portal-num">05</span>
         <i class="fa fa-pen-to-square portal-icon"></i>
-        <h3 class="portal-title" data-es="Inscripción" data-fr="Inscription" data-en="Enrolment">Inscripción</h3>
+        <h3 class="portal-title" data-es="Inscripción" data-fr="Inscription" data-en="Enrollment">Inscripción</h3>
         <p class="portal-desc" data-es="El formulario para empezar clases, con tu nivel, tus horarios y tus objetivos. También los testimonios de quienes ya pasaron por aquí." data-fr="Le formulaire pour commencer les cours, avec votre niveau, vos horaires et vos objectifs, ainsi que les témoignages." data-en="The form to start classes, with your level, schedule and goals — plus testimonials from past students.">El formulario para empezar clases, con tu nivel, tus horarios y tus objetivos. También los testimonios de quienes ya pasaron por aquí.</p>
         <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
       </a>
@@ -441,7 +441,7 @@
         <span class="portal-num">06</span>
         <i class="fa fa-envelope portal-icon"></i>
         <h3 class="portal-title" data-es="Contacto y pagos" data-fr="Contact et paiements" data-en="Contact & payments">Contacto y pagos</h3>
-        <p class="portal-desc" data-es="Escríbeme, agenda una cita o una clase de prueba, resuelve las preguntas frecuentes y consulta los métodos de pago." data-fr="Écrivez-moi, réservez un rendez-vous ou un cours d'essai, consultez la FAQ et les moyens de paiement." data-en="Write to me, book an appointment or a trial class, check the FAQ and the payment methods.">Escríbeme, agenda una cita o una clase de prueba, resuelve las preguntas frecuentes y consulta los métodos de pago.</p>
+        <p class="portal-desc" data-es="Escríbeme, agenda una cita o una clase de prueba, resuelve las preguntas frecuentes y consulta los métodos de pago." data-fr="Écrivez-moi, réservez un rendez-vous ou un cours d'essai, consultez la FAQ et les moyens de paiement." data-en="Write to me, book an appointment or a trial class, read the FAQ and see the payment methods.">Escríbeme, agenda una cita o una clase de prueba, resuelve las preguntas frecuentes y consulta los métodos de pago.</p>
         <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
       </a>
 
@@ -450,7 +450,7 @@
         <span class="portal-num">07</span>
         <i class="fa fa-mug-hot portal-icon"></i>
         <h3 class="portal-title" data-es="Vendredi entre Amis · Club de conversación" data-fr="Vendredi entre Amis · Club de conversation" data-en="Vendredi entre Amis · Conversation club">Vendredi entre Amis · Club de conversación</h3>
-        <p class="portal-desc" data-es="Un espacio dedicado a mis amigos, estudiantes, colegas, allegados y a todas las personas afines interesadas en practicar francés en comunidad: una nueva destination francófona cada semana, vocabulario, expresiones, un carnet de viaje personal y la pregunta de la semana para compartir en el grupo." data-fr="Un espace dédié à mes amis, étudiants, collègues et à toutes les personnes qui aiment pratiquer le français en communauté : une nouvelle destination francophone chaque semaine, du vocabulaire, des expressions, un carnet de voyage personnel et la question de la semaine à partager." data-en="A space for my friends, students, colleagues and everyone who enjoys practising French together: a new francophone destination every week, vocabulary, expressions, a personal travel journal and the question of the week to share with the group.">Un espacio dedicado a mis amigos, estudiantes, colegas, allegados y a todas las personas afines interesadas en practicar francés en comunidad: una nueva destination francófona cada semana, vocabulario, expresiones, un carnet de viaje personal y la pregunta de la semana para compartir en el grupo.</p>
+        <p class="portal-desc" data-es="Un espacio dedicado a mis amigos, estudiantes, colegas, allegados y a todas las personas afines interesadas en practicar francés en comunidad: una nueva destination francófona cada semana, vocabulario, expresiones, un carnet de viaje personal y la pregunta de la semana para compartir en el grupo." data-fr="Un espace dédié à mes amis, étudiants, collègues et à toutes les personnes qui aiment pratiquer le français en communauté : une nouvelle destination francophone chaque semaine, du vocabulaire, des expressions, un carnet de voyage personnel et la question de la semaine à partager." data-en="A space for my friends, students, colleagues, loved ones and everyone interested in practicing French as a community: a new francophone destination each week, vocabulary, expressions, a personal travel journal and the question of the week to share with the group.">Un espacio dedicado a mis amigos, estudiantes, colegas, allegados y a todas las personas afines interesadas en practicar francés en comunidad: una nueva destination francófona cada semana, vocabulario, expresiones, un carnet de viaje personal y la pregunta de la semana para compartir en el grupo.</p>
         <span class="portal-meta" style="display:inline-flex;align-items:center;gap:.4rem;font-size:1rem;opacity:.85;margin-bottom:.5rem;"><i class="fa fa-calendar-days"></i> <span data-es="Todos los viernes — revisa la próxima fecha en el club" data-fr="Tous les vendredis — la prochaine date est indiquée sur le site du club" data-en="Every Friday — check the next date on the club site">Todos los viernes — revisa la próxima fecha en el club</span></span>
         <span class="portal-go" data-es="Entrar al club" data-fr="Entrer dans le club" data-en="Enter the club">Entrar al club</span>
       </a>
@@ -461,11 +461,11 @@
 <section id="novedad-tira" class="banda-foto compacta z10" data-page="inicio" style="--fondo:url('../images/relato/rodaje-entrevista.jpg');--pos:50% 38%;--velo:linear-gradient(100deg,rgba(9,30,20,0.9) 0%,rgba(9,30,20,0.8) 55%,rgba(9,30,20,0.6) 100%);">
   <div class="container nov-tira">
     <div class="nov-tira-txt">
-      <span class="eyebrow"><span class="nov-punto"></span><span data-es="Novedad" data-fr="Nouveauté" data-en="News">Novedad</span></span>
+      <span class="eyebrow"><span data-es="Ya se emitió" data-fr="Déjà diffusé" data-en="Already aired">Ya se emitió</span></span>
       <strong>Destination Francophonie · TV5MONDE</strong>
-      <span class="f" data-es="Première · sáb. 26 de septiembre · 18:00" data-fr="Première · sam. 26 septembre · 18 h" data-en="Premiere · Sat, September 26 · 6:00 pm">Première · sáb. 26 de septiembre · 18:00</span>
+      <span class="f" data-es="Première el 26 de septiembre · en TV5MONDE el 28 de septiembre y el 3 de octubre" data-fr="Première le 26 septembre · sur TV5MONDE les 28 septembre et 3 octobre" data-en="Premiere on September 26 · on TV5MONDE on September 28 and October 3">Première el 26 de septiembre · en TV5MONDE el 28 de septiembre y el 3 de octubre</span>
     </div>
-    <a href="perfil.html#novedad" class="btn btn-gold"><span data-es="Ver más" data-fr="En savoir plus" data-en="Learn more">Ver más</span></a>
+    <a href="perfil.html#novedad" class="btn btn-gold"><span data-es="Ver el reportaje" data-fr="Voir le reportage" data-en="See the report">Ver el reportaje</span></a>
   </div>
 </section>
 <section id="mis-clases" class="z10" data-page="inicio">
@@ -474,7 +474,7 @@
       <div class="mc-texto">
         <p class="eyebrow" data-es="Así son mis clases" data-fr="Mes cours en images" data-en="What my classes are like">Así son mis clases</p>
         <h2 class="mc-titulo"><em data-es="Venez vivre le français." data-fr="Venez vivre le français." data-en="Venez vivre le français.">Venez vivre le français.</em></h2>
-        <p class="mc-desc" data-es="Aprender un idioma no es un simple ejercicio académico: es una invitación a vivir, a romper los esquemas de siempre, a descubrir y a conectar de verdad con el otro. Clases individuales, en grupo y club de conversación, con acompañamiento cercano." data-fr="Apprendre une langue n'est pas un simple exercice académique : c'est une invitation à vivre, à briser les schémas habituels, à découvrir et à se connecter vraiment à l'autre. Cours individuels, en groupe et club de conversation, avec un accompagnement de près." data-en="Learning a language is not a simple academic exercise: it is an invitation to live, to break the usual patterns, to discover and to truly connect with others. Individual and group classes and a conversation club, with close support.">Aprender un idioma no es un simple ejercicio académico: es una invitación a vivir, a romper los esquemas de siempre, a descubrir y a conectar de verdad con el otro. Clases individuales, en grupo y club de conversación, con acompañamiento cercano.</p>
+        <p class="mc-desc" data-es="Aprender un idioma no es un simple ejercicio académico: es una invitación a vivir, a romper los esquemas de siempre, a descubrir y a conectar de verdad con el otro. Clases individuales, en grupo y club de conversación, con acompañamiento cercano." data-fr="Apprendre une langue n'est pas un simple exercice académique : c'est une invitation à vivre, à briser les schémas habituels, à découvrir et à se connecter vraiment à l'autre. Cours individuels, en groupe et club de conversation, avec un accompagnement de près." data-en="Learning a language is not a mere academic exercise: it&#39;s an invitation to live, to break out of the usual patterns, to discover and to truly connect with others. Individual and group classes plus a conversation club, with close personal support.">Aprender un idioma no es un simple ejercicio académico: es una invitación a vivir, a romper los esquemas de siempre, a descubrir y a conectar de verdad con el otro. Clases individuales, en grupo y club de conversación, con acompañamiento cercano.</p>
         <div class="hero-cta">
           <button onclick="openModal('modal-clase')" class="btn btn-gold"><i class="fa fa-graduation-cap"></i><span data-es="Clase de prueba gratuita" data-fr="Cours d'essai gratuit" data-en="Free trial class">Clase de prueba gratuita</span></button>
         </div>
@@ -514,16 +514,16 @@
   <div class="container">
     <div class="panel bracket reveal" style="max-width:840px;margin:0 auto;padding:clamp(1.8rem,4vw,3rem);display:grid;grid-template-columns:auto 1fr;gap:clamp(1.5rem,4vw,2.5rem);align-items:center;">
       <div style="text-align:center;padding:0 0.4rem;">
-        <div style="font-family:'Space Mono',monospace;font-size:0.82rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;" data-es="Próximo evento" data-fr="Prochain événement" data-en="Upcoming event">Próximo evento</div>
+        <div style="font-family:'Syne', sans-serif;font-size:0.82rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;" data-es="Próximo evento" data-fr="Prochain événement" data-en="Upcoming event">Próximo evento</div>
         <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:2.6rem;line-height:1;color:var(--text);" id="pe-dia">—</div>
-        <div style="font-family:'Space Mono',monospace;font-size:0.82rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-top:0.3rem;" id="pe-mes"></div>
+        <div style="font-family:'Syne', sans-serif;font-size:0.82rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:0.3rem;" id="pe-mes"></div>
       </div>
       <div>
         <div style="display:flex;align-items:center;gap:0.7rem;flex-wrap:wrap;margin-bottom:0.6rem;">
           <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(1.5rem,3vw,2.1rem);color:var(--text);margin:0;" id="pe-titulo"></h2>
           <span class="af-chip em" id="pe-chip">Entrada libre</span>
         </div>
-        <p style="font-size:0.83rem;font-family:'Space Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin:0 0 0.8rem;"><i class="fa fa-clock"></i> <span id="pe-cuando"></span></p>
+        <p style="font-size:0.83rem;font-family:'Syne', sans-serif;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin:0 0 0.8rem;"><i class="fa fa-clock"></i> <span id="pe-cuando"></span></p>
         <p style="font-size:1.04rem;color:var(--muted);line-height:1.75;margin:0 0 1.3rem;" id="pe-descripcion"></p>
         <a href="#" target="_blank" rel="noopener" class="btn btn-gold" id="pe-btn-accion">
           <i class="fab fa-whatsapp"></i>

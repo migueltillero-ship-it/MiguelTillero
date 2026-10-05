@@ -37,7 +37,7 @@
 .rel-cap.on .rel-txt > *:nth-child(4) { transition-delay: 0.3s; }
 .rel-cap.on .rel-txt > *:nth-child(5) { transition-delay: 0.4s; }
 
-.rel-meta { font-family: 'Space Mono', monospace; font-size: 0.86rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin: 0 0 0.7rem; }
+.rel-meta { font-family: 'Syne', sans-serif; font-size: 0.86rem; letter-spacing:0.1em; text-transform: uppercase; color: var(--gold); margin: 0 0 0.7rem; }
 .rel-meta b { color: var(--cyan); font-weight: 700; }
 .rel-titulo { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: clamp(1.9rem, 3.6vw, 2.7rem); line-height: 1.1; margin: 0 0 1.2rem; color: var(--white); text-wrap: balance; }
 .rel-cita {
@@ -67,7 +67,7 @@
 .rel-foto figcaption {
   position: absolute; left: 0; right: 0; bottom: 0; padding: 2.2rem 1rem 0.8rem;
   background: linear-gradient(0deg, rgba(18,41,28,0.82), transparent);
-  color: #fff; font-family: 'Space Mono', monospace; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.5; pointer-events: none;
+  color: #fff; font-family: 'Syne', sans-serif; font-size: 0.82rem; letter-spacing:0.08em; text-transform: uppercase; line-height: 1.5; pointer-events: none;
 }
 .rel-foto.es-video { cursor: pointer; }
 .rel-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(18,41,28,0.18); border: 0; cursor: pointer; }

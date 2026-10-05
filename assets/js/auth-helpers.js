@@ -160,18 +160,18 @@ function pedirCredencialesEnPagina(rolRequerido, detalle) {
       + '<p style="margin:0 0 1.4rem; font-size:0.9rem; color:#5a665f; line-height:1.6;">'
       + 'Tu navegador no conserva la sesión entre páginas, así que la pedimos aquí. '
       + 'Al entrar, esta página se carga sin recargarse.</p>'
-      + '<label style="display:block; font-family:\'Space Mono\',monospace; font-size:0.62rem; letter-spacing:0.1em;'
+      + '<label style="display:block; font-family:Syne,sans-serif; font-size:0.62rem; letter-spacing:0.1em;'
       + 'text-transform:uppercase; color:#2b4535; margin-bottom:0.4rem;">Correo</label>'
       + '<input id="lp-email" type="email" autocomplete="email" style="width:100%; padding:0.85rem; margin-bottom:1rem;'
       + 'border:1px solid rgba(165,130,74,0.38); border-radius:8px; font-family:Syne,sans-serif; font-size:0.95rem;">'
-      + '<label style="display:block; font-family:\'Space Mono\',monospace; font-size:0.62rem; letter-spacing:0.1em;'
+      + '<label style="display:block; font-family:Syne,sans-serif; font-size:0.62rem; letter-spacing:0.1em;'
       + 'text-transform:uppercase; color:#2b4535; margin-bottom:0.4rem;">Contraseña</label>'
       + '<input id="lp-pass" type="password" autocomplete="current-password" style="width:100%; padding:0.85rem; margin-bottom:1.2rem;'
       + 'border:1px solid rgba(165,130,74,0.38); border-radius:8px; font-family:Syne,sans-serif; font-size:0.95rem;">'
       + '<button id="lp-btn" style="width:100%; background:#8c734b; color:#fff; border:none; padding:0.9rem;'
       + 'border-radius:999px; font-family:Syne,sans-serif; font-weight:600; font-size:0.92rem; cursor:pointer;">Entrar</button>'
       + '<p id="lp-msg" style="margin:1rem 0 0; font-size:0.85rem; color:#a13324; display:none;"></p>'
-      + '<p style="margin:1.2rem 0 0; font-family:\'Space Mono\',monospace; font-size:0.6rem; color:#8c734b; word-break:break-word;">'
+      + '<p style="margin:1.2rem 0 0; font-family:Syne,sans-serif; font-size:0.6rem; color:#8c734b; word-break:break-word;">'
       + String(detalle || '').replace(/[<>&]/g, '') + ' · almacén: ' + (window.__mtAlmacenSesion || '?') + '</p>';
 
     /* La caja se pone DELANTE del panel, sin borrarlo: al entrar hay que

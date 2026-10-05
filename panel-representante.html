@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 :root { --bg-color:#eef0e5; --primary-color:#8c734b; --text-dark:#1a2e24; --text-light:#5a665f;
@@ -22,9 +22,9 @@ nav.main-nav { background:#fff; border-bottom:1px solid rgba(43,69,53,0.2); padd
   display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.8rem; }
 .nav-brand { font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:600;
   color:var(--accent-green); text-decoration:none; }
-.nav-right { display:flex; align-items:center; gap:1rem; font-family:'Space Mono',monospace; font-size:0.9rem; }
+.nav-right { display:flex; align-items:center; gap:1rem; font-family:'Syne', sans-serif; font-size:0.9rem; }
 .nav-right button { color:var(--primary-color); background:none; border:none; cursor:pointer;
-  font-family:'Space Mono',monospace; font-size:0.9rem; padding:0.7rem 0.4rem; min-height:44px; }
+  font-family:'Syne', sans-serif; font-size:0.9rem; padding:0.7rem 0.4rem; min-height:44px; }
 main { padding:2rem 5% 4rem; max-width:1000px; margin:0 auto; }
 .hola { font-family:'Cormorant Garamond',serif; font-size:2.4rem; color:var(--accent-green);
   margin:0 0 0.2rem; line-height:1.15; }
@@ -36,7 +36,7 @@ main { padding:2rem 5% 4rem; max-width:1000px; margin:0 auto; }
 
 /* Selector de hijos, solo si hay más de uno */
 .hijos-nav { display:flex; gap:0.5rem; flex-wrap:wrap; margin:1.6rem 0 1.2rem; }
-.hijo-btn { font-family:'Space Mono',monospace; font-size:0.87rem; letter-spacing:0.06em;
+.hijo-btn { font-family:'Syne', sans-serif; font-size:0.87rem; letter-spacing:0.06em;
   text-transform:uppercase; background:transparent; border:1px solid var(--border);
   color:var(--text-light); padding:0.7rem 1.1rem; border-radius:var(--r-pill);
   cursor:pointer; min-height:44px; }
@@ -49,13 +49,13 @@ main { padding:2rem 5% 4rem; max-width:1000px; margin:0 auto; }
   background:linear-gradient(90deg, var(--gold), var(--cyan)); }
 .panel-curso h2 { font-family:'Cormorant Garamond',serif; font-size:1.75rem; color:#fff; margin:0 0 0.5rem; }
 .curso-meta { display:flex; flex-wrap:wrap; gap:0.5rem; }
-.chip { font-family:'Space Mono',monospace; font-size:0.83rem; letter-spacing:0.08em; text-transform:uppercase;
+.chip { font-family:'Syne', sans-serif; font-size:0.83rem; letter-spacing:0.08em; text-transform:uppercase;
   background:rgba(238,240,229,0.16); color:#eef0e5; padding:0.3rem 0.7rem; border-radius:var(--r-pill); }
 
 .stat-row { display:flex; gap:1.2rem; flex-wrap:wrap; margin:0.6rem 0 1.2rem; }
 .stat { background:rgba(43,69,53,0.06); border-radius:var(--r-sm); padding:0.9rem 1.3rem; min-width:120px; }
 .stat .num { font-family:'Cormorant Garamond',serif; font-size:1.8rem; color:var(--accent-green); display:block; }
-.stat .lbl { font-family:'Space Mono',monospace; font-size:0.82rem; text-transform:uppercase;
+.stat .lbl { font-family:'Syne', sans-serif; font-size:0.82rem; text-transform:uppercase;
   letter-spacing:0.06em; color:var(--text-light); }
 .stat.ok { border-left:3px solid var(--cyan); }
 .stat.no { border-left:3px solid #a13324; }
@@ -66,9 +66,9 @@ main { padding:2rem 5% 4rem; max-width:1000px; margin:0 auto; }
 
 table { width:100%; border-collapse:collapse; font-size:1rem; }
 th, td { text-align:left; padding:0.6rem 0.5rem; border-bottom:1px solid var(--border); vertical-align:top; }
-th { font-family:'Space Mono',monospace; font-size:0.83rem; text-transform:uppercase;
+th { font-family:'Syne', sans-serif; font-size:0.83rem; text-transform:uppercase;
   letter-spacing:0.06em; color:var(--text-light); }
-.pill-si, .pill-no { display:inline-block; font-family:'Space Mono',monospace; font-size:0.82rem; font-weight:700;
+.pill-si, .pill-no { display:inline-block; font-family:'Syne', sans-serif; font-size:0.82rem; font-weight:700;
   text-transform:uppercase; letter-spacing:0.06em; padding:0.22rem 0.65rem; border-radius:var(--r-pill); }
 .pill-si { background:rgba(13,127,87,0.12); color:var(--cyan); }
 .pill-no { background:rgba(161,51,36,0.1); color:#a13324; }
@@ -79,19 +79,19 @@ th { font-family:'Space Mono',monospace; font-size:0.83rem; text-transform:upper
 .nota-top { display:flex; justify-content:space-between; align-items:baseline; gap:1rem; flex-wrap:wrap; }
 .nota-nombre { font-weight:600; color:var(--accent-green); }
 .nota-cifra { font-family:'Cormorant Garamond',serif; font-size:1.9rem; color:var(--accent-green); line-height:1; }
-.nota-fecha { font-family:'Space Mono',monospace; font-size:0.82rem; letter-spacing:0.06em;
+.nota-fecha { font-family:'Syne', sans-serif; font-size:0.82rem; letter-spacing:0.06em;
   text-transform:uppercase; color:var(--text-light); }
 .nota-coment { margin:0.7rem 0 0; font-size:1.04rem; line-height:1.65; color:var(--text-light);
   border-top:1px solid var(--border); padding-top:0.7rem; }
 .nota-coment::before { content:'Comentario del profesor'; display:block;
-  font-family:'Space Mono',monospace; font-size:0.81rem; letter-spacing:0.1em;
+  font-family:'Syne', sans-serif; font-size:0.81rem; letter-spacing:0.1em;
   text-transform:uppercase; color:var(--primary-color); margin-bottom:0.35rem; }
 
 .clase { padding:0 0 1.1rem 1.9rem; border-left:2px solid var(--border); margin-left:0.5rem; position:relative; }
 .clase:last-child { border-left-color:transparent; padding-bottom:0; }
 .clase::before { content:''; position:absolute; left:-7px; top:4px; width:12px; height:12px;
   border-radius:50%; background:var(--card-bg); border:2px solid var(--gold); }
-.clase .f { font-family:'Space Mono',monospace; font-size:0.83rem; letter-spacing:0.06em;
+.clase .f { font-family:'Syne', sans-serif; font-size:0.83rem; letter-spacing:0.06em;
   text-transform:uppercase; color:var(--primary-color); }
 .clase .t { font-weight:600; color:var(--accent-green); margin:0.15rem 0 0.3rem; }
 .clase .c { font-size:1rem; line-height:1.6; color:var(--text-light); white-space:pre-line; }
@@ -99,7 +99,7 @@ th { font-family:'Space Mono',monospace; font-size:0.83rem; text-transform:upper
 .vacio { color:var(--text-light); font-size:1.04rem; font-style:italic; }
 .aviso { background:rgba(140,115,75,0.1); border-left:3px solid var(--primary-color);
   border-radius:var(--r-sm); padding:1rem 1.2rem; font-size:1.04rem; line-height:1.65; color:var(--text-dark); }
-.solo-lectura { font-family:'Space Mono',monospace; font-size:0.81rem; letter-spacing:0.1em;
+.solo-lectura { font-family:'Syne', sans-serif; font-size:0.81rem; letter-spacing:0.1em;
   text-transform:uppercase; color:var(--text-light); margin-top:1.2rem; display:block; }
 @media (max-width:700px) {
   main { padding:1.5rem 1rem 3rem; }
@@ -107,7 +107,7 @@ th { font-family:'Space Mono',monospace; font-size:0.83rem; text-transform:upper
   .stat { min-width:calc(50% - 0.6rem); }
 }
 </style>
-<link rel="stylesheet" href="assets/css/lite.css?v=42">
+<link rel="stylesheet" href="assets/css/lite.css?v=98">
 </head>
 <body>
 
