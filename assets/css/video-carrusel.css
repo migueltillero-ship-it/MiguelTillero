@@ -197,3 +197,8 @@
 .hero-cta .btn-clases i { animation: mcPulso 1.8s ease-in-out infinite; }
 @keyframes mcPulso { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3); } }
 @media (prefers-reduced-motion: reduce) { .hero-cta .btn-clases i { animation: none; } }
+/* Móvil: con muchos videos los puntos no caben en una fila junto a las flechas */
+@media (max-width: 600px) {
+  .vc-controles { flex-wrap: wrap; gap: 0.8rem 1.2rem; }
+  .vc-dots { order: 3; flex-basis: 100%; flex-wrap: wrap; justify-content: center; }
+}
