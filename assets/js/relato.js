@@ -76,6 +76,7 @@
       var cta = el('div', 'rel-cta');
       c.cta.forEach(function (b, k) {
         var a = el('a', k === 0 ? 'btn btn-gold' : 'rel-btn2'); a.href = b.href;
+        if (/^https?:/i.test(b.href)) { a.target = '_blank'; a.rel = 'noopener'; }
         a.appendChild(tri(el('span'), b.texto));
         cta.appendChild(a);
       });

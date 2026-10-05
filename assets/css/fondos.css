@@ -647,3 +647,5 @@ body:has(#hero.hero-rotativo) #nav:not(.scrolled) .ctrl-btn.active { background:
 .voz-pie span { font-size: 0.92rem; color: var(--gold2); }
 /* Páginas de cursos/exámenes: el destello de .btn-gold necesita su propio contenedor para no ensanchar la página en móvil */
 #lite .btn-gold, #lite .btn-ghost { position: relative; overflow: hidden; }
+/* Novedad · ficha del episodio sobre el botón de TV5MONDE+ */
+.nov-grid .nov-nota { margin: 0 0 1rem; }

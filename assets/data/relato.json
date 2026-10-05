@@ -1139,6 +1139,16 @@
         "fr": "En tant que directeur de l’Alliance Française de San Cristóbal, j’ai présenté le siège rénové, ses activités et son offre culturelle dans la série documentaire de TV5MONDE présentée par Ivan Kabacoff, qui parcourt le monde à la découverte des initiatives en faveur du français. La première de la projection a eu lieu le 26 septembre 2026 au Centro de Desarrollo de Capacidades Creativas El Rastro (Blvd. Ignacio Allende 36B, Barrio de San Antonio), et l’épisode « Destination Mexique » a été diffusé sur TV5MONDE les 28 septembre et 3 octobre.",
         "en": "As director of the Alliance Française de San Cristóbal, I presented the renovated premises, its activities and its cultural offering in TV5MONDE’s documentary series hosted by Ivan Kabacoff, which travels the world following initiatives in support of French. The screening premiere took place on September 26, 2026 at the Centro de Desarrollo de Capacidades Creativas El Rastro (Blvd. Ignacio Allende 36B, Barrio de San Antonio), and the episode “Destination Mexique” aired on TV5MONDE on September 28 and October 3."
       },
+      "cta": [
+        {
+          "href": "https://www.tv5mondeplus.com/es/documentaires/evasion/destination-francophonie-6",
+          "texto": {
+            "es": "Ver la Parte 1 en TV5MONDE+",
+            "fr": "Voir la partie 1 sur TV5MONDE+",
+            "en": "Watch Part 1 on TV5MONDE+"
+          }
+        }
+      ],
       "medios": [
         {
           "tipo": "foto",
