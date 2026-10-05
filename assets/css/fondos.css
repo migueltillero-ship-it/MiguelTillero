@@ -612,7 +612,8 @@ body:has(#hero.hero-rotativo) #nav:not(.scrolled) .ctrl-btn.active { background:
 .lg-links { display: flex; flex-direction: column; gap: 0.55rem; margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px solid var(--border); }
 .lg-links a { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.98rem; color: var(--gold2); text-decoration: none; }
 .lg-links a:hover { color: var(--cyan); text-decoration: underline; }
-.pf-logo-nu { width: 64px; height: 44px; }
+.pf-logo-nu { height: 44px; width: auto; }
+.pf-logo-zelle { height: 38px; width: auto; }
 .insc-form.wizard .insc-legend { display: none; }
 /* Logos oficiales: albo (azul sobre claro, con su tarjeta) y Remitly (en vertical sobre azul marino) */
 .pf-cab.pf-claro { background: #f0f0ee; color: #3743aa; overflow: hidden; min-height: 128px; align-content: flex-start; }
@@ -632,3 +633,15 @@ body:has(#hero.hero-rotativo) #nav:not(.scrolled) .ctrl-btn.active { background:
 .lite-barra button { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.55rem 1.1rem; border-radius: 999px; cursor: pointer; font-weight: 700; font-size: 0.95rem;
   background: #fff; color: var(--gold2); border: 1px solid var(--border); transition: all .25s; }
 .lite-barra button:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
+/* ══ Testimonios · voces en video y audio (aparece solo si hay testimonios autorizados) ══ */
+.voces[hidden] { display: none; }
+.voces-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.4rem; max-width: 1100px; margin: 0 auto 2.4rem; }
+.voz-card { display: flex; flex-direction: column; gap: 0.9rem; padding: 1rem 1rem 1.3rem; border-radius: var(--r-md); background: #fff; border: 1px solid var(--border); box-shadow: var(--shadow-card); }
+.voz-video video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 14px; background: #0b1712; }
+.voz-audio { display: flex; align-items: center; gap: 0.9rem; padding: 0.8rem; border-radius: 14px; background: linear-gradient(135deg, #0d3b2e, #12291c); }
+.voz-audio audio { flex: 1; min-width: 0; height: 40px; }
+.voz-inicial { flex: none; width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.8rem; color: #12291c; background: linear-gradient(135deg, #e6cf9c, #a5824a); }
+.voz-cita { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.35rem; line-height: 1.3; color: var(--white); margin: 0; text-align: left; }
+.voz-pie { display: flex; flex-direction: column; gap: 0.1rem; margin: 0; font-family: 'Syne', sans-serif; }
+.voz-pie b { font-size: 1.05rem; color: var(--white); }
+.voz-pie span { font-size: 0.92rem; color: var(--gold2); }

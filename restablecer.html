@@ -11,8 +11,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<link rel="stylesheet" href="assets/css/sitio.css?v=102">
-<link rel="stylesheet" href="assets/css/fondos.css?v=102">
+<link rel="stylesheet" href="assets/css/sitio.css?v=104">
+<link rel="stylesheet" href="assets/css/fondos.css?v=104">
 <style>
 .hero-langs {
   display: flex; gap: 1.5rem; margin-bottom: 2.5rem;
@@ -544,6 +544,17 @@ function initVanta() {
 }
 /* El fondo 3D (three.js + Vanta, ~700 KB) se pide cuando la página ya cargó, no antes:
    así no bloquea el texto ni las fotos. */
+/* El fondo 3D no se enciende en equipos modestos, con «ahorro de datos» o si se pidió menos movimiento: queda el degradado. */
+function fondo3DPermitido() {
+  try {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    var c = navigator.connection;
+    if (c && (c.saveData || /(^|-)2g$/.test(c.effectiveType || ''))) return false;
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) return false;
+    if (navigator.deviceMemory && navigator.deviceMemory <= 2) return false;
+  } catch (e) {}
+  return true;
+}
 var vantaArrancado = false;
 function cargarScriptVanta(src, listo) {
   var s = document.createElement('script');
@@ -551,7 +562,7 @@ function cargarScriptVanta(src, listo) {
   document.head.appendChild(s);          /* si falla, queda el degradado del CSS */
 }
 function arrancarVanta() {
-  if (vantaArrancado) return;
+  if (vantaArrancado || !fondo3DPermitido()) return;
   vantaArrancado = true;
   cargarScriptVanta('https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js', function () {
     cargarScriptVanta('https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js', initVanta);

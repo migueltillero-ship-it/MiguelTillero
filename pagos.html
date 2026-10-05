@@ -10,8 +10,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<link rel="stylesheet" href="assets/css/sitio.css?v=102">
-<link rel="stylesheet" href="assets/css/fondos.css?v=102">
+<link rel="stylesheet" href="assets/css/sitio.css?v=104">
+<link rel="stylesheet" href="assets/css/fondos.css?v=104">
 <style>
 .hero-langs {
   display: flex; gap: 1.5rem; margin-bottom: 2.5rem;
@@ -333,8 +333,8 @@
           <a href="https://send.albo.com/l/CK2moaxG" target="_blank" rel="noopener" class="pf-enlace"><i class="fa fa-link" aria-hidden="true"></i><span data-es="¿Pagas desde Estados Unidos? Cobro internacional" data-fr="Tu payes depuis les États-Unis ? Paiement international" data-en="Paying from the United States? International payment">¿Pagas desde Estados Unidos? Cobro internacional</span></a>
         </div>
       </article>
-      <article class="pf-card" style="--marca:#820AD1;">
-        <header class="pf-cab"><img class="pf-logo pf-logo-nu" src="assets/images/pagos/nu.svg" alt="Nu" width="64" height="64"><span class="pf-tipo" data-es="Transferencia · México" data-fr="Virement · Mexique" data-en="Transfer · Mexico">Transferencia · México</span></header>
+      <article class="pf-card" style="--marca:#7E0ACA;">
+        <header class="pf-cab"><img class="pf-logo pf-logo-nu" src="assets/images/pagos/nu-logo.png" alt="Nu" width="176" height="92"><span class="pf-tipo" data-es="Transferencia · México" data-fr="Virement · Mexique" data-en="Transfer · Mexico">Transferencia · México</span></header>
         <div class="pf-cuerpo">
           <div class="pf-dato"><small>CLABE</small><b>6381 8000 0116 2530 75</b></div>
           <div class="pf-dato"><small data-es="Beneficiario" data-fr="Bénéficiaire" data-en="Beneficiary">Beneficiario</small><b>Miguel David Tillero Álvarez</b></div>
@@ -357,8 +357,8 @@
           <button type="button" class="pf-copiar" data-copiar="5101253230626677"><i class="fa fa-copy" aria-hidden="true"></i><span class="c1" data-es="Copiar código" data-fr="Copier le code" data-en="Copy code">Copiar código</span><span class="c2" data-es="¡Código copiado!" data-fr="Code copié !" data-en="Code copied!">¡Código copiado!</span></button>
         </div>
       </article>
-      <article class="pf-card" style="--marca:#6D1ED4;">
-        <header class="pf-cab"><img class="pf-logo pf-logo-cuadrado" src="assets/images/pagos/zelle.svg" alt="Zelle" width="48" height="48"><b class="pf-marca">Zelle</b><span class="pf-tipo" data-es="Desde Estados Unidos" data-fr="Depuis les États-Unis" data-en="From the United States">Desde Estados Unidos</span></header>
+      <article class="pf-card" style="--marca:#691BCC;">
+        <header class="pf-cab"><img class="pf-logo pf-logo-zelle" src="assets/images/pagos/zelle-logo.png" alt="Zelle" width="173" height="76"><span class="pf-tipo" data-es="Desde Estados Unidos" data-fr="Depuis les États-Unis" data-en="From the United States">Desde Estados Unidos</span></header>
         <div class="pf-cuerpo">
           <p class="pf-texto" data-es="Por seguridad, los datos de Zelle solo se comparten por WhatsApp." data-fr="Par sécurité, les coordonnées Zelle sont partagées uniquement par WhatsApp." data-en="For security, Zelle details are shared only via WhatsApp.">Por seguridad, los datos de Zelle solo se comparten por WhatsApp.</p>
           <a href="https://wa.me/584122465331?text=Hola%20Miguel%2C%20%C2%BFme%20compartes%20los%20datos%20de%20Zelle%3F" target="_blank" rel="noopener" class="pf-boton"><i class="fab fa-whatsapp" aria-hidden="true"></i><span data-es="Pedirlos por WhatsApp" data-fr="Les demander par WhatsApp" data-en="Request via WhatsApp">Pedirlos por WhatsApp</span></a>
@@ -547,6 +547,17 @@ function initVanta() {
 }
 /* El fondo 3D (three.js + Vanta, ~700 KB) se pide cuando la página ya cargó, no antes:
    así no bloquea el texto ni las fotos. */
+/* El fondo 3D no se enciende en equipos modestos, con «ahorro de datos» o si se pidió menos movimiento: queda el degradado. */
+function fondo3DPermitido() {
+  try {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    var c = navigator.connection;
+    if (c && (c.saveData || /(^|-)2g$/.test(c.effectiveType || ''))) return false;
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) return false;
+    if (navigator.deviceMemory && navigator.deviceMemory <= 2) return false;
+  } catch (e) {}
+  return true;
+}
 var vantaArrancado = false;
 function cargarScriptVanta(src, listo) {
   var s = document.createElement('script');
@@ -554,7 +565,7 @@ function cargarScriptVanta(src, listo) {
   document.head.appendChild(s);          /* si falla, queda el degradado del CSS */
 }
 function arrancarVanta() {
-  if (vantaArrancado) return;
+  if (vantaArrancado || !fondo3DPermitido()) return;
   vantaArrancado = true;
   cargarScriptVanta('https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js', function () {
     cargarScriptVanta('https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js', initVanta);
