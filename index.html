@@ -9,11 +9,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="assets/css/video-carrusel.css?v=106">
-<link rel="stylesheet" href="assets/css/fondos.css?v=106">
+<link rel="stylesheet" href="assets/css/video-carrusel.css?v=107">
+<link rel="stylesheet" href="assets/css/fondos.css?v=107">
 <!-- three.js y Vanta (fondo 3D) ya no se piden aquí: se cargan al terminar la intro, ver arrancarVanta() -->
 
-<link rel="stylesheet" href="assets/css/sitio.css?v=106">
+<link rel="stylesheet" href="assets/css/sitio.css?v=107">
 <style>
 .services-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(210px,1fr));
@@ -186,10 +186,10 @@
 ═══════════════════════════════════════════ -->
 <div id="video-intro">
   <!-- El vídeo de fondo (silencioso en preview) — fuente elegida por JS según orientación -->
-  <video id="intro-video" autoplay muted playsinline loop
+  <video id="intro-video" muted playsinline loop
          poster="assets/images/videos/bienvenida.jpg"
-         data-src-h="bienvenida-720.mp4"
-         data-src-v="bienvenida-720.mp4"
+         data-src-h="bienvenida-ligera.mp4"
+         data-src-v="bienvenida-ligera.mp4"
          preload="auto"></video>
   <script>
   /* La descarga empieza ya, mientras se lee el HTML, y no cuando termina de cargar toda la página. */
@@ -1406,15 +1406,20 @@ window.addEventListener('DOMContentLoaded', function() {
       });
     }
   }
-  /* Intentar reproducir en cada evento de carga posible */
-  introVid.addEventListener('loadeddata', attemptPlay);
-  introVid.addEventListener('canplay', attemptPlay);
-  introVid.addEventListener('canplaythrough', attemptPlay);
-  /* Intento inmediato */
-  attemptPlay();
-  /* Intento adicional tras un instante (por si el archivo tarda) */
-  setTimeout(attemptPlay, 300);
-  setTimeout(attemptPlay, 1000);
+  /* El vídeo no arranca hasta que el navegador calcula que puede llegar al
+     final sin pararse (canplaythrough). Antes arrancaba con los primeros
+     bytes y, con una conexión normal, se atascaba a mitad de camino. Mientras
+     tanto se ve el póster. Si la red es muy lenta y esa señal no llega,
+     arranca igual a los 6 s. */
+  var arrancado = false;
+  function arrancarMudo() {
+    if (arrancado) return;
+    arrancado = true;
+    attemptPlay();
+  }
+  introVid.addEventListener('canplaythrough', arrancarMudo);
+  if (introVid.readyState >= 4) arrancarMudo();
+  setTimeout(arrancarMudo, 6000);
 
   /* ── FASE 2: tras 2.6s, atenuar vídeo y mostrar branding ── */
   setTimeout(function() {
@@ -1436,7 +1441,7 @@ window.addEventListener('DOMContentLoaded', function() {
       if (introDone || !introVid || !progressEl) return;
       var dur = introVid.duration;
       if (dur && isFinite(dur) && dur > 0) {
-        progressEl.style.width = ((introVid.currentTime / dur) * 100) + '%';
+        progressEl.style.transform = 'scaleX(' + Math.min(1, introVid.currentTime / dur) + ')';
       }
       rafId = requestAnimationFrame(tick);
     }
@@ -1472,25 +1477,59 @@ window.addEventListener('DOMContentLoaded', function() {
     introVid.loop = false;
     if (introEl) { introEl.classList.remove('dimmed'); introEl.classList.add('entered'); }
 
-    /* ACTIVAR SONIDO (funciona porque viene de un clic del usuario) */
-    introVid.muted = false;
-    introVid.removeAttribute('muted');
-    introVid.volume = 1.0;
-    introVid.currentTime = 0;
-    /* Si el vídeo no arranca (códec no soportado, descarga fallida), entramos
-       igual: antes la promesa se descartaba en silencio y el visitante se
-       quedaba con la pantalla bloqueada hasta el tope de seguridad. */
-    var playP = introVid.play();
-    if (playP && playP.catch) playP.catch(closeIntro);
-    startProgress();
+    /* ACTIVAR SONIDO (funciona porque viene de un clic del usuario).
+       Si el vídeo aún no está listo (conexión lenta) se espera a que lo esté
+       en vez de arrancar a trompicones; a los 6 s se lanza igual. */
+    var lanzado = false;
+    function lanzar() {
+      if (lanzado) return;
+      lanzado = true;
+      if (enterBtn) enterBtn.style.display = 'none';
+      introVid.muted = false;
+      introVid.removeAttribute('muted');
+      introVid.volume = 1.0;
+      if (introVid.currentTime > 0.3) introVid.currentTime = 0;
+      /* Si el vídeo no arranca (códec no soportado, descarga fallida), entramos
+         igual: antes la promesa se descartaba en silencio y el visitante se
+         quedaba con la pantalla bloqueada hasta el tope de seguridad. */
+      var playP = introVid.play();
+      if (playP && playP.catch) playP.catch(closeIntro);
+      startProgress();
+    }
+    if (introVid.readyState >= 4 || introVid.currentTime > 0) lanzar();
+    else {
+      var txt = enterBtn && enterBtn.querySelector('.enter-txt');
+      if (txt) txt.innerHTML = 'Un instante&hellip;';
+      if (enterBtn) enterBtn.disabled = true;
+      introVid.addEventListener('canplaythrough', lanzar, { once: true });
+      setTimeout(lanzar, 6000);
+    }
 
-    /* Precargamos la música mientras corre el vídeo para que entre sin corte.
+    /* Precargamos la música para que entre sin corte, pero solo cuando el
+       vídeo ya está descargado entero: si las dos descargas corren a la vez,
+       se disputan la conexión y el vídeo se atasca.
        (Solo si aún no se intentó reproducir: llamar a load() encima de un
        play() en curso lo interrumpe y deja el audio pausado para siempre.) */
-    if (bgAudio && bgAudio.readyState === 0) { bgAudio.preload = 'auto'; try { bgAudio.load(); } catch (e) {} }
+    function precargarMusica() {
+      if (bgAudio && bgAudio.readyState === 0) { bgAudio.preload = 'auto'; try { bgAudio.load(); } catch (e) {} }
+    }
+    function videoDescargado() {
+      try {
+        var r = introVid.buffered, d = introVid.duration;
+        return !!(r.length && d && r.end(r.length - 1) >= d - 0.4);
+      } catch (e) { return true; }
+    }
+    if (videoDescargado()) precargarMusica();
+    else {
+      var vigilar = function () {
+        if (!videoDescargado()) return;
+        introVid.removeEventListener('progress', vigilar);
+        precargarMusica();
+      };
+      introVid.addEventListener('progress', vigilar);
+    }
 
     /* Ocultar branding para ver el vídeo a pantalla completa */
-    if (enterBtn)   enterBtn.style.display = 'none';
     if (volHint)    volHint.style.display = 'none';
     if (monogramEl) { monogramEl.style.transition='opacity .6s'; monogramEl.style.opacity = '0'; }
     if (titleEl)    { titleEl.style.transition='opacity .6s'; titleEl.style.opacity = '0'; }

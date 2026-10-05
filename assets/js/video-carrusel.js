@@ -205,6 +205,18 @@
     seccion.style.display = 'none';
   }
 
+  function esperarIntro(fn) {
+    var b = document.body;
+    if (!b.classList.contains('intro-active')) { fn(); return; }
+    var hecho = false, mo = null;
+    function ir() { if (hecho) return; hecho = true; if (mo) mo.disconnect(); fn(); }
+    if (window.MutationObserver) {
+      mo = new MutationObserver(function () { if (!b.classList.contains('intro-active')) ir(); });
+      mo.observe(b, { attributes: true, attributeFilter: ['class'] });
+    }
+    setTimeout(ir, 30000);
+  }
+
   function iniciar(contenedor) {
     fetch(contenedor.dataset.manifiesto || MANIFIESTO)
       .then(function (r) {
@@ -220,7 +232,9 @@
       })
       .then(function (videos) {
         if (!videos.length) { ocultarSeccion(contenedor); return; }
-        construir(contenedor, videos);
+        /* Las miniaturas (unos 500 KB) esperan a que termine el vídeo de entrada:
+           si se piden a la vez, le quitan conexión y el vídeo se entrecorta. */
+        esperarIntro(function () { construir(contenedor, videos); });
       })
       .catch(function (e) {
         console.warn('Carrusel de vídeos:', e);
