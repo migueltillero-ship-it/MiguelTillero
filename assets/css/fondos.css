@@ -623,3 +623,12 @@ body:has(#hero.hero-rotativo) #nav:not(.scrolled) .ctrl-btn.active { background:
 .pf-logo-remitly { height: 74px; width: auto; max-width: 100%; }
 .pf-cab.pf-remitly .pf-tipo { color: #fff; }
 .pf-cab.pf-claro .pf-tipo { flex-basis: 58%; }
+
+/* ══ Páginas de la cuenta (registro, contraseña, gracias, representante) sobre el diseño del sitio ══ */
+.lite-section { padding: 2.4rem 0 4rem; }
+.lite-main { width: 100%; }
+.lite-main > .card { margin-left: auto !important; margin-right: auto !important; }
+.lite-barra { display: flex; align-items: center; justify-content: flex-end; gap: 0.9rem; max-width: 1100px; margin: 0 auto 1.2rem; font-family: 'Syne', sans-serif; }
+.lite-barra button { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.55rem 1.1rem; border-radius: 999px; cursor: pointer; font-weight: 700; font-size: 0.95rem;
+  background: #fff; color: var(--gold2); border: 1px solid var(--border); transition: all .25s; }
+.lite-barra button:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
