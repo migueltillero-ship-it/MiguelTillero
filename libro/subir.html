@@ -93,7 +93,9 @@ progress{width:100%;height:12px;margin-top:12px}
 'use strict';
 const $ = s => document.querySelector(s);
 const sb = typeof supabaseClient !== 'undefined' ? supabaseClient : null;
-const PARTE_MAX = 30 * 1024 * 1024;   // objetivo por parte (el límite del plan es 50 MB)
+// Partes pequeñas: el alumno descarga solo la que está leyendo y la primera
+// página aparece rápido (el límite del plan es 50 MB por archivo).
+const PARTE_MAX = 6 * 1024 * 1024;
 let grupos = [], libro = null;
 
 const log = m => { $('#log').textContent += m + '\n'; };

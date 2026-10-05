@@ -31,7 +31,7 @@ select option{color:#12291c}
 .pg{width:4.2rem;text-align:center;font-family:var(--mono)}
 .tot{font-family:var(--mono);font-size:.8rem;color:var(--muted)}
 main{flex:1;overflow:auto;display:flex;justify-content:center;align-items:flex-start;padding:18px 12px 40px;touch-action:pan-y pinch-zoom}
-.hoja{position:relative;background:var(--paper);box-shadow:0 8px 30px rgba(0,0,0,.45);line-height:0;user-select:none;-webkit-user-select:none}
+.hoja{min-width:min(92vw,560px);min-height:320px;position:relative;background:var(--paper);box-shadow:0 8px 30px rgba(0,0,0,.45);line-height:0;user-select:none;-webkit-user-select:none}
 .hoja canvas{display:block;max-width:none}
 .marca{position:absolute;inset:0;pointer-events:none;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .marca span{transform:rotate(-30deg);font-family:var(--mono);font-size:clamp(.8rem,2vw,1.2rem);color:rgba(18,41,28,.07);white-space:nowrap;line-height:1.4;text-align:center}
@@ -107,13 +107,32 @@ function abrir(l){
 }
 
 function parteDe(p){ return L.partes.find(x => p >= x.desde && p <= x.hasta); }
+function avance(parte, llevo, total){
+  const c = main.querySelector('.hoja .cargando');
+  if(!c || parteDe(pagina) !== parte) return;
+  const mb = n => (n / 1048576).toFixed(1);
+  c.textContent = total ? `Descargando el libro… ${Math.round(llevo / total * 100)} % (${mb(llevo)} de ${mb(total)} MB)` : `Descargando el libro… ${mb(llevo)} MB`;
+}
 async function docDe(parte){
   if(!docs[parte.path]) docs[parte.path] = (async () => {
     const { data, error } = await sb.storage.from('libros').createSignedUrl(parte.path, 3600);
     if(error) throw error;
-    const tarea = pdfjsLib.getDocument({ url:data.signedUrl, disableAutoFetch:true, rangeChunkSize:1 << 20 });
-    // Si la conexión se queda colgada, se abandona y se vuelve a intentar.
-    return Promise.race([tarea.promise, new Promise((_, no) => setTimeout(() => { tarea.destroy(); no(new Error('TIEMPO')); }, 45000))]);
+    // Se descarga la parte entera mostrando el avance: más fiable que pedirla
+    // por trozos (Storage no siempre deja leer esas cabeceras desde otro dominio).
+    const res = await fetch(data.signedUrl);
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const total = +res.headers.get('content-length') || 0, trozos = [];
+    let llevo = 0;
+    const lector = res.body.getReader();
+    for(;;){
+      const { done, value } = await lector.read();
+      if(done) break;
+      trozos.push(value); llevo += value.length;
+      avance(parte, llevo, total);
+    }
+    const bytes = new Uint8Array(llevo); let o = 0;
+    trozos.forEach(t => { bytes.set(t, o); o += t.length; });
+    return pdfjsLib.getDocument({ data:bytes }).promise;
   })().catch(e => { delete docs[parte.path]; throw e; });
   return docs[parte.path];
 }
@@ -133,7 +152,8 @@ async function ir(p){
     hoja.innerHTML = `<canvas></canvas><div class="marca"><span>${esc(marca)}<br>${esc(marca)}<br>${esc(marca)}</span></div><div class="cargando">Cargando página…</div>`;
     main.appendChild(hoja);
   }
-  hoja.querySelector('.cargando').classList.remove('hidden');
+  const aviso = hoja.querySelector('.cargando');
+  aviso.textContent = 'Cargando página…'; aviso.classList.remove('hidden');
   try{
     const doc = await docDe(parte);
     const page = await doc.getPage(p - parte.desde + 1);
