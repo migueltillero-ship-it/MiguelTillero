@@ -1,0 +1,16 @@
+#!/bin/sh
+# Guardia contra enlaces de reuniones de Zoom (el repositorio es publico).
+# Revisa solo las lineas que se AGREGAN en este commit; quitar enlaces siempre se permite.
+# Activo con:  git config core.hooksPath .githooks
+if git diff --cached -U0 --no-color | grep -E '^\+' | grep -v '^+++' \
+   | grep -Eiq 'zoom\.us/(j|my|s|wc/join)/[A-Za-z0-9_.-]{4,}|[?&]pwd=[A-Za-z0-9]{10,}'; then
+  echo "" >&2
+  echo "COMMIT BLOQUEADO: se agrega un enlace de Zoom (o su contrasena)." >&2
+  echo "El enlace va solo en la base de datos (tabla grupo_enlaces), nunca en un archivo." >&2
+  echo "Si necesitas guardar una consulta con el enlace real, ponla en supabase/privado/ (git la ignora)." >&2
+  echo "" >&2
+  git diff --cached -U0 --no-color | grep -E '^\+' | grep -v '^+++' \
+    | grep -Eio 'zoom\.us/(j|my|s|wc/join)/[A-Za-z0-9_.-]{0,6}|[?&]pwd=[A-Za-z0-9]{0,4}' | sed 's/$/.../' >&2
+  exit 1
+fi
+exit 0

@@ -432,6 +432,7 @@
         <section class="panel-curso" id="cab-curso">
             <h2 id="titulo-curso"></h2>
             <div class="curso-meta" id="curso-meta"></div>
+            <div id="curso-acciones" style="margin-top:1.1rem;display:flex;gap:0.7rem;flex-wrap:wrap;"></div>
         </section>
 
         <section class="panel">
@@ -1793,6 +1794,18 @@ function pintarHijo() {
     }
     document.getElementById('curso-meta').innerHTML =
         chips.map(x => '<span class="chip">' + esc(x) + '</span>').join('');
+
+    /* Enlace de la clase: la base solo lo entrega con la inscripción activa y la sesión del representante. */
+    const acciones = document.getElementById('curso-acciones');
+    if (c && c.enlace_zoom) {
+        acciones.innerHTML = '<a class="btn btn-gold" href="' + esc(c.enlace_zoom) +
+            '" target="_blank" rel="noopener"><i class="fa-solid fa-video"></i> Entrar a la clase</a>';
+    } else if (c && c.estado_inscripcion && c.estado_inscripcion !== 'activa' && c.estado_inscripcion !== 'finalizada') {
+        acciones.innerHTML = '<p style="margin:0;font-style:normal;font-size:1rem;color:rgba(255,255,255,0.85);"><i class="fa-solid fa-lock"></i> ' +
+            'El enlace de la clase se activa aquí en cuanto el profesor confirme la inscripción.</p>';
+    } else {
+        acciones.innerHTML = '';
+    }
 
     /* Asistencia */
     const a = h.asistencia || { presentes: 0, faltas: 0, total: 0, detalle: [] };

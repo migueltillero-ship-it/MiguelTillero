@@ -34,7 +34,7 @@ declare
   v_fin            date    := date '2026-11-11';
   v_hora_inicio    time    := time '19:00';
   v_hora_fin       time    := time '20:30';
-  v_zoom           text    := 'https://us02web.zoom.us/j/2368165321';
+  v_zoom           text    := '';            -- NO lo guardes en el archivo: pégalo solo al ejecutar (el repositorio es público)
   -- ------------------------------------------------------------------------
 
   v_docente_id uuid;
@@ -122,9 +122,14 @@ begin
   where id = v_grupo_id;
 
   -- 4) Enlace de Zoom (tabla protegida: solo inscripciones activas) ----------
-  insert into public.grupo_enlaces (grupo_id, enlace_zoom)
-  values (v_grupo_id, v_zoom)
-  on conflict (grupo_id) do update set enlace_zoom = excluded.enlace_zoom, updated_at = now();
+  -- Si v_zoom queda vacío, el enlace que ya esté guardado no se toca.
+  if v_zoom ~* '^https://' then
+    insert into public.grupo_enlaces (grupo_id, enlace_zoom)
+    values (v_grupo_id, v_zoom)
+    on conflict (grupo_id) do update set enlace_zoom = excluded.enlace_zoom, updated_at = now();
+  else
+    raise notice 'Enlace de Zoom sin cambios (v_zoom está vacío).';
+  end if;
 
   -- 5) Horario semanal: lunes (1) y miércoles (3) -----------------------------
   delete from public.horarios where curso_id = v_curso_id;

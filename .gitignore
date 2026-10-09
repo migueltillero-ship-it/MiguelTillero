@@ -4,3 +4,7 @@
 Thumbs.db
 .claude/
 supabase/.temp/
+
+# Consultas con datos privados (enlaces de Zoom, etc.): nunca al repositorio publico
+supabase/privado/
+*.privado.sql

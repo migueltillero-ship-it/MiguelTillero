@@ -107,13 +107,13 @@ begin
   where id = v_curso_id;
 
   -- 3.2 Detalles del grupo -------------------------------------------------
-  -- El enlace de Zoom es el de la sala fija del grupo. El de WhatsApp se
-  -- rellena con el UPDATE que viene al final (hace falta el enlace de
-  -- invitación chat.whatsapp.com/..., que no es el mismo que el grupo).
+  -- El enlace de Zoom NO va en este archivo (el repositorio es público): se
+  -- pone aparte, en el editor de Supabase, con el UPDATE de «TUS ENLACES»
+  -- al final. El de WhatsApp se rellena con el UPDATE que viene al final
+  -- (hace falta el enlace de invitación chat.whatsapp.com/..., que no es el
+  -- mismo que el grupo).
   update public.grupos
   set modalidad      = 'hibrido',
-      enlace_zoom     = coalesce(nullif(enlace_zoom, ''),
-                                 'https://us02web.zoom.us/j/89400565303?pwd=GRFFqNiJyOmYAtb4ndB6jbO6B5GlRe.1'),
       enlace_whatsapp = coalesce(nullif(enlace_whatsapp, ''),
                                  'https://chat.whatsapp.com/HQ1m79IBobZ9MJZdMxNz5H'),
       unidad_actual  = 'Unités 4 et 5',
@@ -208,13 +208,15 @@ end $$;
 -- ============================================================================
 -- TUS ENLACES — cambia los dos textos y ejecuta solo estas líneas
 -- ============================================================================
--- Los dos enlaces ya quedaron puestos arriba: la sala de Zoom del grupo y la
--- invitación al grupo de WhatsApp. Si alguno cambia, edítalo con esto:
+-- El enlace de Zoom NUNCA se escribe en un archivo del repositorio (es
+-- público): se pone o se cambia directamente en el editor de Supabase, sin
+-- guardar esa consulta en el proyecto. Una vez movidos los enlaces a su
+-- tabla protegida (representante-y-enlaces.sql), se hace así:
 --
--- update public.grupos
--- set enlace_zoom     = 'https://...',
---     enlace_whatsapp = 'https://chat.whatsapp.com/...'
--- where codigo = 'A1-OCT2026';
+-- update public.grupo_enlaces
+-- set enlace_zoom     = '<<PEGA AQUÍ EL ENLACE DE ZOOM>>',
+--     enlace_whatsapp = '<<PEGA AQUÍ LA INVITACIÓN DE WHATSAPP>>'
+-- where grupo_id = (select id from public.grupos where codigo = 'A1-OCT2026');
 
 
 -- ============================================================================
