@@ -1,0 +1,2 @@
+# El guardia de commits debe quedar siempre con saltos de linea LF (si no, sh no lo ejecuta)
+.githooks/* text eol=lf
