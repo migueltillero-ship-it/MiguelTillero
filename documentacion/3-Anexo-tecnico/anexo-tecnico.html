@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Vive el francés · Anexo técnico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Hoja de estilo común a los tres documentos de la entrega.
+   Pensada para leerse en pantalla y para imprimirse en A4 sin retoques:
+   los saltos de página están controlados y nada queda partido a la mitad.
+   Se incrusta dentro de cada HTML para que cada documento viaje solo. */
+
+@page { size: A4; margin: 18mm 16mm 20mm; }
+
+:root {
+  --crema:  #eef0e5;
+  --papel:  #ffffff;
+  --oro:    #8c734b;
+  --oro-cl: #a5824a;
+  --verde:  #2b4535;
+  --tinta:  #1a2e24;
+  --suave:  #5a665f;
+  --linea:  rgba(165,130,74,0.30);
+  --cyan:   #0d7f57;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--crema);
+  color: var(--tinta);
+  font-family: 'Syne', 'Segoe UI', 'DejaVu Sans', sans-serif;
+  font-size: 10.5pt;
+  line-height: 1.68;
+}
+
+.hoja {
+  max-width: 190mm;
+  margin: 0 auto;
+  background: var(--papel);
+  padding: 18mm 16mm;
+}
+
+/* ── Portada ─────────────────────────────────────────────── */
+.portada { text-align: left; padding: 22mm 0 14mm; border-bottom: 2px solid var(--oro); margin-bottom: 10mm; }
+.portada .marca { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 15pt; color: var(--verde); }
+.portada .marca span { color: var(--oro); }
+.portada .eyebrow { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8pt;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--oro); margin-top: 16mm; }
+.portada h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 34pt;
+  line-height: 1.04; color: var(--verde); margin: 4mm 0 0; letter-spacing: -0.01em; }
+.portada h1 em { font-style: italic; color: var(--oro); }
+.portada .sub { font-size: 12pt; color: var(--suave); margin-top: 5mm; max-width: 140mm; line-height: 1.6; }
+.portada .pie-portada { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8.5pt;
+  color: var(--suave); margin-top: 14mm; line-height: 1.9; }
+
+/* ── Jerarquía ───────────────────────────────────────────── */
+h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 20pt;
+  color: var(--verde); margin: 11mm 0 3mm; padding-bottom: 2mm; border-bottom: 1px solid var(--linea);
+  page-break-after: avoid; }
+h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 13.5pt;
+  color: var(--verde); margin: 7mm 0 2mm; page-break-after: avoid; }
+h4 { font-family: 'Syne', 'Segoe UI', sans-serif; font-weight: 700; font-size: 10.5pt;
+  color: var(--oro); margin: 5mm 0 1.5mm; page-break-after: avoid; }
+p { margin: 0 0 3.2mm; }
+strong { color: var(--verde); }
+em { color: inherit; }
+a { color: var(--oro); text-decoration: none; border-bottom: 1px solid var(--linea); }
+
+ul, ol { margin: 0 0 3.2mm; padding-left: 5.5mm; }
+li { margin-bottom: 1.6mm; }
+
+.salto { page-break-before: always; }
+.junto { page-break-inside: avoid; }
+
+/* ── Bloques destacados ──────────────────────────────────── */
+.nota {
+  background: rgba(140,115,75,0.08);
+  border-left: 3px solid var(--oro);
+  padding: 4mm 5mm; margin: 4mm 0; font-size: 10pt; line-height: 1.6;
+  page-break-inside: avoid;
+}
+.nota .et { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--oro); display: block; margin-bottom: 1.5mm; }
+
+.cita {
+  font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic;
+  font-size: 13pt; line-height: 1.5; color: var(--verde);
+  border-left: 2px solid var(--oro); padding: 2mm 0 2mm 6mm; margin: 6mm 0;
+  page-break-inside: avoid;
+}
+
+/* ── Tablas ──────────────────────────────────────────────── */
+table { width: 100%; border-collapse: collapse; font-size: 9.5pt; margin: 4mm 0 5mm;
+  page-break-inside: avoid; }
+th { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--suave);
+  text-align: left; padding: 2mm 2.5mm; border-bottom: 1.5px solid var(--linea); }
+td { padding: 2.2mm 2.5mm; border-bottom: 1px solid rgba(165,130,74,0.16);
+  vertical-align: top; line-height: 1.55; }
+tr:last-child td { border-bottom: none; }
+td.fecha { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8.5pt;
+  color: var(--oro); white-space: nowrap; }
+
+/* ── Cifras ──────────────────────────────────────────────── */
+.cifras { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin: 6mm 0; }
+.cifra { background: var(--crema); border-radius: 3mm; padding: 5mm; text-align: center;
+  page-break-inside: avoid; }
+.cifra .n { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 26pt;
+  color: var(--verde); line-height: 1; display: block; }
+.cifra .l { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7pt;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--suave); margin-top: 2mm; display: block; }
+.cifra .x { font-size: 8.5pt; color: var(--suave); margin-top: 1.5mm; display: block; line-height: 1.4; }
+
+/* ── Fichas de función (manual) ──────────────────────────── */
+.ficha { border: 1px solid var(--linea); border-left: 4px solid var(--oro);
+  border-radius: 2mm; padding: 5mm 6mm; margin: 5mm 0; page-break-inside: avoid; }
+.ficha h3 { margin-top: 0; }
+.ficha .meta { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--suave); margin-bottom: 3mm; }
+.ficha .campo { margin-bottom: 3mm; }
+.ficha .campo > .et { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--oro); display: block; margin-bottom: 1mm; }
+.ficha ol { counter-reset: paso; list-style: none; padding-left: 0; }
+.ficha ol li { counter-increment: paso; padding-left: 7mm; position: relative; }
+.ficha ol li::before { content: counter(paso); position: absolute; left: 0; top: 0;
+  font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8pt; color: var(--oro);
+  width: 5mm; text-align: right; }
+.limites { background: rgba(161,51,36,0.06); border-left: 3px solid #a13324;
+  padding: 3mm 4mm; margin-top: 3mm; font-size: 9.5pt; }
+.limites .et { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.1em; text-transform: uppercase; color: #a13324; display: block; margin-bottom: 1mm; }
+
+/* ── Capturas ────────────────────────────────────────────── */
+figure { margin: 5mm 0; page-break-inside: avoid; }
+figure img { width: 100%; border: 1px solid var(--linea); border-radius: 2mm; display: block; }
+figcaption { font-size: 8.5pt; color: var(--suave); margin-top: 2mm; line-height: 1.5; }
+figcaption b { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.08em; color: var(--oro); }
+
+/* ── Código ──────────────────────────────────────────────── */
+code { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8.5pt;
+  background: rgba(43,69,53,0.07); padding: 0.3mm 1.2mm; border-radius: 1mm; }
+pre { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8pt;
+  background: var(--crema); border-radius: 2mm; padding: 4mm; overflow-x: auto;
+  line-height: 1.55; page-break-inside: avoid; margin: 3mm 0 4mm; }
+pre code { background: none; padding: 0; }
+
+/* ── Índice ──────────────────────────────────────────────── */
+.indice { background: var(--crema); border-radius: 3mm; padding: 6mm 7mm; margin: 6mm 0 8mm; }
+.indice h3 { margin-top: 0; }
+.indice ol { list-style: none; padding-left: 0; counter-reset: cap; }
+.indice ol li { counter-increment: cap; padding-left: 8mm; position: relative; margin-bottom: 2mm; }
+.indice ol li::before { content: counter(cap) '.'; position: absolute; left: 0;
+  font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8.5pt; color: var(--oro); }
+
+/* ── Pie ─────────────────────────────────────────────────── */
+.pie-doc { margin-top: 12mm; padding-top: 4mm; border-top: 1px solid var(--linea);
+  font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.06em; color: var(--suave); line-height: 1.8; }
+
+@media print {
+  body { background: #fff; }
+  .hoja { max-width: none; padding: 0; }
+}
+
+</style>
+</head>
+<body>
+<div class="hoja">
+
+<header class="portada">
+    <div class="marca">Miguel <span>Tillero</span></div>
+    <p class="eyebrow">Plataforma educativa · Anexo técnico</p>
+    <h1>Debajo<br><em>del capó</em></h1>
+    <p class="sub">Arquitectura, modelo de datos, seguridad por filas, orden de ejecución
+       y las decisiones técnicas con su porqué.</p>
+    <p class="pie-portada">
+        Miguel David Tillero Álvarez<br>
+        Octubre de 2026 · Versión 1.0<br>
+        Documento complementario · no indispensable para valorar el proyecto
+    </p>
+</header>
+
+<div class="nota">
+    <span class="et">A quién va dirigido</span>
+    A quien quiera comprobar que lo descrito en el manual está realmente construido, y
+    cómo. No hace falta leerlo para hacerse una idea del proyecto: para eso está el
+    documento de presentación.
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<h2>1 · Arquitectura</h2>
+
+<p>Dos piezas, deliberadamente pocas:</p>
+
+<table>
+    <thead><tr><th style="width:26%">Pieza</th><th style="width:22%">Qué es</th><th>Qué resuelve</th></tr></thead>
+    <tbody>
+    <tr><td><strong>GitHub Pages</strong></td><td>Alojamiento de sitio estático</td>
+        <td>Sirve las 47 páginas. Sin servidor que mantener, sin costo, con publicación automática en cada cambio y con todo el historial versionado.</td></tr>
+    <tr><td><strong>Supabase</strong></td><td>Base de datos PostgreSQL con autenticación y reglas de acceso</td>
+        <td>Guarda los datos, gestiona las cuentas y decide quién puede leer qué. El navegador habla directamente con ella.</td></tr>
+    </tbody>
+</table>
+
+<h3>Cómo encaja</h3>
+<pre><code>Navegador (página estática)
+      │
+      │  biblioteca oficial de Supabase, con la clave pública
+      ▼
+Supabase · PostgreSQL
+      ├── Autenticación  → quién eres
+      ├── Seguridad por filas (RLS) → qué puedes ver
+      └── Funciones SECURITY DEFINER → lo que necesita privilegios</code></pre>
+
+<p><strong>No hay servidor propio en medio.</strong> La página llama a la base de datos con
+la clave pública, y es la base de datos la que decide qué devuelve según quién pregunta.
+Eso tiene una consecuencia que conviene entender: <strong>toda la seguridad vive en la
+base</strong>. No hay un intermediario donde esconder reglas; si una regla falta, el dato
+queda expuesto.</p>
+
+<div class="nota">
+    <span class="et">Por qué esta arquitectura y no otra</span>
+    Un proyecto de un solo docente no puede permitirse mantener un servidor. Esta
+    combinación da autenticación, base de datos relacional y permisos finos sin costo
+    fijo ni administración de sistemas, y deja todo el código en un repositorio
+    auditable. El precio es la disciplina que exige: cada tabla nueva necesita su
+    política de acceso el mismo día en que se crea.
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<h2>2 · Modelo de datos</h2>
+
+<p>28 tablas. Agrupadas por función:</p>
+
+<h4>Personas y acceso</h4>
+<table>
+    <tbody>
+    <tr><td style="width:26%"><code>profiles</code></td><td>Perfil de cada cuenta: nombre, teléfono, rol (<em>docente</em>, <em>estudiante</em>, <em>admin</em>, <em>representante</em>) y los datos del representante declarados al inscribirse.</td></tr>
+    <tr><td><code>tutorias</code></td><td>Qué representante puede ver a qué estudiante. Una fila por pareja: un representante puede tener varios hijos, y un estudiante puede tener madre y padre.</td></tr>
+    </tbody>
+</table>
+
+<h4>Oferta académica</h4>
+<table>
+    <tbody>
+    <tr><td style="width:26%"><code>cursos</code></td><td>La materia: nombre, nivel, descripción.</td></tr>
+    <tr><td><code>grupos</code></td><td>La instancia concreta: código, fechas, horario, modalidad, cupo, costo, estado, y las dos fechas de plazo (inscripción y pago).</td></tr>
+    <tr><td><code>horarios</code></td><td>Días de la semana y horas de cada grupo.</td></tr>
+    <tr><td><code>sesiones</code></td><td>Cada clase con su fecha, tema y contenido. Es la planificación.</td></tr>
+    <tr><td><code>feriados</code></td><td>Días sin clase, para que la generación automática los salte.</td></tr>
+    <tr><td><code>grupo_enlaces</code></td><td>Enlace de la clase y del grupo de mensajería, <strong>en tabla aparte y bajo llave</strong>.</td></tr>
+    <tr><td><code>grupo_progresion</code></td><td>Histórico de unidades ya trabajadas, para el recorrido del estudiante.</td></tr>
+    <tr><td><code>metodos</code>, <code>metodo_unidades</code></td><td>Catálogo de métodos y sus unidades, para crear cursos más rápido.</td></tr>
+    </tbody>
+</table>
+
+<h4>Inscripción, asistencia y dinero</h4>
+<table>
+    <tbody>
+    <tr><td style="width:26%"><code>inscripciones</code></td><td>Quién está en qué curso y en qué estado: <em>pendiente</em>, <em>activa</em>, <em>rechazada</em>, <em>retirada</em>, <em>finalizada</em>.</td></tr>
+    <tr><td><code>asistencia</code></td><td>Presente o ausente por sesión y estudiante, con observación.</td></tr>
+    <tr><td><code>pagos</code></td><td>Monto, moneda, concepto, estado y fecha de cobro.</td></tr>
+    <tr><td><code>egresos</code></td><td>Gastos, para el balance neto.</td></tr>
+    </tbody>
+</table>
+
+<h4>Evaluación</h4>
+<table>
+    <tbody>
+    <tr><td style="width:26%"><code>evaluaciones</code>, <code>notas</code></td><td>Evaluaciones del curso y la calificación de cada estudiante, con comentario y desglose por partes.</td></tr>
+    <tr><td><code>examenes</code></td><td>Catálogo de exámenes en línea: título, código de acceso, duración, si está abierto.</td></tr>
+    <tr><td><code>examenes_claves</code></td><td><strong>La clave de respuestas.</strong> Solo accesible para administración; nunca sale al navegador.</td></tr>
+    <tr><td><code>examenes_intentos</code></td><td>Cada intento: cuándo empezó, qué respondió, cuándo envió, desde dónde.</td></tr>
+    <tr><td><code>boletines</code>, <code>boletin_notas</code></td><td>Boletín por estudiante con su identificador secreto, y sus resultados.</td></tr>
+    <tr><td><code>validaciones_nivel</code></td><td>Validaciones de nivel alcanzadas.</td></tr>
+    </tbody>
+</table>
+
+<h4>Otros</h4>
+<table>
+    <tbody>
+    <tr><td style="width:26%"><code>materiales</code></td><td>Repositorio por grupo, con categoría y unidad.</td></tr>
+    <tr><td><code>eventos</code></td><td>Eventos del sitio público.</td></tr>
+    <tr><td><code>tipos_constancia</code>, <code>solicitudes_constancia</code></td><td>Preparadas; la emisión aún no está construida.</td></tr>
+    <tr><td><code>vea_carnet</code>, <code>vea_estudiantes</code></td><td>Club «Vendredi entre Amis».</td></tr>
+    </tbody>
+</table>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<h2 class="salto">3 · Seguridad por filas</h2>
+
+<p>PostgreSQL permite decidir, <strong>fila por fila</strong>, quién puede leerla o
+escribirla. Es el mecanismo que sostiene toda la privacidad del proyecto: un estudiante
+consulta la misma tabla que el docente, pero la base le devuelve únicamente lo suyo.</p>
+
+<h3>El error que costó una tarde: la recursión</h3>
+<p>El 11 de septiembre, el primer día de la plataforma, las reglas entraron en
+<strong>recursión infinita</strong>. La causa es instructiva: para saber si alguien es
+docente hay que consultar su perfil; pero la tabla de perfiles tiene su propia regla,
+que para evaluarse necesita saber si es docente. El bucle no termina nunca y la base
+devuelve error.</p>
+
+<p>La solución, aplicada en todo el proyecto desde entonces, es encapsular esas
+comprobaciones en funciones con privilegios propios, que no vuelven a pasar por las
+reglas:</p>
+
+<pre><code>create function public.es_admin() returns boolean
+  language sql stable security definer
+as $$
+  select exists (
+    select 1 from public.profiles p
+     where p.id = auth.uid() and p.role in ('docente','admin')
+  );
+$$;</code></pre>
+
+<p>El mismo día se cerraron <strong>tres huecos</strong> por los que un usuario podía ver
+datos que no le correspondían.</p>
+
+<h3>Dos huecos más, encontrados en el ciclo real</h3>
+<p>El 25 de septiembre, preparando el primer ciclo, aparecieron dos fallos reales de
+privacidad, ambos en el mismo sitio:</p>
+<ul>
+<li>Una política permitía a <strong>cualquier visitante anónimo</strong> leer la tabla de
+grupos, que entonces incluía el enlace de la clase con su contraseña.</li>
+<li>Corregido eso, seguía pudiendo verlo <strong>un inscrito que no había pagado</strong>.</li>
+</ul>
+<p>La corrección fue estructural, no un parche: los enlaces se mudaron a
+<code>grupo_enlaces</code>, una tabla aparte cuya regla de lectura exige inscripción
+<em>activa</em>. Se comprobó cada caso: visitante anónimo, registrado sin inscripción,
+inscrito pendiente, inscrito activo y docente.</p>
+
+<h3>La decisión de diseño más importante del proyecto</h3>
+<p>Para el acceso de las familias había dos caminos. El primero: escribir políticas de
+lectura en las seis tablas implicadas —asistencia, notas, pagos, sesiones, cursos,
+inscripciones—. El segundo: <strong>una sola función</strong> que devuelva el panel ya
+armado.</p>
+
+<p>Se eligió el segundo, por una razón concreta: seis tablas son seis sitios donde
+equivocarse, y un error ahí significa que una madre vea las notas del hijo de otra. La
+función:</p>
+
+<ul>
+<li>Se ejecuta con privilegios propios, de modo que no depende de políticas repartidas.</li>
+<li>Filtra por el usuario autenticado contra la tabla de tutorías.</li>
+<li><strong>No acepta ningún parámetro.</strong> No hay nada que manipular desde el
+navegador para asomarse a otro estudiante.</li>
+</ul>
+
+<p>Se verificó con dos familias simuladas en una base de pruebas: cada representante vio
+únicamente a su hija, y una estudiante no figuraba como representante de nadie.</p>
+
+<h3>Cómo se protege la evaluación en línea</h3>
+<p>Sentinelle aplica el mismo principio llevado al extremo: <strong>el alumno no tiene
+acceso a ninguna tabla</strong>. Solo puede invocar tres funciones —iniciar, guardar,
+enviar— con el identificador de su intento. La clave de respuestas vive en una tabla que
+únicamente administración puede leer, el reloj lo lleva el servidor, y cada guardado deja
+registro de su origen.</p>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<h2 class="salto">4 · Orden de ejecución de los guiones</h2>
+
+<p>Los 25 archivos de la carpeta <code>supabase/</code> tienen dependencias entre sí.
+Cada uno declara en su cabecera después de cuál debe ejecutarse. Todos son
+<strong>idempotentes</strong>: volver a ejecutarlos no rompe nada.</p>
+
+<h3>Instalación desde cero</h3>
+<table>
+    <thead><tr><th style="width:8%">Orden</th><th style="width:34%">Archivo</th><th>Qué aporta</th></tr></thead>
+    <tbody>
+    <tr><td class="fecha">1</td><td><code>schema.sql</code></td><td>Tablas base, roles y primeras políticas.</td></tr>
+    <tr><td class="fecha">2–6</td><td><code>schema_v2</code> … <code>schema_v6</code></td><td>Evolución del esquema: grupos, pagos, eventos, métodos.</td></tr>
+    <tr><td class="fecha">7</td><td><code>ciclo-a1-oct2026.sql</code></td><td>El ciclo A1.4: curso, grupo, horarios, doce sesiones y dos evaluaciones.</td></tr>
+    <tr><td class="fecha">8</td><td><code>ciclo-a1-detalles.sql</code></td><td>Enlaces de clase, unidad actual, mensaje de bienvenida, progresión.</td></tr>
+    <tr><td class="fecha">9</td><td><code>materiales-y-resultados.sql</code></td><td>Repositorio de materiales y notas devueltas.</td></tr>
+    <tr><td class="fecha">10</td><td><code>representante-y-enlaces.sql</code></td><td>Datos del representante; los enlaces pasan a tabla propia bajo llave.</td></tr>
+    <tr><td class="fecha">11</td><td><code>plazo-inscripcion.sql</code></td><td>Plazos de inscripción y de pago, separados, en hora de México.</td></tr>
+    <tr><td class="fecha">12</td><td><code>evaluaciones-sentinelle.sql</code></td><td>Sistema de exámenes en línea con control de integridad.</td></tr>
+    <tr><td class="fecha">13</td><td><code>resultados-a1-4.sql</code></td><td>Publicación de los resultados en «Mis resultados».</td></tr>
+    <tr><td class="fecha">14</td><td><code>boletines.sql</code></td><td>Boletines con enlace privado para las familias.</td></tr>
+    <tr><td class="fecha">15</td><td><code>representantes-acceso.sql</code></td><td>Cuenta propia del representante y función del panel.</td></tr>
+    <tr><td class="fecha">16</td><td><code>representante-correo.sql</code></td><td>Corrección del correo del representante y enlace manual.</td></tr>
+    </tbody>
+</table>
+
+<p><code>TODO-EN-UNO.sql</code> agrupa los pasos 1 a 7 en un solo archivo, para una
+instalación inicial de una sola pegada.</p>
+
+<h3>Utilidades · se ejecutan cuando hacen falta</h3>
+<table>
+    <tbody>
+    <tr><td style="width:34%"><code>consultas-del-dia-a-dia.sql</code></td><td>Siete bloques sueltos: estado del grupo, activar a alguien, registrar un pago, quién es quién, clases que vienen, dinero del ciclo.</td></tr>
+    <tr><td><code>aprobar-inscripciones.sql</code></td><td>Aprobar inscripciones sin pasar por el panel.</td></tr>
+    <tr><td><code>baja-estudiante.sql</code></td><td>Retirada de un estudiante a mitad de ciclo.</td></tr>
+    <tr><td><code>estudiantes-sin-grupo.sql</code></td><td>Asignar grupo a quien se registró sin él.</td></tr>
+    <tr><td><code>evento_*.sql</code>, <code>carnet_*.sql</code></td><td>Eventos del sitio y carnets del club.</td></tr>
+    </tbody>
+</table>
+
+<h3>Banco de pruebas</h3>
+<p>La carpeta <code>supabase/pruebas/</code> contiene una simulación del entorno que
+permite ejecutar y verificar los guiones en un PostgreSQL local, sin tocar los datos
+reales. Todas las funciones descritas en este anexo se probaron ahí antes de aplicarse:
+los emparejamientos de representantes en ambos sentidos, el aislamiento entre familias,
+los límites de los plazos y la baja de estudiante.</p>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<h2 class="salto">5 · Decisiones técnicas y su porqué</h2>
+
+<div class="ficha">
+<h4>Sitio estático en lugar de aplicación con servidor</h4>
+<p>Sin servidor no hay servidor que caiga, que actualizar ni que pagar. El precio es que
+toda la lógica sensible debe vivir en la base de datos. Para un proyecto de un docente,
+el intercambio compensa con holgura.</p>
+</div>
+
+<div class="ficha">
+<h4>Una función en lugar de políticas repartidas, para el panel de familias</h4>
+<p>Menos superficie de error. Seis políticas en seis tablas son seis oportunidades de
+dejar un hueco; una función sin parámetros, filtrada por el usuario autenticado, es una
+sola cosa que revisar. Ya habíamos pagado el precio de una recursión de políticas; no
+tenía sentido repetir el patrón.</p>
+</div>
+
+<div class="ficha">
+<h4>Boletín con identificador secreto en lugar de cuenta obligatoria</h4>
+<p>Las notas no podían esperar a que cada familia creara una cuenta. El identificador es
+imposible de adivinar y no permite listar los demás boletines. La contrapartida es
+explícita: quien reciba el enlace, entra. Por eso se envía siempre por mensaje privado.</p>
+</div>
+
+<div class="ficha">
+<h4>Fechas en hora de Ciudad de México, no en la hora universal</h4>
+<p>Detalle pequeño con consecuencia grande. PostgreSQL trabaja por omisión en hora
+universal; con esa referencia, el martes a las seis de la tarde en México ya es
+miércoles, y el plazo de inscripción se habría cerrado <strong>una hora antes de la
+clase</strong>. Todas las comparaciones de fecha pasan por una función que fija la zona
+horaria.</p>
+</div>
+
+<div class="ficha">
+<h4>Pagos manuales en lugar de plataforma de cobro</h4>
+<p>Se construyó una integración de cobro automático y <strong>se retiró</strong> una semana
+después. No correspondía a la forma real de trabajar: transferencias y depósitos sin
+emisión de factura con RFC. Mantener una función que no refleja la realidad del negocio
+es deuda, no capacidad.</p>
+</div>
+
+<div class="ficha">
+<h4>Sesión que sobrevive a un navegador defectuoso</h4>
+<p>Seis intentos de arreglar el inicio de sesión apuntaban al código; la causa estaba en
+el <strong>almacenamiento del navegador</strong>, que a veces no guarda lo que se le pide.
+La solución fue comprobar cada escritura leyéndola de vuelta y, si falla, degradar a
+almacenamiento de sesión o de memoria. Y, sobre todo, no borrar jamás una sesión que
+todavía es válida: una limpieza demasiado agresiva puede dejar a alguien fuera de su
+cuenta permanentemente.</p>
+</div>
+
+<div class="ficha">
+<h4>Correo desde una cuenta personal en lugar de un servicio profesional</h4>
+<p>Se evaluó un proveedor transaccional con dominio propio. Requiere un dominio
+registrado, que el proyecto no tiene. La alternativa —enviar desde una cuenta de correo
+personal con contraseña de aplicación— es menos elegante pero <strong>entrega mejor
+hoy</strong>: una dirección con años de historial inspira más confianza a los filtros de
+correo que un dominio estrenado ayer. El camino al escalón siguiente queda documentado.</p>
+</div>
+
+<div class="ficha">
+<h4>Todo en español, también el código</h4>
+<p>Nombres de tablas, funciones, variables y comentarios en español. El proyecto lo
+mantiene un profesor de francés que trabaja en español, no un equipo de desarrollo
+angloparlante. Que el código se lea en el idioma en que se piensa reduce el coste de
+volver a él tres meses después.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<h2>6 · Deuda técnica reconocida</h2>
+
+<p>Lo que un revisor técnico encontraría, dicho antes de que lo encuentre:</p>
+
+<table>
+    <thead><tr><th style="width:36%">Asunto</th><th>Situación</th></tr></thead>
+    <tbody>
+    <tr><td>Esquema en seis versiones sucesivas</td><td>De <code>schema.sql</code> a <code>schema_v6.sql</code>. Funciona y es idempotente, pero un esquema consolidado sería más fácil de leer para quien llegue nuevo.</td></tr>
+    <tr><td>Operaciones que solo existen en SQL</td><td>Baja de estudiante, plazos y enlace manual de representantes se ejecutan desde el editor de la base, no desde el panel. Funciona, pero exige al docente pegar consultas.</td></tr>
+    <tr><td>Estilos repetidos entre páginas</td><td>Cada panel lleva sus propios estilos incrustados. Se unificó el bloque de audio, que estaba copiado en once páginas; queda trabajo similar pendiente.</td></tr>
+    <tr><td>Pruebas automatizadas parciales</td><td>Hay banco de pruebas para la base de datos y pruebas de navegador para funciones concretas, pero no una batería que se ejecute en cada cambio.</td></tr>
+    <tr><td>Dos cuentas de personal</td><td>Una con rol <em>admin</em> y otra con rol <em>docente</em>, ambas del mismo profesor. Funciona, pero se presta a confusión y conviene unificar.</td></tr>
+    </tbody>
+</table>
+
+<p class="pie-doc">
+    Vive el francés · Plataforma educativa<br>
+    Miguel David Tillero Álvarez · Profesor de francés (FLE)<br>
+    Anexo técnico · Versión 1.0 · Octubre de 2026
+</p>
+
+</div>
+</body>
+</html>

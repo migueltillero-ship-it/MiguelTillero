@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Vive el francés · Presentación del proyecto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Hoja de estilo común a los tres documentos de la entrega.
+   Pensada para leerse en pantalla y para imprimirse en A4 sin retoques:
+   los saltos de página están controlados y nada queda partido a la mitad.
+   Se incrusta dentro de cada HTML para que cada documento viaje solo. */
+
+@page { size: A4; margin: 18mm 16mm 20mm; }
+
+:root {
+  --crema:  #eef0e5;
+  --papel:  #ffffff;
+  --oro:    #8c734b;
+  --oro-cl: #a5824a;
+  --verde:  #2b4535;
+  --tinta:  #1a2e24;
+  --suave:  #5a665f;
+  --linea:  rgba(165,130,74,0.30);
+  --cyan:   #0d7f57;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--crema);
+  color: var(--tinta);
+  font-family: 'Syne', 'Segoe UI', 'DejaVu Sans', sans-serif;
+  font-size: 10.5pt;
+  line-height: 1.68;
+}
+
+.hoja {
+  max-width: 190mm;
+  margin: 0 auto;
+  background: var(--papel);
+  padding: 18mm 16mm;
+}
+
+/* ── Portada ─────────────────────────────────────────────── */
+.portada { text-align: left; padding: 22mm 0 14mm; border-bottom: 2px solid var(--oro); margin-bottom: 10mm; }
+.portada .marca { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 15pt; color: var(--verde); }
+.portada .marca span { color: var(--oro); }
+.portada .eyebrow { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8pt;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--oro); margin-top: 16mm; }
+.portada h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 34pt;
+  line-height: 1.04; color: var(--verde); margin: 4mm 0 0; letter-spacing: -0.01em; }
+.portada h1 em { font-style: italic; color: var(--oro); }
+.portada .sub { font-size: 12pt; color: var(--suave); margin-top: 5mm; max-width: 140mm; line-height: 1.6; }
+.portada .pie-portada { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8.5pt;
+  color: var(--suave); margin-top: 14mm; line-height: 1.9; }
+
+/* ── Jerarquía ───────────────────────────────────────────── */
+h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 20pt;
+  color: var(--verde); margin: 11mm 0 3mm; padding-bottom: 2mm; border-bottom: 1px solid var(--linea);
+  page-break-after: avoid; }
+h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 13.5pt;
+  color: var(--verde); margin: 7mm 0 2mm; page-break-after: avoid; }
+h4 { font-family: 'Syne', 'Segoe UI', sans-serif; font-weight: 700; font-size: 10.5pt;
+  color: var(--oro); margin: 5mm 0 1.5mm; page-break-after: avoid; }
+p { margin: 0 0 3.2mm; }
+strong { color: var(--verde); }
+em { color: inherit; }
+a { color: var(--oro); text-decoration: none; border-bottom: 1px solid var(--linea); }
+
+ul, ol { margin: 0 0 3.2mm; padding-left: 5.5mm; }
+li { margin-bottom: 1.6mm; }
+
+.salto { page-break-before: always; }
+.junto { page-break-inside: avoid; }
+
+/* ── Bloques destacados ──────────────────────────────────── */
+.nota {
+  background: rgba(140,115,75,0.08);
+  border-left: 3px solid var(--oro);
+  padding: 4mm 5mm; margin: 4mm 0; font-size: 10pt; line-height: 1.6;
+  page-break-inside: avoid;
+}
+.nota .et { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--oro); display: block; margin-bottom: 1.5mm; }
+
+.cita {
+  font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic;
+  font-size: 13pt; line-height: 1.5; color: var(--verde);
+  border-left: 2px solid var(--oro); padding: 2mm 0 2mm 6mm; margin: 6mm 0;
+  page-break-inside: avoid;
+}
+
+/* ── Tablas ──────────────────────────────────────────────── */
+table { width: 100%; border-collapse: collapse; font-size: 9.5pt; margin: 4mm 0 5mm;
+  page-break-inside: avoid; }
+th { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--suave);
+  text-align: left; padding: 2mm 2.5mm; border-bottom: 1.5px solid var(--linea); }
+td { padding: 2.2mm 2.5mm; border-bottom: 1px solid rgba(165,130,74,0.16);
+  vertical-align: top; line-height: 1.55; }
+tr:last-child td { border-bottom: none; }
+td.fecha { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8.5pt;
+  color: var(--oro); white-space: nowrap; }
+
+/* ── Cifras ──────────────────────────────────────────────── */
+.cifras { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin: 6mm 0; }
+.cifra { background: var(--crema); border-radius: 3mm; padding: 5mm; text-align: center;
+  page-break-inside: avoid; }
+.cifra .n { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 26pt;
+  color: var(--verde); line-height: 1; display: block; }
+.cifra .l { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7pt;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--suave); margin-top: 2mm; display: block; }
+.cifra .x { font-size: 8.5pt; color: var(--suave); margin-top: 1.5mm; display: block; line-height: 1.4; }
+
+/* ── Fichas de función (manual) ──────────────────────────── */
+.ficha { border: 1px solid var(--linea); border-left: 4px solid var(--oro);
+  border-radius: 2mm; padding: 5mm 6mm; margin: 5mm 0; page-break-inside: avoid; }
+.ficha h3 { margin-top: 0; }
+.ficha .meta { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--suave); margin-bottom: 3mm; }
+.ficha .campo { margin-bottom: 3mm; }
+.ficha .campo > .et { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--oro); display: block; margin-bottom: 1mm; }
+.ficha ol { counter-reset: paso; list-style: none; padding-left: 0; }
+.ficha ol li { counter-increment: paso; padding-left: 7mm; position: relative; }
+.ficha ol li::before { content: counter(paso); position: absolute; left: 0; top: 0;
+  font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8pt; color: var(--oro);
+  width: 5mm; text-align: right; }
+.limites { background: rgba(161,51,36,0.06); border-left: 3px solid #a13324;
+  padding: 3mm 4mm; margin-top: 3mm; font-size: 9.5pt; }
+.limites .et { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.1em; text-transform: uppercase; color: #a13324; display: block; margin-bottom: 1mm; }
+
+/* ── Capturas ────────────────────────────────────────────── */
+figure { margin: 5mm 0; page-break-inside: avoid; }
+figure img { width: 100%; border: 1px solid var(--linea); border-radius: 2mm; display: block; }
+figcaption { font-size: 8.5pt; color: var(--suave); margin-top: 2mm; line-height: 1.5; }
+figcaption b { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.08em; color: var(--oro); }
+
+/* ── Código ──────────────────────────────────────────────── */
+code { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8.5pt;
+  background: rgba(43,69,53,0.07); padding: 0.3mm 1.2mm; border-radius: 1mm; }
+pre { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8pt;
+  background: var(--crema); border-radius: 2mm; padding: 4mm; overflow-x: auto;
+  line-height: 1.55; page-break-inside: avoid; margin: 3mm 0 4mm; }
+pre code { background: none; padding: 0; }
+
+/* ── Índice ──────────────────────────────────────────────── */
+.indice { background: var(--crema); border-radius: 3mm; padding: 6mm 7mm; margin: 6mm 0 8mm; }
+.indice h3 { margin-top: 0; }
+.indice ol { list-style: none; padding-left: 0; counter-reset: cap; }
+.indice ol li { counter-increment: cap; padding-left: 8mm; position: relative; margin-bottom: 2mm; }
+.indice ol li::before { content: counter(cap) '.'; position: absolute; left: 0;
+  font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8.5pt; color: var(--oro); }
+
+/* ── Pie ─────────────────────────────────────────────────── */
+.pie-doc { margin-top: 12mm; padding-top: 4mm; border-top: 1px solid var(--linea);
+  font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.06em; color: var(--suave); line-height: 1.8; }
+
+@media print {
+  body { background: #fff; }
+  .hoja { max-width: none; padding: 0; }
+}
+
+</style>
+</head>
+<body>
+<div class="hoja">
+
+<header class="portada">
+    <div class="marca">Miguel <span>Tillero</span></div>
+    <p class="eyebrow">Plataforma educativa · Documento de presentación</p>
+    <h1>Vive el francés<br><em>Una plataforma hecha desde el aula</em></h1>
+    <p class="sub">Por qué la construí, qué resuelve, cómo se hizo y hacia dónde va.
+       Documento dirigido a colegas docentes de francés.</p>
+    <p class="pie-portada">
+        Miguel David Tillero Álvarez · Profesor de FLE<br>
+        San Cristóbal de Las Casas, Chiapas, México<br>
+        Octubre de 2026 · Versión 1.0
+    </p>
+</header>
+
+<div class="indice">
+    <h3>Contenido</h3>
+    <ol>
+        <li>El problema que me obligó a construirla</li>
+        <li>Qué es «Vive el francés»</li>
+        <li>Objetivo y visión</li>
+        <li>Cómo se hizo: cronología del proyecto</li>
+        <li>Qué resuelve hoy</li>
+        <li>El proyecto en cifras</li>
+        <li>Hoja de ruta</li>
+        <li>Cómo revisar este trabajo</li>
+    </ol>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<h2>1 · El problema que me obligó a construirla</h2>
+
+<p>Esta plataforma no nació de una idea sobre tecnología educativa. Nació de cinco
+problemas concretos que tenía cada semana en mis grupos, y que ninguna herramienta
+suelta me resolvía del todo.</p>
+
+<h3>El alumno que falta a clase depende de que alguien se lo cuente</h3>
+<p>En un grupo reducido, una ausencia no se recupera sola. El estudiante volvía
+preguntando «¿qué vimos?», y la respuesta quedaba en manos de un compañero, de un
+mensaje apurado o de mi memoria. No existía un lugar donde el contenido de cada clase
+estuviera escrito <strong>antes y después</strong> de darla.</p>
+
+<h3>Las familias no tenían forma de seguir el avance sin preguntarme</h3>
+<p>Doy clase a menores de edad. Sus madres y padres tienen derecho a saber si su hijo
+asiste, cómo va y qué observo de su trabajo. Pero el único canal era preguntármelo a
+mí, por WhatsApp, y mi respuesta era necesariamente parcial: lo que recordara en ese
+momento. Un representante bien informado no debería depender de la memoria del
+profesor ni de su disponibilidad a las diez de la noche.</p>
+
+<h3>Los pagos se llevaban en la cabeza y en capturas sueltas</h3>
+<p>Trabajo con transferencias y depósitos en efectivo, sin emisión de factura con RFC.
+Eso es legítimo en mi situación, pero significa que no hay ningún sistema externo que
+me lleve la cuenta: quién pagó, cuánto, cuándo, y quién sigue pendiente. La
+información vivía en comprobantes dispersos en conversaciones de WhatsApp.</p>
+
+<h3>WhatsApp hacía de aula, de secretaría y de archivo a la vez</h3>
+<p>El grupo de WhatsApp es excelente para avisar que la clase empieza en diez minutos.
+Es pésimo como repositorio: lo que se compartió hace tres semanas ya no se encuentra,
+los documentos caducan, y el mismo hilo mezcla una duda gramatical con un recordatorio
+de pago y una foto del cumpleaños de alguien. Todo convivía ahí porque no había
+otro sitio.</p>
+
+<h3>Las herramientas sueltas no se hablaban entre sí</h3>
+<p>Un formulario para inscribir, una hoja de cálculo para la asistencia, un documento
+para la planificación, otro para las notas. Cada una funcionaba; ninguna sabía de la
+existencia de las demás. El trabajo de mantenerlas coherentes era mío, y crecía con
+cada grupo nuevo.</p>
+
+<div class="nota">
+    <span class="et">La raíz común</span>
+    Los cinco problemas son el mismo visto desde ángulos distintos: <strong>la
+    información del curso no tenía domicilio propio</strong>. Vivía repartida entre mi
+    cabeza, mi teléfono y las memorias de otras personas. Construir la plataforma fue,
+    sobre todo, darle una dirección fija.
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<h2>2 · Qué es «Vive el francés»</h2>
+
+<p>Es un sitio web público con un espacio privado detrás. El sitio presenta mi
+trayectoria, los cursos y los servicios. El espacio privado es la plataforma
+propiamente dicha, y tiene <strong>tres puertas distintas</strong> según quién entre:</p>
+
+<table>
+    <thead><tr><th style="width:26%">Perfil</th><th>Qué encuentra al entrar</th></tr></thead>
+    <tbody>
+    <tr><td><strong>Docente</strong><br>y administración</td>
+        <td>Las clases de hoy, el calendario del ciclo, la planificación de las doce
+        sesiones, la lista de estudiantes, la asistencia, las notas con su comentario,
+        los pagos registrados y el enlace de inscripción de cada grupo.</td></tr>
+    <tr><td><strong>Estudiante</strong></td>
+        <td>Su curso con horario y modalidad, el recorrido de las unidades ya
+        trabajadas, el calendario completo del ciclo, el material, su asistencia, sus
+        resultados con mi comentario y el estado de su pago.</td></tr>
+    <tr><td><strong>Familia</strong><br>padre, madre o representante</td>
+        <td>Su propia cuenta, con su propia contraseña, y una vista de solo lectura del
+        avance de su hijo o hija: asistencia, resultados comentados, próximas clases y
+        pagos. Sin compartir la contraseña del estudiante.</td></tr>
+    </tbody>
+</table>
+
+<p>Detrás hay además un sistema de evaluación en línea —<strong>Sentinelle</strong>— con
+clave de respuestas que nunca viaja al navegador del alumno, reloj del servidor y un
+solo intento por persona; y un mecanismo de <strong>boletines</strong> que entrega los
+resultados a cada familia mediante un enlace privado, sin exigirles crear una cuenta.</p>
+
+<p class="cita">La plataforma no sustituye la clase. Sustituye las quince conversaciones
+sueltas que hacían falta para sostenerla.</p>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<h2 class="salto">3 · Objetivo y visión</h2>
+
+<h3>El objetivo</h3>
+<p>Que toda la información de un curso de francés —contenido, asistencia, evaluación,
+pagos y comunicación con la familia— viva en un solo lugar, accesible para quien le
+corresponde y solo para quien le corresponde, sin depender de mi disponibilidad
+personal para consultarla.</p>
+
+<h3>La visión, a dos años</h3>
+<p>Que un profesor de francés independiente, o una escuela pequeña, pueda dar un ciclo
+completo apoyado únicamente en esta plataforma: abrir el grupo, inscribir, planificar,
+dar clase, evaluar, entregar resultados comentados y rendir cuentas a las familias.
+Que hacerlo bien no dependa de tener un equipo administrativo detrás ni de pagar una
+suscripción mensual por cada función.</p>
+
+<p>Tres convicciones sostienen esa visión:</p>
+
+<ul>
+<li><strong>Lo pedagógico manda sobre lo técnico.</strong> Cada función existe porque
+resuelve algo que pasa en el aula. Las que no, no se construyen.</li>
+<li><strong>La familia no es un espectador.</strong> Si enseño a menores, el
+representante necesita información propia, no filtrada por lo que el hijo quiera
+contar ni por lo que yo alcance a responder.</li>
+<li><strong>La nota sola no enseña nada.</strong> Todo resultado va acompañado de un
+comentario del profesor. Un 42 sobre 50 no dice qué reforzar; «buen avance en
+comprensión oral, hay que reforzar los adjetivos de color» sí.</li>
+</ul>
+
+<div class="nota">
+    <span class="et">Lo que esta plataforma no pretende ser</span>
+    No es un sustituto de Moodle ni compite con las plataformas institucionales. Es
+    una herramienta de autor, hecha a la medida de cómo doy clase, que puede crecer
+    hacia otros docentes que trabajen de forma parecida. Su valor no está en tener más
+    funciones, sino en que cada función responda a un problema real y verificable.
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<h2>4 · Cómo se hizo: cronología del proyecto</h2>
+
+<p>Entre el <strong>7 de septiembre</strong> y el <strong>3 de octubre de 2026</strong>
+se registraron <strong>180 cambios</strong> documentados en el historial del proyecto.
+No fue un desarrollo lineal: hubo errores, retrocesos y una reconstrucción completa en
+la primera semana. Lo que sigue respeta ese orden real, porque las vueltas atrás
+también enseñan.</p>
+
+<h3>Fase 1 · El sitio público (7 al 10 de septiembre)</h3>
+<table>
+    <tbody>
+    <tr><td class="fecha">7 sep</td><td>Reestructuración completa: de una página única a una arquitectura de varias páginas reales. Perfil, servicios, cursos, galería, contacto.</td></tr>
+    <tr><td class="fecha">8–9 sep</td><td>Recuperación tras una pérdida de contenido por error propio. Se restauran páginas completas desde el historial. Se incorporan las aulas virtuales de A1 y B2.</td></tr>
+    <tr><td class="fecha">10 sep</td><td>Separación definitiva en páginas por sección. Club «Vendredi entre Amis». Métodos de pago reales.</td></tr>
+    </tbody>
+</table>
+<p>Esta fase enseñó la primera lección: <em>sin control de versiones no hay trabajo
+serio</em>. Lo que se perdió el día 8 se recuperó porque estaba registrado.</p>
+
+<h3>Fase 2 · Nace la plataforma (11 de septiembre)</h3>
+<table>
+    <tbody>
+    <tr><td class="fecha">11 sep</td><td>Base de datos, autenticación y roles sobre Supabase. Primera versión del esquema: cursos, inscripciones, sesiones, asistencia, evaluaciones y notas.</td></tr>
+    <tr><td class="fecha">11 sep</td><td><strong>Primera crisis de seguridad.</strong> Las reglas de acceso por filas entraron en recursión infinita. Se corrigieron y, en la misma revisión, se cerraron tres huecos por los que un usuario podía ver datos ajenos.</td></tr>
+    <tr><td class="fecha">11 sep</td><td>Enlace de inscripción por curso. Edición de cursos y generación automática de las clases a partir del horario.</td></tr>
+    </tbody>
+</table>
+<p>Veintiún cambios en un solo día. La lección fue que <em>la seguridad no se añade al
+final</em>: se diseña con la primera tabla, o se paga caro después.</p>
+
+<h3>Fase 3 · Contenido y confianza (13 al 24 de septiembre)</h3>
+<table>
+    <tbody>
+    <tr><td class="fecha">15–18 sep</td><td>Buscadores: mapa del sitio y archivo de indexación. Carrusel de vídeos.</td></tr>
+    <tr><td class="fecha">21–25 sep</td><td>Relato de trayectoria con 19 capítulos verificados uno a uno: nombres, cargos, fechas y lugares contrastados antes de publicarse. Galería profesional.</td></tr>
+    </tbody>
+</table>
+<p>Fase aparentemente secundaria, en realidad decisiva: <em>una plataforma a la que se
+invita a familias necesita antes un sitio que explique quién está detrás</em>.</p>
+
+<h3>Fase 4 · El primer ciclo real (25 de septiembre)</h3>
+<table>
+    <tbody>
+    <tr><td class="fecha">25 sep</td><td>Ciclo A1.4 creado: doce sesiones planificadas con tema y contenido, dos evaluaciones de cierre, horario y modalidad híbrida.</td></tr>
+    <tr><td class="fecha">25 sep</td><td>Espacio del estudiante: bienvenida, recorrido de unidades, «Mis resultados», repositorio de material.</td></tr>
+    <tr><td class="fecha">25 sep</td><td>Datos del representante en la inscripción. Los enlaces de clase pasan a una tabla aparte, bajo llave: <strong>se descubrió que un visitante anónimo podía leer el enlace de Zoom</strong>, y después que también podía un inscrito sin pagar. Ambos huecos quedaron cerrados.</td></tr>
+    <tr><td class="fecha">25 sep</td><td>Auditoría móvil: tamaño de los objetos táctiles y legibilidad en teléfono, que es como la usan de verdad.</td></tr>
+    <tr><td class="fecha">25–26 sep</td><td><strong>Seis intentos para arreglar el inicio de sesión.</strong> La causa no estaba en el código sino en el almacenamiento del navegador. Se reescribió para que la sesión sobreviva aunque el navegador falle al guardarla.</td></tr>
+    </tbody>
+</table>
+
+<h3>Fase 5 · Puesta en marcha (26 al 29 de septiembre)</h3>
+<table>
+    <tbody>
+    <tr><td class="fecha">26–28 sep</td><td>Correo propio para los mensajes de verificación. Se evaluó un servicio profesional con dominio propio y se optó por una solución intermedia, funcional y gratuita, dejando documentado el camino al escalón siguiente.</td></tr>
+    <tr><td class="fecha">28–29 sep</td><td>Plazos de inscripción y de pago, <strong>separados</strong>: inscribirse cierra el primer día; pagar tiene una semana. Estaban mezclados, y mezclados dejaban fuera a quien no pagara el día uno.</td></tr>
+    <tr><td class="fecha">29 sep</td><td>Material de comunicación: infografía del ciclo, infografía del paso a paso para entrar, y los mensajes para las familias.</td></tr>
+    </tbody>
+</table>
+
+<h3>Fase 6 · Evaluación, resultados y familias (1 al 3 de octubre)</h3>
+<table>
+    <tbody>
+    <tr><td class="fecha">1 oct</td><td>Pagos por transferencia manual, sustituyendo una integración de cobro automático que no correspondía a la forma real de trabajar.</td></tr>
+    <tr><td class="fecha">2 oct</td><td>Resultados de la evaluación A1.4 publicados en «Mis resultados», con desglose por partes y comentario.</td></tr>
+    <tr><td class="fecha">2 oct</td><td><strong>Boletines con enlace privado.</strong> Las notas no podían esperar a que cada familia creara su cuenta: cada estudiante recibe un enlace secreto que su familia abre sin contraseña.</td></tr>
+    <tr><td class="fecha">2 oct</td><td>Baja de estudiante: un alumno se retiró a mitad de ciclo y no había forma de reflejarlo sin ensuciar las estadísticas ni las cuentas.</td></tr>
+    <tr><td class="fecha">3 oct</td><td><strong>Acceso propio para familias.</strong> Una madre preguntó por WhatsApp: «y uno como mamá, ¿cómo entraré a la plataforma?». No había respuesta. Ese mismo día se construyó.</td></tr>
+    </tbody>
+</table>
+
+<div class="nota">
+    <span class="et">Un fallo que vale la pena contar</span>
+    Al estrenar el acceso de familias salió a la luz un error de origen: el formulario
+    de inscripción <strong>nunca había pedido el correo del representante</strong>, y el
+    sistema, al no tenerlo, copiaba el del propio estudiante. La consecuencia era
+    invisible hasta ese momento: la madre no podía crear su cuenta, porque ese correo
+    ya pertenecía a su hijo. Se corrigió la causa, se limpiaron los datos erróneos y se
+    añadió una herramienta para enlazar manualmente. El primer caso real quedó
+    funcionando el 3 de octubre.
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<h2 class="salto">5 · Qué resuelve hoy</h2>
+
+<p>Volviendo a los cinco problemas del principio, con honestidad sobre lo que está
+resuelto y lo que no:</p>
+
+<table>
+    <thead><tr><th style="width:38%">El problema</th><th style="width:14%">Estado</th><th>Cómo quedó</th></tr></thead>
+    <tbody>
+    <tr><td>El alumno que falta depende de que se lo cuenten</td>
+        <td><strong>Resuelto</strong></td>
+        <td>Las doce sesiones están planificadas con tema y contenido, visibles para el estudiante desde el primer día del ciclo.</td></tr>
+    <tr><td>Las familias no pueden seguir el avance</td>
+        <td><strong>Resuelto</strong></td>
+        <td>Cuenta propia para el representante, con asistencia, resultados comentados, calendario y pagos. Más los boletines por enlace privado para quien no quiera crear cuenta.</td></tr>
+    <tr><td>Los pagos se llevan en la cabeza</td>
+        <td>Parcial</td>
+        <td>Los pagos se registran en la plataforma y el estudiante ve su estado. El registro sigue siendo manual: yo confirmo el comprobante y lo anoto.</td></tr>
+    <tr><td>WhatsApp hace de archivo</td>
+        <td>Parcial</td>
+        <td>El material y el histórico de unidades ya viven en la plataforma. WhatsApp sigue siendo el canal de avisos, y está bien que lo sea.</td></tr>
+    <tr><td>Las herramientas no se hablan</td>
+        <td><strong>Resuelto</strong></td>
+        <td>Inscripción, asistencia, planificación, evaluación y pagos comparten la misma base de datos. Un dato se escribe una vez.</td></tr>
+    </tbody>
+</table>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<h2>6 · El proyecto en cifras</h2>
+
+<p>Datos verificables en el repositorio al 3 de octubre de 2026.</p>
+
+<h4>Construcción</h4>
+<div class="cifras">
+    <div class="cifra"><span class="n">180</span><span class="l">Cambios registrados</span><span class="x">Del 7 de septiembre al 3 de octubre</span></div>
+    <div class="cifra"><span class="n">27</span><span class="l">Días de trabajo</span><span class="x">Desarrollo continuo</span></div>
+    <div class="cifra"><span class="n">47</span><span class="l">Páginas web</span><span class="x">Sitio público y plataforma</span></div>
+</div>
+
+<h4>Plataforma</h4>
+<div class="cifras">
+    <div class="cifra"><span class="n">28</span><span class="l">Tablas de datos</span><span class="x">Base de datos relacional</span></div>
+    <div class="cifra"><span class="n">25</span><span class="l">Guiones de base de datos</span><span class="x">Cada función documentada</span></div>
+    <div class="cifra"><span class="n">3</span><span class="l">Perfiles de acceso</span><span class="x">Docente, estudiante, familia</span></div>
+</div>
+
+<h4>Uso real · primer ciclo oficial</h4>
+<div class="cifras">
+    <div class="cifra"><span class="n">1</span><span class="l">Grupo en curso</span><span class="x">Français A1.4 · híbrido</span></div>
+    <div class="cifra"><span class="n">12</span><span class="l">Sesiones planificadas</span><span class="x">Seis semanas, con evaluación de cierre</span></div>
+    <div class="cifra"><span class="n">2</span><span class="l">Evaluaciones aplicadas</span><span class="x">Escrita colectiva y oral individual</span></div>
+</div>
+
+<div class="nota">
+    <span class="et">Sobre el tamaño</span>
+    El ciclo en curso tiene dos estudiantes activos. No es una cifra que convenga
+    disimular: es el primer ciclo oficial de la plataforma y se eligió deliberadamente
+    un grupo pequeño para estrenarla. Un error con dos familias se corrige en una
+    tarde; con veinte, cuesta la confianza de veinte familias.
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<h2 class="salto">7 · Hoja de ruta</h2>
+
+<p>Lo que sigue, en el orden en que pienso abordarlo. Nada de esto está construido
+todavía.</p>
+
+<h3>Corto plazo · el ciclo en curso</h3>
+<ul>
+<li><strong>Cerrar el ciclo A1.4 completo</strong> con sus dos evaluaciones finales y la
+entrega de resultados, y documentar qué funcionó y qué no.</li>
+<li><strong>Recordatorios automáticos</strong> antes de cada clase y al publicar
+resultados, para dejar de mandarlos a mano.</li>
+<li><strong>Constancias de nivel</strong>: las tablas existen, falta la emisión.</li>
+</ul>
+
+<h3>Medio plazo · crecer sin romper</h3>
+<ul>
+<li><strong>Abrir el ciclo B2.</strong> La página del aula existe; falta crear el grupo,
+su planificación y su evaluación. Será la primera prueba de que la plataforma sostiene
+más de un nivel a la vez.</li>
+<li><strong>Libro virtual</strong>: subida del método por partes, visor en línea y marca
+de agua personalizada por estudiante, para poder trabajar con material propio sin
+repartir archivos que se reenvían solos.</li>
+<li><strong>Correo desde dominio propio.</strong> Hoy los mensajes salen de una cuenta
+personal. El camino técnico está documentado y probado; falta la decisión de adquirir
+el dominio.</li>
+</ul>
+
+<h3>Largo plazo · la visión</h3>
+<ul>
+<li><strong>Que otro docente pueda usarla.</strong> Hoy la plataforma está hecha para mi
+forma de trabajar. Abrirla a colegas exige separar lo que es mío de lo que es general:
+el método, los niveles, el calendario escolar, la moneda.</li>
+<li><strong>Analítica pedagógica</strong>: no más cifras, sino mejores preguntas. Qué
+contenidos concentran los errores, qué estudiantes se descuelgan antes de que se note,
+qué sesiones hay que rediseñar.</li>
+</ul>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<h2>8 · Cómo revisar este trabajo</h2>
+
+<p>Esta entrega se divide en cuatro partes, pensadas para leerse en este orden:</p>
+
+<table>
+    <thead><tr><th style="width:30%">Documento</th><th>Para qué</th></tr></thead>
+    <tbody>
+    <tr><td><strong>1 · Presentación</strong><br><em>este documento</em></td>
+        <td>El porqué, el qué y el hacia dónde. Suficiente para hacerse una idea completa sin entrar en detalles.</td></tr>
+    <tr><td><strong>2 · Manual de funciones</strong></td>
+        <td>Una ficha por función, organizada por perfil: para qué sirve, quién la usa, el paso a paso y sus límites. Es el documento a consultar para saber qué hace exactamente la plataforma.</td></tr>
+    <tr><td><strong>3 · Anexo técnico</strong></td>
+        <td>Arquitectura, tablas, seguridad y decisiones técnicas con su porqué. Para quien quiera mirar debajo del capó.</td></tr>
+    <tr><td><strong>4 · Capturas</strong></td>
+        <td>Las pantallas reales de la plataforma, numeradas y con pie explicativo.</td></tr>
+    </tbody>
+</table>
+
+<h3>Qué agradecería que me dijeran</h3>
+<p>Más que una valoración general, me serían útiles tres cosas concretas:</p>
+<ul>
+<li><strong>Qué función falta</strong> que ustedes echan de menos cada semana en su
+propia práctica docente.</li>
+<li><strong>Qué parte no se entiende</strong> leyendo el manual. Si no se entiende
+escrito, tampoco se entenderá usándola.</li>
+<li><strong>Dónde ven un riesgo</strong>, sobre todo en lo que toca a datos de menores
+de edad.</li>
+</ul>
+
+<div class="nota">
+    <span class="et">Sobre la privacidad de este documento</span>
+    Todos los datos personales han sido retirados o anonimizados. Los estudiantes son
+    menores de edad: no aparecen sus nombres, correos ni teléfonos, ni en el texto ni
+    en las capturas. Tampoco figuran claves, identificadores de la base de datos,
+    datos bancarios ni enlaces de acceso. Lo que se describe es el funcionamiento, no
+    las personas.
+</div>
+
+<p class="pie-doc">
+    Vive el francés · Plataforma educativa<br>
+    Miguel David Tillero Álvarez · Profesor de francés (FLE)<br>
+    Documento de presentación · Versión 1.0 · Octubre de 2026
+</p>
+
+</div>
+</body>
+</html>

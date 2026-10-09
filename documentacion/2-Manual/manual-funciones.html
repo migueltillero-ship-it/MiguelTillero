@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Vive el francés · Manual de funciones</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Hoja de estilo común a los tres documentos de la entrega.
+   Pensada para leerse en pantalla y para imprimirse en A4 sin retoques:
+   los saltos de página están controlados y nada queda partido a la mitad.
+   Se incrusta dentro de cada HTML para que cada documento viaje solo. */
+
+@page { size: A4; margin: 18mm 16mm 20mm; }
+
+:root {
+  --crema:  #eef0e5;
+  --papel:  #ffffff;
+  --oro:    #8c734b;
+  --oro-cl: #a5824a;
+  --verde:  #2b4535;
+  --tinta:  #1a2e24;
+  --suave:  #5a665f;
+  --linea:  rgba(165,130,74,0.30);
+  --cyan:   #0d7f57;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--crema);
+  color: var(--tinta);
+  font-family: 'Syne', 'Segoe UI', 'DejaVu Sans', sans-serif;
+  font-size: 10.5pt;
+  line-height: 1.68;
+}
+
+.hoja {
+  max-width: 190mm;
+  margin: 0 auto;
+  background: var(--papel);
+  padding: 18mm 16mm;
+}
+
+/* ── Portada ─────────────────────────────────────────────── */
+.portada { text-align: left; padding: 22mm 0 14mm; border-bottom: 2px solid var(--oro); margin-bottom: 10mm; }
+.portada .marca { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 15pt; color: var(--verde); }
+.portada .marca span { color: var(--oro); }
+.portada .eyebrow { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8pt;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--oro); margin-top: 16mm; }
+.portada h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 34pt;
+  line-height: 1.04; color: var(--verde); margin: 4mm 0 0; letter-spacing: -0.01em; }
+.portada h1 em { font-style: italic; color: var(--oro); }
+.portada .sub { font-size: 12pt; color: var(--suave); margin-top: 5mm; max-width: 140mm; line-height: 1.6; }
+.portada .pie-portada { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8.5pt;
+  color: var(--suave); margin-top: 14mm; line-height: 1.9; }
+
+/* ── Jerarquía ───────────────────────────────────────────── */
+h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 20pt;
+  color: var(--verde); margin: 11mm 0 3mm; padding-bottom: 2mm; border-bottom: 1px solid var(--linea);
+  page-break-after: avoid; }
+h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 13.5pt;
+  color: var(--verde); margin: 7mm 0 2mm; page-break-after: avoid; }
+h4 { font-family: 'Syne', 'Segoe UI', sans-serif; font-weight: 700; font-size: 10.5pt;
+  color: var(--oro); margin: 5mm 0 1.5mm; page-break-after: avoid; }
+p { margin: 0 0 3.2mm; }
+strong { color: var(--verde); }
+em { color: inherit; }
+a { color: var(--oro); text-decoration: none; border-bottom: 1px solid var(--linea); }
+
+ul, ol { margin: 0 0 3.2mm; padding-left: 5.5mm; }
+li { margin-bottom: 1.6mm; }
+
+.salto { page-break-before: always; }
+.junto { page-break-inside: avoid; }
+
+/* ── Bloques destacados ──────────────────────────────────── */
+.nota {
+  background: rgba(140,115,75,0.08);
+  border-left: 3px solid var(--oro);
+  padding: 4mm 5mm; margin: 4mm 0; font-size: 10pt; line-height: 1.6;
+  page-break-inside: avoid;
+}
+.nota .et { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--oro); display: block; margin-bottom: 1.5mm; }
+
+.cita {
+  font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic;
+  font-size: 13pt; line-height: 1.5; color: var(--verde);
+  border-left: 2px solid var(--oro); padding: 2mm 0 2mm 6mm; margin: 6mm 0;
+  page-break-inside: avoid;
+}
+
+/* ── Tablas ──────────────────────────────────────────────── */
+table { width: 100%; border-collapse: collapse; font-size: 9.5pt; margin: 4mm 0 5mm;
+  page-break-inside: avoid; }
+th { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--suave);
+  text-align: left; padding: 2mm 2.5mm; border-bottom: 1.5px solid var(--linea); }
+td { padding: 2.2mm 2.5mm; border-bottom: 1px solid rgba(165,130,74,0.16);
+  vertical-align: top; line-height: 1.55; }
+tr:last-child td { border-bottom: none; }
+td.fecha { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8.5pt;
+  color: var(--oro); white-space: nowrap; }
+
+/* ── Cifras ──────────────────────────────────────────────── */
+.cifras { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin: 6mm 0; }
+.cifra { background: var(--crema); border-radius: 3mm; padding: 5mm; text-align: center;
+  page-break-inside: avoid; }
+.cifra .n { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 26pt;
+  color: var(--verde); line-height: 1; display: block; }
+.cifra .l { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7pt;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--suave); margin-top: 2mm; display: block; }
+.cifra .x { font-size: 8.5pt; color: var(--suave); margin-top: 1.5mm; display: block; line-height: 1.4; }
+
+/* ── Fichas de función (manual) ──────────────────────────── */
+.ficha { border: 1px solid var(--linea); border-left: 4px solid var(--oro);
+  border-radius: 2mm; padding: 5mm 6mm; margin: 5mm 0; page-break-inside: avoid; }
+.ficha h3 { margin-top: 0; }
+.ficha .meta { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--suave); margin-bottom: 3mm; }
+.ficha .campo { margin-bottom: 3mm; }
+.ficha .campo > .et { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--oro); display: block; margin-bottom: 1mm; }
+.ficha ol { counter-reset: paso; list-style: none; padding-left: 0; }
+.ficha ol li { counter-increment: paso; padding-left: 7mm; position: relative; }
+.ficha ol li::before { content: counter(paso); position: absolute; left: 0; top: 0;
+  font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8pt; color: var(--oro);
+  width: 5mm; text-align: right; }
+.limites { background: rgba(161,51,36,0.06); border-left: 3px solid #a13324;
+  padding: 3mm 4mm; margin-top: 3mm; font-size: 9.5pt; }
+.limites .et { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.1em; text-transform: uppercase; color: #a13324; display: block; margin-bottom: 1mm; }
+
+/* ── Capturas ────────────────────────────────────────────── */
+figure { margin: 5mm 0; page-break-inside: avoid; }
+figure img { width: 100%; border: 1px solid var(--linea); border-radius: 2mm; display: block; }
+figcaption { font-size: 8.5pt; color: var(--suave); margin-top: 2mm; line-height: 1.5; }
+figcaption b { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.08em; color: var(--oro); }
+
+/* ── Código ──────────────────────────────────────────────── */
+code { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8.5pt;
+  background: rgba(43,69,53,0.07); padding: 0.3mm 1.2mm; border-radius: 1mm; }
+pre { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8pt;
+  background: var(--crema); border-radius: 2mm; padding: 4mm; overflow-x: auto;
+  line-height: 1.55; page-break-inside: avoid; margin: 3mm 0 4mm; }
+pre code { background: none; padding: 0; }
+
+/* ── Índice ──────────────────────────────────────────────── */
+.indice { background: var(--crema); border-radius: 3mm; padding: 6mm 7mm; margin: 6mm 0 8mm; }
+.indice h3 { margin-top: 0; }
+.indice ol { list-style: none; padding-left: 0; counter-reset: cap; }
+.indice ol li { counter-increment: cap; padding-left: 8mm; position: relative; margin-bottom: 2mm; }
+.indice ol li::before { content: counter(cap) '.'; position: absolute; left: 0;
+  font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8.5pt; color: var(--oro); }
+
+/* ── Pie ─────────────────────────────────────────────────── */
+.pie-doc { margin-top: 12mm; padding-top: 4mm; border-top: 1px solid var(--linea);
+  font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.06em; color: var(--suave); line-height: 1.8; }
+
+@media print {
+  body { background: #fff; }
+  .hoja { max-width: none; padding: 0; }
+}
+
+</style>
+</head>
+<body>
+<div class="hoja">
+
+<header class="portada">
+    <div class="marca">Miguel <span>Tillero</span></div>
+    <p class="eyebrow">Plataforma educativa · Manual de funciones</p>
+    <h1>Qué hace<br><em>y cómo se usa</em></h1>
+    <p class="sub">Una ficha por función, organizada por perfil: para qué sirve, quién la
+       usa, el paso a paso y sus límites.</p>
+    <p class="pie-portada">
+        Miguel David Tillero Álvarez · Profesor de FLE<br>
+        Octubre de 2026 · Versión 1.0 · Estado de la plataforma al 3 de octubre
+    </p>
+</header>
+
+<h2>Cómo leer este manual</h2>
+
+<p>Cada función tiene una ficha con la misma estructura, para que se pueda consultar
+salteado sin leerlo entero:</p>
+
+<table>
+    <tbody>
+    <tr><td style="width:28%"><strong>Para qué sirve</strong></td><td>El problema concreto que resuelve.</td></tr>
+    <tr><td><strong>Quién la usa</strong></td><td>Qué perfil tiene acceso.</td></tr>
+    <tr><td><strong>Paso a paso</strong></td><td>La secuencia real, tal como se hace.</td></tr>
+    <tr><td><strong>Captura</strong></td><td>La pantalla correspondiente, en la carpeta <em>4-Capturas</em>.</td></tr>
+    <tr><td><strong>Límites</strong></td><td>Lo que <em>no</em> hace, y lo que todavía exige trabajo manual.</td></tr>
+    </tbody>
+</table>
+
+<div class="nota">
+    <span class="et">Una advertencia honesta</span>
+    El apartado <strong>Límites</strong> de cada ficha está escrito sin adornos. Una
+    función a medias documentada como completa es peor que una función ausente: genera
+    expectativas que se rompen en el peor momento, delante de una familia.
+</div>
+
+<h3>Los tres perfiles</h3>
+<table>
+    <thead><tr><th style="width:24%">Perfil</th><th style="width:20%">Dónde entra</th><th>Qué puede hacer</th></tr></thead>
+    <tbody>
+    <tr><td><strong>Docente</strong> y <strong>administración</strong></td><td>Panel docente y panel administrativo</td><td>Todo: crear, editar, aprobar, calificar, cobrar.</td></tr>
+    <tr><td><strong>Estudiante</strong></td><td>Su espacio personal</td><td>Consultar lo suyo. No modifica nada salvo su contraseña.</td></tr>
+    <tr><td><strong>Familia</strong></td><td>Espacio del representante</td><td>Consultar lo de su hijo o hija. Solo lectura.</td></tr>
+    </tbody>
+</table>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<h2 class="salto">Parte I · Docente y administración</h2>
+
+<!-- ─────────────────────────────── -->
+<div class="ficha">
+<h3>1 · Grupos y ciclos</h3>
+<p class="meta">Panel administrativo → Grupos</p>
+
+<div class="campo"><span class="et">Para qué sirve</span>
+Un <strong>curso</strong> es la materia (por ejemplo, Français A1.4). Un <strong>grupo</strong>
+es una instancia concreta de ese curso: con sus fechas, su horario, su cupo, su costo y
+su docente. El mismo curso puede tener varios grupos a la vez —uno en línea y otro
+presencial, o dos horarios distintos— sin duplicar la planificación.</div>
+
+<div class="campo"><span class="et">Quién la usa</span>
+Docente y administración.</div>
+
+<div class="campo"><span class="et">Paso a paso</span>
+<ol>
+<li>Entrar al panel administrativo y abrir la pestaña <strong>Grupos</strong>.</li>
+<li>Pulsar <strong>Nuevo grupo</strong> e indicar código, curso, docente, cupo, fechas de inicio y fin, horario, modalidad y costo.</li>
+<li>El grupo nace en estado <strong>abierto</strong>, que es el que permite inscribirse.</li>
+<li>Al terminar el ciclo, <strong>Cerrar</strong> lo retira de la inscripción pública; <strong>Finalizar</strong> lo da por concluido. Un botón <strong>Reabrir</strong> deshace un cierre hecho por error.</li>
+</ol></div>
+
+<div class="campo"><span class="et">Captura</span>
+Figura 1 · Panel administrativo, pestaña Grupos.</div>
+
+<div class="limites"><span class="et">Límites</span>
+El <strong>ciclo B2 no está creado</strong>: existe la página del aula virtual, pero no
+el grupo ni su planificación. La plataforma está preparada para sostener varios niveles
+a la vez, pero eso todavía no se ha probado con datos reales: hoy hay un solo grupo en
+curso.</div>
+</div>
+
+<!-- ─────────────────────────────── -->
+<div class="ficha">
+<h3>2 · Horario y generación automática de clases</h3>
+<p class="meta">Panel docente → Cursos → Horario</p>
+
+<div class="campo"><span class="et">Para qué sirve</span>
+Evita escribir las doce sesiones una por una. Se indica qué días de la semana y a qué
+hora se da clase, y la plataforma genera las fechas reales entre el inicio y el fin del
+ciclo, saltando los días feriados registrados.</div>
+
+<div class="campo"><span class="et">Quién la usa</span>
+Docente.</div>
+
+<div class="campo"><span class="et">Paso a paso</span>
+<ol>
+<li>Abrir <strong>Cursos</strong> y elegir el grupo.</li>
+<li>En <strong>Horario</strong>, marcar los días de la semana y la hora de inicio y fin.</li>
+<li>Guardar. Las sesiones aparecen en el calendario con su fecha.</li>
+<li>Entrar a <strong>Planificación</strong> para ponerle tema y contenido a cada una.</li>
+</ol></div>
+
+<div class="campo"><span class="et">Captura</span>
+Figura 2 · Horario del grupo, con los días marcados y el enlace de inscripción arriba.</div>
+
+<div class="limites"><span class="et">Límites</span>
+No contempla cambios de salón ni clases de recuperación fuera del patrón. Si una clase
+se mueve de día, se edita a mano. El calendario de feriados hay que mantenerlo
+actualizado: si falta uno, genera clase ese día.</div>
+</div>
+
+<!-- ─────────────────────────────── -->
+<div class="ficha">
+<h3>3 · Planificación del ciclo</h3>
+<p class="meta">Panel docente → Cursos → Planificación</p>
+
+<div class="campo"><span class="et">Para qué sirve</span>
+Es el corazón pedagógico de la plataforma. Cada sesión lleva un <strong>tema</strong> y un
+<strong>contenido</strong> detallado: los puntos de lengua, la tarea, el material externo.
+Y —esto es lo que cambia las cosas— <strong>el estudiante lo ve desde el primer día del
+ciclo</strong>, no después de la clase.</div>
+
+<div class="campo"><span class="et">Quién la usa</span>
+Docente para escribirla; estudiante y familia para consultarla.</div>
+
+<div class="campo"><span class="et">Paso a paso</span>
+<ol>
+<li>Abrir <strong>Planificación</strong>: aparecen las sesiones generadas, en orden.</li>
+<li>Escribir en cada una el tema y el contenido.</li>
+<li>Guardar. Queda visible de inmediato en el espacio del estudiante y en el de la familia.</li>
+</ol></div>
+
+<div class="campo"><span class="et">Captura</span>
+Figura 3 · Planificación de las doce sesiones del ciclo A1.4.</div>
+
+<div class="limites"><span class="et">Límites</span>
+El contenido es texto libre: la plataforma no comprueba que corresponda al nivel ni al
+método. Tampoco adjunta archivos a la sesión; el material va por separado, en su propio
+apartado.</div>
+</div>
+
+<!-- ─────────────────────────────── -->
+<div class="ficha">
+<h3>4 · Calendario</h3>
+<p class="meta">Panel docente → Calendario · y espacio del estudiante</p>
+
+<div class="campo"><span class="et">Para qué sirve</span>
+Ver el ciclo completo de un vistazo: qué días hay clase, cuáles son evaluación, qué
+queda por delante. Resuelve la pregunta recurrente «¿cuándo es el examen?» sin que haya
+que responderla.</div>
+
+<div class="campo"><span class="et">Quién la usa</span>
+Los tres perfiles, cada uno con su vista.</div>
+
+<div class="campo"><span class="et">Paso a paso</span>
+<ol>
+<li>En el panel docente, la pestaña <strong>Calendario</strong> muestra el mes con las clases marcadas y el día de hoy destacado.</li>
+<li>La pestaña <strong>Hoy</strong> resume lo inmediato: las próximas clases y los avisos pendientes, como inscripciones por aprobar.</li>
+<li>El estudiante ve el mismo calendario en su espacio, con el contenido de cada sesión.</li>
+</ol></div>
+
+<div class="campo"><span class="et">Captura</span>
+Figura 4 · Calendario del ciclo. · Figura 5 · Pestaña «Hoy».</div>
+
+<div class="limites"><span class="et">Límites</span>
+No se sincroniza con Google Calendar ni exporta a formato de agenda. No envía
+recordatorios: hoy se mandan a mano por WhatsApp.</div>
+</div>
+
+<!-- ─────────────────────────────── -->
+<div class="ficha">
+<h3>5 · Inscripción por enlace y activación</h3>
+<p class="meta">Panel docente → Cursos → Enlace de inscripción</p>
+
+<div class="campo"><span class="et">Para qué sirve</span>
+Que inscribirse sea abrir un enlace y llenar un formulario, sin buscar el curso ni
+equivocarse de grupo. El enlace lleva el grupo dentro, y admite también el nombre del
+estudiante para que llegue prellenado.</div>
+
+<div class="campo"><span class="et">Quién la usa</span>
+El docente genera y reparte el enlace; la familia o el estudiante lo usan; el docente
+aprueba después.</div>
+
+<div class="campo"><span class="et">Paso a paso</span>
+<ol>
+<li>Copiar el enlace del grupo desde <strong>Cursos</strong> y enviarlo por mensaje privado a cada familia.</li>
+<li>Quien lo abre llena nombre, correo, teléfono, los datos del representante y una contraseña. <strong>El curso ya viene seleccionado.</strong></li>
+<li>Recibe un correo de verificación que debe confirmar para activar la cuenta.</li>
+<li>La inscripción queda en <strong>pendiente</strong>. El docente la pasa a <strong>activa</strong> cuando corresponde.</li>
+<li>Mientras está pendiente, el estudiante ve su espacio pero <strong>no</strong> el enlace de la clase ni el del grupo: aparecen bloqueados con el motivo explicado.</li>
+</ol></div>
+
+<div class="campo"><span class="et">Captura</span>
+Figura 6 · Formulario de inscripción. · Figura 2 · El enlace que se reparte, en el panel docente.</div>
+
+<div class="limites"><span class="et">Límites</span>
+<strong>El enlace es el mismo para todo el grupo</strong>: no caduca ni se invalida tras un
+uso. Quien lo reenvíe puede inscribir a alguien más, aunque la inscripción quedará
+pendiente de aprobación. La activación es manual y deliberadamente: es el momento en
+que el docente comprueba el pago.</div>
+</div>
+
+<!-- ─────────────────────────────── -->
+<div class="ficha">
+<h3>6 · Plazos de inscripción y de pago</h3>
+<p class="meta">Base de datos · configurable por grupo</p>
+
+<div class="campo"><span class="et">Para qué sirve</span>
+Son <strong>dos plazos distintos</strong>, y confundirlos tiene consecuencias. El de
+<strong>inscripción</strong> cierra la entrada al grupo: por omisión, el primer día del
+ciclo inclusive. El de <strong>pago</strong> es más holgado: una semana, hasta la clase
+siguiente. Quien no ha pagado todavía <em>asiste</em>; quien llega tarde a inscribirse,
+no entra.</div>
+
+<div class="campo"><span class="et">Quién la usa</span>
+Docente y administración.</div>
+
+<div class="campo"><span class="et">Paso a paso</span>
+<ol>
+<li>Al crear el grupo se fijan las dos fechas.</li>
+<li>Pasado el plazo de inscripción, el formulario deja de ofrecer ese grupo y <strong>explica por qué</strong>, en lugar de mostrar una lista vacía.</li>
+<li>Quien llega tarde puede crear su cuenta igual: queda sin grupo y el docente decide.</li>
+<li>El plazo de pago no bloquea nada: es la fecha que muestra la plataforma al estudiante.</li>
+</ol></div>
+
+<div class="limites"><span class="et">Límites</span>
+Las fechas se fijan hoy desde la base de datos, no desde el panel. Añadirlas al
+formulario de creación de grupos es trabajo pendiente.</div>
+</div>
+
+<!-- ─────────────────────────────── -->
+<div class="ficha">
+<h3>7 · Asistencia</h3>
+<p class="meta">Panel docente → sesión del día</p>
+
+<div class="campo"><span class="et">Para qué sirve</span>
+Registrar quién asistió a cada sesión, con una observación si hace falta. Alimenta el
+porcentaje de asistencia que ven el estudiante y su familia.</div>
+
+<div class="campo"><span class="et">Quién la usa</span>
+Docente para registrar; estudiante y familia para consultar.</div>
+
+<div class="campo"><span class="et">Paso a paso</span>
+<ol>
+<li>Abrir la sesión correspondiente y marcar presente o ausente a cada estudiante.</li>
+<li>Añadir observación cuando convenga («avisó con tiempo», «llegó tarde»).</li>
+<li>El cálculo del porcentaje y las barras se actualizan solos en los otros dos perfiles.</li>
+</ol></div>
+
+<div class="campo"><span class="et">Captura</span>
+Figura 10 · Asistencia, tal como la ve la familia.</div>
+
+<div class="limites"><span class="et">Límites</span>
+No distingue retardo de falta: es presente o ausente, y el matiz va en la observación.
+No avisa automáticamente a la familia cuando se acumulan ausencias.</div>
+</div>
+
+<!-- ─────────────────────────────── -->
+<div class="ficha">
+<h3>8 · Pagos manuales</h3>
+<p class="meta">Panel administrativo → Finanzas</p>
+
+<div class="campo"><span class="et">Para qué sirve</span>
+Llevar la cuenta de quién pagó, cuánto y cuándo, sin plataforma de cobro automático.
+Responde al modo real de trabajo: transferencia bancaria, depósito en efectivo o envío
+desde el extranjero, <strong>sin emisión de factura con RFC</strong>.</div>
+
+<div class="campo"><span class="et">Quién la usa</span>
+Administración para registrar; estudiante y familia para consultar su estado.</div>
+
+<div class="campo"><span class="et">Paso a paso</span>
+<ol>
+<li>La familia paga por el medio que prefiera y envía el comprobante por WhatsApp.</li>
+<li>En <strong>Finanzas</strong>, elegir la inscripción, poner el monto, el concepto y el estado <em>Pagado</em>.</li>
+<li>La plataforma resume lo <strong>cobrado</strong>, lo <strong>pendiente de cobro</strong>, los <strong>egresos</strong> y el <strong>balance neto</strong>.</li>
+<li>El estudiante y su familia ven su propio estado de pago en su espacio.</li>
+</ol></div>
+
+<div class="campo"><span class="et">Captura</span>
+Figura 9 · Finanzas: registro de pago y resumen.</div>
+
+<div class="limites"><span class="et">Límites</span>
+<strong>El registro es manual.</strong> La plataforma no comprueba el comprobante ni se
+conecta al banco: si el docente no lo anota, no existe. No emite recibo ni factura. Se
+exploró una integración de cobro automático y <strong>se descartó</strong> por no
+corresponder a la realidad fiscal del proyecto.</div>
+</div>
+
+<!-- ─────────────────────────────── -->
+<div class="ficha">
+<h3>9 · Evaluación escrita en línea · Sentinelle</h3>
+<p class="meta">Sistema de exámenes con control de integridad</p>
+
+<div class="campo"><span class="et">Para qué sirve</span>
+Aplicar la prueba escrita en línea —comprensión oral, comprensión escrita y producción
+escrita— con garantías razonables de que el resultado refleja lo que el estudiante
+sabe. Se llama Sentinelle por eso: vigila sin interrumpir.</div>
+
+<div class="campo"><span class="et">Quién la usa</span>
+Docente para abrir y revisar; estudiante para presentar.</div>
+
+<div class="campo"><span class="et">Paso a paso</span>
+<ol>
+<li>El docente abre el examen y comparte el <strong>código de acceso</strong>.</li>
+<li>El estudiante entra con su correo y el código. El reloj empieza a correr.</li>
+<li>Las respuestas se guardan solas mientras trabaja: si se cae la conexión, puede reanudar.</li>
+<li>Al enviar, lo automático se califica solo; la producción escrita la revisa el docente.</li>
+<li>Una vez revisadas, las notas se publican en «Mis resultados».</li>
+</ol></div>
+
+<div class="campo"><span class="et">Cómo protege la evaluación</span>
+<ul>
+<li>El alumno <strong>no tiene acceso a ninguna tabla</strong>: solo puede llamar a tres funciones (iniciar, guardar, enviar) con el identificador de su intento.</li>
+<li>La <strong>clave de respuestas vive solo en el servidor</strong>: nunca viaja al navegador, así que no se puede leer inspeccionando la página.</li>
+<li>El <strong>reloj es del servidor</strong>: cambiar la hora de la computadora no sirve de nada.</li>
+<li><strong>Un solo intento</strong> por persona y por examen. Reanudar sí; empezar de nuevo, no.</li>
+<li>Se registra el origen de cada guardado, lo que permite detectar que dos exámenes se estén respondiendo desde el mismo sitio.</li>
+</ul></div>
+
+<div class="limites"><span class="et">Límites</span>
+No impide que alguien abra otra pestaña ni que consulte un diccionario: ninguna
+herramienta web honesta puede. Lo que hace es <strong>encarecer la trampa y dejar
+rastro</strong>. Para una evaluación de alto riesgo seguiría haciendo falta vigilancia
+presencial.</div>
+</div>
+
+<!-- ─────────────────────────────── -->
+<div class="ficha">
+<h3>10 · Evaluación oral A1.4</h3>
+<p class="meta">Herramienta de aplicación individual</p>
+
+<div class="campo"><span class="et">Para qué sirve</span>
+Conducir la prueba oral individual con la misma pauta para todos los estudiantes: las
+mismas consignas, el mismo orden, los mismos criterios. Evita que la prueba dependa de
+cómo venga el día el profesor.</div>
+
+<div class="campo"><span class="et">Quién la usa</span>
+Docente, durante la sesión individual con cada estudiante.</div>
+
+<div class="campo"><span class="et">Paso a paso</span>
+<ol>
+<li>Abrir la herramienta oral del ciclo y seleccionar al estudiante.</li>
+<li>Seguir las consignas en pantalla, con los audios de apoyo cuando corresponde.</li>
+<li>Registrar la valoración por criterios.</li>
+<li>La nota se incorpora al resultado del ciclo junto con la prueba escrita.</li>
+</ol></div>
+
+<div class="limites"><span class="et">Límites</span>
+Está construida <strong>para el ciclo A1.4 concreto</strong>: sus consignas y audios son
+los de esa evaluación. Hacerla reutilizable para otros niveles es trabajo pendiente. No
+graba al estudiante: la valoración la hace el docente en el momento.</div>
+</div>
+
+<!-- ─────────────────────────────── -->
+<div class="ficha">
+<h3>11 · Publicación de notas en «Mis resultados»</h3>
+<p class="meta">De la evaluación al espacio del estudiante</p>
+
+<div class="campo"><span class="et">Para qué sirve</span>
+Que el estudiante y su familia reciban el resultado <strong>con el comentario del
+profesor</strong>, no un número suelto. La nota se desglosa por partes para que se
+entienda de dónde sale.</div>
+
+<div class="campo"><span class="et">Quién la usa</span>
+Docente para publicar; estudiante y familia para consultar.</div>
+
+<div class="campo"><span class="et">Paso a paso</span>
+<ol>
+<li>Revisar los intentos de la prueba escrita y cerrar la calificación.</li>
+<li>Publicar: las notas revisadas pasan al expediente del estudiante, emparejadas por el correo con que presentó.</li>
+<li>Añadir el comentario, que es la parte que de verdad orienta.</li>
+<li>Aparece en «Mis resultados» del estudiante y en el espacio de su familia.</li>
+</ol></div>
+
+<div class="campo"><span class="et">Captura</span>
+Figura 8 · Resultados con la nota y el comentario del profesor.</div>
+
+<div class="limites"><span class="et">Límites</span>
+No calcula promedio ponderado del ciclo ni emite constancia: las tablas para eso
+existen pero la función no está construida. El comentario se escribe a mano, una vez
+por estudiante y evaluación.</div>
+</div>
+
+<!-- ─────────────────────────────── -->
+<div class="ficha">
+<h3>12 · Boletines con enlace privado</h3>
+<p class="meta">Entrega de resultados a familias sin cuenta</p>
+
+<div class="campo"><span class="et">Para qué sirve</span>
+Resuelve un problema de tiempo real: <strong>las notas no pueden esperar a que cada
+familia cree su cuenta</strong>. Cada estudiante tiene un boletín con un enlace secreto
+que su familia abre sin contraseña, desde el teléfono, en cinco segundos.</div>
+
+<div class="campo"><span class="et">Quién la usa</span>
+Docente para generar y enviar; la familia para consultar.</div>
+
+<div class="campo"><span class="et">Paso a paso</span>
+<ol>
+<li>Generar los boletines del grupo: uno por estudiante, cada uno con su enlace propio.</li>
+<li>Enviar a cada familia <strong>su</strong> enlace, por mensaje privado. Nunca al grupo.</li>
+<li>La familia lo abre y ve el resultado con el desglose y el comentario.</li>
+<li>Si el estudiante tiene cuenta, la misma nota aparece además en «Mis resultados».</li>
+</ol></div>
+
+<div class="campo"><span class="et">Cómo protege los datos</span>
+<ul>
+<li>Solo el docente puede leer o escribir la tabla de boletines.</li>
+<li>El público únicamente puede consultar <strong>un boletín concreto con su identificador exacto</strong>, que es imposible de adivinar. No hay forma de listar los demás.</li>
+<li>Sin ese identificador no se ve absolutamente nada.</li>
+</ul></div>
+
+<div class="campo"><span class="et">Captura</span>
+Sin figura: el boletín contiene datos de un menor y no se incluye captura.</div>
+
+<div class="limites"><span class="et">Límites</span>
+<strong>Quien tenga el enlace, entra.</strong> Es la contrapartida de no exigir contraseña:
+si una familia lo reenvía, el receptor verá ese boletín. Por eso se manda siempre por
+privado y nunca al grupo. El envío es manual, mensaje por mensaje.</div>
+</div>
+
+<!-- ─────────────────────────────── -->
+<div class="ficha">
+<h3>13 · Baja de un estudiante</h3>
+<p class="meta">Cuando alguien se retira a mitad de ciclo</p>
+
+<div class="campo"><span class="et">Para qué sirve</span>
+Dejar tres cosas en su sitio cuando alguien abandona: su inscripción, que debe decir que
+se retiró y no quedarse en «pendiente» como si aún se esperara su pago; el cupo del
+grupo, que vuelve a quedar libre; y las finanzas, para que no figure dinero por cobrar
+que ya nadie va a cobrar.</div>
+
+<div class="campo"><span class="et">Quién la usa</span>
+Administración.</div>
+
+<div class="campo"><span class="et">Paso a paso</span>
+<ol>
+<li>Consultar primero la situación: su inscripción, sus cobros, su boletín y el cupo.</li>
+<li>Ejecutar la baja: la inscripción pasa a <strong>retirada</strong> con la fecha anotada.</li>
+<li>El cupo se libera solo; los cobros pendientes se anulan.</li>
+<li><strong>El boletín se conserva.</strong> Esas notas se las ganó y su familia puede seguir consultándolas.</li>
+</ol></div>
+
+<div class="limites"><span class="et">Límites</span>
+Se ejecuta desde la base de datos, no desde el panel. Los pagos ya cobrados no se tocan:
+si hubo devolución, se registra aparte como egreso.</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<h2 class="salto">Parte II · Estudiante</h2>
+
+<div class="ficha">
+<h3>14 · Mi espacio</h3>
+<p class="meta">Cinco apartados · Inicio, Mi curso, Mis resultados, Materiales, Mis pagos</p>
+
+<div class="campo"><span class="et">Para qué sirve</span>
+Que el estudiante tenga un sitio propio donde está todo lo suyo, sin preguntar a nadie.
+Es la respuesta directa al problema del alumno que falta a clase.</div>
+
+<div class="campo"><span class="et">Quién la usa</span>
+El estudiante, con su correo y su contraseña.</div>
+
+<div class="campo"><span class="et">Qué encuentra en cada apartado</span>
+<table>
+    <tbody>
+    <tr><td style="width:28%"><strong>Inicio</strong></td><td>Bienvenida personalizada, el recorrido de las unidades ya trabajadas, lo que se va a validar en este ciclo y hasta dónde se llegará.</td></tr>
+    <tr><td><strong>Mi curso</strong></td><td>Horario, modalidad, calendario completo con el contenido de cada sesión, y los enlaces de la clase y del grupo —si su inscripción está activa.</td></tr>
+    <tr><td><strong>Mis resultados</strong></td><td>Cada evaluación con su nota, el desglose por partes y el comentario del profesor.</td></tr>
+    <tr><td><strong>Materiales</strong></td><td>El repositorio de todo lo trabajado, por categoría y unidad.</td></tr>
+    <tr><td><strong>Mis pagos</strong></td><td>Lo pagado, lo pendiente y los datos para pagar.</td></tr>
+    </tbody>
+</table></div>
+
+<div class="campo"><span class="et">Captura</span>
+Sin figura propia: la estructura es la misma de la Figura 10, con los cinco apartados.</div>
+
+<div class="limites"><span class="et">Límites</span>
+Es de consulta: el estudiante no sube tareas ni escribe al profesor desde aquí. La
+comunicación sigue siendo por WhatsApp, y de momento está bien que así sea.</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<h2>Parte III · Familia · padre, madre o representante</h2>
+
+<div class="ficha">
+<h3>15 · Cuenta propia del representante</h3>
+<p class="meta">Registro específico y espacio de solo lectura</p>
+
+<div class="campo"><span class="et">Para qué sirve</span>
+Que el representante siga el avance de su hijo o hija <strong>sin compartir su
+contraseña</strong>. Antes la única salida era usar la cuenta del estudiante, y eso
+cumplía a medias: si el hijo cambiaba la contraseña, la madre se quedaba fuera; no había
+forma de saber quién había entrado; y un adolescente no tenía un espacio propio.</div>
+
+<div class="campo"><span class="et">Quién la usa</span>
+El padre, la madre o el tutor.</div>
+
+<div class="campo"><span class="et">Paso a paso</span>
+<ol>
+<li>Al inscribir al estudiante, el formulario pide el <strong>correo del representante</strong>, que debe ser distinto del suyo.</li>
+<li>El representante entra al registro específico y crea su cuenta con ese mismo correo.</li>
+<li>Confirma el correo de verificación.</li>
+<li><strong>El emparejamiento es automático</strong>: al coincidir el correo, la plataforma lo vincula con sus hijos. Funciona en los dos sentidos, se registre antes o después que el estudiante.</li>
+<li>Si el correo no coincide, la cuenta se crea igual y aparece un aviso que le indica escribir al profesor, que puede enlazarlo a mano.</li>
+</ol></div>
+
+<div class="campo"><span class="et">Qué ve</span>
+El curso con horario y modalidad; la asistencia con presentes, faltas y porcentaje; los
+resultados con el comentario del profesor destacado; las próximas clases con su
+contenido; y los pagos. Si tiene varios hijos en la escuela, un selector para
+alternarlos.</div>
+
+<div class="campo"><span class="et">Captura</span>
+Figura 10 · Espacio del representante. · Figura 7 · Su formulario de registro.</div>
+
+<div class="limites"><span class="et">Límites</span>
+<strong>Es de solo lectura.</strong> El representante no modifica nada ni escribe desde
+aquí. Y hay un requisito que conviene decir claro: <strong>necesita un correo distinto
+del de su hijo</strong>. Si la familia comparte una sola dirección, hay que resolverlo
+caso por caso.</div>
+</div>
+
+<div class="ficha">
+<h3>16 · Boletín por enlace, sin cuenta</h3>
+<p class="meta">Alternativa para quien no quiere registrarse</p>
+
+<div class="campo"><span class="et">Para qué sirve</span>
+No todas las familias van a crear una cuenta, y tienen derecho a los resultados igual.
+El boletín por enlace privado es el camino corto: se abre desde el mensaje de WhatsApp,
+sin contraseña, sin registro.</div>
+
+<div class="campo"><span class="et">Quién la usa</span>
+Cualquier familia.</div>
+
+<div class="campo"><span class="et">Paso a paso</span>
+<ol>
+<li>Recibe del profesor, por mensaje privado, el enlace del boletín de su hijo.</li>
+<li>Lo abre y ve el resultado con el desglose y el comentario.</li>
+<li>Puede volver a abrirlo cuando quiera: el enlace no caduca.</li>
+</ol></div>
+
+<div class="limites"><span class="et">Límites</span>
+Es una foto de una evaluación, no un seguimiento continuo. Para ver asistencia,
+calendario y pagos hace falta la cuenta propia de la ficha anterior.</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<h2>Funciones anunciadas que todavía no existen</h2>
+
+<p>Por honestidad con quien revise este manual, estas funciones se han mencionado en
+conversaciones sobre el proyecto pero <strong>no están construidas</strong>. Figuran en la
+hoja de ruta del documento de presentación.</p>
+
+<table>
+    <thead><tr><th style="width:30%">Función</th><th>Estado real</th></tr></thead>
+    <tbody>
+    <tr><td><strong>Libro virtual</strong><br>subida por partes, visor, marca de agua</td>
+        <td>No construida. No existe visor, ni subida por partes, ni marca de agua. El material se comparte hoy como enlaces en el apartado de Materiales.</td></tr>
+    <tr><td><strong>Ciclo B2</strong></td>
+        <td>Existe la página del aula virtual de B2 en el sitio público, pero no el grupo en la plataforma, ni su planificación, ni su evaluación.</td></tr>
+    <tr><td><strong>Recordatorios automáticos</strong></td>
+        <td>No construidos. Los recordatorios de clase y de pago se envían a mano por WhatsApp.</td></tr>
+    <tr><td><strong>Constancias</strong></td>
+        <td>Las tablas existen; la emisión no está construida.</td></tr>
+    </tbody>
+</table>
+
+<p class="pie-doc">
+    Vive el francés · Plataforma educativa<br>
+    Miguel David Tillero Álvarez · Profesor de francés (FLE)<br>
+    Manual de funciones · Versión 1.0 · Octubre de 2026<br>
+    Estado descrito: el de la plataforma al 3 de octubre de 2026
+</p>
+
+</div>
+</body>
+</html>

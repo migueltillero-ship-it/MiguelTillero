@@ -1,0 +1,159 @@
+/* Hoja de estilo común a los tres documentos de la entrega.
+   Pensada para leerse en pantalla y para imprimirse en A4 sin retoques:
+   los saltos de página están controlados y nada queda partido a la mitad.
+   Se incrusta dentro de cada HTML para que cada documento viaje solo. */
+
+@page { size: A4; margin: 18mm 16mm 20mm; }
+
+:root {
+  --crema:  #eef0e5;
+  --papel:  #ffffff;
+  --oro:    #8c734b;
+  --oro-cl: #a5824a;
+  --verde:  #2b4535;
+  --tinta:  #1a2e24;
+  --suave:  #5a665f;
+  --linea:  rgba(165,130,74,0.30);
+  --cyan:   #0d7f57;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--crema);
+  color: var(--tinta);
+  font-family: 'Syne', 'Segoe UI', 'DejaVu Sans', sans-serif;
+  font-size: 10.5pt;
+  line-height: 1.68;
+}
+
+.hoja {
+  max-width: 190mm;
+  margin: 0 auto;
+  background: var(--papel);
+  padding: 18mm 16mm;
+}
+
+/* ── Portada ─────────────────────────────────────────────── */
+.portada { text-align: left; padding: 22mm 0 14mm; border-bottom: 2px solid var(--oro); margin-bottom: 10mm; }
+.portada .marca { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 15pt; color: var(--verde); }
+.portada .marca span { color: var(--oro); }
+.portada .eyebrow { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8pt;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--oro); margin-top: 16mm; }
+.portada h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 34pt;
+  line-height: 1.04; color: var(--verde); margin: 4mm 0 0; letter-spacing: -0.01em; }
+.portada h1 em { font-style: italic; color: var(--oro); }
+.portada .sub { font-size: 12pt; color: var(--suave); margin-top: 5mm; max-width: 140mm; line-height: 1.6; }
+.portada .pie-portada { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8.5pt;
+  color: var(--suave); margin-top: 14mm; line-height: 1.9; }
+
+/* ── Jerarquía ───────────────────────────────────────────── */
+h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 20pt;
+  color: var(--verde); margin: 11mm 0 3mm; padding-bottom: 2mm; border-bottom: 1px solid var(--linea);
+  page-break-after: avoid; }
+h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 13.5pt;
+  color: var(--verde); margin: 7mm 0 2mm; page-break-after: avoid; }
+h4 { font-family: 'Syne', 'Segoe UI', sans-serif; font-weight: 700; font-size: 10.5pt;
+  color: var(--oro); margin: 5mm 0 1.5mm; page-break-after: avoid; }
+p { margin: 0 0 3.2mm; }
+strong { color: var(--verde); }
+em { color: inherit; }
+a { color: var(--oro); text-decoration: none; border-bottom: 1px solid var(--linea); }
+
+ul, ol { margin: 0 0 3.2mm; padding-left: 5.5mm; }
+li { margin-bottom: 1.6mm; }
+
+.salto { page-break-before: always; }
+.junto { page-break-inside: avoid; }
+
+/* ── Bloques destacados ──────────────────────────────────── */
+.nota {
+  background: rgba(140,115,75,0.08);
+  border-left: 3px solid var(--oro);
+  padding: 4mm 5mm; margin: 4mm 0; font-size: 10pt; line-height: 1.6;
+  page-break-inside: avoid;
+}
+.nota .et { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--oro); display: block; margin-bottom: 1.5mm; }
+
+.cita {
+  font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic;
+  font-size: 13pt; line-height: 1.5; color: var(--verde);
+  border-left: 2px solid var(--oro); padding: 2mm 0 2mm 6mm; margin: 6mm 0;
+  page-break-inside: avoid;
+}
+
+/* ── Tablas ──────────────────────────────────────────────── */
+table { width: 100%; border-collapse: collapse; font-size: 9.5pt; margin: 4mm 0 5mm;
+  page-break-inside: avoid; }
+th { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--suave);
+  text-align: left; padding: 2mm 2.5mm; border-bottom: 1.5px solid var(--linea); }
+td { padding: 2.2mm 2.5mm; border-bottom: 1px solid rgba(165,130,74,0.16);
+  vertical-align: top; line-height: 1.55; }
+tr:last-child td { border-bottom: none; }
+td.fecha { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8.5pt;
+  color: var(--oro); white-space: nowrap; }
+
+/* ── Cifras ──────────────────────────────────────────────── */
+.cifras { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin: 6mm 0; }
+.cifra { background: var(--crema); border-radius: 3mm; padding: 5mm; text-align: center;
+  page-break-inside: avoid; }
+.cifra .n { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 26pt;
+  color: var(--verde); line-height: 1; display: block; }
+.cifra .l { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7pt;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--suave); margin-top: 2mm; display: block; }
+.cifra .x { font-size: 8.5pt; color: var(--suave); margin-top: 1.5mm; display: block; line-height: 1.4; }
+
+/* ── Fichas de función (manual) ──────────────────────────── */
+.ficha { border: 1px solid var(--linea); border-left: 4px solid var(--oro);
+  border-radius: 2mm; padding: 5mm 6mm; margin: 5mm 0; page-break-inside: avoid; }
+.ficha h3 { margin-top: 0; }
+.ficha .meta { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--suave); margin-bottom: 3mm; }
+.ficha .campo { margin-bottom: 3mm; }
+.ficha .campo > .et { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--oro); display: block; margin-bottom: 1mm; }
+.ficha ol { counter-reset: paso; list-style: none; padding-left: 0; }
+.ficha ol li { counter-increment: paso; padding-left: 7mm; position: relative; }
+.ficha ol li::before { content: counter(paso); position: absolute; left: 0; top: 0;
+  font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8pt; color: var(--oro);
+  width: 5mm; text-align: right; }
+.limites { background: rgba(161,51,36,0.06); border-left: 3px solid #a13324;
+  padding: 3mm 4mm; margin-top: 3mm; font-size: 9.5pt; }
+.limites .et { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.1em; text-transform: uppercase; color: #a13324; display: block; margin-bottom: 1mm; }
+
+/* ── Capturas ────────────────────────────────────────────── */
+figure { margin: 5mm 0; page-break-inside: avoid; }
+figure img { width: 100%; border: 1px solid var(--linea); border-radius: 2mm; display: block; }
+figcaption { font-size: 8.5pt; color: var(--suave); margin-top: 2mm; line-height: 1.5; }
+figcaption b { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.08em; color: var(--oro); }
+
+/* ── Código ──────────────────────────────────────────────── */
+code { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8.5pt;
+  background: rgba(43,69,53,0.07); padding: 0.3mm 1.2mm; border-radius: 1mm; }
+pre { font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8pt;
+  background: var(--crema); border-radius: 2mm; padding: 4mm; overflow-x: auto;
+  line-height: 1.55; page-break-inside: avoid; margin: 3mm 0 4mm; }
+pre code { background: none; padding: 0; }
+
+/* ── Índice ──────────────────────────────────────────────── */
+.indice { background: var(--crema); border-radius: 3mm; padding: 6mm 7mm; margin: 6mm 0 8mm; }
+.indice h3 { margin-top: 0; }
+.indice ol { list-style: none; padding-left: 0; counter-reset: cap; }
+.indice ol li { counter-increment: cap; padding-left: 8mm; position: relative; margin-bottom: 2mm; }
+.indice ol li::before { content: counter(cap) '.'; position: absolute; left: 0;
+  font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 8.5pt; color: var(--oro); }
+
+/* ── Pie ─────────────────────────────────────────────────── */
+.pie-doc { margin-top: 12mm; padding-top: 4mm; border-top: 1px solid var(--linea);
+  font-family: 'Space Mono', 'DejaVu Sans Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.06em; color: var(--suave); line-height: 1.8; }
+
+@media print {
+  body { background: #fff; }
+  .hoja { max-width: none; padding: 0; }
+}
