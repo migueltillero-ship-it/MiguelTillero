@@ -41,8 +41,8 @@ body { background: var(--void); color: var(--text); font-family: 'Syne', sans-se
 .btn, .btn-gold, .btn-ghost {
   display: inline-flex; align-items: center; gap: 0.6rem;
   padding: 0.9rem 2rem; border-radius: var(--r-pill);
-  font-family: 'Space Mono', monospace; font-size: 0.55rem;
-  letter-spacing: 0.25em; text-transform: uppercase;
+  font-family: 'Syne', sans-serif; font-size: 0.81rem;
+  letter-spacing:0.1em; text-transform: uppercase;
   cursor: pointer; transition: all 0.3s var(--ease); border: none;
 }
 .btn-gold {
@@ -66,39 +66,39 @@ nav#nav.scrolled {
   border-bottom: 1px solid var(--border); padding: 0.9rem 2.5rem; box-shadow: var(--shadow-1);
 }
 .nav-brand {
-  font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 400;
+  font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400;
   color: var(--white); letter-spacing: 0.05em; display: flex; align-items: center; gap: 0.6rem;
 }
 .nav-brand .dot { width: 5px; height: 5px; background: var(--gold); transform: rotate(45deg); flex-shrink: 0; }
 .nav-brand span { color: var(--gold); }
 .nav-links { display: flex; gap: 2.5rem; list-style: none; }
 .nav-links a {
-  font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase;
+  font-family: 'Syne', sans-serif; font-size: 0.81rem; letter-spacing:0.1em; text-transform: uppercase;
   color: var(--muted); transition: color 0.3s var(--ease); position: relative;
 }
 .nav-links a:hover { color: var(--gold); }
 .nav-controls { display: flex; gap: 0.5rem; align-items: center; }
 .ctrl-btn {
   background: var(--goldx); border: 1px solid var(--border); color: var(--muted);
-  font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase;
+  font-family: 'Syne', sans-serif; font-size: 0.79rem; letter-spacing:0.1em; text-transform: uppercase;
   padding: 0.35rem 0.65rem; cursor: pointer; transition: all 0.3s var(--ease);
 }
 .ctrl-btn:hover, .ctrl-btn.active { background: rgba(var(--gold-air),0.2); color: var(--gold); border-color: var(--gold); }
-.hamburger { display: none; background: none; border: 1px solid var(--border); color: var(--gold); width: 2.2rem; height: 2.2rem; cursor: pointer; font-size: 0.7rem; align-items: center; justify-content: center; }
+.hamburger { display: none; background: none; border: 1px solid var(--border); color: var(--gold); width: 2.2rem; height: 2.2rem; cursor: pointer; font-size: 0.88rem; align-items: center; justify-content: center; }
 
 footer#footer {
   padding: 3rem 0; border-top: 1px solid var(--border);
   background: linear-gradient(180deg, var(--void) 0%, #dfeadd 100%);
 }
 .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
-.footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 300; color: var(--white); }
+.footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--white); }
 .footer-brand em { font-style: normal; color: var(--gold); }
-.footer-tag { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--muted); margin-top: 0.25rem; }
-.footer-copy { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; color: var(--muted); text-align: center; }
+.footer-tag { font-family: 'Syne', sans-serif; font-size: 0.82rem; letter-spacing:0.1em; text-transform: uppercase; color: var(--muted); margin-top: 0.25rem; }
+.footer-copy { font-family: 'Syne', sans-serif; font-size: 0.82rem; letter-spacing:0.1em; color: var(--muted); text-align: center; }
 .footer-langs { display: flex; gap: 0.4rem; }
 .footer-lb {
   background: none; border: 1px solid var(--border); color: var(--muted);
-  font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.2em;
+  font-family: 'Syne', sans-serif; font-size: 0.79rem; letter-spacing:0.1em;
   padding: 0.25rem 0.65rem; cursor: pointer; transition: all 0.3s var(--ease);
 }
 .footer-lb:hover, .footer-lb.active { border-color: var(--gold); color: var(--gold); }

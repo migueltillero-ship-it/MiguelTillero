@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Subir libro · Vive el francés</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../assets/js/supabase-config.js?v=1790500000"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<style>
+:root{--bg:#eef4ee;--ink:#12291c;--ink2:#0d3b2e;--muted:rgba(18,41,28,.64);--line:rgba(18,41,28,.14);--gold:#a5824a;--gold2:#e3c68e;--green:#0d7f57;--red:#b4533a;
+--display:'Cormorant Garamond',Georgia,serif;--sans:'Syne',system-ui,sans-serif;--mono:'Space Mono',monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5}
+.hidden{display:none!important}
+header{background:var(--ink2);color:#fff}
+header .wrap{display:flex;align-items:center;gap:1rem;min-height:64px;flex-wrap:wrap}
+header h1{font-family:var(--display);font-size:1.6rem;margin:0}
+header h1 em{color:var(--gold2);font-style:normal}
+header .sp{flex:1}
+header a{color:#fff;font-size:.85rem}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin-top:20px}
+h2{font-family:var(--display);font-size:1.8rem;margin:0 0 .4rem}
+label{display:block;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
+input[type=text],input[type=email],input[type=password],select,textarea{width:100%;padding:.65rem .8rem;border:1.5px solid var(--line);border-radius:10px;font:inherit;background:#fff;color:var(--ink)}
+textarea{min-height:140px;font-family:var(--mono);font-size:.85rem}
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.6rem 1.1rem;border-radius:999px;background:var(--ink);color:#fff;font:inherit;font-weight:700;font-size:.88rem;border:0;cursor:pointer;text-decoration:none}
+.btn.ghost{background:#fff;border:1.5px solid var(--line);color:var(--ink)}
+.btn:disabled{opacity:.45;cursor:default}
+.hint{color:var(--muted);font-size:.86rem}
+.row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-top:16px}
+.check{display:flex;gap:.5rem;align-items:center;margin-top:14px;font-size:.92rem}
+progress{width:100%;height:12px;margin-top:12px}
+#log{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-top:10px;white-space:pre-line}
+#login{max-width:380px;margin:80px auto}
+#l-err,.err{color:var(--red);font-size:.86rem;margin-top:8px}
+.estado{font-family:var(--mono);font-size:.8rem;padding:.6rem .8rem;border-radius:10px;background:var(--bg);margin-top:8px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1><em>Libro virtual</em> · subir</h1><div class="sp"></div>
+  <a href="./">Ver el libro</a>
+  <a href="../panel-docente.html">Panel docente</a>
+</div></header>
+
+<form id="login" class="card hidden">
+  <h2>Acceso docente</h2>
+  <p class="hint">Usa tu cuenta de docente de la plataforma.</p>
+  <input id="l-mail" type="email" placeholder="correo" autocomplete="username" required>
+  <input id="l-pass" type="password" placeholder="contraseña" autocomplete="current-password" required style="margin-top:8px">
+  <div class="row"><button class="btn" type="submit">Entrar</button></div>
+  <div id="l-err"></div>
+</form>
+
+<main id="app" class="wrap hidden">
+  <section class="card">
+    <h2>El libro del grupo</h2>
+    <p class="hint">El PDF no se publica en el sitio: se guarda en un espacio privado y solo lo abren los alumnos con inscripción activa en el grupo. Como cada archivo puede pesar como máximo 50 MB, esta página lo divide en partes aquí mismo, en tu computadora, y las sube una por una.</p>
+
+    <label for="grupo">Grupo</label>
+    <select id="grupo"></select>
+    <div class="estado" id="estado">—</div>
+
+    <label for="titulo">Título</label>
+    <input type="text" id="titulo" placeholder="Défi 1 · Livre de l'élève">
+
+    <label for="archivo">Archivo PDF</label>
+    <input type="file" id="archivo" accept="application/pdf">
+    <p class="hint" style="margin:.4rem 0 0">Si el libro ya está subido y solo quieres cambiar el índice o publicarlo, deja este campo vacío.</p>
+
+    <label for="indice">Índice (una línea por unidad: título = página del PDF)</label>
+    <textarea id="indice" placeholder="Unité 0 · Bienvenue = 8&#10;Unité 1 · Premiers contacts = 14&#10;Unité 2 · … = 30"></textarea>
+
+    <label class="check"><input type="checkbox" id="publicado"> Publicado: los alumnos activos del grupo ya pueden verlo</label>
+
+    <div class="row">
+      <button class="btn" id="guardar">Guardar</button>
+      <a class="btn ghost" href="./" target="_blank" rel="noopener">Abrir el visor</a>
+    </div>
+    <progress id="prog" class="hidden" max="100" value="0"></progress>
+    <div id="log"></div>
+  </section>
+</main>
+
+<script>
+(function(){
+'use strict';
+const $ = s => document.querySelector(s);
+const sb = typeof supabaseClient !== 'undefined' ? supabaseClient : null;
+// Partes pequeñas: el alumno descarga solo la que está leyendo y la primera
+// página aparece rápido (el límite del plan es 50 MB por archivo).
+const PARTE_MAX = 6 * 1024 * 1024;
+let grupos = [], libro = null;
+
+const log = m => { $('#log').textContent += m + '\n'; };
+function showLogin(m){ $('#app').classList.add('hidden'); $('#login').classList.remove('hidden'); $('#l-err').textContent = m || ''; }
+
+$('#login').addEventListener('submit', async e => {
+  e.preventDefault();
+  const { error } = await sb.auth.signInWithPassword({ email:$('#l-mail').value.trim(), password:$('#l-pass').value });
+  if(error) return showLogin('Correo o contraseña incorrectos.');
+  boot();
+});
+
+async function boot(){
+  if(!sb) return showLogin('No se pudo conectar con la plataforma.');
+  const { data:{ user } } = await sb.auth.getUser();
+  if(!user) return showLogin();
+  const { data, error } = await sb.from('grupos').select('id, codigo').order('codigo');
+  if(error || !data || !data.length) return showLogin('Tu cuenta no tiene grupos a cargo.');
+  const prueba = await sb.from('libros').select('id').limit(1);
+  if(prueba.error) return showLogin('Falta preparar el libro virtual: ejecuta supabase/libro-virtual.sql en Supabase.');
+  grupos = data;
+  $('#grupo').innerHTML = grupos.map(g => `<option value="${g.id}">${g.codigo}</option>`).join('');
+  const a1 = grupos.find(g => g.codigo === 'A1-OCT2026'); if(a1) $('#grupo').value = a1.id;
+  $('#grupo').onchange = cargarLibro;
+  $('#login').classList.add('hidden'); $('#app').classList.remove('hidden');
+  cargarLibro();
+}
+
+async function cargarLibro(){
+  const { data } = await sb.from('libros').select('*').eq('grupo_id', $('#grupo').value).order('creado_en').limit(1);
+  libro = (data && data[0]) || null;
+  $('#titulo').value = libro ? libro.titulo : '';
+  $('#indice').value = libro ? (libro.indice || []).map(x => `${x.titulo} = ${x.pagina}`).join('\n') : '';
+  $('#publicado').checked = !!(libro && libro.publicado);
+  $('#estado').textContent = libro
+    ? `Libro subido: ${libro.total_paginas} páginas en ${(libro.partes || []).length} parte(s) · ${libro.publicado ? 'publicado' : 'sin publicar'}`
+    : 'Este grupo todavía no tiene libro.';
+}
+
+function leerIndice(){
+  return $('#indice').value.split('\n').map(l => l.trim()).filter(Boolean).map(l => {
+    const m = l.match(/^(.*?)\s*=\s*(\d+)\s*$/);
+    return m ? { titulo:m[1].trim(), pagina:+m[2] } : null;
+  }).filter(Boolean).sort((a, b) => a.pagina - b.pagina);
+}
+
+async function partir(file){
+  const { PDFDocument } = PDFLib;
+  log('Leyendo el PDF (' + (file.size / 1048576).toFixed(1) + ' MB)…');
+  const src = await PDFDocument.load(await file.arrayBuffer(), { ignoreEncryption:true });
+  const total = src.getPageCount();
+  let porParte = Math.max(1, Math.ceil(total / Math.max(1, Math.ceil(file.size / PARTE_MAX))));
+  log(`${total} páginas. Dividiendo en partes de unas ${porParte} páginas…`);
+  const partes = [];
+  let desde = 0;
+  while(desde < total){
+    let n = Math.min(porParte, total - desde), bytes;
+    // Si una parte sale demasiado pesada (páginas con muchas imágenes), se achica.
+    for(;;){
+      const doc = await PDFDocument.create();
+      const pages = await doc.copyPages(src, Array.from({ length:n }, (_, i) => desde + i));
+      pages.forEach(p => doc.addPage(p));
+      bytes = await doc.save({ useObjectStreams:true });
+      if(bytes.length <= 48 * 1024 * 1024 || n === 1) break;
+      n = Math.ceil(n / 2);
+    }
+    partes.push({ desde:desde + 1, hasta:desde + n, bytes });
+    log(`  parte ${partes.length}: páginas ${desde + 1}–${desde + n} (${(bytes.length / 1048576).toFixed(1)} MB)`);
+    desde += n;
+  }
+  return { total, partes };
+}
+
+$('#guardar').onclick = async () => {
+  const titulo = $('#titulo').value.trim();
+  if(!titulo) return alert('Escribe el título del libro.');
+  const file = $('#archivo').files[0];
+  if(!file && !libro) return alert('Elige el PDF del libro.');
+  const grupo_id = $('#grupo').value;
+  $('#guardar').disabled = true; $('#log').textContent = '';
+  try {
+    let fila = { grupo_id, titulo, indice:leerIndice(), publicado:$('#publicado').checked };
+    if(file){
+      const id = libro ? libro.id : crypto.randomUUID();
+      const { total, partes } = await partir(file);
+      const prog = $('#prog'); prog.classList.remove('hidden'); prog.value = 0;
+      const subidas = [];
+      for(let i = 0; i < partes.length; i++){
+        const path = `${grupo_id}/${id}/parte-${String(i + 1).padStart(2, '0')}.pdf`;
+        log(`Subiendo parte ${i + 1} de ${partes.length}…`);
+        const { error } = await sb.storage.from('libros').upload(path, new Blob([partes[i].bytes], { type:'application/pdf' }), { upsert:true, contentType:'application/pdf' });
+        if(error) throw new Error('No se pudo subir la parte ' + (i + 1) + ': ' + error.message);
+        subidas.push({ path, desde:partes[i].desde, hasta:partes[i].hasta });
+        prog.value = Math.round((i + 1) / partes.length * 100);
+      }
+      // Partes sobrantes de una versión anterior más larga.
+      const viejas = ((libro && libro.partes) || []).map(p => p.path).filter(p => !subidas.some(s => s.path === p));
+      if(viejas.length) await sb.storage.from('libros').remove(viejas);
+      fila = { ...fila, id, total_paginas:total, partes:subidas };
+    }
+    const r = libro
+      ? await sb.from('libros').update(fila).eq('id', libro.id)
+      : await sb.from('libros').insert(fila);
+    if(r.error) throw new Error(r.error.message);
+    log('✓ Guardado.' + (fila.publicado ? ' Los alumnos activos del grupo ya lo ven en «Materiales» → «Mi libro».' : ' Todavía no está publicado.'));
+    $('#archivo').value = '';
+    await cargarLibro();
+  } catch(e){
+    log('✗ ' + e.message);
+  } finally {
+    $('#guardar').disabled = false;
+  }
+};
+
+if(sb) sb.auth.getSession().then(({ data }) => data.session ? boot() : showLogin());
+else showLogin('No se pudo conectar con la plataforma.');
+})();
+</script>
+</body>
+</html>

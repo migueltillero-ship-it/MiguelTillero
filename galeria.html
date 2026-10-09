@@ -2,20 +2,29 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<script>
+/* La cortinilla pide su vídeo antes que nada (aquí, antes de las hojas de estilo) para que
+   empiece a bajar de inmediato y no después de CSS y scripts. */
+(function () {
+  var c = 0; try { c = parseInt(sessionStorage.getItem('mt-transicion-contador') || '0', 10) || 0; } catch (e) {}
+  if (c >= 3) return;
+  var v = document.createElement('video');
+  v.preload = 'auto'; v.muted = true; v.src = 'transicion-corta.mp4';
+  window.__vidTransicion = v;
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Galería de fotos y vídeo del aula y los proyectos de Miguel Tillero, profesor especialista en francés lengua extranjera.">
 <title>Galería · Miguel Tillero</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="assets/css/video-carrusel.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+<link rel="stylesheet" href="assets/css/video-carrusel.css?v=109">
 
-<link rel="stylesheet" href="assets/css/sitio.css?v=2">
-<link rel="stylesheet" href="assets/css/fondos.css?v=2">
-<link rel="stylesheet" href="assets/css/album.css?v=1">
+<link rel="stylesheet" href="assets/css/sitio.css?v=109">
+<link rel="stylesheet" href="assets/css/fondos.css?v=109">
+<link rel="stylesheet" href="assets/css/album.css?v=109">
 <style>
 .hero-langs {
   display: flex; gap: 1.5rem; margin-bottom: 2.5rem;
@@ -44,7 +53,7 @@
   position: absolute; left: 0; right: 0; bottom: 0;
   background: linear-gradient(to top, rgba(2,12,6,0.88) 15%, transparent 100%);
   padding: 2.4rem 0.9rem 0.7rem;
-  font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.03em;
+  font-family: 'Syne', sans-serif; font-size: 0.83rem; letter-spacing:0.03em;
   line-height: 1.35; color: rgba(255,255,255,0.92);
   z-index: 2; pointer-events: none;
 }
@@ -58,12 +67,12 @@
   /* Nav compacto: evita que el logo se encime con ES/FR/EN */
   #nav { padding: 1rem; }
   #nav.scrolled { padding: 0.7rem 1rem; }
-  .nav-brand { font-size: 1.02rem; letter-spacing: 0.02em; gap: 0.4rem; }
+  .nav-brand { font-size: 1.1rem; letter-spacing: 0.02em; gap: 0.4rem; }
   .nav-controls { gap: 0.35rem; }
   .ctrl-btn { padding: 0.3rem 0.45rem; letter-spacing: 0.1em; }
   .hamburger { width: 2rem; height: 2rem; }
 }
-.crs-icon { font-size: 1.2rem; color: var(--gold); display: block; margin-bottom: 1rem; }
+.crs-icon { font-size: 1.25rem; color: var(--gold); display: block; margin-bottom: 1rem; }
 #hero .hero-tagline, #hero .hero-langs { text-shadow: 0 1px 12px rgba(233,241,231,0.6); }
 /* Video de transicion entre secciones — una sola vez por pagina y sesion */
 #page-transition { position: fixed; inset: 0; z-index: 999999; background: var(--void); display: flex; align-items: center; justify-content: center; overflow: hidden; transition: opacity 0.5s ease; }
@@ -188,7 +197,7 @@
 #intro-video { object-fit: cover !important; width: 100vw !important; height: 100vh !important; }
 #intro-monogram, #intro-title, #intro-sub, #intro-divider { display: none !important; }
 .intro-brand { justify-content: flex-end !important; padding-bottom: 12vh !important; }
-.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Space Mono', monospace !important; font-size: 0.6rem !important; letter-spacing: 0.25em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
+.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Syne', sans-serif !important; font-size: 0.82rem !important; letter-spacing:0.1em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
 .intro-skip:hover { background: rgba(201,169,110,0.2) !important; border-color: #a5824a !important; color: #a5824a !important; transform: scale(1.05); }
 </style>
 </head>
@@ -205,10 +214,11 @@
   try { contador = parseInt(sessionStorage.getItem('mt-transicion-contador') || '0', 10) || 0; } catch (e) {}
   if (contador >= MAX_REPRODUCCIONES) { overlay.parentNode.removeChild(overlay); return; }
   try { sessionStorage.setItem('mt-transicion-contador', String(contador + 1)); } catch (e) {}
-  var vid = document.createElement('video');
+  var vid = window.__vidTransicion || document.createElement('video');
   vid.id = 'page-transition-video';
-  vid.src = 'transicion.mp4';
-  vid.autoplay = true; vid.muted = true; vid.playsInline = true;
+  vid.preload = 'auto';
+  if (!vid.getAttribute('src')) vid.src = 'transicion-corta.mp4';
+  vid.muted = true; vid.playsInline = true;
   vid.setAttribute('muted', ''); vid.setAttribute('playsinline', '');
   overlay.appendChild(vid);
   overlay.setAttribute('data-activo', '1');
@@ -320,7 +330,8 @@
     <button class="hamburger" onclick="toggleMob()" aria-label="Menú"><i class="fa fa-bars"></i></button>
   </div>
 </nav>
-<section class="banda-foto compacta bajo-nav z10" data-page="galeria" style="--fondo:url('../images/relato/consulado.jpg');--pos:50% 40%;">
+<section class="banda-foto compacta bajo-nav completa z10" data-page="galeria" style="--fondo:url('../images/relato/consulado.jpg');">
+  <img class="banda-img" src="assets/images/relato/consulado.jpg" alt="" width="1200" height="800" decoding="async">
   <div class="container">
     <p class="eyebrow" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</p>
     <p class="banda-cita" data-es="Un recorrido en imágenes por la enseñanza, la cultura y la francofonía." data-fr="Un parcours en images : enseignement, culture et francophonie." data-en="A visual journey through teaching, culture and the Francophonie.">Un recorrido en imágenes por la enseñanza, la cultura y la francofonía.</p>
@@ -343,7 +354,7 @@
     </div>
 
     <div class="reveal" style="text-align:center; margin-top:3rem;">
-      <p style="max-width:540px; margin:0 auto 1.4rem; color:var(--muted); font-size:0.95rem; line-height:1.7;"
+      <p style="max-width:540px; margin:0 auto 1.4rem; color:var(--muted); font-size:1.06rem; line-height:1.7;"
          data-es="El carrete recoge una selección. El álbum completo se actualiza con cada nueva actividad."
          data-fr="La pellicule en montre une sélection. L'album complet est mis à jour à chaque nouvelle activité."
          data-en="The reel shows a selection. The full album is updated with every new activity.">
@@ -357,7 +368,7 @@
          aria-label="Abrir el álbum completo en Google Photos (se abre en una pestaña nueva)">
         <i class="fa-regular fa-images"></i>
         <span data-es="Ver el álbum completo" data-fr="Voir l'album complet" data-en="See the full album">Ver el álbum completo</span>
-        <i class="fa fa-arrow-up-right-from-square" style="font-size:0.62rem; opacity:0.7;"></i>
+        <i class="fa fa-arrow-up-right-from-square" style="font-size:0.83rem; opacity:0.7;"></i>
       </a>
     </div>
   </div>
@@ -367,7 +378,7 @@
     <div class="sec-head reveal" style="text-align:center;margin-bottom:2rem;">
       <p class="eyebrow" style="justify-content:center" data-es="Trece años en imágenes" data-fr="Treize ans en images" data-en="Thirteen years in pictures">Trece años en imágenes</p>
       <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Álbum de la trayectoria" data-fr="Album de la trajectoire" data-en="Career album">Álbum de la trayectoria</em></h2>
-      <p style="max-width:620px;margin:1rem auto 0;color:var(--muted);font-size:0.95rem;line-height:1.7;"
+      <p style="max-width:620px;margin:1rem auto 0;color:var(--muted);font-size:1.06rem;line-height:1.7;"
          data-es="Caracas, Francia, Ecuador y México: clases, ceremonias, rodajes y encuentros. Toca una foto para verla en grande y usa las flechas para recorrer el álbum."
          data-fr="Caracas, France, Équateur et Mexique : cours, cérémonies, tournages et rencontres. Touchez une photo pour l’agrandir et utilisez les flèches pour parcourir l’album."
          data-en="Caracas, France, Ecuador and Mexico: classes, ceremonies, film shoots and meetings. Tap a photo to enlarge it and use the arrows to browse the album.">Caracas, Francia, Ecuador y México: clases, ceremonias, rodajes y encuentros. Toca una foto para verla en grande y usa las flechas para recorrer el álbum.</p>
@@ -574,15 +585,43 @@ function initVanta() {
     return true;
   }
 }
-/* Intentar inicializar Vanta, reintentando hasta que los CDN carguen */
-(function tryVanta(n) {
-  if (initVanta()) return;
-  if (n > 0) setTimeout(function(){ tryVanta(n-1); }, 250);
-  else {
-    var vb = document.getElementById('vanta-bg');
-    if (vb) vb.style.background = 'var(--bg-grad)';
+/* El fondo 3D (three.js + Vanta, ~700 KB) se pide cuando la página ya cargó, no antes:
+   así no bloquea el texto ni las fotos. */
+/* El fondo 3D no se enciende en equipos modestos, con «ahorro de datos» o si se pidió menos movimiento: queda el degradado. */
+function fondo3DPermitido() {
+  try {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    var c = navigator.connection;
+    if (c && (c.saveData || /(^|-)2g$/.test(c.effectiveType || ''))) return false;
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) return false;
+    if (navigator.deviceMemory && navigator.deviceMemory <= 2) return false;
+  } catch (e) {}
+  return true;
+}
+var vantaArrancado = false;
+function cargarScriptVanta(src, listo) {
+  var s = document.createElement('script');
+  s.src = src; s.onload = listo;
+  document.head.appendChild(s);          /* si falla, queda el degradado del CSS */
+}
+function arrancarVanta() {
+  if (vantaArrancado || !fondo3DPermitido()) return;
+  vantaArrancado = true;
+  cargarScriptVanta('https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js', function () {
+    cargarScriptVanta('https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js', initVanta);
+  });
+}
+/* El fondo 3D (three.js + WebGL) se pone en marcha cuando la cortinilla ya se retiró:
+   si arranca a la vez, el vídeo de la cortinilla se entrecorta. */
+window.addEventListener('load', function () {
+  var cortina = document.getElementById('page-transition');
+  if (cortina && cortina.getAttribute('data-activo')) {
+    window.addEventListener('mt-cortinilla-fin', function () { setTimeout(arrancarVanta, 250); }, { once: true });
+    setTimeout(arrancarVanta, 12000);   /* seguridad: por si la cortinilla nunca avisara */
+  } else {
+    setTimeout(arrancarVanta, 400);
   }
-})(20);
+});
 
 /* ── NAV ─────────────────────────────────── */
 window.addEventListener('scroll', () => {
@@ -1655,7 +1694,7 @@ window.addEventListener('DOMContentLoaded', function() {
     if (cerrado) return;
     cerrado = true;
     overlay.classList.add('hide');
-    setTimeout(function () { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 550);
+    setTimeout(function () { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); window.dispatchEvent(new Event('mt-cortinilla-fin')); }, 550);
   }
   function cerrarCuandoListo() {
     setTimeout(cerrar, Math.max(0, MINIMO_MS - transcurrido()));
@@ -1663,8 +1702,21 @@ window.addEventListener('DOMContentLoaded', function() {
   var vid = document.getElementById('page-transition-video');
   if (vid) {
     vid.addEventListener('ended', cerrar);
-    var p = vid.play();
-    if (p && p.catch) p.catch(cerrar);
+    vid.addEventListener('error', cerrar);
+    /* Solo arranca con el clip entero descargado (pesa unos 280 KB): mejor una
+       cortinilla lisa un instante que un vídeo que se atasca en el primer segundo. */
+    var iniciado = false;
+    var intentar = function () {
+      if (iniciado) return;
+      var entero = false;
+      try { var r = vid.buffered; entero = vid.readyState >= 3 && r.length && r.end(r.length - 1) >= vid.duration - 0.25; } catch (e) { entero = true; }
+      if (!entero) return;
+      iniciado = true;
+      var p = vid.play();
+      if (p && p.catch) p.catch(cerrar);
+    };
+    ['progress', 'loadeddata', 'canplaythrough'].forEach(function (ev) { vid.addEventListener(ev, intentar); });
+    intentar();
   } else {
     cerrar();
   }

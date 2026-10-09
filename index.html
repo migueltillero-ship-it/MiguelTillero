@@ -7,14 +7,13 @@
 <title>Vive el francés · Con el profesor Miguel Tillero</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="assets/css/video-carrusel.css">
-<link rel="stylesheet" href="assets/css/fondos.css?v=2">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+<link rel="stylesheet" href="assets/css/video-carrusel.css?v=109">
+<link rel="stylesheet" href="assets/css/fondos.css?v=109">
+<!-- three.js y Vanta (fondo 3D) ya no se piden aquí: se cargan al terminar la intro, ver arrancarVanta() -->
 
-<link rel="stylesheet" href="assets/css/sitio.css?v=2">
+<link rel="stylesheet" href="assets/css/sitio.css?v=109">
 <style>
 .services-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(210px,1fr));
@@ -45,12 +44,12 @@
   /* Nav compacto: evita que el logo se encime con ES/FR/EN */
   #nav { padding: 1rem; }
   #nav.scrolled { padding: 0.7rem 1rem; }
-  .nav-brand { font-size: 1.02rem; letter-spacing: 0.02em; gap: 0.4rem; }
+  .nav-brand { font-size: 1.1rem; letter-spacing: 0.02em; gap: 0.4rem; }
   .nav-controls { gap: 0.35rem; }
   .ctrl-btn { padding: 0.3rem 0.45rem; letter-spacing: 0.1em; }
   .hamburger { width: 2rem; height: 2rem; }
 }
-.crs-icon { font-size: 1.2rem; color: var(--gold); display: block; margin-bottom: 1rem; }
+.crs-icon { font-size: 1.25rem; color: var(--gold); display: block; margin-bottom: 1rem; }
 #hero .hero-tagline { text-shadow: 0 1px 12px rgba(233,241,231,0.6); }
 </style>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -171,7 +170,7 @@
 #intro-video { object-fit: cover !important; width: 100vw !important; height: 100vh !important; }
 #intro-monogram, #intro-title, #intro-sub, #intro-divider { display: none !important; }
 .intro-brand { justify-content: flex-end !important; padding-bottom: 12vh !important; }
-.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Space Mono', monospace !important; font-size: 0.6rem !important; letter-spacing: 0.25em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
+.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Syne', sans-serif !important; font-size: 0.82rem !important; letter-spacing:0.1em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: none !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
 .intro-skip:hover { background: rgba(201,169,110,0.2) !important; border-color: #a5824a !important; color: #a5824a !important; transform: scale(1.05); }
 </style>
 </head>
@@ -187,10 +186,20 @@
 ═══════════════════════════════════════════ -->
 <div id="video-intro">
   <!-- El vídeo de fondo (silencioso en preview) — fuente elegida por JS según orientación -->
-  <video id="intro-video" autoplay muted playsinline loop
-         data-src-h="bienvenida.mp4"
-         data-src-v="bienvenida.mp4"
+  <video id="intro-video" muted playsinline loop
+         poster="assets/images/videos/bienvenida.jpg"
+         data-src-h="bienvenida-ligera.mp4"
+         data-src-v="bienvenida-ligera.mp4"
          preload="auto"></video>
+  <script>
+  /* La descarga empieza ya, mientras se lee el HTML, y no cuando termina de cargar toda la página. */
+  (function () {
+    try { if (sessionStorage.getItem('introVisto') === 'true') return; } catch (e) {}
+    var v = document.getElementById('intro-video'); if (!v) return;
+    var vertical = window.matchMedia('(orientation: portrait)').matches || window.innerWidth < 768;
+    v.src = (vertical && v.getAttribute('data-src-v')) || v.getAttribute('data-src-h');
+  })();
+  </script>
 
   <!-- Branding central sobre el vídeo -->
   <div class="intro-brand">
@@ -312,8 +321,18 @@
   </div>
 </nav>
 <!-- ═══ HERO ═══ -->
-<section id="hero" class="z10" data-page="inicio">
+<section id="hero" class="z10 hero-rotativo" data-page="inicio">
   <div class="container">
+    <div class="hero-escena">
+    <div class="hero-bg" id="heroBg" aria-hidden="true">
+      <div class="hero-slide retrato on" style="background-image:url('assets/images/portrait-miguel-3.jpg');"><img src="assets/images/portrait-miguel-3.jpg" alt=""></div>
+      <div class="hero-slide" data-bg="assets/images/videos/bienvenida.jpg" style="--bs:cover;--bp:50% 40%;"></div>
+      <div class="hero-slide retrato" data-bg="assets/images/hero-escritorio.jpg"><img data-src="assets/images/hero-escritorio.jpg" alt=""></div>
+      <div class="hero-slide" data-bg="assets/images/portrait-miguel-paris.jpg" style="--bs:cover;--bp:50% 30%;"></div>
+      <div class="hero-slide retrato" data-bg="assets/images/hero-sonrisa.jpg"><img data-src="assets/images/hero-sonrisa.jpg" alt=""></div>
+      <div class="hero-slide retrato" data-bg="assets/images/hero-sentado.jpg"><img data-src="assets/images/hero-sentado.jpg" alt=""></div>
+    </div>
+    <div class="hero-dots" id="heroDots"></div>
     <div class="hero-inner">
       <div>
         <div class="hero-pre">
@@ -323,9 +342,14 @@
           Miguel
           <em>Tillero</em>
         </h1>
-        <p class="hero-tagline" data-es="Profesor especialista en la enseñanza del francés como lengua extranjera · FLE · Gestión cultural." data-fr="Spécialiste de l'enseignement du français langue étrangère · FLE · Direction culturelle." data-en="French as a Foreign Language Specialist · FLE Teaching · Cultural Management.">
+        <p class="hero-tagline" data-es="Profesor especialista en la enseñanza del francés como lengua extranjera · FLE · Gestión cultural." data-fr="Spécialiste de l'enseignement du français langue étrangère · FLE · Direction culturelle." data-en="Specialist teacher of French as a foreign language · FLE · Cultural management.">
           Profesor especialista en la enseñanza del francés como lengua extranjera · FLE · Gestión cultural.
         </p>
+        <ul class="hero-creds">
+          <li><b>13</b><span data-es="años de experiencia" data-fr="ans d'expérience" data-en="years of experience">años de experiencia</span></li>
+          <li><b>5</b><span data-es="países" data-fr="pays" data-en="countries">países</span></li>
+          <li><b>DELF · DALF · MCL</b><span data-es="certificaciones" data-fr="certifications" data-en="certifications">certificaciones</span></li>
+        </ul>
         <div class="hero-cta">
           <button onclick="openModal('modal-clase')" class="btn btn-gold"><i class="fa fa-graduation-cap"></i><span data-es="Clase de prueba gratuita" data-fr="Cours d'essai gratuit" data-en="Free trial class">Clase de prueba gratuita</span></button>
           <a href="contacto.html#contact" class="btn btn-ghost"><i class="fa fa-envelope"></i><span data-es="Escribirme" data-fr="Me contacter" data-en="Contact me">Escribirme</span></a>
@@ -335,7 +359,7 @@
             <button class="btn btn-ghost" onclick="document.getElementById('cv-drop').classList.toggle('open')" style="gap:.5rem">
               <i class="fa fa-file-pdf"></i>
               <span data-es="CV" data-fr="CV" data-en="CV">CV</span>
-              <i class="fa fa-chevron-down" style="font-size:.55rem"></i>
+              <i class="fa fa-chevron-down" style="font-size:0.81rem"></i>
             </button>
             <div id="cv-drop" style="display:none;position:absolute;top:110%;left:0;min-width:220px;background:rgba(255,255,255,.96);border:1px solid rgba(201,169,110,.35);backdrop-filter:blur(16px);z-index:200;padding:.5rem 0">
               <a href="assets/docs/cv-miguel-tillero-es.pdf" download class="cv-drop-item" target="_blank" rel="noopener">
@@ -352,38 +376,9 @@
         </div>
       </div>
 
-      <div class="hero-portrait-panel">
-        <div class="portrait-hud bracket">
-          <div class="portrait-inner" id="portraitCarousel">
-            <!-- Carrusel — set oficial de fotos -->
-            <img class="portrait-slide active"
-                 src="assets/images/portrait-miguel-1.jpg"
-                 alt="Miguel Tillero — Profesor de francés, especialista FLE"
-                 style="object-fit:cover;object-position:center top"
-                 onerror="this.style.display='none'">
-            <img class="portrait-slide"
-                 src="assets/images/portrait-miguel-3.jpg"
-                 alt="Miguel Tillero — Spécialiste FLE"
-                 style="object-fit:cover;object-position:center top"
-                 onerror="this.style.display='none'">
-            <img class="portrait-slide"
-                 src="assets/images/portrait-miguel-4.jpg"
-                 alt="Miguel Tillero — Formateur FLE"
-                 style="object-fit:cover;object-position:center top"
-                 onerror="this.style.display='none'">
-                        <div class="portrait-data">
-              <div class="name-tag">MIGUEL TILLERO ÁLVAREZ</div>
-              <div class="loc"><i class="fa fa-map-marker-alt"></i> Profesor de francés · Especialista FLE</div>
-            </div>
-          </div>
-        </div>
-        <div class="hud-data-box">
-          <div class="row"><span data-es="Experiencia" data-fr="Expérience" data-en="Experience">Experiencia</span><span class="val" data-es="13 años · 5 países" data-fr="13 ans · 5 pays" data-en="13 years · 5 countries">13 años · 5 países</span></div>
-          <div class="row"><span data-es="Certificaciones" data-fr="Certifications" data-en="Certifications">Certificaciones</span><span class="val">DELF · DALF · MCL</span></div>
-          <div class="row"><span data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</span><span class="val">migueltillero@gmail.com</span></div>
-        </div>
-      </div>
     </div>
+
+    </div><!-- /hero-escena -->
 
     <!-- ── ACCESOS A LAS PÁGINAS ── -->
     <div class="portal-head reveal">
@@ -392,8 +387,12 @@
       <span class="portal-line"></span>
     </div>
 
+    <div class="portal-fila">
+      <button type="button" class="portal-flecha izq off" aria-label="Anterior"><i class="fa fa-arrow-left"></i></button>
+      <button type="button" class="portal-flecha der" aria-label="Siguiente"><i class="fa fa-arrow-right"></i></button>
     <div class="portal-grid">
-      <a href="cursos.html" class="portal-card feature reveal d1">
+      <a href="cursos.html" class="portal-card con-foto feature reveal d1" style="--c:#1f6f5b;">
+        <div class="portal-foto" role="img" aria-hidden="true" style="background-image:url('assets/images/galeria/z1-045.jpg');background-position:50% 28%;"></div>
         <span class="portal-num">01</span>
         <i class="fa fa-graduation-cap portal-icon"></i>
         <h3 class="portal-title" data-es="Cursos y exámenes" data-fr="Cours et examens" data-en="Courses & exams">Cursos y exámenes</h3>
@@ -401,65 +400,75 @@
         <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
       </a>
 
-      <a href="servicios.html" class="portal-card reveal d2">
+      <a href="servicios.html" class="portal-card con-foto reveal d2" style="--c:#c97b6b;">
+        <div class="portal-foto" role="img" aria-hidden="true" style="background-image:url('assets/images/hero-escritorio.jpg');background-position:50% 20%;"></div>
         <span class="portal-num">02</span>
         <i class="fa fa-briefcase portal-icon"></i>
         <h3 class="portal-title" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</h3>
-        <p class="portal-desc" data-es="Clases, asesoría pedagógica, proyectos educativos, gestión cultural, traducción e interpretación y formación a medida." data-fr="Cours, conseil pédagogique, projets éducatifs, direction culturelle, traduction et formation sur mesure." data-en="Classes, pedagogical consulting, educational projects, cultural management, translation and tailored training.">Clases, asesoría pedagógica, proyectos educativos, gestión cultural, traducción e interpretación y formación a medida.</p>
+        <p class="portal-desc" data-es="Clases, asesoría pedagógica, proyectos educativos, gestión cultural, traducción e interpretación y formación a medida." data-fr="Cours, conseil pédagogique, projets éducatifs, direction culturelle, traduction et formation sur mesure." data-en="Classes, pedagogical consulting, educational projects, cultural management, translation and interpreting, and tailored training.">Clases, asesoría pedagógica, proyectos educativos, gestión cultural, traducción e interpretación y formación a medida.</p>
         <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
       </a>
 
-      <a href="perfil.html" class="portal-card reveal d3">
+      <a href="perfil.html" class="portal-card con-foto reveal d3" style="--c:#6f8fc2;">
+        <div class="portal-foto" role="img" aria-hidden="true" style="background-image:url('assets/images/portrait-miguel-3.jpg');background-position:50% 36%;"></div>
         <span class="portal-num">03</span>
         <i class="fa fa-user portal-icon"></i>
         <h3 class="portal-title" data-es="Perfil" data-fr="Profil" data-en="Profile">Perfil</h3>
-        <p class="portal-desc" data-es="Quién soy, mi trayectoria por Venezuela, Ecuador, México y Francia, y la formación que respalda mi trabajo." data-fr="Qui je suis, mon parcours entre le Venezuela, l'Équateur, le Mexique et la France, et ma formation." data-en="Who I am, my path through Venezuela, Ecuador, Mexico and France, and the training behind my work.">Quién soy, mi trayectoria por Venezuela, Ecuador, México y Francia, y la formación que respalda mi trabajo.</p>
+        <p class="portal-desc" data-es="Quién soy, mi trayectoria por Venezuela, Ecuador, México y Francia, y la formación que respalda mi trabajo." data-fr="Qui je suis, mon parcours entre le Venezuela, l'Équateur, le Mexique et la France, et ma formation." data-en="Who I am, my career across Venezuela, Ecuador, Mexico and France, and the training behind my work.">Quién soy, mi trayectoria por Venezuela, Ecuador, México y Francia, y la formación que respalda mi trabajo.</p>
         <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
       </a>
 
-      <a href="galeria.html" class="portal-card reveal d4">
+      <a href="galeria.html" class="portal-card con-foto reveal d4" style="--c:#8e74b0;">
+        <div class="portal-foto" role="img" aria-hidden="true" style="background-image:url('assets/images/galeria/n-clase-magistral-60.jpg');background-position:50% 40%;"></div>
         <span class="portal-num">04</span>
         <i class="fa fa-photo-film portal-icon"></i>
         <h3 class="portal-title" data-es="Galería y vídeo" data-fr="Galerie et vidéo" data-en="Gallery & video">Galería y vídeo</h3>
-        <p class="portal-desc" data-es="Imágenes del aula y de los proyectos, y los vídeos donde me presento y cuento cómo trabajo." data-fr="Images de la classe et des projets, et les vidéos où je me présente et explique ma façon de travailler." data-en="Images from the classroom and projects, plus the videos where I introduce myself and how I work.">Imágenes del aula y de los proyectos, y los vídeos donde me presento y cuento cómo trabajo.</p>
+        <p class="portal-desc" data-es="Imágenes del aula y de los proyectos, y los vídeos donde me presento y cuento cómo trabajo." data-fr="Images de la classe et des projets, et les vidéos où je me présente et explique ma façon de travailler." data-en="Images from the classroom and projects, and the videos where I introduce myself and explain how I work.">Imágenes del aula y de los proyectos, y los vídeos donde me presento y cuento cómo trabajo.</p>
         <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
       </a>
 
-      <a href="inscribete.html" class="portal-card reveal d5">
+      <a href="inscribete.html" class="portal-card con-foto reveal d5" style="--c:#c79a2c;">
+        <div class="portal-foto ilustra" role="img" aria-hidden="true" style="background-image:url('assets/images/ilustra-inscripcion.jpg');--bg:#f3f5f6;"></div>
         <span class="portal-num">05</span>
         <i class="fa fa-pen-to-square portal-icon"></i>
-        <h3 class="portal-title" data-es="Inscripción" data-fr="Inscription" data-en="Enrolment">Inscripción</h3>
+        <h3 class="portal-title" data-es="Inscripción" data-fr="Inscription" data-en="Enrollment">Inscripción</h3>
         <p class="portal-desc" data-es="El formulario para empezar clases, con tu nivel, tus horarios y tus objetivos. También los testimonios de quienes ya pasaron por aquí." data-fr="Le formulaire pour commencer les cours, avec votre niveau, vos horaires et vos objectifs, ainsi que les témoignages." data-en="The form to start classes, with your level, schedule and goals — plus testimonials from past students.">El formulario para empezar clases, con tu nivel, tus horarios y tus objetivos. También los testimonios de quienes ya pasaron por aquí.</p>
         <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
       </a>
 
-      <a href="contacto.html" class="portal-card reveal d6">
+      <a href="contacto.html" class="portal-card con-foto reveal d6" style="--c:#3f8576;">
+        <div class="portal-foto ilustra-cubre" role="img" aria-hidden="true" style="background-image:url('assets/images/ilustra-pagos.jpg');background-position:50% 50%;"></div>
         <span class="portal-num">06</span>
         <i class="fa fa-envelope portal-icon"></i>
         <h3 class="portal-title" data-es="Contacto y pagos" data-fr="Contact et paiements" data-en="Contact & payments">Contacto y pagos</h3>
-        <p class="portal-desc" data-es="Escríbeme, agenda una cita o una clase de prueba, resuelve las preguntas frecuentes y consulta los métodos de pago." data-fr="Écrivez-moi, réservez un rendez-vous ou un cours d'essai, consultez la FAQ et les moyens de paiement." data-en="Write to me, book an appointment or a trial class, check the FAQ and the payment methods.">Escríbeme, agenda una cita o una clase de prueba, resuelve las preguntas frecuentes y consulta los métodos de pago.</p>
+        <p class="portal-desc" data-es="Escríbeme, agenda una cita o una clase de prueba, resuelve las preguntas frecuentes y consulta los métodos de pago." data-fr="Écrivez-moi, réservez un rendez-vous ou un cours d'essai, consultez la FAQ et les moyens de paiement." data-en="Write to me, book an appointment or a trial class, read the FAQ and see the payment methods.">Escríbeme, agenda una cita o una clase de prueba, resuelve las preguntas frecuentes y consulta los métodos de pago.</p>
         <span class="portal-go" data-es="Entrar" data-fr="Entrer" data-en="Enter">Entrar</span>
       </a>
 
-      <a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" class="portal-card feature reveal d1" style="grid-column: 1 / -1;">
+      <a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" class="portal-card con-foto feature reveal d1" style="--c:#a5824a;">
+        <div class="portal-foto" role="img" aria-hidden="true" style="background-image:url('assets/images/club-vendredi.jpg');background-position:50% 0%;"></div>
         <span class="portal-num">07</span>
         <i class="fa fa-mug-hot portal-icon"></i>
         <h3 class="portal-title" data-es="Vendredi entre Amis · Club de conversación" data-fr="Vendredi entre Amis · Club de conversation" data-en="Vendredi entre Amis · Conversation club">Vendredi entre Amis · Club de conversación</h3>
-        <p class="portal-desc" data-es="Un espacio dedicado a mis amigos, estudiantes, colegas, allegados y a todas las personas afines interesadas en practicar francés en comunidad: una nueva destination francófona cada semana, vocabulario, expresiones, un carnet de viaje personal y la pregunta de la semana para compartir en el grupo." data-fr="Un espace dédié à mes amis, étudiants, collègues et à toutes les personnes qui aiment pratiquer le français en communauté : une nouvelle destination francophone chaque semaine, du vocabulaire, des expressions, un carnet de voyage personnel et la question de la semaine à partager." data-en="A space for my friends, students, colleagues and everyone who enjoys practising French together: a new francophone destination every week, vocabulary, expressions, a personal travel journal and the question of the week to share with the group.">Un espacio dedicado a mis amigos, estudiantes, colegas, allegados y a todas las personas afines interesadas en practicar francés en comunidad: una nueva destination francófona cada semana, vocabulario, expresiones, un carnet de viaje personal y la pregunta de la semana para compartir en el grupo.</p>
-        <span class="portal-meta" style="display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;opacity:.85;margin-bottom:.5rem;"><i class="fa fa-calendar-days"></i> <span data-es="Todos los viernes — revisa la próxima fecha en el club" data-fr="Tous les vendredis — la prochaine date est indiquée sur le site du club" data-en="Every Friday — check the next date on the club site">Todos los viernes — revisa la próxima fecha en el club</span></span>
+        <p class="portal-desc" data-es="Un espacio dedicado a mis amigos, estudiantes, colegas, allegados y a todas las personas afines interesadas en practicar francés en comunidad: una nueva destination francófona cada semana, vocabulario, expresiones, un carnet de viaje personal y la pregunta de la semana para compartir en el grupo." data-fr="Un espace dédié à mes amis, étudiants, collègues et à toutes les personnes qui aiment pratiquer le français en communauté : une nouvelle destination francophone chaque semaine, du vocabulaire, des expressions, un carnet de voyage personnel et la question de la semaine à partager." data-en="A space for my friends, students, colleagues, loved ones and everyone interested in practicing French as a community: a new francophone destination each week, vocabulary, expressions, a personal travel journal and the question of the week to share with the group.">Un espacio dedicado a mis amigos, estudiantes, colegas, allegados y a todas las personas afines interesadas en practicar francés en comunidad: una nueva destination francófona cada semana, vocabulario, expresiones, un carnet de viaje personal y la pregunta de la semana para compartir en el grupo.</p>
+        <span class="portal-meta" style="display:inline-flex;align-items:center;gap:.4rem;font-size:1rem;opacity:.85;margin-bottom:.5rem;"><i class="fa fa-calendar-days"></i> <span data-es="Todos los viernes — revisa la próxima fecha en el club" data-fr="Tous les vendredis — la prochaine date est indiquée sur le site du club" data-en="Every Friday — check the next date on the club site">Todos los viernes — revisa la próxima fecha en el club</span></span>
         <span class="portal-go" data-es="Entrar al club" data-fr="Entrer dans le club" data-en="Enter the club">Entrar al club</span>
       </a>
     </div>
+    </div><!-- /portal-fila -->
   </div>
 </section>
-<section id="novedad-tira" class="banda-foto compacta z10" data-page="inicio" style="--fondo:url('../images/relato/rodaje-af-2.jpg');--pos:50% 55%;--velo:linear-gradient(rgba(9,30,20,0.86),rgba(9,30,20,0.86));">
+<section id="novedad-tira" class="banda-foto compacta z10" data-page="inicio" style="--fondo:url('../images/relato/rodaje-entrevista.jpg');--pos:50% 38%;--velo:linear-gradient(100deg,rgba(9,30,20,0.9) 0%,rgba(9,30,20,0.8) 55%,rgba(9,30,20,0.6) 100%);">
   <div class="container nov-tira">
     <div class="nov-tira-txt">
-      <span class="eyebrow"><span class="nov-punto"></span><span data-es="Novedad" data-fr="Nouveauté" data-en="News">Novedad</span></span>
+      <span class="eyebrow"><span data-es="Ya se emitió" data-fr="Déjà diffusé" data-en="Already aired">Ya se emitió</span></span>
       <strong>Destination Francophonie · TV5MONDE</strong>
-      <span class="f" data-es="Première · sáb. 26 de septiembre · 18:00" data-fr="Première · sam. 26 septembre · 18 h" data-en="Premiere · Sat, September 26 · 6:00 pm">Première · sáb. 26 de septiembre · 18:00</span>
+      <span class="f" data-es="Ya en línea en TV5MONDE+ · México (Parte 1) · 28 min" data-fr="Déjà en ligne sur TV5MONDE+ · Mexique (partie 1) · 28 min" data-en="Now online on TV5MONDE+ · Mexico (Part 1) · 28 min">Ya en línea en TV5MONDE+ · México (Parte 1) · 28 min</span>
     </div>
-    <a href="perfil.html#novedad" class="btn btn-gold"><span data-es="Ver más" data-fr="En savoir plus" data-en="Learn more">Ver más</span></a>
+    <span class="nov-tira-btns" style="display:flex;gap:0.7rem;flex-wrap:wrap;">
+      <a href="https://www.tv5mondeplus.com/es/documentaires/evasion/destination-francophonie-6" class="btn btn-gold" target="_blank" rel="noopener"><i class="fa fa-play"></i> <span data-es="Ver la Parte 1 en TV5MONDE+" data-fr="Voir la partie 1 sur TV5MONDE+" data-en="Watch Part 1 on TV5MONDE+">Ver la Parte 1 en TV5MONDE+</span></a>
+      <a href="perfil.html#novedad" class="btn btn-ghost"><span data-es="Más sobre el reportaje" data-fr="En savoir plus" data-en="More about the report">Más sobre el reportaje</span></a>
+    </span>
   </div>
 </section>
 <section id="mis-clases" class="z10" data-page="inicio">
@@ -468,7 +477,7 @@
       <div class="mc-texto">
         <p class="eyebrow" data-es="Así son mis clases" data-fr="Mes cours en images" data-en="What my classes are like">Así son mis clases</p>
         <h2 class="mc-titulo"><em data-es="Venez vivre le français." data-fr="Venez vivre le français." data-en="Venez vivre le français.">Venez vivre le français.</em></h2>
-        <p class="mc-desc" data-es="Aprender un idioma no es un simple ejercicio académico: es una invitación a vivir, a romper los esquemas de siempre, a descubrir y a conectar de verdad con el otro. Clases individuales, en grupo y club de conversación, con acompañamiento cercano." data-fr="Apprendre une langue n'est pas un simple exercice académique : c'est une invitation à vivre, à briser les schémas habituels, à découvrir et à se connecter vraiment à l'autre. Cours individuels, en groupe et club de conversation, avec un accompagnement de près." data-en="Learning a language is not a simple academic exercise: it is an invitation to live, to break the usual patterns, to discover and to truly connect with others. Individual and group classes and a conversation club, with close support.">Aprender un idioma no es un simple ejercicio académico: es una invitación a vivir, a romper los esquemas de siempre, a descubrir y a conectar de verdad con el otro. Clases individuales, en grupo y club de conversación, con acompañamiento cercano.</p>
+        <p class="mc-desc" data-es="Aprender un idioma no es un simple ejercicio académico: es una invitación a vivir, a romper los esquemas de siempre, a descubrir y a conectar de verdad con el otro. Clases individuales, en grupo y club de conversación, con acompañamiento cercano." data-fr="Apprendre une langue n'est pas un simple exercice académique : c'est une invitation à vivre, à briser les schémas habituels, à découvrir et à se connecter vraiment à l'autre. Cours individuels, en groupe et club de conversation, avec un accompagnement de près." data-en="Learning a language is not a mere academic exercise: it&#39;s an invitation to live, to break out of the usual patterns, to discover and to truly connect with others. Individual and group classes plus a conversation club, with close personal support.">Aprender un idioma no es un simple ejercicio académico: es una invitación a vivir, a romper los esquemas de siempre, a descubrir y a conectar de verdad con el otro. Clases individuales, en grupo y club de conversación, con acompañamiento cercano.</p>
         <div class="hero-cta">
           <button onclick="openModal('modal-clase')" class="btn btn-gold"><i class="fa fa-graduation-cap"></i><span data-es="Clase de prueba gratuita" data-fr="Cours d'essai gratuit" data-en="Free trial class">Clase de prueba gratuita</span></button>
         </div>
@@ -508,17 +517,17 @@
   <div class="container">
     <div class="panel bracket reveal" style="max-width:840px;margin:0 auto;padding:clamp(1.8rem,4vw,3rem);display:grid;grid-template-columns:auto 1fr;gap:clamp(1.5rem,4vw,2.5rem);align-items:center;">
       <div style="text-align:center;padding:0 0.4rem;">
-        <div style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;" data-es="Próximo evento" data-fr="Prochain événement" data-en="Upcoming event">Próximo evento</div>
+        <div style="font-family:'Syne', sans-serif;font-size:0.82rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;" data-es="Próximo evento" data-fr="Prochain événement" data-en="Upcoming event">Próximo evento</div>
         <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:2.6rem;line-height:1;color:var(--text);" id="pe-dia">—</div>
-        <div style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-top:0.3rem;" id="pe-mes"></div>
+        <div style="font-family:'Syne', sans-serif;font-size:0.82rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:0.3rem;" id="pe-mes"></div>
       </div>
       <div>
         <div style="display:flex;align-items:center;gap:0.7rem;flex-wrap:wrap;margin-bottom:0.6rem;">
           <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(1.5rem,3vw,2.1rem);color:var(--text);margin:0;" id="pe-titulo"></h2>
           <span class="af-chip em" id="pe-chip">Entrada libre</span>
         </div>
-        <p style="font-size:0.62rem;font-family:'Space Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin:0 0 0.8rem;"><i class="fa fa-clock"></i> <span id="pe-cuando"></span></p>
-        <p style="font-size:0.9rem;color:var(--muted);line-height:1.75;margin:0 0 1.3rem;" id="pe-descripcion"></p>
+        <p style="font-size:0.83rem;font-family:'Syne', sans-serif;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin:0 0 0.8rem;"><i class="fa fa-clock"></i> <span id="pe-cuando"></span></p>
+        <p style="font-size:1.04rem;color:var(--muted);line-height:1.75;margin:0 0 1.3rem;" id="pe-descripcion"></p>
         <a href="#" target="_blank" rel="noopener" class="btn btn-gold" id="pe-btn-accion">
           <i class="fab fa-whatsapp"></i>
           <span>Escribir por WhatsApp</span>
@@ -726,15 +735,38 @@ function initVanta() {
     return true;
   }
 }
-/* Intentar inicializar Vanta, reintentando hasta que los CDN carguen */
-(function tryVanta(n) {
-  if (initVanta()) return;
-  if (n > 0) setTimeout(function(){ tryVanta(n-1); }, 250);
-  else {
-    var vb = document.getElementById('vanta-bg');
-    if (vb) vb.style.background = 'var(--bg-grad)';
-  }
-})(20);
+/* El fondo 3D no se descarga ni se dibuja mientras suena el video de entrada:
+   las dos librerías (~700 KB) competían con el video por la red y el WebGL
+   por la tarjeta gráfica, y el video se entrecortaba. Arranca al cerrar la intro. */
+/* El fondo 3D no se enciende en equipos modestos, con «ahorro de datos» o si se pidió menos movimiento: queda el degradado. */
+function fondo3DPermitido() {
+  try {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    var c = navigator.connection;
+    if (c && (c.saveData || /(^|-)2g$/.test(c.effectiveType || ''))) return false;
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) return false;
+    if (navigator.deviceMemory && navigator.deviceMemory <= 2) return false;
+  } catch (e) {}
+  return true;
+}
+var vantaArrancado = false;
+function cargarScriptVanta(src, listo) {
+  var s = document.createElement('script');
+  s.src = src; s.onload = listo;
+  document.head.appendChild(s);          /* si falla, queda el degradado del CSS */
+}
+window.arrancarVanta = function () {
+  if (vantaArrancado || !fondo3DPermitido()) return;
+  vantaArrancado = true;
+  cargarScriptVanta('https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js', function () {
+    cargarScriptVanta('https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js', initVanta);
+  });
+};
+(function () {
+  var introPendiente = true;
+  try { introPendiente = sessionStorage.getItem('introVisto') !== 'true'; } catch (e) {}
+  if (!introPendiente) window.arrancarVanta();
+})();
 
 /* ── NAV ─────────────────────────────────── */
 window.addEventListener('scroll', () => {
@@ -1197,6 +1229,55 @@ window.addEventListener('mousemove', e => {
    en cuanto el visitante reproduce un vídeo. */
 const bgAudio = document.getElementById('bg-audio');
 
+
+/* ── HERO ROTATIVO: 4 fotos en fundido, con puntos y pausa al pasar el mouse ── */
+(function(){
+  var bg = document.getElementById('heroBg'), dots = document.getElementById('heroDots');
+  if (!bg || !dots) return;
+  var slides = bg.querySelectorAll('.hero-slide'), cur = 0, timer = null;
+  slides.forEach(function(sl, i){
+    var b = document.createElement('button');
+    b.type = 'button'; b.setAttribute('aria-label', 'Foto ' + (i + 1));
+    if (i === 0) b.className = 'on';
+    b.addEventListener('click', function(){ show(i); restart(); });
+    dots.appendChild(b);
+  });
+  function load(i){ var sl = slides[i]; if (sl && sl.dataset.bg){ sl.style.backgroundImage = "url('" + sl.dataset.bg + "')"; delete sl.dataset.bg; var im = sl.querySelector('img[data-src]'); if (im){ im.src = im.dataset.src; im.removeAttribute('data-src'); } } }
+  function show(i){
+    load(i);
+    slides[cur].classList.remove('on'); dots.children[cur].classList.remove('on');
+    cur = i;
+    slides[cur].classList.remove('on'); void slides[cur].offsetWidth;
+    slides[cur].classList.add('on'); dots.children[cur].classList.add('on');
+    load((cur + 1) % slides.length);
+  }
+  function restart(){ clearInterval(timer); timer = setInterval(function(){ if (document.body.classList.contains('intro-active')) return; show((cur + 1) % slides.length); }, 6500); }
+  window.addEventListener('load', function(){ load(1); restart(); });
+  var hero = document.getElementById('hero');
+  if (hero){
+    hero.addEventListener('mouseenter', function(){ clearInterval(timer); });
+    hero.addEventListener('mouseleave', restart);
+  }
+})();
+
+
+/* ── Fila de accesos: las flechas desplazan de a dos tarjetas y se ocultan en los extremos ── */
+(function(){
+  var g = document.querySelector('.portal-fila .portal-grid');
+  if (!g) return;
+  var izq = document.querySelector('.portal-flecha.izq'), der = document.querySelector('.portal-flecha.der');
+  function paso(){ var c = g.querySelector('.portal-card'); return (c ? c.getBoundingClientRect().width : 300) + 19; }
+  function estado(){
+    izq.classList.toggle('off', g.scrollLeft < 8);
+    der.classList.toggle('off', g.scrollLeft + g.clientWidth >= g.scrollWidth - 8);
+  }
+  izq.addEventListener('click', function(){ g.scrollBy({ left: -paso() * 2, behavior: 'smooth' }); });
+  der.addEventListener('click', function(){ g.scrollBy({ left: paso() * 2, behavior: 'smooth' }); });
+  g.addEventListener('scroll', estado, { passive: true });
+  window.addEventListener('resize', estado);
+  estado();
+})();
+
 /* ── PORTRAIT CAROUSEL ─────────────────────── */
 (function(){
   var slides = document.querySelectorAll('.portrait-slide');
@@ -1278,6 +1359,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
   if (!introEl || !introVid) {
     document.body.classList.remove('intro-active');
+    if (window.arrancarVanta) window.arrancarVanta();
     return;
   }
 
@@ -1289,6 +1371,7 @@ window.addEventListener('DOMContentLoaded', function() {
   if (yaVisto) {
     if (introEl.parentNode) introEl.parentNode.removeChild(introEl);
     document.body.classList.remove('intro-active');
+    if (window.arrancarVanta) window.arrancarVanta();
     return;
   }
 
@@ -1299,7 +1382,8 @@ window.addEventListener('DOMContentLoaded', function() {
   var srcV = introVid.getAttribute('data-src-v');
   var isPortrait = window.matchMedia('(orientation: portrait)').matches
                 || window.innerWidth < 768;
-  introVid.src = (isPortrait && srcV) ? srcV : srcH;
+  var elegido = (isPortrait && srcV) ? srcV : srcH;
+  if (introVid.getAttribute('src') !== elegido) introVid.src = elegido;
   /* Si la orientación cambia antes de pulsar Entrar, intercambia la fuente */
   window.matchMedia('(orientation: portrait)').addEventListener('change', function(ev) {
     if (introDone) return;
@@ -1325,15 +1409,20 @@ window.addEventListener('DOMContentLoaded', function() {
       });
     }
   }
-  /* Intentar reproducir en cada evento de carga posible */
-  introVid.addEventListener('loadeddata', attemptPlay);
-  introVid.addEventListener('canplay', attemptPlay);
-  introVid.addEventListener('canplaythrough', attemptPlay);
-  /* Intento inmediato */
-  attemptPlay();
-  /* Intento adicional tras un instante (por si el archivo tarda) */
-  setTimeout(attemptPlay, 300);
-  setTimeout(attemptPlay, 1000);
+  /* El vídeo no arranca hasta que el navegador calcula que puede llegar al
+     final sin pararse (canplaythrough). Antes arrancaba con los primeros
+     bytes y, con una conexión normal, se atascaba a mitad de camino. Mientras
+     tanto se ve el póster. Si la red es muy lenta y esa señal no llega,
+     arranca igual a los 6 s. */
+  var arrancado = false;
+  function arrancarMudo() {
+    if (arrancado) return;
+    arrancado = true;
+    attemptPlay();
+  }
+  introVid.addEventListener('canplaythrough', arrancarMudo);
+  if (introVid.readyState >= 4) arrancarMudo();
+  setTimeout(arrancarMudo, 6000);
 
   /* ── FASE 2: tras 2.6s, atenuar vídeo y mostrar branding ── */
   setTimeout(function() {
@@ -1355,7 +1444,7 @@ window.addEventListener('DOMContentLoaded', function() {
       if (introDone || !introVid || !progressEl) return;
       var dur = introVid.duration;
       if (dur && isFinite(dur) && dur > 0) {
-        progressEl.style.width = ((introVid.currentTime / dur) * 100) + '%';
+        progressEl.style.transform = 'scaleX(' + Math.min(1, introVid.currentTime / dur) + ')';
       }
       rafId = requestAnimationFrame(tick);
     }
@@ -1370,6 +1459,7 @@ window.addEventListener('DOMContentLoaded', function() {
     if (safetyT1) clearTimeout(safetyT1);
     if (introEl) introEl.classList.add('fade-out');
     document.body.classList.remove('intro-active');
+    if (window.arrancarVanta) window.arrancarVanta();
 
     /* La música de fondo entra sola en cuanto termina el vídeo de intro. */
     if (typeof window.startBgMusic === 'function') window.startBgMusic();
@@ -1390,25 +1480,59 @@ window.addEventListener('DOMContentLoaded', function() {
     introVid.loop = false;
     if (introEl) { introEl.classList.remove('dimmed'); introEl.classList.add('entered'); }
 
-    /* ACTIVAR SONIDO (funciona porque viene de un clic del usuario) */
-    introVid.muted = false;
-    introVid.removeAttribute('muted');
-    introVid.volume = 1.0;
-    introVid.currentTime = 0;
-    /* Si el vídeo no arranca (códec no soportado, descarga fallida), entramos
-       igual: antes la promesa se descartaba en silencio y el visitante se
-       quedaba con la pantalla bloqueada hasta el tope de seguridad. */
-    var playP = introVid.play();
-    if (playP && playP.catch) playP.catch(closeIntro);
-    startProgress();
+    /* ACTIVAR SONIDO (funciona porque viene de un clic del usuario).
+       Si el vídeo aún no está listo (conexión lenta) se espera a que lo esté
+       en vez de arrancar a trompicones; a los 6 s se lanza igual. */
+    var lanzado = false;
+    function lanzar() {
+      if (lanzado) return;
+      lanzado = true;
+      if (enterBtn) enterBtn.style.display = 'none';
+      introVid.muted = false;
+      introVid.removeAttribute('muted');
+      introVid.volume = 1.0;
+      if (introVid.currentTime > 0.3) introVid.currentTime = 0;
+      /* Si el vídeo no arranca (códec no soportado, descarga fallida), entramos
+         igual: antes la promesa se descartaba en silencio y el visitante se
+         quedaba con la pantalla bloqueada hasta el tope de seguridad. */
+      var playP = introVid.play();
+      if (playP && playP.catch) playP.catch(closeIntro);
+      startProgress();
+    }
+    if (introVid.readyState >= 4 || introVid.currentTime > 0) lanzar();
+    else {
+      var txt = enterBtn && enterBtn.querySelector('.enter-txt');
+      if (txt) txt.innerHTML = 'Un instante&hellip;';
+      if (enterBtn) enterBtn.disabled = true;
+      introVid.addEventListener('canplaythrough', lanzar, { once: true });
+      setTimeout(lanzar, 6000);
+    }
 
-    /* Precargamos la música mientras corre el vídeo para que entre sin corte.
+    /* Precargamos la música para que entre sin corte, pero solo cuando el
+       vídeo ya está descargado entero: si las dos descargas corren a la vez,
+       se disputan la conexión y el vídeo se atasca.
        (Solo si aún no se intentó reproducir: llamar a load() encima de un
        play() en curso lo interrumpe y deja el audio pausado para siempre.) */
-    if (bgAudio && bgAudio.readyState === 0) { bgAudio.preload = 'auto'; try { bgAudio.load(); } catch (e) {} }
+    function precargarMusica() {
+      if (bgAudio && bgAudio.readyState === 0) { bgAudio.preload = 'auto'; try { bgAudio.load(); } catch (e) {} }
+    }
+    function videoDescargado() {
+      try {
+        var r = introVid.buffered, d = introVid.duration;
+        return !!(r.length && d && r.end(r.length - 1) >= d - 0.4);
+      } catch (e) { return true; }
+    }
+    if (videoDescargado()) precargarMusica();
+    else {
+      var vigilar = function () {
+        if (!videoDescargado()) return;
+        introVid.removeEventListener('progress', vigilar);
+        precargarMusica();
+      };
+      introVid.addEventListener('progress', vigilar);
+    }
 
     /* Ocultar branding para ver el vídeo a pantalla completa */
-    if (enterBtn)   enterBtn.style.display = 'none';
     if (volHint)    volHint.style.display = 'none';
     if (monogramEl) { monogramEl.style.transition='opacity .6s'; monogramEl.style.opacity = '0'; }
     if (titleEl)    { titleEl.style.transition='opacity .6s'; titleEl.style.opacity = '0'; }
@@ -1735,7 +1859,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
   /* Auto-scroll continuo (pausa al hover/drag) */
   var autoScroll = function() {
-    if (isDown) return;
+    if (isDown || document.body.classList.contains('intro-active')) return;
     track.scrollLeft += 0.4;
     if (track.scrollLeft >= track.scrollWidth / 2) {
       track.scrollLeft = 0;

@@ -2,18 +2,27 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<script>
+/* La cortinilla pide su vídeo antes que nada (aquí, antes de las hojas de estilo) para que
+   empiece a bajar de inmediato y no después de CSS y scripts. */
+(function () {
+  var c = 0; try { c = parseInt(sessionStorage.getItem('mt-transicion-contador') || '0', 10) || 0; } catch (e) {}
+  if (c >= 3) return;
+  var v = document.createElement('video');
+  v.preload = 'auto'; v.muted = true; v.src = 'transicion-corta.mp4';
+  window.__vidTransicion = v;
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Escríbele a Miguel Tillero, agenda una cita o una clase de prueba, y resuelve las preguntas frecuentes sobre sus clases de francés.">
 <title>Reservar clase o asesoría · Miguel Tillero</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 
-<link rel="stylesheet" href="assets/css/sitio.css?v=2">
-<link rel="stylesheet" href="assets/css/fondos.css?v=2">
+<link rel="stylesheet" href="assets/css/sitio.css?v=109">
+<link rel="stylesheet" href="assets/css/fondos.css?v=109">
 <style>
 .hero-langs {
   display: flex; gap: 1.5rem; margin-bottom: 2.5rem;
@@ -48,12 +57,12 @@
   /* Nav compacto: evita que el logo se encime con ES/FR/EN */
   #nav { padding: 1rem; }
   #nav.scrolled { padding: 0.7rem 1rem; }
-  .nav-brand { font-size: 1.02rem; letter-spacing: 0.02em; gap: 0.4rem; }
+  .nav-brand { font-size: 1.1rem; letter-spacing: 0.02em; gap: 0.4rem; }
   .nav-controls { gap: 0.35rem; }
   .ctrl-btn { padding: 0.3rem 0.45rem; letter-spacing: 0.1em; }
   .hamburger { width: 2rem; height: 2rem; }
 }
-.crs-icon { font-size: 1.2rem; color: var(--gold); display: block; margin-bottom: 1rem; }
+.crs-icon { font-size: 1.25rem; color: var(--gold); display: block; margin-bottom: 1rem; }
 #hero .hero-tagline, #hero .hero-langs { text-shadow: 0 1px 12px rgba(233,241,231,0.6); }
 /* Video de transicion entre secciones — una sola vez por pagina y sesion */
 #page-transition { position: fixed; inset: 0; z-index: 999999; background: var(--void); display: flex; align-items: center; justify-content: center; overflow: hidden; transition: opacity 0.5s ease; }
@@ -177,7 +186,7 @@
 #intro-video { object-fit: cover !important; width: 100vw !important; height: 100vh !important; }
 #intro-monogram, #intro-title, #intro-sub, #intro-divider { display: none !important; }
 .intro-brand { justify-content: flex-end !important; padding-bottom: 12vh !important; }
-.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Space Mono', monospace !important; font-size: 0.6rem !important; letter-spacing: 0.25em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
+.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Syne', sans-serif !important; font-size: 0.82rem !important; letter-spacing:0.1em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
 .intro-skip:hover { background: rgba(201,169,110,0.2) !important; border-color: #a5824a !important; color: #a5824a !important; transform: scale(1.05); }
 </style>
 </head>
@@ -194,10 +203,11 @@
   try { contador = parseInt(sessionStorage.getItem('mt-transicion-contador') || '0', 10) || 0; } catch (e) {}
   if (contador >= MAX_REPRODUCCIONES) { overlay.parentNode.removeChild(overlay); return; }
   try { sessionStorage.setItem('mt-transicion-contador', String(contador + 1)); } catch (e) {}
-  var vid = document.createElement('video');
+  var vid = window.__vidTransicion || document.createElement('video');
   vid.id = 'page-transition-video';
-  vid.src = 'transicion.mp4';
-  vid.autoplay = true; vid.muted = true; vid.playsInline = true;
+  vid.preload = 'auto';
+  if (!vid.getAttribute('src')) vid.src = 'transicion-corta.mp4';
+  vid.muted = true; vid.playsInline = true;
   vid.setAttribute('muted', ''); vid.setAttribute('playsinline', '');
   overlay.appendChild(vid);
   overlay.setAttribute('data-activo', '1');
@@ -309,7 +319,8 @@
     <button class="hamburger" onclick="toggleMob()" aria-label="Menú"><i class="fa fa-bars"></i></button>
   </div>
 </nav>
-<section class="banda-foto compacta bajo-nav z10" data-page="contacto" style="--fondo:url('../images/galeria/z1-060.jpg');--pos:50% 40%;">
+<section class="banda-foto compacta bajo-nav completa z10" data-page="contacto" style="--fondo:url('../images/trayectoria/clase-presencial.jpg');">
+  <img class="banda-img" src="assets/images/trayectoria/clase-presencial.jpg" alt="" width="1200" height="800" decoding="async">
   <div class="container">
     <p class="eyebrow" data-es="En el aula" data-fr="En classe" data-en="In class">En el aula</p>
     <p class="banda-cita" data-es="Una clase es la mejor manera de empezar a vivir el francés." data-fr="Un cours, c’est la meilleure façon de commencer à vivre le français." data-en="A class is the best way to start living French.">Una clase es la mejor manera de empezar a vivir el francés.</p>
@@ -376,16 +387,16 @@
       <div class="reveal d2">
         <p class="af-intro" style="margin:0 0 1.6rem;text-align:left;max-width:none;" data-es="Completar este formulario no genera ningún cobro automático. En cuanto la reciba, reviso mi disponibilidad y te escribo por WhatsApp o correo para confirmar el horario y enviarte el enlace o la dirección." data-fr="Remplir ce formulaire ne déclenche aucun paiement automatique. Dès réception, je vérifie mes disponibilités et je vous écris sur WhatsApp ou par courriel pour confirmer l'horaire et vous envoyer le lien ou l'adresse." data-en="Filling out this form does not trigger any automatic charge. As soon as I receive it, I check my availability and message you on WhatsApp or by email to confirm the time and send you the link or address.">Completar este formulario no genera ningún cobro automático. En cuanto la reciba, reviso mi disponibilidad y te escribo por WhatsApp o correo para confirmar el horario y enviarte el enlace o la dirección.</p>
         <div class="panel bracket" style="padding:1.6rem;margin-bottom:1.2rem;">
-          <figure class="foto-lado" style="margin:0 0 1.1rem;"><img src="assets/images/galeria/z1-045.jpg" alt="Clase en línea: pizarra con la palabra Bienvenue" loading="lazy" style="height:150px;min-height:0;object-position:50% 30%;"></figure>
-          <i class="fa fa-video" style="font-size:1.4rem;color:var(--gold);margin-bottom:0.8rem;display:block;"></i>
-          <h3 style="font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);margin:0 0 0.6rem;" data-es="Modalidad en línea" data-fr="Format en ligne" data-en="Online format">Modalidad en línea</h3>
-          <p style="font-size:0.85rem;color:var(--muted);line-height:1.7;margin:0;" data-es="Las sesiones en línea se realizan por Zoom o Google Meet en alta calidad. Recibirás el enlace seguro apenas quede confirmada la cita — solo necesitas un lugar tranquilo y buena conexión." data-fr="Les séances en ligne se déroulent sur Zoom ou Google Meet en haute qualité. Vous recevrez le lien sécurisé dès la confirmation du rendez-vous — il vous suffit d'un endroit calme et d'une bonne connexion." data-en="Online sessions run on Zoom or Google Meet in high quality. You'll receive the secure link as soon as the appointment is confirmed — all you need is a quiet spot and a good connection.">Las sesiones en línea se realizan por Zoom o Google Meet en alta calidad. Recibirás el enlace seguro apenas quede confirmada la cita — solo necesitas un lugar tranquilo y buena conexión.</p>
+          <figure class="foto-lado" style="margin:0 0 1.1rem;"><img src="assets/images/galeria/z1-019.jpg" alt="Clase en línea: Miguel Tillero con audífonos y micrófono frente a la computadora" loading="lazy" style="height:190px;min-height:0;object-position:50% 28%;"></figure>
+          <i class="fa fa-video" style="font-size:1.44rem;color:var(--gold);margin-bottom:0.8rem;display:block;"></i>
+          <h3 style="font-family:'Syne',sans-serif;font-size:1.12rem;font-weight:700;color:var(--text);margin:0 0 0.6rem;" data-es="Modalidad en línea" data-fr="Format en ligne" data-en="Online format">Modalidad en línea</h3>
+          <p style="font-size:1rem;color:var(--muted);line-height:1.7;margin:0;" data-es="Las sesiones en línea se realizan por Zoom o Google Meet en alta calidad. Recibirás el enlace seguro apenas quede confirmada la cita — solo necesitas un lugar tranquilo y buena conexión." data-fr="Les séances en ligne se déroulent sur Zoom ou Google Meet en haute qualité. Vous recevrez le lien sécurisé dès la confirmation du rendez-vous — il vous suffit d'un endroit calme et d'une bonne connexion." data-en="Online sessions run on Zoom or Google Meet in high quality. You'll receive the secure link as soon as the appointment is confirmed — all you need is a quiet spot and a good connection.">Las sesiones en línea se realizan por Zoom o Google Meet en alta calidad. Recibirás el enlace seguro apenas quede confirmada la cita — solo necesitas un lugar tranquilo y buena conexión.</p>
         </div>
         <div class="panel bracket" style="padding:1.6rem;">
-          <figure class="foto-lado" style="margin:0 0 1.1rem;"><img src="assets/images/galeria/z1-013.jpg" alt="Patio de la Alianza Francesa en San Cristóbal" loading="lazy" style="height:150px;min-height:0;object-position:50% 45%;"></figure>
-          <i class="fa fa-map-location-dot" style="font-size:1.4rem;color:var(--gold);margin-bottom:0.8rem;display:block;"></i>
-          <h3 style="font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);margin:0 0 0.6rem;" data-es="Modalidad presencial en Chiapas" data-fr="Format en présentiel au Chiapas" data-en="In-person format in Chiapas">Modalidad presencial en Chiapas</h3>
-          <p style="font-size:0.85rem;color:var(--muted);line-height:1.7;margin:0;" data-es="Las sesiones presenciales se coordinan en San Cristóbal de Las Casas, sujetas a la disponibilidad del espacio. Confirmamos juntos el lugar exacto al agendar." data-fr="Les séances en présentiel se coordonnent à San Cristóbal de Las Casas, selon la disponibilité de l'espace. Nous confirmons ensemble le lieu exact lors de la réservation." data-en="In-person sessions are arranged in San Cristóbal de Las Casas, subject to space availability. We confirm the exact location together when booking.">Las sesiones presenciales se coordinan en San Cristóbal de Las Casas, sujetas a la disponibilidad del espacio. Confirmamos juntos el lugar exacto al agendar.</p>
+          <figure class="foto-lado" style="margin:0 0 1.1rem;"><img src="assets/images/galeria/z1-045.jpg" alt="Clase presencial: Miguel Tillero escribiendo Bienvenue en el pizarrón" loading="lazy" style="height:190px;min-height:0;object-position:50% 25%;"></figure>
+          <i class="fa fa-map-location-dot" style="font-size:1.44rem;color:var(--gold);margin-bottom:0.8rem;display:block;"></i>
+          <h3 style="font-family:'Syne',sans-serif;font-size:1.12rem;font-weight:700;color:var(--text);margin:0 0 0.6rem;" data-es="Modalidad presencial en Chiapas" data-fr="Format en présentiel au Chiapas" data-en="In-person format in Chiapas">Modalidad presencial en Chiapas</h3>
+          <p style="font-size:1rem;color:var(--muted);line-height:1.7;margin:0;" data-es="Las sesiones presenciales se coordinan en San Cristóbal de Las Casas, sujetas a la disponibilidad del espacio. Confirmamos juntos el lugar exacto al agendar." data-fr="Les séances en présentiel se coordonnent à San Cristóbal de Las Casas, selon la disponibilité de l'espace. Nous confirmons ensemble le lieu exact lors de la réservation." data-en="In-person sessions are arranged in San Cristóbal de Las Casas, subject to space availability. We confirm the exact location together when booking.">Las sesiones presenciales se coordinan en San Cristóbal de Las Casas, sujetas a la disponibilidad del espacio. Confirmamos juntos el lugar exacto al agendar.</p>
         </div>
         <div style="margin-top:2rem;text-align:center;">
           <a href="reglamento.html" class="btn btn-ghost" style="justify-content:center;">
@@ -575,15 +586,43 @@ function initVanta() {
     return true;
   }
 }
-/* Intentar inicializar Vanta, reintentando hasta que los CDN carguen */
-(function tryVanta(n) {
-  if (initVanta()) return;
-  if (n > 0) setTimeout(function(){ tryVanta(n-1); }, 250);
-  else {
-    var vb = document.getElementById('vanta-bg');
-    if (vb) vb.style.background = 'var(--bg-grad)';
+/* El fondo 3D (three.js + Vanta, ~700 KB) se pide cuando la página ya cargó, no antes:
+   así no bloquea el texto ni las fotos. */
+/* El fondo 3D no se enciende en equipos modestos, con «ahorro de datos» o si se pidió menos movimiento: queda el degradado. */
+function fondo3DPermitido() {
+  try {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    var c = navigator.connection;
+    if (c && (c.saveData || /(^|-)2g$/.test(c.effectiveType || ''))) return false;
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) return false;
+    if (navigator.deviceMemory && navigator.deviceMemory <= 2) return false;
+  } catch (e) {}
+  return true;
+}
+var vantaArrancado = false;
+function cargarScriptVanta(src, listo) {
+  var s = document.createElement('script');
+  s.src = src; s.onload = listo;
+  document.head.appendChild(s);          /* si falla, queda el degradado del CSS */
+}
+function arrancarVanta() {
+  if (vantaArrancado || !fondo3DPermitido()) return;
+  vantaArrancado = true;
+  cargarScriptVanta('https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js', function () {
+    cargarScriptVanta('https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js', initVanta);
+  });
+}
+/* El fondo 3D (three.js + WebGL) se pone en marcha cuando la cortinilla ya se retiró:
+   si arranca a la vez, el vídeo de la cortinilla se entrecorta. */
+window.addEventListener('load', function () {
+  var cortina = document.getElementById('page-transition');
+  if (cortina && cortina.getAttribute('data-activo')) {
+    window.addEventListener('mt-cortinilla-fin', function () { setTimeout(arrancarVanta, 250); }, { once: true });
+    setTimeout(arrancarVanta, 12000);   /* seguridad: por si la cortinilla nunca avisara */
+  } else {
+    setTimeout(arrancarVanta, 400);
   }
-})(20);
+});
 
 /* ── NAV ─────────────────────────────────── */
 window.addEventListener('scroll', () => {
@@ -1629,7 +1668,7 @@ window.addEventListener('DOMContentLoaded', function() {
     if (cerrado) return;
     cerrado = true;
     overlay.classList.add('hide');
-    setTimeout(function () { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 550);
+    setTimeout(function () { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); window.dispatchEvent(new Event('mt-cortinilla-fin')); }, 550);
   }
   function cerrarCuandoListo() {
     setTimeout(cerrar, Math.max(0, MINIMO_MS - transcurrido()));
@@ -1637,8 +1676,21 @@ window.addEventListener('DOMContentLoaded', function() {
   var vid = document.getElementById('page-transition-video');
   if (vid) {
     vid.addEventListener('ended', cerrar);
-    var p = vid.play();
-    if (p && p.catch) p.catch(cerrar);
+    vid.addEventListener('error', cerrar);
+    /* Solo arranca con el clip entero descargado (pesa unos 280 KB): mejor una
+       cortinilla lisa un instante que un vídeo que se atasca en el primer segundo. */
+    var iniciado = false;
+    var intentar = function () {
+      if (iniciado) return;
+      var entero = false;
+      try { var r = vid.buffered; entero = vid.readyState >= 3 && r.length && r.end(r.length - 1) >= vid.duration - 0.25; } catch (e) { entero = true; }
+      if (!entero) return;
+      iniciado = true;
+      var p = vid.play();
+      if (p && p.catch) p.catch(cerrar);
+    };
+    ['progress', 'loadeddata', 'canplaythrough'].forEach(function (ev) { vid.addEventListener(ev, intentar); });
+    intentar();
   } else {
     cerrar();
   }

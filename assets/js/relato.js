@@ -23,9 +23,7 @@
     ['es', 'fr', 'en'].forEach(function (l) { if (obj[l]) n.setAttribute('data-' + l, obj[l]); });
     return n;
   }
-  function existe(url) {
-    return fetch(url, { method: 'HEAD' }).then(function (r) { return r.ok; }).catch(function () { return true; });
-  }
+  function existe() { return Promise.resolve(true); }   /* sin sondeo HEAD: todos los archivos existen */
 
   function foto(m, i) {
     var f = el('figure', 'rel-foto'); f.style.setProperty('--i', i);
@@ -78,6 +76,7 @@
       var cta = el('div', 'rel-cta');
       c.cta.forEach(function (b, k) {
         var a = el('a', k === 0 ? 'btn btn-gold' : 'rel-btn2'); a.href = b.href;
+        if (/^https?:/i.test(b.href)) { a.target = '_blank'; a.rel = 'noopener'; }
         a.appendChild(tri(el('span'), b.texto));
         cta.appendChild(a);
       });

@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Mi libro · Vive el francés</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../assets/js/supabase-config.js?v=1790500000"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<style>
+:root{--bg:#1b2620;--bar:#0d3b2e;--ink:#12291c;--paper:#fff;--muted:rgba(255,255,255,.7);--line:rgba(255,255,255,.18);--gold:#a5824a;--gold2:#e3c68e;
+--display:'Cormorant Garamond',Georgia,serif;--sans:'Syne',system-ui,sans-serif;--mono:'Space Mono',monospace}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:#fff;font-family:var(--sans);font-size:15px;display:flex;flex-direction:column}
+.hidden{display:none!important}
+.bar{background:var(--bar);display:flex;align-items:center;gap:.6rem;padding:.55rem 16px;flex-wrap:wrap;position:sticky;top:0;z-index:5}
+.bar h1{font-family:var(--display);font-size:1.35rem;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:40vw}
+.bar h1 em{color:var(--gold2);font-style:normal}
+.bar .sp{flex:1}
+.bar a{color:#fff;font-size:.82rem}
+.ctl{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.b{border:1px solid var(--line);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:.4rem .8rem;font:inherit;font-weight:700;font-size:.82rem;cursor:pointer}
+.b:disabled{opacity:.35;cursor:default}
+select,.pg{background:rgba(255,255,255,.08);color:#fff;border:1px solid var(--line);border-radius:10px;padding:.38rem .5rem;font:inherit;font-size:.82rem}
+select option{color:#12291c}
+.pg{width:4.2rem;text-align:center;font-family:var(--mono)}
+.tot{font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+main{flex:1;overflow:auto;display:flex;justify-content:center;align-items:flex-start;padding:18px 12px 40px;touch-action:pan-y pinch-zoom}
+.hoja{min-width:min(92vw,560px);min-height:320px;position:relative;background:var(--paper);box-shadow:0 8px 30px rgba(0,0,0,.45);line-height:0;user-select:none;-webkit-user-select:none}
+.hoja canvas{display:block;max-width:none}
+.marca{position:absolute;inset:0;pointer-events:none;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.marca span{transform:rotate(-30deg);font-family:var(--mono);font-size:clamp(.8rem,2vw,1.2rem);color:rgba(18,41,28,.07);white-space:nowrap;line-height:1.4;text-align:center}
+.cargando{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.8rem;color:rgba(18,41,28,.6);line-height:1}
+.msg{max-width:520px;margin:12vh auto;background:#fff;color:var(--ink);border-radius:18px;padding:28px;text-align:center;line-height:1.5}
+.msg h2{font-family:var(--display);font-size:1.8rem;margin:0 0 .5rem}
+.msg a{color:var(--ink);font-weight:700}
+@media print{body{display:none}}
+@media (max-width:640px){.bar h1{max-width:60vw}.ocultar-m{display:none}}
+</style>
+</head>
+<body oncontextmenu="return false">
+<div class="bar">
+  <h1><em>Mi libro</em> · <span id="titulo">…</span></h1>
+  <div class="sp"></div>
+  <div class="ctl">
+    <select id="libro" class="hidden" aria-label="Libro"></select>
+    <select id="indice" aria-label="Ir a una unidad"><option value="">Unidades</option></select>
+    <button class="b" id="prev" aria-label="Página anterior">‹</button>
+    <input class="pg" id="pg" inputmode="numeric" aria-label="Página">
+    <span class="tot" id="tot">/ —</span>
+    <button class="b" id="next" aria-label="Página siguiente">›</button>
+    <button class="b ocultar-m" id="menos" aria-label="Alejar">−</button>
+    <button class="b ocultar-m" id="mas" aria-label="Acercar">+</button>
+    <a href="../panel-estudiante.html">Mi espacio</a>
+  </div>
+</div>
+<main id="main"><div class="msg" id="msg"><p>Cargando tu libro…</p></div></main>
+
+<script>
+(function(){
+'use strict';
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sb = typeof supabaseClient !== 'undefined' ? supabaseClient : null;
+const main = $('#main');
+let libros = [], L = null, pagina = 1, zoom = 1, marca = '';
+const docs = {};            // path → Promise<PDFDocumentProxy>
+let render = 0;             // para descartar renders viejos
+
+function mensaje(titulo, html){
+  main.innerHTML = `<div class="msg"><h2>${esc(titulo)}</h2>${html}</div>`;
+}
+if(!window.pdfjsLib || !sb) return mensaje('No se pudo abrir el libro', '<p>Revisa tu conexión y recarga la página.</p>');
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+async function boot(){
+  const { data:{ session } } = await sb.auth.getSession();
+  if(!session) return mensaje('Entra a tu cuenta', '<p>El libro está en tu espacio de estudiante.</p><p><a href="../login.html">Iniciar sesión</a></p>');
+  const { data:perfil } = await sb.from('profiles').select('nombre_completo').eq('id', session.user.id).maybeSingle();
+  marca = ((perfil && perfil.nombre_completo) || session.user.email || '') + ' · ' + session.user.email;
+  const { data, error } = await sb.from('libros').select('*').order('creado_en');
+  libros = (data || []).filter(l => (l.partes || []).length);
+  if(error || !libros.length) return mensaje('Tu libro todavía no está disponible',
+    '<p>Aparece aquí cuando tu inscripción esté activa y el profesor lo haya publicado para tu grupo.</p><p><a href="../panel-estudiante.html">Volver a mi espacio</a></p>');
+  if(libros.length > 1){
+    $('#libro').classList.remove('hidden');
+    $('#libro').innerHTML = libros.map((l, i) => `<option value="${i}">${esc(l.titulo)}</option>`).join('');
+    $('#libro').onchange = e => abrir(libros[+e.target.value]);
+  }
+  abrir(libros[0]);
+}
+
+function clave(){ return 'libro-pagina-' + L.id; }
+function abrir(l){
+  L = l;
+  $('#titulo').textContent = l.titulo;
+  $('#tot').textContent = '/ ' + l.total_paginas;
+  $('#indice').innerHTML = '<option value="">Unidades</option>' + (l.indice || []).map(x => `<option value="${x.pagina}">${esc(x.titulo)}</option>`).join('');
+  $('#indice').classList.toggle('hidden', !(l.indice || []).length);
+  let guardada = 1; try{ guardada = +localStorage.getItem(clave()) || 1; }catch(e){}
+  ir(guardada);
+}
+
+function parteDe(p){ return L.partes.find(x => p >= x.desde && p <= x.hasta); }
+function avance(parte, llevo, total){
+  const c = main.querySelector('.hoja .cargando');
+  if(!c || parteDe(pagina) !== parte) return;
+  const mb = n => (n / 1048576).toFixed(1);
+  c.textContent = total ? `Descargando el libro… ${Math.round(llevo / total * 100)} % (${mb(llevo)} de ${mb(total)} MB)` : `Descargando el libro… ${mb(llevo)} MB`;
+}
+async function docDe(parte){
+  if(!docs[parte.path]) docs[parte.path] = (async () => {
+    const { data, error } = await sb.storage.from('libros').createSignedUrl(parte.path, 3600);
+    if(error) throw error;
+    // Se descarga la parte entera mostrando el avance: más fiable que pedirla
+    // por trozos (Storage no siempre deja leer esas cabeceras desde otro dominio).
+    const res = await fetch(data.signedUrl);
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const total = +res.headers.get('content-length') || 0, trozos = [];
+    let llevo = 0;
+    const lector = res.body.getReader();
+    for(;;){
+      const { done, value } = await lector.read();
+      if(done) break;
+      trozos.push(value); llevo += value.length;
+      avance(parte, llevo, total);
+    }
+    const bytes = new Uint8Array(llevo); let o = 0;
+    trozos.forEach(t => { bytes.set(t, o); o += t.length; });
+    return pdfjsLib.getDocument({ data:bytes }).promise;
+  })().catch(e => { delete docs[parte.path]; throw e; });
+  return docs[parte.path];
+}
+
+async function ir(p){
+  p = Math.max(1, Math.min(L.total_paginas, Math.round(p) || 1));
+  pagina = p; $('#pg').value = p;
+  $('#prev').disabled = p <= 1; $('#next').disabled = p >= L.total_paginas;
+  try{ localStorage.setItem(clave(), p); }catch(e){}
+  const yo = ++render;
+  const parte = parteDe(p);
+  if(!parte) return mensaje('Página no encontrada', '');
+  if(!main.querySelector('.hoja')) main.innerHTML = '';
+  let hoja = main.querySelector('.hoja');
+  if(!hoja){
+    hoja = document.createElement('div'); hoja.className = 'hoja';
+    hoja.innerHTML = `<canvas></canvas><div class="marca"><span>${esc(marca)}<br>${esc(marca)}<br>${esc(marca)}</span></div><div class="cargando">Cargando página…</div>`;
+    main.appendChild(hoja);
+  }
+  const aviso = hoja.querySelector('.cargando');
+  aviso.textContent = 'Cargando página…'; aviso.classList.remove('hidden');
+  try{
+    const doc = await docDe(parte);
+    const page = await doc.getPage(p - parte.desde + 1);
+    if(yo !== render) return;
+    const base = page.getViewport({ scale:1 });
+    const ancho = Math.max(280, Math.min((main.clientWidth || window.innerWidth) - 24, 1100)) * zoom;
+    const escala = ancho / base.width, dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const vp = page.getViewport({ scale:escala * dpr });
+    const cv = document.createElement('canvas');
+    cv.width = vp.width; cv.height = vp.height;
+    cv.style.width = (vp.width / dpr) + 'px'; cv.style.height = (vp.height / dpr) + 'px';
+    await page.render({ canvasContext:cv.getContext('2d'), viewport:vp }).promise;
+    if(yo !== render) return;
+    hoja.replaceChild(cv, hoja.querySelector('canvas'));
+    hoja.querySelector('.cargando').classList.add('hidden');
+    main.scrollTop = 0;
+    // Adelanta la siguiente parte cuando se acerca su primera página.
+    const sig = parteDe(p + 2); if(sig && sig !== parte) docDe(sig).catch(() => {});
+  }catch(e){
+    if(yo === render) mensaje('No se pudo cargar esta página', '<p>Puede que tu sesión haya caducado. <a href="">Recarga la página</a>.</p>');
+  }
+}
+
+$('#prev').onclick = () => ir(pagina - 1);
+$('#next').onclick = () => ir(pagina + 1);
+$('#pg').onchange = e => ir(+e.target.value);
+$('#indice').onchange = e => { if(e.target.value) ir(+e.target.value); e.target.value = ''; };
+$('#mas').onclick = () => { zoom = Math.min(2.5, zoom + 0.25); ir(pagina); };
+$('#menos').onclick = () => { zoom = Math.max(0.5, zoom - 0.25); ir(pagina); };
+document.addEventListener('keydown', e => {
+  if(!L || e.target.tagName === 'INPUT') return;
+  if(e.key === 'ArrowRight' || e.key === 'PageDown') ir(pagina + 1);
+  if(e.key === 'ArrowLeft' || e.key === 'PageUp') ir(pagina - 1);
+});
+// Deslizar el dedo para pasar de página en el celular.
+let x0 = null;
+main.addEventListener('touchstart', e => { x0 = e.touches.length === 1 ? e.touches[0].clientX : null; }, { passive:true });
+main.addEventListener('touchend', e => {
+  if(x0 === null || !L) return;
+  const dx = e.changedTouches[0].clientX - x0; x0 = null;
+  if(Math.abs(dx) > 70 && zoom <= 1) ir(pagina + (dx < 0 ? 1 : -1));
+}, { passive:true });
+let t; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => L && ir(pagina), 250); });
+
+boot();
+})();
+</script>
+</body>
+</html>

@@ -27,15 +27,15 @@
     },
     en: {
         "nav.perfil": "Profile", "nav.servicios": "Services", "nav.cursos": "Courses", "nav.galeria": "Gallery", "nav.testimonios": "Testimonials", "nav.ressources": "Resources", "nav.contacto": "Contact", "nav.cotizar": "Enroll / Quote",
-        "hero.tagline": "French as a Foreign Language Specialist · FLE Teaching · Cultural Management.",
+        "hero.tagline": "Specialist teacher of French as a foreign language · FLE · Cultural management.",
         "hero.btn.start": "Start classes",
         "hero.btn.contact": "Contact me",
         "cv.es": "Download CV · Spanish", "cv.fr": "Download CV · French", "cv.en": "Download CV · English",
         "sec.servicios.eyebrow": "My areas of expertise", "sec.servicios.title": "What I offer",
-        "sec.cursos.eyebrow": "Our offer to learn French", "sec.cursos.title": "Courses & formats",
+        "sec.cursos.eyebrow": "What's on offer for learning French", "sec.cursos.title": "Courses & formats",
         "sec.galeria.eyebrow": "Moments & projects", "sec.galeria.title": "Gallery",
-        "sec.testimonios.eyebrow": "What they say", "sec.testimonios.title": "Testimonials",
-        "sec.recursos.eyebrow": "Open media library", "sec.recursos.title": "Resources to practise",
+        "sec.testimonios.eyebrow": "What people say about me", "sec.testimonios.title": "Testimonials",
+        "sec.recursos.eyebrow": "Open media library", "sec.recursos.title": "Resources to practice",
         "sec.contacto.eyebrow": "Let's talk", "sec.contacto.title": "Get in touch"
     }
 };

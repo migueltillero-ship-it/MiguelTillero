@@ -1,0 +1,4 @@
+{
+  "instrucciones": "Para publicar un testimonio en video o audio: 1) copia el archivo a assets/videos/testimonios/ (mp4 para video, mp3 o m4a para audio); 2) agrega un bloque dentro de \"items\" como el del ejemplo de LEEME-testimonios.md; 3) marca \"autorizado\": true solo si la persona (o su familia, si es menor) dio su permiso. Los bloques sin \"autorizado\": true no se muestran.",
+  "items": []
+}

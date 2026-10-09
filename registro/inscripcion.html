@@ -1,67 +1,379 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<script>
+/* La cortinilla pide su vídeo antes que nada (aquí, antes de las hojas de estilo) para que
+   empiece a bajar de inmediato y no después de CSS y scripts. */
+(function () {
+  var c = 0; try { c = parseInt(sessionStorage.getItem('mt-transicion-contador') || '0', 10) || 0; } catch (e) {}
+  if (c >= 3) return;
+  var v = document.createElement('video');
+  v.preload = 'auto'; v.muted = true; v.src = '../transicion-corta.mp4';
+  window.__vidTransicion = v;
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Crear mi cuenta de estudiante | Miguel Tillero</title>
-<meta name="description" content="Crea tu cuenta de estudiante para acceder a tu curso, calendario, asistencia y notas.">
+<meta name="description" content="Tu aula virtual con Miguel Tillero: entra a tu cuenta, crea la de estudiante o sigue el avance de tu hijo o hija.">
+<title>Crear mi cuenta de estudiante · Miguel Tillero</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link rel="stylesheet" href="../assets/css/sitio.css?v=109">
+<link rel="stylesheet" href="../assets/css/fondos.css?v=109">
 <style>
-:root { --bg-color: #eef0e5; --primary-color: #8c734b; --primary-hover: #6f552f; --text-dark: #1a2e24; --text-light: #5a665f; --card-bg: rgba(255,255,255,0.85); --accent-green: #2b4535; --border: rgba(165,130,74,0.38);
+.hero-langs {
+  display: flex; gap: 1.5rem; margin-bottom: 2.5rem;
+  animation: fadeUp 1s 0.6s cubic-bezier(.16,1,.3,1) forwards; opacity: 0;
+}
+.services-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(210px,1fr));
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border);
+}
+.svc-card {
+  background: var(--deep); padding: 2.5rem 2rem;
+  position: relative; overflow: hidden; cursor: default;
+  transition: background 0.4s;
+}
+.g-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(2,12,6,0.85) 0%, transparent 55%);
+  opacity: 0; transition: opacity 0.4s;
+  display: flex; align-items: flex-end; justify-content: center;
+  padding: 1rem;
+  pointer-events: none;
+  z-index: 2;
+}
+@media (max-width: 600px) {
+  section { padding: 4rem 0; }
+  .services-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .time-grid { grid-template-columns: repeat(2,1fr); }
+  .cta-btns { flex-direction: column; }
+  .footer-inner { flex-direction: column; text-align: center; }
+  /* Nav compacto: evita que el logo se encime con ES/FR/EN */
+  #nav { padding: 1rem; }
+  #nav.scrolled { padding: 0.7rem 1rem; }
+  .nav-brand { font-size: 1.1rem; letter-spacing: 0.02em; gap: 0.4rem; }
+  .nav-controls { gap: 0.35rem; }
+  .ctrl-btn { padding: 0.3rem 0.45rem; letter-spacing: 0.1em; }
+  .hamburger { width: 2rem; height: 2rem; }
+}
+.crs-icon { font-size: 1.25rem; color: var(--gold); display: block; margin-bottom: 1rem; }
+#hero .hero-tagline, #hero .hero-langs { text-shadow: 0 1px 12px rgba(233,241,231,0.6); }
+/* Video de transicion entre secciones — una sola vez por pagina y sesion */
+#page-transition { position: fixed; inset: 0; z-index: 999999; background: var(--void); display: flex; align-items: center; justify-content: center; overflow: hidden; transition: opacity 0.5s ease; }
+#page-transition video { width: 100%; height: 100%; object-fit: cover; }
+#page-transition.hide { opacity: 0; pointer-events: none; }
+</style>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<!-- ═══ SEO EJECUTIVO ═══ -->
+<link rel="canonical" href="https://migueltillero-ship-it.github.io/MiguelTillero/registro/inscripcion.html">
+<meta name="theme-color" content="#bcdcc9">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Miguel David Tillero Álvarez">
+
+<!-- Open Graph (WhatsApp / Facebook / LinkedIn) -->
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Mi espacio · Miguel Tillero">
+<meta property="og:description" content="Entra a tu aula virtual: sesiones, notas y pagos en un solo lugar.">
+<meta property="og:url" content="https://migueltillero-ship-it.github.io/MiguelTillero/registro/inscripcion.html">
+<meta property="og:image" content="https://migueltillero-ship-it.github.io/MiguelTillero/assets/images/portrait-miguel-1.jpg">
+<meta property="og:image:alt" content="Miguel Tillero en París, Tour Eiffel">
+<meta property="og:locale" content="es_MX">
+<meta property="og:locale:alternate" content="fr_FR">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Miguel David Tillero Álvarez · Spécialiste FLE">
+<meta name="twitter:description" content="Director de Alliance Française · Clases de francés · Asesorías pedagógicas · Traducción ES↔FR">
+<meta name="twitter:image" content="https://migueltillero-ship-it.github.io/MiguelTillero/assets/images/portrait-miguel-1.jpg">
+
+<!-- Favicon monograma MT -->
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="18" fill="%23f3f7f1"/><text x="50" y="68" font-family="Georgia,serif" font-size="52" fill="%23206a48" text-anchor="middle">MT</text></svg>'>
+
+<!-- JSON-LD: Person Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Miguel David Tillero Álvarez",
+  "url": "https://migueltillero-ship-it.github.io/MiguelTillero/",
+  "image": "https://migueltillero-ship-it.github.io/MiguelTillero/assets/images/portrait-miguel-1.jpg",
+  "jobTitle": "Profesor de francés · Especialista FLE",
+  "address": {"@type": "PostalAddress", "addressLocality": "San Cristóbal de Las Casas", "addressRegion": "Chiapas", "addressCountry": "MX"},
+  "email": "mailto:migueltillero@gmail.com",
+  "knowsLanguage": ["es", "fr", "en"],
+  "description": "Profesor especialista en FLE. Ex director de Alliance Française, asesor y tutor de francés, formador, traductor ES-FR y gestor cultural con 13 años de experiencia.",
+  "alumniOf": {"@type": "EducationalOrganization", "name": "Universidad Pedagógica Experimental Libertador (UPEL)"}
+}
+</script>
+
+<!-- JSON-LD: oferta formativa de francés (cursos y preparación de exámenes) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Cursos de francés y preparación de exámenes oficiales",
+  "itemListElement": [
+    {
+      "@type": "ListItem", "position": 1,
+      "item": {
+        "@type": "Course",
+        "name": "Curso general de francés (A1 a C2)",
+        "description": "Itinerario completo de francés lengua extranjera según el Marco Común Europeo de Referencia, del nivel A1 al C2, con metodología comunicativa y accional.",
+        "inLanguage": "fr",
+        "teaches": "Francés lengua extranjera (FLE)",
+        "educationalLevel": "A1, A2, B1, B2, C1, C2",
+        "provider": {"@type": "Person", "name": "Miguel David Tillero Álvarez"},
+        "hasCourseInstance": {
+          "@type": "CourseInstance",
+          "courseMode": ["Onsite", "Online"],
+          "location": {"@type": "Place", "address": {"@type": "PostalAddress", "addressLocality": "San Cristóbal de Las Casas", "addressRegion": "Chiapas", "addressCountry": "MX"}}
+        }
+      }
+    },
+    {
+      "@type": "ListItem", "position": 2,
+      "item": {
+        "@type": "Course",
+        "name": "Preparación DELF y DALF",
+        "description": "Entrenamiento específico para los diplomas oficiales DELF (A1-B2) y DALF (C1-C2) del Ministerio francés de Educación Nacional: estrategias por prueba, simulacros y retroalimentación según los criterios oficiales.",
+        "inLanguage": "fr",
+        "teaches": "Preparación a los diplomas DELF y DALF",
+        "provider": {"@type": "Person", "name": "Miguel David Tillero Álvarez"},
+        "hasCourseInstance": {"@type": "CourseInstance", "courseMode": ["Onsite", "Online"]}
+      }
+    },
+    {
+      "@type": "ListItem", "position": 3,
+      "item": {
+        "@type": "Course",
+        "name": "Preparación TCF y TEF para migración",
+        "description": "Preparación lingüística para los tests oficiales TCF y TEF en sus versiones de migración a Canadá y Quebec y de integración, residencia y nacionalidad francesa.",
+        "inLanguage": "fr",
+        "teaches": "Preparación a los tests TCF y TEF",
+        "provider": {"@type": "Person", "name": "Miguel David Tillero Álvarez"},
+        "hasCourseInstance": {"@type": "CourseInstance", "courseMode": ["Onsite", "Online"]}
+      }
+    },
+    {
+      "@type": "ListItem", "position": 4,
+      "item": {
+        "@type": "Course",
+        "name": "Francés profesional y para empresas",
+        "description": "Francés sobre objetivos específicos para equipos e instituciones: turismo, hostelería, negocios, salud y cooperación internacional, con diagnóstico previo y programa a medida.",
+        "inLanguage": "fr",
+        "teaches": "Francés sobre objetivos específicos (FOS)",
+        "provider": {"@type": "Person", "name": "Miguel David Tillero Álvarez"},
+        "hasCourseInstance": {"@type": "CourseInstance", "courseMode": ["Onsite", "Online"]}
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Sistema de Internacionalización (i18n) -->
+<script src="../assets/js/i18n.js"></script>
+
+<style>
+/* VIDEO 4K Y BOTONES */
+#video-intro { background: #030f08 !important; }
+#intro-video { object-fit: cover !important; width: 100vw !important; height: 100vh !important; }
+#intro-monogram, #intro-title, #intro-sub, #intro-divider { display: none !important; }
+.intro-brand { justify-content: flex-end !important; padding-bottom: 12vh !important; }
+.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Syne', sans-serif !important; font-size: 0.82rem !important; letter-spacing:0.1em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
+.intro-skip:hover { background: rgba(201,169,110,0.2) !important; border-color: #a5824a !important; color: #a5824a !important; transform: scale(1.05); }
+</style>
+<style id="lite-css">
+#lite{ --bg-color: #eef0e5; --primary-color: #8c734b; --primary-hover: #6f552f; --text-dark: #1a2e24; --text-light: #5a665f; --card-bg: rgba(255,255,255,0.85); --accent-green: #2b4535; --border: rgba(165,130,74,0.38);
 --r-xs: 8px; --r-sm: 14px; --r-md: 18px; --r-pill: 999px; --shadow-card: 0 4px 20px rgba(20,45,32,0.07), 0 1px 2px rgba(20,45,32,0.05); --shadow-card-hover: 0 20px 44px rgba(20,45,32,0.14);}
-* { box-sizing: border-box; }
-body { background-color: var(--bg-color); color: var(--text-dark); font-family: 'Syne', sans-serif; margin: 0; padding: 0; display:flex; flex-direction:column; min-height:100vh; overflow-x:hidden;}
-nav.main-nav { background: #ffffff; border-bottom: 1px solid rgba(43, 69, 53, 0.2); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; }
-.nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; color: var(--accent-green); text-decoration: none; }
-main { padding: 3.5rem 5%; max-width: 640px; margin: 0 auto; flex-grow: 1; width: 90%;}
-.sec-head { text-align: center; margin-bottom: 2.2rem; }
-.eyebrow { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--primary-color); margin-bottom: 0.5rem; display: block; }
-.sec-title { font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; font-weight: 300; color: var(--accent-green); margin: 0; }
-.lede { max-width: 520px; margin: 1rem auto 0; text-align:center; color: var(--text-light); line-height:1.7; font-size:0.95rem; }
-.card { background: var(--card-bg); padding: 2.2rem; border: 1px solid var(--border); border-radius: var(--r-md); box-shadow: var(--shadow-card); }
-.form-field { margin-bottom: 1.1rem; }
-.form-field label { display: block; font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-green); margin-bottom: 0.45rem; }
-.form-field input, .form-field select { width: 100%; padding: 0.85rem; border: 1px solid var(--border); border-radius: 8px; font-family: 'Syne', sans-serif; font-size: 0.95rem; background: #fff; }
-.form-row { display:grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-@media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
-.btn-gold { display: inline-flex; align-items:center; justify-content:center; gap:0.5rem; background: var(--primary-color); color: #fff; padding: 0.95rem 1.6rem; font-family: 'Syne', sans-serif; font-size: 0.92rem; text-decoration: none; border-radius: var(--r-pill); font-weight: 600; border:none; cursor:pointer; width:100%; transition: background 0.3s, transform 0.2s; }
-.btn-gold:hover { background: var(--primary-hover); transform: translateY(-2px); }
-.btn-gold:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
-.msg { margin-top: 1.1rem; padding: 0.9rem 1rem; border-radius: var(--r-xs); font-size: 0.85rem; display:none; }
-.msg.error { background: rgba(180,50,40,0.1); color: #a13324; border: 1px solid rgba(180,50,40,0.25); }
-.msg.ok { background: rgba(43,69,53,0.1); color: var(--accent-green); border: 1px solid rgba(43,69,53,0.25); }
-.back-link { display:block; text-align:center; margin-top:1.8rem; font-family:'Space Mono',monospace; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color: var(--text-light); padding:0.9rem 0; text-decoration:none; }
-.hint { font-size: 0.75rem; color: var(--text-light); margin-top: -0.6rem; margin-bottom: 1rem; }
-.bloque-rep { border:1px solid var(--border); border-radius: var(--r-sm); padding:1.2rem 1.3rem;
+#lite *{ box-sizing: border-box; }
+#lite .lite-main{ padding: 3.5rem 5%; max-width: 640px; margin: 0 auto; flex-grow: 1; width: 90%;}
+#lite .sec-head{ text-align: center; margin-bottom: 2.2rem; }
+#lite .eyebrow{ font-family: 'Syne', sans-serif; font-size: 0.88rem; letter-spacing:0.1em; text-transform: uppercase; color: var(--primary-color); margin-bottom: 0.5rem; display: block; }
+#lite .sec-title{ font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; font-weight: 300; color: var(--accent-green); margin: 0; }
+#lite .lede{ max-width: 520px; margin: 1rem auto 0; text-align:center; color: var(--text-light); line-height:1.7; font-size:1.06rem; }
+#lite .card{ background: var(--card-bg); padding: 2.2rem; border: 1px solid var(--border); border-radius: var(--r-md); box-shadow: var(--shadow-card); }
+#lite .form-field{ margin-bottom: 1.1rem; }
+#lite .form-field label{ display: block; font-family: 'Syne', sans-serif; font-size: 0.88rem; letter-spacing:0.1em; text-transform: uppercase; color: var(--accent-green); margin-bottom: 0.45rem; }
+#lite .form-field input,#lite .form-field select{ width: 100%; padding: 0.85rem; border: 1px solid var(--border); border-radius: 8px; font-family: 'Syne', sans-serif; font-size: 1.06rem; background: #fff; }
+#lite .form-row{ display:grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 560px){#lite .form-row{ grid-template-columns: 1fr; }}
+#lite .btn-gold{ display: inline-flex; align-items:center; justify-content:center; gap:0.5rem; background: var(--primary-color); color: #fff; padding: 0.95rem 1.6rem; font-family: 'Syne', sans-serif; font-size: 1.05rem; text-decoration: none; border-radius: var(--r-pill); font-weight: 600; border:none; cursor:pointer; width:100%; transition: background 0.3s, transform 0.2s; }
+#lite .btn-gold:hover{ background: var(--primary-hover); transform: translateY(-2px); }
+#lite .btn-gold:disabled{ opacity:0.6; cursor:not-allowed; transform:none; }
+#lite .msg{ margin-top: 1.1rem; padding: 0.9rem 1rem; border-radius: var(--r-xs); font-size: 1rem; display:none; }
+#lite .msg.error{ background: rgba(180,50,40,0.1); color: #a13324; border: 1px solid rgba(180,50,40,0.25); }
+#lite .msg.ok{ background: rgba(43,69,53,0.1); color: var(--accent-green); border: 1px solid rgba(43,69,53,0.25); }
+#lite .back-link{ display:block; text-align:center; margin-top:1.8rem; font-family:'Syne', sans-serif; font-size:0.87rem; letter-spacing:0.08em; text-transform:uppercase; color: var(--text-light); padding:0.9rem 0; text-decoration:none; }
+#lite .hint{ font-size: 0.93rem; color: var(--text-light); margin-top: -0.6rem; margin-bottom: 1rem; }
+#lite .bloque-rep{ border:1px solid var(--border); border-radius: var(--r-sm); padding:1.2rem 1.3rem;
               margin: 0 0 1.3rem; background: rgba(43,69,53,0.035); }
-.rep-titulo { font-family:'Space Mono',monospace; font-size:0.66rem; letter-spacing:0.11em;
+#lite .rep-titulo{ font-family:'Syne', sans-serif; font-size:0.86rem; letter-spacing:0.1em;
               text-transform:uppercase; color: var(--accent-green); margin:0 0 0.5rem; }
-#pantalla-exito { display:none; text-align:center; }
-#pantalla-exito i { font-size: 2.6rem; color: var(--accent-green); margin-bottom: 1rem; }
-/* Paso 2: el pago, justo después de crear la cuenta */
-.pago-bloque { text-align:left; margin-top:2rem; border-top:1px solid var(--border); padding-top:1.8rem; }
-.pago-monto { display:flex; align-items:baseline; justify-content:center; gap:0.6rem; margin:0.4rem 0 0.3rem; }
-.pago-monto strong { font-family:'Cormorant Garamond',serif; font-size:2.8rem; font-weight:600; color:var(--accent-green); line-height:1; }
-.pago-monto span { font-family:'Space Mono',monospace; font-size:0.8rem; color:var(--primary-color); }
-.pago-limite { text-align:center; font-size:0.85rem; color:#a13324; font-weight:600; margin-bottom:1.4rem; }
-.pago-metodo { border:1px solid var(--border); border-radius:var(--r-sm); padding:0.9rem 1.1rem; margin-bottom:0.7rem; background:#fff; }
-.pago-metodo h4 { margin:0 0 0.35rem; font-family:'Syne',sans-serif; font-size:0.92rem; color:var(--accent-green); display:flex; align-items:center; gap:0.45rem; }
-.pago-metodo h4 i { font-size:0.9rem; color:var(--primary-color); margin:0; }
-.pago-metodo p { margin:0.15rem 0; font-size:0.82rem; color:var(--text-light); line-height:1.55; }
-.pago-dato { font-family:'Space Mono',monospace; font-size:0.86rem; color:var(--text-dark); letter-spacing:0.02em; word-break:break-word; }
-.pago-copiar { background:none; border:1px solid var(--border); border-radius:var(--r-pill); font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--primary-color); padding:0.2rem 0.6rem; cursor:pointer; margin-left:0.4rem; }
-.pago-copiar:hover { background:rgba(140,115,75,0.1); }
-.pago-aviso { background:rgba(43,69,53,0.07); border-radius:var(--r-xs); padding:0.9rem 1.1rem; font-size:0.82rem; color:var(--accent-green); line-height:1.6; margin-top:1rem; }
+#lite #pantalla-exito{ display:none; text-align:center; }
+#lite #pantalla-exito i{ font-size: 2.6rem; color: var(--accent-green); margin-bottom: 1rem; }
+#lite .pago-bloque{ text-align:left; margin-top:2rem; border-top:1px solid var(--border); padding-top:1.8rem; }
+#lite .pago-monto{ display:flex; align-items:baseline; justify-content:center; gap:0.6rem; margin:0.4rem 0 0.3rem; }
+#lite .pago-monto strong{ font-family:'Cormorant Garamond',serif; font-size:2.8rem; font-weight:600; color:var(--accent-green); line-height:1; }
+#lite .pago-monto span{ font-family:'Syne', sans-serif; font-size:0.97rem; color:var(--primary-color); }
+#lite .pago-limite{ text-align:center; font-size:1rem; color:#a13324; font-weight:600; margin-bottom:1.4rem; }
+#lite .pago-metodo{ border:1px solid var(--border); border-radius:var(--r-sm); padding:0.9rem 1.1rem; margin-bottom:0.7rem; background:#fff; }
+#lite .pago-metodo h4{ margin:0 0 0.35rem; font-family:'Syne',sans-serif; font-size:1.05rem; color:var(--accent-green); display:flex; align-items:center; gap:0.45rem; }
+#lite .pago-metodo h4 i{ font-size:1.04rem; color:var(--primary-color); margin:0; }
+#lite .pago-metodo p{ margin:0.15rem 0; font-size:0.98rem; color:var(--text-light); line-height:1.55; }
+#lite .pago-dato{ font-family:'Syne', sans-serif; font-size:1.01rem; color:var(--text-dark); letter-spacing:0.02em; word-break:break-word; }
+#lite .pago-copiar{ background:none; border:1px solid var(--border); border-radius:var(--r-pill); font-family:'Syne', sans-serif; font-size:0.82rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--primary-color); padding:0.2rem 0.6rem; cursor:pointer; margin-left:0.4rem; }
+#lite .pago-copiar:hover{ background:rgba(140,115,75,0.1); }
+#lite .pago-aviso{ background:rgba(43,69,53,0.07); border-radius:var(--r-xs); padding:0.9rem 1.1rem; font-size:0.98rem; color:var(--accent-green); line-height:1.6; margin-top:1rem; }
 </style>
 </head>
 <body>
-<nav class="main-nav">
-    <a href="../index.html" class="nav-brand">Miguel Tillero</a>
+<div id="page-transition" aria-hidden="true"></div>
+<script>
+/* Se decide aquí, junto al marcado, si la cortinilla toca en esta visita.
+   El vídeo se crea solo cuando toca: si no, el navegador nunca llega a
+   pedirlo y la visita no carga el archivo para nada. */
+(function () {
+  var overlay = document.getElementById('page-transition');
+  var MAX_REPRODUCCIONES = 3;
+  var contador = 0;
+  try { contador = parseInt(sessionStorage.getItem('mt-transicion-contador') || '0', 10) || 0; } catch (e) {}
+  if (contador >= MAX_REPRODUCCIONES) { overlay.parentNode.removeChild(overlay); return; }
+  try { sessionStorage.setItem('mt-transicion-contador', String(contador + 1)); } catch (e) {}
+  var vid = window.__vidTransicion || document.createElement('video');
+  vid.id = 'page-transition-video';
+  vid.preload = 'auto';
+  if (!vid.getAttribute('src')) vid.src = '../transicion-corta.mp4';
+  vid.muted = true; vid.playsInline = true;
+  vid.setAttribute('muted', ''); vid.setAttribute('playsinline', '');
+  overlay.appendChild(vid);
+  overlay.setAttribute('data-activo', '1');
+})();
+</script>
+<script>try { if(sessionStorage.getItem('introVisto') === 'true') { document.write('<style>#video-intro { display: none !important; }</style>'); } } catch (e) {}</script>
+
+<a class="skip-link" href="#saltar-al-contenido" id="skip-link"
+   data-es="Saltar al contenido" data-fr="Aller au contenu" data-en="Skip to content">Saltar al contenido</a>
+
+<!-- 3D BG -->
+<!-- ═══════════════════════════════════════════
+     VIDEO INTRO — Pantalla completa de entrada
+═══════════════════════════════════════════ -->
+
+
+<div id="scroll-progress"></div>
+<div id="vanta-bg"></div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" role="dialog" aria-modal="true">
+  <button id="lb-close" aria-label="Cerrar"><i class="fa fa-times"></i></button>
+  <img loading="lazy" id="lb-img" src="../" alt="">
+</div>
+
+<!-- AUDIO -->
+<div id="audio-player">
+  <button id="audio-btn" aria-label="Música de fondo"><i class="fa fa-music"></i></button>
+  <span class="audio-eq" aria-hidden="true"><i></i><i></i><i></i></span>
+</div>
+
+<!-- BOTÓN FLOTANTE — invitación al club de conversación -->
+<a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" id="vendredi-fab" aria-label="Vendredi entre Amis — club de conversación en francés">
+  <i class="fa fa-mug-hot"></i>
+  <span class="vf-text" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</span>
+</a>
+<audio id="bg-audio" preload="none">
+  <source src="../Une_Promenade_en_Soleil.mp3" type="audio/mpeg">
+</audio>
+<script src="../assets/js/musica-fondo.js?v=1790900000"></script>
+
+<!-- WHATSAPP FLOAT -->
+<div id="wa-float">
+  <span id="wa-lbl">WhatsApp · +58 412-2465331</span>
+  <a id="wa-btn" href="https://wa.me/584122465331?text=Hola%20Miguel%2C%20te%20contacto%20desde%20tu%20sitio%20web." target="_blank" rel="noopener" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+</div>
+
+<!-- POPUP DE PROXIMO EVENTO — contenido real desde public.eventos (ver assets/js/eventos-publicos.js) -->
+<div id="event-popup" role="dialog" aria-label="Proximo evento">
+  <button class="ep-close" id="event-popup-close" aria-label="Cerrar" data-es-aria="Cerrar" data-fr-aria="Fermer" data-en-aria="Close"><i class="fa fa-times"></i></button>
+  <p class="ep-eyebrow"><span class="ep-dot"></span><span data-es="Próximo evento" data-fr="Prochain événement" data-en="Upcoming event">Próximo evento</span></p>
+  <h3 id="ep-titulo"></h3>
+  <span class="ep-when"><i class="fa fa-calendar-days"></i> <span id="ep-fecha"></span></span>
+  <p class="ep-desc" id="ep-descripcion"></p>
+  <div class="ep-btns">
+    <a href="../index.html#proximo-evento" class="ep-btn primary" data-es="Ver detalles" data-fr="Voir les détails" data-en="See details">Ver detalles</a>
+    <a href="#" target="_blank" rel="noopener" class="ep-btn ghost" id="ep-btn-accion">WhatsApp</a>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../assets/js/supabase-config.js?v=1790462574"></script>
+<script src="../assets/js/auth-helpers.js?v=1790462574"></script>
+<script src="../assets/js/eventos-publicos.js"></script>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="../index.html" data-route="inicio" data-es="Inicio" data-fr="Accueil" data-en="Home">Inicio</a>
+  <a href="../perfil.html" data-route="perfil" data-es="Perfil" data-fr="Profil" data-en="Profile">Perfil</a>
+  <a href="../servicios.html" data-route="servicios" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</a>
+  <a href="../cursos.html" data-route="estudiantes" data-es="Cursos y exámenes" data-fr="Cours et examens" data-en="Courses & exams">Cursos y exámenes</a>
+  <a href="../galeria.html" data-route="galeria" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a>
+  <a class="active" href="../mi-espacio.html" onclick="closeMob()" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a>
+  <a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" onclick="closeMob()" style="color:var(--gold);" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</a>
+  <a href="../inscribete.html" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a>
+  <a href="../reservar.html" onclick="closeMob()" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
+  <a href="../reglamento.html" onclick="closeMob()" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a>
+  <a href="../contacto.html#faq" onclick="closeMob()" data-es="Preguntas frecuentes" data-fr="Foire aux questions" data-en="FAQ">Preguntas frecuentes</a>
+  <a href="../contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a>
+  <a href="../pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a>
+  <button type="button" class="desktop-toggle-btn" id="desktop-toggle-btn" onclick="toggleDesktopView()">Ver versión de escritorio</button>
+</div>
+
+<!-- NAV -->
+<nav id="nav" class="z10">
+  <div class="nav-brand">
+    <span class="dot"></span>
+    Miguel <span>Tillero</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="../index.html" data-route="inicio" data-es="Inicio" data-fr="Accueil" data-en="Home">Inicio</a></li>
+    <li><a href="../perfil.html" data-route="perfil" data-es="Perfil" data-fr="Profil" data-en="Profile">Perfil</a></li>
+    <li><a href="../servicios.html" data-route="servicios" data-es="Servicios" data-fr="Services" data-en="Services">Servicios</a></li>
+    <li><a href="../cursos.html" data-route="estudiantes" data-es="Cursos y exámenes" data-fr="Cours et examens" data-en="Courses &amp; exams">Cursos y exámenes</a></li>
+    <li><a href="../galeria.html" data-route="galeria" data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</a></li>
+    <li><a class="active" href="../mi-espacio.html" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</a></li>
+    <li class="nav-sec"><a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" style="color:var(--gold);" data-es="Vendredi entre Amis" data-fr="Vendredi entre Amis" data-en="Vendredi entre Amis">Vendredi entre Amis</a></li>
+    <li><a href="../inscribete.html" data-es="Inscríbete" data-fr="Inscription" data-en="Enroll">Inscríbete</a></li>
+    <li class="nav-sec"><a href="../reservar.html" data-es="Reservar clases" data-fr="Réserver" data-en="Book classes">Reservar clases</a>
+    <a href="../reglamento.html" data-es="Reglamento" data-fr="Règlement" data-en="Terms">Reglamento</a></li>
+    <li class="nav-sec"><a href="../contacto.html#faq" data-es="Preguntas frecuentes" data-fr="Foire aux questions" data-en="FAQ">Preguntas frecuentes</a></li>
+    <li><a href="../contacto.html" data-route="contacto" data-es="Contacto" data-fr="Contact" data-en="Contact">Contacto</a></li>
+    <li class="nav-sec"><a href="../pagos.html" data-es="Pagos" data-fr="Paiements" data-en="Payments">Pagos</a></li>
+  </ul>
+  <div class="nav-controls">
+    <button class="ctrl-btn active" onclick="setLang('es')">ES</button>
+    <button class="ctrl-btn" onclick="setLang('fr')">FR</button>
+    <button class="ctrl-btn" onclick="setLang('en')">EN</button>
+    <button class="hamburger" onclick="toggleMob()" aria-label="Menú"><i class="fa fa-bars"></i></button>
+  </div>
 </nav>
-<main>
+<section class="banda-foto compacta bajo-nav completa z10" data-page="contacto" style="--fondo:url('../images/trayectoria/clase-presencial.jpg');">
+  <img class="banda-img" src="../assets/images/trayectoria/clase-presencial.jpg" alt="" width="1080" height="774" decoding="async">
+  <div class="container">
+    <p class="eyebrow" data-es="Mi espacio" data-fr="Mon espace" data-en="My space">Mi espacio</p>
+    <p class="banda-cita" data-es="Crea tu cuenta y empieza cuando quieras." data-fr="Créez votre compte et commencez quand vous voulez." data-en="Create your account and start whenever you like.">Crea tu cuenta y empieza cuando quieras.</p>
+  </div>
+</section>
+<section id="lite" class="z10 lite-section" data-page="contacto">
+  <div class="container">
+<div class="lite-main">
+    
     <div class="sec-head">
         <span class="eyebrow">Nuevo estudiante</span>
         <h1 class="sec-title">Crea tu cuenta</h1>
@@ -174,7 +486,7 @@ main { padding: 3.5rem 5%; max-width: 640px; margin: 0 auto; flex-grow: 1; width
                 </div>
                 <p style="text-align:center; margin-top:1rem;">
                     <a href="../pagos.html" target="_blank" rel="noopener"
-                       style="font-family:'Space Mono',monospace; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-light);">
+                       style="font-family:'Syne', sans-serif; font-size:0.87rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-light);">
                         Ver todos los métodos de pago
                     </a>
                 </p>
@@ -183,11 +495,1304 @@ main { padding: 3.5rem 5%; max-width: 640px; margin: 0 auto; flex-grow: 1; width
     </div>
 
     <a href="../mi-espacio.html" class="back-link"><i class="fa fa-arrow-left"></i> Volver a mi espacio</a>
-</main>
+</div>
+  </div>
+</section>
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Volver arriba" aria-label="Volver arriba" data-es-aria="Volver arriba" data-fr-aria="Revenir en haut" data-en-aria="Back to top"><i class="fa fa-arrow-up"></i></button>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="../assets/js/supabase-config.js?v=1790462574"></script>
-<script src="../assets/js/auth-helpers.js?v=1790462574"></script>
+<!-- ═══ FOOTER ═══ -->
+<footer id="footer" class="z10">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">Miguel <em>Tillero</em></div>
+        <div class="footer-tag" data-es="Especialista FLE · Gestión cultural · Formación" data-fr="Spécialiste FLE · Gestion culturelle · Formation" data-en="FLE Specialist · Cultural Management · Training">Especialista FLE · Gestión cultural · Formación</div>
+      </div>
+      <p class="footer-copy">© 2026 Miguel Tillero · <span data-es="Todos los derechos reservados" data-fr="Tous droits réservés" data-en="All rights reserved">Todos los derechos reservados</span></p>
+      <p class="footer-copy"><a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" style="color:inherit;border-bottom:1px solid var(--border);padding-bottom:1px;text-decoration:none;" data-es="Vendredi entre Amis · club de conversación en francés" data-fr="Vendredi entre Amis · club de conversation en français" data-en="Vendredi entre Amis · French conversation club">Vendredi entre Amis · club de conversación en francés</a></p>
+      <div class="footer-langs">
+        <button class="footer-lb active" onclick="setLang('es')">ES</button>
+        <button class="footer-lb" onclick="setLang('fr')">FR</button>
+        <button class="footer-lb" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ MODAL CITA ═══ -->
+<div class="modal-overlay" id="modal-cita" role="dialog" aria-modal="true">
+  <div class="modal-box bracket">
+    <button class="modal-close" onclick="closeModal('modal-cita')" aria-label="Cerrar"><i class="fa fa-times"></i></button>
+    <div class="modal-title">Agendar cita</div>
+    <div class="modal-sub">Consultoría · Asesoría · Gestión cultural</div>
+    <div class="modal-rule"></div>
+    <form id="form-cita" novalidate>
+      <div class="form-row">
+        <div class="form-field"><label for="f-nombre-2">Nombre *</label><input id="f-nombre-2" type="text" name="nombre" placeholder="Tu nombre" required></div>
+        <div class="form-field"><label for="f-email-3">Email *</label><input id="f-email-3" type="email" name="email" placeholder="tu@correo.com" required></div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label for="f-telefono-3">WhatsApp / Tel</label><input id="f-telefono-3" type="tel" name="telefono" placeholder="+xx xxx xxx xxxx"></div>
+        <div class="form-field"><label for="f-ciudad-3">País / Ciudad</label><input id="f-ciudad-3" type="text" name="ciudad" placeholder="Tu ciudad"></div>
+      </div>
+      <div class="form-field">
+        <label for="f-motivo">Motivo *</label>
+        <select id="f-motivo" name="motivo" required>
+          <option value="" disabled selected>— Selecciona —</option>
+          <option>Asesoría pedagógica FLE</option>
+          <option>Consultoría para centro cultural</option>
+          <option>Traducción / Interpretación</option>
+          <option>Ponencia o conferencia</option>
+          <option>Colaboración institucional</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label for="f-fecha">Fecha preferida *</label><input id="f-fecha" type="date" name="fecha" required></div>
+        <div class="form-field"><label for="f-modalidad">Modalidad</label>
+          <select id="f-modalidad" name="modalidad"><option>Videollamada (Zoom/Meet)</option><option>Llamada telefónica</option><option>Presencial (San Cristóbal)</option></select>
+        </div>
+      </div>
+      <div class="form-field">
+        <label id="lbl-horario-cita">Horario preferido</label>
+        <div role="group" aria-labelledby="lbl-horario-cita" class="time-grid" id="cita-slots">
+          <button type="button" class="time-slot" onclick="pickTime(this,'cita-val')">09:00–10:00</button>
+          <button type="button" class="time-slot" onclick="pickTime(this,'cita-val')">10:00–11:00</button>
+          <button type="button" class="time-slot" onclick="pickTime(this,'cita-val')">11:00–12:00</button>
+          <button type="button" class="time-slot" onclick="pickTime(this,'cita-val')">14:00–15:00</button>
+          <button type="button" class="time-slot" onclick="pickTime(this,'cita-val')">15:00–16:00</button>
+          <button type="button" class="time-slot" onclick="pickTime(this,'cita-val')">16:00–17:00</button>
+        </div>
+        <input type="hidden" name="horario" id="cita-val">
+      </div>
+      <div class="form-field"><label for="f-mensaje">Mensaje adicional</label><textarea id="f-mensaje" name="mensaje" placeholder="Contexto de tu solicitud..." rows="3"></textarea></div>
+      <button type="submit" class="btn btn-gold" style="width:100%;justify-content:center;margin-top:0.5rem;"><i class="fa fa-calendar-check"></i>&nbsp;Solicitar cita</button>
+      <div class="confirm-badge" id="cita-ok"><i class="fa fa-check-circle"></i><p><strong>¡Solicitud recibida!</strong><br>Te confirmaré la cita por email en las próximas 24 h. También puedes escribirme al WhatsApp.</p>
+          <div class="success-actions">
+            <a href="../index.html" data-route="inicio" onclick="closeModal('modal-cita')" class="btn btn-ghost"><i class="fa fa-house"></i>&nbsp;Volver al inicio</a>
+            <a href="https://wa.me/584122465331?text=Hola%20Miguel%2C%20acabo%20de%20solicitar%20una%20cita%20desde%20tu%20p%C3%A1gina%20web." target="_blank" rel="noopener" class="btn btn-gold"><i class="fab fa-whatsapp"></i>&nbsp;Avisar por WhatsApp</a>
+          </div>
+        </div>
+    </form>
+  </div>
+</div>
+
+<!-- ═══ MODAL CLASE ═══ -->
+<div class="modal-overlay" id="modal-clase" role="dialog" aria-modal="true">
+  <div class="modal-box bracket">
+    <button class="modal-close" onclick="closeModal('modal-clase')" aria-label="Cerrar"><i class="fa fa-times"></i></button>
+    <div class="modal-title">Clase de prueba</div>
+    <div class="modal-sub">Gratuite · 45 min · Tous niveaux</div>
+    <div class="modal-rule"></div>
+    <form id="form-clase" novalidate>
+      <div class="form-row">
+        <div class="form-field"><label for="f-nombre-3">Nombre *</label><input id="f-nombre-3" type="text" name="nombre" placeholder="Tu nombre" required></div>
+        <div class="form-field"><label for="f-email-4">Email *</label><input id="f-email-4" type="email" name="email" placeholder="tu@correo.com" required></div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label for="f-telefono-4">WhatsApp / Tel</label><input id="f-telefono-4" type="tel" name="telefono" placeholder="+xx xxx xxx xxxx"></div>
+        <div class="form-field"><label for="f-ciudad-4">País / Ciudad</label><input id="f-ciudad-4" type="text" name="ciudad" placeholder="Tu ciudad"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="f-nivel-2">Nivel francés *</label>
+          <select id="f-nivel-2" name="nivel" required>
+            <option value="" disabled selected>— Selecciona —</option>
+            <option>Principiante (A0)</option><option>Básico (A1–A2)</option>
+            <option>Intermedio (B1–B2)</option><option>Avanzado (C1–C2)</option>
+            <option>No sé / Necesito evaluación</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="f-objetivo">Objetivo</label>
+          <select id="f-objetivo" name="objetivo">
+            <option>Conversación general</option><option>Certificación DELF/DALF</option>
+            <option>Viaje / Inmersión</option><option>Profesional / Académico</option><option>Otro</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label for="f-fecha-2">Fecha preferida *</label><input id="f-fecha-2" type="date" name="fecha" required></div>
+        <div class="form-field">
+          <label for="f-plataforma">Plataforma</label>
+          <select id="f-plataforma" name="plataforma"><option>Zoom</option><option>Google Meet</option><option>WhatsApp Video</option><option>Skype</option></select>
+        </div>
+      </div>
+      <div class="form-field">
+        <label id="lbl-horario-clase">Horario (hora México)</label>
+        <div role="group" aria-labelledby="lbl-horario-clase" class="time-grid" id="clase-slots">
+          <button type="button" class="time-slot" onclick="pickTime(this,'clase-val')">09:00–09:45</button>
+          <button type="button" class="time-slot" onclick="pickTime(this,'clase-val')">10:00–10:45</button>
+          <button type="button" class="time-slot" onclick="pickTime(this,'clase-val')">11:00–11:45</button>
+          <button type="button" class="time-slot" onclick="pickTime(this,'clase-val')">14:00–14:45</button>
+          <button type="button" class="time-slot" onclick="pickTime(this,'clase-val')">16:00–16:45</button>
+          <button type="button" class="time-slot" onclick="pickTime(this,'clase-val')">17:00–17:45</button>
+        </div>
+        <input type="hidden" name="horario" id="clase-val">
+      </div>
+      <div class="form-field"><label for="f-notas">¿Algo más?</label><textarea id="f-notas" name="notas" placeholder="Experiencias previas, dificultades, objetivos..." rows="3"></textarea></div>
+      <button type="submit" class="btn btn-gold" style="width:100%;justify-content:center;margin-top:0.5rem;"><i class="fa fa-graduation-cap"></i>&nbsp;Reservar clase de prueba</button>
+      <div class="confirm-badge" id="clase-ok"><i class="fa fa-check-circle"></i><p><strong>¡Reserva confirmada!</strong><br>Recibirás un email con el enlace de la videollamada. Si no llega en 24 h, escríbeme por WhatsApp.</p>
+          <div class="success-actions">
+            <a href="../index.html" data-route="inicio" onclick="closeModal('modal-clase')" class="btn btn-ghost"><i class="fa fa-house"></i>&nbsp;Volver al inicio</a>
+            <a href="https://wa.me/584122465331?text=Hola%20Miguel%2C%20acabo%20de%20reservar%20mi%20clase%20de%20prueba%20desde%20tu%20p%C3%A1gina%20web." target="_blank" rel="noopener" class="btn btn-gold"><i class="fab fa-whatsapp"></i>&nbsp;Avisar por WhatsApp</a>
+          </div>
+        </div>
+    </form>
+  </div>
+</div>
+
+<!-- CURSOR PERSONALIZADO (antes del script para que no sean null) -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+<script>
+/* ── VANTA 3D — FONDO OSCURO FUTURISTA ──── */
+function initVanta() {
+  if (typeof VANTA === 'undefined' || typeof THREE === 'undefined') {
+    /* CDN aún no cargó → reintentar o usar fallback */
+    return false;
+  }
+  try {
+    /* En móvil la red se dibuja más ligera para no saturar la pantalla;
+       los paneles blancos casi opacos protegen la legibilidad del texto */
+    var vMobile = window.innerWidth < 768;
+    VANTA.NET({
+      el: '#vanta-bg',
+      THREE: window.THREE,
+      mouseControls: true, touchControls: true, gyroControls: false,
+      minHeight: 200, minWidth: 200, scale: 1.0, scaleMobile: 0.6,
+      color: 0xa5824a,        /* dorado profundo: contraste sobre claro */
+      backgroundColor: 0xbcdcc9, /* verde esmeralda translúcido */
+      points: vMobile ? 5 : 8,
+      maxDistance: vMobile ? 17 : 21,
+      spacing: vMobile ? 25 : 21,
+      showDots: true
+    });
+    return true;
+  } catch(e) {
+    /* Fallback: gradiente esmeralda si Vanta falla */
+    var vb = document.getElementById('vanta-bg');
+    if (vb) vb.style.background = 'var(--bg-grad)';
+    return true;
+  }
+}
+/* El fondo 3D (three.js + Vanta, ~700 KB) se pide cuando la página ya cargó, no antes:
+   así no bloquea el texto ni las fotos. */
+/* El fondo 3D no se enciende en equipos modestos, con «ahorro de datos» o si se pidió menos movimiento: queda el degradado. */
+function fondo3DPermitido() {
+  try {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    var c = navigator.connection;
+    if (c && (c.saveData || /(^|-)2g$/.test(c.effectiveType || ''))) return false;
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) return false;
+    if (navigator.deviceMemory && navigator.deviceMemory <= 2) return false;
+  } catch (e) {}
+  return true;
+}
+var vantaArrancado = false;
+function cargarScriptVanta(src, listo) {
+  var s = document.createElement('script');
+  s.src = src; s.onload = listo;
+  document.head.appendChild(s);          /* si falla, queda el degradado del CSS */
+}
+function arrancarVanta() {
+  if (vantaArrancado || !fondo3DPermitido()) return;
+  vantaArrancado = true;
+  cargarScriptVanta('https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js', function () {
+    cargarScriptVanta('https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js', initVanta);
+  });
+}
+/* El fondo 3D (three.js + WebGL) se pone en marcha cuando la cortinilla ya se retiró:
+   si arranca a la vez, el vídeo de la cortinilla se entrecorta. */
+window.addEventListener('load', function () {
+  var cortina = document.getElementById('page-transition');
+  if (cortina && cortina.getAttribute('data-activo')) {
+    window.addEventListener('mt-cortinilla-fin', function () { setTimeout(arrancarVanta, 250); }, { once: true });
+    setTimeout(arrancarVanta, 12000);   /* seguridad: por si la cortinilla nunca avisara */
+  } else {
+    setTimeout(arrancarVanta, 400);
+  }
+});
+
+/* ── NAV ─────────────────────────────────── */
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', scrollY > 60);
+});
+
+/* ── MOBILE ──────────────────────────────── */
+function toggleMob() { document.getElementById('mobile-menu').classList.toggle('open'); }
+function closeMob()  { document.getElementById('mobile-menu').classList.remove('open'); }
+
+/* ── LANG ────────────────────────────────── */
+/* Sistema i18n cargado automáticamente desde i18n.js */
+/* setLang es delegado al sistema i18n */
+if (!window.setLang) {
+  window.setLang = function(lang) {
+    if (window.i18n) {
+      window.i18n.setLanguage(lang);
+    }
+  };
+}
+
+/* ── ENRUTADOR DE PÁGINAS (sin recarga) ─────
+   Cada sección declara data-page. Solo se muestra una página a la vez;
+   la dirección del navegador cambia (#estudiantes) para poder compartir
+   y usar el botón atrás. Los enlaces antiguos a secciones (#inscripcion,
+   #niveles…) siguen funcionando: abren su página y bajan a la sección. */
+window.SitePages = (function () {
+  var ORDER = ['inicio', 'perfil', 'servicios', 'estudiantes', 'galeria', 'contacto'];
+  var current = null;
+
+  function sections() { return document.querySelectorAll('section[data-page]'); }
+
+  function pageOfSection(id) {
+    var el = document.getElementById(id);
+    return el ? el.getAttribute('data-page') : null;
+  }
+
+  /* Las animaciones de entrada no se disparan en secciones ocultas:
+     al mostrar una página las reactivamos. */
+  function revealPage(name) {
+    document.querySelectorAll('section[data-page="' + name + '"] .reveal').forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.92) el.classList.add('on');
+      else if (window.SiteReveal) window.SiteReveal.observe(el);
+    });
+  }
+
+  function markActive(name) {
+    document.querySelectorAll('[data-route]').forEach(function (a) {
+      a.classList.toggle('active', a.getAttribute('data-route') === name);
+    });
+  }
+
+  function show(name, sectionId, push) {
+    if (ORDER.indexOf(name) === -1) name = 'inicio';
+    var changed = name !== current;
+    current = name;
+
+    sections().forEach(function (s) {
+      s.style.display = (s.getAttribute('data-page') === name) ? '' : 'none';
+    });
+    document.body.setAttribute('data-current-page', name);
+    markActive(name);
+
+    if (push !== false) {
+      var target = sectionId || name;
+      if (('#' + target) !== window.location.hash) {
+        history.pushState({ page: name, section: sectionId || null }, '', '#' + target);
+      }
+    }
+
+    if (sectionId) {
+      var el = document.getElementById(sectionId);
+      if (el) {
+        /* Esperamos al reflow para medir la posición real */
+        requestAnimationFrame(function () {
+          var top = el.getBoundingClientRect().top + window.pageYOffset - 70;
+          window.scrollTo({ top: top > 0 ? top : 0, behavior: changed ? 'auto' : 'smooth' });
+        });
+      }
+    } else {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+
+    revealPage(name);
+    window.dispatchEvent(new CustomEvent('pagechange', { detail: { page: name } }));
+  }
+
+  /* Resuelve cualquier hash: nombre de página o id de sección */
+  function go(hash, push) {
+    var id = (hash || '').replace(/^#/, '');
+    if (!id) { show('inicio', null, push); return; }
+    if (ORDER.indexOf(id) !== -1) { show(id, null, push); return; }
+    var pg = pageOfSection(id);
+    if (pg) { show(pg, id, push); return; }
+    show('inicio', null, push);   /* enlaces a modales u otros: portada */
+  }
+
+  /* El enlace de salto lleva al primer bloque de la página activa,
+     sea cual sea, y le pasa el foco para que el teclado y el lector
+     de pantalla continúen desde ahí y no desde el principio. */
+  function saltarAlContenido(e) {
+    e.preventDefault();
+    var destino = document.querySelector('section[data-page="' + current + '"]');
+    if (!destino) return;
+    destino.setAttribute('tabindex', '-1');
+    destino.focus({ preventScroll: true });
+    window.scrollTo({ top: destino.getBoundingClientRect().top + window.pageYOffset - 70 });
+  }
+
+  function init() {
+    var skip = document.getElementById('skip-link');
+    if (skip) skip.addEventListener('click', saltarAlContenido);
+
+    /* Interceptamos todos los enlaces internos de la página */
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+      if (!a) return;
+      var href = a.getAttribute('href');
+      if (!href || href === '#') return;
+      var id = href.slice(1);
+      if (ORDER.indexOf(id) === -1 && !document.getElementById(id)) return;
+      e.preventDefault();
+      go(href, true);
+      if (typeof closeMob === 'function') closeMob();
+    });
+
+    window.addEventListener('popstate', function () { go(window.location.hash, false); });
+    go(window.location.hash, false);
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+
+  return { go: go, show: show, pages: ORDER, currentPage: function () { return current; } };
+})();
+
+/* ── BARRA DE PESTAÑAS · ÁREA DE ESTUDIANTES ── */
+(function () {
+  var bar = document.getElementById('studybar');
+  if (!bar) return;
+  var links = Array.prototype.slice.call(bar.querySelectorAll('a'));
+  var ids = ['modalidades', 'certificaciones', 'niveles', 'cultura', 'recursos'];
+  var zone = ids.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+  if (!zone.length) return;
+
+  function update() {
+    /* Solo existe dentro de la página de estudiantes */
+    if (document.body.getAttribute('data-current-page') !== 'estudiantes') {
+      bar.classList.remove('on');
+      return;
+    }
+    var first = zone[0].getBoundingClientRect();
+    var last = zone[zone.length - 1].getBoundingClientRect();
+    /* La barra vive mientras el bloque del estudiante ocupa la pantalla */
+    bar.classList.toggle('on', first.top < 140 && last.bottom > 160);
+
+    var active = null, mid = window.innerHeight * 0.38;
+    zone.forEach(function (sec) {
+      var r = sec.getBoundingClientRect();
+      if (r.top <= mid && r.bottom > mid) active = sec.id;
+    });
+    links.forEach(function (a) {
+      a.classList.toggle('active', active !== null && a.getAttribute('href') === '#' + active);
+    });
+  }
+
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () { update(); ticking = false; });
+  }, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  window.addEventListener('pagechange', function () { setTimeout(update, 60); });
+  update();
+})();
+
+/* ── REVEAL ──────────────────────────────── */
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); ro.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+/* El enrutador lo reutiliza al mostrar una página nueva */
+window.SiteReveal = ro;
+
+/* ── SKILL BARS ──────────────────────────── */
+const sro = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.skill-fill').forEach(f => f.classList.add('on'));
+      sro.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.skills-panel').forEach(el => sro.observe(el));
+
+/* ── LIGHTBOX ────────────────────────────── */
+function openLB(src, alt) {
+  const lb  = document.getElementById('lightbox');
+  const img = document.getElementById('lb-img');
+  if (!lb || !img) return;
+  img.src = src;
+  img.alt = alt || '';
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+(function(){
+  var lbClose = document.getElementById('lb-close');
+  var lb      = document.getElementById('lightbox');
+  if (lbClose) lbClose.onclick = function() {
+    if (lb) lb.classList.remove('open');
+    document.body.style.overflow = '';
+  };
+  if (lb) lb.onclick = function(e) {
+    if (e.target === this) { this.classList.remove('open'); document.body.style.overflow = ''; }
+  };
+})();
+
+/* ── MODALS ──────────────────────────────── */
+function openModal(id)  { var m = document.getElementById(id); if (!m) return; m.classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeModal(id) { var m = document.getElementById(id); if (!m) return; m.classList.remove('open'); document.body.style.overflow = ''; }
+document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', function(e) { if (e.target === this) closeModal(this.id); }));
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.open, #lightbox.open').forEach(m => {
+      m.classList.remove('open'); document.body.style.overflow = '';
+    });
+  }
+});
+
+/* ── TIME SLOTS ──────────────────────────── */
+function pickTime(btn, valId) {
+  btn.closest('.time-grid').querySelectorAll('.time-slot').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  document.getElementById(valId).value = btn.textContent.trim();
+}
+
+/* Set min date */
+const today = new Date().toISOString().split('T')[0];
+document.querySelectorAll('input[type="date"]').forEach(d => d.min = today);
+
+/* ══════════════════════════════════════════════════════
+   SISTEMA DE EMAIL — 100% GRATUITO
+   Motor: EmailJS (200 emails/mes gratis, para siempre)
+   
+   CONFIGURACIÓN (5 minutos, gratis):
+   ──────────────────────────────────
+   1. Ir a https://emailjs.com → "Sign Up Free"
+   2. En "Email Services" → Add Service → Gmail → conectar migueltillero@gmail.com
+      Copiar el SERVICE_ID (ej: service_abc123)
+   3. En "Email Templates" → Create Template con este contenido:
+      Subject: {{subject}}
+      Body:
+        De: {{from_name}} ({{from_email}})
+        Teléfono: {{telefono}}
+        Ciudad: {{ciudad}}
+        Tipo: {{tipo}}
+        Fecha/Hora: {{fecha}} {{horario}}
+        Mensaje: {{message}}
+      Copiar el TEMPLATE_ID (ej: template_xyz789)
+   4. En "Account" → General → Public Key
+      Copiar el PUBLIC_KEY (ej: user_AbCdEf)
+   5. Reemplazar los 3 valores abajo:
+══════════════════════════════════════════════════════ */
+/* Los tres valores están puestos. Si alguna vez cambian, se cambian
+   AQUÍ y en ningún otro sitio: todos los formularios los leen de estas
+   constantes. */
+const EMAILJS_SERVICE  = 'service_k9b1j7y';
+const EMAILJS_TEMPLATE = 'template_sp4hl5f';
+const EMAILJS_KEY      = '7FPd-e34G4AgVK5YA';
+
+/* Inicializar EmailJS */
+if (EMAILJS_KEY && !EMAILJS_KEY.startsWith('TU_')) { try { emailjs.init(EMAILJS_KEY); } catch(e){} }
+
+/* Función de envío unificada */
+async function sendEmail(params, successId, formEl) {
+  /* Construir payload para la plantilla EmailJS */
+  const payload = {
+    subject:     params.subject    || 'Nuevo mensaje — MiguelTillero.com',
+    from_name:   params.nombre     || params.name || 'Sin nombre',
+    from_email:  params.email      || '',
+    telefono:    params.telefono   || '—',
+    ciudad:      params.ciudad     || '—',
+    tipo:        params.tipo       || 'Contacto general',
+    fecha:       params.fecha      || '—',
+    horario:     params.horario    || '—',
+    message:     params.message    || params.mensaje || params.notas || '—',
+    to_email:    'migueltillero@gmail.com'
+  };
+
+  try {
+    const result = await emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, payload);
+    if (result.status === 200) {
+      if (formEl) {
+        formEl.reset();
+        formEl.querySelectorAll('.time-slot').forEach(b => b.classList.remove('sel'));
+      }
+      document.getElementById(successId).classList.add('show');
+    } else { throw new Error('EmailJS error'); }
+  } catch(err) {
+    console.error('EmailJS error:', err);
+    /* Fallback: abrir WhatsApp con los datos */
+    const msg = encodeURIComponent(
+      'Hola Miguel, intenté usar tu formulario.\n' +
+      'Nombre: ' + payload.from_name + '\n' +
+      'Email: ' + payload.from_email + '\n' +
+      'Asunto: ' + payload.tipo
+    );
+    if (confirm('Hubo un problema con el formulario.\n¿Te escribo por WhatsApp?')) {
+      window.open('https://wa.me/584122465331?text=' + msg, '_blank');
+    }
+  }
+}
+
+/* ── FORMULARIO PRINCIPAL ─────────────────── */
+var _cf = document.getElementById('contact-form');
+if (_cf) _cf.addEventListener('submit', function(e) {
+  e.preventDefault();
+  let ok = true;
+  ['e-name','e-email','e-msg'].forEach(id => document.getElementById(id).classList.remove('show'));
+  if (!document.getElementById('f-name').value.trim())  { document.getElementById('e-name').classList.add('show'); ok = false; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('f-email').value)) { document.getElementById('e-email').classList.add('show'); ok = false; }
+  if (!document.getElementById('f-msg').value.trim())   { document.getElementById('e-msg').classList.add('show'); ok = false; }
+  if (!ok) return;
+
+  const data = Object.fromEntries(new FormData(this));
+  sendEmail({
+    subject:  '📩 Nuevo mensaje — MiguelTillero.com',
+    nombre:   data.name,
+    email:    data.email,
+    telefono: data.telefono,
+    ciudad:   data.ciudad,
+    tipo:     data.subject_sel || 'Mensaje general',
+    message:  data.message
+  }, 'form-success', this);
+});
+
+/* ── MODAL CITA ───────────────────────────── */
+var _fc = document.getElementById('form-cita');
+if (_fc) _fc.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const d = Object.fromEntries(new FormData(this));
+  if (!d.nombre || !d.email || !d.fecha) { alert('Completa los campos obligatorios (*)'); return; }
+  sendEmail({
+    subject:  '📅 Solicitud de CITA — MiguelTillero.com',
+    nombre:   d.nombre, email: d.email, telefono: d.telefono,
+    ciudad:   d.ciudad, tipo: d.motivo || 'Cita/Consultoría',
+    fecha:    d.fecha, horario: d.horario,
+    message:  d.mensaje || '—'
+  }, 'cita-ok', this);
+});
+
+/* ── MODAL CLASE DE PRUEBA ────────────────── */
+var _fcl = document.getElementById('form-clase');
+if (_fcl) _fcl.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const d = Object.fromEntries(new FormData(this));
+  if (!d.nombre || !d.email || !d.fecha) { alert('Completa los campos obligatorios (*)'); return; }
+  sendEmail({
+    subject:  '🎓 Clase de PRUEBA — MiguelTillero.com',
+    nombre:   d.nombre, email: d.email, telefono: d.telefono,
+    ciudad:   d.ciudad,
+    tipo:     'Clase de prueba · Nivel: ' + (d.nivel||'?') + ' · Objetivo: ' + (d.objetivo||'?'),
+    fecha:    d.fecha, horario: d.horario,
+    message:  d.notas || '—'
+  }, 'clase-ok', this);
+});
+
+
+
+/* ── COPY TO CLIPBOARD ───────────────────── */
+function copyVal(elId, btn) {
+  const text = document.getElementById(elId).textContent.replace(/\s/g, '');
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<i class="fa fa-check"></i>';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => {
+    /* Fallback for older browsers */
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.innerHTML = '<i class="fa fa-check"></i>';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.innerHTML = '<i class="fa fa-copy"></i>'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+/* ── CURSOR PERSONALIZADO ─────────────────── */
+const curDot  = document.getElementById('cursor-dot');
+const curRing = document.getElementById('cursor-ring');
+let mouseX = 0, mouseY = 0;
+let ringX = 0, ringY = 0;
+
+window.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  if (curDot) { curDot.style.left = mouseX + 'px'; curDot.style.top = mouseY + 'px'; }
+});
+
+/* Smooth ring follow */
+function animateCursor() {
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+  if (curRing) { curRing.style.left = ringX + 'px'; curRing.style.top = ringY + 'px'; }
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+/* Hover states */
+document.querySelectorAll('a, button, .svc-card, .g-item, .lang-pill, .stat-cell, .time-slot').forEach(el => {
+  el.addEventListener('mouseenter', () => { if (curRing) curRing.classList.add('hover'); });
+  el.addEventListener('mouseleave', () => { if (curRing) curRing.classList.remove('hover'); });
+});
+document.addEventListener('mousedown', () => { if (curRing) curRing.classList.add('click'); });
+document.addEventListener('mouseup',   () => { if (curRing) curRing.classList.remove('click'); });
+
+/* Hide on touch devices */
+if ('ontouchstart' in window) {
+  if (curDot)  curDot.style.display  = 'none';
+  if (curRing) curRing.style.display = 'none';
+}
+
+/* ── SECTION TITLE UNDERLINE REVEAL ──────── */
+const titleObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible-title');
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.sec-title').forEach(t => titleObs.observe(t));
+
+/* ── MAGNETIC EFFECT ON BUTTONS ──────────── */
+document.querySelectorAll('.btn-gold').forEach(btn => {
+  btn.addEventListener('mousemove', function(e) {
+    const r = this.getBoundingClientRect();
+    const x = e.clientX - r.left - r.width/2;
+    const y = e.clientY - r.top  - r.height/2;
+    this.style.transform = `translate(${x*0.15}px, ${y*0.2}px)`;
+  });
+  btn.addEventListener('mouseleave', function() {
+    this.style.transform = '';
+  });
+});
+
+/* ── PARALLAX ON HUD CORNERS ─────────────── */
+window.addEventListener('mousemove', e => {
+  const cx = (e.clientX / window.innerWidth  - 0.5) * 12;
+  const cy = (e.clientY / window.innerHeight - 0.5) * 8;
+  document.querySelectorAll('.hud-corner').forEach((el, i) => {
+    const dir = i % 2 === 0 ? 1 : -1;
+    el.style.transform = `translate(${cx*dir*0.5}px, ${cy*dir*0.4}px)`;
+  });
+});
+
+/* ── AUDIO ─────────────────────────────────
+   La música de fondo vive ahora en assets/js/musica-fondo.js: suena una
+   sola vez por visita (sin bucle, continuando entre páginas) y se corta
+   en cuanto el visitante reproduce un vídeo. */
+const bgAudio = document.getElementById('bg-audio');
+
+/* ── PORTRAIT CAROUSEL ─────────────────────── */
+(function(){
+  var slides = document.querySelectorAll('.portrait-slide');
+  if (slides.length < 2) return;
+  var cur = 0;
+  function next(){
+    if (slides[cur]) slides[cur].classList.remove('active');
+    cur = (cur + 1) % slides.length;
+    /* Saltar slides ocultadas por onerror, máximo un ciclo completo */
+    var attempts = 0;
+    while (slides[cur] && getComputedStyle(slides[cur]).display === 'none'
+           && attempts < slides.length) {
+      cur = (cur + 1) % slides.length;
+      attempts++;
+    }
+    if (slides[cur]) slides[cur].classList.add('active');
+  }
+  setInterval(next, 5500);
+})();
+
+
+/* ── VIDEO PLAYER — todos los reproductores de la sección ── */
+function playVideo() {
+  var overlay = document.getElementById('video-overlay');
+  if (overlay) overlay.click();
+}
+document.addEventListener('DOMContentLoaded', function() {
+  var vids = [];
+  document.querySelectorAll('#video-reel .video-wrapper').forEach(function(w) {
+    var vid = w.querySelector('video');
+    var overlay = w.querySelector('.video-play-overlay');
+    if (!vid || !overlay) return;
+    vids.push(vid);
+    var start = function() {
+      /* pausa los demás vídeos para que no suenen a la vez */
+      vids.forEach(function(v) { if (v !== vid) v.pause(); });
+      vid.muted = false;
+      vid.controls = true;
+      vid.play().then(function() {
+        overlay.classList.add('hidden');
+      }).catch(function(e) {
+        console.warn('Video autoplay blocked:', e);
+      });
+    };
+    var stop = function() {
+      overlay.classList.remove('hidden');
+      vid.controls = false;
+    };
+    overlay.addEventListener('click', start);
+    vid.addEventListener('pause', stop);
+    vid.addEventListener('ended', stop);
+  });
+});
+
+
+/* ══════════════════════════════════════════════
+   VIDEO INTRO — 3 fases + patrón "Entrar"
+   FASE 1: vídeo pantalla completa, brillo total
+   FASE 2: aparece monograma → vídeo se atenúa
+   FASE 3: clic en Entrar → vídeo brillo total + sonido
+══════════════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded', function() {
+
+  var introEl   = document.getElementById('video-intro');
+  var introVid  = document.getElementById('intro-video');
+  var progressEl= document.getElementById('intro-progress');
+  var monogramEl= document.getElementById('intro-monogram');
+  var titleEl   = document.getElementById('intro-title');
+  var subEl     = document.getElementById('intro-sub');
+  var dividerEl = document.getElementById('intro-divider');
+  var enterBtn  = document.getElementById('intro-enter-btn');
+  var volHint   = document.getElementById('intro-vol-hint');
+  var introDone = false;
+  var rafId     = null;
+  var safetyT1  = null;
+
+  /* Bloquear scroll mientras el intro está activo */
+  document.body.classList.add('intro-active');
+
+  if (!introEl || !introVid) {
+    document.body.classList.remove('intro-active');
+    return;
+  }
+
+  /* ── SELECCIÓN DE FUENTE SEGÚN ORIENTACIÓN ──
+     Móviles/tablets en vertical → versión vertical (sin recorte).
+     Resto → versión horizontal original. */
+  var srcH = introVid.getAttribute('data-src-h');
+  var srcV = introVid.getAttribute('data-src-v');
+  var isPortrait = window.matchMedia('(orientation: portrait)').matches
+                || window.innerWidth < 768;
+  introVid.src = (isPortrait && srcV) ? srcV : srcH;
+  /* Si la orientación cambia antes de pulsar Entrar, intercambia la fuente */
+  window.matchMedia('(orientation: portrait)').addEventListener('change', function(ev) {
+    if (introDone) return;
+    var want = (ev.matches || window.innerWidth < 768) ? srcV : srcH;
+    if (want && introVid.src.indexOf(want) === -1) {
+      introVid.src = want;
+      introVid.load();
+      introVid.play().catch(function(){});
+    }
+  });
+
+  /* ── REPRODUCCIÓN A PRUEBA DE FALLOS ──
+     Se intenta reproducir en silencio (autoplay permitido) en
+     varios eventos para máxima fiabilidad. */
+  introVid.muted = true;          /* obligatorio para autoplay */
+  introVid.setAttribute('muted', '');
+
+  function attemptPlay() {
+    var p = introVid.play();
+    if (p && p.catch) {
+      p.catch(function(err) {
+        console.warn('Intro video play falló, reintentando:', err);
+      });
+    }
+  }
+  /* Intentar reproducir en cada evento de carga posible */
+  introVid.addEventListener('loadeddata', attemptPlay);
+  introVid.addEventListener('canplay', attemptPlay);
+  introVid.addEventListener('canplaythrough', attemptPlay);
+  /* Intento inmediato */
+  attemptPlay();
+  /* Intento adicional tras un instante (por si el archivo tarda) */
+  setTimeout(attemptPlay, 300);
+  setTimeout(attemptPlay, 1000);
+
+  /* ── FASE 2: tras 2.6s, atenuar vídeo y mostrar branding ── */
+  setTimeout(function() {
+    if (introEl) introEl.classList.add('dimmed');
+    if (monogramEl) monogramEl.classList.add('show');
+  }, 2600);
+  setTimeout(function(){ if (titleEl)    titleEl.classList.add('show'); }, 3000);
+  setTimeout(function(){ if (subEl)      subEl.classList.add('show'); }, 3300);
+  setTimeout(function(){ if (dividerEl)  dividerEl.classList.add('show'); }, 3600);
+  setTimeout(function(){ if (enterBtn)   enterBtn.classList.add('show'); }, 3900);
+  setTimeout(function(){ if (volHint)    volHint.classList.add('show'); }, 4300);
+
+  /* Barra de progreso (tras pulsar Entrar) */
+  var progressStarted = false;
+  function startProgress() {
+    if (progressStarted) return;
+    progressStarted = true;
+    function tick() {
+      if (introDone || !introVid || !progressEl) return;
+      var dur = introVid.duration;
+      if (dur && isFinite(dur) && dur > 0) {
+        progressEl.style.width = ((introVid.currentTime / dur) * 100) + '%';
+      }
+      rafId = requestAnimationFrame(tick);
+    }
+    rafId = requestAnimationFrame(tick);
+  }
+
+  /* Cerrar intro y entrar al sitio */
+  function closeIntro() {
+    if (introDone) return;
+    introDone = true;
+    if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+    if (safetyT1) clearTimeout(safetyT1);
+    if (introEl) introEl.classList.add('fade-out');
+    document.body.classList.remove('intro-active');
+
+    /* La música de fondo entra sola en cuanto termina el vídeo de intro. */
+    if (typeof window.startBgMusic === 'function') window.startBgMusic();
+
+    setTimeout(function() {
+      if (introEl) {
+        introEl.style.display = 'none';
+        if (introVid) { introVid.pause(); introVid.removeAttribute('src'); introVid.load(); }
+      }
+    }, 1400);
+  }
+
+  /* ── FASE 3: BOTÓN ENTRAR — sonido del vídeo + audio de fondo ── */
+  window.enterSite = function() {
+    try { sessionStorage.setItem('introVisto', 'true'); } catch (e) {}
+    if (!introVid) { closeIntro(); return; }
+
+    introVid.loop = false;
+    if (introEl) { introEl.classList.remove('dimmed'); introEl.classList.add('entered'); }
+
+    /* ACTIVAR SONIDO (funciona porque viene de un clic del usuario) */
+    introVid.muted = false;
+    introVid.removeAttribute('muted');
+    introVid.volume = 1.0;
+    introVid.currentTime = 0;
+    var playP = introVid.play();
+    if (playP && playP.catch) playP.catch(function(){});
+    startProgress();
+
+    /* Precargamos la música mientras corre el vídeo para que entre sin corte */
+    if (bgAudio) { bgAudio.preload = 'auto'; try { bgAudio.load(); } catch (e) {} }
+
+    /* Ocultar branding para ver el vídeo a pantalla completa */
+    if (enterBtn)   enterBtn.style.display = 'none';
+    if (volHint)    volHint.style.display = 'none';
+    if (monogramEl) { monogramEl.style.transition='opacity .6s'; monogramEl.style.opacity = '0'; }
+    if (titleEl)    { titleEl.style.transition='opacity .6s'; titleEl.style.opacity = '0'; }
+    if (subEl)      { subEl.style.transition='opacity .6s'; subEl.style.opacity = '0'; }
+    if (dividerEl)  { dividerEl.style.transition='opacity .6s'; dividerEl.style.opacity = '0'; }
+
+    /* Cuando el vídeo termina → cerrar intro */
+    introVid.addEventListener('ended', closeIntro, { once: true });
+
+    /* Botón "Saltar" por si quiere entrar antes */
+    var skip = document.createElement('button');
+    skip.className = 'intro-skip show';
+    skip.innerHTML = 'Saltar &nbsp;<i class="fas fa-chevron-right"></i>';
+    skip.onclick = closeIntro;
+    if (introEl) introEl.appendChild(skip);
+
+    /* Seguridad: cerrar a los 90s */
+    safetyT1 = setTimeout(closeIntro, 90000);
+  };
+
+}); /* fin DOMContentLoaded */
+
+
+/* ── FORMULARIO DE INSCRIPCIÓN ─────────────── */
+window.addEventListener('DOMContentLoaded', function() {
+  var inscForm = document.getElementById('inscForm');
+  if (!inscForm) return;
+
+  /* Resaltar checkboxes seleccionados */
+  inscForm.querySelectorAll('.dispo-option input').forEach(function(cb) {
+    cb.addEventListener('change', function() {
+      this.closest('.dispo-option').classList.toggle('checked', this.checked);
+    });
+  });
+
+  inscForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var d = {};
+    var fd = new FormData(inscForm);
+    for (var pair of fd.entries()) { d[pair[0]] = pair[1]; }
+
+    /* Recoger disponibilidad (múltiple) */
+    var dispos = [];
+    inscForm.querySelectorAll('input[name="dispo"]:checked').forEach(function(c) {
+      dispos.push(c.value);
+    });
+
+    /* Validación mínima */
+    if (!d.nombre || !d.email) {
+      alert('Por favor completa al menos tu nombre y email.');
+      return;
+    }
+
+    var btn = inscForm.querySelector('.insc-submit');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i>&nbsp; Enviando...';
+
+    /* Mensaje formateado */
+    var mensaje =
+      'NUEVA INSCRIPCIÓN — Clases de Francés\n' +
+      '═══════════════════════════════\n\n' +
+      'DATOS PERSONALES\n' +
+      'Nombre: ' + (d.nombre||'-') + '\n' +
+      'Email: ' + (d.email||'-') + '\n' +
+      'Teléfono: ' + (d.telefono||'-') + '\n' +
+      'Edad: ' + (d.edad||'-') + '\n' +
+      'Ciudad/Zona: ' + (d.ciudad||'-') + '\n\n' +
+      'NIVEL Y OBJETIVOS\n' +
+      'Nivel actual: ' + (d.nivel||'-') + '\n' +
+      'Horas a contratar: ' + (d.horas||'-') + '\n\n' +
+      'DISPONIBILIDAD\n' + (dispos.length ? dispos.join(', ') : '-') + '\n\n' +
+      'MOTIVACIÓN\n' + (d.motivacion||'-') + '\n\n' +
+      'EXPECTATIVAS\n' + (d.expectativas||'-') + '\n\n' +
+      'QUÉ NO LE GUSTARÍA\n' + (d.no_gusta||'-') + '\n\n' +
+      'ENTREVISTA PREVIA: ' + (d.entrevista||'-') + '\n\n' +
+      'COMENTARIOS\n' + (d.comentarios||'-');
+
+    /* Enviar con EmailJS (service_k9b1j7y) */
+    function done() {
+      document.getElementById('inscSuccess').classList.add('show');
+      inscForm.reset();
+      inscForm.querySelectorAll('.dispo-option').forEach(function(o){ o.classList.remove('checked'); });
+      btn.style.display = 'none';
+      document.getElementById('inscSuccess').scrollIntoView({behavior:'smooth', block:'center'});
+    }
+
+    try {
+      emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
+        subject: '🎓 NUEVA INSCRIPCIÓN — ' + d.nombre,
+        from_name: d.nombre,
+        from_email: d.email,
+        telefono: d.telefono || '-',
+        ciudad: d.ciudad || '-',
+        tipo: 'Inscripción a clases',
+        fecha: new Date().toLocaleDateString('es-MX'),
+        horario: dispos.join(', ') || '-',
+        message: mensaje,
+        to_email: 'migueltillero@gmail.com'
+      }).then(done).catch(function() {
+        /* Fallback mailto */
+        window.open('mailto:migueltillero@gmail.com?subject=' +
+          encodeURIComponent('Nueva inscripción - ' + d.nombre) +
+          '&body=' + encodeURIComponent(mensaje), '_blank');
+        done();
+      });
+    } catch(err) {
+      window.open('mailto:migueltillero@gmail.com?subject=' +
+        encodeURIComponent('Nueva inscripción - ' + d.nombre) +
+        '&body=' + encodeURIComponent(mensaje), '_blank');
+      done();
+    }
+  });
+});
+
+
+/* ── BARRA DE PROGRESO + VOLVER ARRIBA ────── */
+window.addEventListener('scroll', function() {
+  var st = document.documentElement.scrollTop || document.body.scrollTop;
+  var sh = (document.documentElement.scrollHeight || document.body.scrollHeight) - document.documentElement.clientHeight;
+  var pct = sh > 0 ? (st / sh) * 100 : 0;
+  var bar = document.getElementById('scroll-progress');
+  if (bar) bar.style.width = pct + '%';
+  var bt = document.getElementById('back-top');
+  if (bt) bt.classList.toggle('show', st > 600);
+}, { passive: true });
+
+
+/* ── DEJAR TESTIMONIO (con validación previa) ── */
+window.toggleTestiForm = function() {
+  var p = document.getElementById('testi-form-panel');
+  if (p) p.classList.toggle('open');
+};
+window.addEventListener('DOMContentLoaded', function() {
+  var stars = document.querySelectorAll('#tf-stars .st');
+  var rating = 5;
+  stars.forEach(function(s) {
+    s.addEventListener('click', function() {
+      rating = parseInt(this.getAttribute('data-v'));
+      stars.forEach(function(x) {
+        x.classList.toggle('on', parseInt(x.getAttribute('data-v')) <= rating);
+      });
+    });
+  });
+  /* 5 estrellas por defecto */
+  stars.forEach(function(x){ x.classList.add('on'); });
+  window._tfRating = function(){ return rating; };
+});
+
+window.submitTesti = function(e) {
+  e.preventDefault();
+  var name  = document.getElementById('tf-name').value.trim();
+  var email = document.getElementById('tf-email').value.trim();
+  var role  = document.getElementById('tf-role').value.trim();
+  var text  = document.getElementById('tf-text').value.trim();
+  var stars = (window._tfRating ? window._tfRating() : 5);
+  if (!name || !email || !text) { alert('Completa nombre, email y testimonio.'); return false; }
+
+  var btn = document.getElementById('tf-submit');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i>&nbsp; Enviando...';
+
+  var msg = 'NUEVO TESTIMONIO — PENDIENTE DE VALIDACIÓN\n' +
+            '═══════════════════════════════\n\n' +
+            'Nombre: ' + name + '\nEmail: ' + email + '\n' +
+            'Curso/servicio: ' + (role||'-') + '\n' +
+            'Calificación: ' + '★'.repeat(stars) + ' (' + stars + '/5)\n\n' +
+            'TESTIMONIO:\n' + text + '\n\n' +
+            '— Para publicarlo: añadir una testi-card en la sección #testimonios del index.html —';
+
+  function done() {
+    document.getElementById('tf-success').classList.add('show');
+    btn.style.display = 'none';
+  }
+  try {
+    emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
+      subject: '⭐ NUEVO TESTIMONIO — ' + name,
+      from_name: name, from_email: email,
+      tipo: 'Testimonio para validar',
+      message: msg, to_email: 'migueltillero@gmail.com'
+    }).then(done).catch(function() {
+      window.open('mailto:migueltillero@gmail.com?subject=' + encodeURIComponent('Nuevo testimonio - ' + name) + '&body=' + encodeURIComponent(msg), '_blank');
+      done();
+    });
+  } catch(err) {
+    window.open('mailto:migueltillero@gmail.com?subject=' + encodeURIComponent('Nuevo testimonio - ' + name) + '&body=' + encodeURIComponent(msg), '_blank');
+    done();
+  }
+  return false;
+};
+
+
+/* CV dropdown — cerrar al clic exterior */
+document.addEventListener('click', function(e){
+  var w = document.getElementById('cv-drop-wrap');
+  var d = document.getElementById('cv-drop');
+  if (w && d && !w.contains(e.target)) d.classList.remove('open');
+});
+
+
+/* ── Lightbox para imágenes (usa el modal existente #lightbox) ── */
+window.openLBdrive = function(url, alt) {
+  var lb = document.getElementById('lightbox');
+  var img = document.getElementById('lb-img');
+  if (!lb || !img) { window.open(url, '_blank', 'noopener'); return; }
+  img.src = url;
+  img.alt = alt || 'Galería Miguel Tillero';
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+};
+
+/* ═══════════════════════════════════════════════════
+   GALERÍA FILMSTRIP — Carrete horizontal arrastrable
+   Recursos: Google Drive folder
+   1ah9ZC4ZkAGj_PNxzMxRRsH0XnfSuab-Z
+═══════════════════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded', function() {
+  var track = document.getElementById('filmstripTrack');
+  if (!track) return;
+
+  /* IDs curados del folder de Drive — solo fotos donde el director
+     es el protagonista (se retiraron grupales lejanas y duplicados) */
+  var GALLERY_IDS = [
+    '1nHMpKPvpZvhpxyQrDluo9sozD9xtRnA-','14SrCOErHmePOImKYgNWNTKIcTKdVzKZf',
+    '1VhZBSAeZIAGSpqWdoXlInaqfapaJf7RF','1sDsRlHiS0FfOXPCGkHWrB8Ko5RQd_cNu',
+    '1MfcV74qm8D9V7ReD2MNotTyL5EZ0SVnz','1KiKI1T_L0FhIb5CpOmItXqrZBQskS_io',
+    '1RfKAm7Qcb4gFQsQeEMTpJs7C1ftKZQGL','170UXYtWSjfXzRa7ZQO1w_eFhVC_utYd9',
+    '1jejddePJzIIfBucfeU2-EqEp6n0Pd5cw','1ogdOJy4E0BufCI0ypWRTbiaAVlSvMfFF',
+    '150zYARzsWMXg7yrPN760sk0gueAoeRF-','17L2cZJUSaOWQbPDulxCh57HslAHDT51B',
+    '1d_pv2jRccFxYcoogvynkF8Ki6O5d6QhB','1seB92AQhCCnX_Vg_rfp0yP8X77ZU1TF4',
+    '1FHzihJC0NVrxTx3dTtpX7-bmW9F3cvAe','1i8n8tyX-PFx6CoAmrbo7DJTjdOCnTWPE',
+    '1gObW3L9oI5KiuafL6GcutW13SwKfhxJo','1ANuazsbFfDGu983Xvl5Ha1QCmxXn7Yhj',
+    '1WOODU25GiVxUuNJ7YxbfnWjmzlnvKvbq','1BrM3U6Y73ganlMIrYUBzVq7olCxDEaIT',
+    '1MJjRZcpj8vJNmj0btyXvQWrKQpwTBmjM','1WAeC0pcNgqYjjjDj0FhB6TxR0yS3l1Cz'
+  ];
+  var thumb = function(id) { return 'https://drive.google.com/thumbnail?id=' + id + '&sz=w800'; };
+  var full  = function(id) { return 'https://lh3.googleusercontent.com/d/' + id + '=w2400'; };
+
+  /* Construcción del carrete — duplicado para loop infinito */
+  track.innerHTML = '';
+  var build = function(loopIdx) {
+    GALLERY_IDS.forEach(function(id, i) {
+      var item = document.createElement('div');
+      item.className = 'g-item';
+      item.setAttribute('data-full', full(id));
+      item.setAttribute('data-idx', i);
+      item.innerHTML =
+        '<img loading="lazy" src="../' + thumb(id) + '" alt="Miguel Tillero — foto ' + (i+1) + '"' +
+        ' onload="this.classList.add(\'loaded\')"' +
+        ' onerror="this.closest(\'.g-item\').style.display=\'none\'">' +
+        '<div class="g-overlay"><i class="fa fa-expand"></i></div>';
+      item.addEventListener('click', function(e) {
+        if (track.classList.contains('was-dragging')) return;
+        window.openLBdrive(full(id), 'Galería Miguel Tillero — foto ' + (i+1));
+      });
+      track.appendChild(item);
+    });
+  };
+  build(0);
+  build(1); /* duplicado para auto-scroll infinito */
+
+  /* ── TECLADO ──
+     La tira se movía solo con ratón o dedo, así que con el teclado no
+     había forma de ver más allá de las primeras fotos. Además la
+     animación no se detenía al recibir el foco: quien navega tabulando
+     se encontraba el contenido huyendo. Las flechas la recorren y el
+     foco la detiene, igual que ya hacía el ratón al pasar por encima. */
+  track.addEventListener('keydown', function (e) {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    e.preventDefault();
+    track.classList.remove('animating');
+    track.classList.add('paused');
+    /* Se asigna scrollLeft en lugar de usar scrollBy con desplazamiento
+       suave: sobre este contenedor el modo suave no llega a aplicarse
+       —se queda en el punto de partida— y además el salto directo es lo
+       que conviene a quien ha pedido menos movimiento en su sistema. */
+    var paso = (track.querySelector('.g-item') || {}).offsetWidth || 240;
+    var avance = (e.key === 'ArrowRight' ? 1 : -1) * (paso + 16);
+    track.scrollLeft = Math.max(0, Math.min(track.scrollWidth - track.clientWidth,
+                                            track.scrollLeft + avance));
+  });
+  track.addEventListener('focus', function () { track.classList.add('paused'); });
+  track.addEventListener('blur',  function () { track.classList.remove('paused'); });
+
+  /* ── DRAG / SWIPE (mouse + touch) ── */
+  var isDown = false, startX = 0, startScroll = 0, moved = 0;
+  var onDown = function(e) {
+    isDown = true; moved = 0;
+    track.classList.add('grabbing');
+    track.classList.remove('animating');
+    startX = (e.touches ? e.touches[0].pageX : e.pageX);
+    startScroll = track.scrollLeft;
+  };
+  var onMove = function(e) {
+    if (!isDown) return;
+    var x = (e.touches ? e.touches[0].pageX : e.pageX);
+    var dx = x - startX;
+    moved = Math.abs(dx);
+    track.scrollLeft = startScroll - dx;
+    if (moved > 6) track.classList.add('was-dragging');
+  };
+  var onUp = function() {
+    if (!isDown) return;
+    isDown = false;
+    track.classList.remove('grabbing');
+    setTimeout(function(){ track.classList.remove('was-dragging'); }, 50);
+  };
+  track.addEventListener('mousedown', onDown);
+  track.addEventListener('mousemove', onMove);
+  track.addEventListener('mouseup', onUp);
+  track.addEventListener('mouseleave', onUp);
+  track.addEventListener('touchstart', onDown, { passive: true });
+  track.addEventListener('touchmove',  onMove, { passive: true });
+  track.addEventListener('touchend',   onUp);
+
+  /* Rueda del ratón → scroll horizontal */
+  track.addEventListener('wheel', function(e) {
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+      track.scrollLeft += e.deltaY;
+      e.preventDefault();
+    }
+  }, { passive: false });
+
+  /* Auto-scroll continuo (pausa al hover/drag) */
+  var autoScroll = function() {
+    if (isDown) return;
+    track.scrollLeft += 0.4;
+    if (track.scrollLeft >= track.scrollWidth / 2) {
+      track.scrollLeft = 0;
+    }
+  };
+  var autoId = setInterval(autoScroll, 16);
+  track.addEventListener('mouseenter', function(){ clearInterval(autoId); });
+  track.addEventListener('mouseleave', function(){
+    clearInterval(autoId);
+    autoId = setInterval(autoScroll, 16);
+  });
+});
+
+</script>
+<script>document.addEventListener('DOMContentLoaded', function(){ if (window.SitePages && !window.location.hash) window.SitePages.show('contacto', null, false); });</script>
+<script>
+/* Alterna entre la vista movil responsiva y una vista de escritorio
+   forzada, para quien prefiere ver el sitio completo en su telefono. */
+(function () {
+  var META_DESKTOP = 'width=1280';
+  var META_MOBIL = 'width=device-width, initial-scale=1.0';
+  var meta = document.querySelector('meta[name="viewport"]');
+  var btn = document.getElementById('desktop-toggle-btn');
+  function estaEnEscritorio() {
+    try { return localStorage.getItem('mt-vista-escritorio') === '1'; } catch (e) { return false; }
+  }
+  function actualizarBoton() {
+    if (!btn) return;
+    btn.textContent = estaEnEscritorio() ? 'Volver a la vista móvil' : 'Ver versión de escritorio';
+  }
+  if (meta && estaEnEscritorio()) meta.setAttribute('content', META_DESKTOP);
+  actualizarBoton();
+  window.toggleDesktopView = function () {
+    if (!meta) return;
+    if (estaEnEscritorio()) {
+      meta.setAttribute('content', META_MOBIL);
+      try { localStorage.removeItem('mt-vista-escritorio'); } catch (e) {}
+    } else {
+      meta.setAttribute('content', META_DESKTOP);
+      try { localStorage.setItem('mt-vista-escritorio', '1'); } catch (e) {}
+    }
+    location.reload();
+  };
+})();
+
+/* Cierre de la cortinilla. Tapa lo que la página tarde en cargar y se
+   retira en cuanto está lista, con un mínimo para que no dé un pestañeo.
+   Antes se quedaba los 9 s enteros del vídeo aunque no hubiera nada que
+   esperar. */
+(function () {
+  var overlay = document.getElementById('page-transition');
+  if (!overlay || !overlay.getAttribute('data-activo')) return;
+  var MINIMO_MS = 1200;
+  var arranque = Date.now();
+  var cerrado = false;
+  function transcurrido() {
+    return (window.performance && performance.now) ? performance.now() : (Date.now() - arranque);
+  }
+  function cerrar() {
+    if (cerrado) return;
+    cerrado = true;
+    overlay.classList.add('hide');
+    setTimeout(function () { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); window.dispatchEvent(new Event('mt-cortinilla-fin')); }, 550);
+  }
+  function cerrarCuandoListo() {
+    setTimeout(cerrar, Math.max(0, MINIMO_MS - transcurrido()));
+  }
+  var vid = document.getElementById('page-transition-video');
+  if (vid) {
+    vid.addEventListener('ended', cerrar);
+    vid.addEventListener('error', cerrar);
+    /* Solo arranca con el clip entero descargado (pesa unos 280 KB): mejor una
+       cortinilla lisa un instante que un vídeo que se atasca en el primer segundo. */
+    var iniciado = false;
+    var intentar = function () {
+      if (iniciado) return;
+      var entero = false;
+      try { var r = vid.buffered; entero = vid.readyState >= 3 && r.length && r.end(r.length - 1) >= vid.duration - 0.25; } catch (e) { entero = true; }
+      if (!entero) return;
+      iniciado = true;
+      var p = vid.play();
+      if (p && p.catch) p.catch(cerrar);
+    };
+    ['progress', 'loadeddata', 'canplaythrough'].forEach(function (ev) { vid.addEventListener(ev, intentar); });
+    intentar();
+  } else {
+    cerrar();
+  }
+  overlay.addEventListener('click', cerrar);
+  if (document.readyState === 'complete') cerrarCuandoListo();
+  else window.addEventListener('load', cerrarCuandoListo);
+  setTimeout(cerrar, 9500);
+})();
+</script>
+
+<!-- CURSOR PERSONALIZADO -->
+
 <script>
 function mostrarMsg(el, texto, tipo) {
     el.textContent = texto;
@@ -301,10 +1906,10 @@ function mostrarGrupoFijo(g) {
     campoCurso.innerHTML = `
         <label>Te vas a inscribir en</label>
         <div style="padding:0.95rem 1.1rem; border:1px solid var(--border); border-radius:10px; background:rgba(43,69,53,0.05);">
-            <strong style="font-family:'Cormorant Garamond',serif; font-size:1.25rem; color:var(--accent-green);">${g.curso_nombre}</strong>
-            ${g.curso_nivel ? `<span style="margin-left:0.5rem; font-family:'Space Mono',monospace; font-size:0.68rem; color:var(--primary-color);">${g.curso_nivel}</span>` : ''}
-            ${g.fecha_inicio ? `<div style="font-size:0.82rem; color:var(--text-light); margin-top:0.3rem;">Del ${g.fecha_inicio} al ${g.fecha_fin || '—'}</div>` : ''}
-            <div style="font-size:0.82rem; color:var(--text-light); margin-top:0.3rem;">
+            <strong style="font-family:'Cormorant Garamond',serif; font-size:1.3rem; color:var(--accent-green);">${g.curso_nombre}</strong>
+            ${g.curso_nivel ? `<span style="margin-left:0.5rem; font-family:'Syne', sans-serif; font-size:0.87rem; color:var(--primary-color);">${g.curso_nivel}</span>` : ''}
+            ${g.fecha_inicio ? `<div style="font-size:0.98rem; color:var(--text-light); margin-top:0.3rem;">Del ${g.fecha_inicio} al ${g.fecha_fin || '—'}</div>` : ''}
+            <div style="font-size:0.98rem; color:var(--text-light); margin-top:0.3rem;">
                 ${g.cupo_disponible} cupo${g.cupo_disponible === 1 ? '' : 's'} disponible${g.cupo_disponible === 1 ? '' : 's'}${costoTexto(g) ? ' · ' + costoTexto(g) : ''}
             </div>
         </div>
@@ -450,5 +2055,20 @@ document.getElementById('form-inscripcion').addEventListener('submit', async (e)
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 </script>
+<script>
+/* En el flujo de la cuenta, el menú marca «Mi espacio» (y no «Contacto», que es solo la familia de la página). */
+(function () {
+  function ajustar() {
+    document.querySelectorAll('[data-route="contacto"]').forEach(function (a) { a.classList.remove('active'); });
+    document.querySelectorAll('a[href$="mi-espacio.html"]').forEach(function (a) { a.classList.add('active'); });
+  }
+  document.addEventListener('DOMContentLoaded', ajustar);
+  window.addEventListener('pagechange', ajustar);
+})();
+</script>
 </body>
 </html>
+
+
+
+

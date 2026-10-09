@@ -2,18 +2,27 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<script>
+/* La cortinilla pide su vídeo antes que nada (aquí, antes de las hojas de estilo) para que
+   empiece a bajar de inmediato y no después de CSS y scripts. */
+(function () {
+  var c = 0; try { c = parseInt(sessionStorage.getItem('mt-transicion-contador') || '0', 10) || 0; } catch (e) {}
+  if (c >= 3) return;
+  var v = document.createElement('video');
+  v.preload = 'auto'; v.muted = true; v.src = 'transicion-corta.mp4';
+  window.__vidTransicion = v;
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Lo que dicen los estudiantes de Miguel Tillero sobre sus clases de francés, preparación DELF/DALF y asesorías pedagógicas.">
 <title>Testimonios · Miguel Tillero</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 
-<link rel="stylesheet" href="assets/css/sitio.css?v=2">
-<link rel="stylesheet" href="assets/css/fondos.css?v=2">
+<link rel="stylesheet" href="assets/css/sitio.css?v=109">
+<link rel="stylesheet" href="assets/css/fondos.css?v=109">
 <style>
 .hero-langs {
   display: flex; gap: 1.5rem; margin-bottom: 2.5rem;
@@ -48,12 +57,12 @@
   /* Nav compacto: evita que el logo se encime con ES/FR/EN */
   #nav { padding: 1rem; }
   #nav.scrolled { padding: 0.7rem 1rem; }
-  .nav-brand { font-size: 1.02rem; letter-spacing: 0.02em; gap: 0.4rem; }
+  .nav-brand { font-size: 1.1rem; letter-spacing: 0.02em; gap: 0.4rem; }
   .nav-controls { gap: 0.35rem; }
   .ctrl-btn { padding: 0.3rem 0.45rem; letter-spacing: 0.1em; }
   .hamburger { width: 2rem; height: 2rem; }
 }
-.crs-icon { font-size: 1.2rem; color: var(--gold); display: block; margin-bottom: 1rem; }
+.crs-icon { font-size: 1.25rem; color: var(--gold); display: block; margin-bottom: 1rem; }
 #hero .hero-tagline, #hero .hero-langs { text-shadow: 0 1px 12px rgba(233,241,231,0.6); }
 /* Video de transicion entre secciones — una sola vez por pagina y sesion */
 #page-transition { position: fixed; inset: 0; z-index: 999999; background: var(--void); display: flex; align-items: center; justify-content: center; overflow: hidden; transition: opacity 0.5s ease; }
@@ -177,7 +186,7 @@
 #intro-video { object-fit: cover !important; width: 100vw !important; height: 100vh !important; }
 #intro-monogram, #intro-title, #intro-sub, #intro-divider { display: none !important; }
 .intro-brand { justify-content: flex-end !important; padding-bottom: 12vh !important; }
-.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Space Mono', monospace !important; font-size: 0.6rem !important; letter-spacing: 0.25em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
+.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Syne', sans-serif !important; font-size: 0.82rem !important; letter-spacing:0.1em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
 .intro-skip:hover { background: rgba(201,169,110,0.2) !important; border-color: #a5824a !important; color: #a5824a !important; transform: scale(1.05); }
 </style>
 </head>
@@ -194,10 +203,11 @@
   try { contador = parseInt(sessionStorage.getItem('mt-transicion-contador') || '0', 10) || 0; } catch (e) {}
   if (contador >= MAX_REPRODUCCIONES) { overlay.parentNode.removeChild(overlay); return; }
   try { sessionStorage.setItem('mt-transicion-contador', String(contador + 1)); } catch (e) {}
-  var vid = document.createElement('video');
+  var vid = window.__vidTransicion || document.createElement('video');
   vid.id = 'page-transition-video';
-  vid.src = 'transicion.mp4';
-  vid.autoplay = true; vid.muted = true; vid.playsInline = true;
+  vid.preload = 'auto';
+  if (!vid.getAttribute('src')) vid.src = 'transicion-corta.mp4';
+  vid.muted = true; vid.playsInline = true;
   vid.setAttribute('muted', ''); vid.setAttribute('playsinline', '');
   overlay.appendChild(vid);
   overlay.setAttribute('data-activo', '1');
@@ -309,7 +319,8 @@
     <button class="hamburger" onclick="toggleMob()" aria-label="Menú"><i class="fa fa-bars"></i></button>
   </div>
 </nav>
-<section class="banda-foto compacta bajo-nav z10" data-page="contacto" style="--fondo:url('../images/relato/fondo-estudiantes.jpg');--pos:50% 26%;">
+<section class="banda-foto compacta bajo-nav completa z10" data-page="contacto" style="--fondo:url('../images/testimonios-grupo.jpg');">
+  <img class="banda-img" src="assets/images/testimonios-grupo.jpg" alt="" width="1200" height="800" decoding="async">
   <div class="container">
     <p class="eyebrow" data-es="Con mis estudiantes" data-fr="Avec mes étudiants" data-en="With my students">Con mis estudiantes</p>
     <p class="banda-cita" data-es="Detrás de cada testimonio hay alguien que se atrevió a hablar en francés." data-fr="Derrière chaque témoignage, il y a quelqu’un qui a osé parler français." data-en="Behind every testimonial is someone who dared to speak French.">Detrás de cada testimonio hay alguien que se atrevió a hablar en francés.</p>
@@ -318,13 +329,13 @@
 <section id="testimonios" class="z10" data-page="contacto">
   <div class="container">
     <div class="sec-head reveal" style="text-align:center;margin-bottom:3rem;">
-      <p class="eyebrow" style="justify-content:center" data-es="Lo que dicen de mí" data-fr="Ce qu'ils disent" data-en="What they say">Lo que dicen de mí</p>
+      <p class="eyebrow" style="justify-content:center" data-es="Lo que dicen de mí" data-fr="Ce qu'ils disent" data-en="What people say about me">Lo que dicen de mí</p>
       <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Testimonios" data-fr="Témoignages" data-en="Testimonials">Testimonios</em></h2>
     </div>
     <div class="testi-grid">
       <div class="testi-card reveal d1">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-text" data-es="Gracias al acompañamiento de Miguel obtuve mi DELF B2 con excelente puntuación. Su método hace que el francés se sienta natural, nunca memorizado." data-fr="Grâce à l'accompagnement de Miguel, j'ai obtenu mon DELF B2 avec une excellente note. Sa méthode rend le français naturel." data-en="Thanks to Miguel's guidance I earned my DELF B2 with an excellent score. His method makes French feel natural.">Gracias al acompañamiento de Miguel obtuve mi DELF B2 con excelente puntuación. Su método hace que el francés se sienta natural, nunca memorizado.</p>
+        <p class="testi-text" data-es="Gracias al acompañamiento de Miguel obtuve mi DELF B2 con excelente puntuación. Su método hace que el francés se sienta natural, nunca memorizado." data-fr="Grâce à l'accompagnement de Miguel, j'ai obtenu mon DELF B2 avec une excellente note. Sa méthode rend le français naturel." data-en="Thanks to Miguel&#39;s guidance I earned my DELF B2 with an excellent score. His method makes French feel natural, never memorized.">Gracias al acompañamiento de Miguel obtuve mi DELF B2 con excelente puntuación. Su método hace que el francés se sienta natural, nunca memorizado.</p>
         <div class="testi-author">
           <div class="testi-avatar">LG</div>
           <div><div class="testi-name">Luis Emilio G.</div><div class="testi-role" data-es="DELF Junior B2 · 100/100" data-fr="DELF Junior B2 · 100/100" data-en="DELF Junior B2 · 100/100">DELF Junior B2 · 100/100</div></div>
@@ -332,7 +343,7 @@
       </div>
       <div class="testi-card reveal d2">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-text" data-es="Como docente, las asesorías pedagógicas transformaron mi manera de planificar. Miguel domina el MCER como pocos y lo traduce en herramientas prácticas." data-fr="En tant qu'enseignante, ses conseils pédagogiques ont transformé ma façon de planifier. Miguel maîtrise le CECRL comme peu d'experts." data-en="As a teacher, his pedagogical consulting transformed how I plan. Miguel masters the CEFR like few others.">Como docente, las asesorías pedagógicas transformaron mi manera de planificar. Miguel domina el MCER como pocos y lo traduce en herramientas prácticas.</p>
+        <p class="testi-text" data-es="Como docente, las asesorías pedagógicas transformaron mi manera de planificar. Miguel domina el MCER como pocos y lo traduce en herramientas prácticas." data-fr="En tant qu'enseignante, ses conseils pédagogiques ont transformé ma façon de planifier. Miguel maîtrise le CECRL comme peu d'experts." data-en="As a teacher, his pedagogical consulting transformed the way I plan. Miguel masters the CEFR like few others and turns it into practical tools.">Como docente, las asesorías pedagógicas transformaron mi manera de planificar. Miguel domina el MCER como pocos y lo traduce en herramientas prácticas.</p>
         <div class="testi-author">
           <div class="testi-avatar">GR</div>
           <div><div class="testi-name">Gloria R.</div><div class="testi-role" data-es="Docente FLE · Preparación B1" data-fr="Enseignante FLE · Préparation B1" data-en="FLE Teacher · B1 Prep">Docente FLE · Preparación B1</div></div>
@@ -340,7 +351,7 @@
       </div>
       <div class="testi-card reveal d3">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-text" data-es="Llegué sin saber decir bonjour y un año después sostuve mi entrevista migratoria para Quebec completamente en francés. Profesionalismo absoluto." data-fr="Je suis arrivé sans savoir dire bonjour et un an plus tard, j'ai passé mon entretien d'immigration pour le Québec entièrement en français." data-en="I arrived unable to say bonjour, and a year later I held my Quebec immigration interview entirely in French.">Llegué sin saber decir bonjour y un año después sostuve mi entrevista migratoria para Quebec completamente en francés. Profesionalismo absoluto.</p>
+        <p class="testi-text" data-es="Llegué sin saber decir bonjour y un año después sostuve mi entrevista migratoria para Quebec completamente en francés. Profesionalismo absoluto." data-fr="Je suis arrivé sans savoir dire bonjour et un an plus tard, j'ai passé mon entretien d'immigration pour le Québec entièrement en français." data-en="I arrived unable to say bonjour, and a year later I held my Quebec immigration interview entirely in French. Absolute professionalism.">Llegué sin saber decir bonjour y un año después sostuve mi entrevista migratoria para Quebec completamente en francés. Profesionalismo absoluto.</p>
         <div class="testi-author">
           <div class="testi-avatar">CM</div>
           <div><div class="testi-name">Carlos M.</div><div class="testi-role" data-es="Proceso migratorio · Quebec" data-fr="Immigration · Québec" data-en="Immigration · Quebec">Proceso migratorio · Quebec</div></div>
@@ -349,6 +360,13 @@
     </div>
 
     <!-- ── DEJAR TESTIMONIO ── -->
+    <div id="voces" class="voces" hidden>
+      <div class="sec-head" style="text-align:center;margin:3.5rem 0 2rem;">
+        <p class="eyebrow" style="justify-content:center" data-es="Escúchalos" data-fr="Écoutez-les" data-en="Listen to them">Escúchalos</p>
+        <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Voces de mis estudiantes" data-fr="Voix de mes étudiants" data-en="My students' voices">Voces de mis estudiantes</em></h2>
+      </div>
+      <div id="voces-grid" class="voces-grid"></div>
+    </div>
     <div class="testi-cta-wrap reveal">
       <button class="testi-cta-btn" onclick="toggleTestiForm()">
         <i class="fa fa-feather"></i>
@@ -580,15 +598,43 @@ function initVanta() {
     return true;
   }
 }
-/* Intentar inicializar Vanta, reintentando hasta que los CDN carguen */
-(function tryVanta(n) {
-  if (initVanta()) return;
-  if (n > 0) setTimeout(function(){ tryVanta(n-1); }, 250);
-  else {
-    var vb = document.getElementById('vanta-bg');
-    if (vb) vb.style.background = 'var(--bg-grad)';
+/* El fondo 3D (three.js + Vanta, ~700 KB) se pide cuando la página ya cargó, no antes:
+   así no bloquea el texto ni las fotos. */
+/* El fondo 3D no se enciende en equipos modestos, con «ahorro de datos» o si se pidió menos movimiento: queda el degradado. */
+function fondo3DPermitido() {
+  try {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    var c = navigator.connection;
+    if (c && (c.saveData || /(^|-)2g$/.test(c.effectiveType || ''))) return false;
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) return false;
+    if (navigator.deviceMemory && navigator.deviceMemory <= 2) return false;
+  } catch (e) {}
+  return true;
+}
+var vantaArrancado = false;
+function cargarScriptVanta(src, listo) {
+  var s = document.createElement('script');
+  s.src = src; s.onload = listo;
+  document.head.appendChild(s);          /* si falla, queda el degradado del CSS */
+}
+function arrancarVanta() {
+  if (vantaArrancado || !fondo3DPermitido()) return;
+  vantaArrancado = true;
+  cargarScriptVanta('https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js', function () {
+    cargarScriptVanta('https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js', initVanta);
+  });
+}
+/* El fondo 3D (three.js + WebGL) se pone en marcha cuando la cortinilla ya se retiró:
+   si arranca a la vez, el vídeo de la cortinilla se entrecorta. */
+window.addEventListener('load', function () {
+  var cortina = document.getElementById('page-transition');
+  if (cortina && cortina.getAttribute('data-activo')) {
+    window.addEventListener('mt-cortinilla-fin', function () { setTimeout(arrancarVanta, 250); }, { once: true });
+    setTimeout(arrancarVanta, 12000);   /* seguridad: por si la cortinilla nunca avisara */
+  } else {
+    setTimeout(arrancarVanta, 400);
   }
-})(20);
+});
 
 /* ── NAV ─────────────────────────────────── */
 window.addEventListener('scroll', () => {
@@ -1634,7 +1680,7 @@ window.addEventListener('DOMContentLoaded', function() {
     if (cerrado) return;
     cerrado = true;
     overlay.classList.add('hide');
-    setTimeout(function () { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 550);
+    setTimeout(function () { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); window.dispatchEvent(new Event('mt-cortinilla-fin')); }, 550);
   }
   function cerrarCuandoListo() {
     setTimeout(cerrar, Math.max(0, MINIMO_MS - transcurrido()));
@@ -1642,8 +1688,21 @@ window.addEventListener('DOMContentLoaded', function() {
   var vid = document.getElementById('page-transition-video');
   if (vid) {
     vid.addEventListener('ended', cerrar);
-    var p = vid.play();
-    if (p && p.catch) p.catch(cerrar);
+    vid.addEventListener('error', cerrar);
+    /* Solo arranca con el clip entero descargado (pesa unos 280 KB): mejor una
+       cortinilla lisa un instante que un vídeo que se atasca en el primer segundo. */
+    var iniciado = false;
+    var intentar = function () {
+      if (iniciado) return;
+      var entero = false;
+      try { var r = vid.buffered; entero = vid.readyState >= 3 && r.length && r.end(r.length - 1) >= vid.duration - 0.25; } catch (e) { entero = true; }
+      if (!entero) return;
+      iniciado = true;
+      var p = vid.play();
+      if (p && p.catch) p.catch(cerrar);
+    };
+    ['progress', 'loadeddata', 'canplaythrough'].forEach(function (ev) { vid.addEventListener(ev, intentar); });
+    intentar();
   } else {
     cerrar();
   }
@@ -1656,6 +1715,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
 <!-- CURSOR PERSONALIZADO -->
 
+<script src="assets/js/testimonios-media.js?v=1"></script>
 </body>
 </html>
 

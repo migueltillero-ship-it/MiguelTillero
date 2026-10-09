@@ -2,18 +2,27 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<script>
+/* La cortinilla pide su vídeo antes que nada (aquí, antes de las hojas de estilo) para que
+   empiece a bajar de inmediato y no después de CSS y scripts. */
+(function () {
+  var c = 0; try { c = parseInt(sessionStorage.getItem('mt-transicion-contador') || '0', 10) || 0; } catch (e) {}
+  if (c >= 3) return;
+  var v = document.createElement('video');
+  v.preload = 'auto'; v.muted = true; v.src = 'transicion-corta.mp4';
+  window.__vidTransicion = v;
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Escríbele a Miguel Tillero, agenda una cita o una clase de prueba, y resuelve las preguntas frecuentes sobre sus clases de francés.">
 <title>Reglamento institucional · Miguel Tillero</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 
-<link rel="stylesheet" href="assets/css/sitio.css?v=2">
-<link rel="stylesheet" href="assets/css/fondos.css?v=2">
+<link rel="stylesheet" href="assets/css/sitio.css?v=109">
+<link rel="stylesheet" href="assets/css/fondos.css?v=109">
 <style>
 .hero-langs {
   display: flex; gap: 1.5rem; margin-bottom: 2.5rem;
@@ -48,12 +57,12 @@
   /* Nav compacto: evita que el logo se encime con ES/FR/EN */
   #nav { padding: 1rem; }
   #nav.scrolled { padding: 0.7rem 1rem; }
-  .nav-brand { font-size: 1.02rem; letter-spacing: 0.02em; gap: 0.4rem; }
+  .nav-brand { font-size: 1.1rem; letter-spacing: 0.02em; gap: 0.4rem; }
   .nav-controls { gap: 0.35rem; }
   .ctrl-btn { padding: 0.3rem 0.45rem; letter-spacing: 0.1em; }
   .hamburger { width: 2rem; height: 2rem; }
 }
-.crs-icon { font-size: 1.2rem; color: var(--gold); display: block; margin-bottom: 1rem; }
+.crs-icon { font-size: 1.25rem; color: var(--gold); display: block; margin-bottom: 1rem; }
 #hero .hero-tagline, #hero .hero-langs { text-shadow: 0 1px 12px rgba(233,241,231,0.6); }
 /* Video de transicion entre secciones — una sola vez por pagina y sesion */
 #page-transition { position: fixed; inset: 0; z-index: 999999; background: var(--void); display: flex; align-items: center; justify-content: center; overflow: hidden; transition: opacity 0.5s ease; }
@@ -177,7 +186,7 @@
 #intro-video { object-fit: cover !important; width: 100vw !important; height: 100vh !important; }
 #intro-monogram, #intro-title, #intro-sub, #intro-divider { display: none !important; }
 .intro-brand { justify-content: flex-end !important; padding-bottom: 12vh !important; }
-.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Space Mono', monospace !important; font-size: 0.6rem !important; letter-spacing: 0.25em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
+.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Syne', sans-serif !important; font-size: 0.82rem !important; letter-spacing:0.1em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
 .intro-skip:hover { background: rgba(201,169,110,0.2) !important; border-color: #a5824a !important; color: #a5824a !important; transform: scale(1.05); }
 </style>
 </head>
@@ -194,10 +203,11 @@
   try { contador = parseInt(sessionStorage.getItem('mt-transicion-contador') || '0', 10) || 0; } catch (e) {}
   if (contador >= MAX_REPRODUCCIONES) { overlay.parentNode.removeChild(overlay); return; }
   try { sessionStorage.setItem('mt-transicion-contador', String(contador + 1)); } catch (e) {}
-  var vid = document.createElement('video');
+  var vid = window.__vidTransicion || document.createElement('video');
   vid.id = 'page-transition-video';
-  vid.src = 'transicion.mp4';
-  vid.autoplay = true; vid.muted = true; vid.playsInline = true;
+  vid.preload = 'auto';
+  if (!vid.getAttribute('src')) vid.src = 'transicion-corta.mp4';
+  vid.muted = true; vid.playsInline = true;
   vid.setAttribute('muted', ''); vid.setAttribute('playsinline', '');
   overlay.appendChild(vid);
   overlay.setAttribute('data-activo', '1');
@@ -309,7 +319,8 @@
     <button class="hamburger" onclick="toggleMob()" aria-label="Menú"><i class="fa fa-bars"></i></button>
   </div>
 </nav>
-<section class="banda-foto compacta bajo-nav z10" data-page="contacto" style="--fondo:url('../images/videos/bienvenida.jpg');--pos:50% 30%;">
+<section class="banda-foto compacta bajo-nav completa z10" data-page="contacto" style="--fondo:url('../images/videos/bienvenida.jpg');">
+  <img class="banda-img" src="assets/images/videos/bienvenida.jpg" alt="" width="1200" height="800" decoding="async">
   <div class="container">
     <p class="eyebrow" data-es="Reglamento" data-fr="Règlement" data-en="Policies">Reglamento</p>
     <p class="banda-cita" data-es="Reglas claras para aprender con tranquilidad." data-fr="Des règles claires pour apprendre sereinement." data-en="Clear rules to learn with peace of mind.">Reglas claras para aprender con tranquilidad.</p>
@@ -318,41 +329,49 @@
 <section id="reglamento" class="z10" data-page="contacto">
   <div class="container">
     <div class="sec-head reveal" style="text-align:center;">
-      <p class="eyebrow" style="justify-content:center" data-es="Normativas y compromisos" data-fr="Règles et engagements" data-en="Policies & commitments">Normativas y compromisos</p>
+      <p class="eyebrow" style="justify-content:center" data-es="Normativas y compromisos" data-fr="Règles et engagements" data-en="Policies &amp; commitments">Normativas y compromisos</p>
       <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Reglamento institucional" data-fr="Règlement institutionnel" data-en="Institutional policies">Reglamento institucional</em></h2>
+      <p class="rg-sub" data-es="Lo esencial, en cuatro datos y cuatro acuerdos." data-fr="L'essentiel, en quatre chiffres et quatre accords." data-en="The essentials, in four facts and four agreements.">Lo esencial, en cuatro datos y cuatro acuerdos.</p>
     </div>
-    <figure class="foto-lado reveal" style="max-width:860px;margin:0 auto 1.6rem;"><img src="assets/images/galeria/z1-045.jpg" alt="Miguel Tillero en clase, escribiendo Bienvenue en el pizarrón" loading="lazy" style="height:240px;object-position:50% 28%;"><figcaption data-es="Bienvenue: aprender con respeto y buen ambiente" data-fr="Bienvenue : apprendre dans le respect et la bonne humeur" data-en="Bienvenue: learning with respect and good humour">Bienvenue: aprender con respeto y buen ambiente</figcaption></figure>
-    <div class="panel bracket reveal" style="max-width:860px;margin:0 auto;padding:clamp(1.8rem,4vw,3rem);">
-      <h3 style="font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);margin:0 0 0.7rem;display:flex;align-items:center;gap:0.6rem;">
-        <i class="fa fa-credit-card" style="color:var(--gold);"></i>
-        <span data-es="1. Inscripciones y pagos" data-fr="1. Inscriptions et paiements" data-en="1. Enrolment and payments">1. Inscripciones y pagos</span>
-      </h3>
-      <p style="color:var(--muted);line-height:1.8;margin:0 0 2rem;" data-es="El pago de las clases, asesorías o paquetes de horas se realiza en su totalidad antes de iniciar el ciclo de formación, por transferencia bancaria o depósito. El cupo queda confirmado al recibir el comprobante correspondiente." data-fr="Le paiement des cours, des séances de conseil ou des forfaits d'heures se fait intégralement avant le début du cycle de formation, par virement bancaire ou dépôt. La place est confirmée dès réception du justificatif." data-en="Payment for classes, consulting sessions or hour packages is made in full before the training cycle begins, by bank transfer or deposit. Your spot is confirmed once I receive the payment proof.">El pago de las clases, asesorías o paquetes de horas se realiza en su totalidad antes de iniciar el ciclo de formación, por transferencia bancaria o depósito. El cupo queda confirmado al recibir el comprobante correspondiente.</p>
-
-      <h3 style="font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);margin:0 0 0.7rem;display:flex;align-items:center;gap:0.6rem;">
-        <i class="fa fa-clock-rotate-left" style="color:var(--gold);"></i>
-        <span data-es="2. Asistencia y cancelaciones" data-fr="2. Assiduité et annulations" data-en="2. Attendance and cancellations">2. Asistencia y cancelaciones</span>
-      </h3>
-      <p style="color:var(--muted);line-height:1.8;margin:0 0 2rem;" data-es="El respeto por el tiempo &mdash;el tuyo y el mío&mdash; sostiene todo lo demás. Cualquier cancelación o cambio de horario debe avisarse con al menos 24 horas de antelación; de lo contrario, la sesión se considera impartida y se descuenta del paquete contratado. Las ausencias sin aviso no son reembolsables." data-fr="Le respect du temps &mdash;le vôtre et le mien&mdash; soutient tout le reste. Toute annulation ou changement d'horaire doit être signalé au moins 24 heures à l'avance ; sinon, la séance est considérée comme donnée et déduite du forfait. Les absences non signalées ne sont pas remboursables." data-en="Respect for time &mdash;yours and mine&mdash; is what makes everything else work. Any cancellation or rescheduling must be notified at least 24 hours in advance; otherwise the session counts as given and is deducted from your package. Unnotified absences are not refundable.">El respeto por el tiempo &mdash;el tuyo y el mío&mdash; sostiene todo lo demás. Cualquier cancelación o cambio de horario debe avisarse con al menos 24 horas de antelación; de lo contrario, la sesión se considera impartida y se descuenta del paquete contratado. Las ausencias sin aviso no son reembolsables.</p>
-
-      <h3 style="font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);margin:0 0 0.7rem;display:flex;align-items:center;gap:0.6rem;">
-        <i class="fa fa-laptop" style="color:var(--gold);"></i>
-        <span data-es="3. Modalidad de clases (online / presencial)" data-fr="3. Format des cours (en ligne / présentiel)" data-en="3. Class format (online / in person)">3. Modalidad de clases (online / presencial)</span>
-      </h3>
-      <p style="color:var(--muted);line-height:1.8;margin:0 0 2rem;" data-es="Las sesiones en línea requieren una conexión estable, cámara encendida durante toda la clase y micrófono funcional: es lo que sostiene un verdadero intercambio comunicativo. Las sesiones presenciales, en San Cristóbal de Las Casas, piden puntualidad; la tolerancia máxima es de 15 minutos." data-fr="Les séances en ligne demandent une connexion stable, la caméra allumée pendant tout le cours et un micro fonctionnel : c'est ce qui permet un véritable échange. Les séances en présentiel, à San Cristóbal de Las Casas, demandent de la ponctualité ; la tolérance maximale est de 15 minutes." data-en="Online sessions call for a stable connection, your camera on throughout the class and a working microphone &mdash; that's what makes a real exchange possible. In-person sessions, in San Cristóbal de Las Casas, ask for punctuality; the maximum grace period is 15 minutes.">Las sesiones en línea requieren una conexión estable, cámara encendida durante toda la clase y micrófono funcional: es lo que sostiene un verdadero intercambio comunicativo. Las sesiones presenciales, en San Cristóbal de Las Casas, piden puntualidad; la tolerancia máxima es de 15 minutos.</p>
-
-      <h3 style="font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);margin:0 0 0.7rem;display:flex;align-items:center;gap:0.6rem;">
-        <i class="fa fa-book" style="color:var(--gold);"></i>
-        <span data-es="4. Material pedagógico y exámenes oficiales" data-fr="4. Matériel pédagogique et examens officiels" data-en="4. Course materials and official exams">4. Material pedagógico y exámenes oficiales</span>
-      </h3>
-      <p style="color:var(--muted);line-height:1.8;margin:0;" data-es="El material didáctico digital está incluido en cada curso. Si el itinerario requiere un libro físico (Alter Ego, Édito u otro), su adquisición corre por cuenta del estudiante. Para las certificaciones DELF, DALF, TCF o TEF, mi acompañamiento cubre la preparación y el entrenamiento; los derechos de examen y la inscripción oficial se gestionan directamente con el centro acreditado correspondiente." data-fr="Le matériel pédagogique numérique est inclus dans chaque cours. Si le parcours exige un manuel physique (Alter Ego, Édito, etc.), son achat est à la charge de l'étudiant. Pour les certifications DELF, DALF, TCF ou TEF, mon accompagnement couvre la préparation ; les frais d'examen et l'inscription officielle se gèrent directement avec le centre agréé." data-en="Digital course materials are included in every course. If the path calls for a physical textbook (Alter Ego, Édito, or similar), the student is responsible for acquiring it. For DELF, DALF, TCF or TEF certification, my guidance covers preparation and training; exam fees and official registration are handled directly with the accredited centre.">El material didáctico digital está incluido en cada curso. Si el itinerario requiere un libro físico (Alter Ego, Édito u otro), su adquisición corre por cuenta del estudiante. Para las certificaciones DELF, DALF, TCF o TEF, mi acompañamiento cubre la preparación y el entrenamiento; los derechos de examen y la inscripción oficial se gestionan directamente con el centro acreditado correspondiente.</p>
-
-      <div style="text-align:center;margin-top:2.5rem;">
-        <a href="contacto.html" class="btn btn-ghost" style="justify-content:center;">
-          <i class="fa fa-envelope"></i>
-          <span data-es="¿Alguna duda? Escríbeme" data-fr="Une question ? Écrivez-moi" data-en="Any question? Write to me">¿Alguna duda? Escríbeme</span>
-        </a>
-      </div>
+    <div class="rg-datos reveal">
+      <div class="rg-dato"><i class="fa fa-credit-card" aria-hidden="true"></i><b>100 %</b><span data-es="Pago completo antes de iniciar el ciclo" data-fr="Paiement complet avant le début du cycle" data-en="Full payment before the cycle starts">Pago completo antes de iniciar el ciclo</span></div>
+      <div class="rg-dato"><i class="fa fa-clock-rotate-left" aria-hidden="true"></i><b>24 h</b><span data-es="Aviso previo para cancelar o cambiar un horario" data-fr="Préavis pour annuler ou changer un horaire" data-en="Notice to cancel or reschedule">Aviso previo para cancelar o cambiar un horario</span></div>
+      <div class="rg-dato"><i class="fa fa-hourglass-half" aria-hidden="true"></i><b>15 min</b><span data-es="Tolerancia máxima en clases presenciales" data-fr="Tolérance maximale en présentiel" data-en="Maximum grace period for in-person classes">Tolerancia máxima en clases presenciales</span></div>
+      <div class="rg-dato"><i class="fa fa-book-open" aria-hidden="true"></i><b data-es="Incluido" data-fr="Inclus" data-en="Included">Incluido</b><span data-es="Material digital en cada curso" data-fr="Matériel numérique dans chaque cours" data-en="Digital materials in every course">Material digital en cada curso</span></div>
+    </div>
+    <div class="rg-grid">
+      <article class="rg-card reveal d1">
+        <div class="rg-foto" style="background-image:url('assets/images/ilustra-pagos.jpg');background-position:50% 50%;"><span class="rg-num">1</span></div>
+        <div class="rg-cuerpo">
+          <h3 class="rg-titulo"><i class="fa fa-credit-card" aria-hidden="true"></i><span data-es="Inscripciones y pagos" data-fr="Inscriptions et paiements" data-en="Enrollment and payments">Inscripciones y pagos</span></h3>
+          <p class="rg-texto" data-es="El pago de las clases, asesorías o paquetes de horas se realiza en su totalidad antes de iniciar el ciclo de formación, por transferencia bancaria o depósito. El cupo queda confirmado al recibir el comprobante correspondiente." data-fr="Le paiement des cours, des séances de conseil ou des forfaits d'heures se fait intégralement avant le début du cycle de formation, par virement bancaire ou dépôt. La place est confirmée dès réception du justificatif." data-en="Payment for classes, consulting sessions or hour packages is made in full before the training cycle begins, by bank transfer or deposit. Your spot is confirmed once I receive the payment proof.">El pago de las clases, asesorías o paquetes de horas se realiza en su totalidad antes de iniciar el ciclo de formación, por transferencia bancaria o depósito. El cupo queda confirmado al recibir el comprobante correspondiente.</p>
+        </div>
+      </article>
+      <article class="rg-card reveal d2">
+        <div class="rg-foto" style="background-image:url('assets/images/ilustra-inscripcion.jpg');background-position:50% 50%;"><span class="rg-num">2</span></div>
+        <div class="rg-cuerpo">
+          <h3 class="rg-titulo"><i class="fa fa-clock-rotate-left" aria-hidden="true"></i><span data-es="Asistencia y cancelaciones" data-fr="Assiduité et annulations" data-en="Attendance and cancellations">Asistencia y cancelaciones</span></h3>
+          <p class="rg-texto" data-es="El respeto por el tiempo &mdash;el tuyo y el mío&mdash; sostiene todo lo demás. Cualquier cancelación o cambio de horario debe avisarse con al menos 24 horas de antelación; de lo contrario, la sesión se considera impartida y se descuenta del paquete contratado. Las ausencias sin aviso no son reembolsables." data-fr="Le respect du temps &mdash;le vôtre et le mien&mdash; soutient tout le reste. Toute annulation ou changement d'horaire doit être signalé au moins 24 heures à l'avance ; sinon, la séance est considérée comme donnée et déduite du forfait. Les absences non signalées ne sont pas remboursables." data-en="Respect for time —yours and mine— is what makes everything else work. Any cancellation or schedule change must be communicated at least 24 hours in advance; otherwise the session is considered delivered and deducted from the contracted package. Absences without notice are non-refundable.">El respeto por el tiempo &mdash;el tuyo y el mío&mdash; sostiene todo lo demás. Cualquier cancelación o cambio de horario debe avisarse con al menos 24 horas de antelación; de lo contrario, la sesión se considera impartida y se descuenta del paquete contratado. Las ausencias sin aviso no son reembolsables.</p>
+        </div>
+      </article>
+      <article class="rg-card reveal d3">
+        <div class="rg-foto" style="background-image:url('assets/images/galeria/z1-019.jpg');background-position:50% 28%;"><span class="rg-num">3</span></div>
+        <div class="rg-cuerpo">
+          <h3 class="rg-titulo"><i class="fa fa-laptop" aria-hidden="true"></i><span data-es="Modalidad de clases (online / presencial)" data-fr="Format des cours (en ligne / présentiel)" data-en="Class format (online / in person)">Modalidad de clases (online / presencial)</span></h3>
+          <p class="rg-texto" data-es="Las sesiones en línea requieren una conexión estable, cámara encendida durante toda la clase y micrófono funcional: es lo que sostiene un verdadero intercambio comunicativo. Las sesiones presenciales, en San Cristóbal de Las Casas, piden puntualidad; la tolerancia máxima es de 15 minutos." data-fr="Les séances en ligne demandent une connexion stable, la caméra allumée pendant tout le cours et un micro fonctionnel : c'est ce qui permet un véritable échange. Les séances en présentiel, à San Cristóbal de Las Casas, demandent de la ponctualité ; la tolérance maximale est de 15 minutes." data-en="Online sessions call for a stable connection, your camera on throughout the class and a working microphone &mdash; that's what makes a real exchange possible. In-person sessions, in San Cristóbal de Las Casas, ask for punctuality; the maximum grace period is 15 minutes.">Las sesiones en línea requieren una conexión estable, cámara encendida durante toda la clase y micrófono funcional: es lo que sostiene un verdadero intercambio comunicativo. Las sesiones presenciales, en San Cristóbal de Las Casas, piden puntualidad; la tolerancia máxima es de 15 minutos.</p>
+        </div>
+      </article>
+      <article class="rg-card reveal d4">
+        <div class="rg-foto" style="background-image:url('assets/images/relato/ceremonia-delf.jpg');background-position:50% 35%;"><span class="rg-num">4</span></div>
+        <div class="rg-cuerpo">
+          <h3 class="rg-titulo"><i class="fa fa-book" aria-hidden="true"></i><span data-es="Material pedagógico y exámenes oficiales" data-fr="Matériel pédagogique et examens officiels" data-en="Course materials and official exams">Material pedagógico y exámenes oficiales</span></h3>
+          <p class="rg-texto" data-es="El material didáctico digital está incluido en cada curso. Si el itinerario requiere un libro físico (Alter Ego, Édito u otro), su adquisición corre por cuenta del estudiante. Para las certificaciones DELF, DALF, TCF o TEF, mi acompañamiento cubre la preparación y el entrenamiento; los derechos de examen y la inscripción oficial se gestionan directamente con el centro acreditado correspondiente." data-fr="Le matériel pédagogique numérique est inclus dans chaque cours. Si le parcours exige un manuel physique (Alter Ego, Édito, etc.), son achat est à la charge de l'étudiant. Pour les certifications DELF, DALF, TCF ou TEF, mon accompagnement couvre la préparation ; les frais d'examen et l'inscription officielle se gèrent directement avec le centre agréé." data-en="Digital course materials are included in every course. If the path calls for a physical textbook (Alter Ego, Édito, or similar), the student is responsible for acquiring it. For DELF, DALF, TCF or TEF certification, my guidance covers preparation and training; exam fees and official registration are handled directly with the accredited center.">El material didáctico digital está incluido en cada curso. Si el itinerario requiere un libro físico (Alter Ego, Édito u otro), su adquisición corre por cuenta del estudiante. Para las certificaciones DELF, DALF, TCF o TEF, mi acompañamiento cubre la preparación y el entrenamiento; los derechos de examen y la inscripción oficial se gestionan directamente con el centro acreditado correspondiente.</p>
+        </div>
+      </article>
+    </div>
+    <div class="rg-cierre reveal">
+      <a href="contacto.html#faq" class="btn btn-ghost"><i class="fa fa-circle-question"></i><span data-es="Preguntas frecuentes" data-fr="Foire aux questions" data-en="FAQ">Preguntas frecuentes</span></a>
+      <a href="contacto.html" class="btn btn-gold"><i class="fa fa-envelope"></i><span data-es="¿Alguna duda? Escríbeme" data-fr="Une question ? Écrivez-moi" data-en="Any questions? Write to me">¿Alguna duda? Escríbeme</span></a>
     </div>
   </div>
 </section>
@@ -534,15 +553,43 @@ function initVanta() {
     return true;
   }
 }
-/* Intentar inicializar Vanta, reintentando hasta que los CDN carguen */
-(function tryVanta(n) {
-  if (initVanta()) return;
-  if (n > 0) setTimeout(function(){ tryVanta(n-1); }, 250);
-  else {
-    var vb = document.getElementById('vanta-bg');
-    if (vb) vb.style.background = 'var(--bg-grad)';
+/* El fondo 3D (three.js + Vanta, ~700 KB) se pide cuando la página ya cargó, no antes:
+   así no bloquea el texto ni las fotos. */
+/* El fondo 3D no se enciende en equipos modestos, con «ahorro de datos» o si se pidió menos movimiento: queda el degradado. */
+function fondo3DPermitido() {
+  try {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    var c = navigator.connection;
+    if (c && (c.saveData || /(^|-)2g$/.test(c.effectiveType || ''))) return false;
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) return false;
+    if (navigator.deviceMemory && navigator.deviceMemory <= 2) return false;
+  } catch (e) {}
+  return true;
+}
+var vantaArrancado = false;
+function cargarScriptVanta(src, listo) {
+  var s = document.createElement('script');
+  s.src = src; s.onload = listo;
+  document.head.appendChild(s);          /* si falla, queda el degradado del CSS */
+}
+function arrancarVanta() {
+  if (vantaArrancado || !fondo3DPermitido()) return;
+  vantaArrancado = true;
+  cargarScriptVanta('https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js', function () {
+    cargarScriptVanta('https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js', initVanta);
+  });
+}
+/* El fondo 3D (three.js + WebGL) se pone en marcha cuando la cortinilla ya se retiró:
+   si arranca a la vez, el vídeo de la cortinilla se entrecorta. */
+window.addEventListener('load', function () {
+  var cortina = document.getElementById('page-transition');
+  if (cortina && cortina.getAttribute('data-activo')) {
+    window.addEventListener('mt-cortinilla-fin', function () { setTimeout(arrancarVanta, 250); }, { once: true });
+    setTimeout(arrancarVanta, 12000);   /* seguridad: por si la cortinilla nunca avisara */
+  } else {
+    setTimeout(arrancarVanta, 400);
   }
-})(20);
+});
 
 /* ── NAV ─────────────────────────────────── */
 window.addEventListener('scroll', () => {
@@ -1588,7 +1635,7 @@ window.addEventListener('DOMContentLoaded', function() {
     if (cerrado) return;
     cerrado = true;
     overlay.classList.add('hide');
-    setTimeout(function () { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 550);
+    setTimeout(function () { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); window.dispatchEvent(new Event('mt-cortinilla-fin')); }, 550);
   }
   function cerrarCuandoListo() {
     setTimeout(cerrar, Math.max(0, MINIMO_MS - transcurrido()));
@@ -1596,8 +1643,21 @@ window.addEventListener('DOMContentLoaded', function() {
   var vid = document.getElementById('page-transition-video');
   if (vid) {
     vid.addEventListener('ended', cerrar);
-    var p = vid.play();
-    if (p && p.catch) p.catch(cerrar);
+    vid.addEventListener('error', cerrar);
+    /* Solo arranca con el clip entero descargado (pesa unos 280 KB): mejor una
+       cortinilla lisa un instante que un vídeo que se atasca en el primer segundo. */
+    var iniciado = false;
+    var intentar = function () {
+      if (iniciado) return;
+      var entero = false;
+      try { var r = vid.buffered; entero = vid.readyState >= 3 && r.length && r.end(r.length - 1) >= vid.duration - 0.25; } catch (e) { entero = true; }
+      if (!entero) return;
+      iniciado = true;
+      var p = vid.play();
+      if (p && p.catch) p.catch(cerrar);
+    };
+    ['progress', 'loadeddata', 'canplaythrough'].forEach(function (ev) { vid.addEventListener(ev, intentar); });
+    intentar();
   } else {
     cerrar();
   }

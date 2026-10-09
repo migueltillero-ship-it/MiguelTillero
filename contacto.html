@@ -2,18 +2,27 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<script>
+/* La cortinilla pide su vídeo antes que nada (aquí, antes de las hojas de estilo) para que
+   empiece a bajar de inmediato y no después de CSS y scripts. */
+(function () {
+  var c = 0; try { c = parseInt(sessionStorage.getItem('mt-transicion-contador') || '0', 10) || 0; } catch (e) {}
+  if (c >= 3) return;
+  var v = document.createElement('video');
+  v.preload = 'auto'; v.muted = true; v.src = 'transicion-corta.mp4';
+  window.__vidTransicion = v;
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Escríbele a Miguel Tillero, agenda una cita o una clase de prueba, y resuelve las preguntas frecuentes sobre sus clases de francés.">
 <title>Contacto · Miguel Tillero</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 
-<link rel="stylesheet" href="assets/css/sitio.css?v=2">
-<link rel="stylesheet" href="assets/css/fondos.css?v=2">
+<link rel="stylesheet" href="assets/css/sitio.css?v=109">
+<link rel="stylesheet" href="assets/css/fondos.css?v=109">
 <style>
 .hero-langs {
   display: flex; gap: 1.5rem; margin-bottom: 2.5rem;
@@ -48,12 +57,12 @@
   /* Nav compacto: evita que el logo se encime con ES/FR/EN */
   #nav { padding: 1rem; }
   #nav.scrolled { padding: 0.7rem 1rem; }
-  .nav-brand { font-size: 1.02rem; letter-spacing: 0.02em; gap: 0.4rem; }
+  .nav-brand { font-size: 1.1rem; letter-spacing: 0.02em; gap: 0.4rem; }
   .nav-controls { gap: 0.35rem; }
   .ctrl-btn { padding: 0.3rem 0.45rem; letter-spacing: 0.1em; }
   .hamburger { width: 2rem; height: 2rem; }
 }
-.crs-icon { font-size: 1.2rem; color: var(--gold); display: block; margin-bottom: 1rem; }
+.crs-icon { font-size: 1.25rem; color: var(--gold); display: block; margin-bottom: 1rem; }
 #hero .hero-tagline, #hero .hero-langs { text-shadow: 0 1px 12px rgba(233,241,231,0.6); }
 /* Video de transicion entre secciones — una sola vez por pagina y sesion */
 #page-transition { position: fixed; inset: 0; z-index: 999999; background: var(--void); display: flex; align-items: center; justify-content: center; overflow: hidden; transition: opacity 0.5s ease; }
@@ -177,7 +186,7 @@
 #intro-video { object-fit: cover !important; width: 100vw !important; height: 100vh !important; }
 #intro-monogram, #intro-title, #intro-sub, #intro-divider { display: none !important; }
 .intro-brand { justify-content: flex-end !important; padding-bottom: 12vh !important; }
-.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Space Mono', monospace !important; font-size: 0.6rem !important; letter-spacing: 0.25em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
+.intro-skip { position: absolute !important; top: 2.5rem !important; right: 2.5rem !important; z-index: 99999 !important; background: rgba(4,16,8,0.7) !important; border: 1px solid rgba(201,169,110,0.5) !important; color: #eef8f3 !important; font-family: 'Syne', sans-serif !important; font-size: 0.82rem !important; letter-spacing:0.1em !important; text-transform: uppercase !important; padding: 0.6rem 1.4rem !important; cursor: pointer !important; backdrop-filter: blur(10px) !important; border-radius: 30px !important; display: flex !important; align-items: center !important; gap: 0.6rem !important; transition: all 0.3s ease !important; }
 .intro-skip:hover { background: rgba(201,169,110,0.2) !important; border-color: #a5824a !important; color: #a5824a !important; transform: scale(1.05); }
 </style>
 </head>
@@ -194,10 +203,11 @@
   try { contador = parseInt(sessionStorage.getItem('mt-transicion-contador') || '0', 10) || 0; } catch (e) {}
   if (contador >= MAX_REPRODUCCIONES) { overlay.parentNode.removeChild(overlay); return; }
   try { sessionStorage.setItem('mt-transicion-contador', String(contador + 1)); } catch (e) {}
-  var vid = document.createElement('video');
+  var vid = window.__vidTransicion || document.createElement('video');
   vid.id = 'page-transition-video';
-  vid.src = 'transicion.mp4';
-  vid.autoplay = true; vid.muted = true; vid.playsInline = true;
+  vid.preload = 'auto';
+  if (!vid.getAttribute('src')) vid.src = 'transicion-corta.mp4';
+  vid.muted = true; vid.playsInline = true;
   vid.setAttribute('muted', ''); vid.setAttribute('playsinline', '');
   overlay.appendChild(vid);
   overlay.setAttribute('data-activo', '1');
@@ -309,7 +319,8 @@
     <button class="hamburger" onclick="toggleMob()" aria-label="Menú"><i class="fa fa-bars"></i></button>
   </div>
 </nav>
-<section class="banda-foto compacta bajo-nav z10" data-page="contacto" style="--fondo:url('../images/relato/quebec.jpg');--pos:50% 40%;">
+<section class="banda-foto compacta bajo-nav completa z10" data-page="contacto" style="--fondo:url('../images/hero-escritorio.jpg');">
+  <img class="banda-img" src="assets/images/hero-escritorio.jpg" alt="" width="1200" height="800" decoding="async">
   <div class="container">
     <p class="eyebrow" data-es="Un primer paso" data-fr="Un premier pas" data-en="A first step">Un primer paso</p>
     <p class="banda-cita" data-es="El primer paso es una conversación: cuéntame en qué punto estás con el francés." data-fr="Le premier pas, c’est une conversation : dites-moi où vous en êtes avec le français." data-en="The first step is a conversation: tell me where you stand with French.">El primer paso es una conversación: cuéntame en qué punto estás con el francés.</p>
@@ -377,7 +388,7 @@
       </div>
 
       <div class="reveal d2">
-        <figure class="foto-lado" style="margin:0 0 1.2rem;"><img src="assets/images/portrait-miguel-3.jpg" alt="Retrato de Miguel Tillero" loading="lazy" style="height:280px;object-position:50% 18%;"><figcaption data-es="Escríbeme, con gusto te respondo" data-fr="Écris-moi, je te réponds avec plaisir" data-en="Write to me, I will gladly reply">Escríbeme, con gusto te respondo</figcaption></figure>
+        <figure class="foto-lado" style="margin:0 0 1.2rem;"><img src="assets/images/portrait-miguel-3.jpg" alt="Retrato de Miguel Tillero" loading="lazy" style="height:280px;object-position:50% 18%;"><figcaption data-es="Escríbeme, con gusto te respondo" data-fr="Écris-moi, je te réponds avec plaisir" data-en="Write to me — I&#39;ll gladly reply">Escríbeme, con gusto te respondo</figcaption></figure>
         <div class="c-cards">
           <div class="c-card">
             <div class="c-icon"><i class="fa fa-envelope"></i></div>
@@ -394,7 +405,7 @@
         <div class="cta-btns">
           <button onclick="openModal('modal-cita')" class="btn btn-ghost" style="flex:1;justify-content:center;">
             <i class="fa fa-calendar-alt"></i>
-            <span data-es="Agendar cita" data-fr="Rendez-vous" data-en="Book meeting">Agendar cita</span>
+            <span data-es="Agendar cita" data-fr="Rendez-vous" data-en="Book a meeting">Agendar cita</span>
           </button>
           <button onclick="openModal('modal-clase')" class="btn btn-cyan" style="flex:1;justify-content:center;">
             <i class="fa fa-graduation-cap"></i>
@@ -411,37 +422,37 @@
 <section id="faq" class="z10" data-page="contacto">
   <div class="container">
     <div class="sec-head reveal" style="text-align:center;margin-bottom:3rem;">
-      <p class="eyebrow" style="justify-content:center" data-es="Resuelve tus dudas" data-fr="Questions fréquentes" data-en="Common questions">Resuelve tus dudas</p>
+      <p class="eyebrow" style="justify-content:center" data-es="Resuelve tus dudas" data-fr="Questions fréquentes" data-en="Your questions answered">Resuelve tus dudas</p>
       <h2 class="sec-title" style="margin-top:0.8rem;text-align:center;"><em data-es="Preguntas frecuentes" data-fr="Foire aux questions" data-en="FAQ">Preguntas frecuentes</em></h2>
     </div>
     <div class="faq-list reveal">
       <details class="faq-item">
-        <summary class="faq-q" data-es="¿Necesito saber algo de francés para empezar?" data-fr="Dois-je connaître le français pour commencer ?" data-en="Do I need any French to start?">¿Necesito saber algo de francés para empezar?</summary>
+        <summary class="faq-q" data-es="¿Necesito saber algo de francés para empezar?" data-fr="Dois-je connaître le français pour commencer ?" data-en="Do I need to know any French to start?">¿Necesito saber algo de francés para empezar?</summary>
         <div class="faq-a" data-es="No. Diseño itinerarios desde el nivel cero absoluto (A0) hasta la maestría (C2). En la primera sesión evalúo tu punto de partida y construyo un plan a tu medida según el Marco Común Europeo de Referencia." data-fr="Non. Je conçois des parcours du niveau zéro absolu (A0) jusqu'à la maîtrise (C2). Lors de la première séance, j'évalue votre niveau et construis un plan sur mesure selon le CECRL." data-en="No. I design learning paths from absolute zero (A0) to mastery (C2). In the first session I assess your starting point and build a tailored plan based on the CEFR.">No. Diseño itinerarios desde el nivel cero absoluto (A0) hasta la maestría (C2). En la primera sesión evalúo tu punto de partida y construyo un plan a tu medida según el Marco Común Europeo de Referencia.</div>
       </details>
       <details class="faq-item">
         <summary class="faq-q" data-es="¿Las clases son presenciales o en línea?" data-fr="Les cours sont-ils en présentiel ou en ligne ?" data-en="Are classes in person or online?">¿Las clases son presenciales o en línea?</summary>
-        <div class="faq-a" data-es="Ambas modalidades. Presenciales en San Cristóbal de Las Casas, Chiapas, y en línea para cualquier parte del mundo, con la misma metodología comunicativa y materiales auténticos." data-fr="Les deux. En présentiel à San Cristóbal de Las Casas, Chiapas, et en ligne partout dans le monde, avec la même méthodologie communicative." data-en="Both. In person in San Cristóbal de Las Casas, Chiapas, and online worldwide, with the same communicative methodology.">Ambas modalidades. Presenciales en San Cristóbal de Las Casas, Chiapas, y en línea para cualquier parte del mundo, con la misma metodología comunicativa y materiales auténticos.</div>
+        <div class="faq-a" data-es="Ambas modalidades. Presenciales en San Cristóbal de Las Casas, Chiapas, y en línea para cualquier parte del mundo, con la misma metodología comunicativa y materiales auténticos." data-fr="Les deux. En présentiel à San Cristóbal de Las Casas, Chiapas, et en ligne partout dans le monde, avec la même méthodologie communicative." data-en="Both. In person in San Cristóbal de Las Casas, Chiapas, and online for anywhere in the world, with the same communicative methodology and authentic materials.">Ambas modalidades. Presenciales en San Cristóbal de Las Casas, Chiapas, y en línea para cualquier parte del mundo, con la misma metodología comunicativa y materiales auténticos.</div>
       </details>
       <details class="faq-item">
         <summary class="faq-q" data-es="¿Cuánto tiempo toma alcanzar un nivel B2?" data-fr="Combien de temps pour atteindre le niveau B2 ?" data-en="How long does it take to reach B2?">¿Cuánto tiempo toma alcanzar un nivel B2?</summary>
-        <div class="faq-a" data-es="Depende de tu dedicación y frecuencia. Con 2-3 sesiones semanales más trabajo personal, un estudiante constante suele alcanzar el B2 en 18-24 meses partiendo de cero. Con inmersión intensiva, el camino se acorta considerablemente." data-fr="Cela dépend de votre rythme. Avec 2-3 séances hebdomadaires plus travail personnel, un étudiant régulier atteint le B2 en 18-24 mois en partant de zéro." data-en="It depends on your pace. With 2-3 weekly sessions plus personal work, a consistent student typically reaches B2 in 18-24 months from scratch.">Depende de tu dedicación y frecuencia. Con 2-3 sesiones semanales más trabajo personal, un estudiante constante suele alcanzar el B2 en 18-24 meses partiendo de cero. Con inmersión intensiva, el camino se acorta considerablemente.</div>
+        <div class="faq-a" data-es="Depende de tu dedicación y frecuencia. Con 2-3 sesiones semanales más trabajo personal, un estudiante constante suele alcanzar el B2 en 18-24 meses partiendo de cero. Con inmersión intensiva, el camino se acorta considerablemente." data-fr="Cela dépend de votre rythme. Avec 2-3 séances hebdomadaires plus travail personnel, un étudiant régulier atteint le B2 en 18-24 mois en partant de zéro." data-en="It depends on your dedication and frequency. With 2–3 weekly sessions plus personal work, a consistent student usually reaches B2 in 18–24 months starting from zero. With intensive immersion, the path is considerably shorter.">Depende de tu dedicación y frecuencia. Con 2-3 sesiones semanales más trabajo personal, un estudiante constante suele alcanzar el B2 en 18-24 meses partiendo de cero. Con inmersión intensiva, el camino se acorta considerablemente.</div>
       </details>
       <details class="faq-item">
         <summary class="faq-q" data-es="¿Preparas para los exámenes oficiales DELF/DALF?" data-fr="Préparez-vous aux examens DELF/DALF ?" data-en="Do you prepare for DELF/DALF exams?">¿Preparas para los exámenes oficiales DELF/DALF?</summary>
-        <div class="faq-a" data-es="Sí, es una de mis especialidades. He formado candidatos que obtuvieron puntuaciones perfectas (100/100). Trabajo las cuatro competencias con simulacros reales, estrategias de examen y retroalimentación detallada." data-fr="Oui, c'est l'une de mes spécialités. J'ai formé des candidats ayant obtenu des notes parfaites (100/100). Je travaille les quatre compétences avec des examens blancs." data-en="Yes, it's one of my specialties. I've trained candidates who achieved perfect scores (100/100), working all four skills with real mock exams.">Sí, es una de mis especialidades. He formado candidatos que obtuvieron puntuaciones perfectas (100/100). Trabajo las cuatro competencias con simulacros reales, estrategias de examen y retroalimentación detallada.</div>
+        <div class="faq-a" data-es="Sí, es una de mis especialidades. He formado candidatos que obtuvieron puntuaciones perfectas (100/100). Trabajo las cuatro competencias con simulacros reales, estrategias de examen y retroalimentación detallada." data-fr="Oui, c'est l'une de mes spécialités. J'ai formé des candidats ayant obtenu des notes parfaites (100/100). Je travaille les quatre compétences avec des examens blancs." data-en="Yes, it&#39;s one of my specialties. I&#39;ve trained candidates who achieved perfect scores (100/100). I work on all four skills with realistic mock exams, test-taking strategies and detailed feedback.">Sí, es una de mis especialidades. He formado candidatos que obtuvieron puntuaciones perfectas (100/100). Trabajo las cuatro competencias con simulacros reales, estrategias de examen y retroalimentación detallada.</div>
       </details>
       <details class="faq-item">
         <summary class="faq-q" data-es="¿Ayudas con procesos de migración a Quebec / Francia?" data-fr="Aidez-vous pour l'immigration au Québec / en France ?" data-en="Do you help with Quebec / France immigration?">¿Ayudas con procesos de migración a Quebec / Francia?</summary>
-        <div class="faq-a" data-es="Sí. He asesorado candidatos en procesos migratorios hacia Quebec: preparación lingüística para el TEF/TCF, simulacros de entrevista y acompañamiento cultural para la integración francófona." data-fr="Oui. J'ai accompagné des candidats à l'immigration vers le Québec : préparation au TEF/TCF, simulations d'entretien et accompagnement culturel." data-en="Yes. I've advised candidates on Quebec immigration: TEF/TCF language prep, interview simulations and cultural guidance.">Sí. He asesorado candidatos en procesos migratorios hacia Quebec: preparación lingüística para el TEF/TCF, simulacros de entrevista y acompañamiento cultural para la integración francófona.</div>
+        <div class="faq-a" data-es="Sí. He asesorado candidatos en procesos migratorios hacia Quebec: preparación lingüística para el TEF/TCF, simulacros de entrevista y acompañamiento cultural para la integración francófona." data-fr="Oui. J'ai accompagné des candidats à l'immigration vers le Québec : préparation au TEF/TCF, simulations d'entretien et accompagnement culturel." data-en="Yes. I&#39;ve advised candidates on immigration to Quebec: language preparation for the TEF/TCF, interview simulations and cultural support for integrating into francophone society.">Sí. He asesorado candidatos en procesos migratorios hacia Quebec: preparación lingüística para el TEF/TCF, simulacros de entrevista y acompañamiento cultural para la integración francófona.</div>
       </details>
       <details class="faq-item">
         <summary class="faq-q" data-es="¿Qué diferencia hay entre el DELF, el TCF y el TEF?" data-fr="Quelle différence entre le DELF, le TCF et le TEF ?" data-en="What's the difference between DELF, TCF and TEF?">¿Qué diferencia hay entre el DELF, el TCF y el TEF?</summary>
         <div class="faq-a" data-es="El DELF (y su continuación, el DALF) es un <strong>diploma</strong>: se aprueba o no, corresponde a un solo nivel y no caduca jamás. El TCF y el TEF son <strong>tests de nivel</strong>: no se aprueban ni se reprueban, sitúan tu francés en algún punto entre el A1 y el C2 y caducan a los dos años. Regla práctica: para estudios y para acreditar tu nivel de por vida, DELF o DALF; para trámites migratorios hacia Canadá, Quebec o Francia, TCF o TEF en la versión que exija tu expediente." data-fr="Le DELF (et sa suite, le DALF) est un <strong>diplôme</strong> : on l'obtient ou non, il correspond à un seul niveau et n'expire jamais. Le TCF et le TEF sont des <strong>tests de niveau</strong> : ils situent votre français entre A1 et C2 et sont valables deux ans. En pratique : pour les études et une attestation à vie, DELF ou DALF ; pour l'immigration vers le Canada, le Québec ou la France, TCF ou TEF dans la version exigée." data-en="DELF (and its continuation, DALF) is a <strong>diploma</strong>: you pass or you don't, it maps to a single level and never expires. TCF and TEF are <strong>level tests</strong>: there's no pass or fail, they place your French somewhere between A1 and C2 and expire after two years. Rule of thumb: for studies and lifelong proof, DELF or DALF; for immigration to Canada, Quebec or France, TCF or TEF in whichever version your file requires.">El DELF (y su continuación, el DALF) es un <strong>diploma</strong>: se aprueba o no, corresponde a un solo nivel y no caduca jamás. El TCF y el TEF son <strong>tests de nivel</strong>: no se aprueban ni se reprueban, sitúan tu francés en algún punto entre el A1 y el C2 y caducan a los dos años. Regla práctica: para estudios y para acreditar tu nivel de por vida, DELF o DALF; para trámites migratorios hacia Canadá, Quebec o Francia, TCF o TEF en la versión que exija tu expediente.</div>
       </details>
       <details class="faq-item">
-        <summary class="faq-q" data-es="¿Dónde puedo presentar el examen oficial?" data-fr="Où puis-je passer l'examen officiel ?" data-en="Where can I sit the official exam?">¿Dónde puedo presentar el examen oficial?</summary>
-        <div class="faq-a" data-es="Los exámenes se aplican únicamente en centros acreditados, con un calendario de sesiones fijado con meses de antelación y plazos de inscripción que cierran mucho antes de la fecha. Yo te preparo y te acompaño en la logística: identificamos el centro autorizado más cercano a ti, revisamos el calendario y los requisitos, y planificamos la preparación hacia atrás desde el día del examen para que llegues listo." data-fr="Les examens se déroulent uniquement dans des centres agréés, avec un calendrier fixé des mois à l'avance et des inscriptions qui ferment bien avant la date. Je vous prépare et je vous accompagne dans la logistique : identification du centre agréé le plus proche, vérification du calendrier et des conditions, et planification de la préparation à rebours depuis le jour J." data-en="Exams are only administered at accredited centres, on a session calendar set months in advance with registration deadlines that close well before the date. I prepare you and help with the logistics: finding the nearest authorised centre, checking the calendar and requirements, and planning your preparation backwards from exam day.">Los exámenes se aplican únicamente en centros acreditados, con un calendario de sesiones fijado con meses de antelación y plazos de inscripción que cierran mucho antes de la fecha. Yo te preparo y te acompaño en la logística: identificamos el centro autorizado más cercano a ti, revisamos el calendario y los requisitos, y planificamos la preparación hacia atrás desde el día del examen para que llegues listo.</div>
+        <summary class="faq-q" data-es="¿Dónde puedo presentar el examen oficial?" data-fr="Où puis-je passer l'examen officiel ?" data-en="Where can I take the official exam?">¿Dónde puedo presentar el examen oficial?</summary>
+        <div class="faq-a" data-es="Los exámenes se aplican únicamente en centros acreditados, con un calendario de sesiones fijado con meses de antelación y plazos de inscripción que cierran mucho antes de la fecha. Yo te preparo y te acompaño en la logística: identificamos el centro autorizado más cercano a ti, revisamos el calendario y los requisitos, y planificamos la preparación hacia atrás desde el día del examen para que llegues listo." data-fr="Les examens se déroulent uniquement dans des centres agréés, avec un calendrier fixé des mois à l'avance et des inscriptions qui ferment bien avant la date. Je vous prépare et je vous accompagne dans la logistique : identification du centre agréé le plus proche, vérification du calendrier et des conditions, et planification de la préparation à rebours depuis le jour J." data-en="Exams are only administered at accredited centers, on a session calendar set months in advance with registration deadlines that close well before the date. I prepare you and help with the logistics: finding the nearest authorized center, checking the calendar and requirements, and planning your preparation backwards from exam day.">Los exámenes se aplican únicamente en centros acreditados, con un calendario de sesiones fijado con meses de antelación y plazos de inscripción que cierran mucho antes de la fecha. Yo te preparo y te acompaño en la logística: identificamos el centro autorizado más cercano a ti, revisamos el calendario y los requisitos, y planificamos la preparación hacia atrás desde el día del examen para que llegues listo.</div>
       </details>
       <details class="faq-item">
         <summary class="faq-q" data-es="¿Qué es el MCER y por qué importa mi nivel?" data-fr="Qu'est-ce que le CECRL et pourquoi mon niveau compte-t-il ?" data-en="What is the CEFR and why does my level matter?">¿Qué es el MCER y por qué importa mi nivel?</summary>
@@ -449,7 +460,7 @@
       </details>
       <details class="faq-item">
         <summary class="faq-q" data-es="¿Cómo se paga y cuáles son los métodos disponibles?" data-fr="Comment payer et quels sont les moyens disponibles ?" data-en="How do I pay and what methods are available?">¿Cómo se paga y cuáles son los métodos disponibles?</summary>
-        <div class="faq-a" data-es="Transferencia bancaria (Nu, albo), depósito en OXXO o efectivo. Encuentras todos los datos en la sección Métodos de pago de esta misma página. Los paquetes de horas se abonan al inicio de cada ciclo." data-fr="Virement bancaire (Nu, albo), dépôt OXXO ou espèces. Tous les détails figurent dans la section Moyens de paiement de cette page." data-en="Bank transfer (Nu, albo), OXXO deposit or cash. All details are in the Payment methods section of this page.">Transferencia bancaria (Nu, albo), depósito en OXXO o efectivo. Encuentras todos los datos en la sección Métodos de pago de esta misma página. Los paquetes de horas se abonan al inicio de cada ciclo.</div>
+        <div class="faq-a" data-es="Transferencia bancaria (Nu, albo), depósito en OXXO o efectivo. Encuentras todos los datos en la sección Métodos de pago de esta misma página. Los paquetes de horas se abonan al inicio de cada ciclo." data-fr="Virement bancaire (Nu, albo), dépôt OXXO ou espèces. Tous les détails figurent dans la section Moyens de paiement de cette page." data-en="Bank transfer (Nu, albo), OXXO deposit or cash. You&#39;ll find all the details in the Payment methods section of this same page. Hour packages are paid at the start of each cycle.">Transferencia bancaria (Nu, albo), depósito en OXXO o efectivo. Encuentras todos los datos en la sección Métodos de pago de esta misma página. Los paquetes de horas se abonan al inicio de cada ciclo.</div>
       </details>
     </div>
   </div>
@@ -632,15 +643,43 @@ function initVanta() {
     return true;
   }
 }
-/* Intentar inicializar Vanta, reintentando hasta que los CDN carguen */
-(function tryVanta(n) {
-  if (initVanta()) return;
-  if (n > 0) setTimeout(function(){ tryVanta(n-1); }, 250);
-  else {
-    var vb = document.getElementById('vanta-bg');
-    if (vb) vb.style.background = 'var(--bg-grad)';
+/* El fondo 3D (three.js + Vanta, ~700 KB) se pide cuando la página ya cargó, no antes:
+   así no bloquea el texto ni las fotos. */
+/* El fondo 3D no se enciende en equipos modestos, con «ahorro de datos» o si se pidió menos movimiento: queda el degradado. */
+function fondo3DPermitido() {
+  try {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    var c = navigator.connection;
+    if (c && (c.saveData || /(^|-)2g$/.test(c.effectiveType || ''))) return false;
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) return false;
+    if (navigator.deviceMemory && navigator.deviceMemory <= 2) return false;
+  } catch (e) {}
+  return true;
+}
+var vantaArrancado = false;
+function cargarScriptVanta(src, listo) {
+  var s = document.createElement('script');
+  s.src = src; s.onload = listo;
+  document.head.appendChild(s);          /* si falla, queda el degradado del CSS */
+}
+function arrancarVanta() {
+  if (vantaArrancado || !fondo3DPermitido()) return;
+  vantaArrancado = true;
+  cargarScriptVanta('https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js', function () {
+    cargarScriptVanta('https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js', initVanta);
+  });
+}
+/* El fondo 3D (three.js + WebGL) se pone en marcha cuando la cortinilla ya se retiró:
+   si arranca a la vez, el vídeo de la cortinilla se entrecorta. */
+window.addEventListener('load', function () {
+  var cortina = document.getElementById('page-transition');
+  if (cortina && cortina.getAttribute('data-activo')) {
+    window.addEventListener('mt-cortinilla-fin', function () { setTimeout(arrancarVanta, 250); }, { once: true });
+    setTimeout(arrancarVanta, 12000);   /* seguridad: por si la cortinilla nunca avisara */
+  } else {
+    setTimeout(arrancarVanta, 400);
   }
-})(20);
+});
 
 /* ── NAV ─────────────────────────────────── */
 window.addEventListener('scroll', () => {
@@ -1686,7 +1725,7 @@ window.addEventListener('DOMContentLoaded', function() {
     if (cerrado) return;
     cerrado = true;
     overlay.classList.add('hide');
-    setTimeout(function () { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 550);
+    setTimeout(function () { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); window.dispatchEvent(new Event('mt-cortinilla-fin')); }, 550);
   }
   function cerrarCuandoListo() {
     setTimeout(cerrar, Math.max(0, MINIMO_MS - transcurrido()));
@@ -1694,8 +1733,21 @@ window.addEventListener('DOMContentLoaded', function() {
   var vid = document.getElementById('page-transition-video');
   if (vid) {
     vid.addEventListener('ended', cerrar);
-    var p = vid.play();
-    if (p && p.catch) p.catch(cerrar);
+    vid.addEventListener('error', cerrar);
+    /* Solo arranca con el clip entero descargado (pesa unos 280 KB): mejor una
+       cortinilla lisa un instante que un vídeo que se atasca en el primer segundo. */
+    var iniciado = false;
+    var intentar = function () {
+      if (iniciado) return;
+      var entero = false;
+      try { var r = vid.buffered; entero = vid.readyState >= 3 && r.length && r.end(r.length - 1) >= vid.duration - 0.25; } catch (e) { entero = true; }
+      if (!entero) return;
+      iniciado = true;
+      var p = vid.play();
+      if (p && p.catch) p.catch(cerrar);
+    };
+    ['progress', 'loadeddata', 'canplaythrough'].forEach(function (ev) { vid.addEventListener(ev, intentar); });
+    intentar();
   } else {
     cerrar();
   }
@@ -1708,6 +1760,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
 <!-- CURSOR PERSONALIZADO -->
 
+<script src="assets/js/faq.js?v=1"></script>
 </body>
 </html>
 
