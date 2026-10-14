@@ -179,7 +179,7 @@ pre code { background: none; padding: 0; }
        y las decisiones técnicas con su porqué.</p>
     <p class="pie-portada">
         Miguel David Tillero Álvarez<br>
-        Octubre de 2026 · Versión 1.1<br>
+        Octubre de 2026 · Versión 2.0 · actualizado al 14 de octubre<br>
         Documento complementario · no indispensable para valorar el proyecto
     </p>
 </header>
@@ -200,9 +200,11 @@ pre code { background: none; padding: 0; }
     <thead><tr><th style="width:26%">Pieza</th><th style="width:22%">Qué es</th><th>Qué resuelve</th></tr></thead>
     <tbody>
     <tr><td><strong>GitHub Pages</strong></td><td>Alojamiento de sitio estático</td>
-        <td>Sirve las 47 páginas. Sin servidor que mantener, sin costo, con publicación automática en cada cambio y con todo el historial versionado.</td></tr>
+        <td>Sirve las 49 páginas. Sin servidor que mantener, sin costo, con publicación automática en cada cambio y con todo el historial versionado.</td></tr>
     <tr><td><strong>Supabase</strong></td><td>Base de datos PostgreSQL con autenticación y reglas de acceso</td>
-        <td>Guarda los datos, gestiona las cuentas y decide quién puede leer qué. El navegador habla directamente con ella.</td></tr>
+        <td>Guarda los datos, gestiona las cuentas y decide quién puede leer qué. El navegador habla directamente con ella. Su almacenamiento privado guarda además el libro del curso.</td></tr>
+    <tr><td><strong>pdf.js y pdf-lib</strong></td><td>Bibliotecas que corren en el navegador</td>
+        <td>La primera muestra el libro página por página en el visor; la segunda lo divide en partes en la computadora del docente antes de subirlo.</td></tr>
     </tbody>
 </table>
 
@@ -234,7 +236,7 @@ queda expuesto.</p>
 <!-- ═══════════════════════════════════════════════════════ -->
 <h2>2 · Modelo de datos</h2>
 
-<p>30 tablas. Agrupadas por función:</p>
+<p>30 tablas, todas con seguridad por filas activada. Agrupadas por función:</p>
 
 <h4>Personas y acceso</h4>
 <table>
@@ -284,6 +286,7 @@ queda expuesto.</p>
 <table>
     <tbody>
     <tr><td style="width:26%"><code>materiales</code></td><td>Repositorio por grupo, con categoría y unidad.</td></tr>
+    <tr><td><code>libros</code></td><td>Ficha del libro de cada grupo: título, número de páginas, las partes en que se dividió, índice por unidades y si está publicado. El archivo vive en el almacenamiento privado.</td></tr>
     <tr><td><code>eventos</code></td><td>Eventos del sitio público.</td></tr>
     <tr><td><code>tipos_constancia</code>, <code>solicitudes_constancia</code></td><td>Preparadas; la emisión aún no está construida.</td></tr>
     <tr><td><code>vea_carnet</code>, <code>vea_estudiantes</code></td><td>Club «Vendredi entre Amis».</td></tr>
@@ -333,15 +336,6 @@ grupos, que entonces incluía el enlace de la clase con su contraseña.</li>
 <em>activa</em>. Se comprobó cada caso: visitante anónimo, registrado sin inscripción,
 inscrito pendiente, inscrito activo y docente.</p>
 
-<h3>Un tercer episodio: lo que estaba escrito en el repositorio</h3>
-<p>El 9 de octubre se corrigió un fallo de la misma familia, pero de origen distinto:
-<strong>los enlaces de la clase estaban escritos dentro de un archivo del
-repositorio</strong>, que es público. Ninguna regla de acceso protege lo que está
-publicado como código. Pasaron a la base de datos, donde la regla de lectura exige
-inscripción activa.</p>
-<p>La lección, que vale para cualquier proyecto alojado así: <em>la seguridad por filas
-no alcanza a lo que uno mismo publica en el código</em>. Hay que mirar las dos cosas.</p>
-
 <h3>La decisión de diseño más importante del proyecto</h3>
 <p>Para el acceso de las familias había dos caminos. El primero: escribir políticas de
 lectura en las seis tablas implicadas —asistencia, notas, pagos, sesiones, cursos,
@@ -369,6 +363,21 @@ enviar— con el identificador de su intento. La clave de respuestas vive en una
 únicamente administración puede leer, el reloj lo lleva el servidor, y cada guardado deja
 registro de su origen.</p>
 
+<h3>Cómo se protege el libro del curso</h3>
+<p>El libro no se sube nunca al repositorio, que es público. Va a un almacenamiento
+<strong>privado</strong> de la base de datos, con dos reglas: solo pueden subirlo el
+docente del grupo y la administración, y solo pueden leerlo ellos y quien tenga
+inscripción <strong>activa</strong> en ese grupo, siempre que el libro esté publicado. El
+visor recibe enlaces firmados que caducan, y cada página lleva una marca de agua con el
+nombre del lector.</p>
+
+<h3>Los enlaces de la clase, fuera del código</h3>
+<p>El 9 de octubre se dio un paso más con los enlaces de Zoom: ya no se escriben en
+ningún archivo del repositorio. Se guardan solo en la base de datos, se cambian con una
+plantilla que se ejecuta en el editor, y un control automático rechaza cualquier cambio
+que intente subir un enlace de reunión. El representante ve el botón «Entrar a la
+clase» únicamente si la inscripción de su hijo está activa.</p>
+
 <!-- ═══════════════════════════════════════════════════════ -->
 <h2 class="salto">4 · Orden de ejecución de los guiones</h2>
 
@@ -392,8 +401,9 @@ Cada uno declara en su cabecera después de cuál debe ejecutarse. Todos son
     <tr><td class="fecha">14</td><td><code>boletines.sql</code></td><td>Boletines con enlace privado para las familias.</td></tr>
     <tr><td class="fecha">15</td><td><code>representantes-acceso.sql</code></td><td>Cuenta propia del representante y función del panel.</td></tr>
     <tr><td class="fecha">16</td><td><code>representante-correo.sql</code></td><td>Corrección del correo del representante y enlace manual.</td></tr>
-    <tr><td class="fecha">17</td><td><code>libro-virtual.sql</code></td><td>Almacén privado del método, subida por partes y lectura solo para inscripción activa.</td></tr>
-    <tr><td class="fecha">18</td><td><code>ciclo-b2-oct2026.sql</code></td><td>El ciclo B2: curso, grupo, horarios y diez sesiones planificadas.</td></tr>
+    <tr><td class="fecha">17</td><td><code>libro-virtual.sql</code></td><td>Almacenamiento privado del libro, su ficha y las reglas de lectura.</td></tr>
+    <tr><td class="fecha">18</td><td><code>ciclo-b2-oct2026.sql</code></td><td>El ciclo B2: curso, grupo, horario de lunes y miércoles, doce sesiones, evaluaciones de cierre y materiales.</td></tr>
+    <tr><td class="fecha">19</td><td><code>representante-enlace-clase.sql</code></td><td>El botón «Entrar a la clase» en el panel del representante, solo con inscripción activa.</td></tr>
     </tbody>
 </table>
 
@@ -407,6 +417,7 @@ instalación inicial de una sola pegada.</p>
     <tr><td><code>aprobar-inscripciones.sql</code></td><td>Aprobar inscripciones sin pasar por el panel.</td></tr>
     <tr><td><code>baja-estudiante.sql</code></td><td>Retirada de un estudiante a mitad de ciclo.</td></tr>
     <tr><td><code>estudiantes-sin-grupo.sql</code></td><td>Asignar grupo a quien se registró sin él.</td></tr>
+    <tr><td><code>cambiar-enlace-zoom.sql</code></td><td>Cambiar el enlace de la clase de un grupo sin escribirlo en el repositorio.</td></tr>
     <tr><td><code>evento_*.sql</code>, <code>carnet_*.sql</code></td><td>Eventos del sitio y carnets del club.</td></tr>
     </tbody>
 </table>
@@ -471,22 +482,22 @@ cuenta permanentemente.</p>
 </div>
 
 <div class="ficha">
-<h4>El libro del curso fuera del repositorio</h4>
-<p>El método que los alumnos compran no podía guardarse junto al código: el repositorio
-es público, y cualquiera con la dirección descargaría el PDF. Va a un almacén privado, y
-cada lectura usa un enlace firmado que caduca. Como el plan gratuito limita el tamaño de
-cada archivo, <strong>la página de carga parte el PDF en trozos en el navegador del
-docente</strong> antes de subirlo: una restricción de la herramienta convertida en una
-función con barra de avance.</p>
-</div>
-
-<div class="ficha">
 <h4>Correo desde una cuenta personal en lugar de un servicio profesional</h4>
 <p>Se evaluó un proveedor transaccional con dominio propio. Requiere un dominio
 registrado, que el proyecto no tiene. La alternativa —enviar desde una cuenta de correo
 personal con contraseña de aplicación— es menos elegante pero <strong>entrega mejor
 hoy</strong>: una dirección con años de historial inspira más confianza a los filtros de
 correo que un dominio estrenado ayer. El camino al escalón siguiente queda documentado.</p>
+</div>
+
+<div class="ficha">
+<h4>El libro, dividido en partes pequeñas y descargado entero</h4>
+<p>El plan gratuito de la base de datos acepta archivos de hasta 50 MB y el libro pesa
+más. La página de carga lo divide en partes de unos 6 MB en la computadora del docente.
+Las partes pequeñas tienen una segunda ventaja: el estudiante solo descarga la que está
+leyendo, y en el teléfono la primera página aparece en segundos. El visor descarga cada
+parte entera, con barra de avance, porque la lectura por fragmentos se quedaba colgada
+con los enlaces firmados.</p>
 </div>
 
 <div class="ficha">
@@ -509,6 +520,8 @@ volver a él tres meses después.</p>
     <tr><td>Operaciones que solo existen en SQL</td><td>Baja de estudiante, plazos y enlace manual de representantes se ejecutan desde el editor de la base, no desde el panel. Funciona, pero exige al docente pegar consultas.</td></tr>
     <tr><td>Estilos repetidos entre páginas</td><td>Cada panel lleva sus propios estilos incrustados. Se unificó el bloque de audio, que estaba copiado en once páginas; queda trabajo similar pendiente.</td></tr>
     <tr><td>Pruebas automatizadas parciales</td><td>Hay banco de pruebas para la base de datos y pruebas de navegador para funciones concretas, pero no una batería que se ejecute en cada cambio.</td></tr>
+    <tr><td>Crear un ciclo exige un archivo de configuración</td><td>Cada ciclo nuevo (A1.4, B2) se da de alta ejecutando su archivo en la base de datos. Funciona y no duplica nada, pero debería poder hacerse desde el panel.</td></tr>
+    <tr><td>Herramienta oral de un solo uso</td><td>La prueba oral está programada para la evaluación A1.4; cada nivel necesita hoy su propia versión.</td></tr>
     <tr><td>Dos cuentas de personal</td><td>Una con rol <em>admin</em> y otra con rol <em>docente</em>, ambas del mismo profesor. Funciona, pero se presta a confusión y conviene unificar.</td></tr>
     </tbody>
 </table>
@@ -516,7 +529,7 @@ volver a él tres meses después.</p>
 <p class="pie-doc">
     Vive el francés · Plataforma educativa<br>
     Miguel David Tillero Álvarez · Profesor de francés (FLE)<br>
-    Anexo técnico · Versión 1.1 · Octubre de 2026
+    Anexo técnico · Versión 2.0 · Octubre de 2026
 </p>
 
 </div>

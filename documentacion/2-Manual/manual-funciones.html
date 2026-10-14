@@ -179,7 +179,7 @@ pre code { background: none; padding: 0; }
        usa, el paso a paso y sus límites.</p>
     <p class="pie-portada">
         Miguel David Tillero Álvarez · Profesor de FLE<br>
-        Octubre de 2026 · Versión 1.1 · Estado de la plataforma al 9 de octubre
+        Octubre de 2026 · Versión 2.0 · Estado de la plataforma al 14 de octubre
     </p>
 </header>
 
@@ -244,10 +244,10 @@ Docente y administración.</div>
 Figura 1 · Panel administrativo, pestaña Grupos.</div>
 
 <div class="limites"><span class="et">Límites</span>
-Hoy hay <strong>dos grupos en curso</strong>: Français A1.4 (martes y jueves, híbrido) y
-Français B2 (lunes y miércoles), abierto el 5 de octubre. Es la primera vez que la
-plataforma sostiene dos niveles a la vez, así que conviene vigilarlo: el B2 todavía no
-tiene sus evaluaciones construidas, como sí las tiene el A1.4.</div>
+Hoy hay <strong>dos grupos en curso</strong>, Français A1.4 y Français B2, de niveles
+y horarios distintos. Crear un ciclo completo —curso, grupo, horario, doce sesiones,
+enlace de clase, evaluaciones de cierre y materiales— se hace todavía con un archivo de
+configuración que se ejecuta en la base de datos, no desde el panel.</div>
 </div>
 
 <!-- ─────────────────────────────── -->
@@ -331,7 +331,7 @@ Los tres perfiles, cada uno con su vista.</div>
 </ol></div>
 
 <div class="campo"><span class="et">Captura</span>
-Figura 4 · Calendario del ciclo. · Figura 5 · Pestaña «Hoy».</div>
+Figura 4 · Calendario del ciclo. · Figura 5 · Pestaña «Hoy». · Figura 12 · Calendario con los dos grupos, cada uno con su color.</div>
 
 <div class="limites"><span class="et">Límites</span>
 No se sincroniza con Google Calendar ni exporta a formato de agenda. No envía
@@ -510,15 +510,18 @@ Docente, durante la sesión individual con cada estudiante.</div>
 
 <div class="campo"><span class="et">Paso a paso</span>
 <ol>
-<li>Abrir la herramienta oral del ciclo y seleccionar al estudiante.</li>
-<li>Seguir las consignas en pantalla, con los audios de apoyo cuando corresponde.</li>
-<li>Registrar la valoración por criterios.</li>
-<li>La nota se incorpora al resultado del ciclo junto con la prueba escrita.</li>
+<li>Abrir la herramienta oral y elegir al estudiante. Si todavía no figura, se agrega por su nombre.</li>
+<li>Recorrer las tres partes —entretien dirigé, échange d’informations y dialogue simulé— con el banco de preguntas, las tarjetas y las situaciones en pantalla, el reloj de cada parte y el modo proyección.</li>
+<li>Registrar la valoración en la grilla tipo DELF: seis criterios con escala de medio punto, total sobre 25, y un comentario para el estudiante.</li>
+<li>Pulsar <strong>Publicar en su boletín</strong>. La lista del grupo indica quién está pendiente, completo o publicado. Si el estudiante tiene cuenta, la nota llega también a «Mis resultados».</li>
 </ol></div>
 
+<div class="campo"><span class="et">Captura</span>
+Figura 11 · La herramienta oral: parte 3 y grilla de evaluación.</div>
+
 <div class="limites"><span class="et">Límites</span>
-Está construida <strong>para el ciclo A1.4 concreto</strong>: sus consignas y audios son
-los de esa evaluación. Hacerla reutilizable para otros niveles es trabajo pendiente. No
+Está construida <strong>para la evaluación A1.4 concreta</strong>: sus consignas y
+situaciones son las de esa prueba. Hacerla reutilizable para otros niveles es trabajo pendiente. No
 graba al estudiante: la valoración la hace el docente en el momento.</div>
 </div>
 
@@ -567,8 +570,9 @@ Docente para generar y enviar; la familia para consultar.</div>
 
 <div class="campo"><span class="et">Paso a paso</span>
 <ol>
-<li>Generar los boletines del grupo: uno por estudiante, cada uno con su enlace propio.</li>
-<li>Enviar a cada familia <strong>su</strong> enlace, por mensaje privado. Nunca al grupo.</li>
+<li>Los boletines se crean solos al publicar la prueba escrita o la oral, uno por estudiante, cada uno con su enlace propio. También se puede agregar un estudiante a mano.</li>
+<li>En la página <strong>Boletines y envío</strong>, elegir el grupo y completar el nombre del representante y su WhatsApp.</li>
+<li>Pulsar <strong>WhatsApp</strong>: se abre la conversación con el mensaje ya escrito —saludo, notas y enlace—. El docente lo revisa y lo envía. Siempre por privado, nunca al grupo.</li>
 <li>La familia lo abre y ve el resultado con el desglose y el comentario.</li>
 <li>Si el estudiante tiene cuenta, la misma nota aparece además en «Mis resultados».</li>
 </ol></div>
@@ -591,42 +595,7 @@ privado y nunca al grupo. El envío es manual, mensaje por mensaje.</div>
 
 <!-- ─────────────────────────────── -->
 <div class="ficha">
-<h3>13 · Libro virtual</h3>
-<p class="meta">Espacio del estudiante → el método en línea</p>
-
-<div class="campo"><span class="et">Para qué sirve</span>
-Los alumnos compran el método en papel, pero no siempre lo llevan encima. El libro
-virtual lo pone en su espacio, para consultarlo desde el teléfono o la computadora
-sin repartir un archivo que después se reenvía solo.</div>
-
-<div class="campo"><span class="et">Quién la usa</span>
-El docente lo sube; lo lee <strong>únicamente</strong> quien tiene inscripción activa en
-ese grupo.</div>
-
-<div class="campo"><span class="et">Paso a paso</span>
-<ol>
-<li>El docente abre la página de carga y elige el grupo y el archivo PDF.</li>
-<li><strong>La página parte el PDF en trozos en el propio navegador</strong> y los sube uno a uno, con barra de avance. Es necesario porque el almacenamiento limita el tamaño de cada archivo.</li>
-<li>Se añade el índice —qué unidad empieza en qué página— y se publica.</li>
-<li>El estudiante lo ve en su espacio y lo abre por partes.</li>
-</ol></div>
-
-<div class="campo"><span class="et">Cómo protege el material</span>
-<ul>
-<li><strong>El archivo no vive en el repositorio</strong>, que es público, sino en un almacén privado.</li>
-<li>Cada apertura usa un <strong>enlace firmado que caduca</strong>: copiar la dirección no sirve de nada al rato.</li>
-<li>Solo abren el libro el docente y quien tenga inscripción <strong>activa</strong>. Un inscrito pendiente de pago, no.</li>
-</ul></div>
-
-<div class="limites"><span class="et">Límites</span>
-<strong>No lleva marca de agua.</strong> Estaba previsto poner el nombre del estudiante en
-cada página para desalentar el reenvío de capturas, y no está construido: hoy la
-protección es el almacén privado y el enlace que caduca. Nada impide una captura de
-pantalla. Tampoco permite subrayar ni anotar: es solo lectura.</div>
-</div>
-
-<div class="ficha">
-<h3>14 · Baja de un estudiante</h3>
+<h3>13 · Baja de un estudiante</h3>
 <p class="meta">Cuando alguien se retira a mitad de ciclo</p>
 
 <div class="campo"><span class="et">Para qué sirve</span>
@@ -651,6 +620,42 @@ Se ejecuta desde la base de datos, no desde el panel. Los pagos ya cobrados no s
 si hubo devolución, se registra aparte como egreso.</div>
 </div>
 
+<!-- ─────────────────────────────── -->
+<div class="ficha">
+<h3>14 · Libro virtual: subir y publicar</h3>
+<p class="meta">Página de carga del libro · por grupo</p>
+
+<div class="campo"><span class="et">Para qué sirve</span>
+Que los estudiantes lean el libro del curso, que ya compraron, desde cualquier
+dispositivo y sin repartir archivos que se reenvían solos.</div>
+
+<div class="campo"><span class="et">Quién la usa</span>
+Docente y administración.</div>
+
+<div class="campo"><span class="et">Paso a paso</span>
+<ol>
+<li>Abrir la página de carga, elegir el grupo y escribir el título.</li>
+<li>Elegir el PDF. La página lo divide en partes de unos 6 MB <strong>en la propia computadora</strong> y las sube una por una, con barra de avance.</li>
+<li>Opcional: escribir un índice por unidades («Unité 1 = 14»).</li>
+<li>Marcar <strong>Publicado</strong> y guardar. Desde ese momento lo ven los inscritos activos del grupo, en Materiales.</li>
+</ol></div>
+
+<div class="campo"><span class="et">Cómo protege el libro</span>
+<ul>
+<li>El archivo <strong>no se publica en el sitio</strong>: va a un almacenamiento privado.</li>
+<li>Solo lo abren el docente y los estudiantes con inscripción <strong>activa</strong> en ese grupo, mediante enlaces que caducan.</li>
+<li>Cada página lleva una marca de agua tenue con el nombre y el correo de quien lee.</li>
+</ul></div>
+
+<div class="campo"><span class="et">Captura</span>
+Figura 13 · Subida de un libro de 71 páginas dividido en cinco partes.</div>
+
+<div class="limites"><span class="et">Límites</span>
+Nada impide una captura de pantalla: la marca de agua la desalienta, no la evita. El
+libro del grupo B2 todavía no está subido. Sustituir un libro obliga a subirlo entero
+otra vez.</div>
+</div>
+
 <!-- ════════════════════════════════════════════════════════════════ -->
 <h2 class="salto">Parte II · Estudiante</h2>
 
@@ -671,7 +676,7 @@ El estudiante, con su correo y su contraseña.</div>
     <tr><td style="width:28%"><strong>Inicio</strong></td><td>Bienvenida personalizada, el recorrido de las unidades ya trabajadas, lo que se va a validar en este ciclo y hasta dónde se llegará.</td></tr>
     <tr><td><strong>Mi curso</strong></td><td>Horario, modalidad, calendario completo con el contenido de cada sesión, y los enlaces de la clase y del grupo —si su inscripción está activa.</td></tr>
     <tr><td><strong>Mis resultados</strong></td><td>Cada evaluación con su nota, el desglose por partes y el comentario del profesor.</td></tr>
-    <tr><td><strong>Materiales</strong></td><td>El repositorio de todo lo trabajado, por categoría y unidad.</td></tr>
+    <tr><td><strong>Materiales</strong></td><td>El repositorio de todo lo trabajado, por categoría y unidad, y el acceso a «Mi libro».</td></tr>
     <tr><td><strong>Mis pagos</strong></td><td>Lo pagado, lo pendiente y los datos para pagar.</td></tr>
     </tbody>
 </table></div>
@@ -684,11 +689,37 @@ Es de consulta: el estudiante no sube tareas ni escribe al profesor desde aquí.
 comunicación sigue siendo por WhatsApp, y de momento está bien que así sea.</div>
 </div>
 
+<div class="ficha">
+<h3>16 · Mi libro</h3>
+<p class="meta">Materiales → Mi libro</p>
+
+<div class="campo"><span class="et">Para qué sirve</span>
+Leer el libro del curso dentro de la plataforma, en el teléfono o en la computadora.</div>
+
+<div class="campo"><span class="et">Quién la usa</span>
+El estudiante con inscripción activa en el grupo dueño del libro.</div>
+
+<div class="campo"><span class="et">Cómo se usa</span>
+<ul>
+<li>Se pasa de página con las flechas, deslizando el dedo en el teléfono o escribiendo el número de página. Hay zoom.</li>
+<li>Recuerda la última página leída.</li>
+<li>Al entrar a una parte nueva del libro muestra el avance de la descarga.</li>
+</ul></div>
+
+<div class="campo"><span class="et">Captura</span>
+Figura 14 · Barra del visor: título, página actual, zoom y regreso a «Mi espacio».</div>
+
+<div class="limites"><span class="et">Límites</span>
+Requiere conexión. La impresión está desactivada y cada página lleva la marca de agua
+del lector. Si la inscripción no está activa, el visor explica que el libro todavía no
+está disponible.</div>
+</div>
+
 <!-- ════════════════════════════════════════════════════════════════ -->
 <h2>Parte III · Familia · padre, madre o representante</h2>
 
 <div class="ficha">
-<h3>16 · Cuenta propia del representante</h3>
+<h3>17 · Cuenta propia del representante</h3>
 <p class="meta">Registro específico y espacio de solo lectura</p>
 
 <div class="campo"><span class="et">Para qué sirve</span>
@@ -712,8 +743,8 @@ El padre, la madre o el tutor.</div>
 <div class="campo"><span class="et">Qué ve</span>
 El curso con horario y modalidad; la asistencia con presentes, faltas y porcentaje; los
 resultados con el comentario del profesor destacado; las próximas clases con su
-contenido; y los pagos. Si tiene varios hijos en la escuela, un selector para
-alternarlos.</div>
+contenido; y los pagos. Si la inscripción está activa, el botón <strong>Entrar a la
+clase</strong>. Si tiene varios hijos en la escuela, un selector para alternarlos.</div>
 
 <div class="campo"><span class="et">Captura</span>
 Figura 10 · Espacio del representante. · Figura 7 · Su formulario de registro.</div>
@@ -726,7 +757,7 @@ caso por caso.</div>
 </div>
 
 <div class="ficha">
-<h3>17 · Boletín por enlace, sin cuenta</h3>
+<h3>18 · Boletín por enlace, sin cuenta</h3>
 <p class="meta">Alternativa para quien no quiere registrarse</p>
 
 <div class="campo"><span class="et">Para qué sirve</span>
@@ -753,16 +784,16 @@ calendario y pagos hace falta la cuenta propia de la ficha anterior.</div>
 <h2>Funciones anunciadas que todavía no existen</h2>
 
 <p>Por honestidad con quien revise este manual, estas funciones se han mencionado en
-conversaciones sobre el proyecto pero <strong>no están construidas</strong>. Figuran en la
+conversaciones sobre el proyecto pero <strong>no están construidas</strong>. El libro
+virtual y el grupo B2, que figuraban en esta lista en la primera versión, ya funcionan
+(fichas 1, 14 y 16). Figuran en la
 hoja de ruta del documento de presentación.</p>
 
 <table>
     <thead><tr><th style="width:30%">Función</th><th>Estado real</th></tr></thead>
     <tbody>
-    <tr><td><strong>Marca de agua en el libro virtual</strong></td>
-        <td>No construida. El libro virtual sí existe desde el 4 de octubre (ficha 13), con almacén privado y enlaces que caducan, pero sin el nombre del estudiante impreso en cada página.</td></tr>
-    <tr><td><strong>Evaluaciones del ciclo B2</strong></td>
-        <td>El grupo B2 existe desde el 5 de octubre, con su calendario y su planificación. Sus pruebas todavía no se han construido, como sí lo están las del A1.4.</td></tr>
+    <tr><td><strong>Herramienta oral para otros niveles</strong></td>
+        <td>La actual sirve solo para la evaluación A1.4. El cierre del B2 necesita una propia.</td></tr>
     <tr><td><strong>Recordatorios automáticos</strong></td>
         <td>No construidos. Los recordatorios de clase y de pago se envían a mano por WhatsApp.</td></tr>
     <tr><td><strong>Constancias</strong></td>
@@ -773,8 +804,8 @@ hoja de ruta del documento de presentación.</p>
 <p class="pie-doc">
     Vive el francés · Plataforma educativa<br>
     Miguel David Tillero Álvarez · Profesor de francés (FLE)<br>
-    Manual de funciones · Versión 1.1 · Octubre de 2026<br>
-    Estado descrito: el de la plataforma al 9 de octubre de 2026
+    Manual de funciones · Versión 2.0 · Octubre de 2026<br>
+    Estado descrito: el de la plataforma al 14 de octubre de 2026
 </p>
 
 </div>

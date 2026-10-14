@@ -4,52 +4,19 @@ Qué se hizo, cuándo y en qué cambio del historial.
 
 Se omiten los cambios puramente estéticos y las fusiones de ramas; el historial completo está en el repositorio.
 
-**Periodo:** del 6 de septiembre al 9 de octubre de 2026  
-**Cambios registrados en total:** 245  
-**Cambios sustantivos recogidos aquí:** 191
+**Periodo:** del 7 de septiembre al 9 de octubre de 2026  
+**Cambios registrados en total:** 212 (sin contar las fusiones de ramas)  
+**Cambios sustantivos recogidos aquí:** 157 en siete fases
 
 ---
 
 ## Fase 1 · El sitio público
-*2026-09-06 → 2026-09-10 · 77 cambios*
+*2026-09-07 → 2026-09-10 · 44 cambios*
 
 De una página única a una arquitectura de varias páginas reales. Identidad visual, perfil, servicios, cursos, galería y métodos de pago. Incluye una pérdida de contenido por error propio y su recuperación completa desde el historial.
 
 | Fecha | Cambio | Qué se hizo |
 |---|---|---|
-| 2026-09-06 | `cd4dfa5` | Sincronización completa del ecosistema digital |
-| 2026-09-06 | `d8f3173` | Creacion de subpaginas estructurales para evitar errores 404 |
-| 2026-09-06 | `a1602fd` | Integracion de formulario interactivo de cotizacion via Web3Forms |
-| 2026-09-06 | `eb05f70` | Activacion de envios de formulario con Access Key |
-| 2026-09-07 | `e69e861` | Inyeccion de la llave real de Web3Forms |
-| 2026-09-07 | `380f5c3` | Restauracion completa de la arquitectura inmersiva (Video, Vanta NET, Galeria) |
-| 2026-09-07 | `f54c849` | Integracion de la oferta pedagogica y examenes oficiales en Cursos |
-| 2026-09-07 | `9be3e37` | Correccion de ruta y habilitacion del cierre del video de bienvenida |
-| 2026-09-07 | `3c91247` | Integracion de la seccion de Servicios |
-| 2026-09-07 | `2d22df2` | Despliegue simultaneo de Galeria, Testimonios, Recursos y Contacto |
-| 2026-09-07 | `f5f0041` | Despliegue seguro y simultáneo de Galería, Testimonios, Recursos y Contacto |
-| 2026-09-07 | `61551fc` | Integracion del motor de internacionalizacion (ES, FR, EN) |
-| 2026-09-07 | `4f13e16` | Integracion masiva de i18n extendido, botones de CV y afinacion estetica |
-| 2026-09-07 | `4a4e120` | Integracion masiva de i18n extendido, botones de CV y afinacion estetica |
-| 2026-09-07 | `72cd5a5` | Expansion del motor trilingue y optimizacion de UX movil (auto-cierre de menu) |
-| 2026-09-07 | `3d85faa` | Restauracion musica fondo y actualizacion video intro a 4k |
-| 2026-09-07 | `92d2526` | Integracion de la pista de audio Une_Promenade_en_Soleil.mp3 |
-| 2026-09-07 | `e1f52fe` | Restauracion de galeria dinamica, auto-scroll y Lightbox con 22 fotos de Google Drive |
-| 2026-09-07 | `2cf4bb7` | Cierre forzado de video intro a prueba de fallos (anti-loop) |
-| 2026-09-07 | `350ab14` | Sincronizacion de audio bgMusic para arranque inmediato en el click de entrada |
-| 2026-09-07 | `0f852e0` | Creacion de paginas de soporte institucionales (Gracias, Reglamento, Reservar) |
-| 2026-09-07 | `8731e25` | Opt: Optimizacion de atributos nativos del video intro para evitar bloqueos en navegador |
-| 2026-09-07 | `ef74f95` | Boton de saltar permanente y aparicion instantanea de controles en intro |
-| 2026-09-07 | `6d8e017` | Eliminar atributo loop del video intro para permitir transicion y audio |
-| 2026-09-07 | `61b4a2c` | Eliminar atributo loop del video intro para permitir transicion y audio |
-| 2026-09-07 | `52a9393` | Integracion de arquitectura Jekyll, config y workflow de despliegue |
-| 2026-09-07 | `9e39d21` | Inclusion de componentes reutilizables (nav, footer) y estilos unificados CSS |
-| 2026-09-07 | `16a28b8` | Integracion de index optimizado y video de bienvenida oficial |
-| 2026-09-07 | `9cfa10f` | Restaurar index.html desde el respaldo seguro del portafolio |
-| 2026-09-07 | `7c35d5d` | Restaurar version limpia y funcional con EmailJS activo |
-| 2026-09-07 | `1b562f4` | Asegurar presencia del video de bienvenida y credenciales de EmailJS |
-| 2026-09-07 | `bd7772d` | Asegurar presencia del video de bienvenida y credenciales de EmailJS |
-| 2026-09-07 | `dcf1b9a` | Asegurar presencia del video de bienvenida y credenciales de EmailJS |
 | 2026-09-07 | `60c1e39` | Corregir sintaxis del script y definir closeIntro correctamente |
 | 2026-09-07 | `fdffc83` | Corregir event triggers en workflow de GitHub Pages |
 | 2026-09-07 | `53c7327` | Corregir sintaxis de backticks en galeria y source de video intro |
@@ -96,7 +63,7 @@ De una página única a una arquitectura de varias páginas reales. Identidad vi
 | 2026-09-10 | `1cb74bb` | Corregir musica de fondo, limitar video de transicion a 3 usos, reconstruir pagos y eliminar codigo de mantenimiento |
 
 ## Fase 2 · Nace la plataforma
-*2026-09-11 → 2026-09-12 · 21 cambios*
+*2026-09-11 → 2026-09-11 · 21 cambios*
 
 Base de datos, autenticación y roles. Primer esquema. Primera crisis de seguridad: recursión en las reglas de acceso y tres huecos cerrados el mismo día.
 
@@ -119,7 +86,7 @@ Base de datos, autenticación y roles. Primer esquema. Primera crisis de segurid
 | 2026-09-11 | `d60010b` | Fija la sesión explícitamente tras el login y añade página de diagnóstico |
 | 2026-09-11 | `50511c8` | Añade enlace de inscripción por curso |
 | 2026-09-11 | `57a540c` | Completar boton flotante Vendredi entre Amis en todas las paginas y arreglar i18n sitewide |
-| 2026-09-11 | `b6693c4` | Quita la página de diagnóstico y suma el Módulo 3 de Harleen |
+| 2026-09-11 | `b6693c4` | Quita la página de diagnóstico y suma el Módulo 3 de una alumna (nombre omitido) |
 | 2026-09-11 | `90c5f83` | Añade un carrusel de vídeos en inicio y galería |
 | 2026-09-11 | `9cf9dab` | Elimina la página de diagnóstico |
 | 2026-09-11 | `cf38fcc` | Añade edición de cursos, horario con generación de clases y nueva contraseña |
@@ -219,7 +186,7 @@ Correo propio, plazos de inscripción y de pago separados, material de comunicac
 | 2026-09-29 | `c2bf9a4` | Add files via upload |
 
 ## Fase 6 · Evaluación, resultados y familias
-*2026-10-01 → 2026-10-03 · 13 cambios*
+*2026-10-01 → 2026-10-03 · 12 cambios*
 
 Pagos manuales, publicación de resultados, boletines con enlace privado, baja de estudiante y acceso propio para representantes.
 
@@ -237,23 +204,21 @@ Pagos manuales, publicación de resultados, boletines con enlace privado, baja d
 | 2026-10-02 | `86772de` | Lugar y año de la foto del panel «Zona Talentos» (Cuenca, 2021) |
 | 2026-10-03 | `ff657fd` | Pedir el correo del representante, en vez de inventárselo |
 | 2026-10-03 | `fe53813` | Enlazar el boletín existente cuando el alumno ya tiene cuenta activa |
-| 2026-10-03 | `cc6354d` | Perf: la intro corre fluida (fondo 3D y resto de la página en pausa) y pies de foto de la Universidad Católica de Cuenca |
 
-## Fase 7 · Segundo nivel y material propio
+## Fase 7 · El libro, el segundo grupo y más seguridad
 *2026-10-04 → 2026-10-09 · 10 cambios*
 
-Libro virtual con almacenamiento privado, ciclo B2 completo, boletines para cualquier grupo, rediseño de las páginas de registro y paneles, y los enlaces de clase fuera del repositorio.
+Libro virtual en un almacenamiento privado, segundo grupo (B2) con la misma estructura que el A1.4, boletines para cualquier grupo y enlaces de Zoom fuera del repositorio.
 
 | Fecha | Cambio | Qué se hizo |
 |---|---|---|
-| 2026-10-04 | `0a67ac6` | Sobre mí con puertas, banners con foto entera, pagos con logos, FAQ, formularios por pasos y rendimiento |
+| 2026-10-04 | `0a67ac6` | Sobre mí con puertas, banners con foto entera, pagos con logos, preguntas frecuentes, formularios por pasos y rendimiento |
+| 2026-10-04 | `c047b2d` | Registro, contraseña, agradecimiento y panel del representante con el diseño del sitio |
 | 2026-10-04 | `a708a8b` | Libro virtual en el espacio del estudiante |
-| 2026-10-05 | `90e0181` | El visor del libro descarga la parte con barra de avance |
-| 2026-10-05 | `cb0d611` | Logos oficiales de Nu y Zelle, testimonios en video y audio, y fondo 3D más cuidadoso |
-| 2026-10-05 | `0ceb6c0` | Sin desbordes en celular (cursos, examenes, carrusel de videos) y restablecer sin foto sobrante |
-| 2026-10-05 | `ca5c7ac` | Videos de entrada y de transicion livianos y sin tirones |
-| 2026-10-05 | `7218074` | Grupo B2 (ciclo 5 oct – 11 nov) y boletines para cualquier grupo |
+| 2026-10-05 | `90e0181` | El visor del libro descarga cada parte con barra de avance |
+| 2026-10-05 | `0ceb6c0` | Sin desbordes en el teléfono (cursos, exámenes, carrusel de vídeos) |
+| 2026-10-05 | `7218074` | Grupo B2 (ciclo del 5 de octubre al 11 de noviembre) y boletines para cualquier grupo |
+| 2026-10-05 | `857fd5c` | Costo del ciclo B2 |
 | 2026-10-05 | `5d20a45` | Enlace al episodio «Destination francophonie · México (Parte 1)» en TV5MONDE+ |
-| 2026-10-09 | `dff5f23` | Enlaces de Zoom fuera del repositorio y enlace de la clase en el panel del representante |
+| 2026-10-09 | `dff5f23` | Enlaces de Zoom fuera del repositorio y botón «Entrar a la clase» en el panel del representante |
 | 2026-10-09 | `6bfd736` | Documentación del proyecto para revisión externa |
-
