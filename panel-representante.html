@@ -207,6 +207,16 @@
   box-shadow:var(--shadow-card); padding:1.6rem; margin-bottom:1.6rem; }
 #lite .panel h2{ font-family:'Cormorant Garamond',serif; font-size:1.44rem; color:var(--accent-green); margin:0 0 1rem; }
 #lite .hijos-nav{ display:flex; gap:0.5rem; flex-wrap:wrap; margin:1.6rem 0 1.2rem; }
+/* Avisos del profesor sobre este hijo. La franja de color los jerarquiza:
+   verde es una nota, dorado pide atención, terracota no se puede pasar por alto. */
+#lite .avisos{ display:grid; gap:0.9rem; }
+#lite .aviso-item{ border:1px solid var(--border); border-left:4px solid var(--accent-green);
+  border-radius:var(--r-xs); padding:1rem 1.2rem; background:rgba(43,69,53,0.04); }
+#lite .aviso-item.tipo-aviso{ border-left-color:var(--gold); background:rgba(165,130,74,0.08); }
+#lite .aviso-item.tipo-importante{ border-left-color:#c2603c; background:rgba(194,96,60,0.08); }
+#lite .aviso-item .a-tit{ font-weight:600; color:var(--accent-green); margin-bottom:0.3rem; }
+#lite .aviso-item .a-tit i{ margin-right:0.45rem; opacity:0.75; }
+#lite .aviso-item .a-msg{ font-size:0.96rem; line-height:1.6; white-space:pre-line; }
 #lite .hijo-btn{ font-family:'Syne', sans-serif; font-size:0.87rem; letter-spacing:0.06em;
   text-transform:uppercase; background:transparent; border:1px solid var(--border);
   color:var(--text-light); padding:0.7rem 1.1rem; border-radius:var(--r-pill);
@@ -428,6 +438,11 @@
         </div></div>
 
         <nav class="hijos-nav" id="hijos-nav" style="display:none;"></nav>
+
+        <section class="panel" id="panel-avisos" style="display:none;">
+            <h2>Avisos</h2>
+            <div class="avisos" id="lista-avisos"></div>
+        </section>
 
         <section class="panel-curso" id="cab-curso">
             <h2 id="titulo-curso"></h2>
@@ -1776,9 +1791,23 @@ function dinero(n) {
     return '$' + Number(n || 0).toLocaleString('es-MX', { minimumFractionDigits: 0 });
 }
 
+const ICONO_AVISO = { info: 'fa-circle-info', aviso: 'fa-bell', importante: 'fa-triangle-exclamation' };
+
 function pintarHijo() {
     const h = (datos.hijos || [])[indiceHijo];
     if (!h) return;
+
+    /* Avisos de este hijo. Vienen ya filtrados por fecha desde la base de
+       datos, y ordenados por importancia. */
+    const avisos = h.avisos || [];
+    const panelAvisos = document.getElementById('panel-avisos');
+    panelAvisos.style.display = avisos.length ? 'block' : 'none';
+    document.getElementById('lista-avisos').innerHTML = avisos.map(av =>
+        '<div class="aviso-item tipo-' + esc(av.tipo) + '">' +
+          '<div class="a-tit"><i class="fa-solid ' + (ICONO_AVISO[av.tipo] || 'fa-circle-info') + '"></i>' +
+            esc(av.titulo) + '</div>' +
+          '<div class="a-msg">' + esc(av.mensaje) + '</div>' +
+        '</div>').join('');
 
     /* Cabecera del curso */
     const c = h.curso;

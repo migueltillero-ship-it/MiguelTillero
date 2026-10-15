@@ -89,6 +89,18 @@ th { font-family:'Syne', sans-serif; font-size:0.83rem; text-transform:uppercase
 .ruta .u-obj { font-size:1rem; line-height:1.62; color:var(--text-light); }
 .meta-caja { background:rgba(140,115,75,0.09); border-left:3px solid var(--primary-color);
              border-radius:var(--r-xs); padding:1rem 1.2rem; font-size:1.04rem; line-height:1.65; color:var(--text-dark); }
+/* Avisos dirigidos a este estudiante. El color de la franja los ordena de un
+   vistazo: verde es una nota, dorado pide atención, terracota no se puede
+   pasar por alto. */
+.avisos { display:grid; gap:0.9rem; }
+.aviso-item { border:1px solid var(--border); border-left:4px solid var(--accent-green);
+    border-radius:var(--r-xs); padding:1rem 1.2rem; background:rgba(43,69,53,0.04); }
+.aviso-item.tipo-aviso { border-left-color:var(--gold); background:rgba(176,141,87,0.07); }
+.aviso-item.tipo-importante { border-left-color:#c2603c; background:rgba(194,96,60,0.07); }
+.aviso-item .a-tit { font-weight:600; color:var(--accent-green); margin-bottom:0.3rem; }
+.aviso-item .a-tit i { margin-right:0.45rem; opacity:0.75; }
+.aviso-item .a-msg { font-size:0.96rem; line-height:1.6; white-space:pre-line; }
+.aviso-item .a-fecha { font-size:0.82rem; color:var(--muted); margin-top:0.5rem; }
 .aviso-cierre { background:rgba(43,69,53,0.07); border-radius:var(--r-xs); padding:1rem 1.2rem;
                 font-size:1.03rem; line-height:1.65; color:var(--accent-green); margin-top:1rem; }
 /* Barra de secciones del panel */
@@ -260,6 +272,11 @@ select { padding:0.7rem; border:1px solid var(--border); border-radius:8px; font
         </section>
 
         <div class="seccion" id="sec-inicio">
+        <section class="panel" id="panel-avisos" style="display:none;">
+            <h2>Avisos para ti</h2>
+            <div class="avisos" id="lista-avisos"></div>
+        </section>
+
         <section class="panel" id="panel-bienvenida" style="display:none;">
             <h2>Antes de empezar</h2>
             <p class="bienvenida" id="texto-bienvenida"></p>
@@ -444,10 +461,45 @@ async function iniciar() {
     selTipo.innerHTML = tiposConstancia.map(t => `<option value="${t.id}">${esc(t.nombre)}${t.costo > 0 ? ' — ' + t.costo + ' ' + (t.moneda || 'MXN') : ''}</option>`).join('');
 
     await cargarMisPagos();
+    await cargarAvisos();
 
     const activa = inscripciones.find(i => i.estado === 'activa') || inscripciones[0];
     sel.value = activa.id;
     await seleccionarInscripcion(activa.id);
+}
+
+// Los avisos los escribe el profesor para una persona concreta, y la base de
+// datos ya filtra por fecha: aquí llega solo lo que toca verse hoy. Si la
+// tabla todavía no existe en la base de datos, el bloque simplemente no
+// aparece: un aviso de más no debe romper el resto del panel.
+const ICONO_AVISO = { info: 'fa-circle-info', aviso: 'fa-bell', importante: 'fa-triangle-exclamation' };
+const PESO_AVISO  = { importante: 0, aviso: 1, info: 2 };
+
+async function cargarAvisos() {
+    const panel = document.getElementById('panel-avisos');
+    const { data, error } = await supabaseClient
+        .from('avisos')
+        .select('titulo, mensaje, tipo, hasta, creado_en');
+
+    if (error || !data || !data.length) { panel.style.display = 'none'; return; }
+
+    const avisos = data.slice().sort((a, b) =>
+        (PESO_AVISO[a.tipo] ?? 3) - (PESO_AVISO[b.tipo] ?? 3) ||
+        (b.creado_en || '').localeCompare(a.creado_en || ''));
+
+    document.getElementById('lista-avisos').innerHTML = avisos.map(a => `
+        <div class="aviso-item tipo-${esc(a.tipo)}">
+            <div class="a-tit"><i class="fa-solid ${ICONO_AVISO[a.tipo] || 'fa-circle-info'}"></i>${esc(a.titulo)}</div>
+            <div class="a-msg">${esc(a.mensaje)}</div>
+            ${a.hasta ? `<div class="a-fecha">Visible hasta el ${esc(fechaCorta(a.hasta))}.</div>` : ''}
+        </div>
+    `).join('');
+    panel.style.display = 'block';
+}
+
+function fechaCorta(iso) {
+    const p = (iso || '').split('-');
+    return p.length === 3 ? `${p[2]}/${p[1]}/${p[0]}` : iso;
 }
 
 async function cargarMisPagos() {
