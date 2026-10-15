@@ -45,6 +45,76 @@
  ],
  "fotos": [
   {
+   "id": "cav-lasne-tillero",
+   "cat": "mexico",
+   "src": "assets/images/relato/cavilam-lasne-tillero.jpg",
+   "thumb": "assets/images/galeria/t/cav-lasne-tillero.jpg",
+   "w": 1080,
+   "h": 632,
+   "alt": "Grégory Lasne, director del CAVILAM, y Miguel Tillero sonriendo ante el fondo del CAVILAM",
+   "pie": {
+    "es": "Con Grégory Lasne, director del CAVILAM, en la firma del acuerdo de cooperación",
+    "fr": "Avec Grégory Lasne, directeur du CAVILAM, lors de la signature de l’accord de coopération",
+    "en": "With Grégory Lasne, director of CAVILAM, at the signing of the cooperation agreement"
+   }
+  },
+  {
+   "id": "cav-thevenon",
+   "cat": "mexico",
+   "src": "assets/images/relato/cavilam-thevenon.jpg",
+   "thumb": "assets/images/galeria/t/cav-thevenon.jpg",
+   "w": 1080,
+   "h": 636,
+   "alt": "Miguel Tillero y Matthieu Thévenon, del CAVILAM, con el acuerdo de cooperación en las manos",
+   "pie": {
+    "es": "Con Matthieu Thévenon, del departamento de relaciones internacionales del CAVILAM, y el acuerdo de cooperación",
+    "fr": "Avec Matthieu Thévenon, du département des relations internationales du CAVILAM, et l’accord de coopération",
+    "en": "With Matthieu Thévenon, from CAVILAM’s international relations department, and the cooperation agreement"
+   }
+  },
+  {
+   "id": "cav-mayoral",
+   "cat": "mexico",
+   "src": "assets/images/relato/cavilam-mayoral.jpg",
+   "thumb": "assets/images/galeria/t/cav-mayoral.jpg",
+   "w": 1080,
+   "h": 628,
+   "alt": "Clémence Mayoral, coordinadora nacional de la red de Alianzas Francesas de México, con Miguel Tillero y un colega",
+   "pie": {
+    "es": "Con Clémence Mayoral, coordinadora nacional de la red de Alianzas Francesas de México",
+    "fr": "Avec Clémence Mayoral, coordinatrice nationale du réseau des Alliances Françaises du Mexique",
+    "en": "With Clémence Mayoral, national coordinator of the Alliances Françaises network in Mexico"
+   }
+  },
+  {
+   "id": "cav-boiron",
+   "cat": "mexico",
+   "src": "assets/images/relato/cavilam-boiron.jpg",
+   "thumb": "assets/images/galeria/t/cav-boiron.jpg",
+   "w": 1080,
+   "h": 652,
+   "alt": "Miguel Tillero y Michel Boiron, profesor-formador y ex director del CAVILAM",
+   "pie": {
+    "es": "Con Michel Boiron, profesor-formador y ex director del CAVILAM",
+    "fr": "Avec Michel Boiron, professeur-formateur et ancien directeur du CAVILAM",
+    "en": "With Michel Boiron, teacher-trainer and former director of CAVILAM"
+   }
+  },
+  {
+   "id": "cav-rondin",
+   "cat": "mexico",
+   "src": "assets/images/relato/cavilam-rondin.jpg",
+   "thumb": "assets/images/galeria/t/cav-rondin.jpg",
+   "w": 1080,
+   "h": 660,
+   "alt": "Miguel Tillero y Paul Rondin, director de la Cité internationale de la langue française",
+   "pie": {
+    "es": "Con Paul Rondin, director de la Cité internationale de la langue française",
+    "fr": "Avec Paul Rondin, directeur de la Cité internationale de la langue française",
+    "en": "With Paul Rondin, director of the Cité internationale de la langue française"
+   }
+  },
+  {
    "id": "r-graduacion",
    "cat": "trayectoria",
    "src": "assets/images/relato/graduacion.jpg",
