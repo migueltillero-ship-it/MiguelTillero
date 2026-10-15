@@ -179,7 +179,7 @@ pre code { background: none; padding: 0; }
        y las decisiones técnicas con su porqué.</p>
     <p class="pie-portada">
         Miguel David Tillero Álvarez<br>
-        Octubre de 2026 · Versión 1.0<br>
+        Octubre de 2026 · Versión 1.1<br>
         Documento complementario · no indispensable para valorar el proyecto
     </p>
 </header>
@@ -234,7 +234,7 @@ queda expuesto.</p>
 <!-- ═══════════════════════════════════════════════════════ -->
 <h2>2 · Modelo de datos</h2>
 
-<p>28 tablas. Agrupadas por función:</p>
+<p>30 tablas. Agrupadas por función:</p>
 
 <h4>Personas y acceso</h4>
 <table>
@@ -333,6 +333,15 @@ grupos, que entonces incluía el enlace de la clase con su contraseña.</li>
 <em>activa</em>. Se comprobó cada caso: visitante anónimo, registrado sin inscripción,
 inscrito pendiente, inscrito activo y docente.</p>
 
+<h3>Un tercer episodio: lo que estaba escrito en el repositorio</h3>
+<p>El 9 de octubre se corrigió un fallo de la misma familia, pero de origen distinto:
+<strong>los enlaces de la clase estaban escritos dentro de un archivo del
+repositorio</strong>, que es público. Ninguna regla de acceso protege lo que está
+publicado como código. Pasaron a la base de datos, donde la regla de lectura exige
+inscripción activa.</p>
+<p>La lección, que vale para cualquier proyecto alojado así: <em>la seguridad por filas
+no alcanza a lo que uno mismo publica en el código</em>. Hay que mirar las dos cosas.</p>
+
 <h3>La decisión de diseño más importante del proyecto</h3>
 <p>Para el acceso de las familias había dos caminos. El primero: escribir políticas de
 lectura en las seis tablas implicadas —asistencia, notas, pagos, sesiones, cursos,
@@ -363,7 +372,7 @@ registro de su origen.</p>
 <!-- ═══════════════════════════════════════════════════════ -->
 <h2 class="salto">4 · Orden de ejecución de los guiones</h2>
 
-<p>Los 25 archivos de la carpeta <code>supabase/</code> tienen dependencias entre sí.
+<p>Los 29 archivos de la carpeta <code>supabase/</code> tienen dependencias entre sí.
 Cada uno declara en su cabecera después de cuál debe ejecutarse. Todos son
 <strong>idempotentes</strong>: volver a ejecutarlos no rompe nada.</p>
 
@@ -383,6 +392,8 @@ Cada uno declara en su cabecera después de cuál debe ejecutarse. Todos son
     <tr><td class="fecha">14</td><td><code>boletines.sql</code></td><td>Boletines con enlace privado para las familias.</td></tr>
     <tr><td class="fecha">15</td><td><code>representantes-acceso.sql</code></td><td>Cuenta propia del representante y función del panel.</td></tr>
     <tr><td class="fecha">16</td><td><code>representante-correo.sql</code></td><td>Corrección del correo del representante y enlace manual.</td></tr>
+    <tr><td class="fecha">17</td><td><code>libro-virtual.sql</code></td><td>Almacén privado del método, subida por partes y lectura solo para inscripción activa.</td></tr>
+    <tr><td class="fecha">18</td><td><code>ciclo-b2-oct2026.sql</code></td><td>El ciclo B2: curso, grupo, horarios y diez sesiones planificadas.</td></tr>
     </tbody>
 </table>
 
@@ -460,6 +471,16 @@ cuenta permanentemente.</p>
 </div>
 
 <div class="ficha">
+<h4>El libro del curso fuera del repositorio</h4>
+<p>El método que los alumnos compran no podía guardarse junto al código: el repositorio
+es público, y cualquiera con la dirección descargaría el PDF. Va a un almacén privado, y
+cada lectura usa un enlace firmado que caduca. Como el plan gratuito limita el tamaño de
+cada archivo, <strong>la página de carga parte el PDF en trozos en el navegador del
+docente</strong> antes de subirlo: una restricción de la herramienta convertida en una
+función con barra de avance.</p>
+</div>
+
+<div class="ficha">
 <h4>Correo desde una cuenta personal en lugar de un servicio profesional</h4>
 <p>Se evaluó un proveedor transaccional con dominio propio. Requiere un dominio
 registrado, que el proyecto no tiene. La alternativa —enviar desde una cuenta de correo
@@ -495,7 +516,7 @@ volver a él tres meses después.</p>
 <p class="pie-doc">
     Vive el francés · Plataforma educativa<br>
     Miguel David Tillero Álvarez · Profesor de francés (FLE)<br>
-    Anexo técnico · Versión 1.0 · Octubre de 2026
+    Anexo técnico · Versión 1.1 · Octubre de 2026
 </p>
 
 </div>

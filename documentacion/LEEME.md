@@ -1,7 +1,7 @@
 # Vive el francés · Documentación del proyecto
 
 **Plataforma educativa de Miguel David Tillero Álvarez, profesor de francés (FLE).**
-Estado documentado: el del 3 de octubre de 2026.
+Estado documentado: el del 9 de octubre de 2026.
 
 Esta carpeta reúne todo lo necesario para entender el proyecto sin tener que
 leer el código ni haber estado presente mientras se construía.
@@ -32,7 +32,7 @@ apartado. Cada ficha se lee sola, sin necesidad de las anteriores.
 - `LEEME.md` — su índice.
 
 ### 2-Manual
-- `manual-funciones.pdf` · `manual-funciones.html` — 16 fichas de función.
+- `manual-funciones.pdf` · `manual-funciones.html` — 17 fichas de función.
 - `LEEME.md` — cómo está organizado y qué significa cada apartado de la ficha.
 
 ### 3-Anexo-tecnico
@@ -47,7 +47,7 @@ apartado. Cada ficha se lee sola, sin necesidad de las anteriores.
 
 ### En esta carpeta
 - `registro-de-cambios.md` — qué se hizo, cuándo y en qué cambio del historial.
-  146 cambios sustantivos agrupados en seis fases.
+  191 cambios sustantivos agrupados en siete fases.
 - `estilo-documentos.css` — la hoja de estilo común de los tres documentos.
 - `informe-privacidad.md` — el resultado de la búsqueda automática de datos
   sensibles, hecha antes de empaquetar.
