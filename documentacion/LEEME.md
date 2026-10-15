@@ -2,6 +2,7 @@
 
 **Plataforma educativa de Miguel David Tillero Álvarez, profesor de francés (FLE).**
 Estado documentado: el del 9 de octubre de 2026.
+Lo añadido después está resumido en `NOVEDADES-desde-la-v1.1.md`.
 
 Esta carpeta reúne todo lo necesario para entender el proyecto sin tener que
 leer el código ni haber estado presente mientras se construía.
