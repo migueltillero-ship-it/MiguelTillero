@@ -21,9 +21,9 @@ proyecto: para eso está la presentación.
    autenticación. Sin servidor propio, y qué consecuencia tiene eso.
 2. **Modelo de datos** — las 30 tablas, agrupadas por función.
 3. **Seguridad por filas** — el mecanismo que sostiene toda la privacidad,
-   contado a través de los cuatro fallos reales que hubo que corregir: una
-   recursión en las reglas, dos huecos por los que se filtraban datos y unos enlaces
-   que estaban escritos en el propio repositorio público.
+   contado a través de los tres fallos reales que hubo que corregir: una
+   recursión en las reglas y dos huecos por los que se filtraban datos. Incluye
+   cómo se protegen el libro del curso y los enlaces de la clase.
 4. **Orden de ejecución** — los 29 guiones de base de datos y sus dependencias.
 5. **Decisiones técnicas y su porqué** — nueve decisiones explicadas, incluida
    una función que se construyó y se retiró una semana después.

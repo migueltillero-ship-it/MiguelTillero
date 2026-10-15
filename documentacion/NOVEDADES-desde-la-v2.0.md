@@ -1,8 +1,9 @@
-# Novedades posteriores a la v1.1
+# Novedades posteriores a la versión 2.0
 
-Los tres documentos (presentación, manual y anexo técnico) describen la
-plataforma **tal como estaba el 9 de octubre de 2026**. Esto es lo que se ha
-añadido desde entonces, para que quien lea el paquete sepa qué falta en él.
+La documentación (el documento único y los tres documentos por separado)
+describe la plataforma **tal como estaba el 14 de octubre de 2026**. Esto es lo
+que se ha añadido desde entonces, para que quien lea el paquete sepa qué falta
+en él.
 
 *Actualizado el 15 de octubre de 2026.*
 

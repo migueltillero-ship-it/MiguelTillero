@@ -17,7 +17,7 @@ va a leer una cosa de esta entrega, que sea esta.
 1. El problema que me obligó a construirla — los cinco que tenía cada semana
 2. Qué es «Vive el francés» — las tres puertas de acceso
 3. Objetivo y visión
-4. Cronología del proyecto — seis fases con sus fechas reales
+4. Cronología del proyecto — siete fases con sus fechas reales
 5. Qué resuelve hoy — con lo que está a medias dicho sin adornos
 6. El proyecto en cifras
 7. Hoja de ruta — lo que no está construido

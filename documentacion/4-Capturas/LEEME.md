@@ -1,6 +1,6 @@
 # 4 · Capturas
 
-Las pantallas reales de la plataforma, numeradas. Están en la carpeta
+Las pantallas reales de la plataforma: catorce figuras numeradas. Están en la carpeta
 `capturas/` y se citan desde el **Manual de funciones** por su número de figura.
 
 ---
@@ -38,6 +38,10 @@ Los estudiantes son menores de edad. Antes de incluir cualquier captura:
 | **8** | `fig-08-asistencia-resultados.png` | **Resultados** con la nota y, debajo, el comentario del profesor destacado. | Generada · «Alumno A» |
 | **9** | `fig-09-finanzas.png` | **Finanzas**: registro de pago, registro de egreso y el resumen de cobrado, pendiente y balance. | Pantalla real · nombre tapado |
 | **10** | `fig-10-espacio-representante.png` | **Espacio del representante** completo: curso, asistencia con porcentaje, resultados comentados, próximas clases y pagos. | Generada · «Familia B» |
+| **11** | `fig-11-prueba-oral.png` | **Herramienta de la prueba oral A1.4**: la parte 3 «Dialogue simulé» y la grilla tipo DELF con sus seis criterios. | Pantalla real · nombre tapado |
+| **12** | `fig-12-calendario-dos-grupos.png` | **Calendario de octubre con los dos grupos**: el B2 los lunes y miércoles, el A1.4 los martes y jueves. | Pantalla real |
+| **13** | `fig-13-libro-subida.png` | **Subida del libro**: un PDF de 71 páginas dividido en cinco partes de unos 5 MB antes de subirlo. | Pantalla real |
+| **14** | `fig-14-libro-visor.png` | **Barra del visor del libro**: título, página actual de 71, zoom y regreso a «Mi espacio». | Pantalla real · marca de agua tapada |
 
 ---
 
@@ -47,6 +51,8 @@ Los estudiantes son menores de edad. Antes de incluir cualquier captura:
 |---|---|
 | **2** | El enlace de inscripción, que contiene el identificador del grupo en la base de datos. Quien lo tuviera podría inscribir a alguien en ese grupo. |
 | **9** | El nombre que aparecía en el desplegable de inscripciones. |
+| **11** | El nombre del estudiante evaluado, en el selector y en el título de la grilla. |
+| **14** | La marca de agua del visor, que lleva el nombre y el correo de quien lee. |
 
 ---
 

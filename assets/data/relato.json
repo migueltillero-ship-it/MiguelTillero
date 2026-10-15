@@ -986,6 +986,85 @@
       ]
     },
     {
+      "id": "cavilam",
+      "novedad": true,
+      "anio": "CAVILAM",
+      "lugar": "Alianza Francesa de San Cristóbal · Francia",
+      "titulo": {
+        "es": "Un acuerdo que abre Francia",
+        "fr": "Un accord qui ouvre la France",
+        "en": "An agreement that opens France"
+      },
+      "cita": {
+        "es": "Un sueño materializado.",
+        "fr": "Un rêve devenu réalité.",
+        "en": "A dream made real."
+      },
+      "texto": {
+        "es": "Como director de la Alianza Francesa de San Cristóbal y en representación de la Federación de Alianzas Francesas en México, participé en una estancia de formación e intercambio en el CAVILAM, con el apoyo del Servicio de Cooperación Lingüística y Educativa de la Embajada de Francia en México y la coordinación de Clémence Mayoral. Allí conocí a figuras destacadas de la enseñanza del francés y se firmó un acuerdo de cooperación educativa y de intercambio lingüístico. Su primer fruto ya tiene fecha: en noviembre, 18 jóvenes de San Cristóbal viajarán a Francia para aprender francés, conocer el país y vivir un programa de inmersión lingüística. Haber alcanzado este logro con el CAVILAM y conocer a personalidades tan ilustres del mundo de la enseñanza del francés es, para mí, una plusvalía.",
+        "fr": "En tant que directeur de l’Alliance Française de San Cristóbal et au nom de la Fédération des Alliances Françaises du Mexique, j’ai participé à un séjour de formation et d’échange au CAVILAM, avec le soutien du Service de coopération linguistique et éducative de l’Ambassade de France au Mexique et la coordination de Clémence Mayoral. J’y ai rencontré de grandes figures de l’enseignement du français et un accord de coopération éducative et d’échange linguistique a été signé. Son premier fruit a déjà une date : en novembre, 18 jeunes de San Cristóbal se rendront en France pour apprendre le français, découvrir le pays et vivre un programme d’immersion linguistique. Avoir mené ce projet à bien avec le CAVILAM et rencontré des personnalités aussi éminentes de l’enseignement du français est, pour moi, une véritable richesse.",
+        "en": "As director of the Alliance Française de San Cristóbal, on behalf of the Federation of Alliances Françaises in Mexico, I took part in a training and exchange stay at CAVILAM, with the support of the Language and Educational Cooperation Service of the French Embassy in Mexico and the coordination of Clémence Mayoral. There I met leading figures in French teaching, and an agreement on educational cooperation and language exchange was signed. Its first fruit already has a date: in November, 18 young people from San Cristóbal will travel to France to learn French, discover the country and take part in a language-immersion program. Having achieved this with CAVILAM, and having met such distinguished people from the world of French teaching, is for me a real asset."
+      },
+      "medios": [
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/cavilam-lasne-tillero.jpg",
+          "alt": "Grégory Lasne, director del CAVILAM, y Miguel Tillero sonriendo ante el fondo del CAVILAM",
+          "pie": {
+            "es": "Con Grégory Lasne, director del CAVILAM, en la firma del acuerdo de cooperación",
+            "fr": "Avec Grégory Lasne, directeur du CAVILAM, lors de la signature de l’accord de coopération",
+            "en": "With Grégory Lasne, director of CAVILAM, at the signing of the cooperation agreement"
+          },
+          "ratio": "1080/632",
+          "ancha": true
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/cavilam-thevenon.jpg",
+          "alt": "Miguel Tillero y Matthieu Thévenon, del CAVILAM, con el acuerdo de cooperación en las manos",
+          "pie": {
+            "es": "Con Matthieu Thévenon, del CAVILAM",
+            "fr": "Avec Matthieu Thévenon, du CAVILAM",
+            "en": "With Matthieu Thévenon, of CAVILAM"
+          },
+          "ratio": "1080/636"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/cavilam-mayoral.jpg",
+          "alt": "Clémence Mayoral, coordinadora nacional de la red de Alianzas Francesas de México, con Miguel Tillero y un colega",
+          "pie": {
+            "es": "Con Clémence Mayoral, de la red de Alianzas Francesas",
+            "fr": "Avec Clémence Mayoral, du réseau des Alliances Françaises",
+            "en": "With Clémence Mayoral, Alliances Françaises network"
+          },
+          "ratio": "1080/628"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/cavilam-boiron.jpg",
+          "alt": "Miguel Tillero y Michel Boiron, profesor-formador y ex director del CAVILAM",
+          "pie": {
+            "es": "Con Michel Boiron, ex director del CAVILAM",
+            "fr": "Avec Michel Boiron, ancien directeur du CAVILAM",
+            "en": "With Michel Boiron, former director of CAVILAM"
+          },
+          "ratio": "1080/652"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/cavilam-rondin.jpg",
+          "alt": "Miguel Tillero y Paul Rondin, director de la Cité internationale de la langue française",
+          "pie": {
+            "es": "Con Paul Rondin, Cité internationale de la langue française",
+            "fr": "Avec Paul Rondin, Cité internationale de la langue française",
+            "en": "With Paul Rondin, Cité internationale de la langue française"
+          },
+          "ratio": "1080/660"
+        }
+      ]
+    },
+    {
       "id": "comunidad",
       "anio": "2024 — 2026",
       "lugar": "San Cristóbal · Tuxtla · Chiapas",
