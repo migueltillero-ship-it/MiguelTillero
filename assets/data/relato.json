@@ -1023,9 +1023,9 @@
           "archivo": "assets/images/relato/cavilam-thevenon.jpg",
           "alt": "Miguel Tillero y Matthieu Thévenon, del CAVILAM, con el acuerdo de cooperación en las manos",
           "pie": {
-            "es": "Con Matthieu Thévenon, del departamento de relaciones internacionales del CAVILAM, y el acuerdo de cooperación",
-            "fr": "Avec Matthieu Thévenon, du département des relations internationales du CAVILAM, et l’accord de coopération",
-            "en": "With Matthieu Thévenon, from CAVILAM’s international relations department, and the cooperation agreement"
+            "es": "Con Matthieu Thévenon, del CAVILAM",
+            "fr": "Avec Matthieu Thévenon, du CAVILAM",
+            "en": "With Matthieu Thévenon, of CAVILAM"
           },
           "ratio": "1080/636"
         },
@@ -1034,9 +1034,9 @@
           "archivo": "assets/images/relato/cavilam-mayoral.jpg",
           "alt": "Clémence Mayoral, coordinadora nacional de la red de Alianzas Francesas de México, con Miguel Tillero y un colega",
           "pie": {
-            "es": "Con Clémence Mayoral, coordinadora nacional de la red de Alianzas Francesas de México",
-            "fr": "Avec Clémence Mayoral, coordinatrice nationale du réseau des Alliances Françaises du Mexique",
-            "en": "With Clémence Mayoral, national coordinator of the Alliances Françaises network in Mexico"
+            "es": "Con Clémence Mayoral, de la red de Alianzas Francesas",
+            "fr": "Avec Clémence Mayoral, du réseau des Alliances Françaises",
+            "en": "With Clémence Mayoral, Alliances Françaises network"
           },
           "ratio": "1080/628"
         },
@@ -1045,9 +1045,9 @@
           "archivo": "assets/images/relato/cavilam-boiron.jpg",
           "alt": "Miguel Tillero y Michel Boiron, profesor-formador y ex director del CAVILAM",
           "pie": {
-            "es": "Con Michel Boiron, profesor-formador y ex director del CAVILAM",
-            "fr": "Avec Michel Boiron, professeur-formateur et ancien directeur du CAVILAM",
-            "en": "With Michel Boiron, teacher-trainer and former director of CAVILAM"
+            "es": "Con Michel Boiron, ex director del CAVILAM",
+            "fr": "Avec Michel Boiron, ancien directeur du CAVILAM",
+            "en": "With Michel Boiron, former director of CAVILAM"
           },
           "ratio": "1080/652"
         },
@@ -1056,9 +1056,9 @@
           "archivo": "assets/images/relato/cavilam-rondin.jpg",
           "alt": "Miguel Tillero y Paul Rondin, director de la Cité internationale de la langue française",
           "pie": {
-            "es": "Con Paul Rondin, director de la Cité internationale de la langue française",
-            "fr": "Avec Paul Rondin, directeur de la Cité internationale de la langue française",
-            "en": "With Paul Rondin, director of the Cité internationale de la langue française"
+            "es": "Con Paul Rondin, Cité internationale de la langue française",
+            "fr": "Avec Paul Rondin, Cité internationale de la langue française",
+            "en": "With Paul Rondin, Cité internationale de la langue française"
           },
           "ratio": "1080/660"
         }
