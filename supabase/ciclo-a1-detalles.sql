@@ -114,8 +114,6 @@ begin
   -- mismo que el grupo).
   update public.grupos
   set modalidad      = 'hibrido',
-      enlace_whatsapp = coalesce(nullif(enlace_whatsapp, ''),
-                                 'https://chat.whatsapp.com/HQ1m79IBobZ9MJZdMxNz5H'),
       unidad_actual  = 'Unités 4 et 5',
       meta_ciclo     = 'Cerrar la Unité 4 «Entre quatre murs» completa (Dossier 3, el Défi de la unidad y el Faites le point) '
                     || 'y avanzar en la Unité 5 «Métro, boulot, dodo» hasta les professions. '

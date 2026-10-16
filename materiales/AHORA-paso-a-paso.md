@@ -70,7 +70,7 @@ Después borra esa cuenta de prueba desde
 
 ## 3 · Mandar al grupo
 
-**https://chat.whatsapp.com/HQ1m79IBobZ9MJZdMxNz5H**
+**[enlace de invitación al grupo de WhatsApp: cópialo desde WhatsApp → Info del grupo → Invitar al grupo mediante enlace]**
 
 1. Primero **la imagen** (`infografia-ciclo-a1-oct2026.png`).
 2. Después **el texto, en un mensaje aparte** — está en
