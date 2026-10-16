@@ -1061,6 +1061,18 @@
             "en": "With Paul Rondin, Cité internationale de la langue française"
           },
           "ratio": "1080/660"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/cavilam-eid.jpg",
+          "alt": "Miguel Tillero y Cynthia Eid, presidenta de la Federación Internacional de Profesores de Francés, ante el logotipo de la FIPF",
+          "pie": {
+            "es": "Con Cynthia Eid, presidenta de la Federación Internacional de Profesores de Francés (FIPF)",
+            "fr": "Avec Cynthia Eid, présidente de la Fédération internationale des professeurs de français (FIPF)",
+            "en": "With Cynthia Eid, president of the International Federation of French Teachers (FIPF)"
+          },
+          "ratio": "1080/628",
+          "ancha": true
         }
       ]
     },
