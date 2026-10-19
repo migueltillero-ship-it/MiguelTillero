@@ -1,0 +1,81 @@
+/* ══════════════════════════════════════════════════════════════════════
+   AJUSTES · se carga la ÚLTIMA en todas las páginas, después de sitio.css
+   y fondos.css (que no siempre van en el mismo orden). Aquí viven los
+   ajustes de diseño que deben ganar siempre.
+   ══════════════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════════════════
+   ESCALA FLUIDA EN ESCRITORIO
+   La letra base y el ancho del contenido crecen con la pantalla: en un
+   monitor grande nada queda diminuto ni rodeado de fondo vacío.
+   1280 px → 16 px · 1440 → 16,6 · 1920 → 18,7 · 2560 o más → 21.
+   ══════════════════════════════════════════════════════════════════════ */
+@media (min-width: 1280px) {
+  html { font-size: clamp(16px, calc(0.42vw + 10.6px), 21px); }
+  .container { max-width: 70rem; }
+  #hero.hero-rotativo .hero-inner > div:first-child { max-width: 38rem; }
+}
+@media (min-width: 1700px) { .container { max-width: 84rem; } }
+
+/* Accesos de la portada en escritorio: cuadrícula de 3 columnas; la primera
+   y la última tarjeta (las destacadas) a doble ancho → tres filas completas
+   y simétricas (2+1 · 1+1+1 · 1+2), centradas, de la misma altura y sin barra
+   de desplazamiento. En pantallas menores sigue la fila deslizable. */
+@media (min-width: 1100px) {
+  .portal-fila { width: auto; margin-left: 0; }
+  .portal-fila .portal-grid {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4rem;
+    overflow: visible; padding: 1.2rem 0 0.6rem; scroll-snap-type: none;
+  }
+  .portal-fila .portal-card { flex: none; align-self: stretch; display: flex; flex-direction: column; }
+  .portal-fila .portal-card.feature { grid-column: span 2; }
+  .portal-fila .portal-card .portal-go { margin-top: auto; padding-top: 1rem; }
+  .portal-fila .portal-foto { height: clamp(10rem, 11vw, 15rem); }
+  .portal-fila .portal-card.con-foto .portal-icon { top: clamp(10rem, 11vw, 15rem); }
+  .portal-flecha { display: none; }
+}
+
+/* Banda «Destination Francophonie · TV5MONDE»: en escritorio, más alta y
+   cinematográfica, para que se lea la escena del rodaje y el título mande. */
+@media (min-width: 1100px) {
+  #novedad-tira { padding: clamp(4.5rem, 11vh, 8rem) 0; }
+  #novedad-tira .nov-tira { align-items: flex-end; }
+  #novedad-tira .nov-tira-txt { flex-direction: column; align-items: flex-start; gap: 0.7rem; max-width: 44rem; }
+  #novedad-tira .nov-tira-txt strong { font-size: clamp(2.4rem, 3.3vw, 4.2rem); line-height: 1.05; }
+  #novedad-tira .nov-tira-txt span.f { font-size: 1rem; }
+  #novedad-tira .nov-tira-btns .btn { font-size: 1.02rem; padding: 0.95rem 1.7rem; }
+}
+
+/* Mi espacio · «Qué encuentras dentro»: una sola línea de botones con ícono
+   en círculo de color; cada uno lleva a iniciar sesión. */
+.me-dentro { max-width: none; }
+@media (min-width: 900px) { .me-dentro ul { flex-wrap: nowrap; } }
+.me-dentro li { padding: 0; background: none; border: 0; }
+.me-dentro li a {
+  display: inline-flex; align-items: center; gap: 0.7rem; padding: 0.55rem 1.3rem 0.55rem 0.55rem;
+  border-radius: 999px; background: rgba(255,255,255,0.9); border: 1px solid var(--border);
+  font-family: 'Syne', sans-serif; font-weight: 600; font-size: 1rem; color: var(--white); text-decoration: none;
+  box-shadow: 0 4px 14px rgba(20,45,32,0.08); transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s, border-color .3s;
+  white-space: nowrap;
+}
+.me-dentro li a i {
+  width: 2.3rem; height: 2.3rem; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+  color: #fff; background: var(--c, #a5824a); font-size: 0.95rem;
+}
+.me-dentro li a:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(20,45,32,0.16); border-color: var(--c, #a5824a); }
+.me-dentro li:nth-child(1) a { --c: #1f6f5b; }
+.me-dentro li:nth-child(2) a { --c: #c97b6b; }
+.me-dentro li:nth-child(3) a { --c: #6f8fc2; }
+.me-dentro li:nth-child(4) a { --c: #8a6bb0; }
+.me-dentro li:nth-child(5) a { --c: #a5824a; }
+
+/* Franjas superiores de cada página (foto + cita): en escritorio, más altas,
+   cita grande, foto grande y el texto en el mismo margen que el menú; sin
+   el hueco vacío entre la cita y la foto. */
+@media (min-width: 1100px) {
+  .banda-foto.bajo-nav { min-height: clamp(360px, 30vw, 560px); }
+  .banda-foto.bajo-nav > .container { max-width: none; padding-left: var(--lado); padding-right: var(--lado); }
+  .banda-foto.completa > .container > * { max-width: calc(100% - min(46vw, 860px) - 3rem); }
+  .banda-foto.bajo-nav .banda-cita { font-size: clamp(2.2rem, 3.1vw, 4rem); max-width: 22ch; }
+  .banda-foto.bajo-nav .eyebrow { font-size: 0.95rem; }
+  .banda-foto.completa .banda-img { height: calc(100% - 4rem); max-width: min(46vw, 860px); }
+}
