@@ -124,7 +124,7 @@ tr.row{cursor:pointer} tr.row:hover td{background:#f7f9ff}
   <table>
     <thead><tr>
       <th data-s="nombre">Alumno</th><th data-s="estado">Estado</th><th data-s="dur" class="hide-m">Duración</th>
-      <th data-s="co">CO /15</th><th data-s="ce">CE /15</th><th data-s="pe">PE /20</th><th data-s="tot">Total /50</th><th data-s="risk">Integridad</th>
+      <th data-s="co" id="h-co">CO /15</th><th data-s="ce" id="h-ce">CE /15</th><th data-s="pe" id="h-pe">PE /20</th><th data-s="tot" id="h-tot">Total /50</th><th data-s="risk">Integridad</th>
     </tr></thead>
     <tbody id="rows"></tbody>
   </table>
@@ -174,6 +174,9 @@ async function pickExam(){
   exam = exams.find(x => x.id === $('#s-exam').value);
   const { data } = await sb.from('examenes_claves').select('clave').eq('examen_id', exam.id).maybeSingle();
   key = (data && data.clave) || {};
+  const M = MAX();
+  $('#h-co').textContent = 'CO /' + M.co; $('#h-ce').textContent = 'CE /' + M.ce;
+  $('#h-pe').textContent = 'PE /' + M.pe; $('#h-tot').textContent = 'Total /' + (M.co + M.ce + M.pe);
   paintExam(); load();
   clearInterval(poll); poll = setInterval(() => { if($('#auto').checked && $('#drawer').classList.contains('hidden')) load(); }, 20000);
 }
@@ -336,8 +339,22 @@ $$('th[data-s]').forEach(th => th.onclick = () => { const s = th.dataset.s; sort
 /* ───────── detalle ───────── */
 const EVLBL = { inicio:'Inicio', r:'Respuesta', audio:'▶ Audio', audio_fin:'Audio terminado', seccion:'Cambio de sección', nav:'Navegación', oculto:'⚠ Página oculta (otra pestaña/app)', visible:'Regresó a la página', blur:'⚠ Ventana sin foco', focus:'Recuperó el foco', fs_salida:'⚠ Salió de pantalla completa', fs_retorno:'Volvió a pantalla completa', bloqueado_paste:'⚠ Intento de pegar', pegar_bloqueado:'⚠ Intento de pegar', bloqueado_copy:'⚠ Intento de copiar', bloqueado_cut:'⚠ Intento de cortar', bloqueado_contextmenu:'Clic derecho', bloqueado_drop:'⚠ Arrastrar y soltar', tecla:'⚠ Atajo bloqueado', captura_pantalla:'⚠ Captura de pantalla', imprimir:'⚠ Imprimir', traductor:'⚠ TRADUCTOR', extension_escritura:'⚠ Extensión de escritura', extension_dom:'Extensión en la página', insercion_masiva:'⚠ Texto insertado de golpe', autocorreccion:'Autocorrección', doble_pestana:'⚠ Doble pestaña', ventana:'Cambio de tamaño de ventana', raton_fuera:'Ratón fuera de la ventana', inactivo:'Inactividad', online:'Conexión recuperada', offline:'Sin conexión', reanudacion:'⚠ Reanudó el examen', intento_salir:'Intentó cerrar la página', envio:'Envío' };
 const BAD = /^(oculto|blur|fs_salida|bloqueado_(paste|copy|cut|drop)|pegar_bloqueado|tecla|captura_pantalla|imprimir|traductor|extension_escritura|insercion_masiva|doble_pestana|reanudacion)$/;
-const PE1 = [['pe1nom','Nom'],['pe1prenom','Prénom'],['pe1age','Âge'],['pe1nat','Nationalité'],['pe1ville','Ville et pays']];
-const RUB = [['consigne','Respect de la consigne (longueur, saluer / prendre congé, les 4 points)',2],['presenter','Se présenter et se décrire (être, avoir, âge, nationalité, adjectifs)',3],['famille','Famille et goûts (possessifs, aimer / adorer / détester, négation)',2],['chambre','Décrire sa chambre (il y a, meubles, couleurs, servir à, pouvoir)',3],['morpho','Morphosyntaxe et orthographe (accords, verbes au présent)',3],['coherence','Cohérence et cohésion (et, mais, aussi…)',2]];
+// Cada examen trae su ficha (PE ejercicio 1) y su rúbrica (PE ejercicio 2).
+// Los puntajes máximos por sección vienen de la tabla examenes (max_co, max_ce, max_pe).
+const CONF = {
+  'a14-chez-les-moreau': {
+    pe1t: 'la ficha',
+    pe1: [['pe1nom','Nom'],['pe1prenom','Prénom'],['pe1age','Âge'],['pe1nat','Nationalité'],['pe1ville','Ville et pays']],
+    rub: [['consigne','Respect de la consigne (longueur, saluer / prendre congé, les 4 points)',2],['presenter','Se présenter et se décrire (être, avoir, âge, nationalité, adjectifs)',3],['famille','Famille et goûts (possessifs, aimer / adorer / détester, négation)',2],['chambre','Décrire sa chambre (il y a, meubles, couleurs, servir à, pouvoir)',3],['morpho','Morphosyntaxe et orthographe (accords, verbes au présent)',3],['coherence','Cohérence et cohésion (et, mais, aussi…)',2]]
+  },
+  'a14-cierre-une-journee': {
+    pe1t: 'ma journée',
+    pe1: [['pe1reveil','Je me lève à…'],['pe1matin','Le matin, je…'],['pe1midi','À midi, je…'],['pe1apres','L’après-midi, je…'],['pe1coucher','Je me couche à…']],
+    rub: [['consigne','Respect de la consigne (50–70 mots, saluer / prendre congé, les 4 points)',2],['journee','Raconter sa journée (l’heure, verbes pronominaux au présent)',3],['frequence','Moments de la journée et fréquence (souvent, parfois, jamais)',2],['metier','Un métier et le lieu de travail (masculin / féminin)',2],['conseils','Deux conseils (impératif, il faut + infinitif, on peut)',2],['morpho','Morphosyntaxe et orthographe (accords, conjugaison, négation)',2],['coherence','Cohérence et cohésion (et, mais, après, ensuite…)',2]]
+  }
+};
+const conf = () => CONF[exam && exam.id] || CONF['a14-chez-les-moreau'];
+const MAX = () => ({ co: num(exam && exam.max_co) || 15, ce: num(exam && exam.max_ce) || 15, pe: num(exam && exam.max_pe) || 20 });
 
 let cur = null, rp = { i:0, timer:null, speed:4 };
 function openDetail(id){
@@ -367,10 +384,10 @@ function openDetail(id){
     </dl></div>
   </div>
   <div class="box"><h3>Línea de tiempo</h3><div class="tl">${r.ev.map(e => `<div><span class="tm">${fmtT(e.t - r.t0)}</span><span class="${BAD.test(e.k) ? 'bad' : ''}">${EVLBL[e.k] || esc(e.k)}</span><span class="hint">${esc(evDetail(e))}</span></div>`).join('')}</div></div>
-  <div class="box"><h3>CO ${r.co ?? '—'}/15 · CE ${r.ce ?? '—'}/15 <span class="hint">(corrección automática en el servidor)</span></h3><div class="items">${items}</div></div>
+  <div class="box"><h3>CO ${r.co ?? '—'}/${MAX().co} · CE ${r.ce ?? '—'}/${MAX().ce} <span class="hint">(corrección automática en el servidor)</span></h3><div class="items">${items}</div></div>
 
-  <div class="box"><h3>PE · Ejercicio 1: la ficha <span class="hint" id="pe1t"></span></h3>
-    ${PE1.map(([q,l]) => `<div class="rb"><span><span class="hint">${l}:</span> <b>${esc(resp[q] || '—')}</b></span>
+  <div class="box"><h3>PE · Ejercicio 1: ${conf().pe1t} <span class="hint" id="pe1t"></span></h3>
+    ${conf().pe1.map(([q,l]) => `<div class="rb"><span><span class="hint">${l}:</span> <b>${esc(resp[q] || '—')}</b></span>
       <select data-pe1="${q}">${[0,0.5,1].map(v => `<option value="${v}" ${num(c.pe1[q]) === v ? 'selected' : ''}>${v}</option>`).join('')}</select></div>`).join('')}
   </div>
 
@@ -395,7 +412,7 @@ function openDetail(id){
         </div>` : '<p class="hint">Sin registro de escritura.</p>'}
       </div>
       <div>
-        ${RUB.map(([k,l,m]) => `<div class="rb"><span>${l}</span><span><input type="number" min="0" max="${m}" step="0.5" data-pe2="${k}" value="${c.pe2[k] ?? ''}"> <span class="hint">/ ${m}</span></span></div>`).join('')}
+        ${conf().rub.map(([k,l,m]) => `<div class="rb"><span>${l}</span><span><input type="number" min="0" max="${m}" step="0.5" data-pe2="${k}" value="${c.pe2[k] ?? ''}"> <span class="hint">/ ${m}</span></span></div>`).join('')}
         <div class="rb"><b>Total PE</b><b class="mono" id="pe-total">—</b></div>
         <textarea id="coment" placeholder="Comentario para el alumno (opcional)" style="width:100%;min-height:90px;margin-top:.8rem;padding:.6rem;border:1.5px solid var(--line);border-radius:10px">${esc(r.comentario || '')}</textarea>
         <div style="display:flex;gap:.6rem;align-items:center;margin-top:.8rem">
@@ -432,9 +449,10 @@ function sparkline(perMin){
 function sumPE(){
   const p1 = $$('[data-pe1]').reduce((s,el)=>s+num(el.value),0);
   const p2 = $$('[data-pe2]').reduce((s,el)=>s+Math.min(num(el.max), Math.max(0, num(el.value))),0);
-  $('#pe1t').textContent = p1 + ' / 5';
-  $('#pe-total').textContent = (p1 + p2) + ' / 20';
-  $('#final').textContent = 'Total: ' + ((cur.co||0) + (cur.ce||0) + p1 + p2) + ' / 50';
+  const M = MAX();
+  $('#pe1t').textContent = p1 + ' / ' + conf().pe1.length;
+  $('#pe-total').textContent = (p1 + p2) + ' / ' + M.pe;
+  $('#final').textContent = 'Total: ' + ((cur.co||0) + (cur.ce||0) + p1 + p2) + ' / ' + (M.co + M.ce + M.pe);
   return { p1, p2 };
 }
 async function savePE(){
@@ -474,10 +492,11 @@ $('#b-pub').onclick = async () => {
   if(error) return toast('No se pudo publicar: ' + error.message + ' (¿ejecutaste supabase/boletines.sql?)');
   // Quien ya tiene cuenta en la plataforma también la ve en «Mis resultados».
   await sb.rpc('publicar_resultados_examen', { p_examen: exam.id });
-  if(confirm(`${data.publicadas} nota(s) publicada(s) en los boletines. ¿Abrir «Boletines y envío» para mandarlos a las familias?`)) location.href = 'boletines.html';
+  if(confirm(`${data.publicadas} nota(s) publicada(s) en los boletines. ¿Abrir «Boletines y envío» para mandarlos a las familias?`)) location.href = 'boletines.html?grupo=' + encodeURIComponent(data.grupo || 'A1-OCT2026');
 };
 $('#b-csv').onclick = () => {
-  const head = ['nombre','email','estado','inicio','envio','duracion_min','CO_15','CE_15','PE_20','total_50','integridad','nivel','senales','comentario'];
+  const M = MAX();
+  const head = ['nombre','email','estado','inicio','envio','duracion_min','CO_'+M.co,'CE_'+M.ce,'PE_'+M.pe,'total_'+(M.co+M.ce+M.pe),'integridad','nivel','senales','comentario'];
   const lines = [head.join(',')].concat(rows.map(r => [r.nombre, r.email, r.estado, r.iniciado_en, r.enviado_en || '', (r.dur/60000).toFixed(1), r.co ?? '', r.ce ?? '', r.pe ?? '', r.tot, r.risk, level(r.risk)[1], r.flags.filter(f=>f.pts>0).map(f=>f.txt.replace(/<[^>]+>/g,'')).join(' | '), r.comentario || '']
     .map(v => '"' + String(v).replace(/"/g,'""') + '"').join(',')));
   const a = document.createElement('a');
