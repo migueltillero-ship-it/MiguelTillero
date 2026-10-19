@@ -1,0 +1,951 @@
+<!doctype html>
+<html lang="fr" translate="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="google" content="notranslate">
+<title>Questions de goût · Évaluation B2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="../../assets/js/supabase-config.js"></script>
+<style>
+:root{
+  --cream:#eef4ee; --paper:#ffffff; --ink:#12291c; --ink2:#0d3b2e;
+  --muted:rgba(18,41,28,.64); --hint:rgba(18,41,28,.42); --line:rgba(18,41,28,.13);
+  --gold:#a5824a; --gold2:#e3c68e; --blue:#0d7f57; --red:#b4533a; --green:#0d7f57;
+  --co:#0d7f57; --ce:#9a7440; --pe:#b4533a;
+  --display:'Cormorant Garamond',Georgia,serif; --sans:'Syne',system-ui,sans-serif; --mono:'Syne', sans-serif;
+  --r:14px; --shadow:0 4px 20px rgba(20,45,32,.07),0 1px 2px rgba(20,45,32,.05);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+body.exam{user-select:none;-webkit-user-select:none}
+body.exam input,body.exam textarea{user-select:text;-webkit-user-select:text}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+.hidden{display:none!important}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.1}
+.mono{font-family:var(--mono)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.4rem;border-radius:999px;background:var(--ink);color:#fff;font-weight:700;letter-spacing:0.02em;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-1px);background:var(--ink2)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn.gold{background:var(--gold);color:#fff}
+.btn.ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
+
+/* ───── Accueil ───── */
+#accueil{min-height:100vh;display:grid;grid-template-columns:1.1fr 1fr}
+.hero{background:radial-gradient(ellipse at 20% 0%,#1a5c45,#0d3b2e 60%,#0a2e24);color:#fff;padding:48px 40px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;gap:2rem}
+.hero h1{font-size:clamp(2.6rem,6vw,4.4rem);color:#fff}
+.hero h1 em{color:var(--gold2);font-style:italic}
+.hero p{color:rgba(255,255,255,.78);max-width:34ch}
+.route{display:flex;gap:0;margin-top:1rem}
+.route .st{flex:1;position:relative;padding-top:26px;font-size:.8rem;color:rgba(255,255,255,.8)}
+.route .st::before{content:"";position:absolute;top:8px;left:0;right:0;height:4px;background:var(--c)}
+.route .st::after{content:"";position:absolute;top:1px;left:0;width:18px;height:18px;border-radius:50%;background:#fff;border:4px solid var(--c)}
+.route .st b{display:block;font-family:var(--mono);font-size:.7rem;letter-spacing:0.1em;color:#fff}
+.hero .deco{position:absolute;right:-60px;bottom:-80px;font-family:var(--display);font-size:22rem;line-height:1;color:rgba(255,255,255,.04);pointer-events:none}
+.entry{padding:40px;display:flex;flex-direction:column;gap:1.1rem;justify-content:center;max-width:520px;width:100%;margin:0 auto}
+.field label{display:block;font-size:.8rem;font-weight:700;margin-bottom:.3rem}
+.field input{width:100%;padding:.8rem 1rem;border:1.5px solid var(--line);border-radius:10px;font:inherit;background:#fff}
+.field input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(53,89,177,.15)}
+.rules{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:1rem 1.1rem;font-size:.85rem;color:var(--muted)}
+.rules li{margin:.25rem 0 .25rem 1.1rem}
+.pledge{display:flex;gap:.7rem;align-items:flex-start;font-size:.85rem;background:rgba(201,164,78,.12);border:1px solid rgba(201,164,78,.5);padding:.8rem 1rem;border-radius:10px}
+.pledge input{margin-top:.25rem;width:18px;height:18px;accent-color:var(--ink)}
+.err{color:var(--red);font-size:.85rem;min-height:1.2em}
+.soundtest{display:flex;align-items:center;gap:.8rem;font-size:.85rem}
+
+/* ───── Barra superior ───── */
+#top{position:sticky;top:0;z-index:50;background:rgba(238,244,238,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+#top .wrap{display:flex;align-items:center;gap:1rem;height:64px}
+.brand{font-family:var(--display);font-size:1.35rem;font-weight:700;white-space:nowrap}
+.brand small{font-family:var(--mono);font-size:.65rem;color:var(--muted);margin-left:.4rem}
+.line{flex:1;display:flex;align-items:center;gap:0;min-width:0}
+.line .stop{flex:1;display:flex;align-items:center;gap:.4rem;font-size:.72rem;font-weight:700;color:var(--hint);position:relative}
+.line .stop i{width:14px;height:14px;border-radius:50%;border:3px solid currentColor;background:#fff;flex:none}
+.line .stop::after{content:"";flex:1;height:3px;background:currentColor;opacity:.3;margin-right:.4rem}
+.line .stop:last-child::after{display:none}
+.line .stop.on{color:var(--c)} .line .stop.done{color:var(--c);opacity:.55}
+.line .stop.on i{background:var(--c)}
+.timer{font-family:var(--mono);font-weight:700;font-size:1.05rem;padding:.35rem .8rem;border-radius:999px;background:var(--ink);color:#fff;min-width:88px;text-align:center}
+.timer.warn{background:var(--red);animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.7}}
+.save{font-family:var(--mono);font-size:.65rem;color:var(--muted);width:78px;text-align:right}
+.eye{font-size:.65rem;font-family:var(--mono);color:var(--green);display:flex;align-items:center;gap:.3rem;white-space:nowrap}
+.eye::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+
+/* ───── Secciones y ejercicios ───── */
+main{padding:28px 0 120px}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
+.sec-head h2{font-size:clamp(2rem,4vw,2.8rem)}
+.sec-head h2 span{color:var(--c)}
+.sec-head .meta{font-size:.8rem;color:var(--muted);text-align:right}
+.tabs{display:flex;gap:.4rem;flex-wrap:wrap;margin:1rem 0 1.2rem}
+.tab{padding:.45rem .9rem;border-radius:999px;border:1.5px solid var(--line);font-size:.8rem;font-weight:700;background:#fff}
+.tab.on{background:var(--c);border-color:var(--c);color:#fff}
+.tab.ok::after{content:" ✓";color:var(--green)}
+.tab.on.ok::after{color:#fff}
+.ex{display:none;animation:fade .3s}
+.ex.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:24px}
+.ex-title{display:flex;gap:.8rem;align-items:baseline;margin-bottom:.4rem;flex-wrap:wrap}
+.ex-title h3{font-size:1.7rem}
+.pts{font-family:var(--mono);font-size:.72rem;background:rgba(13,31,51,.06);padding:.15rem .5rem;border-radius:6px}
+.consigne{color:var(--muted);font-size:.92rem;margin-bottom:1.1rem}
+.consigne b{color:var(--ink)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.q{margin:1rem 0}
+.q>p{font-weight:700;font-size:.95rem;margin-bottom:.45rem}
+.q>p .n{font-family:var(--mono);color:var(--c);margin-right:.35rem}
+.choices{display:flex;flex-wrap:wrap;gap:.5rem}
+.opt{padding:.6rem 1rem;border-radius:12px;border:1.5px solid var(--line);background:#fff;font-weight:600;font-size:.9rem;text-align:left;transition:all .12s;display:flex;align-items:center;gap:.5rem}
+.opt:hover{border-color:var(--c)}
+.opt.sel{background:var(--c);border-color:var(--c);color:#fff}
+.opt .ico{font-size:1.4rem;line-height:1}
+.opt.big{flex-direction:column;min-width:96px;justify-content:center;padding:.8rem}
+.inp{padding:.6rem .9rem;border:1.5px solid var(--line);border-radius:10px;font:inherit;font-family:var(--mono);font-size:1.1rem;letter-spacing:0.1em;width:10ch}
+.inp:focus{outline:none;border-color:var(--c)}
+.next-row{display:flex;justify-content:space-between;gap:1rem;margin-top:1.4rem;flex-wrap:wrap}
+
+/* Reproductor */
+.player{display:flex;align-items:center;gap:1rem;padding:14px 16px;border-radius:14px;background:var(--ink2);color:#fff}
+.player .play{width:52px;height:52px;border-radius:50%;background:var(--gold2);color:var(--ink);font-size:1.3rem;flex:none;display:grid;place-items:center}
+.player .play:disabled{background:rgba(255,255,255,.2);color:rgba(255,255,255,.5);cursor:not-allowed}
+.player .bar{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.18);overflow:hidden}
+.player .bar i{display:block;height:100%;width:0;background:var(--gold2);transition:width .2s linear}
+.player .left{font-family:var(--mono);font-size:.7rem;color:rgba(255,255,255,.75);white-space:nowrap}
+.player .lbl{font-size:.8rem;font-weight:700}
+.playing .play{animation:pulse 1s infinite}
+
+/* Teléfono / buzón */
+.phone{background:linear-gradient(160deg,#1a5c45,#0d3b2e);color:#fff;border-radius:26px;padding:22px;position:relative}
+.phone .who{display:flex;gap:.8rem;align-items:center;margin-bottom:1rem}
+.phone .av{width:46px;height:46px;border-radius:50%;background:var(--gold);color:var(--ink);display:grid;place-items:center;font-weight:800}
+.phone small{color:rgba(255,255,255,.6);font-family:var(--mono);font-size:.7rem}
+.notecard{background:#fffbea;border:1px dashed var(--gold);border-radius:14px;padding:18px;transform:rotate(-.4deg)}
+.notecard h4{font-family:var(--display);font-size:1.3rem;margin-bottom:.4rem}
+
+/* Cesta */
+.basket{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem}
+.basket .opt{flex-direction:column;justify-content:center;min-height:92px}
+.basket .opt .ico{font-size:2rem}
+
+/* Mapa */
+.map svg{width:100%;height:auto;display:block;border-radius:14px;border:1px solid var(--line)}
+.bld{cursor:pointer}
+.bld rect{fill:#fff;stroke:#0d1f33;stroke-width:2;transition:fill .15s}
+.bld:hover rect{fill:#e8eefc}
+.bld.sel rect{fill:var(--co)}
+.bld text{font-family:var(--mono);font-weight:700;font-size:22px;fill:#0d1f33;pointer-events:none}
+.bld.sel text{fill:#fff}
+.lm{font-family:var(--sans);font-size:11px;font-weight:700;fill:#0d1f33}
+
+/* Clasificación */
+.sort-row{display:grid;grid-template-columns:1.2fr 2fr;gap:.6rem;align-items:center;padding:.5rem 0;border-bottom:1px dashed var(--line)}
+.sort-row .what{font-weight:700;font-size:.92rem;display:flex;gap:.5rem;align-items:center}
+.sort-row .what .ico{font-size:1.4rem}
+.sort-row .choices .opt{padding:.4rem .7rem;font-size:.8rem}
+
+/* Anuncios */
+.ann{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.ann .card{padding:16px}
+.ann .where{display:flex;gap:.5rem;align-items:center;font-weight:800;margin-bottom:.6rem}
+.ann .where .ico{font-size:1.6rem}
+
+/* Anuncios inmobiliarios */
+.ads{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.ad{border:1.5px solid var(--line);border-radius:14px;padding:14px;background:#fff;position:relative}
+.ad .L{position:absolute;top:-12px;left:12px;background:var(--ce);color:#fff;font-family:var(--mono);font-weight:700;width:30px;height:30px;border-radius:50%;display:grid;place-items:center}
+.ad h4{font-size:.95rem;margin:.3rem 0}
+.ad p{font-size:.85rem;color:var(--muted)}
+.ad .price{font-family:var(--mono);font-weight:700;color:var(--ink)}
+.profile{display:grid;grid-template-columns:1.5fr 1fr;gap:.8rem;align-items:center;padding:.8rem 0;border-bottom:1px dashed var(--line)}
+.profile .pp{display:flex;gap:.7rem;align-items:flex-start;font-size:.88rem}
+.profile .pp .ico{font-size:1.8rem}
+
+/* Correo */
+.mail{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+.mail .mh{background:#f1f6f1;padding:10px 14px;font-size:.8rem;border-bottom:1px solid var(--line)}
+.mail .mh b{font-family:var(--mono);font-size:.72rem;color:var(--muted);display:inline-block;width:52px}
+.mail .mb{padding:16px;font-family:var(--display);font-size:1.12rem;line-height:1.55}
+.sent{border-radius:4px;transition:background .15s;padding:1px 0}
+.picking .sent{cursor:pointer;background:rgba(14,154,167,.08)}
+.picking .sent:hover{background:rgba(14,154,167,.25)}
+.sent.chosen{background:rgba(201,164,78,.35)}
+.sent sup{font-family:var(--mono);font-size:.62rem;background:var(--ce);color:#fff;border-radius:4px;padding:0 .25rem;margin-left:.15rem}
+.stmt{border:1.5px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;background:#fff}
+.stmt.active{border-color:var(--ce);box-shadow:0 0 0 3px rgba(14,154,167,.15)}
+.stmt p{font-weight:700;font-size:.92rem;margin-bottom:.5rem}
+.stmt .row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.stmt .proof{font-size:.8rem;color:var(--muted);font-style:italic;margin-top:.4rem}
+.pick{font-size:.78rem;padding:.45rem .8rem;border-radius:10px;border:1.5px dashed var(--ce);color:var(--ce);font-weight:700}
+.pick.on{background:var(--ce);color:#fff;border-style:solid}
+.mail-sticky{position:sticky;top:80px}
+
+/* Afiche */
+.poster{background:#f1dca8;border-radius:16px;padding:20px;color:var(--ink);position:relative;overflow:hidden}
+.poster h4{font-family:var(--display);font-size:1.9rem;line-height:1;margin-bottom:.2rem}
+.poster .sub{font-family:var(--mono);font-size:.72rem;letter-spacing:0.1em;margin-bottom:.8rem}
+.poster .ev{background:rgba(255,255,255,.72);border-radius:10px;padding:8px 10px;margin:.45rem 0;font-size:.84rem}
+.poster .ev b{font-family:var(--mono);font-size:.75rem;display:block}
+
+/* Chat */
+.chat{background:#dfeae1;border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:.5rem;max-width:380px}
+.chat .hd{text-align:center;font-weight:800;font-size:.85rem;margin-bottom:.3rem}
+.bub{max-width:82%;padding:.55rem .8rem;border-radius:16px;font-size:.88rem;line-height:1.35}
+.bub.in{background:#fff;align-self:flex-start;border-bottom-left-radius:4px}
+.bub.out{background:var(--ce);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.chat .time{align-self:center;font-family:var(--mono);font-size:.62rem;color:var(--muted)}
+
+/* Producción */
+.form-sheet{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;grid-template-columns:1fr 1fr;gap:.8rem 1rem}
+.form-sheet .full{grid-column:1/-1}
+.form-sheet label{font-size:.75rem;font-weight:700;display:block;margin-bottom:.2rem}
+.form-sheet input{width:100%;padding:.55rem .75rem;border:1.5px solid var(--line);border-radius:8px;font:inherit}
+.form-sheet input:focus,.compose textarea:focus{outline:none;border-color:var(--pe)}
+.compose{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+.compose textarea{width:100%;min-height:300px;border:0;padding:16px;font:inherit;font-family:var(--display);font-size:1.2rem;line-height:1.6;resize:vertical}
+.wc{display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:#f7f7f4;border-top:1px solid var(--line);font-family:var(--mono);font-size:.75rem}
+.wc .meter{flex:1;height:6px;background:var(--line);border-radius:3px;margin:0 1rem;overflow:hidden}
+.wc .meter i{display:block;height:100%;background:var(--pe);width:0}
+.checklist{font-size:.85rem;color:var(--muted)}
+.checklist li{margin:.25rem 0 .25rem 1.1rem}
+
+/* Capas de vigilancia */
+#wm{position:fixed;inset:0;pointer-events:none;z-index:40;opacity:.05;background-repeat:repeat}
+.veil{position:fixed;inset:0;z-index:200;background:rgba(13,31,51,.96);color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px}
+.veil .box{max-width:520px}
+.veil h3{font-size:2rem;margin-bottom:.6rem;color:var(--gold2)}
+.veil p{color:rgba(255,255,255,.8);margin-bottom:1.2rem}
+body.shield main{filter:blur(14px)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:.7rem 1.1rem;border-radius:12px;font-size:.85rem;z-index:300;box-shadow:var(--shadow);max-width:92vw}
+.demo-banner{background:var(--gold);color:#fff;text-align:center;font-family:var(--mono);font-size:.72rem;padding:.3rem;font-weight:700;letter-spacing:0.1em}
+
+/* Final */
+#fin{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center}
+#fin .card{max-width:560px}
+#fin h2{font-size:2.6rem;margin:.6rem 0}
+.recibo{font-family:var(--mono);font-size:1.6rem;letter-spacing:0.1em;background:var(--ink);color:var(--gold2);padding:.6rem 1rem;border-radius:12px;display:inline-block;margin:1rem 0}
+
+@media (max-width:820px){
+  #accueil{grid-template-columns:1fr}
+  .hero{padding:32px 20px}
+  .entry{padding:28px 16px}
+  .grid2,.ann,.ads,.form-sheet{grid-template-columns:1fr!important}
+  .basket{grid-template-columns:repeat(2,1fr)}
+  .line .stop span{display:none}
+  .brand small,.eye{display:none}
+  .sort-row,.profile{grid-template-columns:1fr}
+  .mail-sticky{position:static}
+  .card{padding:16px}
+}
+</style>
+</head>
+<body>
+<div id="demo-banner" class="demo-banner hidden">APERÇU DU PROFESSEUR · rien n'est enregistré</div>
+
+<section id="accueil">
+  <div class="hero">
+    <div>
+      <div class="kicker" style="color:var(--gold2)">Vive el francés · Prof. Miguel Tillero · Français B2</div>
+      <h1 style="margin-top:.8rem">Questions<br><em>de goût</em></h1>
+      <p style="margin-top:1rem">Le goût, les manières, les stéréotypes : qui décide de ce qui est « bien » ? Pendant 90 minutes, vous allez écouter, lire et argumenter, comme à l’épreuve écrite du DELF B2.</p>
+      <p style="margin-top:.6rem;font-size:.8rem;color:rgba(255,255,255,.6)">Évaluation de fin de cycle · Unités 1 et 2</p>
+    </div>
+    <div class="route">
+      <div class="st" style="--c:var(--co)"><b>01 · ÉCOUTER</b>Compréhension orale<br><span class="mono">25 pts · ~25 min</span></div>
+      <div class="st" style="--c:var(--ce)"><b>02 · LIRE</b>Compréhension écrite<br><span class="mono">25 pts · ~25 min</span></div>
+      <div class="st" style="--c:var(--pe)"><b>03 · ÉCRIRE</b>Production écrite<br><span class="mono">25 pts · ~40 min</span></div>
+    </div>
+    <div class="deco">M</div>
+  </div>
+
+  <form class="entry" id="f-entry" autocomplete="off">
+    <div>
+      <div class="kicker">Accès à l'évaluation</div>
+      <h2 style="font-size:2rem;margin-top:.3rem">Bienvenue !</h2>
+    </div>
+    <div class="field"><label for="i-nom">Nombre completo</label><input id="i-nom" required minlength="3" maxlength="80"></div>
+    <div class="field"><label for="i-mail">Correo electrónico (el mismo de la plataforma)</label><input id="i-mail" type="email" required maxlength="120"></div>
+    <div class="field"><label for="i-code">Code d'accès (te lo da el profesor)</label><input id="i-code" required maxlength="20" style="text-transform:uppercase;font-family:var(--mono);letter-spacing:0.1em"></div>
+
+    <div class="rules">
+      <strong style="color:var(--ink)">Antes de empezar</strong>
+      <ul>
+        <li>Usa una <b>computadora</b> con audífonos, en un lugar tranquilo.</li>
+        <li>Tienes <b>un solo intento</b> y <b>90 minutos</b>. El reloj es del servidor y no se detiene.</li>
+        <li>El examen se hace en <b>pantalla completa</b>. Salir, cambiar de pestaña, copiar, pegar o traducir queda registrado.</li>
+        <li>Cada audio se escucha <b>máximo 2 veces</b>.</li>
+        <li>Las secciones van en orden: al pasar a la siguiente <b>no se puede volver</b>.</li>
+        <li>Tus respuestas se guardan solas. Si se cae el internet, vuelve a entrar con el mismo correo.</li>
+      </ul>
+    </div>
+
+    <div class="soundtest">
+      <button type="button" class="btn ghost" id="b-sound">🔊 Probar el sonido</button>
+      <span id="sound-msg" style="color:var(--muted)">Verifica que escuchas bien.</span>
+    </div>
+
+    <label class="pledge"><input type="checkbox" id="i-pledge" required>
+      <span><b>Déclaration sur l'honneur.</b> Je fais cette évaluation seul·e, sans l'aide d'une autre personne, sans traducteur, sans intelligence artificielle et sans documents.</span></label>
+
+    <div class="err" id="err-entry"></div>
+    <button class="btn gold" id="b-start" type="submit" style="align-self:flex-start">Commencer →</button>
+  </form>
+</section>
+
+<div id="examen" class="hidden">
+  <div id="wm"></div>
+  <header id="top"><div class="wrap">
+    <div class="brand">Questions de goût <small>B2</small></div>
+    <div class="line">
+      <div class="stop" data-stop="0" style="--c:var(--co)"><i></i><span>Écouter</span></div>
+      <div class="stop" data-stop="1" style="--c:var(--ce)"><i></i><span>Lire</span></div>
+      <div class="stop" data-stop="2" style="--c:var(--pe)"><i></i><span>Écrire</span></div>
+    </div>
+    <div class="eye">surveillé</div>
+    <div class="save" id="save">—</div>
+    <div class="timer" id="timer">90:00</div>
+  </div></header>
+
+  <main><div class="wrap">
+
+<section class="sec hidden" data-sec="0" style="--c:var(--co)">
+  <div class="sec-head">
+    <div><div class="kicker">Section 1 / 3</div><h2>Écouter · <span>Compréhension orale</span></h2></div>
+    <div class="meta">25 points · temps conseillé 25 min<br>Chaque document : <b>2 écoutes maximum</b></div>
+  </div>
+  <div class="tabs"></div>
+
+  <article class="ex" data-title="1 · La chronique">
+    <div class="card">
+      <div class="ex-title"><h3>La faute de goût existe-t-elle ?</h3><span class="pts">7 pts</span></div>
+      <p class="consigne">Vous écoutez une chronique radio avec un sociologue. Lisez d’abord les questions, puis écoutez et répondez.</p>
+      <div class="player" data-a="co1" data-src="b7e2c94a1f60"><button class="play" type="button">▶</button><div style="flex:1"><div class="lbl">« Questions de société »</div><div class="bar"><i></i></div></div><div class="left"></div></div>
+      <div class="q"><p><span class="n">1.</span>Selon Julien Maret, le goût est surtout…</p><div class="choices" data-q="co1a" data-shuffle style="flex-direction:column"><button class="opt" data-v="social">une construction sociale</button><button class="opt" data-v="inne">une qualité innée</button><button class="opt" data-v="argent">une question de moyens financiers</button></div></div>
+      <div class="q"><p><span class="n">2.</span>L’exemple des chaussettes dans les sandales montre que…</p><div class="choices" data-q="co1b" data-shuffle style="flex-direction:column"><button class="opt" data-v="change">ce qui était ridicule hier peut devenir élégant demain</button><button class="opt" data-v="couturiers">les grands couturiers manquent de goût</button><button class="opt" data-v="confort">le confort compte plus que l’élégance</button></div></div>
+      <div class="q"><p><span class="n">3.</span>Quels exemples le sociologue cite-t-il ? <span style="font-weight:400;color:var(--muted)">(deux réponses)</span></p><div class="basket multi" data-q="co1c" data-shuffle><button class="opt" data-v="chaussettes">les chaussettes dans les sandales</button><button class="opt" data-v="moustache">la moustache</button><button class="opt" data-v="cravate">la cravate</button><button class="opt" data-v="jean">le jean troué</button><button class="opt" data-v="tatouage">les tatouages</button></div></div>
+      <div class="q"><p><span class="n">4.</span>D’après lui, les réseaux sociaux…</p><div class="choices" data-q="co1d" data-shuffle style="flex-direction:column"><button class="opt" data-v="accelerent">accélèrent la circulation des tendances</button><button class="opt" data-v="creent">créent le goût de toutes pièces</button><button class="opt" data-v="rien">n’ont pas d’effet réel sur le goût</button></div></div>
+      <div class="q"><p><span class="n">5.</span>L’« effet de simple exposition », c’est le fait que…</p><div class="choices" data-q="co1e" data-shuffle style="flex-direction:column"><button class="opt" data-v="plus">plus on voit quelque chose, plus on le trouve beau</button><button class="opt" data-v="rejet">on finit par rejeter ce qu’on voit trop souvent</button><button class="opt" data-v="amis">on aime ce que nos amis aiment</button></div></div>
+      <div class="q"><p><span class="n">6.</span>Que conseille-t-il aux auditeurs ?</p><div class="choices" data-q="co1f" data-shuffle style="flex-direction:column"><button class="opt" data-v="pourquoi">Se demander pourquoi on n’aime pas quelque chose</button><button class="opt" data-v="suivre">Suivre les tendances pour ne pas être exclu</button><button class="opt" data-v="eviter">Éviter les réseaux sociaux</button></div></div>
+    </div>
+  </article>
+
+  <article class="ex" data-title="2 · Le débat">
+    <div class="card">
+      <div class="ex-title"><h3>Jouets : faut-il en finir avec les rayons « filles » et « garçons » ?</h3><span class="pts">8 pts</span></div>
+      <p class="consigne">Vous écoutez un débat entre <b>Marc</b>, fabricant de jouets, et <b>Sophie</b>, chercheuse en sciences de l’éducation. <b>Qui exprime chaque idée ?</b></p>
+      <div class="player" data-a="co2" data-src="4d91f0b8c3e5"><button class="play" type="button">▶</button><div style="flex:1"><div class="lbl">Le débat</div><div class="bar"><i></i></div></div><div class="left"></div></div>
+      <div style="margin-top:1rem">
+        <div class="profile"><div class="pp"><div><span class="n">1.</span> Les jouets préparent les enfants à des rôles et à des métiers.</div></div><div class="choices" data-q="co2a"><button class="opt" data-v="marc">Marc</button><button class="opt" data-v="sophie">Sophie</button><button class="opt" data-v="deux">Les deux</button></div></div>
+        <div class="profile"><div class="pp"><div><span class="n">2.</span> Les fabricants ne font que répondre à la demande des parents.</div></div><div class="choices" data-q="co2b"><button class="opt" data-v="marc">Marc</button><button class="opt" data-v="sophie">Sophie</button><button class="opt" data-v="deux">Les deux</button></div></div>
+        <div class="profile"><div class="pp"><div><span class="n">3.</span> C’est la publicité qui fabrique la demande.</div></div><div class="choices" data-q="co2c"><button class="opt" data-v="marc">Marc</button><button class="opt" data-v="sophie">Sophie</button><button class="opt" data-v="deux">Les deux</button></div></div>
+        <div class="profile"><div class="pp"><div><span class="n">4.</span> Les catalogues de jouets ont pris du retard.</div></div><div class="choices" data-q="co2d"><button class="opt" data-v="marc">Marc</button><button class="opt" data-v="sophie">Sophie</button><button class="opt" data-v="deux">Les deux</button></div></div>
+        <div class="profile"><div class="pp"><div><span class="n">5.</span> Une loi n’est pas la bonne solution.</div></div><div class="choices" data-q="co2e"><button class="opt" data-v="marc">Marc</button><button class="opt" data-v="sophie">Sophie</button><button class="opt" data-v="deux">Les deux</button></div></div>
+        <div class="profile"><div class="pp"><div><span class="n">6.</span> L’école a un rôle essentiel.</div></div><div class="choices" data-q="co2f"><button class="opt" data-v="marc">Marc</button><button class="opt" data-v="sophie">Sophie</button><button class="opt" data-v="deux">Les deux</button></div></div>
+      </div>
+      <div class="q"><p><span class="n">7.</span>Sophie accepterait une loi à condition que… <span class="pts" style="margin-left:.4rem">2 pts</span></p><div class="choices" data-q="co2g" data-shuffle style="flex-direction:column"><button class="opt" data-v="ecoles">elle soit accompagnée d’un vrai travail avec les écoles</button><button class="opt" data-v="fabricants">les fabricants soient d’accord</button><button class="opt" data-v="parents">les parents la demandent</button></div></div>
+    </div>
+  </article>
+
+  <article class="ex" data-title="3 · Prise de notes">
+    <div class="card">
+      <div class="ex-title"><h3>La nétiquette au bureau</h3><span class="pts">10 pts</span></div>
+      <p class="consigne">Vous écoutez un reportage. <b>Complétez vos notes</b> : pour chaque ligne, choisissez l’information juste.</p>
+      <div class="player" data-a="co3" data-src="e05a7d3b9c18"><button class="play" type="button">▶</button><div style="flex:1"><div class="lbl">Reportage · le courriel professionnel</div><div class="bar"><i></i></div></div><div class="left"></div></div>
+      <div class="notecard" style="margin-top:1rem"><h4>📝 Mes notes</h4><div class="profile"><div class="pp"><div><span class="n">1.</span> <b>Courriels reçus par jour (en moyenne)</b></div></div><div class="choices" data-q="co3a"><button class="opt" data-v="40">40</button><button class="opt" data-v="80">80</button><button class="opt" data-v="120">120</button></div></div><div class="profile"><div class="pp"><div><span class="n">2.</span> <b>Temps passé à les traiter</b></div></div><div class="choices" data-q="co3b"><button class="opt" data-v="1h">≈ 1 h</button><button class="opt" data-v="2h">≈ 2 h</button><button class="opt" data-v="3h">≈ 3 h</button></div></div><div class="profile"><div class="pp"><div><span class="n">3.</span> <b>Erreur n° 1</b></div></div><div class="choices" data-q="co3c"><button class="opt" data-v="tous">« répondre à tous »</button><button class="opt" data-v="maj">écrire en majuscules</button><button class="opt" data-v="objet">oublier l’objet</button></div></div><div class="profile"><div class="pp"><div><span class="n">4.</span> <b>Majuscules =</b></div></div><div class="choices" data-q="co3d"><button class="opt" data-v="chuchoter">chuchoter</button><button class="opt" data-v="crier">crier</button><button class="opt" data-v="insister">insister poliment</button></div></div><div class="profile"><div class="pp"><div><span class="n">5.</span> <b>L’objet doit être</b></div></div><div class="choices" data-q="co3e"><button class="opt" data-v="long">long et détaillé</button><button class="opt" data-v="court">court et précis</button><button class="opt" data-v="facultatif">facultatif</button></div></div><div class="profile"><div class="pp"><div><span class="n">6.</span> <b>Trois sujets →</b></div></div><div class="choices" data-q="co3f"><button class="opt" data-v="un">1 seul courriel</button><button class="opt" data-v="trois">3 courriels</button><button class="opt" data-v="appel">1 appel</button></div></div><div class="profile"><div class="pp"><div><span class="n">7.</span> <b>À éviter : écrire…</b></div></div><div class="choices" data-q="co3g"><button class="opt" data-v="matin">tôt le matin</button><button class="opt" data-v="soir">le soir et le week-end</button><button class="opt" data-v="reunion">pendant les réunions</button></div></div><div class="profile"><div class="pp"><div><span class="n">8.</span> <b>En colère →</b></div></div><div class="choices" data-q="co3h"><button class="opt" data-v="tout">répondre tout de suite</button><button class="opt" data-v="24h">attendre 24 h</button><button class="opt" data-v="tel">téléphoner</button></div></div><div class="profile"><div class="pp"><div><span class="n">9.</span> <b>Après relecture, on modifie le message…</b></div></div><div class="choices" data-q="co3i"><button class="opt" data-v="1">1 fois sur 10</button><button class="opt" data-v="5">5 fois sur 10</button><button class="opt" data-v="9">9 fois sur 10</button></div></div><div class="profile"><div class="pp"><div><span class="n">10.</span> <b>Formule de politesse la plus sûre</b></div></div><div class="choices" data-q="co3j"><button class="opt" data-v="bisous">« Bisous »</button><button class="opt" data-v="cordialement">« Cordialement »</button><button class="opt" data-v="salutations">« Salutations distinguées »</button></div></div></div>
+    </div>
+  </article>
+
+</section>
+
+<section class="sec hidden" data-sec="1" style="--c:var(--ce)">
+  <div class="sec-head">
+    <div><div class="kicker">Section 2 / 3</div><h2>Lire · <span>Compréhension écrite</span></h2></div>
+    <div class="meta">25 points · temps conseillé 25 min</div>
+  </div>
+  <div class="tabs"></div>
+
+  <article class="ex" data-title="1 · La tribune">
+    <div class="card">
+      <div class="ex-title"><h3>Le bon goût, une affaire de classe ?</h3><span class="pts">10 pts</span></div>
+      <p class="consigne">Lisez cette tribune. Pour chaque affirmation, répondez <b>Vrai</b> ou <b>Faux</b>, puis <b>justifiez</b> : touchez « Choisir la preuve » et cliquez sur <b>la phrase du texte</b> qui le montre.</p>
+      <div class="grid2">
+        <div class="mail-sticky"><div class="mail" id="mail">
+          <div class="mh"><b>DE</b> La rubrique « Idées »<br><b>OBJET</b> Le bon goût, une affaire de classe ?</div>
+          <div class="mb"><span class="sent" data-s="s1">« Il a vraiment mauvais goût » : qui n’a jamais prononcé cette phrase ?</span> <span class="sent" data-s="s2">Derrière ce jugement en apparence anodin se cache pourtant toute une histoire sociale.</span> <br><br> <span class="sent" data-s="s3">Au XIXe siècle, la bourgeoisie imposait ses codes : ce qui était discret était distingué, ce qui était voyant était vulgaire.</span> <span class="sent" data-s="s4">Ces règles n’ont pas disparu ; elles se sont simplement déplacées.</span> <span class="sent" data-s="s5">Aujourd’hui, ce ne sont plus les salons parisiens qui fixent les normes, mais les influenceurs.</span> <span class="sent" data-s="s6">Plus une tendance est partagée, plus elle paraît légitime, même lorsqu’elle choquait quelques mois plus tôt.</span> <br><br> <span class="sent" data-s="s7">Faut-il pour autant renoncer à tout jugement ?</span> <span class="sent" data-s="s8">Certainement pas : avoir des préférences, c’est aussi affirmer qui l’on est.</span> <span class="sent" data-s="s9">Ce qui pose problème, c’est le mépris.</span> <span class="sent" data-s="s10">Se moquer des goûts d’autrui revient bien souvent à se moquer de son origine sociale.</span> <br><br> <span class="sent" data-s="s11">Plutôt que de condamner, on gagnerait à comprendre.</span> <span class="sent" data-s="s12">Après tout, le mauvais goût d’aujourd’hui sera peut-être l’élégance de demain.</span></div></div></div>
+        <div><div class="stmt" data-n="1"><p>1. Selon l’auteur, dire « il a mauvais goût » est un jugement neutre.</p><div class="row"><div class="choices" data-q="ce1v1"><button class="opt" data-v="V">Vrai</button><button class="opt" data-v="F">Faux</button></div><button type="button" class="pick" data-q="ce1p1">📍 Choisir la preuve</button></div><div class="proof"></div></div><div class="stmt" data-n="2"><p>2. Au XIXe siècle, la discrétion était associée à la distinction.</p><div class="row"><div class="choices" data-q="ce1v2"><button class="opt" data-v="V">Vrai</button><button class="opt" data-v="F">Faux</button></div><button type="button" class="pick" data-q="ce1p2">📍 Choisir la preuve</button></div><div class="proof"></div></div><div class="stmt" data-n="3"><p>3. Les règles du bon goût ont aujourd’hui disparu.</p><div class="row"><div class="choices" data-q="ce1v3"><button class="opt" data-v="V">Vrai</button><button class="opt" data-v="F">Faux</button></div><button type="button" class="pick" data-q="ce1p3">📍 Choisir la preuve</button></div><div class="proof"></div></div><div class="stmt" data-n="4"><p>4. L’auteur pense qu’il vaut mieux n’avoir aucune préférence.</p><div class="row"><div class="choices" data-q="ce1v4"><button class="opt" data-v="V">Vrai</button><button class="opt" data-v="F">Faux</button></div><button type="button" class="pick" data-q="ce1p4">📍 Choisir la preuve</button></div><div class="proof"></div></div><div class="stmt" data-n="5"><p>5. Pour l’auteur, se moquer des goûts des autres peut cacher un mépris social.</p><div class="row"><div class="choices" data-q="ce1v5"><button class="opt" data-v="V">Vrai</button><button class="opt" data-v="F">Faux</button></div><button type="button" class="pick" data-q="ce1p5">📍 Choisir la preuve</button></div><div class="proof"></div></div></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="ex" data-title="2 · L’article">
+    <div class="card">
+      <div class="ex-title"><h3>Jouets : la fin des rayons roses et bleus ?</h3><span class="pts">15 pts</span></div>
+      <p class="consigne">Lisez l’article, puis répondez aux questions (1,5 point chacune).</p>
+      <div class="grid2">
+        <div class="mail-sticky"><div class="mail"><div class="mb"><p>En Espagne, une loi impose depuis 2022 de ne plus orienter la publicité des jouets selon le sexe des enfants. En France, aucun texte de ce type n’existe, mais une charte, signée en 2019 par les principaux fabricants, les engage à « favoriser une représentation non stéréotypée ». Cinq ans plus tard, le bilan est mitigé.</p>
+<p>Dans les grandes enseignes, les panneaux « filles » et « garçons » ont presque disparu. Pourtant, il suffit de parcourir les allées pour constater que les couleurs parlent encore : le rose domine toujours au rayon des poupées et des dînettes, le bleu et le noir à celui des véhicules et des jeux de construction.</p>
+<p>Pour la sociologue Hélène Varin, le problème est moins le jouet lui-même que le message qui l’accompagne. « Un garçon peut jouer à la poupée sans que cela pose le moindre problème. Ce qui le freine, c’est le regard des autres : tant que la boîte montre une petite fille, il comprendra que ce jouet n’est pas pour lui. »</p>
+<p>Les fabricants, de leur côté, mettent en avant les contraintes économiques : changer les emballages coûte cher, et les produits « neutres » se vendent encore moins bien. Certains ont pourtant fait le pari inverse et s’en félicitent : leurs jeux de construction, présentés avec des enfants des deux sexes, se vendent mieux qu’avant.</p>
+<p>Reste la question des parents. Une enquête récente montre que deux tiers d’entre eux se disent favorables à des jouets « pour tous »… mais qu’une majorité achète, au moment de Noël, des jouets conformes au sexe de l’enfant. Tellement les habitudes ont la vie dure.</p></div></div></div>
+        <div><div class="q"><p><span class="n">1.</span>Quel est le sujet principal de l’article ?</p><div class="choices" data-q="ce2a" data-shuffle style="flex-direction:column"><button class="opt" data-v="evolution">La lente évolution des jouets « genrés » en France</button><button class="opt" data-v="histoire">L’histoire des jouets depuis le XIXe siècle</button><button class="opt" data-v="noel">Les ventes de jouets au moment de Noël</button></div></div><div class="q"><p><span class="n">2.</span>En France, l’engagement des fabricants repose sur…</p><div class="choices" data-q="ce2b" data-shuffle style="flex-direction:column"><button class="opt" data-v="charte">une charte qu’ils ont signée</button><button class="opt" data-v="loi">une loi votée en 2022</button><button class="opt" data-v="europe">une décision européenne</button></div></div><div class="q"><p><span class="n">3.</span>Selon l’article, le bilan de cet engagement est…</p><div class="choices" data-q="ce2c" data-shuffle style="flex-direction:column"><button class="opt" data-v="mitige">mitigé</button><button class="opt" data-v="excellent">excellent</button><button class="opt" data-v="nul">catastrophique</button></div></div><div class="q"><p><span class="n">4.</span>Dans les magasins aujourd’hui…</p><div class="choices" data-q="ce2d" data-shuffle style="flex-direction:column"><button class="opt" data-v="couleurs">les panneaux ont presque disparu, mais les couleurs restent « genrées »</button><button class="opt" data-v="melange">les rayons sont mélangés et sans couleur dominante</button><button class="opt" data-v="panneaux">les panneaux « filles » et « garçons » sont toujours là</button></div></div><div class="q"><p><span class="n">5.</span>D’après Hélène Varin, ce qui freine un garçon, c’est…</p><div class="choices" data-q="ce2e" data-shuffle style="flex-direction:column"><button class="opt" data-v="regard">le regard des autres</button><button class="opt" data-v="prix">le prix des poupées</button><button class="opt" data-v="jouet">le jouet lui-même</button></div></div><div class="q"><p><span class="n">6.</span>« <i>tant que</i> la boîte montre une petite fille » signifie…</p><div class="choices" data-q="ce2f" data-shuffle style="flex-direction:column"><button class="opt" data-v="aussi">aussi longtemps que</button><button class="opt" data-v="bien">bien que</button><button class="opt" data-v="parce">parce que</button></div></div><div class="q"><p><span class="n">7.</span>Les fabricants justifient leur prudence par…</p><div class="choices" data-q="ce2g" data-shuffle style="flex-direction:column"><button class="opt" data-v="eco">des raisons économiques</button><button class="opt" data-v="peda">des raisons pédagogiques</button><button class="opt" data-v="ecoles">la demande des écoles</button></div></div><div class="q"><p><span class="n">8.</span>Les fabricants qui ont changé leurs emballages…</p><div class="choices" data-q="ce2h" data-shuffle style="flex-direction:column"><button class="opt" data-v="mieux">vendent mieux qu’avant</button><button class="opt" data-v="regret">le regrettent</button><button class="opt" data-v="arret">ont dû arrêter</button></div></div><div class="q"><p><span class="n">9.</span>Les parents…</p><div class="choices" data-q="ce2i" data-shuffle style="flex-direction:column"><button class="opt" data-v="contradiction">se disent favorables aux jouets « pour tous » mais achètent des jouets conformes</button><button class="opt" data-v="refus">refusent les jouets neutres</button><button class="opt" data-v="neutres">achètent surtout des jouets neutres</button></div></div><div class="q"><p><span class="n">10.</span>« Les habitudes ont la vie dure » veut dire que les habitudes…</p><div class="choices" data-q="ce2j" data-shuffle style="flex-direction:column"><button class="opt" data-v="lent">changent difficilement</button><button class="opt" data-v="vite">disparaissent vite</button><button class="opt" data-v="danger">sont dangereuses</button></div></div></div>
+      </div>
+    </div>
+  </article>
+
+</section>
+
+<section class="sec hidden" data-sec="2" style="--c:var(--pe)">
+  <div class="sec-head">
+    <div><div class="kicker">Section 3 / 3</div><h2>Écrire · <span>Production écrite</span></h2></div>
+    <div class="meta">25 points · temps conseillé 40 min<br>Correcteur, traducteur et « coller » désactivés</div>
+  </div>
+  <div class="tabs"></div>
+
+  <article class="ex" data-title="1 · Reformuler">
+    <div class="card">
+      <div class="ex-title"><h3>Reformulez avec la structure demandée</h3><span class="pts">5 pts</span></div>
+      <p class="consigne">Réécrivez chaque phrase en utilisant <b>la structure indiquée</b>. Le sens doit rester le même.</p>
+      <div class="form-sheet" style="grid-template-columns:1fr"><div><label>1. CE QUI / CE QUE — « Je n’aime pas la vulgarité. »</label><input data-q="pe1a" data-w="pe1" maxlength="200" autocomplete="off" spellcheck="false" placeholder="Ce que…"></div><div><label>2. Double comparatif — « Quand on voit souvent une tendance, on l’apprécie davantage. »</label><input data-q="pe1b" data-w="pe1" maxlength="200" autocomplete="off" spellcheck="false" placeholder="Plus…"></div><div><label>3. PLUTÔT QUE — « Il vaut mieux comprendre que juger. »</label><input data-q="pe1c" data-w="pe1" maxlength="200" autocomplete="off" spellcheck="false" placeholder="Plutôt que…"></div><div><label>4. TELLEMENT… QUE — « La publicité est très présente. Les enfants l’imitent. »</label><input data-q="pe1d" data-w="pe1" maxlength="200" autocomplete="off" spellcheck="false" placeholder="La publicité est…"></div><div><label>5. POURVU QUE + subjonctif — « J’espère que les magasins vont changer leurs rayons. »</label><input data-q="pe1e" data-w="pe1" maxlength="200" autocomplete="off" spellcheck="false" placeholder="Pourvu que…"></div></div>
+    </div>
+  </article>
+
+  <article class="ex" data-title="2 · L’article argumenté">
+    <div class="card">
+      <div class="ex-title"><h3>Faut-il interdire les rayons de jouets séparés ?</h3><span class="pts">20 pts</span></div>
+      <p class="consigne">Le magazine de votre école organise un débat : <b>« Faut-il interdire les rayons de jouets séparés pour les filles et pour les garçons ? »</b> Vous écrivez un article argumenté pour donner votre opinion (<b>200 à 250 mots</b>).</p>
+      <div class="grid2" style="grid-template-columns:2fr 1fr">
+        <div class="compose">
+          <div class="mail"><div class="mh" style="border-radius:0"><b>POUR</b> Le magazine de l’école<br><b>OBJET</b> Mon point de vue · le débat du mois</div></div>
+          <textarea data-q="pe2" data-w="pe2" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Un titre, puis votre article…"></textarea>
+          <div class="wc"><span id="wc-n">0 mot</span><div class="meter"><i id="wc-bar"></i></div><span>200–250</span></div>
+        </div>
+        <div>
+          <p class="kicker" style="margin-bottom:.4rem">Dans votre article :</p>
+          <ul class="checklist">
+            <li>un <b>titre</b> et une <b>introduction</b> qui pose le problème ;</li>
+            <li>au moins <b>deux arguments</b>, chacun illustré par un <b>exemple</b> ;</li>
+            <li>vous tenez compte d’un <b>argument opposé</b> pour y répondre ;</li>
+            <li>une <b>conclusion</b> qui affirme votre position.</li>
+          </ul>
+          <p class="checklist" style="margin-top:1rem">Utilisez des connecteurs (d’abord, en effet, cependant, c’est pourquoi…) et au moins deux structures travaillées en cours. Écrivez avec <b>vos</b> mots : votre façon d’écrire est enregistrée.</p>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<div class="next-row" id="nav">
+  <button type="button" class="btn ghost" id="b-prev">← Précédent</button>
+  <button type="button" class="btn" id="b-next">Suivant →</button>
+</div>
+  </div></main>
+</div>
+
+<!-- ═════════ VOILES ═════════ -->
+<div class="veil hidden" id="v-fs"><div class="box"><h3>Reviens en plein écran</h3><p>Tu as quitté le plein écran. Cette sortie a été enregistrée. L'évaluation continue : le temps ne s'arrête pas.</p><button class="btn gold" id="b-fs">Revenir à l'évaluation</button></div></div>
+<div class="veil hidden" id="v-tab"><div class="box"><h3>Évaluation déjà ouverte</h3><p>L'évaluation est ouverte dans un autre onglet ou une autre fenêtre. Ferme cette page et continue dans l'autre.</p></div></div>
+<div class="veil hidden" id="v-confirm"><div class="box"><h3 id="c-title">Passer à la section suivante ?</h3><p id="c-text">Tu ne pourras plus revenir en arrière.</p><div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap"><button class="btn ghost" id="c-no" style="color:#fff;border-color:rgba(255,255,255,.4)">Pas encore</button><button class="btn gold" id="c-yes">Oui, continuer</button></div></div></div>
+
+<!-- ═════════ FIN ═════════ -->
+<section id="fin" class="hidden"><div class="card">
+  <div class="kicker">Évaluation envoyée</div>
+  <h2>Merci et bravo !</h2>
+  <p>Tes réponses sont bien arrivées. Ton professeur te donnera les résultats.</p>
+  <div class="recibo" id="recibo">——</div>
+  <p style="font-size:.85rem;color:var(--muted)">Numéro de reçu. Tu peux fermer cette page.</p>
+</div></section>
+<div class="toast hidden" id="toast"></div>
+<script>
+(function(){
+'use strict';
+const EXAM_ID = 'b2-cierre-questions-de-gout';
+const WMIN = 200, WMAX = 250;
+const AUDIO = 'audio/';
+const MAX_PLAYS = 2;
+const TEST_AUDIO = 'e6c0317d0ddd';
+const DEMO = new URLSearchParams(location.search).has('apercu');
+const $  = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+
+let sb = null, att = null, offset = 0;
+let A = { _m:{ plays:{}, sec:0, ex:[0,0,0], ts:0 } };
+let W = { pe1:{ log:[], t0:0 }, pe2:{ log:[], t0:0 } };
+let EV = [];
+let dirty = false, wDirty = false, saving = false, started = false, finished = false;
+let timers = [];
+let who = { nom:'', mail:'' };
+
+const now = () => Date.now() + offset;
+const active = () => started && !finished;
+
+/* ───────── utilidades ───────── */
+function hash(str){ let h1=0xdeadbeef, h2=0x41c6ce57; for(let i=0;i<str.length;i++){const c=str.charCodeAt(i);h1=Math.imul(h1^c,2654435761);h2=Math.imul(h2^c,1597334677);} h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909); h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909); return (4294967296*(2097151&h2)+(h1>>>0)); }
+function rng(seed){ let a = seed>>>0; return () => { a|=0; a=a+0x6D2B79F5|0; let t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+function toast(msg, ms=3500){ const t=$('#toast'); t.textContent=msg; t.classList.remove('hidden'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.add('hidden'), ms); }
+function log(k, x){ if(!active() && k!=='inicio') return; EV.push(Object.assign({ k, t: now(), s: A._m.sec, e: A._m.ex[A._m.sec] }, x||{})); }
+function lsSet(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+function lsGet(k){ try{ return JSON.parse(localStorage.getItem(k)||'null'); }catch(e){ return null; } }
+function lsDel(k){ try{ localStorage.removeItem(k); }catch(e){} }
+const bkKey = () => 'exam_' + EXAM_ID + '_' + (att ? att.id : 'x');
+
+function fingerprint(){
+  let c = '';
+  try{ const cv=document.createElement('canvas'); cv.width=200; cv.height=40; const x=cv.getContext('2d');
+    x.textBaseline='top'; x.font='16px Arial'; x.fillStyle='#f60'; x.fillRect(0,0,80,20); x.fillStyle='#069'; x.fillText('B2·fin ✓ éàç', 2, 4); c = cv.toDataURL(); }catch(e){}
+  return hash([c, navigator.userAgent, screen.width, screen.height, screen.colorDepth, navigator.hardwareConcurrency, Intl.DateTimeFormat().resolvedOptions().timeZone].join('|')).toString(36);
+}
+function device(){
+  return { ua:navigator.userAgent, lang:(navigator.languages||[]).join(','), tz:Intl.DateTimeFormat().resolvedOptions().timeZone,
+    scr:screen.width+'x'+screen.height, win:innerWidth+'x'+innerHeight, dpr:devicePixelRatio, touch:navigator.maxTouchPoints||0,
+    ext:(typeof screen.isExtended==='boolean')?screen.isExtended:null, cores:navigator.hardwareConcurrency||null, fp:fingerprint() };
+}
+
+/* ───────── acceso ───────── */
+if(DEMO){ $('#demo-banner').classList.remove('hidden'); $('#i-code').value='APERCU'; }
+$('#b-sound').addEventListener('click', () => {
+  const a = new Audio(AUDIO + TEST_AUDIO + '.mp3');
+  a.play().then(()=>{ $('#sound-msg').textContent='¿Lo escuchas? Si no, sube el volumen o revisa tus audífonos.'; })
+          .catch(()=>{ $('#sound-msg').textContent='No se pudo reproducir. Revisa tu navegador.'; });
+});
+
+const ERR = {
+  CODIGO_INCORRECTO:'El código de acceso no es correcto.',
+  YA_ENVIADO:'Ya enviaste este examen con este correo. Solo se permite un intento.',
+  EXAMEN_CERRADO:'El examen está cerrado en este momento. Consulta a tu profesor.',
+  EXAMEN_NO_EXISTE:'Examen no encontrado.',
+  EMAIL_INVALIDO:'Revisa tu correo electrónico.',
+  NOMBRE_INVALIDO:'Escribe tu nombre completo.'
+};
+function errText(err){ const m = (err && err.message) || ''; for(const k in ERR) if(m.includes(k)) return ERR[k]; return 'Problema de conexión. Revisa tu internet e intenta de nuevo.'; }
+
+$('#f-entry').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const err = $('#err-entry'); err.textContent = '';
+  who.nom = $('#i-nom').value.trim(); who.mail = $('#i-mail').value.trim().toLowerCase();
+  const code = $('#i-code').value.trim();
+  if(!$('#i-pledge').checked){ err.textContent = 'Debes aceptar la declaración sur l\'honneur.'; return; }
+  goFullscreen(); // dentro del gesto del usuario
+  const b = $('#b-start'); b.disabled = true; b.textContent = 'Connexion…';
+  try{
+    let r;
+    if(DEMO){
+      r = { id:'demo', token:'demo', semilla: Math.floor(Math.random()*1e9), limite_en: new Date(Date.now()+60*60000).toISOString(), ahora: new Date().toISOString(), respuestas:{}, escritura:{}, reanudado:false };
+    } else {
+      sb = sb || (typeof supabaseClient !== 'undefined' ? supabaseClient : null);
+      if(!sb) throw new Error('SIN_CONFIG');
+      const { data, error } = await sb.rpc('examen_iniciar', { p_examen:EXAM_ID, p_codigo:code, p_nombre:who.nom, p_email:who.mail, p_dispositivo:device() });
+      if(error) throw error;
+      r = data;
+    }
+    att = { id:r.id, token:r.token, semilla:r.semilla, limite:new Date(r.limite_en).getTime() };
+    offset = new Date(r.ahora).getTime() - Date.now();
+    if(r.respuestas && r.respuestas._m) A = r.respuestas;
+    if(r.escritura && r.escritura.pe2) W = r.escritura;
+    const bk = lsGet(bkKey());
+    if(bk && bk.A && bk.A._m && bk.A._m.ts > (A._m.ts||0)){ A = bk.A; if(bk.W) W = bk.W; dirty = wDirty = true; }
+    begin(r.reanudado);
+  }catch(ex){
+    err.textContent = errText(ex);
+    b.disabled = false; b.textContent = 'Commencer →';
+    if(document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+  }
+});
+
+/* ───────── arranque ───────── */
+function begin(resumed){
+  started = true;
+  document.body.classList.add('exam');
+  $('#accueil').classList.add('hidden');
+  $('#examen').classList.remove('hidden');
+  watermark();
+  shuffleAll();
+  bindAnswers();
+  bindWriting();
+  setupPlayers();
+  setupNav();
+  monitors();
+  tabLock();
+  restoreUI();
+  showSec(A._m.sec, true);
+  log('inicio', { reanudado:!!resumed, fs:!!document.fullscreenElement });
+  if(resumed) toast('Evaluación reanudada. El tiempo siguió corriendo.', 5000);
+  timers.push(setInterval(tick, 500));
+  timers.push(setInterval(save, 15000));
+  timers.push(setInterval(idleCheck, 30000));
+  save();
+}
+
+function watermark(){
+  const txt = (who.nom + ' · ' + who.mail + ' · ' + new Date().toLocaleDateString('fr-FR')).replace(/[<&>"]/g,'');
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='460' height='220'><text x='20' y='130' transform='rotate(-24 230 110)' font-family='monospace' font-size='15' fill='#0d1f33'>${txt}</text></svg>`;
+  $('#wm').style.backgroundImage = 'url("data:image/svg+xml;utf8,' + encodeURIComponent(svg) + '")';
+}
+
+function shuffleAll(){
+  $$('[data-shuffle]').forEach(g => {
+    const r = rng(att.semilla ^ hash(g.dataset.q||'x'));
+    const kids = [...g.children];
+    for(let i=kids.length-1;i>0;i--){ const j=Math.floor(r()*(i+1)); [kids[i],kids[j]]=[kids[j],kids[i]]; }
+    kids.forEach(k => g.appendChild(k));
+  });
+  $$('[data-shuffle-rows]').forEach(g => {
+    const r = rng(att.semilla ^ 77);
+    const kids = [...g.children];
+    for(let i=kids.length-1;i>0;i--){ const j=Math.floor(r()*(i+1)); [kids[i],kids[j]]=[kids[j],kids[i]]; }
+    kids.forEach(k => g.appendChild(k));
+  });
+}
+
+/* ───────── respuestas ───────── */
+function setA(q, v, silent){
+  if(!active()) return;
+  A[q] = v; A._m.ts = now(); dirty = true;
+  if(!silent) log('r', { q, v: String(v).slice(0,40) });
+  lsSet(bkKey(), { A, W });
+  markTabs();
+}
+let proofQ = null;
+function bindAnswers(){
+  document.addEventListener('click', (e) => {
+    if(!active()) return;
+    const o = e.target.closest('.opt');
+    if(o){
+      const g = o.closest('[data-q]'); if(!g) return;
+      if(g.classList.contains('multi')){
+        o.classList.toggle('sel');
+        setA(g.dataset.q, $$('.opt.sel', g).map(x=>x.dataset.v).sort().join(','));
+      } else {
+        $$('.opt', g).forEach(x => x.classList.toggle('sel', x===o));
+        setA(g.dataset.q, o.dataset.v);
+      }
+      return;
+    }
+    const bl = e.target.closest('.bld');
+    if(bl){ setA('co3a', bl.dataset.v); paintMap(); return; }
+    const pk = e.target.closest('.pick');
+    if(pk){ proofQ = (proofQ === pk.dataset.q) ? null : pk.dataset.q; paintProofs(); return; }
+    const st = e.target.closest('.sent');
+    if(st && proofQ){ setA(proofQ, st.dataset.s); proofQ = null; paintProofs(); return; }
+  });
+  $$('input.inp[data-q]').forEach(el => el.addEventListener('input', () => {
+    el.value = el.dataset.kind === 'letters' ? el.value.toUpperCase().replace(/[^A-ZÀ-Ÿ-]/g,'').slice(0,10) : el.value.replace(/\D/g,'').slice(0,4);
+    setA(el.dataset.q, el.value);
+  }));
+}
+function paintMap(){
+  if(!$('#map-pick')) return;
+  $$('.bld').forEach(b => b.classList.toggle('sel', b.dataset.v === A.co3a));
+  $('#map-pick').textContent = A.co3a || '—';
+}
+function paintProofs(){
+  $('#mail').classList.toggle('picking', !!proofQ);
+  $$('.sent').forEach(s => { s.classList.remove('chosen'); const sup = s.querySelector('sup'); if(sup) sup.remove(); });
+  $$('.stmt').forEach(st => {
+    const pk = $('.pick', st), q = pk.dataset.q, n = st.dataset.n;
+    st.classList.toggle('active', proofQ === q);
+    pk.classList.toggle('on', proofQ === q);
+    pk.textContent = proofQ === q ? '👆 Cliquez sur une phrase du texte' : (A[q] ? '📍 Changer la preuve' : '📍 Choisir la preuve');
+    const s = A[q] && $('.sent[data-s="'+A[q]+'"]');
+    $('.proof', st).textContent = s ? '« ' + s.textContent.trim() + ' »' : '';
+    if(s){ s.classList.add('chosen'); const sup=document.createElement('sup'); sup.textContent=n; s.appendChild(sup); }
+  });
+}
+function restoreUI(){
+  $$('[data-q]').forEach(g => {
+    const v = A[g.dataset.q]; if(v == null) return;
+    if(g.matches('input,textarea')) g.value = v;
+    else if(g.classList.contains('multi')){ const s = String(v).split(','); $$('.opt',g).forEach(o => o.classList.toggle('sel', s.includes(o.dataset.v))); }
+    else $$('.opt',g).forEach(o => o.classList.toggle('sel', o.dataset.v === v));
+  });
+  paintMap(); paintProofs(); wordCount(); markTabs();
+}
+
+/* ───────── escritura vigilada ───────── */
+function diff(a, b){
+  let p = 0; while(p < a.length && p < b.length && a[p] === b[p]) p++;
+  let s = 0; while(s < a.length-p && s < b.length-p && a[a.length-1-s] === b[b.length-1-s]) s++;
+  return { pos:p, del:a.length-p-s, ins:b.slice(p, b.length-s) };
+}
+function bindWriting(){
+  $$('[data-w]').forEach(el => {
+    const w = el.dataset.w, q = el.dataset.q;
+    let prev = el.value, type = '';
+    el.addEventListener('focus', () => { prev = el.value; });
+    el.addEventListener('beforeinput', (e) => {
+      type = e.inputType || '';
+      if(/FromPaste|FromDrop|FromYank/.test(type)){ e.preventDefault(); log('pegar_bloqueado', { q }); toast('Pegar está desactivado. Escribe con tus propias palabras.'); }
+    });
+    el.addEventListener('input', () => {
+      const cur = el.value; const d = diff(prev, cur); prev = cur;
+      const L = W[w]; if(!L.t0) L.t0 = now();
+      const code = type.startsWith('delete') ? 'd' : type === 'insertText' || type === 'insertLineBreak' ? 'i'
+                 : type === 'insertReplacementText' ? 'r' : type.startsWith('insertComposition') ? 'c' : 'x';
+      const row = [now() - L.t0, code, d.pos, d.del, d.ins];
+      if(w === 'pe1') row.push(q);
+      L.log.push(row); wDirty = true;
+      if(d.ins.length >= 12 && code !== 'c') log('insercion_masiva', { q, n:d.ins.length, tipo:type || '?' });
+      if(code === 'r') log('autocorreccion', { q });
+      type = '';
+      setA(q, cur, true);
+      if(q === 'pe2') wordCount();
+    });
+  });
+}
+function wordCount(){
+  const t = (A.pe2 || '').trim(); const n = t ? t.split(/\s+/).length : 0;
+  $('#wc-n').textContent = n + (n === 1 ? ' mot' : ' mots');
+  $('#wc-bar').style.width = Math.min(100, n/WMAX*100) + '%';
+  $('#wc-bar').style.background = n < WMIN ? 'var(--gold)' : n <= WMAX ? 'var(--green)' : 'var(--red)';
+}
+
+/* ───────── audio ───────── */
+let playing = null;
+function setupPlayers(){ $$('.player').forEach(p => { $('.play', p).addEventListener('click', () => play(p)); }); paintPlayers(); }
+function paintPlayers(){
+  $$('.player').forEach(p => {
+    const n = A._m.plays[p.dataset.a] || 0, left = MAX_PLAYS - n;
+    $('.left', p).textContent = left > 0 ? left + (left === 1 ? ' écoute restante' : ' écoutes restantes') : 'écoutes terminées';
+    const b = $('.play', p);
+    b.disabled = left <= 0 || (playing && playing.p !== p);
+    b.textContent = playing && playing.p === p ? '♪' : left > 0 ? '▶' : '✓';
+  });
+}
+function play(p){
+  const a = p.dataset.a, n = A._m.plays[a] || 0;
+  if(n >= MAX_PLAYS || playing) return;
+  const au = new Audio(AUDIO + p.dataset.src + '.mp3');
+  playing = { p, au };
+  A._m.plays[a] = n + 1; A._m.ts = now(); dirty = true;
+  log('audio', { a, n:n+1 });
+  p.classList.add('playing'); paintPlayers();
+  const bar = $('.bar i', p); bar.style.width = '0';
+  au.addEventListener('timeupdate', () => { if(au.duration) bar.style.width = (au.currentTime/au.duration*100) + '%'; });
+  const end = (ok) => {
+    if(!playing || playing.au !== au) return;
+    if(!ok && au.currentTime < 1){ A._m.plays[a] = n; toast('No se pudo cargar el audio. Intenta de nuevo (no se contó la escucha).'); }
+    playing = null; p.classList.remove('playing'); if(ok) bar.style.width = '100%';
+    log('audio_fin', { a, ok });
+    paintPlayers(); lsSet(bkKey(), { A, W });
+  };
+  au.addEventListener('ended', () => end(true));
+  au.addEventListener('error', () => end(false));
+  au.play().catch(() => end(false));
+}
+
+/* ───────── navegación ───────── */
+function showSec(i, initial){
+  A._m.sec = i;
+  $$('.sec').forEach(s => s.classList.toggle('hidden', +s.dataset.sec !== i));
+  $$('.stop').forEach(s => { const k = +s.dataset.stop; s.classList.toggle('on', k === i); s.classList.toggle('done', k < i); });
+  const sec = $('.sec[data-sec="'+i+'"]');
+  document.documentElement.style.setProperty('--c', getComputedStyle(sec).getPropertyValue('--c'));
+  showEx(A._m.ex[i] || 0);
+  if(!initial) window.scrollTo({ top:0, behavior:'smooth' });
+}
+function exs(){ return $$('.sec[data-sec="'+A._m.sec+'"] .ex'); }
+function showEx(j){
+  const list = exs(); j = Math.max(0, Math.min(j, list.length-1));
+  A._m.ex[A._m.sec] = j;
+  list.forEach((x,k) => x.classList.toggle('on', k === j));
+  $$('.sec[data-sec="'+A._m.sec+'"] .tab').forEach((t,k) => t.classList.toggle('on', k === j));
+  $('#b-prev').style.visibility = j === 0 ? 'hidden' : 'visible';
+  const last = j === list.length-1;
+  $('#b-next').textContent = !last ? 'Suivant →' : A._m.sec < 2 ? 'Section suivante →' : 'Envoyer ✓';
+  $('#b-next').classList.toggle('gold', last);
+  proofQ = null; if($('#mail')) paintProofs();
+}
+function answered(g){ const v = A[g.dataset.q]; return v != null && String(v).trim() !== ''; }
+function markTabs(){
+  $$('.sec').forEach(sec => {
+    const tabs = $$('.tab', sec);
+    $$('.ex', sec).forEach((x,k) => { const qs = $$('[data-q]', x); if(tabs[k]) tabs[k].classList.toggle('ok', qs.length && qs.every(answered)); });
+  });
+}
+function pending(i){ return $$('.sec[data-sec="'+i+'"] [data-q]').filter(g => !answered(g)).length; }
+function setupNav(){
+  $$('.sec').forEach(sec => {
+    const tabs = $('.tabs', sec);
+    $$('.ex', sec).forEach((x,k) => { const b = document.createElement('button'); b.type='button'; b.className='tab'; b.textContent = x.dataset.title; b.onclick = () => { showEx(k); log('nav', { ex:k }); }; tabs.appendChild(b); });
+  });
+  $('#b-prev').onclick = () => showEx(A._m.ex[A._m.sec] - 1);
+  $('#b-next').onclick = () => {
+    const j = A._m.ex[A._m.sec], last = j === exs().length - 1;
+    if(!last){ showEx(j+1); window.scrollTo({ top:0, behavior:'smooth' }); return; }
+    const p = pending(A._m.sec);
+    if(A._m.sec < 2){
+      confirmBox('Passer à la section suivante ?', (p ? '⚠️ Il reste ' + p + ' réponse(s) vide(s) dans cette section. ' : '') + 'Tu ne pourras plus revenir en arrière.', () => {
+        log('seccion', { de:A._m.sec }); A._m.ex[A._m.sec+1] = 0; showSec(A._m.sec + 1); A._m.ts = now(); dirty = true; save();
+      });
+    } else {
+      const words = (A.pe2||'').trim() ? A.pe2.trim().split(/\s+/).length : 0;
+      confirmBox('Envoyer l\'évaluation ?', (p ? '⚠️ Il reste ' + p + ' champ(s) vide(s). ' : '') + (words < WMIN ? 'Votre texte a ' + words + ' mots (' + WMIN + ' minimum). ' : '') + 'Après l\'envoi, tu ne pourras plus rien modifier.', () => submit('manual'));
+    }
+  };
+  $('#c-no').onclick = () => $('#v-confirm').classList.add('hidden');
+}
+function confirmBox(t, x, yes){
+  $('#c-title').textContent = t; $('#c-text').textContent = x;
+  $('#v-confirm').classList.remove('hidden');
+  $('#c-yes').onclick = () => { $('#v-confirm').classList.add('hidden'); yes(); };
+}
+
+/* ───────── reloj y guardado ───────── */
+const warned = {};
+function tick(){
+  if(!active()) return;
+  const rem = att.limite - now();
+  const s = Math.max(0, Math.floor(rem/1000));
+  $('#timer').textContent = String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+  $('#timer').classList.toggle('warn', s <= 300);
+  [[600,'Quedan 10 minutos.'],[300,'Quedan 5 minutos.'],[60,'¡Queda 1 minuto! El examen se enviará solo.']].forEach(([t,m]) => { if(s <= t && !warned[t]){ warned[t] = 1; toast('⏱ ' + m, 5000); } });
+  if(rem <= 0) submit('tiempo');
+}
+async function save(){
+  if(!att || saving || finished) return;
+  if(!dirty && !wDirty && !EV.length) return;
+  const ev = EV.splice(0);
+  const payload = { p_id:att.id, p_token:att.token, p_respuestas:A, p_eventos:ev, p_escritura: wDirty ? W : null };
+  const wasW = wDirty; dirty = false; wDirty = false; saving = true;
+  $('#save').textContent = 'guardando…';
+  try{
+    if(DEMO){ await new Promise(r => setTimeout(r, 200)); }
+    else {
+      const { data, error } = await sb.rpc('examen_guardar', payload);
+      if(error) throw error;
+      if(data && data.ahora) offset = new Date(data.ahora).getTime() - Date.now();
+      if(data && data.ok === false){ saving = false; submit('tiempo'); return; }
+    }
+    $('#save').textContent = '✓ ' + new Date(now()).toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+  }catch(e){
+    EV = ev.concat(EV); dirty = true; if(wasW) wDirty = true;
+    $('#save').textContent = '⚠ sin conexión';
+  }
+  saving = false;
+}
+async function submit(motivo){
+  if(finished) return;
+  finished = true;
+  timers.forEach(clearInterval);
+  if(playing){ try{ playing.au.pause(); }catch(e){} }
+  EV.push({ k:'envio', t:now(), s:A._m.sec, motivo });
+  $('#v-confirm').classList.add('hidden');
+  $('#b-next').disabled = true;
+  if(motivo === 'tiempo') toast('⏱ Tiempo terminado. Enviando tus respuestas…', 8000);
+  let recibo = null;
+  for(let i = 0; i < 6 && !recibo; i++){
+    try{
+      if(DEMO){ recibo = 'APERÇU'; break; }
+      while(saving) await new Promise(r => setTimeout(r, 200));
+      const { data, error } = await sb.rpc('examen_enviar', { p_id:att.id, p_token:att.token, p_respuestas:A, p_eventos:EV, p_escritura:W, p_motivo:motivo });
+      if(error) throw error;
+      recibo = data.recibo;
+    }catch(e){ await new Promise(r => setTimeout(r, 1500 * (i+1))); }
+  }
+  if(!recibo){
+    toast('No se pudo enviar. NO cierres esta página: reintentando…', 10000);
+    finished = false; setTimeout(() => submit(motivo), 5000); return;
+  }
+  lsDel(bkKey());
+  window.removeEventListener('beforeunload', onLeave);
+  if(document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+  document.body.classList.remove('exam','shield');
+  $$('.veil').forEach(v => v.classList.add('hidden'));
+  $('#examen').classList.add('hidden');
+  $('#recibo').textContent = recibo;
+  $('#fin').classList.remove('hidden');
+}
+
+/* ───────── Sentinelle: vigilancia ───────── */
+function goFullscreen(){ const d = document.documentElement; if(d.requestFullscreen) return d.requestFullscreen().catch(()=>{}); }
+let hiddenAt = 0, blurAt = 0, lastAct = Date.now(), idleLogged = false, lastMouseOut = 0;
+function onLeave(e){ if(!active()) return; log('intento_salir'); save(); e.preventDefault(); e.returnValue = ''; }
+function monitors(){
+  const fsOK = !!document.documentElement.requestFullscreen;
+  if(!fsOK) log('fs_no_soportado');
+  document.addEventListener('fullscreenchange', () => {
+    if(!active()) return;
+    if(!document.fullscreenElement){ log('fs_salida'); if(!DEMO) $('#v-fs').classList.remove('hidden'); }
+    else { log('fs_retorno'); $('#v-fs').classList.add('hidden'); }
+  });
+  $('#b-fs').onclick = () => { goFullscreen(); $('#v-fs').classList.add('hidden'); };
+  if(fsOK && !document.fullscreenElement && !DEMO) setTimeout(() => { if(active() && !document.fullscreenElement) $('#v-fs').classList.remove('hidden'); }, 800);
+
+  document.addEventListener('visibilitychange', () => {
+    if(!active()) return;
+    if(document.hidden){ hiddenAt = now(); log('oculto'); save(); }
+    else { log('visible', { d: now() - hiddenAt }); toast('⚠️ Saliste de la página del examen. Quedó registrado.', 4500); }
+  });
+  window.addEventListener('blur', () => { if(!active()) return; blurAt = now(); document.body.classList.add('shield'); log('blur'); });
+  window.addEventListener('focus', () => { if(!active()) return; document.body.classList.remove('shield'); if(blurAt) log('focus', { d: now() - blurAt }); blurAt = 0; });
+
+  ['copy','cut','paste','drop','dragstart','contextmenu'].forEach(t => document.addEventListener(t, (e) => {
+    if(!active()) return; e.preventDefault(); log('bloqueado_' + t);
+    if(t !== 'dragstart') toast('Acción desactivada durante el examen.');
+  }));
+  const keyHandler = (e) => {
+    if(!active()) return;
+    const k = (e.key || '').toLowerCase(), mod = e.ctrlKey || e.metaKey;
+    if(k === 'printscreen'){ log('captura_pantalla'); toast('Las capturas de pantalla quedan registradas.'); return; }
+    if(e.type !== 'keydown') return;
+    if(k === 'f12' || (mod && e.shiftKey && ['i','j','c','s'].includes(k)) || (mod && ['c','v','x','a','p','s','u','f','g'].includes(k))){
+      e.preventDefault(); log('tecla', { key: (mod ? 'Ctrl+' : '') + (e.shiftKey ? 'Shift+' : '') + e.key });
+    }
+    if(e.metaKey && e.shiftKey && ['3','4','5','s'].includes(k)) log('captura_pantalla');
+  };
+  document.addEventListener('keydown', keyHandler, true);
+  document.addEventListener('keyup', keyHandler, true);
+  window.addEventListener('beforeprint', () => { if(active()) log('imprimir'); });
+  window.addEventListener('beforeunload', onLeave);
+  window.addEventListener('online',  () => { if(active()){ log('online'); save(); } });
+  window.addEventListener('offline', () => { if(active()) log('offline'); });
+
+  let rz; window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => {
+    if(!active()) return;
+    const small = innerWidth < screen.availWidth * 0.75;
+    const dev = (outerWidth - innerWidth > 220) || (outerHeight - innerHeight > 260);
+    log('ventana', { w:innerWidth, h:innerHeight, reducida:small, devtools:dev });
+  }, 600); });
+  document.documentElement.addEventListener('mouseleave', () => {
+    if(!active() || Date.now() - lastMouseOut < 5000) return; lastMouseOut = Date.now(); log('raton_fuera');
+  });
+  ['mousemove','keydown','click','touchstart','scroll'].forEach(t => document.addEventListener(t, () => { lastAct = Date.now(); idleLogged = false; }, { passive:true }));
+
+  // Traductores, correctores y extensiones que modifican la página
+  const seen = {};
+  const flag = (k, x) => { if(seen[k]) return; seen[k] = 1; log(k, x); };
+  const check = () => {
+    const h = document.documentElement;
+    if(/translated/.test(h.className) || h.getAttribute('lang') !== 'fr') flag('traductor', { cls:h.className, lang:h.getAttribute('lang') });
+    if(document.querySelector('font[style], .goog-te-banner-frame, #goog-gt-tt, [class*="immersive-translate"], [data-immersive-translate-walked]')) flag('traductor', { tipo:'dom' });
+    if(document.querySelector('grammarly-desktop-integration, grammarly-extension, [data-gramm], [data-lt-installed], lt-toolbar, lt-mirror, [data-quillbot-element], quillbot-extension-portal')) flag('extension_escritura');
+    const odd = [...document.body.children].find(el => el.tagName.includes('-'));
+    if(odd) flag('extension_dom', { tag: odd.tagName.toLowerCase().slice(0,40) });
+  };
+  check();
+  new MutationObserver(check).observe(document.documentElement, { attributes:true, attributeFilter:['class','lang'], childList:true, subtree:true });
+}
+function idleCheck(){
+  if(!active()) return;
+  if(Date.now() - lastAct > 4*60000 && !idleLogged){ idleLogged = true; log('inactivo', { min: Math.round((Date.now()-lastAct)/60000) }); }
+}
+function tabLock(){
+  if(!('BroadcastChannel' in window)) return;
+  const ch = new BroadcastChannel('exam-' + EXAM_ID);
+  ch.onmessage = (m) => {
+    if(m.data === 'hola' && active()) ch.postMessage('aqui');
+    if(m.data === 'aqui' && active()){ log('doble_pestana'); finished = true; timers.forEach(clearInterval); $('#v-tab').classList.remove('hidden'); }
+  };
+  ch.postMessage('hola');
+}
+})();
+</script>
+
+</body>
+</html>
