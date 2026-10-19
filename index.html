@@ -5,10 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Vive el francés con el profesor Miguel Tillero. Clases de francés, preparación DELF/DALF, asesoría pedagógica y traducción. 13 años de experiencia internacional: Venezuela · Ecuador · México · France.">
 <title>Vive el francés · Con el profesor Miguel Tillero</title>
+<link rel="preload" as="image" href="assets/images/videos/bienvenida-inicio.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
 <link rel="stylesheet" href="assets/css/video-carrusel.css?v=109">
 <link rel="stylesheet" href="assets/css/fondos.css?v=109">
 <!-- three.js y Vanta (fondo 3D) ya no se piden aquí: se cargan al terminar la intro, ver arrancarVanta() -->
@@ -52,7 +54,7 @@
 .crs-icon { font-size: 1.25rem; color: var(--gold); display: block; margin-bottom: 1rem; }
 #hero .hero-tagline { text-shadow: 0 1px 12px rgba(233,241,231,0.6); }
 </style>
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <!-- ═══ SEO EJECUTIVO ═══ -->
 <link rel="canonical" href="https://migueltillero-ship-it.github.io/MiguelTillero/index.html">
@@ -161,8 +163,8 @@
 </script>
 
 <!-- Sistema de Internacionalización (i18n) -->
-<script src="assets/js/i18n.js"></script>
-<script src="assets/js/video-carrusel.js"></script>
+<script defer src="assets/js/i18n.js"></script>
+<script defer src="assets/js/video-carrusel.js"></script>
 
 <style>
 /* VIDEO 4K Y BOTONES */
@@ -187,17 +189,38 @@
 <div id="video-intro">
   <!-- El vídeo de fondo (silencioso en preview) — fuente elegida por JS según orientación -->
   <video id="intro-video" muted playsinline loop
-         poster="assets/images/videos/bienvenida.jpg"
-         data-src-h="bienvenida-ligera.mp4"
-         data-src-v="bienvenida-ligera.mp4"
+         poster="assets/images/videos/bienvenida-inicio.jpg"
+         data-src-hd="bienvenida.mp4"
+         data-src-h="bienvenida-720p.mp4"
+         data-src-v="bienvenida-720p.mp4"
          preload="auto"></video>
   <script>
-  /* La descarga empieza ya, mientras se lee el HTML, y no cuando termina de cargar toda la página. */
+  /* El vídeo se pide y ARRANCA aquí mismo, mientras se lee el resto de la página:
+     no espera a que cargue todo ni a poder reproducirse entero. Empieza con los
+     primeros fotogramas, siempre desde el segundo 0, y el póster (que es ese
+     mismo primer fotograma) cubre la espera sin salto visual.
+     Calidad: 1080p en pantallas grandes con buena conexión; 720p en el resto. */
   (function () {
     try { if (sessionStorage.getItem('introVisto') === 'true') return; } catch (e) {}
     var v = document.getElementById('intro-video'); if (!v) return;
-    var vertical = window.matchMedia('(orientation: portrait)').matches || window.innerWidth < 768;
-    v.src = (vertical && v.getAttribute('data-src-v')) || v.getAttribute('data-src-h');
+    window.elegirFuenteIntro = function () {
+      var vertical = window.matchMedia('(orientation: portrait)').matches || window.innerWidth < 768;
+      if (vertical) return v.getAttribute('data-src-v');
+      var c = navigator.connection || {};
+      var lenta = c.saveData || /(^|-)2g|3g/.test(c.effectiveType || '') || (c.downlink && c.downlink < 5);
+      var grande = window.innerWidth * (window.devicePixelRatio || 1) >= 1600;
+      return (grande && !lenta) ? v.getAttribute('data-src-hd') : v.getAttribute('data-src-h');
+    };
+    v.muted = true;
+    v.src = window.elegirFuenteIntro();
+    var lanzar = function () {
+      if (v.dataset.arrancado) return;
+      v.dataset.arrancado = '1';
+      try { v.currentTime = 0; } catch (e) {}
+      var p = v.play(); if (p && p.catch) p.catch(function () { delete v.dataset.arrancado; });
+    };
+    v.addEventListener('loadeddata', lanzar, { once: true });
+    v.addEventListener('canplay', lanzar, { once: true });
   })();
   </script>
 
@@ -1040,7 +1063,9 @@ const EMAILJS_TEMPLATE = 'template_sp4hl5f';
 const EMAILJS_KEY      = '7FPd-e34G4AgVK5YA';
 
 /* Inicializar EmailJS */
-if (EMAILJS_KEY && !EMAILJS_KEY.startsWith('TU_')) { try { emailjs.init(EMAILJS_KEY); } catch(e){} }
+/* La librería se carga en diferido para no frenar la intro: se inicializa al terminar de leer la página. */
+function iniciarEmailJS() { if (EMAILJS_KEY && !EMAILJS_KEY.startsWith('TU_')) { try { emailjs.init(EMAILJS_KEY); } catch(e){} } }
+if (window.emailjs) iniciarEmailJS(); else document.addEventListener('DOMContentLoaded', iniciarEmailJS);
 
 /* Función de envío unificada */
 async function sendEmail(params, successId, formEl) {
@@ -1380,9 +1405,7 @@ window.addEventListener('DOMContentLoaded', function() {
      Resto → versión horizontal original. */
   var srcH = introVid.getAttribute('data-src-h');
   var srcV = introVid.getAttribute('data-src-v');
-  var isPortrait = window.matchMedia('(orientation: portrait)').matches
-                || window.innerWidth < 768;
-  var elegido = (isPortrait && srcV) ? srcV : srcH;
+  var elegido = window.elegirFuenteIntro ? window.elegirFuenteIntro() : srcH;
   if (introVid.getAttribute('src') !== elegido) introVid.src = elegido;
   /* Si la orientación cambia antes de pulsar Entrar, intercambia la fuente */
   window.matchMedia('(orientation: portrait)').addEventListener('change', function(ev) {
@@ -1420,20 +1443,34 @@ window.addEventListener('DOMContentLoaded', function() {
     arrancado = true;
     attemptPlay();
   }
-  introVid.addEventListener('canplaythrough', arrancarMudo);
-  if (introVid.readyState >= 4) arrancarMudo();
-  setTimeout(arrancarMudo, 6000);
+  /* Ya no se espera a «canplaythrough»: el vídeo arranca con los primeros
+     fotogramas (ver el script junto al <video>). Esto solo cubre el caso en
+     que ese primer intento no llegó a dispararse. */
+  if (introVid.readyState >= 2) arrancarMudo();
+  else introVid.addEventListener('canplay', arrancarMudo, { once: true });
+  setTimeout(arrancarMudo, 2500);
 
-  /* ── FASE 2: tras 2.6s, atenuar vídeo y mostrar branding ── */
-  setTimeout(function() {
-    if (introEl) introEl.classList.add('dimmed');
-    if (monogramEl) monogramEl.classList.add('show');
-  }, 2600);
-  setTimeout(function(){ if (titleEl)    titleEl.classList.add('show'); }, 3000);
-  setTimeout(function(){ if (subEl)      subEl.classList.add('show'); }, 3300);
-  setTimeout(function(){ if (dividerEl)  dividerEl.classList.add('show'); }, 3600);
-  setTimeout(function(){ if (enterBtn)   enterBtn.classList.add('show'); }, 3900);
-  setTimeout(function(){ if (volHint)    volHint.classList.add('show'); }, 4300);
+  /* ── FASE 2: atenuar el vídeo y mostrar el branding ──
+     Cuenta desde que el vídeo EMPIEZA de verdad (no desde que se leyó la
+     página), para que el logo no aparezca encima de una imagen congelada.
+     Si el vídeo no arranca, a los 4 s se muestra igual. */
+  var faseIniciada = false;
+  function iniciarFase2() {
+    if (faseIniciada) return;
+    faseIniciada = true;
+    setTimeout(function() {
+      if (introEl) introEl.classList.add('dimmed');
+      if (monogramEl) monogramEl.classList.add('show');
+    }, 2600);
+    setTimeout(function(){ if (titleEl)    titleEl.classList.add('show'); }, 3000);
+    setTimeout(function(){ if (subEl)      subEl.classList.add('show'); }, 3300);
+    setTimeout(function(){ if (dividerEl)  dividerEl.classList.add('show'); }, 3600);
+    setTimeout(function(){ if (enterBtn)   enterBtn.classList.add('show'); }, 3900);
+    setTimeout(function(){ if (volHint)    volHint.classList.add('show'); }, 4300);
+  }
+  if (!introVid.paused && introVid.currentTime > 0) iniciarFase2();
+  else introVid.addEventListener('playing', iniciarFase2, { once: true });
+  setTimeout(iniciarFase2, 4000);
 
   /* Barra de progreso (tras pulsar Entrar) */
   var progressStarted = false;
@@ -1499,13 +1536,16 @@ window.addEventListener('DOMContentLoaded', function() {
       if (playP && playP.catch) playP.catch(closeIntro);
       startProgress();
     }
-    if (introVid.readyState >= 4 || introVid.currentTime > 0) lanzar();
+    /* Basta con que haya fotogramas para seguir (readyState 3): antes se
+       esperaba a poder reproducirlo entero y el botón se quedaba en
+       «Un instante…» hasta 6 s. */
+    if (introVid.readyState >= 3 || introVid.currentTime > 0) lanzar();
     else {
       var txt = enterBtn && enterBtn.querySelector('.enter-txt');
       if (txt) txt.innerHTML = 'Un instante&hellip;';
       if (enterBtn) enterBtn.disabled = true;
-      introVid.addEventListener('canplaythrough', lanzar, { once: true });
-      setTimeout(lanzar, 6000);
+      introVid.addEventListener('canplay', lanzar, { once: true });
+      setTimeout(lanzar, 2000);
     }
 
     /* Precargamos la música para que entre sin corte, pero solo cuando el
