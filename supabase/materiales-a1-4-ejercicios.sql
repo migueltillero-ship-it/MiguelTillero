@@ -17,6 +17,14 @@
 -- Dónde: Supabase → SQL Editor → New query → pegar → Run.
 -- ===========================================================================
 
+-- Si llegaste a ejecutar una versión anterior de este guion, las entradas
+-- apuntaban a la dirección del ciclo (…/a1-4-oct2026.html). Esas filas se retiran
+-- para que no aparezcan duplicadas junto a las nuevas.
+delete from public.materiales m
+ using public.grupos g
+ where g.id = m.grupo_id and g.codigo = 'A1-OCT2026'
+   and m.url like '%a1-4-oct2026.html%';
+
 do $$
 declare
   v_grupo uuid;
