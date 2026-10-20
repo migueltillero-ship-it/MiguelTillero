@@ -10,7 +10,7 @@ Las dos imágenes están en esta carpeta:
 
 # ① Al grupo · la imagen del ciclo
 
-**https://chat.whatsapp.com/HQ1m79IBobZ9MJZdMxNz5H**
+**[enlace de invitación al grupo de WhatsApp: cópialo desde WhatsApp → Info del grupo → Invitar al grupo mediante enlace]**
 
 Manda **`infografia-ciclo-a1-oct2026.png`** sola, y el texto en un
 **segundo mensaje** (si lo pones como descripción, WhatsApp lo corta).

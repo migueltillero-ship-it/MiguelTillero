@@ -1061,6 +1061,18 @@
             "en": "With Paul Rondin, Cité internationale de la langue française"
           },
           "ratio": "1080/660"
+        },
+        {
+          "tipo": "foto",
+          "archivo": "assets/images/relato/cavilam-eid.jpg",
+          "alt": "Miguel Tillero y Cynthia Eid, presidenta de la Federación Internacional de Profesores de Francés, ante el logotipo de la FIPF",
+          "pie": {
+            "es": "Con Cynthia Eid, presidenta de la Federación Internacional de Profesores de Francés (FIPF)",
+            "fr": "Avec Cynthia Eid, présidente de la Fédération internationale des professeurs de français (FIPF)",
+            "en": "With Cynthia Eid, president of the International Federation of French Teachers (FIPF)"
+          },
+          "ratio": "1080/628",
+          "ancha": true
         }
       ]
     },
@@ -1137,7 +1149,7 @@
             "fr": "Avec Gloria Ramos, architecte, élève et collaboratrice de l’Alliance, et à la mémoire de Patrick de Bréon, consul honoraire de France au Chiapas et au Tabasco (†2026)",
             "en": "With Gloria Ramos, architect, student and collaborator of the Alliance, and in memory of Patrick de Bréon, honorary consul of France in Chiapas and Tabasco (†2026)"
           },
-          "ratio": "1500/674",
+          "ratio": "1/1",
           "ancha": true
         }
       ]

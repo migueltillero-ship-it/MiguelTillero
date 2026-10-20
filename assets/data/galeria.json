@@ -115,6 +115,20 @@
    }
   },
   {
+   "id": "cav-eid",
+   "cat": "mexico",
+   "src": "assets/images/relato/cavilam-eid.jpg",
+   "thumb": "assets/images/galeria/t/cav-eid.jpg",
+   "w": 1080,
+   "h": 628,
+   "alt": "Miguel Tillero y Cynthia Eid, presidenta de la Federación Internacional de Profesores de Francés, ante el logotipo de la FIPF",
+   "pie": {
+    "es": "Con Cynthia Eid, presidenta de la Federación Internacional de Profesores de Francés (FIPF)",
+    "fr": "Avec Cynthia Eid, présidente de la Fédération internationale des professeurs de français (FIPF)",
+    "en": "With Cynthia Eid, president of the International Federation of French Teachers (FIPF)"
+   }
+  },
+  {
    "id": "r-graduacion",
    "cat": "trayectoria",
    "src": "assets/images/relato/graduacion.jpg",
@@ -1799,7 +1813,7 @@
    "cat": "mexico",
    "src": "assets/images/relato/consulado.jpg",
    "thumb": "assets/images/galeria/t/r-consulado.jpg",
-   "w": 1500,
+   "w": 674,
    "h": 674,
    "alt": "Con Gloria Ramos, arquitecta, alumna y colaboradora de la Alianza, y Patrick de Bréon, cónsul honorario de Francia en Chiapas y Tabasco",
    "pie": {
