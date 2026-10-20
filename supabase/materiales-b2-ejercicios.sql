@@ -19,7 +19,7 @@
 do $$
 declare
   v_grupo uuid;
-  v_base text := 'https://migueltillero-ship-it.github.io/MiguelTillero/estudiantes/b2-oct2026.html';
+  v_base text := 'https://migueltillero-ship-it.github.io/MiguelTillero/estudiantes/espace-b2-exercices.html';
   r record;
 begin
   select id into v_grupo from public.grupos where codigo = 'B2-OCT2026';

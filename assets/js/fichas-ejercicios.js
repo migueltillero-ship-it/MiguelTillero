@@ -67,16 +67,49 @@ function hablar(texto, btn){
 }
 
 /* ═══ HUB ═══ */
+/* ── El filtro por ciclo ───────────────────────────────────────────────
+   El espacio es del nivel, no del ciclo: las fichas se quedan de un ciclo
+   para el siguiente. Para que el estudiante no se encuentre con un muro de
+   fichas, se le muestran por defecto las del ciclo en curso, y las demás
+   quedan a un clic. Si solo hay un ciclo, el filtro no aparece. */
+let cicloVisible = null;
+
+function ciclosDisponibles(){
+  const vistos = [];
+  FICHAS.forEach(f => { if(f.ciclo && vistos.indexOf(f.ciclo) < 0) vistos.push(f.ciclo); });
+  return vistos;
+}
+
+function fichasVisibles(){
+  if(!cicloVisible || cicloVisible === '*') return FICHAS;
+  return FICHAS.filter(f => (f.ciclo || '') === cicloVisible);
+}
+
+function verCiclo(c){ cicloVisible = c; pintarHub(); }
+
+function pintarFiltros(){
+  const caja = document.getElementById('filtros-ciclo');
+  if(!caja) return;
+  const ciclos = ciclosDisponibles();
+  if(ciclos.length < 2){ caja.innerHTML = ''; return; }
+  caja.innerHTML = ciclos.map(c =>
+      `<button class="chip-ciclo ${cicloVisible === c ? 'activo' : ''}"
+         onclick="verCiclo('${c.replace(/'/g,"\\'")}')">${esc(c)}</button>`).join('')
+    + `<button class="chip-ciclo ${cicloVisible === '*' ? 'activo' : ''}"
+         onclick="verCiclo('*')">Tout voir</button>`;
+}
+
 function pintarHub(){
   let totalEj = 0, hechos = 0;
-  document.getElementById('grille-fiches').innerHTML = FICHAS.map(f => {
+  pintarFiltros();
+  document.getElementById('grille-fiches').innerHTML = fichasVisibles().map(f => {
     const n = f.ejercicios.length;
     const hecho = (avance[f.id] && Object.keys(avance[f.id]).length) || 0;
     totalEj += n; hechos += Math.min(hecho, n);
     const clase = hecho >= n && n ? 'fait' : (hecho ? 'encours' : '');
     const texto = hecho >= n && n ? 'Terminé' : (hecho ? hecho + '/' + n : 'À faire');
     return `<button class="carte ${f.tipo||''}" onclick="abrirFicha('${f.id}')">
-      <div class="date">${esc(f.fecha)}</div>
+      <div class="date">${esc(f.fecha)}${cicloVisible === '*' && f.ciclo ? ' · ' + esc(f.ciclo) : ''}</div>
       <h2>${esc(f.titulo)}</h2>
       <p>${esc(f.resumen)}</p>
       <div class="pied">
@@ -446,6 +479,10 @@ function textoBotonTema(){
     if(t) document.documentElement.dataset.theme = t;
   } catch(e){}
   textoBotonTema();
+  // Por defecto se ve el ciclo en curso, que la página declara. Si no lo
+  // declara, el primero que aparezca en las fichas.
+  cicloVisible = window.MT_CICLO_ACTUAL || ciclosDisponibles()[0] || '*';
+  if(location.hash.length > 1) cicloVisible = '*';   // enlace directo a una ficha
   pintarHub();
   if(location.hash.length > 1 && FICHAS.some(f => f.id === location.hash.slice(1))){
     abrirFicha(location.hash.slice(1));

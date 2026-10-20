@@ -23,6 +23,7 @@ const FICHAS = [];
 FICHAS.push({
   id: 'posesivos',
   tipo: 'revision',
+  ciclo: 'Oct. 2026 · A1.4',
   fecha: 'Fiche 1 · Grammaire',
   titulo: 'Mon, ma, mes — les adjectifs possessifs',
   resumen: 'Lo del pizarrón: mon ton son / ma ta sa / mes tes ses, y por qué se dice «mon amie».',
@@ -163,6 +164,7 @@ FICHAS.push({
    ─────────────────────────────────────────────────────────────────────── */
 FICHAS.push({
   id: 'pronombres',
+  ciclo: 'Oct. 2026 · A1.4',
   fecha: 'Fiche 2 · Grammaire',
   titulo: 'Le mien, le tien — les pronoms possessifs',
   resumen: 'El que sustituye al nombre entero: «mon livre» → «le mien». Con su acento circunflejo.',
@@ -288,6 +290,7 @@ FICHAS.push({
    ─────────────────────────────────────────────────────────────────────── */
 FICHAS.push({
   id: 'numeros-escribir',
+  ciclo: 'Oct. 2026 · A1.4',
   fecha: 'Fiche 3 · Les nombres',
   titulo: 'Écrire les nombres — et les pièges de 70, 80, 90',
   resumen: 'Por qué 70 es «sesenta-diez», cuándo lleva S «quatre-vingts» y cuándo no, y el guion.',
@@ -432,6 +435,7 @@ FICHAS.push({
    ─────────────────────────────────────────────────────────────────────── */
 FICHAS.push({
   id: 'numeros-oir',
+  ciclo: 'Oct. 2026 · A1.4',
   fecha: 'Fiche 4 · Compréhension orale',
   titulo: 'Entendre les grands nombres',
   resumen: 'Teléfonos, precios, años y las parejas que se confunden: 13/30, 2/12, 60/70.',
@@ -544,6 +548,7 @@ FICHAS.push({
    ─────────────────────────────────────────────────────────────────────── */
 FICHAS.push({
   id: 'genero-numero',
+  ciclo: 'Oct. 2026 · A1.4',
   fecha: 'Fiche 5 · Grammaire',
   titulo: 'Masculin / féminin, singulier / pluriel',
   resumen: 'Las reglas, y sobre todo las excepciones: -al → -aux, los siete en -ou, los invariables.',
@@ -698,6 +703,7 @@ FICHAS.push({
 FICHAS.push({
   id: 'repaso',
   tipo: 'eval',
+  ciclo: 'Oct. 2026 · A1.4',
   fecha: 'Fiche 6 · Bilan',
   titulo: 'Tout ensemble — le bilan',
   resumen: 'Un diagnóstico de las cinco fichas, y una producción escrita que las usa todas.',

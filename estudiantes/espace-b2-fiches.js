@@ -32,6 +32,7 @@ const FICHAS = [];
 FICHAS.push({
   id: 's1-4',
   tipo: 'revision',
+  ciclo: 'Oct.-nov. 2026',
   fecha: '5 au 14 octobre · Unité 1, p. 12-19',
   titulo: 'Question de goût — ce qu’on a déjà fait',
   resumen: 'Las cuatro primeras clases, repasadas de otra manera: goût y valoir, el estilo, las maneras.',
@@ -220,6 +221,7 @@ FICHAS.push({
    ─────────────────────────────────────────────────────────────────────── */
 FICHAS.push({
   id: 's5',
+  ciclo: 'Oct.-nov. 2026',
   fecha: 'Lundi 19 octobre · p. 20-21',
   titulo: 'Être éducateur au goût',
   resumen: 'Un métier peu connu, les cinq saveurs, les textures y cómo hablar de un plato sin juzgarlo.',
@@ -382,6 +384,7 @@ FICHAS.push({
    ─────────────────────────────────────────────────────────────────────── */
 FICHAS.push({
   id: 's6',
+  ciclo: 'Oct.-nov. 2026',
   fecha: 'Mercredi 21 octobre · p. 22-23',
   titulo: 'Communication et grammaire · ce qui, ce que, comparatifs',
   resumen: 'Ce qui / ce que / ce dont, el doble comparativo, plutôt que, y el registro de lo que se dice.',
@@ -567,6 +570,7 @@ FICHAS.push({
    ─────────────────────────────────────────────────────────────────────── */
 FICHAS.push({
   id: 's7',
+  ciclo: 'Oct.-nov. 2026',
   fecha: 'Lundi 26 octobre · p. 24-25',
   titulo: 'Prendre des notes — méthodologie DELF',
   resumen: 'Descifrar notas, abreviar, y oír cifras al vuelo: la técnica que decide la compréhension orale.',
@@ -718,6 +722,7 @@ FICHAS.push({
    ─────────────────────────────────────────────────────────────────────── */
 FICHAS.push({
   id: 's8',
+  ciclo: 'Oct.-nov. 2026',
   fecha: 'Mercredi 28 octobre · p. 26-27',
   titulo: 'Tellement genré ! — nommer les clichés',
   resumen: 'El léxico del estereotipo, las construcciones «ça permet de / ça évite de», y distinguir hecho de opinión.',
@@ -878,6 +883,7 @@ FICHAS.push({
    ─────────────────────────────────────────────────────────────────────── */
 FICHAS.push({
   id: 's9',
+  ciclo: 'Oct.-nov. 2026',
   fecha: 'Lundi 2 novembre · p. 28-29',
   titulo: 'Tellement, pourvu que, avoir hâte',
   resumen: 'La intensidad, el deseo con subjuntivo y el léxico del nacimiento. La gramática más rentable del ciclo.',
@@ -1045,6 +1051,7 @@ FICHAS.push({
 FICHAS.push({
   id: 's10',
   tipo: 'revision',
+  ciclo: 'Oct.-nov. 2026',
   fecha: 'Mercredi 4 novembre',
   titulo: 'Révision générale — tout le cycle',
   resumen: 'Todo lo del ciclo en un solo sitio, con un diagnóstico que te dice qué ficha repasar.',
@@ -1190,6 +1197,7 @@ FICHAS.push({
 FICHAS.push({
   id: 's11',
   tipo: 'eval',
+  ciclo: 'Oct.-nov. 2026',
   fecha: 'Lundi 9 novembre',
   titulo: 'Épreuve blanche — écrit',
   resumen: 'Una prueba de ensayo completa: comprensión oral, comprensión escrita y producción escrita.',
@@ -1329,6 +1337,7 @@ FICHAS.push({
 FICHAS.push({
   id: 's12',
   tipo: 'eval',
+  ciclo: 'Oct.-nov. 2026',
   fecha: 'Mercredi 11 novembre',
   titulo: 'Préparer l’oral',
   resumen: 'El formato del oral B2, las frases que lo estructuran y tres temas para ensayar en voz alta.',
