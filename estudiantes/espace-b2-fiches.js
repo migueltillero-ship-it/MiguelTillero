@@ -996,13 +996,13 @@ FICHAS.push({
 });
 
 /* ───────────────────────────────────────────────────────────────────────
-   SÉANCE 5 · 19 octobre · p. 20-21
+   SÉANCE 5 · 21 octobre · p. 20-21
    RENDEZ-VOUS — Être éducateur au goût (Quentin, 37 ans, Occitanie)
    ─────────────────────────────────────────────────────────────────────── */
 FICHAS.push({
   id: 's5',
   ciclo: 'Oct.-nov. 2026',
-  fecha: 'Lundi 19 octobre · p. 20-21',
+  fecha: 'Mercredi 21 octobre · p. 20-21',
   titulo: 'Être éducateur au goût',
   resumen: 'El texto de Quentin: lo que su oficio es y lo que no, los cuatro sabores, las ideas recibidas sobre lo que se hace en la cocina.',
   intro: 'Todo el texto se sostiene sobre una distinción: Quentin no dice lo que está bien '
@@ -1185,17 +1185,17 @@ FICHAS.push({
 });
 
 /* ───────────────────────────────────────────────────────────────────────
-   SÉANCE 6 · 21 octobre · p. 22-23
+   SÉANCE 6 · 26 octobre · p. 22-23
    COMMUNICATION et GRAMMAIRE — cierre de la Unité 1
    ─────────────────────────────────────────────────────────────────────── */
 FICHAS.push({
   id: 's6',
   ciclo: 'Oct.-nov. 2026',
-  fecha: 'Mercredi 21 octobre · p. 22-23',
+  fecha: 'Lundi 26 octobre · p. 22-23',
   titulo: 'Communication et grammaire — toute l’unité',
   resumen: 'Los tres registros del juicio, describir un estilo, las buenas y malas maneras, y la gramática: ce qui / ce que, el doble comparativo y plutôt.',
   intro: 'Las dos páginas que resumen la unidad. Lo que practiques aquí es lo que sale en la '
-       + 'evaluación del 9 de noviembre.',
+       + 'evaluación del 11 de noviembre.',
 
   secciones: [
     { titulo: '1. Exprimer son goût',
@@ -1430,13 +1430,13 @@ FICHAS.push({
 });
 
 /* ───────────────────────────────────────────────────────────────────────
-   SÉANCE 7 · 26 octobre · p. 24-25
+   SÉANCE 7 · 28 octobre · p. 24-25
    MÉTHODOLOGIE ET PRÉPARATION AU DELF — Prendre des notes
    ─────────────────────────────────────────────────────────────────────── */
 FICHAS.push({
   id: 's7',
   ciclo: 'Oct.-nov. 2026',
-  fecha: 'Lundi 26 octobre · p. 24-25',
+  fecha: 'Mercredi 28 octobre · p. 24-25',
   titulo: 'Prendre des notes — méthodologie DELF',
   resumen: 'Las notas manuscritas de la página 24 descifradas, la lista de abreviaturas del libro y los seis procedimientos para crear las tuyas.',
   intro: 'Se habla a 150-200 palabras por minuto y se escribe a 25-40. Tomar notas no es '
@@ -1626,13 +1626,13 @@ FICHAS.push({
 });
 
 /* ───────────────────────────────────────────────────────────────────────
-   SÉANCE 8 · 28 octobre · p. 26-27
+   SÉANCE 8 · 2 novembre · p. 26-27
    Unité 2 «Tellement genré !» — los estereotipos de género
    ─────────────────────────────────────────────────────────────────────── */
 FICHAS.push({
   id: 's8',
   ciclo: 'Oct.-nov. 2026',
-  fecha: 'Mercredi 28 octobre · p. 26-27',
+  fecha: 'Lundi 2 novembre · p. 26-27',
   titulo: 'Tellement genré ! — nommer les clichés',
   resumen: 'El léxico del estereotipo, las construcciones «ça permet de / ça évite de», y distinguir hecho de opinión.',
   intro: 'La unidad empieza con un juego de cartas que da mucho que hablar. Para hablar bien '
@@ -1787,13 +1787,13 @@ FICHAS.push({
 });
 
 /* ───────────────────────────────────────────────────────────────────────
-   SÉANCE 9 · 2 novembre · p. 28-29
+   SÉANCE 9 · 4 novembre · p. 28-29
    Bébés et jouets · tellement, pourvu que, avoir hâte de
    ─────────────────────────────────────────────────────────────────────── */
 FICHAS.push({
   id: 's9',
   ciclo: 'Oct.-nov. 2026',
-  fecha: 'Lundi 2 novembre · p. 28-29',
+  fecha: 'Mercredi 4 novembre · p. 28-29',
   titulo: 'Tellement, pourvu que, avoir hâte',
   resumen: 'La intensidad, el deseo con subjuntivo y el léxico del nacimiento. La gramática más rentable del ciclo.',
   intro: 'Tres estructuras que un B2 usa todo el tiempo y que casi nadie domina del todo. '
@@ -1954,17 +1954,17 @@ FICHAS.push({
 });
 
 /* ───────────────────────────────────────────────────────────────────────
-   SÉANCE 10 · 4 novembre
+   SÉANCE 10 · 9 novembre
    Repaso general y preparación de la evaluación
    ─────────────────────────────────────────────────────────────────────── */
 FICHAS.push({
   id: 's10',
   tipo: 'revision',
   ciclo: 'Oct.-nov. 2026',
-  fecha: 'Mercredi 4 novembre',
+  fecha: 'Lundi 9 novembre',
   titulo: 'Révision générale — tout le cycle',
   resumen: 'Todo lo del ciclo en un solo sitio, con un diagnóstico que te dice qué ficha repasar.',
-  intro: 'Esta ficha no trae nada nuevo. Sirve para saber en qué estás flojo antes del 9, '
+  intro: 'Esta ficha no trae nada nuevo. Sirve para saber en qué estás flojo antes del 11, '
        + 'y cada pregunta te dice a qué ficha volver.',
 
   secciones: [
@@ -1997,7 +1997,7 @@ FICHAS.push({
       consigne:'Doce questions. Chaque réponse dit où réviser.',
       q: [
         { enonce:'___ me dérange, ce sont les remarques sur ma tenue.',
-          o:['Ce qui', 'Ce que', 'Ce dont'], r:0, note:'→ Fiche du 21 octobre.' },
+          o:['Ce qui', 'Ce que', 'Ce dont'], r:0, note:'→ Fiche du 26 octobre.' },
         { enonce:'___ j’ai besoin, c’est de temps.',
           o:['Ce qui', 'Ce que', 'Ce dont'], r:2, note:'avoir besoin <b>de</b> → ce dont. Fiche du 21.' },
         { enonce:'Elle chante ___ que son frère.',
@@ -2009,15 +2009,15 @@ FICHAS.push({
         { enonce:'Je préfère marcher ___ prendre le métro.',
           o:['plutôt de', 'plutôt que de', 'plutôt'], r:1, note:'→ Fiche du 21.' },
         { enonce:'Il y avait ___ monde qu’on n’a pas pu entrer.',
-          o:['tellement', 'tellement de', 'si'], r:1, note:'Devant un nom : tellement <b>de</b>. Fiche du 2 novembre.' },
+          o:['tellement', 'tellement de', 'si'], r:1, note:'Devant un nom : tellement <b>de</b>. Fiche du 4 novembre.' },
         { enonce:'J’ai hâte ___ tu arrives.',
-          o:['de', 'que', 'à ce que'], r:1, note:'Sujets différents → que + subjonctif. Fiche du 2 novembre.' },
+          o:['de', 'que', 'à ce que'], r:1, note:'Sujets différents → que + subjonctif. Fiche du 4 novembre.' },
         { enonce:'Pourvu qu’elle ___ y aller !',
-          o:['peut', 'puisse', 'pourra'], r:1, note:'pourvu que + subjonctif. Fiche du 2 novembre.' },
+          o:['peut', 'puisse', 'pourra'], r:1, note:'pourvu que + subjonctif. Fiche du 4 novembre.' },
         { enonce:'Ça aide ___ comprendre.',
-          o:['à', 'de', 'ø'], r:0, note:'→ Fiche du 28 octobre.' },
+          o:['à', 'de', 'ø'], r:0, note:'→ Fiche du 2 novembre.' },
         { enonce:'Ça permet ___ choisir.',
-          o:['à', 'de', 'ø'], r:1, note:'→ Fiche du 28 octobre.' },
+          o:['à', 'de', 'ø'], r:1, note:'→ Fiche du 2 novembre.' },
         { enonce:'Il ___ mieux prévenir que guérir.',
           o:['vaut', 'faut', 'veut'], r:0, note:'→ Fiche des séances 1 à 4.' }
       ] },
@@ -2100,17 +2100,17 @@ FICHAS.push({
 });
 
 /* ───────────────────────────────────────────────────────────────────────
-   SÉANCE 11 · 9 novembre · Évaluation collective
+   SÉANCE 11 · 11 novembre · Évaluation collective
    Prueba de ensayo completa, en el formato del DELF B2.
    ─────────────────────────────────────────────────────────────────────── */
 FICHAS.push({
   id: 's11',
   tipo: 'eval',
   ciclo: 'Oct.-nov. 2026',
-  fecha: 'Lundi 9 novembre',
+  fecha: 'Mercredi 11 novembre',
   titulo: 'Épreuve blanche — écrit',
   resumen: 'Una prueba de ensayo completa: comprensión oral, comprensión escrita y producción escrita.',
-  intro: 'Mismo formato que la evaluación del lunes. Hazla de una sentada y cronometrada: '
+  intro: 'Mismo formato que la evaluación del miércoles. Hazla de una sentada y cronometrada: '
        + 'es la única forma de saber si el tiempo te alcanza.',
 
   secciones: [
@@ -2240,14 +2240,14 @@ FICHAS.push({
 });
 
 /* ───────────────────────────────────────────────────────────────────────
-   SÉANCE 12 · 11 novembre · Évaluation individuelle
+   SÉANCE 12 · 16 novembre · Évaluation individuelle
    Preparación de la prueba oral.
    ─────────────────────────────────────────────────────────────────────── */
 FICHAS.push({
   id: 's12',
   tipo: 'eval',
   ciclo: 'Oct.-nov. 2026',
-  fecha: 'Mercredi 11 novembre',
+  fecha: 'Lundi 16 novembre',
   titulo: 'Préparer l’oral',
   resumen: 'El formato del oral B2, las frases que lo estructuran y tres temas para ensayar en voz alta.',
   intro: 'En el oral no se evalúa lo que sabes: se evalúa cómo lo organizas. '

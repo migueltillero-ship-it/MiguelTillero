@@ -58,12 +58,12 @@ begin
        || 'ce qui/ce que, c’est une question de), atenuar o exagerar, y plutôt.',
        '#u1-p16'),
 
-      (7, 'Séance du 19 octobre · Être éducateur au goût', 'refuerzo', 'Unité 1',
+      (7, 'Séance du 21 octobre · Être éducateur au goût', 'refuerzo', 'Unité 1',
        'Las cinco saveurs —con la quinta que el libro no nombra—, las texturas, '
        || 'bruto / transformado / ultraprocesado, y cómo hablar de un plato sin juzgarlo.',
        '#s5'),
 
-      (8, 'Séance du 21 octobre · Ce qui, ce que, comparatifs', 'refuerzo', 'Unité 1',
+      (8, 'Séance du 26 octobre · Ce qui, ce que, comparatifs', 'refuerzo', 'Unité 1',
        'La ficha de gramática del ciclo: ce qui / ce que / ce dont / ce à quoi, la mise '
        || 'en relief, el doble comparativo con mieux y meilleur, y plutôt que.',
        '#s6'),
@@ -74,24 +74,24 @@ begin
        || 'salta a su minuto. Se valida al 80 %.',
        '#savoir-vivre'),
 
-      (9, 'Séance du 26 octobre · Prendre des notes', 'refuerzo', 'Unité 1',
+      (9, 'Séance du 28 octobre · Prendre des notes', 'refuerzo', 'Unité 1',
        'Descifrar notas, abreviar, y oír cifras al vuelo. Es la técnica que decide '
        || 'la compréhension orale del examen.',
        '#s7'),
 
-      (10, 'Séance du 28 octobre · Tellement genré !', 'refuerzo', 'Unité 2',
+      (10, 'Séance du 2 novembre · Tellement genré !', 'refuerzo', 'Unité 2',
        'Estereotipo, prejuicio, cliché e idea recibida: cuatro palabras que no son lo '
        || 'mismo. Y la construcción exacta de ça permet de, ça aide à, ça évite de.',
        '#s8'),
 
-      (11, 'Séance du 2 novembre · Tellement, pourvu que, avoir hâte', 'refuerzo', 'Unité 2',
+      (11, 'Séance du 4 novembre · Tellement, pourvu que, avoir hâte', 'refuerzo', 'Unité 2',
        'La gramática más rentable del ciclo: los tres tellement, el subjuntivo del deseo '
        || 'y el léxico de la espera de un hijo.',
        '#s9'),
 
-      (12, 'Révision générale du 4 novembre', 'refuerzo', 'Unité 1-2',
+      (12, 'Révision générale du 9 novembre', 'refuerzo', 'Unité 1-2',
        'Un diagnóstico de todo el ciclo: cada pregunta que falles te dice a qué ficha '
-       || 'volver. Hazlo antes del lunes 9.',
+       || 'volver. Hazlo antes del miércoles 11.',
        '#s10'),
 
       (13, 'Épreuve blanche — écrit', 'evaluacion', 'Unité 1-2',
@@ -99,7 +99,7 @@ begin
        || 'comprensión escrita y producción escrita de 250 palabras. Crono en mano.',
        '#s11'),
 
-      (14, 'Préparer l’oral', 'evaluacion', 'Unité 1-2',
+      (14, 'Préparer l’oral (16 novembre)', 'evaluacion', 'Unité 1-2',
        'El formato del oral minuto a minuto, las frases que estructuran un exposé y '
        || 'tres temas para ensayar en voz alta.',
        '#s12')
