@@ -17,6 +17,7 @@
 
 <link rel="stylesheet" href="assets/css/sitio.css?v=113">
 <link rel="stylesheet" href="assets/css/ajustes.css?v=2">
+<link rel="stylesheet" href="assets/css/inicio.css?v=1">
 <style>
 .services-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(210px,1fr));
@@ -167,7 +168,23 @@
 <script defer src="assets/js/i18n.js"></script>
 <script defer src="assets/js/video-carrusel.js"></script>
 
+<script>
+/* Mientras suena la bienvenida, las fotos de fondo del resto de la página no se
+   piden: con una 4G floja compiten con el vídeo por la conexión y lo atascan.
+   Se liberan al entrar (o a los 30 s, por si algo fallara). */
+(function () {
+  try { if (sessionStorage.getItem('introVisto') === 'true') return; } catch (e) {}
+  var h = document.documentElement;
+  h.classList.add('intro-pendiente');
+  setTimeout(function () { h.classList.remove('intro-pendiente'); }, 30000);
+})();
+</script>
 <style>
+html.intro-pendiente [style*="background-image"],
+html.intro-pendiente .hero-slide,
+html.intro-pendiente .portal-foto,
+html.intro-pendiente .banda-foto { background-image: none !important; }
+html.intro-pendiente .banda-foto::before, html.intro-pendiente .banda-foto::after { background-image: none !important; }
 /* VIDEO 4K Y BOTONES */
 #video-intro { background: #030f08 !important; }
 #intro-video { object-fit: cover !important; width: 100vw !important; height: 100vh !important; }
@@ -190,29 +207,39 @@
 <div id="video-intro">
   <!-- El vídeo de fondo (silencioso en preview) — fuente elegida por JS según orientación -->
   <video id="intro-video" muted playsinline loop
-         poster="assets/images/videos/bienvenida-inicio.jpg"
          data-src-hd="bienvenida.mp4"
          data-src-h="bienvenida-720p.mp4"
-         data-src-v="bienvenida-720p.mp4"
+         data-src-lenta="bienvenida-ligera.mp4"
+         data-src-v="bienvenida-vertical.mp4"
+         data-poster-v="assets/images/videos/bienvenida-vertical.jpg"
          preload="auto"></video>
   <script>
   /* El vídeo se pide y ARRANCA aquí mismo, mientras se lee el resto de la página:
      no espera a que cargue todo ni a poder reproducirse entero. Empieza con los
      primeros fotogramas, siempre desde el segundo 0, y el póster (que es ese
      mismo primer fotograma) cubre la espera sin salto visual.
-     Calidad: 1080p en pantallas grandes con buena conexión; 720p en el resto. */
+     · Celular en vertical: versión VERTICAL propia (el vídeo horizontal se
+       recortaba a un tercio y cortaba los títulos). Pesa 0,77 MB, menos que el
+       ancho de banda de una 4G floja, así que no se atasca.
+     · Horizontal: 1080p en pantallas grandes con buena conexión; 720p en el
+       resto y una versión ligera (0,95 MB) si la red es lenta o ahorra datos. */
   (function () {
     try { if (sessionStorage.getItem('introVisto') === 'true') return; } catch (e) {}
     var v = document.getElementById('intro-video'); if (!v) return;
     window.elegirFuenteIntro = function () {
-      var vertical = window.matchMedia('(orientation: portrait)').matches || window.innerWidth < 768;
+      var vertical = window.matchMedia('(orientation: portrait)').matches;
       if (vertical) return v.getAttribute('data-src-v');
       var c = navigator.connection || {};
       var lenta = c.saveData || /(^|-)2g|3g/.test(c.effectiveType || '') || (c.downlink && c.downlink < 5);
       var grande = window.innerWidth * (window.devicePixelRatio || 1) >= 1600;
-      return (grande && !lenta) ? v.getAttribute('data-src-hd') : v.getAttribute('data-src-h');
+      if (lenta) return v.getAttribute('data-src-lenta');
+      return grande ? v.getAttribute('data-src-hd') : v.getAttribute('data-src-h');
+    };
+    window.elegirPosterIntro = function () {
+      return window.matchMedia('(orientation: portrait)').matches ? v.getAttribute('data-poster-v') : 'assets/images/videos/bienvenida-inicio.jpg';
     };
     v.muted = true;
+    v.poster = window.elegirPosterIntro();
     v.src = window.elegirFuenteIntro();
     var lanzar = function () {
       if (v.dataset.arrancado) return;
@@ -376,6 +403,7 @@
         </ul>
         <div class="hero-cta">
           <button onclick="openModal('modal-clase')" class="btn btn-gold"><i class="fa fa-graduation-cap"></i><span data-es="Clase de prueba gratuita" data-fr="Cours d'essai gratuit" data-en="Free trial class">Clase de prueba gratuita</span></button>
+          <a href="#guia" class="btn btn-ghost btn-guia"><i class="fa fa-compass"></i><span data-es="¿Por dónde empiezo?" data-fr="Par où commencer ?" data-en="Where do I start?">¿Por dónde empiezo?</span></a>
           <a href="contacto.html#contact" class="btn btn-ghost"><i class="fa fa-envelope"></i><span data-es="Escribirme" data-fr="Me contacter" data-en="Contact me">Escribirme</span></a>
           <a href="#mis-clases" class="btn btn-ghost btn-clases"><i class="fa fa-play"></i><span data-es="Así son mis clases" data-fr="Mes cours en images" data-en="What my classes are like">Así son mis clases</span></a>
           <!-- CV dropdown -->
@@ -404,10 +432,62 @@
 
     </div><!-- /hero-escena -->
 
+    <!-- ── GUÍA PARA EL ESTUDIANTE ── -->
+    <section id="guia" class="guia" aria-labelledby="guia-titulo">
+      <div class="guia-cab reveal">
+        <p class="eyebrow" data-es="Empieza aquí" data-fr="Commencez ici" data-en="Start here">Empieza aquí</p>
+        <h2 id="guia-titulo" class="guia-titulo" data-es="Cuéntame dónde estás y te digo por dónde seguir" data-fr="Dites-moi où vous en êtes et je vous guide" data-en="Tell me where you are and I will show you the way">Cuéntame dónde estás y te digo por dónde seguir</h2>
+        <p class="guia-sub" data-es="Elige la situación que más se parezca a la tuya. Cada una te lleva directo al siguiente paso." data-fr="Choisissez la situation qui vous ressemble le plus. Chacune mène droit à la prochaine étape." data-en="Pick the situation closest to yours. Each one leads straight to your next step.">Elige la situación que más se parezca a la tuya. Cada una te lleva directo al siguiente paso.</p>
+      </div>
+      <div class="guia-grid">
+        <article class="guia-card reveal d1" style="--c:#1f6f5b;">
+          <i class="fa fa-seedling guia-ico"></i>
+          <h3 data-es="Nunca he estudiado francés" data-fr="Je n'ai jamais étudié le français" data-en="I have never studied French">Nunca he estudiado francés</h3>
+          <p data-es="Empiezas en nivel A1, sin prisa y con acompañamiento. Prueba una clase gratis y decide con calma." data-fr="Vous commencez au niveau A1, sans hâte et accompagné. Essayez un cours gratuit, puis décidez." data-en="You start at level A1, at your own pace and with support. Try a free class, then decide.">Empiezas en nivel A1, sin prisa y con acompañamiento. Prueba una clase gratis y decide con calma.</p>
+          <button type="button" class="btn btn-gold" onclick="openModal('modal-clase')"><i class="fa fa-graduation-cap"></i><span data-es="Reservar clase gratuita" data-fr="Réserver un cours gratuit" data-en="Book a free class">Reservar clase gratuita</span></button>
+        </article>
+        <article class="guia-card reveal d2" style="--c:#c97b6b;">
+          <i class="fa fa-signal guia-ico"></i>
+          <h3 data-es="Sé algo, pero no sé mi nivel" data-fr="J'en sais un peu, mais pas mon niveau" data-en="I know some, but not my level">Sé algo, pero no sé mi nivel</h3>
+          <p data-es="Haz el test rápido de posicionamiento (5 minutos) y, si quieres, agenda una prueba de ubicación conmigo." data-fr="Faites le test de positionnement rapide (5 minutes) et, si vous le souhaitez, réservez un entretien avec moi." data-en="Take the quick placement test (5 minutes) and, if you like, book a placement session with me.">Haz el test rápido de posicionamiento (5 minutos) y, si quieres, agenda una prueba de ubicación conmigo.</p>
+          <a href="cursos.html#niveles" class="btn btn-gold"><i class="fa fa-clipboard-check"></i><span data-es="Hacer el test de nivel" data-fr="Faire le test de niveau" data-en="Take the level test">Hacer el test de nivel</span></a>
+        </article>
+        <article class="guia-card reveal d3" style="--c:#6f8fc2;">
+          <i class="fa fa-award guia-ico"></i>
+          <h3 data-es="Necesito un diploma: DELF, DALF o TCF" data-fr="Il me faut un diplôme : DELF, DALF ou TCF" data-en="I need a diploma: DELF, DALF or TCF">Necesito un diploma: DELF, DALF o TCF</h3>
+          <p data-es="Preparación guiada por nivel, con simulacros y corrección, para llegar al examen con seguridad." data-fr="Préparation guidée par niveau, avec examens blancs et corrections, pour arriver serein à l'examen." data-en="Level-by-level guided preparation, with mock exams and feedback, so you reach the exam with confidence.">Preparación guiada por nivel, con simulacros y corrección, para llegar al examen con seguridad.</p>
+          <a href="cursos.html#certificaciones" class="btn btn-gold"><i class="fa fa-award"></i><span data-es="Ver exámenes y preparación" data-fr="Voir examens et préparation" data-en="See exams and preparation">Ver exámenes y preparación</span></a>
+        </article>
+        <article class="guia-card reveal d4" style="--c:#a5824a;">
+          <i class="fa fa-comments guia-ico"></i>
+          <h3 data-es="Quiero soltarme hablando" data-fr="Je veux oser parler" data-en="I want to speak more freely">Quiero soltarme hablando</h3>
+          <p data-es="Practica en comunidad en «Vendredi entre Amis», el club de conversación de los viernes, en un ambiente cercano." data-fr="Pratiquez en communauté au « Vendredi entre Amis », le club de conversation du vendredi, dans une ambiance conviviale." data-en="Practise in a community at “Vendredi entre Amis”, the Friday conversation club, in a friendly setting.">Practica en comunidad en «Vendredi entre Amis», el club de conversación de los viernes, en un ambiente cercano.</p>
+          <a href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/" target="_blank" rel="noopener" class="btn btn-gold"><i class="fa fa-mug-hot"></i><span data-es="Conocer el club" data-fr="Découvrir le club" data-en="Meet the club">Conocer el club</span></a>
+        </article>
+        <article class="guia-card reveal d5" style="--c:#8e74b0;">
+          <i class="fa fa-calendar-check guia-ico"></i>
+          <h3 data-es="Prefiero hablar contigo primero" data-fr="Je préfère d'abord vous parler" data-en="I would rather talk to you first">Prefiero hablar contigo primero</h3>
+          <p data-es="Agenda una cita de orientación o escríbeme por WhatsApp: te respondo yo, sin compromiso." data-fr="Réservez un rendez-vous d'orientation ou écrivez-moi sur WhatsApp : je réponds moi-même, sans engagement." data-en="Book an orientation call or message me on WhatsApp: I answer personally, no strings attached.">Agenda una cita de orientación o escríbeme por WhatsApp: te respondo yo, sin compromiso.</p>
+          <button type="button" class="btn btn-gold" onclick="openModal('modal-cita')"><i class="fa fa-calendar-check"></i><span data-es="Agendar una cita" data-fr="Prendre rendez-vous" data-en="Book a call">Agendar una cita</span></button>
+        </article>
+        <article class="guia-card reveal d6" style="--c:#3f8576;">
+          <i class="fa fa-briefcase guia-ico"></i>
+          <h3 data-es="Busco francés para mi trabajo o institución" data-fr="Je cherche du français pour mon travail ou mon institution" data-en="I need French for work or my institution">Busco francés para mi trabajo o institución</h3>
+          <p data-es="Francés con objetivos específicos (turismo, salud, negocios, cooperación), con diagnóstico previo y programa a medida." data-fr="Français sur objectifs spécifiques (tourisme, santé, affaires, coopération), avec diagnostic préalable et programme sur mesure." data-en="French for specific purposes (tourism, health, business, cooperation), with an initial diagnosis and a tailored programme.">Francés con objetivos específicos (turismo, salud, negocios, cooperación), con diagnóstico previo y programa a medida.</p>
+          <a href="servicios.html" class="btn btn-gold"><i class="fa fa-briefcase"></i><span data-es="Ver servicios" data-fr="Voir les services" data-en="See services">Ver servicios</span></a>
+        </article>
+      </div>
+      <p class="guia-pie reveal">
+        <a href="inscribete.html"><i class="fa fa-pen-to-square"></i> <span data-es="Ya lo tengo claro: inscribirme" data-fr="C'est décidé : m'inscrire" data-en="I am ready: enroll">Ya lo tengo claro: inscribirme</span></a>
+        <a href="mi-espacio.html"><i class="fa fa-user-graduate"></i> <span data-es="Ya soy estudiante: entrar a Mi espacio" data-fr="Déjà élève : accéder à Mon espace" data-en="Already a student: go to My space">Ya soy estudiante: entrar a Mi espacio</span></a>
+        <a href="https://wa.me/584122465331?text=Hola%20Miguel%2C%20vengo%20de%20tu%20sitio%20web%20y%20quiero%20empezar%20con%20el%20franc%C3%A9s." target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> <span data-es="Escribirme por WhatsApp" data-fr="M'écrire sur WhatsApp" data-en="Message me on WhatsApp">Escribirme por WhatsApp</span></a>
+      </p>
+    </section>
+
     <!-- ── ACCESOS A LAS PÁGINAS ── -->
     <div class="portal-head reveal">
       <span class="portal-line"></span>
-      <p class="eyebrow" data-es="Elige por dónde empezar" data-fr="Choisissez par où commencer" data-en="Choose where to start">Elige por dónde empezar</p>
+      <p class="eyebrow" data-es="Explora el sitio" data-fr="Explorez le site" data-en="Explore the site">Explora el sitio</p>
       <span class="portal-line"></span>
     </div>
 
@@ -482,19 +562,6 @@
     </div><!-- /portal-fila -->
   </div>
 </section>
-<section id="novedad-tira" class="banda-foto compacta z10" data-page="inicio" style="--fondo:url('../images/relato/rodaje-entrevista.jpg');--pos:50% 38%;--velo:linear-gradient(100deg,rgba(9,30,20,0.9) 0%,rgba(9,30,20,0.8) 55%,rgba(9,30,20,0.6) 100%);">
-  <div class="container nov-tira">
-    <div class="nov-tira-txt">
-      <span class="eyebrow"><span data-es="Ya se emitió" data-fr="Déjà diffusé" data-en="Already aired">Ya se emitió</span></span>
-      <strong>Destination Francophonie · TV5MONDE</strong>
-      <span class="f" data-es="Ya en línea en TV5MONDE+ · México (Parte 1) · 28 min" data-fr="Déjà en ligne sur TV5MONDE+ · Mexique (partie 1) · 28 min" data-en="Now online on TV5MONDE+ · Mexico (Part 1) · 28 min">Ya en línea en TV5MONDE+ · México (Parte 1) · 28 min</span>
-    </div>
-    <span class="nov-tira-btns" style="display:flex;gap:0.7rem;flex-wrap:wrap;">
-      <a href="https://www.tv5mondeplus.com/es/documentaires/evasion/destination-francophonie-6" class="btn btn-gold" target="_blank" rel="noopener"><i class="fa fa-play"></i> <span data-es="Ver la Parte 1 en TV5MONDE+" data-fr="Voir la partie 1 sur TV5MONDE+" data-en="Watch Part 1 on TV5MONDE+">Ver la Parte 1 en TV5MONDE+</span></a>
-      <a href="perfil.html#novedad" class="btn btn-ghost"><span data-es="Más sobre el reportaje" data-fr="En savoir plus" data-en="More about the report">Más sobre el reportaje</span></a>
-    </span>
-  </div>
-</section>
 <section id="mis-clases" class="z10" data-page="inicio">
   <div class="container">
     <div class="mc-wrap reveal">
@@ -507,7 +574,7 @@
         </div>
       </div>
       <figure class="mc-video" id="mc-video">
-        <video id="mc-v" preload="none" playsinline poster="assets/images/videos/venez-vivre-16x9.jpg"></video>
+        <video id="mc-v" preload="none" playsinline></video>
         <button class="mc-play" id="mc-play" type="button" aria-label="Ver el video de mis clases" data-es-aria="Ver el video de mis clases" data-fr-aria="Voir la vidéo de mes cours" data-en-aria="Watch the video of my classes"><span><i class="fa fa-play"></i></span></button>
       </figure>
     </div>
@@ -524,7 +591,19 @@
     if (v.getAttribute('src')) return;
     var vert = mq.matches, d = vert ? V : H;
     f.classList.toggle('mc-vertical', vert);
-    v.poster = d.poster; v.dataset.src = d.src;
+    v.dataset.poster = d.poster; v.dataset.src = d.src;
+    ponerPoster();
+  }
+  /* El póster (100 KB) se pide al terminar la bienvenida, no mientras compite con el vídeo de entrada. */
+  function ponerPoster() {
+    if (v.getAttribute('src') || document.documentElement.classList.contains('intro-pendiente')) return;
+    if (v.dataset.poster) v.poster = v.dataset.poster;
+  }
+  if (document.documentElement.classList.contains('intro-pendiente') && window.MutationObserver) {
+    var obs = new MutationObserver(function () {
+      if (!document.documentElement.classList.contains('intro-pendiente')) { obs.disconnect(); ponerPoster(); }
+    });
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
   }
   ajustar();
   if (mq.addEventListener) mq.addEventListener('change', ajustar);
@@ -537,6 +616,19 @@
   v.addEventListener('ended', function () { b.classList.remove('oculto'); });
 })();
 </script>
+<section id="novedad-tira" class="banda-foto compacta z10" data-page="inicio" style="--fondo:url('../images/relato/rodaje-entrevista.jpg');--pos:50% 38%;--velo:linear-gradient(100deg,rgba(9,30,20,0.9) 0%,rgba(9,30,20,0.8) 55%,rgba(9,30,20,0.6) 100%);">
+  <div class="container nov-tira">
+    <div class="nov-tira-txt">
+      <span class="eyebrow"><span data-es="Ya se emitió" data-fr="Déjà diffusé" data-en="Already aired">Ya se emitió</span></span>
+      <strong>Destination Francophonie · TV5MONDE</strong>
+      <span class="f" data-es="Ya en línea en TV5MONDE+ · México (Parte 1) · 28 min" data-fr="Déjà en ligne sur TV5MONDE+ · Mexique (partie 1) · 28 min" data-en="Now online on TV5MONDE+ · Mexico (Part 1) · 28 min">Ya en línea en TV5MONDE+ · México (Parte 1) · 28 min</span>
+    </div>
+    <span class="nov-tira-btns" style="display:flex;gap:0.7rem;flex-wrap:wrap;">
+      <a href="https://www.tv5mondeplus.com/es/documentaires/evasion/destination-francophonie-6" class="btn btn-gold" target="_blank" rel="noopener"><i class="fa fa-play"></i> <span data-es="Ver la Parte 1 en TV5MONDE+" data-fr="Voir la partie 1 sur TV5MONDE+" data-en="Watch Part 1 on TV5MONDE+">Ver la Parte 1 en TV5MONDE+</span></a>
+      <a href="perfil.html#novedad" class="btn btn-ghost"><span data-es="Más sobre el reportaje" data-fr="En savoir plus" data-en="More about the report">Más sobre el reportaje</span></a>
+    </span>
+  </div>
+</section>
 <section id="proximo-evento" class="z10" data-page="inicio">
   <div class="container">
     <div class="panel bracket reveal" style="max-width:840px;margin:0 auto;padding:clamp(1.8rem,4vw,3rem);display:grid;grid-template-columns:auto 1fr;gap:clamp(1.5rem,4vw,2.5rem);align-items:center;">
@@ -1278,7 +1370,13 @@ const bgAudio = document.getElementById('bg-audio');
     load((cur + 1) % slides.length);
   }
   function restart(){ clearInterval(timer); timer = setInterval(function(){ if (document.body.classList.contains('intro-active')) return; show((cur + 1) % slides.length); }, 6500); }
-  window.addEventListener('load', function(){ load(1); restart(); });
+  function cuandoLibre(fn){
+    var h = document.documentElement;
+    if (!h.classList.contains('intro-pendiente') || !window.MutationObserver) return fn();
+    var o = new MutationObserver(function(){ if (!h.classList.contains('intro-pendiente')){ o.disconnect(); fn(); } });
+    o.observe(h, { attributes: true, attributeFilter: ['class'] });
+  }
+  window.addEventListener('load', function(){ cuandoLibre(function(){ load(1); restart(); }); });
   var hero = document.getElementById('hero');
   if (hero){
     hero.addEventListener('mouseenter', function(){ clearInterval(timer); });
@@ -1397,6 +1495,7 @@ window.addEventListener('DOMContentLoaded', function() {
   if (yaVisto) {
     if (introEl.parentNode) introEl.parentNode.removeChild(introEl);
     document.body.classList.remove('intro-active');
+    document.documentElement.classList.remove('intro-pendiente');
     if (window.arrancarVanta) window.arrancarVanta();
     return;
   }
@@ -1405,14 +1504,15 @@ window.addEventListener('DOMContentLoaded', function() {
      Móviles/tablets en vertical → versión vertical (sin recorte).
      Resto → versión horizontal original. */
   var srcH = introVid.getAttribute('data-src-h');
-  var srcV = introVid.getAttribute('data-src-v');
   var elegido = window.elegirFuenteIntro ? window.elegirFuenteIntro() : srcH;
   if (introVid.getAttribute('src') !== elegido) introVid.src = elegido;
-  /* Si la orientación cambia antes de pulsar Entrar, intercambia la fuente */
-  window.matchMedia('(orientation: portrait)').addEventListener('change', function(ev) {
-    if (introDone) return;
-    var want = (ev.matches || window.innerWidth < 768) ? srcV : srcH;
+  /* Si se gira el teléfono antes de pulsar Entrar, cambia a la versión que
+     corresponde (vertical ↔ horizontal) y sigue desde el principio. */
+  window.matchMedia('(orientation: portrait)').addEventListener('change', function() {
+    if (introDone || !window.elegirFuenteIntro) return;
+    var want = window.elegirFuenteIntro();
     if (want && introVid.src.indexOf(want) === -1) {
+      introVid.poster = window.elegirPosterIntro();
       introVid.src = want;
       introVid.load();
       introVid.play().catch(function(){});
@@ -1497,6 +1597,7 @@ window.addEventListener('DOMContentLoaded', function() {
     if (safetyT1) clearTimeout(safetyT1);
     if (introEl) introEl.classList.add('fade-out');
     document.body.classList.remove('intro-active');
+    document.documentElement.classList.remove('intro-pendiente');
     if (window.arrancarVanta) window.arrancarVanta();
 
     /* La música de fondo entra sola en cuanto termina el vídeo de intro. */
@@ -1546,7 +1647,13 @@ window.addEventListener('DOMContentLoaded', function() {
       if (txt) txt.innerHTML = 'Un instante&hellip;';
       if (enterBtn) enterBtn.disabled = true;
       introVid.addEventListener('canplay', lanzar, { once: true });
-      setTimeout(lanzar, 2000);
+      /* Si con una señal muy débil el vídeo sigue sin poder reproducirse a los
+         4,5 s, no se retiene al visitante ni se le enseña a trompicones: se
+         entra directo al sitio (el vídeo es decorativo). */
+      setTimeout(function () {
+        if (lanzado) return;
+        if (introVid.readyState >= 2) lanzar(); else closeIntro();
+      }, 4500);
     }
 
     /* Precargamos la música para que entre sin corte, pero solo cuando el
