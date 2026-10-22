@@ -158,6 +158,13 @@
 }
 .vc-dot:focus-visible::before { border-color: var(--gold, #a5824a); }
 .vc-dot:focus-visible { outline: none; }
+/* El botón mide 36 px para no separar demasiado los puntos; una capa
+   invisible lleva el área de toque a los 44 px recomendados. */
+.vc-dot { position: relative; }
+.vc-dot::after {
+  content: ''; position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%); width: 100%; height: 44px;
+}
 
 @media (max-width: 640px) {
   .vc-slide { flex-basis: 88%; }

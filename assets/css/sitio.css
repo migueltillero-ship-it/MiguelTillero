@@ -2388,3 +2388,43 @@ body { animation: pageFadeIn 0.5s ease; }
 /* Botones del menú: legibles pero compactos para que quepan en una sola fila */
 .nav-links { flex-wrap: nowrap; gap: 0.3rem; }
 .nav-links a { font-size: 0.78rem; letter-spacing: 0.05em; padding: 0.5rem 0.8rem; }
+
+/* ══════════════════════════════════════════════════════════════
+   TOCAR CON EL DEDO Y LEER EN EL TELÉFONO
+   La medida recomendada para el dedo es 44x44 px. Varios controles son
+   más pequeños a propósito y agrandarlos rompería el diseño, así que se
+   les pone encima una capa invisible que recoge el toque.
+   Cuánto se agranda depende del vecino: una capa más ancha que la
+   separación entre dos controles hace que el toque caiga en el de al
+   lado, que es peor que un objetivo pequeño. Por eso los puntos de los
+   carruseles, que van casi pegados, solo crecen hacia arriba y abajo.
+   Los enlaces dentro de un párrafo quedan fuera: la norma los exceptúa.
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 700px) {
+  /* Controles sueltos: la capa crece en las dos direcciones. */
+  .ctrl-btn, .hamburger, .svc-mas, .af-chip { position: relative; }
+  .ctrl-btn::after, .hamburger::after, .svc-mas::after, .af-chip::after {
+    content: '';
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%; height: 100%;
+    min-width: 44px; min-height: 44px;
+  }
+
+  /* Puntos de carrusel: pegados entre sí, así que solo crecen en vertical. */
+  .hero-dots button, .cul-dots button { position: relative; }
+  .hero-dots button::after, .cul-dots button::after {
+    content: '';
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%; height: 44px;
+  }
+
+  /* Los enlaces del acceso van a 9 px unos de otros: aquí no sirve una
+     capa, hay que darles sitio de verdad. */
+  .lg-links a { display: flex; align-items: center; justify-content: center; min-height: 44px; }
+
+  /* Ningún texto por debajo de 12 px en las fichas de examen, donde las
+     etiquetas bajaban a 10,9. Se sube solo el mínimo. */
+  body #lite .chip, body #lite .eyebrow, body #lite .back-link { font-size: 12px; }
+}
