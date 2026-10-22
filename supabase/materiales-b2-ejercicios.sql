@@ -56,10 +56,10 @@ begin
        || 'en relief, el doble comparativo con mieux y meilleur, y plutôt que.',
        '#s6'),
 
-      (6, 'Parcours vidéo · L’art de la table et le savoir-vivre', 'juego', 'Unité 1',
-       'El vídeo de Mcfly et Carlito con Carmel, convertido en recorrido: el vídeo va '
-       || 'dentro y cada pregunta salta a su minuto. Léxico, doce vrai/faux, registros, '
-       || 'concesión con subjuntivo y producción DELF. Se valida al 80 %.',
+      (6, 'Parcours · Ça se fait, ça ne se fait pas (p. 19)', 'juego', 'Unité 1',
+       'Las expresiones de la actividad 22, lo que se hace y lo que no en una mesa '
+       || 'francesa, y la comparación con lo de aquí. Con el vídeo dentro: cada pregunta '
+       || 'salta a su minuto. Se valida al 80 %.',
        '#savoir-vivre'),
 
       (7, 'Séance du 26 octobre · Prendre des notes', 'refuerzo', 'Unité 1',

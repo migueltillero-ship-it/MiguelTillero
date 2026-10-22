@@ -565,407 +565,360 @@ FICHAS.push({
 });
 
 /* ───────────────────────────────────────────────────────────────────────
-   PARCOURS VIDÉO · L’art de la table et le savoir-vivre
-   Mcfly et Carlito avec Carmel — « On apprend les bonnes manières à table »
+   PARCOURS · Ça se fait, ça ne se fait pas — ici et là-bas
+   Vidéo : Mcfly et Carlito avec Carmel, « On apprend les bonnes manières
+   à table » · Livre p. 19 (act. 18 à 24)
    ---------------------------------------------------------------------
-   La ficha de dos sesiones del profesor, convertida en recorrido con el
-   vídeo dentro: cada pregunta lleva su minuto y salta sola. Se valida al
-   80 % y no antes, porque hacer los ejercicios no es haber entendido.
+   El eje es el de la página 19: las expresiones para juzgar una manera
+   (« ça ne se fait pas », « c’est la base »), lo que se hace y lo que no, y
+   la comparación entre México y Francia. Lo gramatical se queda en lo que
+   el libro pide ahí: « plus… plus » y las expresiones con valoir.
    ─────────────────────────────────────────────────────────────────────── */
 FICHAS.push({
   id: 'savoir-vivre',
   tipo: 'outil',
   ciclo: 'Oct.-nov. 2026',
-  fecha: 'Parcours vidéo · 2 séances',
-  titulo: 'L’art de la table — simple snobisme ou véritable pouvoir ?',
-  resumen: 'El vídeo de Mcfly et Carlito con Carmel, convertido en recorrido: léxico, 12 vrai/faux con su minuto, registros, concesión con subjuntivo y producción DELF.',
-  intro: 'Trabajas con el vídeo dentro de la página: cada pregunta tiene su botón de minuto '
-       + 'y salta sola al fragmento. Si alguno no cae exacto, retrocede unos segundos.',
+  fecha: 'Parcours · livre p. 19',
+  titulo: 'Ça se fait, ça ne se fait pas — à table, ici et là-bas',
+  resumen: 'Las expresiones de la actividad 22, lo que se hace y lo que no en la mesa francesa, y la comparación con México. Con el vídeo dentro.',
+  intro: 'Lo que estamos trabajando, para practicarlo solo: cómo se juzga una manera en '
+       + 'francés, qué se hace y qué no en una mesa francesa, y en qué se parece o se '
+       + 'diferencia de lo de aquí. El vídeo está dentro: cada pregunta salta a su minuto.',
 
   video: {
     id: 'sWtjnwMbEVU',
-    titulo: 'Mcfly et Carlito avec Carmel — « On apprend les bonnes manières à table car on mange comme des gorets » (35 min)'
+    titulo: 'Mcfly et Carlito avec Carmel — « On apprend les bonnes manières à table » (35 min)'
   },
 
   secciones: [
-    { titulo: '1. Avant le visionnage',
-      sous: 'Diez palabras de la mesa que, si no se conocen, bloquean todo lo demás.',
+    { titulo: '1. Les mots pour juger une manière',
+      sous: 'Las expresiones de la actividad 22. Son las que necesitas para opinar sin repetir «c’est mal».',
       rappels: [
-        { titulo: 'Ce qu’on va faire',
+        { titulo: 'La boîte à expressions (act. 22)',
           html: `<ul>
-            <li><b>Partie 1</b> (00:00–05:00) : pourquoi apprendre les bonnes manières.</li>
-            <li><b>Partie 2</b> (05:30–34:40) : le parcours du combattant à table, douze règles.</li>
-            <li><b>Focus langue</b> : du familier au standard, l’euphémisme, la concession au subjonctif.</li>
-            <li><b>Production</b> : jeu de rôle et texte argumentatif, format DELF B2.</li>
+            <li><b>Ça ne se fait pas.</b> — la regla social, sin más explicación.</li>
+            <li><b>C’est la base.</b> — es lo mínimo, lo elemental.</li>
+            <li><b>Ça s’apprend.</b> — no se nace sabiéndolo.</li>
+            <li><b>Ça donne une mauvaise première impression.</b> — la consecuencia.</li>
+            <li><b>Ça met mal à l’aise.</b> — el efecto en los demás.</li>
+            <li><b>C’est gênant.</b> / <b>C’est vexant.</b> — incómodo / hiriente.</li>
+            <li><b>Ça fait vulgaire</b> / <b>mauvais genre.</b> — el juicio estético.</li>
+            <li><b>C’est n’importe quoi.</b> — familiar, muy fuerte.</li>
           </ul>
-          <div class="piege"><b>Consigne de visionnage :</b> il est inutile de comprendre
-          chaque mot. Trois locuteurs natifs parlent vite et se coupent la parole : c’est
-          exactement ce qu’on travaille. Concentre-toi sur les idées et les exemples.</div>` }
+          <div class="ex">El ejemplo del libro: <i>« Mettre le couteau dans la bouche, ça ne se
+          fait pas. Ça me choque ! »</i></div>
+          <div class="piege">Dos que no son lo mismo: <b>gênant</b> incomoda a todos
+          (un silencio, un ruido); <b>vexant</b> hiere a alguien en concreto.</div>` }
       ],
       ejercicios: [0, 1]
     },
 
-    { titulo: '2. Partie 1 — Pourquoi apprendre les bonnes manières ?',
-      sous: 'De 00:00 a 05:00. Primero entero, sin parar; después con los botones de minuto.',
+    { titulo: '2. À table : ça se fait ou pas ?',
+      sous: 'Primero en Francia. Después, lo de aquí, que es lo que más vale la pena comparar.',
       rappels: [],
-      ejercicios: [2, 3]
+      ejercicios: [2, 3, 4]
     },
 
-    { titulo: '3. Partie 2 — Le parcours du combattant à table',
-      sous: 'Doce reglas, doce vrai/faux. Cada uno con su minuto: compruébalo tú.',
+    { titulo: '3. La vidéo',
+      sous: 'Seis preguntas, nada más. No hace falta entender cada palabra.',
       rappels: [
-        { titulo: 'Comment répondre',
-          html: `<p>Cada afirmación contiene <b>una sola idea</b>. Si es falsa, la corrección
-          te dice qué es lo verdadero — y eso es lo que hay que retener, no el vrai/faux.</p>` }
+        { titulo: 'Avant de regarder',
+          html: `<p>Tres personas hablan deprisa y se interrumpen: es normal perderse.
+          Escucha las <b>ideas</b> y los <b>ejemplos</b>, no las palabras.</p>
+          <div class="ex">Carmel es la invitada, experta en <i>savoir-vivre</i>;
+          Mcfly y Carlito son los dos vidéastes que preguntan.</div>` }
       ],
-      ejercicios: [4, 5, 6]
+      ejercicios: [5, 6]
     },
 
-    { titulo: '4. Focus langue',
-      sous: 'Lo que de verdad se evalúa en B2: el registro y la concesión.',
+    { titulo: '4. Plus… plus, et les expressions avec valoir',
+      sous: 'Lo de las actividades 19 y 20, que es la gramática que toca aquí.',
       rappels: [
-        { titulo: 'Du familier au standard',
-          html: `<p>Mcfly et Carlito hablan en <b>registro familiar</b>. Carmel responde en
-          <b>estándar</b> o <b>soutenu</b>. Saber pasar de uno a otro es media nota del oral.</p>
-          <div class="ex">les fringues → les vêtements · les potes → les amis ·
-          la bouffe → la nourriture · avoir la flemme → ne pas avoir envie ·
-          c’est reloue → c’est pénible · un beauf → quelqu’un de vulgaire</div>
-          <div class="piege"><b>« Reloue » es verlan de <i>lourde</i></b>, y
-          <b>« beauf »</b> viene de <i>beau-frère</i>. El verlan y las abreviaciones
-          no se usan en un examen, pero hay que entenderlos para seguir una conversación real.</div>` },
-        { titulo: 'Concéder et nuancer',
+        { titulo: 'Plus… plus · moins… moins (act. 19)',
+          html: `<p>Dos mitades, y el verbo va en cada una:</p>
+          <div class="ex"><b>Plus</b> je vieillis, <b>plus</b> je tiens à ces règles.<br>
+          <b>Plus</b> il y a d’objets dans un salon, <b>moins</b> la pièce paraît grande.<br>
+          <b>Moins</b> on connaît les codes, <b>plus</b> on a peur de se tromper.</div>
+          <div class="piege">Delante de un nombre hace falta <b>de</b>:
+          <i>plus <b>de</b> monde</i>, <i>moins <b>d’</b>objets</i>.</div>` },
+        { titulo: 'Valoir (act. 20)',
           html: `<ul>
-            <li><b>bien que</b> + <b>subjonctif</b> : <i>Bien que ces règles paraissent rigides…</i></li>
-            <li><b>quoique</b> + <b>subjonctif</b> : <i>Quoique Mcfly soit sceptique…</i></li>
-            <li><b>même si</b> + <b>indicatif</b> : <i>Même si on ne connaît pas les règles…</i></li>
-            <li><b>certes…, mais…</b> : no cambia el modo. <i>Certes, c’est rigide, mais…</i></li>
+            <li><b>Il vaut mieux</b> + infinitivo = es preferible. <i>Il vaut mieux éviter.</i></li>
+            <li><b>Mieux vaut</b> + infinitivo = lo mismo, más corto y más escrito.</li>
+            <li><b>Ça vaut la peine</b> / <b>le coup</b> = merece el esfuerzo.</li>
           </ul>
-          <div class="piege">El error más caro del B2 : <i>« <s>bien que c’est</s> »</i>.
-          Después de <b>bien que</b> y de <b>quoique</b>, siempre subjuntivo.</div>` },
-        { titulo: 'L’euphémisme et la diplomatie',
-          html: `<p>En la mesa no se anuncia que uno va al baño. Se dice
-          <b>« Veuillez m’accorder quelques instants »</b>, o, tradicionalmente entre
-          señoras, <b>« Je vais aller me repoudrer le nez »</b> [20:49].</p>` }
+          <div class="ex"><b>Los dos proverbios del margen:</b><br>
+          « Un homme averti en vaut deux » — el que está avisado vale por dos.<br>
+          « Deux précautions valent mieux qu’une » — más vale prevenir dos veces.</div>` }
       ],
-      ejercicios: [7, 8, 9, 10, 11]
+      ejercicios: [7, 8, 9]
     },
 
-    { titulo: '5. Production — format DELF B2',
-      sous: 'Lo que se hace en clase y lo que se entrega en casa.',
+    { titulo: '5. La nétiquette',
+      sous: 'La buena educación, pero en línea (act. 23 y 24).',
       rappels: [
-        { titulo: 'Boîte à outils : connecteurs B2',
-          html: `<table style="width:100%;border-collapse:collapse;margin:.5rem 0">
-            <tr><th style="text-align:left;padding:.35rem">Concéder</th>
-                <td style="padding:.35rem">Il est vrai que… · Certes, on peut considérer que… ·
-                    Bien que ces règles puissent paraître rigides…</td></tr>
-            <tr><th style="text-align:left;padding:.35rem">Nuancer ou réfuter</th>
-                <td style="padding:.35rem">Cependant… · Toutefois… · Il n’en demeure pas moins que… ·
-                    Loin d’être un simple snobisme…</td></tr>
-            <tr><th style="text-align:left;padding:.35rem">Illustrer</th>
-                <td style="padding:.35rem">À titre d’exemple… · Comme le montre l’anecdote de… ·
-                    On peut notamment citer…</td></tr>
-          </table>` }
+        { titulo: 'De la table à l’écran',
+          html: `<p>La <b>nétiquette</b> es la etiqueta de internet: las reglas no escritas
+          del correo, del chat y de la videollamada. Cambian el soporte, pero no la idea:
+          <b>no incomodar al otro</b>.</p>` }
       ],
-      ejercicios: [12, 13]
+      ejercicios: [10, 11]
+    },
+
+    { titulo: '6. À toi',
+      sous: 'Lo contrastivo, por escrito. Es lo que vamos a comentar en clase.',
+      rappels: [],
+      ejercicios: [12]
     }
   ],
 
   ejercicios: [
-    /* 0 */ { t:'paires', etiqueta:'Lexique de la table',
-      consigne:'Associe chaque mot à sa définition. Sin esto, el vídeo no se entiende.',
+    /* 0 */ { t:'paires', etiqueta:'Les expressions',
+      consigne:'Cada expresión con lo que quiere decir de verdad.',
       pairs: [
-        ['la bienséance', 'la conduite conforme aux usages et à la politesse d’une société'],
-        ['le savoir-vivre', 'l’ensemble des usages qui rendent la vie en société agréable'],
-        ['un convive', 'une personne invitée à partager un repas'],
-        ['un hôte', 'la personne qui reçoit chez elle'],
-        ['décortiquer', 'enlever la coquille ou la carapace d’un aliment'],
-        ['un rince-doigts', 'un petit bol d’eau pour se nettoyer les doigts à table'],
-        ['saucer', 'essuyer la sauce de son assiette avec du pain'],
-        ['rompre le pain', 'casser le pain avec les mains plutôt que le couper'],
-        ['les couverts', 'fourchette, couteau, cuillère'],
-        ['un goret', 'un jeune porc ; en langage familier, quelqu’un qui mange salement']
-      ],
-      aide:'<b>Goret</b> está en el título del vídeo. « Manger comme des gorets » es '
-         + 'familiar y bastante fuerte : equivale a « comer como cerdos ».' },
-
-    /* 1 */ { t:'prod', etiqueta:'Mise en route', mots:60,
-      consigne:'Antes de ver nada: ¿las reglas de savoir-vivre están pasadas de moda, son cosa '
-             + 'de una élite, o siguen sirviendo en la vida social y profesional?',
-      sous:'60 palabras. Guarda tu respuesta: al final del recorrido vas a releerla.',
-      check: [
-        'Tu posición, en una frase clara.',
-        'Un argumento con un ejemplo de tu experiencia.',
-        'Tres errores que en <b>tu</b> cultura estén especialmente mal vistos en la mesa.',
-        'Una pregunta que te gustaría hacerle a alguien que sí conoce los códigos.'
-      ],
-      modele:'Pour moi, ces règles ne sont pas démodées, mais elles ont changé de fonction : '
-           + 'elles servent moins à montrer son rang qu’à mettre les autres à l’aise. Dans un '
-           + 'entretien d’embauche autour d’un déjeuner, personne ne vous félicitera de bien '
-           + 'tenir vos couverts, mais tout le monde remarquera le contraire. Chez moi, trois '
-           + 'choses passent très mal : parler la bouche pleine, commencer avant les '
-           + 'autres et laisser son téléphone sur la table.' },
-
-    /* 2 */ { t:'qcm', etiqueta:'Compréhension', min:'0:00',
-      consigne:'Primero entero, sin parar. Después responde, y usa los minutos para comprobar.',
-      q: [
-        { enonce:'Qui sont les trois personnes présentes ?', min:'0:10',
-          o:['Trois chefs cuisiniers',
-             'Deux vidéastes, Mcfly et Carlito, et Carmel, experte en savoir-vivre',
-             'Un journaliste et deux acteurs'], r:1 },
-        { enonce:'Quelle erreur vestimentaire les animateurs ont-ils commise ?', min:'0:37',
-          o:['Ils portent du noir, couleur traditionnellement réservée au personnel de service',
-             'Ils portent une cravate à table',
-             'Ils ont gardé leur manteau'], r:0,
-          note:'Y la anécdota : debajo de la mesa llevan short y zapatillas, « comme '
-             + 'en télétravail » [00:53].' },
-        { enonce:'Quel est le métier initial de Carmel ?', min:'2:05',
-          o:['Cheffe de cuisine', 'Juriste en droit des affaires internationales', 'Professeure de français'],
-          r:1, note:'En ese medio los almuerzos y cenas de negocios son constantes : de ahí '
-                  + 'le nace la pasión por el savoir-vivre [02:10].' },
-        { enonce:'L’un des animateurs prétend connaître les codes. En réalité…', min:'2:43',
-          o:['il les maîtrise parfaitement',
-             'il reprend ses amis, mais ne les maîtrise pas lui-même',
-             'il les refuse par principe'], r:1 },
-        { enonce:'David rejetait les règles enfant. Aujourd’hui, en tant que père, il veut les connaître…', min:'2:55',
-          o:['pour les imposer à ses enfants',
-             'pour les transmettre, afin que ses enfants choisissent en connaissance de cause',
-             'pour les utiliser dans ses vidéos'], r:1,
-          note:'Matiz importante para el debate del final : transmitir no es imponer.' },
-        { enonce:'Premier argument de Carmel pour « le savoir est un pouvoir » :', min:'3:15',
-          o:['ne pas connaître les codes fait peur et ferme des portes — on s’autocensure',
-             'les codes permettent de juger les autres',
-             'les codes sont nécessaires pour cuisiner'], r:0,
-          note:'Su ejemplo : no atreverse a entrar al Ritz por una pastelería, por miedo al '
-             + 'número de cubiertos o a la mirada de los demás [03:48].' },
-        { enonce:'Deuxième argument :', min:'4:03',
-          o:['les connaître permet d’aller partout avec assurance, et c’est un atout professionnel',
-             'les connaître permet de gagner des concours',
-             'les connaître évite de cuisiner soi-même'], r:0 }
+        ['Ça ne se fait pas.', 'C’est contraire aux usages'],
+        ['C’est la base.', 'C’est le minimum, l’élémentaire'],
+        ['Ça s’apprend.', 'Personne ne naît en le sachant'],
+        ['Ça donne une mauvaise première impression.', 'Les autres se font tout de suite une idée fausse de toi'],
+        ['Ça met mal à l’aise.', 'Les autres ne savent plus où se mettre'],
+        ['C’est vexant.', 'Ça blesse la personne à qui on le fait'],
+        ['Ça fait vulgaire.', 'C’est inélégant, mauvais genre'],
+        ['C’est n’importe quoi.', 'Familier et très fort : ça n’a aucun sens']
       ] },
 
-    /* 3 */ { t:'prod', etiqueta:'Et vous ?', mots:50,
-      consigne:'De los dos argumentos de Carmel, ¿cuál te convence más y por qué?',
-      sous:'50 palabras. Una sola idea, bien sostenida.',
-      check: [
-        'Di cuál de los dos, sin rodeos.',
-        'Una razón, con un ejemplo concreto.',
-        'Un conector de la caja de herramientas.'
-      ],
-      modele:'C’est le premier argument qui me convainc le plus. L’autocensure est invisible : '
-           + 'on ne sait jamais combien de fois on a renoncé à entrer quelque part. À titre '
-           + 'd’exemple, j’ai longtemps évité les restaurants où l’on dresse plusieurs couverts, '
-           + 'non par manque d’envie, mais par peur du regard des autres.' },
-
-    /* 4 */ { t:'qcm', etiqueta:'Vrai ou faux · 1 à 6', min:'5:30',
-      consigne:'Seis reglas. Vrai o faux, y lee la corrección: lo que hay que retener está ahí.',
+    /* 1 */ { t:'qcm', etiqueta:'La bonne expression',
+      consigne:'¿Qué dirías en cada situación? Hay una que encaja mejor que las otras.',
       q: [
-        { enonce:'<b>La serviette.</b> On s’essuie vigoureusement la bouche avec la serviette dépliée en grand.',
-          min:'6:11', o:['Vrai','Faux'], r:1,
-          note:'<b>FAUX.</b> On la plie en deux sur les jambes et on <b>tapote délicatement</b> '
-             + 'autour de la bouche, en l’ouvrant pour que les traces restent à l’intérieur.' },
-        { enonce:'<b>Les crevettes.</b> Il est interdit de les décortiquer avec les doigts au restaurant.',
-          min:'7:09', o:['Vrai','Faux'], r:1,
-          note:'<b>FAUX.</b> On peut, surtout à l’apéritif [09:22]. Il existe aussi une technique '
-             + 'à la fourchette et au couteau : tête, queue, pattes, puis carapace [08:49].' },
-        { enonce:'<b>Les mains.</b> En France, on garde les poignets au bord de la table pour une raison historique liée à la sécurité.',
-          min:'8:04', o:['Vrai','Faux'], r:0,
-          note:'<b>VRAI.</b> À cause des risques d’empoisonnement ou d’armes cachées, les mains '
-             + 'devaient rester visibles. De ahí que el uso anglosajón (manos bajo la mesa) '
-             + 'resulte extraño en Francia.' },
-        { enonce:'<b>La posture.</b> La grand-mère d’un des animateurs disait qu’il faut pouvoir placer « un chien devant et un chat derrière » sur sa chaise.',
-          min:'10:33', o:['Vrai','Faux'], r:0,
-          note:'<b>VRAI.</b> Imagen para decir que hay que estar derecho, ligeramente adelantado, '
-             + 'sin recostarse ni pegarse a la mesa.' },
-        { enonce:'<b>La soupe.</b> Pour manger sa soupe, on penche le buste vers l’assiette.',
-          min:'11:51', o:['Vrai','Faux'], r:1,
-          note:'<b>FAUX.</b> Es la cuchara la que sube a la boca, con la espalda recta [12:02]. '
-             + 'Y se toma del <b>borde</b> del plato, donde está menos caliente, rozando la superficie.' },
-        { enonce:'<b>L’anecdote royale.</b> Quand un invité étranger a bu l’eau de son rince-doigts, la reine d’Angleterre l’a corrigé poliment en privé.',
-          min:'13:39', o:['Vrai','Faux'], r:1,
-          note:'<b>FAUX — y es la mejor historia del vídeo.</b> La reina <b>bebió ella misma</b> '
-             + 'el agua de su rince-doigts, para no dejar en ridículo al invitado [13:48].' }
-      ],
-      aide:'Si fallaste tres o más, vuelve a ver el bloque 05:30–15:30 entero antes de seguir.' },
-
-    /* 5 */ { t:'qcm', etiqueta:'Vrai ou faux · 7 à 12', min:'14:40',
-      consigne:'Seis más. Estas son las que más sorprenden.',
-      q: [
-        { enonce:'<b>« Bon appétit ».</b> Selon les règles strictes, on ne souhaite pas « bon appétit » au début du repas.',
-          min:'14:40', o:['Vrai','Faux'], r:0,
-          note:'<b>VRAI.</b> Tradicionalmente no se dice, porque remite a la digestión, mientras '
-             + 'que la comida es un arte de vivir y de conversación [15:05]. <b>Matiz útil :</b> '
-             + 'si nos lo dicen, se responde « Merci, vous également » [14:46].' },
-        { enonce:'<b>Le pain.</b> On coupe son pain avec un couteau.',
-          min:'23:47', o:['Vrai','Faux'], r:1,
-          note:'<b>FAUX.</b> On <b>rompt</b> toujours le pain avec les doigts, jamais au couteau.' },
-        { enonce:'<b>La sauce.</b> Il est strictement interdit de saucer son assiette.',
-          min:'22:24', o:['Vrai','Faux'], r:1,
-          note:'<b>FAUX, à nuancer.</b> No se sopa con un trozo de pan <b>en la mano</b>, pero sí '
-             + 'se puede pinchar discretamente un trocito en la punta del tenedor [24:07].' },
-        { enonce:'<b>Les spaghettis.</b> On s’aide d’une cuillère pour les enrouler.',
-          min:'25:16', o:['Vrai','Faux'], r:1,
-          note:'<b>FAUX.</b> Solo con el tenedor, tomando poca cantidad cada vez. La cuchara es '
-             + 'un hábito extendido, pero no forma parte de los códigos.' },
-        { enonce:'<b>Le thé.</b> On lève le petit doigt en buvant son thé.',
-          min:'30:49', o:['Vrai','Faux'], r:1,
-          note:'<b>FAUX</b>, y es el cliché por excelencia. Para remover : pequeños '
-             + 'movimientos de delante hacia atrás, sin hacer girar la cuchara, para evitar el '
-             + 'ruido contra la taza [31:42].' },
-        { enonce:'<b>La fin du repas.</b> Quand on a terminé, on replie soigneusement sa serviette à côté de l’assiette.',
-          min:'33:29', o:['Vrai','Faux'], r:1,
-          note:'<b>FAUX.</b> No se vuelve a doblar nunca : significaría que uno cuenta con '
-             + 'volver a la comida siguiente. Se deja ligeramente arrugada al lado del plato.' }
+        { enonce:'Quelqu’un met son couteau dans la bouche.',
+          o:['Ça ne se fait pas.', 'C’est vexant.', 'Ça s’apprend.'], r:0,
+          note:'Es el ejemplo del libro. <b>Vexant</b> no: no hiere a nadie, simplemente no se hace.' },
+        { enonce:'Un ami arrive à un entretien avec un t-shirt taché.',
+          o:['C’est n’importe quoi.', 'Ça donne une mauvaise première impression.', 'C’est la base.'], r:1,
+          note:'Aquí lo que importa es la <b>consecuencia</b>: lo que el otro va a pensar.' },
+        { enonce:'Quelqu’un te reprend devant tout le monde à table.',
+          o:['Ça fait vulgaire.', 'C’est vexant et ça met mal à l’aise.', 'Ça s’apprend.'], r:1,
+          note:'Y es justo lo que Carmel llama la regla número uno: no señalar al otro.' },
+        { enonce:'Dire bonjour en entrant, pour toi, c’est évident.',
+          o:['C’est la base.', 'C’est gênant.', 'Ça ne se fait pas.'], r:0 },
+        { enonce:'Alguien dice: « yo no tengo por qué saber esas reglas, nadie me las enseñó ».',
+          o:['Ça fait vulgaire.', 'Justement : ça s’apprend.', 'C’est la base.'], r:1,
+          note:'<b>Ça s’apprend</b> es la respuesta amable: no es un defecto, es algo que se aprende.' }
       ] },
 
-    /* 6 */ { t:'qcm', etiqueta:'Question bilan', min:'13:26',
-      consigne:'La pregunta que ordena todas las demás.',
-      q: [
-        { enonce:'Selon Carmel, quelle est la règle numéro un du savoir-vivre ?', min:'13:26',
-          o:['Connaître parfaitement l’ordre des couverts',
-             'Ne jamais mettre les autres mal à l’aise ni leur montrer qu’ils font mal',
-             'Ne jamais parler pendant le repas'], r:1,
-          note:'[13:26 ; 14:15] Todo lo demás se deduce de ahí. Y el ejemplo perfecto es la '
-             + 'anécdota de la reina y el rince-doigts.' },
-        { enonce:'Quel exemple de la vidéo illustre le mieux cette règle ?',
-          o:['La technique des crevettes à la fourchette',
-             'La reine qui boit l’eau de son rince-doigts pour ne pas gêner son invité',
-             'La couleur des vêtements des animateurs'], r:1 },
-        { enonce:'À la fin [33:49], d’où devraient partir les bonnes manières ?',
-          min:'33:49',
-          o:['d’une intention bienveillante : mettre les autres à l’aise',
-             'd’une tradition qu’il ne faut pas discuter',
-             'd’une volonté de se distinguer socialement'], r:0,
-          note:'Compáralo con lo que uno de los animadores temía al principio [03:27] : que '
-             + 'sirvieran para marcar una diferencia social. Esa tensión es justo el tema del debate.' }
-      ] },
-
-    /* 7 */ { t:'paires', etiqueta:'Du familier au standard',
-      consigne:'Cada expresión familiar del vídeo, con su equivalente.',
-      sous:'En la ficha de papel había dos equivalentes de más, para que no se resolviera por descarte.',
-      pairs: [
-        ['« dans les fringues » [02:39]', 'les vêtements, la tenue vestimentaire'],
-        ['« chez mes potes » [02:47]', 'mes amis, mon entourage'],
-        ['« j’ai la flemme de l’enlever » [07:01]', 'ne pas avoir envie, manquer de motivation'],
-        ['« c’est vraiment un bordel de fou » [11:17]', 'quelque chose de très complexe ou chaotique'],
-        ['« le repas n’est pas que la bouffe » [15:18]', 'la nourriture, la gastronomie'],
-        ['« elle est reloue » [21:41]', 'pénible, ennuyeuse, importune'],
-        ['« nous, on est un peu beauf » [22:44]', 'vulgaire, sans manières, rustre']
-      ],
-      aide:'<b>Reloue</b> es verlan de <i>lourde</i> ; <b>beauf</b> viene de '
-         + '<i>beau-frère</i>. Entenderlos sí ; usarlos en un examen, no.' },
-
-    /* 8 */ { t:'transfo', etiqueta:'Réécrire',
-      consigne:'Reescribe en francés estándar, para un correo dirigido a la directora de tu empresa.',
-      q: [
-        { enonce:'« J’ai souvent la flemme de l’enlever. »', min:'7:01',
-          modele:'J’ai souvent du mal à me motiver pour l’enlever.' },
-        { enonce:'« C’est vraiment un bordel de fou. »', min:'11:17',
-          modele:'La situation est extrêmement confuse.' },
-        { enonce:'« Cette règle, elle est reloue. »', min:'21:41',
-          modele:'Cette règle me paraît particulièrement contraignante.' },
-        { enonce:'« On est un peu beauf, nous. »', min:'22:44',
-          modele:'Nos manières manquent parfois de raffinement.',
-          note:'Pasar al estándar casi siempre exige <b>reformular la idea</b>, no sustituir '
-             + 'palabra por palabra.' },
-        { enonce:'« Le repas, c’est pas que la bouffe. »', min:'15:18',
-          modele:'Un repas ne se réduit pas à la nourriture.' }
-      ] },
-
-    /* 9 */ { t:'trous', etiqueta:'L’euphémisme', min:'20:49',
-      consigne:'En la mesa no se anuncia adónde se va. Completa.',
-      q: [
-        { enonce:'Formule neutre et élégante : « Veuillez m’accorder quelques ___. »',
-          r:['instants'], taille:12, min:'20:49' },
-        { enonce:'Expression tradicionalmente asociada a las señoras : « Je vais aller me ___ le nez. »',
-          r:['repoudrer','poudrer'], taille:14,
-          note:'Literalmente « empolvarme la nariz ». Es el equivalente de nuestro '
-             + '« voy a retocarme ».' },
-        { enonce:'Lo que <b>no</b> se dice nunca en la mesa, según Carmel : « Je vais aux ___. »',
-          r:['toilettes'], taille:12 }
-      ] },
-
-    /* 10 */ { t:'trous', etiqueta:'Concession + subjonctif',
-      consigne:'Pon el verbo en el modo que pide cada conector.',
-      sous:'Es la estructura que te van a pedir en la producción escrita.',
-      q: [
-        { enonce:'Bien que ces règles ___ <i>(paraître)</i> rigides, elles mettent les invités à l’aise.',
-          r:['paraissent'], taille:14,
-          note:'<b>bien que</b> → subjuntivo. <i>Paraissent</i>, no « paraissaient ».' },
-        { enonce:'Quoique Mcfly ___ <i>(être)</i> sceptique au début, il finit par comprendre l’intérêt des codes.',
-          r:['soit'], taille:12, note:'<b>quoique</b> → subjuntivo.' },
-        { enonce:'Même si on ___ <i>(ne pas connaître)</i> les règles, on peut rester poli.',
-          r:['ne connaît pas','ne connait pas'], taille:18,
-          note:'<b>même si</b> → <b>indicativo</b>. Es la trampa del ejercicio.' },
-        { enonce:'Certes, ces usages ___ <i>(venir)</i> d’un autre siècle, mais ils servent encore.',
-          r:['viennent'], taille:12,
-          note:'<b>certes…, mais…</b> no cambia el modo : indicativo.' }
-      ] },
-
-    /* 11 */ { t:'tri', etiqueta:'Subjonctif ou indicatif',
-      consigne:'¿Qué modo pide cada conector?',
-      cols: ['+ subjonctif', '+ indicatif'],
+    /* 2 */ { t:'tri', etiqueta:'En France',
+      consigne:'Según las reglas clásicas francesas: ¿se hace o no se hace?',
+      cols: ['Ça se fait', 'Ça ne se fait pas'],
       items: [
-        ['bien que', 0], ['quoique', 0], ['à moins que', 0], ['pourvu que', 0],
-        ['même si', 1], ['certes…, mais…', 1], ['alors que', 1], ['tandis que', 1]
+        ['garder les poignets sur la table', 0],
+        ['poser son pain sur la nappe, à gauche de l’assiette', 0],
+        ['rompre le pain avec les doigts', 0],
+        ['poser sa serviette froissée à côté de l’assiette à la fin', 0],
+        ['mettre les coudes sur la table', 1],
+        ['couper son pain avec un couteau', 1],
+        ['mettre son couteau dans la bouche', 1],
+        ['lever le petit doigt en buvant', 1],
+        ['replier soigneusement sa serviette à la fin', 1]
       ],
-      aide:'<b>Pourvu que</b> y <b>à moins que</b> ya salieron en la ficha del 2 de noviembre. '
-         + 'Los cuatro de la derecha son los que más se confunden con « bien que ».' },
+      aide:'Dos que sorprenden: las <b>manos</b> se quedan a la vista (viene de cuando había que '
+         + 'demostrar que no se escondía nada), y la <b>servilleta</b> no se vuelve a doblar — '
+         + 'doblarla significaría que uno cuenta con volver a comer ahí.' },
 
-    /* 12 */ { t:'prod', etiqueta:'Jeu de rôle · preparación', mots:90,
-      consigne:'Te invitan a una cena muy formal. Tu pareja de clase hace de amigo muy relajado, '
-             + 'estilo Mcfly y Carlito: dice que exageras (« RP bourgeois ») y te '
-             + 'aconseja « rester naturel ». Prepara aquí lo que vas a decirle.',
-      sous: '90 palabras de notas, no de texto seguido. En clase se hace en voz alta, 5 minutos, '
-          + 'y después se cambian los papeles.',
-      check: [
-        'Por qué conocer los códigos <b>tranquiliza</b> y facilita la relación.',
-        'Una respuesta a su objeción <b>sin ridiculizar</b> a quien no los conoce.',
-        'Dos fórmulas para conceder (<i>Il est vrai que… · Certes…</i>).',
-        'Dos conectores para matizar (<i>Cependant… · Il n’en demeure pas moins que…</i>).',
-        'Un ejemplo sacado del vídeo.',
-        'Al terminar, dile a tu pareja un punto fuerte y uno a mejorar.'
-      ],
-      modele:'Il est vrai que ça peut paraître snob, je te l’accorde. Cependant, connaître les '
-           + 'codes ne sert pas à juger les autres : ça sert à ne pas avoir peur. '
-           + 'Carmel le dit bien : ne pas les connaître ferme des portes, on s’autocensure. '
-           + 'Certes, on peut très bien dîner sans savoir rompre son pain ; il n’en demeure '
-           + 'pas moins que, le jour d’un déjeuner professionnel, ça m’évite d’y penser au lieu '
-           + 'd’écouter. Et la règle numéro un reste de mettre les autres à l’aise — donc je ne '
-           + 'corrigerai personne à table, toi le premier.' },
+    /* 3 */ { t:'qcm', etiqueta:'Et toi, tu fais comment ?',
+      consigne:'Situaciones concretas. Elige lo que harías y mira después lo que dice Carmel.',
+      q: [
+        { enonce:'À l’apéritif, on te sert des crevettes entières. Tu les décortiques…',
+          min:'7:09',
+          o:['avec les doigts', 'à la fourchette et au couteau', 'tu n’y touches pas'], r:0,
+          note:'<b>Con los dedos</b>, y no pasa nada: en el aperitivo está perfectamente admitido '
+             + '[09:22]. En un plato servido en la mesa, en cambio, se hace con cubiertos: '
+             + 'cabeza, cola, patas, y por último el caparazón [08:49]. Las dos están bien — '
+             + 'lo que cambia es el momento.' },
+        { enonce:'Il reste de la sauce dans ton assiette. Tu…', min:'22:24',
+          o:['prends un morceau de pain dans la main et tu sauces',
+             'piques un petit morceau de pain au bout de ta fourchette',
+             'laisses la sauce'], r:1,
+          note:'Con el pan <b>en la mano</b> no; con el pan <b>en el tenedor</b> sí, discretamente '
+             + '[24:07]. Es el término medio francés.' },
+        { enonce:'Tu manges une soupe très chaude. Tu…', min:'11:51',
+          o:['penches le buste vers l’assiette', 'souffles dessus',
+             'prends la soupe sur le bord de l’assiette, où elle est moins chaude'], r:2,
+          note:'Y la espalda recta: es la cuchara la que sube a la boca [12:02].' },
+        { enonce:'Des spaghettis. Tu les enroules…', min:'25:16',
+          o:['avec une cuillère', 'avec la fourchette seulement, peu à la fois',
+             'tu les coupes au couteau'], r:1,
+          note:'La cuchara está muy extendida, pero no forma parte de los códigos.' },
+        { enonce:'L’hôte te sert un plat que tu n’aimes pas. Tu…',
+          o:['dis que tu n’aimes pas', 'en prends un peu, pour goûter',
+             'refuses sans explication'], r:1,
+          note:'La cantidad es la forma educada de decir que no. Y conecta con la regla número uno.' },
+        { enonce:'Quelqu’un à table ne connaît pas une règle et se trompe. Tu…',
+          min:'13:26',
+          o:['le corriges tout de suite', 'ne dis rien', 'en parles après le repas, devant tout le monde'],
+          r:1, note:'La regla número uno de Carmel: <b>nunca</b> hacer sentir mal al otro ni '
+                  + 'mostrarle que se equivoca [14:15]. La anécdota de la reina y el rince-doigts '
+                  + 'lo dice todo [13:48].' }
+      ] },
 
-    /* 13 */ { t:'prod', etiqueta:'Production écrite · DELF B2', mots:250,
-      consigne:'En el foro de tu universidad o de tu empresa, alguien escribe: « Le '
-             + 'savoir-vivre, c’est du snobisme : mieux vaut être soi-même. » '
-             + 'Escribe una respuesta argumentada.',
-      sous:'250 palabras. Es el formato exacto de la producción escrita del DELF B2.',
+    /* 4 */ { t:'prod', etiqueta:'Contraste', mots:80,
+      consigne:'Y en México, ¿qué pasa con esas mismas cosas?',
+      sous:'80 palabras. Nadie mejor que tú para decirlo: aquí no hay respuesta correcta.',
       check: [
-        'He tomado posición claramente desde la introducción.',
-        'Mis ideas están organizadas y unidas por conectores.',
-        'He ilustrado con <b>un ejemplo preciso del vídeo</b>.',
-        'He usado un léxico variado y un registro adaptado (nada familiar).',
-        'He usado correctamente el subjuntivo después de <i>bien que</i>.',
-        'Me he releído: acuerdos, modos verbales, puntuación.'
+        'Tres cosas que <b>se hacen</b> aquí y que en Francia <b>no se hacen</b> (o al revés).',
+        'Una que sea igual en los dos sitios.',
+        'Tres expresiones de la actividad 22 (<i>ça ne se fait pas, c’est la base…</i>).',
+        'Una cosa que a ti te parezca exagerada, y por qué.'
       ],
-      modele:'Votre message a le mérite de poser une vraie question : à quoi servent '
-           + 'encore ces usages ? Il est vrai que certains d’entre eux paraissent '
-           + 'absurdes, et qu’ils ont longtemps servi à distinguer ceux qui savaient de ceux '
-           + 'qui ne savaient pas.<br><br>'
-           + 'Cependant, réduire le savoir-vivre au snobisme me semble inexact, pour deux '
-           + 'raisons. D’abord, ces codes protègent les plus fragiles : celui qui ne les '
-           + 'connaît pas s’autocensure et renonce à entrer là où il aurait sa place. Une '
-           + 'spécialiste interrogée récemment racontait n’avoir pas osé entrer dans un grand '
-           + 'hôtel pour une simple pâtisserie, par peur du regard des autres. Connaître les '
-           + 'règles, c’est précisément cesser d’y penser.<br><br>'
-           + 'Ensuite, la règle première n’est pas la fourchette : c’est de ne jamais '
-           + 'mettre les autres mal à l’aise. À titre d’exemple, lorsqu’un invité étranger a bu '
-           + 'l’eau de son rince-doigts, la reine d’Angleterre a bu la sienne plutôt que de le '
-           + 'corriger. Bien que ces usages puissent paraître rigides, ils sont donc au service '
-           + 'de l’autre, et non de soi.<br><br>'
-           + 'Je vous rejoins toutefois sur un point : utilisés pour humilier, ils '
-           + 'deviennent exactement ce que vous dénoncez. Tout dépend de l’intention.<br><br>'
-           + 'En définitive, être soi-même et connaître les codes ne s’opposent pas : '
-           + 'les connaître, c’est pouvoir choisir de les suivre ou non — et ce choix, lui, '
-           + 'n’a rien de snob.' }
+      modele:'Chez nous, on mange beaucoup de choses avec les mains — un taco, une quesadilla — '
+           + 'et ça ne choque personne : c’est même la base. En France, ça ferait mauvais genre '
+           + 'dans un repas un peu formel. En revanche, poser les coudes sur la table, ça ne se '
+           + 'fait pas non plus ici : ma grand-mère me reprenait tout le temps. Ce qui est pareil, '
+           + 'c’est qu’on attend que tout le monde soit servi. Ce qui me paraît exagéré, c’est de '
+           + 'ne pas souhaiter « bon appétit » : ici, ne pas le dire serait presque vexant.' },
+
+    /* 5 */ { t:'qcm', etiqueta:'La vidéo', min:'0:00',
+      consigne:'Seis preguntas sobre el vídeo. Usa los botones de minuto para comprobar.',
+      q: [
+        { enonce:'Pourquoi la couleur des vêtements des animateurs est-elle une erreur ?',
+          min:'0:37',
+          o:['le noir était traditionnellement réservé au personnel de service',
+             'le noir salit trop vite', 'le noir est trop élégant pour un repas'], r:0 },
+        { enonce:'Quel était le métier de Carmel avant ?', min:'2:05',
+          o:['cuisinière', 'juriste', 'professeure'], r:1,
+          note:'Juriste en droit des affaires: muchas comidas de negocios, y de ahí le viene todo.' },
+        { enonce:'Pourquoi David veut-il connaître les règles aujourd’hui ?', min:'2:55',
+          o:['pour les imposer à ses enfants',
+             'pour les transmettre, et que ses enfants puissent choisir',
+             'pour gagner un pari'], r:1 },
+        { enonce:'Selon Carmel, ne pas connaître les codes…', min:'3:15',
+          o:['fait peur et empêche d’oser entrer quelque part',
+             'n’a aucune importance', 'se voit tout de suite'], r:0,
+          note:'Su ejemplo: no atreverse a entrar en un gran hotel por una pastelería, por miedo '
+             + 'a la mirada de los demás [03:48].' },
+        { enonce:'Pourquoi, traditionnellement, on ne dit pas « bon appétit » ?', min:'14:40',
+          o:['parce que ça renvoie à la digestion, et le repas est un art de vivre',
+             'parce que c’est trop familier', 'parce que ça porte malheur'], r:0,
+          note:'Pero si nos lo dicen, se responde « Merci, vous également » [14:46]. Hoy casi '
+             + 'todo el mundo lo dice.' },
+        { enonce:'Quelle est, selon Carmel, la règle numéro un ?', min:'13:26',
+          o:['connaître l’ordre des couverts',
+             'ne jamais mettre les autres mal à l’aise',
+             'ne jamais parler à table'], r:1 }
+      ] },
+
+    /* 6 */ { t:'prod', etiqueta:'Après la vidéo', mots:50,
+      consigne:'Una cosa del vídeo que te sorprendió, y una que ya hacías sin saber por qué.',
+      sous:'50 palabras. Dos frases bien hechas valen más que diez a medias.',
+      check: [
+        'Lo que te sorprendió, con el porqué.',
+        'Lo que ya hacías.',
+        'Una expresión de la actividad 22.'
+      ],
+      modele:'Ce qui m’a le plus surpris, c’est l’histoire de la reine qui boit l’eau du '
+           + 'rince-doigts pour ne pas gêner son invité : je pensais que ces règles servaient à '
+           + 'juger les autres, et en fait c’est le contraire. Ce que je faisais déjà sans le '
+           + 'savoir, c’est garder les mains sur la table. Chez moi, les cacher, ça ne se fait pas '
+           + 'non plus.' },
+
+    /* 7 */ { t:'transfo', etiqueta:'Plus… plus',
+      consigne:'Termina cada frase a tu manera. Compara después con el modelo.',
+      sous:'Es la actividad 19 del libro: no hay una sola respuesta buena.',
+      q: [
+        { enonce:'Plus je vois ce qui est à la mode, plus / moins…',
+          modele:'Plus je vois ce qui est à la mode, moins j’ai envie de suivre la mode.' },
+        { enonce:'Plus je vieillis, plus / moins…',
+          modele:'Plus je vieillis, plus je comprends à quoi servent ces règles.' },
+        { enonce:'Plus je vois les ados, plus / moins…',
+          modele:'Plus je vois les ados, plus je me dis qu’ils sont simplement plus directs.' },
+        { enonce:'Plus / Moins il y a d’objets dans un salon, plus / moins…',
+          modele:'Moins il y a d’objets dans un salon, plus la pièce paraît grande.',
+          note:'Delante de un nombre, <b>de</b>: <i>moins d’objets</i>, <i>plus de monde</i>.' },
+        { enonce:'Moins on connaît les codes, plus / moins…',
+          modele:'Moins on connaît les codes, plus on a peur de se tromper.' }
+      ] },
+
+    /* 8 */ { t:'trous', etiqueta:'Valoir',
+      consigne:'Completa con el verbo valoir.',
+      q: [
+        { enonce:'Il ___ mieux éviter d’en parler à table.', r:['vaut'], taille:10 },
+        { enonce:'Mieux ___ prévenir que guérir.', r:['vaut'], taille:10 },
+        { enonce:'Un homme averti en ___ deux. <i>(proverbe)</i>', r:['vaut'], taille:10 },
+        { enonce:'Deux précautions ___ mieux qu’une. <i>(proverbe)</i>', r:['valent'], taille:10,
+          note:'Aquí el sujeto es <b>deux précautions</b>, plural: <i>valent</i>.' },
+        { enonce:'Apprendre ces règles, ça ___ la peine.', r:['vaut'], taille:10 }
+      ] },
+
+    /* 9 */ { t:'qcm', etiqueta:'Les proverbes',
+      consigne:'¿Qué quiere decir cada uno?',
+      q: [
+        { enonce:'« Un homme averti en vaut deux. »',
+          o:['Quien está prevenido tiene ventaja',
+             'Dos personas trabajan mejor que una',
+             'Hay que avisar dos veces'], r:0 },
+        { enonce:'« Deux précautions valent mieux qu’une. »',
+          o:['Es mejor no arriesgarse nunca',
+             'Más vale tomar una precaución de más que una de menos',
+             'Hay que hacer las cosas dos veces'], r:1 },
+        { enonce:'¿Por qué los usa Vincent en el mensaje ?',
+          o:['para presumir de cultura',
+             'para suavizar un consejo: dice la regla sin señalar a nadie',
+             'porque no sabe explicarlo de otra forma'], r:1,
+          note:'Es exactamente lo que hace un proverbio: dice la norma <b>sin</b> acusar a nadie. '
+             + 'Muy útil cuando quieres corregir a alguien sin que se sienta atacado.' }
+      ] },
+
+    /* 10 */ { t:'tri', etiqueta:'La nétiquette',
+      consigne:'En un correo o un chat con alguien a quien no tuteas: ¿se hace o no?',
+      cols: ['Ça se fait', 'Ça ne se fait pas'],
+      items: [
+        ['commencer par « Bonjour » avant de demander quelque chose', 0],
+        ['répondre dans la journée, ou dire quand on pourra répondre', 0],
+        ['mettre un objet clair à son mail', 0],
+        ['se relire avant d’envoyer', 0],
+        ['ÉCRIRE TOUT EN MAJUSCULES', 1],
+        ['envoyer un message vocal de huit minutes', 1],
+        ['mettre toute l’équipe en copie pour une question à une seule personne', 1],
+        ['relancer au bout de deux heures', 1],
+        ['écrire « slt » à un professeur', 1]
+      ],
+      aide:'Las mayúsculas, en internet, equivalen a <b>gritar</b>. Y el vocal largo traslada '
+         + 'el trabajo al otro: tú tardas ocho minutos en hablar, él tarda ocho en escucharte.' },
+
+    /* 11 */ { t:'qcm', etiqueta:'Nétiquette',
+      consigne:'Tres situaciones. ¿Qué expresión de la actividad 22 usarías?',
+      q: [
+        { enonce:'Un camarade t’envoie un vocal de huit minutes à minuit.',
+          o:['C’est la base.', 'Ça ne se fait pas vraiment, et ça met mal à l’aise.', 'C’est vexant.'],
+          r:1 },
+        { enonce:'Quelqu’un écrit tout un mail en majuscules.',
+          o:['Ça fait mauvais genre : on a l’impression qu’il crie.',
+             'C’est la base.', 'Ça s’apprend.'], r:0 },
+        { enonce:'Un étudiant écrit à un professeur sans dire bonjour.',
+          o:['C’est n’importe quoi.', 'Ça ne se fait pas — mais ça s’apprend.', 'C’est vexant.'],
+          r:1, note:'Las dos juntas: señalas la norma y al mismo tiempo no humillas a nadie. '
+                  + 'Es la fórmula más útil de toda la lista.' }
+      ] },
+
+    /* 12 */ { t:'prod', etiqueta:'Production finale', mots:120,
+      consigne:'Escríbele a un amigo francés que viene a México la semana que viene: '
+             + '¿qué se hace y qué no se hace en la mesa aquí?',
+      sous:'120 palabras. Es lo que vamos a comentar en clase, así que trae lo tuyo, no lo mío.',
+      check: [
+        'Tres cosas que <b>se hacen</b> aquí y tres que <b>no se hacen</b>.',
+        'Cuatro expresiones de la actividad 22.',
+        'Un <i>plus… plus</i> o un <i>moins… moins</i>.',
+        'Un <i>il vaut mieux</i> + infinitivo.',
+        'Una diferencia con Francia que te parezca divertida.',
+        'Nada de « c’est bien » ni « c’est mal »: usa las expresiones.'
+      ],
+      modele:'Salut ! Avant que tu arrives, trois choses. Ici, on mange beaucoup avec les mains, '
+           + 'et c’est la base : un taco se prend à la main, jamais à la fourchette — le faire '
+           + 'autrement, ça fait même un peu prétentieux. On dit toujours « provecho » en '
+           + 'arrivant, même à des inconnus dans un restaurant : ne pas le dire, ça ne se fait '
+           + 'pas. Et on attend l’hôte avant de commencer, comme chez toi.<br><br>'
+           + 'Ce qui ne se fait pas : refuser un plat sans goûter, partir tout de suite après le '
+           + 'repas — plus tu restes à table, plus on te trouve sympathique —, et arriver à '
+           + 'l’heure exacte à une invitation chez quelqu’un. Il vaut mieux arriver vingt '
+           + 'minutes plus tard : autrement, tu surprends tout le monde en cuisine.' }
   ]
 });
 

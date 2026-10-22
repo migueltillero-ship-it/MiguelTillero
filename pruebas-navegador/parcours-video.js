@@ -22,10 +22,10 @@ const { chromium } = require('/opt/node-tools/node_modules/playwright');
   await p.waitForTimeout(500);
 
   console.log('1. Abre la ficha del vídeo:',
-    (await p.locator('#f-titulo').textContent()).includes('art de la table') ? '✓' : '✗');
+    (await p.locator('#f-titulo').textContent()).includes("Ça se fait") ? '✓' : '✗');
 
   const pasos = await p.locator('.pasos .paso').count();
-  console.log('2. Los cinco pasos del recorrido:', pasos === 5 ? '✓' : '✗ (' + pasos + ')');
+  console.log('2. Las seis etapas del recorrido:', pasos === 6 ? '✓' : '✗ (' + pasos + ')');
 
   console.log('3. El reproductor se monta:',
     await p.locator('#caja-video .video-marco').count() ? '✓' : '✗');
@@ -34,28 +34,28 @@ const { chromium } = require('/opt/node-tools/node_modules/playwright');
   console.log('4. Se queda pegado arriba al bajar:', pegado === 'sticky' ? '✓' : '✗ ' + pegado);
 
   const minutos = await p.locator('.btn-minuto').count();
-  console.log('5. Botones de minuto repartidos por la ficha:', minutos >= 25 ? '✓ ' + minutos : '✗ ' + minutos);
+  console.log('5. Botones de minuto repartidos por la ficha:', minutos >= 10 ? '✓ ' + minutos : '✗ ' + minutos);
 
-  // Saltar a 13:39 (la anécdota de la reina) = 819 segundos
-  await p.locator('.btn-minuto:has-text("13:39")').first().click();
+  // Saltar a 13:26 (la anécdota de la reina) = 806 segundos
+  await p.locator('.btn-minuto:has-text("13:26")').first().click();
   await p.waitForTimeout(200);
   const saltos = await p.evaluate(() => window.__saltos);
   console.log('6. El botón salta al segundo exacto:',
-    saltos.includes(819) ? '✓ 13:39 → 819 s' : '✗ ' + JSON.stringify(saltos));
+    saltos.includes(806) ? '✓ 13:26 → 806 s' : '✗ ' + JSON.stringify(saltos));
 
   // El sello antes de empezar
   const sello0 = await p.locator('#sello').textContent();
   console.log('7. Al entrar dice lo que falta:',
-    sello0.includes('14 exercice') ? '✓' : '✗ «' + sello0.trim().slice(0, 50) + '»');
+    sello0.includes('13 exercice') ? '✓' : '✗ «' + sello0.trim().slice(0, 50) + '»');
 
   // Se responden mal los vrai/faux para comprobar que NO valida
-  const vf = p.locator('#ex-4');
+  const vf = p.locator('#ex-3');
   for (let q = 0; q < 6; q++) await vf.locator(`.opt[data-q="${q}"][data-o="0"]`).click();
   await vf.locator('button:has-text("Corriger")').click();
   await p.waitForTimeout(200);
-  const correccion = await vf.locator('.q').first().locator('.aide, #note-4-0').textContent();
+  const correccion = await vf.locator('.q').first().locator('.aide, #note-3-0').textContent();
   console.log('8. La corrección explica lo que SÍ es verdad:',
-    correccion.includes('tapote') ? '✓' : '✗');
+    correccion.length > 20 ? '✓' : '✗');
 
   const sello1 = await p.locator('#sello').textContent();
   console.log('9. Con ejercicios a medias no valida:',
