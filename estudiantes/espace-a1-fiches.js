@@ -76,8 +76,9 @@ FICHAS.push({
   ],
 
   ejercicios: [
-    /* 0 */ { t:'tri', etiqueta:'Clasificar',
-      consigne:'¿Mon, ma o mes? Clasifica cada palabra.',
+    /* 0 */ { t:'tri', etiqueta:'Classe',
+      consigne:'Mon, ma ou mes ? Classe chaque mot.',
+      sous:'Clasifica cada palabra en su columna.',
       cols: ['mon', 'ma', 'mes'],
       items: [
         ['frère', 0], ['livre', 0], ['père', 0],
@@ -88,7 +89,7 @@ FICHAS.push({
       aide:'<b>amie</b> y <b>école</b> son femeninas, pero empiezan por vocal: por eso '
          + '«mon amie», «mon école». Es la trampa clásica del nivel.' },
 
-    /* 1 */ { t:'trous', etiqueta:'Completar',
+    /* 1 */ { t:'trous', etiqueta:'Complète',
       consigne:'Complète avec mon, ma, mes, ton, ta, tes, son, sa ou ses.',
       q: [
         { enonce:'Je te présente ___ sœur, elle s’appelle Camille.', r:['ma'], taille:8 },
@@ -103,8 +104,9 @@ FICHAS.push({
         { enonce:'J’adore ___ amies. <i>(je)</i>', r:['mes'], taille:8 }
       ] },
 
-    /* 2 */ { t:'transfo', etiqueta:'Transformar',
+    /* 2 */ { t:'transfo', etiqueta:'Transformer',
       consigne:'Dis-le autrement, avec un possessif.',
+      sous:'Dilo de otra forma, con un posesivo.',
       q: [
         { enonce:'C’est le livre de Paul.', modele:'C’est son livre.' },
         { enonce:'C’est la maison de mes parents.', modele:'C’est leur maison.' },
@@ -131,8 +133,8 @@ FICHAS.push({
           o:['mon', 'ma', 'mes'], r:2, note:'Del pizarrón: <i>elles sont mes amies</i>.' }
       ] },
 
-    /* 4 */ { t:'dictee', etiqueta:'Escuchar',
-      consigne:'Écoute et écris. Attention: on entend la liaison.',
+    /* 4 */ { t:'dictee', etiqueta:'Écoute',
+      consigne:'Écoute et écris. Attention ! On entend la liaison.',
       sous:'La liaison es la pista: «mon ami» suena /mon-nami/ y «mes amis» suena /me-zami/.',
       q: [
         { texte:'Il est mon ami.' },
@@ -213,8 +215,9 @@ FICHAS.push({
   ],
 
   ejercicios: [
-    /* 0 */ { t:'paires', etiqueta:'Emparejar',
-      consigne:'Del adjetivo al pronombre.',
+    /* 0 */ { t:'paires', etiqueta:'Associe',
+      consigne:'De l’adjectif au pronom.',
+      sous:'Del adjetivo posesivo al pronombre: «mon livre» → «le mien».',
       pairs: [
         ['mon livre', 'le mien'],
         ['ma maison', 'la mienne'],
@@ -228,7 +231,7 @@ FICHAS.push({
         ['leurs enfants', 'les leurs']
       ] },
 
-    /* 1 */ { t:'trous', etiqueta:'Completar',
+    /* 1 */ { t:'trous', etiqueta:'Complète',
       consigne:'Complète avec le pronom possessif qui convient.',
       q: [
         { enonce:'— C’est ton cahier&nbsp;? — Oui, c’est ___.', r:['le mien'], taille:12 },
@@ -243,8 +246,9 @@ FICHAS.push({
           note:'Con acento circunflejo: <b>la nôtre</b>.' }
       ] },
 
-    /* 2 */ { t:'qcm', etiqueta:'El acento',
-      consigne:'Con acento o sin acento: elige.',
+    /* 2 */ { t:'qcm', etiqueta:'L’accent',
+      consigne:'Avec ou sans accent circonflexe ? Choisis.',
+      sous:'Notre y votre, sin acento; le nôtre y le vôtre, con acento.',
       q: [
         { enonce:'___ professeur est très gentil. <i>(nous)</i>',
           o:['Notre', 'Nôtre', 'Nos'], r:0, note:'Adjetivo, delante del nombre → <b>notre</b>, sin acento.' },
@@ -258,8 +262,8 @@ FICHAS.push({
           o:['la sienne', 'le sien', 'la leur'], r:0 }
       ] },
 
-    /* 3 */ { t:'transfo', etiqueta:'Transformar',
-      consigne:'Évite la répétition&nbsp;: remplace par un pronom possessif.',
+    /* 3 */ { t:'transfo', etiqueta:'Transformer',
+      consigne:'Évite la répétition : remplace par un pronom possessif.',
       q: [
         { enonce:'Mon téléphone est cassé, ton téléphone marche bien.',
           modele:'Mon téléphone est cassé, le tien marche bien.' },
@@ -274,7 +278,7 @@ FICHAS.push({
           note:'de + les miens = <b>des miens</b>.' }
       ] },
 
-    /* 4 */ { t:'dictee', etiqueta:'Escuchar',
+    /* 4 */ { t:'dictee', etiqueta:'Écoute',
       consigne:'Écoute et écris.',
       q: [
         { texte:'Ce n’est pas le mien, c’est le sien.' },
@@ -344,8 +348,8 @@ FICHAS.push({
   ],
 
   ejercicios: [
-    /* 0 */ { t:'paires', etiqueta:'Leer',
-      consigne:'Cada número con su cifra.',
+    /* 0 */ { t:'paires', etiqueta:'Lire',
+      consigne:'Associe chaque nombre à son chiffre.',
       pairs: [
         ['soixante-dix', '70'],
         ['soixante et onze', '71'],
@@ -359,7 +363,7 @@ FICHAS.push({
         ['deux cents', '200']
       ] },
 
-    /* 1 */ { t:'trous', etiqueta:'Escribir',
+    /* 1 */ { t:'trous', etiqueta:'Écrire',
       consigne:'Écris le nombre en lettres.',
       sous:'Con guiones donde toca. Se aceptan las dos normas del guion.',
       q: [
@@ -374,8 +378,9 @@ FICHAS.push({
           note:'Aquí <b>cent</b> pierde la S porque le sigue «trois».' }
       ] },
 
-    /* 2 */ { t:'tri', etiqueta:'La S',
-      consigne:'¿Lleva S o no lleva S?',
+    /* 2 */ { t:'tri', etiqueta:'Le S',
+      consigne:'Avec un S, ou sans S ?',
+      sous:'Vingt y cent llevan S cuando están multiplicados y terminan el número.',
       cols: ['Lleva S', 'No lleva S'],
       items: [
         ['quatre-vingt__ (80)', 0],
@@ -390,8 +395,8 @@ FICHAS.push({
       aide:'La regla en una frase: <b>vingt</b> y <b>cent</b> llevan S cuando están '
          + 'multiplicados y nada les sigue. <b>Mille</b> nunca.' },
 
-    /* 3 */ { t:'qcm', etiqueta:'Ortografía',
-      consigne:'Elige la forma correcta.',
+    /* 3 */ { t:'qcm', etiqueta:'Orthographe',
+      consigne:'Choisis la forme correcte.',
       q: [
         { enonce:'Il a ___ ans. (80)',
           o:['quatre-vingt', 'quatre-vingts', 'quatre vingt'], r:1,
@@ -413,8 +418,9 @@ FICHAS.push({
           note:'«Septante» se dice en Bélgica y Suiza, no en Francia.' }
       ] },
 
-    /* 4 */ { t:'prod', etiqueta:'Escribir', mots:50,
-      consigne:'Escribe cinco cifras de tu vida, en letras y en frase completa.',
+    /* 4 */ { t:'prod', etiqueta:'Écrire', mots:50,
+      consigne:'Écris cinq chiffres de ta vie, en lettres et en phrases complètes.',
+      sous:'Cinco cifras tuyas, escritas con letras y dentro de una frase.',
       sous:'Por ejemplo: tu edad, el año en que naciste, el número de tu casa, cuánto '
          + 'cuesta algo, cuántos habitantes tiene tu ciudad.',
       check: [
@@ -477,8 +483,8 @@ FICHAS.push({
   ],
 
   ejercicios: [
-    /* 0 */ { t:'qcm', etiqueta:'¿Cuál oyes?',
-      consigne:'Escucha y elige el número que oyes.',
+    /* 0 */ { t:'qcm', etiqueta:'Quel nombre ?',
+      consigne:'Écoute et choisis le nombre que tu entends.',
       q: [
         { enonce:'Número 1', audio:'Il y a treize personnes.', o:['13', '30', '3'], r:0 },
         { enonce:'Número 2', audio:'J’ai douze cahiers.', o:['2', '12', '20'], r:1 },
@@ -491,8 +497,8 @@ FICHAS.push({
       aide:'Si fallas varias, vuelve a escucharlas seguidas: el oído aprende por contraste, '
          + 'no de una en una.' },
 
-    /* 1 */ { t:'trous', etiqueta:'En cifras',
-      consigne:'Escucha y escribe el número en cifras.',
+    /* 1 */ { t:'trous', etiqueta:'En chiffres',
+      consigne:'Écoute et écris le nombre en chiffres.',
       q: [
         { enonce:'___', audio:'soixante-quinze', r:['75'], taille:8 },
         { enonce:'___', audio:'quatre-vingt-trois', r:['83'], taille:8 },
@@ -503,8 +509,8 @@ FICHAS.push({
         { enonce:'___', audio:'trois mille cinq cents', r:['3500'], taille:8 }
       ] },
 
-    /* 2 */ { t:'dictee', etiqueta:'Teléfonos',
-      consigne:'Escucha el número de teléfono y escríbelo en letras, tal como lo oyes.',
+    /* 2 */ { t:'dictee', etiqueta:'Numéros de téléphone',
+      consigne:'Écoute le numéro de téléphone et écris-le en lettres, tel que tu l’entends.',
       sous:'Son números inventados, de ejemplo.',
       q: [
         { texte:'zéro un, quarante-cinq, soixante-sept, quatre-vingt-neuf, dix' },
@@ -514,7 +520,7 @@ FICHAS.push({
       aide:'Si lo escribes en cifras te sale: 01 45 67 89 10 · 06 12 34 76 98 · '
          + '04 71 22 83 50. Lo difícil no es el número: es cortarlo en parejas.' },
 
-    /* 3 */ { t:'dictee', etiqueta:'Precios y años',
+    /* 3 */ { t:'dictee', etiqueta:'Prix et années',
       consigne:'Écoute et écris la phrase complète.',
       q: [
         { texte:'Ça coûte quatre-vingt-dix-neuf euros.' },
@@ -524,8 +530,9 @@ FICHAS.push({
         { texte:'Le billet coûte deux cent quarante pesos.' }
       ] },
 
-    /* 4 */ { t:'qcm', etiqueta:'Pronunciación',
-      consigne:'Tres reglas que se oyen.',
+    /* 4 */ { t:'qcm', etiqueta:'Prononciation',
+      consigne:'Trois règles qui s’entendent.',
+      sous:'La consonante final de six, dix, vingt y neuf cambia según lo que sigue.',
       q: [
         { enonce:'«six» en «six personnes» se pronuncia…',
           o:['/sis/', '/si/', '/siz/'], r:1,
@@ -607,7 +614,7 @@ FICHAS.push({
   ],
 
   ejercicios: [
-    /* 0 */ { t:'trous', etiqueta:'Femenino',
+    /* 0 */ { t:'trous', etiqueta:'Le féminin',
       consigne:'Mets l’adjectif au féminin.',
       q: [
         { enonce:'Il est grand. → Elle est ___.', r:['grande'], taille:12 },
@@ -621,8 +628,9 @@ FICHAS.push({
           note:'Cuidado: <i>travailleur</i> hace <b>-euse</b>, no «-trice».' }
       ] },
 
-    /* 1 */ { t:'paires', etiqueta:'Irregulares',
-      consigne:'Cada masculino con su femenino. Son los que hay que saberse de memoria.',
+    /* 1 */ { t:'paires', etiqueta:'Les irréguliers',
+      consigne:'Associe chaque masculin à son féminin.',
+      sous:'Son los irregulares: hay que sabérselos de memoria.',
       pairs: [
         ['beau', 'belle'], ['nouveau', 'nouvelle'], ['vieux', 'vieille'],
         ['blanc', 'blanche'], ['long', 'longue'], ['doux', 'douce'],
@@ -630,8 +638,8 @@ FICHAS.push({
         ['acteur', 'actrice']
       ] },
 
-    /* 2 */ { t:'tri', etiqueta:'Plural',
-      consigne:'¿Cómo hace el plural cada palabra?',
+    /* 2 */ { t:'tri', etiqueta:'Le pluriel',
+      consigne:'Comment chaque mot fait-il son pluriel ?',
       cols: ['+ s', '-aux', '-x', 'No cambia'],
       items: [
         ['un livre', 0], ['une table', 0], ['un festival', 0],
@@ -642,8 +650,9 @@ FICHAS.push({
       aide:'<b>festival</b> es de las seis excepciones en -al: bal, carnaval, festival, '
          + 'chacal, récital, régal. Todas hacen <b>+ s</b>.' },
 
-    /* 3 */ { t:'qcm', etiqueta:'Excepciones',
-      consigne:'Las trampas del plural.',
+    /* 3 */ { t:'qcm', etiqueta:'Les exceptions',
+      consigne:'Les pièges du pluriel.',
+      sous:'Las excepciones: -al, los siete en -ou, los invariables.',
       q: [
         { enonce:'Le pluriel de «un festival»&nbsp;:',
           o:['des festivaux', 'des festivals', 'des festival'], r:1,
@@ -664,7 +673,7 @@ FICHAS.push({
           note:'Ya termina en -s: no cambia.' }
       ] },
 
-    /* 4 */ { t:'transfo', etiqueta:'Toda la frase',
+    /* 4 */ { t:'transfo', etiqueta:'Toute la phrase',
       consigne:'Mets toute la phrase au féminin pluriel.',
       sous:'Hay que cambiar el sujeto, el artículo, el nombre y los adjetivos.',
       q: [
@@ -684,8 +693,8 @@ FICHAS.push({
              + 'el animal: <i>Ces chevaux sont blancs</i>.' }
       ] },
 
-    /* 5 */ { t:'dictee', etiqueta:'Escuchar',
-      consigne:'Singular o plural: la liaison lo dice.',
+    /* 5 */ { t:'dictee', etiqueta:'Écoute',
+      consigne:'Singulier ou pluriel ? La liaison te le dit.',
       sous:'Lo que no se oye en la S, se oye en el artículo y en la liaison.',
       q: [
         { texte:'C’est mon ami.' },
@@ -723,8 +732,8 @@ FICHAS.push({
   ],
 
   ejercicios: [
-    /* 0 */ { t:'qcm', etiqueta:'Diagnóstico',
-      consigne:'Diez preguntas. Cada respuesta dice a qué ficha volver.',
+    /* 0 */ { t:'qcm', etiqueta:'Diagnostic',
+      consigne:'Dix questions. Chaque réponse dit à quelle fiche revenir.',
       q: [
         { enonce:'C’est ___ amie Claire. <i>(je)</i>',
           o:['ma', 'mon', 'mes'], r:1, note:'→ Ficha 1: vocal detrás, aunque sea femenino.' },
@@ -751,8 +760,8 @@ FICHAS.push({
           o:['sportife', 'sportive', 'sportieuse'], r:1, note:'→ Ficha 5: -f → -ve.' }
       ] },
 
-    /* 1 */ { t:'trous', etiqueta:'Diagnóstico',
-      consigne:'Completa. Una palabra por hueco.',
+    /* 1 */ { t:'trous', etiqueta:'Diagnostic',
+      consigne:'Complète. Un mot par trou.',
       q: [
         { enonce:'Marie parle avec ___ frère. <i>(elle)</i>', r:['son'], taille:8 },
         { enonce:'Mes clés sont là&nbsp;; où sont ___&nbsp;? <i>(tes clés)</i>',
@@ -765,8 +774,8 @@ FICHAS.push({
         { enonce:'Il est heureux. → Elles sont ___.', r:['heureuses'], taille:12 }
       ] },
 
-    /* 2 */ { t:'dictee', etiqueta:'Escucha',
-      consigne:'Cinco frases con todo lo del mes.',
+    /* 2 */ { t:'dictee', etiqueta:'Écoute',
+      consigne:'Cinq phrases avec tout ce qu’on a vu ce mois-ci.',
       q: [
         { texte:'Mon amie a quatre-vingt-trois ans.' },
         { texte:'Ce ne sont pas mes cahiers, ce sont les siens.' },
@@ -775,8 +784,8 @@ FICHAS.push({
         { texte:'Notre numéro est le zéro six, quatorze, trente, quatre-vingt-douze, dix-sept.' }
       ] },
 
-    /* 3 */ { t:'prod', etiqueta:'Producción escrita', mots:90,
-      consigne:'Escribe una presentación tuya para un correspondiente francés.',
+    /* 3 */ { t:'prod', etiqueta:'Production écrite', mots:90,
+      consigne:'Écris ta présentation pour un correspondant français.',
       sous:'90 palabras. Tiene que llevar todo lo del mes.',
       check: [
         'Cuatro posesivos distintos (mon, ma, mes, notre, leur…).',
