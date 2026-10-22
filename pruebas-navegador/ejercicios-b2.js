@@ -19,21 +19,21 @@ const { chromium } = require('/opt/node-tools/node_modules/playwright');
   await pagina.waitForTimeout(300);
   console.log('2. Título:', await pagina.locator('#f-titulo').textContent());
   const bloques = await pagina.locator('.ex-bloc').count();
-  console.log('3. Ejercicios pintados:', bloques, bloques === 7 ? '✓' : '✗ (esperaba 7)');
+  console.log('3. Ejercicios pintados:', bloques, bloques === 8 ? '✓' : '✗ (esperaba 8)');
 
   /* QCM: responder bien a la primera pregunta del ejercicio de comparativos (ex 4) */
-  const qcm = pagina.locator('#ex-4');
+  const qcm = pagina.locator('#ex-3');
   await qcm.locator('.opt[data-q="0"][data-o="0"]').click();
   await qcm.locator('button:has-text("Corriger")').click();
   await pagina.waitForTimeout(200);
   const veredicto = await qcm.locator('.verdict').textContent();
   console.log('4. QCM corregido →', veredicto.trim().slice(0, 60),
-              veredicto.includes('1/6') ? '✓' : '✗');
+              veredicto.includes('/5') ? '✓' : '✗');
   const juste = await qcm.locator('.opt.juste').count();
-  console.log('5. Respuestas correctas marcadas:', juste, juste === 6 ? '✓' : '✗ (una por pregunta)');
+  console.log('5. Respuestas correctas marcadas:', juste, juste === 5 ? '✓' : '✗ (una por pregunta)');
 
   /* Huecos: escribir una buena y una mala */
-  const trous = pagina.locator('#ex-2');
+  const trous = pagina.locator('#ex-4');
   await trous.locator('.trou[data-q="0"]').fill('ce qui');
   await trous.locator('.trou[data-q="1"]').fill('ce dont');   // mala a propósito
   await trous.locator('button:has-text("Corriger")').click();
@@ -46,7 +46,7 @@ const { chromium } = require('/opt/node-tools/node_modules/playwright');
     await pagina.evaluate(() => normalizar('Ce Qui') === normalizar('ce qui') ? '✓' : '✗'));
 
   /* Tri: clasificar un jetón y corregir */
-  const tri = pagina.locator('#ex-1');
+  const tri = pagina.locator('#ex-0');
   const jeton = tri.locator('.jeton[data-it="0"]');
   await jeton.click();                       // va a la primera columna
   await tri.locator('button:has-text("Corriger")').click();
@@ -54,7 +54,7 @@ const { chromium } = require('/opt/node-tools/node_modules/playwright');
   console.log('9. Clasificar →', (await tri.locator('.verdict').textContent()).trim().slice(0, 30));
 
   /* Emparejar */
-  const paires = pagina.locator('#ex-0');
+  const paires = pagina.locator('#ex-2');
   await paires.locator('.jeton[data-lado="g"][data-k="0"]').click();
   await paires.locator('.jeton[data-lado="d"][data-k="0"]').click();
   await paires.locator('button:has-text("Corriger")').click();
