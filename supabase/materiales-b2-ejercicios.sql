@@ -42,58 +42,64 @@ begin
        'La portada: una ficha por clase, con tu avance. Empieza por aquí.',
        ''),
 
-      (3, 'Unité 1 · p. 14-15 — Faux pas vestimentaires', 'refuerzo', 'Unité 1',
+      (3, 'Unité 1 · p. 12-13 — Les enfants et leurs goûts', 'refuerzo', 'Unité 1',
+       'La apertura de la unidad: las seis viñetas, el vocabulario del gusto dudoso, '
+       || 'la familia de «n’importe quoi» y el doble comparativo tal como aparece por '
+       || 'primera vez, sin que nadie lo anuncie.',
+       '#u1-p12'),
+
+      (4, 'Unité 1 · p. 14-15 — Faux pas vestimentaires', 'refuerzo', 'Unité 1',
        'El artículo de Manu, el léxico de la ropa con un esquema dibujado, las '
        || 'expresiones con «pire» y las impresiones: ça fait…, on dirait…',
        '#u1-p14'),
 
-      (4, 'Unité 1 · p. 16-17 — C’est plutôt joli', 'refuerzo', 'Unité 1',
+      (5, 'Unité 1 · p. 16-17 — C’est plutôt joli', 'refuerzo', 'Unité 1',
        'El artículo del «bon mauvais goût», definir un concepto (c’est quand, c’est '
        || 'ce qui/ce que, c’est une question de), atenuar o exagerar, y plutôt.',
        '#u1-p16'),
 
-      (6, 'Séance du 19 octobre · Être éducateur au goût', 'refuerzo', 'Unité 1',
+      (7, 'Séance du 19 octobre · Être éducateur au goût', 'refuerzo', 'Unité 1',
        'Las cinco saveurs —con la quinta que el libro no nombra—, las texturas, '
        || 'bruto / transformado / ultraprocesado, y cómo hablar de un plato sin juzgarlo.',
        '#s5'),
 
-      (7, 'Séance du 21 octobre · Ce qui, ce que, comparatifs', 'refuerzo', 'Unité 1',
+      (8, 'Séance du 21 octobre · Ce qui, ce que, comparatifs', 'refuerzo', 'Unité 1',
        'La ficha de gramática del ciclo: ce qui / ce que / ce dont / ce à quoi, la mise '
        || 'en relief, el doble comparativo con mieux y meilleur, y plutôt que.',
        '#s6'),
 
-      (5, 'Parcours · Ça se fait, ça ne se fait pas (p. 19)', 'juego', 'Unité 1',
+      (6, 'Parcours · Ça se fait, ça ne se fait pas (p. 19)', 'juego', 'Unité 1',
        'Las expresiones de la actividad 22, lo que se hace y lo que no en una mesa '
        || 'francesa, y la comparación con lo de aquí. Con el vídeo dentro: cada pregunta '
        || 'salta a su minuto. Se valida al 80 %.',
        '#savoir-vivre'),
 
-      (8, 'Séance du 26 octobre · Prendre des notes', 'refuerzo', 'Unité 1',
+      (9, 'Séance du 26 octobre · Prendre des notes', 'refuerzo', 'Unité 1',
        'Descifrar notas, abreviar, y oír cifras al vuelo. Es la técnica que decide '
        || 'la compréhension orale del examen.',
        '#s7'),
 
-      (9, 'Séance du 28 octobre · Tellement genré !', 'refuerzo', 'Unité 2',
+      (10, 'Séance du 28 octobre · Tellement genré !', 'refuerzo', 'Unité 2',
        'Estereotipo, prejuicio, cliché e idea recibida: cuatro palabras que no son lo '
        || 'mismo. Y la construcción exacta de ça permet de, ça aide à, ça évite de.',
        '#s8'),
 
-      (10, 'Séance du 2 novembre · Tellement, pourvu que, avoir hâte', 'refuerzo', 'Unité 2',
+      (11, 'Séance du 2 novembre · Tellement, pourvu que, avoir hâte', 'refuerzo', 'Unité 2',
        'La gramática más rentable del ciclo: los tres tellement, el subjuntivo del deseo '
        || 'y el léxico de la espera de un hijo.',
        '#s9'),
 
-      (11, 'Révision générale du 4 novembre', 'refuerzo', 'Unité 1-2',
+      (12, 'Révision générale du 4 novembre', 'refuerzo', 'Unité 1-2',
        'Un diagnóstico de todo el ciclo: cada pregunta que falles te dice a qué ficha '
        || 'volver. Hazlo antes del lunes 9.',
        '#s10'),
 
-      (12, 'Épreuve blanche — écrit', 'evaluacion', 'Unité 1-2',
+      (13, 'Épreuve blanche — écrit', 'evaluacion', 'Unité 1-2',
        'Una prueba de ensayo completa con el formato del DELF B2: comprensión oral, '
        || 'comprensión escrita y producción escrita de 250 palabras. Crono en mano.',
        '#s11'),
 
-      (13, 'Préparer l’oral', 'evaluacion', 'Unité 1-2',
+      (14, 'Préparer l’oral', 'evaluacion', 'Unité 1-2',
        'El formato del oral minuto a minuto, las frases que estructuran un exposé y '
        || 'tres temas para ensayar en voz alta.',
        '#s12')

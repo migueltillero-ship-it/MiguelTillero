@@ -25,6 +25,172 @@
 const FICHAS = [];
 
 /* ───────────────────────────────────────────────────────────────────────
+   UNITÉ 1 · p. 12-13 — LES ENFANTS ET LEURS GOÛTS
+   La apertura de la unidad: las seis viñetas, la conversación de los
+   padres, y el primer encuentro con el doble comparativo.
+   ─────────────────────────────────────────────────────────────────────── */
+FICHAS.push({
+  id: 'u1-p12',
+  tipo: 'revision',
+  ciclo: 'Oct.-nov. 2026',
+  fecha: 'Unité 1 · p. 12-13',
+  titulo: 'Les enfants et leurs goûts',
+  resumen: 'Las seis viñetas de apertura, el vocabulario del gusto dudoso, «n’importe quoi» y el doble comparativo tal como aparece por primera vez.',
+  intro: 'La página con la que abrimos la unidad. Parece ligera y es la que mete, sin decirlo, '
+       + 'el doble comparativo y media docena de expresiones que después salen en todas partes.',
+
+  secciones: [
+    { titulo: '1. Les six vignettes',
+      sous: 'Qué dominio toca cada una —la actividad 2— y el vocabulario que traen.',
+      rappels: [
+        { titulo: 'Le ton de la page',
+          html: `<p>La entradilla lo dice en broma y en serio a la vez :</p>
+          <div class="ex"><i>« Disons-nous la vérité : les enfants n’ont pas de goût. Mais ils
+          se moquent du regard des autres, ils font ce qu’ils veulent, et c’est pour ça
+          qu’on les aime ! »</i></div>
+          <p>Esa última idea —hacer lo que a uno le gusta sin mirar a los demás— es la que
+          recorre toda la unidad, hasta el artículo de la página 16.</p>` },
+        { titulo: 'Le vocabulaire des vignettes',
+          html: `<ul>
+            <li><b>avoir des goûts douteux</b> — tener un gusto discutible. <i>Douteux</i> viene
+                de <i>douter</i> : literalmente, que hace dudar.</li>
+            <li><b>kiffer</b> <i>(familier)</i> — encantarle a uno algo. De uso muy extendido
+                entre jóvenes ; en un examen, mejor <i>adorer</i>.</li>
+            <li><b>beurk !</b> — la onomatopeya del asco. El equivalente de nuestro « puaj ».</li>
+            <li><b>un doudou</b> — el peluche o trapito al que un niño se aferra.</li>
+            <li><b>casser les codes</b> — saltarse las reglas establecidas.</li>
+            <li><b>kitsch</b> · <b>mal assorti</b> — recargado y mal combinado. Los dos vuelven
+                en la página 17.</li>
+            <li><b>avoir des goûts de luxe</b> — tener gustos caros.</li>
+          </ul>` }
+      ],
+      ejercicios: [0, 1]
+    },
+    { titulo: '2. N’importe quoi, n’importe comment',
+      sous: 'Dos frases de la actividad 4 que esconden una estructura muy útil.',
+      rappels: [
+        { titulo: 'La famille de « n’importe »',
+          html: `<p>Se forma con <b>n’importe</b> + una palabra interrogativa, y siempre añade
+          la idea de <b>sin criterio, sin elegir</b> :</p>
+          <ul>
+            <li><b>n’importe quoi</b> (cosa) — <i>Il mange n’importe quoi.</i></li>
+            <li><b>n’importe qui</b> (persona) — <i>Elle sort avec n’importe qui.</i></li>
+            <li><b>n’importe comment</b> (manera) — <i>Il s’habille n’importe comment.</i></li>
+            <li><b>n’importe où</b> (lugar) · <b>n’importe quand</b> (momento) ·
+                <b>n’importe lequel</b> (elección entre varios).</li>
+          </ul>
+          <div class="piege">Solo <b>« C’est n’importe quoi ! »</b> funciona como exclamación,
+          y entonces significa otra cosa : <i>es absurdo, no tiene sentido</i>. Es la de la
+          lista de la página 19.</div>` }
+      ],
+      ejercicios: [2, 3]
+    },
+    { titulo: '3. Plus… plus, par la porte de derrière',
+      sous: 'Tres frases de las viñetas. Es la primera vez que aparece, sin que nadie lo anuncie.',
+      rappels: [
+        { titulo: 'Las tres frases de la página 12',
+          html: `<div class="ex">Plus c’est chimique, <b>plus</b> ils aiment.<br>
+          Plus ça brille, <b>mieux</b> c’est.<br>
+          Plus c’est absurde, <b>plus</b> ils aiment.</div>
+          <p>La regla entera está en la página 23, pero aquí ya puedes ver lo esencial :
+          dos mitades, y en cada una un verbo. Y que <b>mieux</b> aparece donde esperarías
+          « plus c’est bien ».</p>` }
+      ],
+      ejercicios: [4, 5]
+    }
+  ],
+
+  ejercicios: [
+    /* 0 */ { t:'paires', etiqueta:'Act. 2',
+      consigne:'Cada viñeta con el dominio que toca.',
+      pairs: [
+        ['Ils kiffent les pires bonbons et détestent les légumes.', 'l’alimentation'],
+        ['Ils s’habillent n’importe comment et adorent ce qui brille.', 'la mode'],
+        ['Ils écoutent des chansons ridicules.', 'les choix culturels'],
+        ['Ils cassent les codes de l’orthographe et de la syntaxe.', 'le langage'],
+        ['Ils ont des goûts douteux en matière de blagues.', 'l’humour'],
+        ['Ils ont mille peluches mais adorent le vieux doudou.', 'les objets et l’attachement']
+      ],
+      aide:'La actividad 2 del libro solo pide cuatro (mode, alimentation, choix culturels, '
+         + 'langage). Las otras dos están aquí porque también dicen algo del gusto.' },
+
+    /* 1 */ { t:'trous', etiqueta:'Le vocabulaire',
+      consigne:'Completa con las palabras de las viñetas.',
+      q: [
+        { enonce:'Avoir un goût discutable, c’est avoir des goûts ___.', r:['douteux'], taille:12 },
+        { enonce:'Le vieux peluche sans un œil, c’est son ___.', r:['doudou'], taille:12 },
+        { enonce:'Ne pas respecter les règles établies, c’est ___ les codes.',
+          r:['casser'], taille:12 },
+        { enonce:'Des couleurs et des motifs qui ne vont pas ensemble : c’est mal ___.',
+          r:['assorti'], taille:12 },
+        { enonce:'Aimer les choses chères, c’est avoir des goûts de ___.', r:['luxe'], taille:12 },
+        { enonce:'« Les carottes, ___ ! » dit l’enfant de la vignette 2.',
+          r:['beurk'], taille:12 }
+      ] },
+
+    /* 2 */ { t:'qcm', etiqueta:'N’importe',
+      consigne:'Elige la forma correcta.',
+      q: [
+        { enonce:'Il s’habille ___ : il met le premier vêtement qu’il trouve.',
+          o:['n’importe quoi', 'n’importe comment', 'n’importe qui'], r:1,
+          note:'Se trata de <b>la manera</b> → <i>comment</i>.' },
+        { enonce:'Il mange ___ : des bonbons au petit-déjeuner.',
+          o:['n’importe quoi', 'n’importe comment', 'n’importe où'], r:0 },
+        { enonce:'Ne laisse pas entrer ___ !',
+          o:['n’importe quoi', 'n’importe qui', 'n’importe lequel'], r:1 },
+        { enonce:'Tu peux m’appeler ___, je suis chez moi toute la journée.',
+          o:['n’importe quand', 'n’importe comment', 'n’importe quoi'], r:0 },
+        { enonce:'« Les enfants n’ont pas de goût ?  — Mais c’est ___ ! »',
+          o:['n’importe quoi', 'n’importe comment', 'n’importe qui'], r:0,
+          note:'Aquí es la exclamación : <b>c’est n’importe quoi</b> = eso es absurdo. '
+             + 'Está en la lista de la actividad 22, página 19.' }
+      ] },
+
+    /* 3 */ { t:'paires', etiqueta:'Act. 4a',
+      consigne:'Las cuatro frases del libro, con lo que quieren decir de verdad.',
+      pairs: [
+        ['Il/Elle s’habille n’importe comment.', 'sans faire attention à ce qu’il/elle met'],
+        ['Il/Elle n’a pas de goût.', 'ne sait pas choisir ce qui est beau ou élégant'],
+        ['Il/Elle mange n’importe quoi.', 'sans faire attention à ce qu’il/elle mange'],
+        ['Il/Elle a des goûts de luxe.', 'aime les choses chères et raffinées']
+      ],
+      aide:'Fíjate en que tres son <b>críticas</b> y la cuarta no lo es del todo : '
+         + '« avoir des goûts de luxe » puede ser un reproche o un elogio según el tono. '
+         + 'La actividad 4b te pide justamente de quién lo dirías tú.' },
+
+    /* 4 */ { t:'trous', etiqueta:'Plus… plus',
+      consigne:'Completa, como en las viñetas.',
+      q: [
+        { enonce:'Plus c’est chimique, ___ ils aiment.', r:['plus'], taille:10 },
+        { enonce:'Plus ça brille, ___ c’est.', r:['mieux'], taille:10,
+          note:'No « plus c’est bien » : el irregular de <i>bien</i> es <b>mieux</b>.' },
+        { enonce:'Plus c’est absurde, ___ ils aiment.', r:['plus'], taille:10 },
+        { enonce:'___ je vieillis, moins je suis la mode.', r:['plus'], taille:10 },
+        { enonce:'Moins il y a de sucre, ___ c’est. <i>(= plus c’est bon)</i>',
+          r:['meilleur'], taille:10 }
+      ] },
+
+    /* 5 */ { t:'prod', etiqueta:'Act. 1 et 4b', mots:80,
+      consigne:'¿Qué viñeta te divierte más, y por qué? ¿De quién podrías decir tú las cuatro '
+             + 'frases de la actividad 4 ?',
+      sous:'80 palabras. Piensa en niños que conozcas — o en adultos, que también valen.',
+      check: [
+        'La viñeta que eliges, y por qué te hace gracia.',
+        'Un niño (o un adulto) de quien dirías una de las cuatro frases, con el ejemplo.',
+        'Dos palabras de las viñetas (douteux, kitsch, mal assorti, casser les codes…).',
+        'Un <b>plus… plus</b> o un <b>plus… mieux</b>.',
+        'Una de las frases con <b>n’importe</b>.'
+      ],
+      modele:'La vignette qui m’amuse le plus, c’est celle du doudou : mon neveu a une '
+           + 'chambre pleine de peluches neuves, et il dort avec un vieux lapin à qui il '
+           + 'manque une oreille. Plus c’est abîmé, plus il y tient. Pour les vêtements, c’est '
+           + 'pareil : il s’habille n’importe comment, tout est mal assorti, et quand sa mère '
+           + 'lui propose autre chose, il répond que c’est elle qui a des goûts douteux. Celui '
+           + 'qui a vraiment des goûts de luxe, dans la famille, c’est plutôt mon oncle.' }
+  ]
+});
+
+/* ───────────────────────────────────────────────────────────────────────
    UNITÉ 1 · p. 14-15 — FAUX PAS VESTIMENTAIRES
    El artículo de Manu, la crónica de la actividad 6, el léxico de la ropa,
    las expresiones con PIRE y las impresiones (ça fait, on dirait).
