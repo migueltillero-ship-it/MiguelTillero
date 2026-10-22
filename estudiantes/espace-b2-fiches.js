@@ -2107,6 +2107,7 @@ FICHAS.push({
   id: 's11',
   tipo: 'eval',
   ciclo: 'Oct.-nov. 2026',
+  desde: '2026-11-09',          // se abre el día del repaso, no antes
   fecha: 'Mercredi 11 novembre',
   titulo: 'Épreuve blanche — écrit',
   resumen: 'Una prueba de ensayo completa: comprensión oral, comprensión escrita y producción escrita.',
@@ -2247,6 +2248,7 @@ FICHAS.push({
   id: 's12',
   tipo: 'eval',
   ciclo: 'Oct.-nov. 2026',
+  desde: '2026-11-11',          // se abre después de la prueba escrita
   fecha: 'Lundi 16 novembre',
   titulo: 'Préparer l’oral',
   resumen: 'El formato del oral B2, las frases que lo estructuran y tres temas para ensayar en voz alta.',

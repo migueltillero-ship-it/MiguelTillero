@@ -136,9 +136,29 @@ function ciclosDisponibles(){
   return vistos;
 }
 
+/* Una ficha puede tener fecha de apertura: { desde: '2026-11-09' }.
+   Es para las pruebas, que no deben estar ahí desde el primer día —ni para
+   adelantarse ni para angustiar a nadie—. Hasta esa fecha no aparece en el
+   índice, y quien llegue por un enlace directo ve cuándo se abre. */
+function fichaDisponible(f){
+  if(!f.desde) return true;
+  const d = new Date();
+  const hoy = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0')
+            + '-' + String(d.getDate()).padStart(2,'0');
+  return f.desde <= hoy;
+}
+
+function fechaLegible(iso){
+  const p = (iso||'').split('-');
+  const meses = ['janvier','février','mars','avril','mai','juin','juillet',
+                 'août','septembre','octobre','novembre','décembre'];
+  return p.length === 3 ? (+p[2]) + ' ' + meses[+p[1]-1] : iso;
+}
+
 function fichasVisibles(){
-  if(!cicloVisible || cicloVisible === '*') return FICHAS;
-  return FICHAS.filter(f => (f.ciclo || '') === cicloVisible);
+  const abiertas = FICHAS.filter(fichaDisponible);
+  if(!cicloVisible || cicloVisible === '*') return abiertas;
+  return abiertas.filter(f => (f.ciclo || '') === cicloVisible);
 }
 
 function verCiclo(c){ cicloVisible = c; pintarHub(); }
@@ -196,6 +216,23 @@ function borrarTodo(){
 function abrirFicha(id){
   const f = FICHAS.find(x => x.id === id);
   if(!f) return;
+  if(!fichaDisponible(f)){
+    document.getElementById('f-fecha').textContent = f.fecha;
+    document.getElementById('f-titulo').textContent = f.titulo;
+    document.getElementById('f-intro').textContent = '';
+    document.getElementById('f-cuerpo').innerHTML =
+      `<div class="fiche"><div class="sello pendiente">
+         <b>Cette fiche s’ouvre le ${esc(fechaLegible(f.desde))}.</b><br>
+         En attendant, les autres fiches du cycle sont là — et c’est avec elles
+         qu’on la prépare.</div>
+       <div class="nav-fiches">
+         <button class="btn" onclick="irAlHub()">← Toutes les séances</button>
+       </div></div>`;
+    document.getElementById('vue-hub').classList.remove('active');
+    document.getElementById('vue-fiche').classList.add('active');
+    window.scrollTo({top:0});
+    return;
+  }
   fichaActual = f;
   document.getElementById('f-fecha').textContent = f.fecha;
   document.getElementById('f-titulo').textContent = f.titulo;
