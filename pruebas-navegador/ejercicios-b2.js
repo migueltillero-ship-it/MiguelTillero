@@ -12,7 +12,7 @@ const { chromium } = require('/opt/node-tools/node_modules/playwright');
   await pagina.waitForTimeout(400);
 
   const tarjetas = await pagina.locator('#grille-fiches .carte').count();
-  console.log('1. Fichas en el hub:', tarjetas, tarjetas === 9 ? '✓' : '✗ (esperaba 9)');
+  console.log('1. Fichas en el hub:', tarjetas, tarjetas === 10 ? '✓' : '✗ (esperaba 10)');
 
   /* Abrir la ficha del 21 de octubre (gramática) */
   await pagina.locator('#grille-fiches .carte').nth(2).click();

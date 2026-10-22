@@ -198,3 +198,43 @@ footer a{color:var(--bleu)}
   .aide,.modele{display:block !important}
   .fiche{box-shadow:none;border:1px solid #ccc;page-break-after:always}
 }
+
+/* ── Vídeo dentro de la ficha ──────────────────────────────────────────
+   Se queda pegado arriba: si para responder hay que subir y bajar cada
+   vez, la actividad se abandona a la tercera pregunta. */
+.caja-video{position:sticky;top:0;z-index:40;background:var(--ivoire);
+  padding:.8rem 0 .9rem;margin-bottom:1.4rem;border-bottom:1px solid var(--gris)}
+/* 16:9, pero nunca más de 40vh de alto: si el vídeo ocupa toda la pantalla,
+   el ejercicio queda debajo del pliegue y el alumno no ve lo que responde. */
+.video-marco{position:relative;aspect-ratio:16/9;max-height:40vh;
+  max-width:min(100%, calc(40vh * 16 / 9));margin:0 auto;border-radius:8px;
+  overflow:hidden;box-shadow:var(--ombre);background:#000}
+.video-marco iframe,.video-marco>div{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-pie{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  font-size:.86rem;color:var(--texte-doux);margin-top:.5rem}
+.video-pie a{color:var(--bleu)}
+.btn-minuto{background:rgba(43,92,143,.1);border:1px solid var(--bleu);color:var(--bleu);
+  border-radius:999px;padding:.2rem .7rem;font-size:.82rem;font-family:var(--font-texte);
+  cursor:pointer;white-space:nowrap;min-height:32px;margin-left:.2rem}
+.btn-minuto:hover{background:var(--bleu);color:#fff}
+
+/* ── Los pasos del recorrido ─────────────────────────────────────────── */
+.pasos{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.6rem}
+.paso{display:flex;align-items:center;gap:.5rem;background:var(--carte);
+  border:1px solid var(--gris);border-radius:999px;padding:.45rem .9rem .45rem .45rem;
+  font-family:var(--font-texte);font-size:.86rem;color:var(--texte-doux);cursor:pointer;min-height:40px}
+.paso:hover{border-color:var(--bleu);color:var(--bleu)}
+.paso-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;
+  border-radius:50%;background:var(--graphite);color:var(--texte-clair);font-size:.78rem;font-weight:700}
+
+/* ── El sello del final ──────────────────────────────────────────────── */
+.sello{border-radius:8px;padding:1.2rem 1.4rem;margin:1.6rem 0;font-size:1rem;line-height:1.6}
+.sello.pendiente{background:var(--fond-doux);border-left:5px solid var(--gris);color:var(--texte-doux)}
+.sello.insuficiente{background:rgba(165,130,74,.12);border-left:5px solid var(--or)}
+.sello.logrado{background:rgba(85,122,100,.15);border-left:5px solid var(--sauge)}
+
+@media (max-width:620px){
+  .caja-video{padding:.5rem 0}
+  .pasos .paso{font-size:.8rem}
+}
+@media print{ .caja-video,.pasos,.btn-minuto{display:none !important} }

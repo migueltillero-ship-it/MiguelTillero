@@ -56,32 +56,38 @@ begin
        || 'en relief, el doble comparativo con mieux y meilleur, y plutôt que.',
        '#s6'),
 
-      (6, 'Séance du 26 octobre · Prendre des notes', 'refuerzo', 'Unité 1',
+      (6, 'Parcours vidéo · L’art de la table et le savoir-vivre', 'juego', 'Unité 1',
+       'El vídeo de Mcfly et Carlito con Carmel, convertido en recorrido: el vídeo va '
+       || 'dentro y cada pregunta salta a su minuto. Léxico, doce vrai/faux, registros, '
+       || 'concesión con subjuntivo y producción DELF. Se valida al 80 %.',
+       '#savoir-vivre'),
+
+      (7, 'Séance du 26 octobre · Prendre des notes', 'refuerzo', 'Unité 1',
        'Descifrar notas, abreviar, y oír cifras al vuelo. Es la técnica que decide '
        || 'la compréhension orale del examen.',
        '#s7'),
 
-      (7, 'Séance du 28 octobre · Tellement genré !', 'refuerzo', 'Unité 2',
+      (8, 'Séance du 28 octobre · Tellement genré !', 'refuerzo', 'Unité 2',
        'Estereotipo, prejuicio, cliché e idea recibida: cuatro palabras que no son lo '
        || 'mismo. Y la construcción exacta de ça permet de, ça aide à, ça évite de.',
        '#s8'),
 
-      (8, 'Séance du 2 novembre · Tellement, pourvu que, avoir hâte', 'refuerzo', 'Unité 2',
+      (9, 'Séance du 2 novembre · Tellement, pourvu que, avoir hâte', 'refuerzo', 'Unité 2',
        'La gramática más rentable del ciclo: los tres tellement, el subjuntivo del deseo '
        || 'y el léxico de la espera de un hijo.',
        '#s9'),
 
-      (9, 'Révision générale du 4 novembre', 'refuerzo', 'Unité 1-2',
+      (10, 'Révision générale du 4 novembre', 'refuerzo', 'Unité 1-2',
        'Un diagnóstico de todo el ciclo: cada pregunta que falles te dice a qué ficha '
        || 'volver. Hazlo antes del lunes 9.',
        '#s10'),
 
-      (10, 'Épreuve blanche — écrit', 'evaluacion', 'Unité 1-2',
+      (11, 'Épreuve blanche — écrit', 'evaluacion', 'Unité 1-2',
        'Una prueba de ensayo completa con el formato del DELF B2: comprensión oral, '
        || 'comprensión escrita y producción escrita de 250 palabras. Crono en mano.',
        '#s11'),
 
-      (11, 'Préparer l’oral', 'evaluacion', 'Unité 1-2',
+      (12, 'Préparer l’oral', 'evaluacion', 'Unité 1-2',
        'El formato del oral minuto a minuto, las frases que estructuran un exposé y '
        || 'tres temas para ensayar en voz alta.',
        '#s12')

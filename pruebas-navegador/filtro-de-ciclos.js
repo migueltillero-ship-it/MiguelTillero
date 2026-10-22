@@ -25,7 +25,7 @@ const { chromium } = require('/opt/node-tools/node_modules/playwright');
 
   const visiblesAhora = await p.locator('#grille-fiches .carte').count();
   console.log('3. Por defecto se ve solo el ciclo en curso:',
-              visiblesAhora === 9 ? '✓ 9 fichas' : '✗ (' + visiblesAhora + ')');
+              visiblesAhora === 10 ? '✓ 10 fichas' : '✗ (' + visiblesAhora + ')');
 
   await p.locator('#filtros-ciclo .chip-ciclo').nth(1).click();
   await p.waitForTimeout(150);
@@ -37,7 +37,7 @@ const { chromium } = require('/opt/node-tools/node_modules/playwright');
   await p.waitForTimeout(150);
   const todas = await p.locator('#grille-fiches .carte').count();
   console.log('5. «Tout voir» muestra los dos ciclos:',
-              todas === 11 ? '✓ 11 fichas' : '✗ (' + todas + ')');
+              todas === 12 ? '✓ 12 fichas' : '✗ (' + todas + ')');
   const conCiclo = await p.locator('#grille-fiches .carte .date').first().textContent();
   console.log('6. Y entonces cada tarjeta dice de qué ciclo es:',
               conCiclo.includes('·') ? '✓ «' + conCiclo.trim() + '»' : '✗');

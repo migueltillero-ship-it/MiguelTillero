@@ -66,6 +66,62 @@ function hablar(texto, btn){
   speechSynthesis.speak(u);
 }
 
+
+/* ═══ VÍDEO ═══════════════════════════════════════════════════════════
+   Una ficha puede llevar un vídeo: { video: {id, titulo, duracion} }.
+   Se queda pegado arriba mientras se baja por los ejercicios, porque la
+   alternativa —subir y bajar cada vez— es justo lo que hace que un
+   estudiante abandone una actividad de comprensión audiovisual.
+   Cada pregunta puede llevar su minuto (min: '6:11'): el botón salta ahí.
+   ═══════════════════════════════════════════════════════════════════════ */
+let reproductor = null, videoListo = false;
+
+function segundos(min){
+  if(typeof min === 'number') return min;
+  const p = String(min).split(':').map(Number);
+  return p.length === 3 ? p[0]*3600 + p[1]*60 + p[2] : p[0]*60 + (p[1]||0);
+}
+
+function botonMinuto(min){
+  if(min === undefined || min === null) return '';
+  return `<button class="btn-minuto" onclick="irAlMinuto('${min}')"
+     title="Voir ce passage">▶ ${esc(String(min))}</button>`;
+}
+
+function irAlMinuto(min){
+  const s = segundos(min);
+  if(reproductor && videoListo){
+    reproductor.seekTo(s, true);
+    reproductor.playVideo();
+    const caja = document.getElementById('caja-video');
+    if(caja) caja.scrollIntoView({behavior:'smooth', block:'start'});
+  } else if(fichaActual && fichaActual.video){
+    window.open('https://www.youtube.com/watch?v=' + fichaActual.video.id + '&t=' + s + 's', '_blank');
+  }
+}
+
+function montarVideo(v){
+  const caja = document.getElementById('caja-video');
+  if(!caja) return;
+  caja.innerHTML = `<div class="video-marco"><div id="yt-player"></div></div>
+    <div class="video-pie"><span>${esc(v.titulo || '')}</span>
+      <a href="https://www.youtube.com/watch?v=${esc(v.id)}" target="_blank" rel="noopener">Ouvrir sur YouTube ↗</a></div>`;
+  function crear(){
+    reproductor = new YT.Player('yt-player', {
+      videoId: v.id,
+      playerVars: { rel: 0, modestbranding: 1, cc_lang_pref: 'fr' },
+      events: { onReady: () => { videoListo = true; } }
+    });
+  }
+  if(window.YT && window.YT.Player){ crear(); return; }
+  window.onYouTubeIframeAPIReady = crear;
+  if(!document.getElementById('api-yt')){
+    const t = document.createElement('script');
+    t.id = 'api-yt'; t.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(t);
+  }
+}
+
 /* ═══ HUB ═══ */
 /* ── El filtro por ciclo ───────────────────────────────────────────────
    El espacio es del nivel, no del ciclo: las fichas se quedan de un ciclo
@@ -146,15 +202,18 @@ function abrirFicha(id){
   document.getElementById('f-intro').textContent = f.intro || f.resumen;
 
   let html = '';
-  (f.secciones || []).forEach(sec => {
-    html += `<div class="fiche">
+  if(f.video) html += '<div class="caja-video" id="caja-video"></div>';
+  if((f.secciones||[]).length > 1) html += pintarPasos(f);
+  (f.secciones || []).forEach((sec, si) => {
+    html += `<div class="fiche" id="sec-${si}">
       <div class="bloc-titre">${esc(sec.titulo)}</div>
       <p class="bloc-sous">${esc(sec.sous||'')}</p>
       ${(sec.rappels||[]).map(pintarRappel).join('')}
       ${(sec.ejercicios||[]).map(i => pintarEjercicio(f, i)).join('')}
     </div>`;
   });
-  html += `<div class="nav-fiches">
+  html += `<div class="sello" id="sello"></div>
+    <div class="nav-fiches">
       <button class="btn doux" onclick="irAlHub()">← Toutes les séances</button>
       ${siguienteFicha(f) ? `<button class="btn" onclick="abrirFicha('${siguienteFicha(f).id}')">Séance suivante →</button>` : ''}
     </div>`;
@@ -165,6 +224,46 @@ function abrirFicha(id){
   history.replaceState(null,'','#'+id);
   window.scrollTo({top:0});
   (f.secciones||[]).forEach(sec => (sec.ejercicios||[]).forEach(i => montar(f.ejercicios[i], i)));
+  if(f.video) montarVideo(f.video);
+  pintarSello();
+}
+
+/* ── Los pasos del recorrido ──────────────────────────────────────────
+   Una ficha larga necesita decir dónde está uno y cuánto falta. */
+function pintarPasos(f){
+  return '<div class="pasos">' + f.secciones.map((sec, i) =>
+    `<button class="paso" onclick="document.getElementById('sec-${i}').scrollIntoView({behavior:'smooth'})">
+       <span class="paso-num">${i+1}</span>${esc(sec.titulo)}</button>`).join('') + '</div>';
+}
+
+/* ── El sello ─────────────────────────────────────────────────────────
+   Hacer los ejercicios no es lo mismo que haber entendido. El sello solo
+   aparece cuando están todos hechos Y el acierto llega al 80 %. Mientras
+   tanto dice exactamente qué falta, que es más útil que una felicitación. */
+function pintarSello(){
+  const caja = document.getElementById('sello');
+  if(!caja || !fichaActual) return;
+  const f = fichaActual, hechos = avance[f.id] || {};
+  let bien = 0, total = 0, pendientes = 0;
+  f.ejercicios.forEach((e, i) => {
+    const r = hechos[i];
+    if(!r || typeof r.t !== 'number'){ pendientes++; return; }
+    bien += r.b; total += r.t;
+  });
+  const pct = total ? Math.round(bien*100/total) : 0;
+  if(pendientes){
+    caja.className = 'sello pendiente';
+    caja.innerHTML = `<b>Il reste ${pendientes} exercice${pendientes>1?'s':''} à faire.</b>
+      ${total ? ' Pour l’instant&#8239;: ' + bien + '/' + total + ' (' + pct + '&#8239;%).' : ''}`;
+  } else if(pct >= 80){
+    caja.className = 'sello logrado';
+    caja.innerHTML = `<b>Fiche validée&#8239;: ${bien}/${total} (${pct}&#8239;%).</b>
+      Tu as compris les expressions et les règles. Garde la fiche pour réviser avant l’évaluation.`;
+  } else {
+    caja.className = 'sello insuficiente';
+    caja.innerHTML = `<b>${bien}/${total} (${pct}&#8239;%).</b> Il te manque peu de chose&#8239;:
+      reprends les exercices en rouge avec le bouton «&#8239;Recommencer&#8239;». La fiche se valide à 80&#8239;%.`;
+  }
 }
 
 function siguienteFicha(f){
@@ -185,7 +284,7 @@ function pintarEjercicio(f, i){
   const hecho = avance[f.id] && avance[f.id][i];
   return `<div class="ex-bloc ${hecho?'resolu':''}" id="ex-${i}">
     <div class="ex-num">Exercice ${i+1}${e.etiqueta?' · '+esc(e.etiqueta):''}</div>
-    <div class="ex-consigne">${esc(e.consigne)}
+    <div class="ex-consigne">${esc(e.consigne)} ${botonMinuto(e.min)}
       ${e.sous?`<small>${esc(e.sous)}</small>`:''}</div>
     <div id="cuerpo-${i}">${PINTAR[e.t] ? PINTAR[e.t](e,i) : ''}</div>
     <div class="actions">
@@ -203,7 +302,7 @@ function pintarEjercicio(f, i){
 const PINTAR = {
   /* Elección múltiple */
   qcm: (e,i) => e.q.map((q,qi) => `<div class="q">
-      <div class="enonce">${qi+1}. ${q.enonce}
+      <div class="enonce">${qi+1}. ${q.enonce} ${botonMinuto(q.min)}
         ${q.audio?` <button class="btn-audio" onclick="hablar('${q.audio.replace(/'/g,"\\'")}',this)">🔊 Écouter</button>`:''}</div>
       <div class="opts">${q.o.map((o,oi) =>
         `<button class="opt" data-q="${qi}" data-o="${oi}" onclick="elegir(${i},${qi},${oi})">${o}</button>`).join('')}</div>
@@ -214,6 +313,7 @@ const PINTAR = {
   trous: (e,i) => e.q.map((q,qi) => `<div class="q">
       <div class="enonce">${qi+1}. ${q.enonce.replace('___',
         `<input class="trou" data-q="${qi}" size="${q.taille||14}" placeholder="…">`)}
+        ${botonMinuto(q.min)}
         ${q.audio?` <button class="btn-audio" onclick="hablar('${q.audio.replace(/'/g,"\\'")}',this)">🔊</button>`:''}</div>
       ${q.note?`<div class="aide" id="note-${i}-${qi}">${q.note}</div>`:''}
     </div>`).join(''),
@@ -240,7 +340,7 @@ const PINTAR = {
 
   /* Transformar una frase: se escribe y se compara con el modelo */
   transfo: (e,i) => e.q.map((q,qi) => `<div class="q">
-      <div class="enonce">${qi+1}. ${q.enonce}</div>
+      <div class="enonce">${qi+1}. ${q.enonce} ${botonMinuto(q.min)}</div>
       <input class="trou" data-q="${qi}" style="width:100%" placeholder="Réécris la phrase ici…">
       <div class="modele" id="mod-${i}-${qi}"><b>Modèle&#8239;:</b> ${q.modele}
         ${q.note?`<br><span class="note">${q.note}</span>`:''}</div>
@@ -422,6 +522,7 @@ function corregir(i){
   const modele = document.getElementById('modele-'+i);
   if(modele) modele.classList.add('vue');
   mostrarVerdicto(i, bien, total);
+  pintarSello();
 }
 
 function mostrarVerdicto(i, bien, total, texto){
