@@ -8,3 +8,6 @@ supabase/.temp/
 # Consultas con datos privados (enlaces de Zoom, etc.): nunca al repositorio publico
 supabase/privado/
 *.privado.sql
+
+# Informe que genera materiales/auditoria-movil.js en cada ejecución
+materiales/informe-auditoria.json

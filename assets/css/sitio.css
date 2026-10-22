@@ -1513,7 +1513,10 @@ body.intro-active > *:not(#video-intro):not(#cursor-dot):not(#cursor-ring) { vis
   50%      { box-shadow: 0 10px 42px rgba(255,107,107,0.55); }
 }
 @media (max-width: 700px) {
-  #vendredi-fab { font-size: 0.9rem; padding: 0.7rem 0.9rem 0.7rem 1.05rem; }
+  /* En el teléfono no hay cursor, así que el texto nunca se despliega: queda
+     solo el icono. Se le da la altura mínima recomendada para tocar con el
+     dedo (44 px); antes medía 40 y era fácil fallar el toque. */
+  #vendredi-fab { font-size: 0.9rem; padding: 0.7rem 0.9rem 0.7rem 1.05rem; min-height: 44px; }
   #vendredi-fab .vf-text { display: none; }
 }
 /* ── SKILL TAGS ── */
