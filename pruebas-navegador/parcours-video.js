@@ -25,7 +25,7 @@ const { chromium } = require('/opt/node-tools/node_modules/playwright');
     (await p.locator('#f-titulo').textContent()).includes("Ça se fait") ? '✓' : '✗');
 
   const pasos = await p.locator('.pasos .paso').count();
-  console.log('2. Las seis etapas del recorrido:', pasos === 6 ? '✓' : '✗ (' + pasos + ')');
+  console.log('2. Las siete etapas del recorrido:', pasos === 7 ? '✓' : '✗ (' + pasos + ')');
 
   console.log('3. El reproductor se monta:',
     await p.locator('#caja-video .video-marco').count() ? '✓' : '✗');
@@ -34,7 +34,7 @@ const { chromium } = require('/opt/node-tools/node_modules/playwright');
   console.log('4. Se queda pegado arriba al bajar:', pegado === 'sticky' ? '✓' : '✗ ' + pegado);
 
   const minutos = await p.locator('.btn-minuto').count();
-  console.log('5. Botones de minuto repartidos por la ficha:', minutos >= 10 ? '✓ ' + minutos : '✗ ' + minutos);
+  console.log('5. Botones de minuto repartidos por la ficha:', minutos >= 6 ? '✓ ' + minutos : '✗ ' + minutos);
 
   // Saltar a 13:26 (la anécdota de la reina) = 806 segundos
   await p.locator('.btn-minuto:has-text("13:26")').first().click();
@@ -49,13 +49,13 @@ const { chromium } = require('/opt/node-tools/node_modules/playwright');
     sello0.includes('13 exercice') ? '✓' : '✗ «' + sello0.trim().slice(0, 50) + '»');
 
   // Se responden mal los vrai/faux para comprobar que NO valida
-  const vf = p.locator('#ex-3');
+  const vf = p.locator('#ex-6');     // el qcm sobre el vídeo
   for (let q = 0; q < 6; q++) await vf.locator(`.opt[data-q="${q}"][data-o="0"]`).click();
   await vf.locator('button:has-text("Corriger")').click();
   await p.waitForTimeout(200);
-  const correccion = await vf.locator('.q').first().locator('.aide, #note-3-0').textContent();
+  const correccion = await vf.locator('#note-6-1').textContent();
   console.log('8. La corrección explica lo que SÍ es verdad:',
-    correccion.length > 20 ? '✓' : '✗');
+    correccion.includes('Juriste') ? '✓' : '✗ «' + correccion.slice(0, 40) + '»');
 
   const sello1 = await p.locator('#sello').textContent();
   console.log('9. Con ejercicios a medias no valida:',
@@ -85,6 +85,17 @@ const { chromium } = require('/opt/node-tools/node_modules/playwright');
   await p.waitForTimeout(300);
   const desborda = await p.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 2);
   console.log('12. Sin desbordamiento en móvil:', desborda ? '✗' : '✓');
+
+  // El vídeo se pliega y se despliega solo al saltar a un minuto
+  await p.setViewportSize({ width: 1100, height: 900 });
+  await p.locator('#btn-plegar').click();
+  await p.waitForTimeout(350);
+  console.log('13. El vídeo se pliega:',
+    await p.locator('#caja-video.plegada').count() ? '✓' : '✗');
+  await p.locator('.btn-minuto').first().click();
+  await p.waitForTimeout(350);
+  console.log('14. Y se despliega solo al saltar a un minuto:',
+    await p.locator('#caja-video.plegada').count() ? '✗' : '✓');
 
   console.log(errores.length ? '\nErrores JS: ' + errores.join(' | ') : '\nSin errores de JavaScript ✓');
   await b.close();

@@ -639,13 +639,11 @@ FICHAS.push({
 
 /* ───────────────────────────────────────────────────────────────────────
    PARCOURS · Ça se fait, ça ne se fait pas — ici et là-bas
-   Vidéo : Mcfly et Carlito avec Carmel, « On apprend les bonnes manières
-   à table » · Livre p. 19 (act. 18 à 24)
+   Vidéo : Mcfly et Carlito avec Carmel · Livre p. 19 (act. 18 à 24)
    ---------------------------------------------------------------------
-   El eje es el de la página 19: las expresiones para juzgar una manera
-   (« ça ne se fait pas », « c’est la base »), lo que se hace y lo que no, y
-   la comparación entre México y Francia. Lo gramatical se queda en lo que
-   el libro pide ahí: « plus… plus » y las expresiones con valoir.
+   No es un cuestionario sobre un vídeo: es un reto con reloj, una mesa en
+   la que hay que señalar, un orden que reconstruir y una cena en la que
+   se decide qué hacer. El vídeo está dentro y sirve para comprobar.
    ─────────────────────────────────────────────────────────────────────── */
 FICHAS.push({
   id: 'savoir-vivre',
@@ -653,10 +651,10 @@ FICHAS.push({
   ciclo: 'Oct.-nov. 2026',
   fecha: 'Parcours · livre p. 19',
   titulo: 'Ça se fait, ça ne se fait pas — à table, ici et là-bas',
-  resumen: 'Las expresiones de la actividad 22, lo que se hace y lo que no en la mesa francesa, y la comparación con México. Con el vídeo dentro.',
-  intro: 'Lo que estamos trabajando, para practicarlo solo: cómo se juzga una manera en '
-       + 'francés, qué se hace y qué no en una mesa francesa, y en qué se parece o se '
-       + 'diferencia de lo de aquí. El vídeo está dentro: cada pregunta salta a su minuto.',
+  resumen: 'Un reto de un minuto, una mesa que hay que saber leer, una cena con decisiones y la comparación con lo de aquí. Con el vídeo dentro.',
+  intro: 'Seis etapas y ninguna es un cuestionario: un reto contrarreloj, una mesa en la que '
+       + 'hay que señalar, un orden que reconstruir y una cena en la que decides tú. '
+       + 'El vídeo está dentro para comprobarlo todo.',
 
   video: {
     id: 'sWtjnwMbEVU',
@@ -664,82 +662,77 @@ FICHAS.push({
   },
 
   secciones: [
-    { titulo: '1. Les mots pour juger une manière',
-      sous: 'Las expresiones de la actividad 22. Son las que necesitas para opinar sin repetir «c’est mal».',
+    { titulo: '1. Les mots pour juger',
+      sous: 'Las expresiones de la actividad 22, que son las que necesitas para todo lo demás.',
       rappels: [
         { titulo: 'La boîte à expressions (act. 22)',
           html: `<ul>
-            <li><b>Ça ne se fait pas.</b> — la regla social, sin más explicación.</li>
-            <li><b>C’est la base.</b> — es lo mínimo, lo elemental.</li>
+            <li><b>Ça ne se fait pas.</b> — la regla social, sin más.</li>
+            <li><b>C’est la base.</b> — es lo mínimo.</li>
             <li><b>Ça s’apprend.</b> — no se nace sabiéndolo.</li>
             <li><b>Ça donne une mauvaise première impression.</b> — la consecuencia.</li>
-            <li><b>Ça met mal à l’aise.</b> — el efecto en los demás.</li>
-            <li><b>C’est gênant.</b> / <b>C’est vexant.</b> — incómodo / hiriente.</li>
-            <li><b>Ça fait vulgaire</b> / <b>mauvais genre.</b> — el juicio estético.</li>
-            <li><b>C’est n’importe quoi.</b> — familiar, muy fuerte.</li>
+            <li><b>Ça met mal à l’aise.</b> · <b>C’est gênant / vexant.</b></li>
+            <li><b>Ça fait vulgaire / mauvais genre.</b> · <b>C’est n’importe quoi.</b></li>
           </ul>
           <div class="ex">El ejemplo del libro: <i>« Mettre le couteau dans la bouche, ça ne se
-          fait pas. Ça me choque ! »</i></div>
-          <div class="piege">Dos que no son lo mismo: <b>gênant</b> incomoda a todos
-          (un silencio, un ruido); <b>vexant</b> hiere a alguien en concreto.</div>` }
+          fait pas. Ça me choque ! »</i></div>` }
       ],
       ejercicios: [0, 1]
     },
 
-    { titulo: '2. À table : ça se fait ou pas ?',
-      sous: 'Primero en Francia. Después, lo de aquí, que es lo que más vale la pena comparar.',
+    { titulo: '2. Le défi : une minute',
+      sous: 'Doce reglas, sesenta segundos. Lo que falles te lo dice al final.',
       rappels: [],
-      ejercicios: [2, 3, 4]
+      ejercicios: [2]
     },
 
-    { titulo: '3. La vidéo',
-      sous: 'Seis preguntas, nada más. No hace falta entender cada palabra.',
+    { titulo: '3. La table',
+      sous: 'Saber leer una mesa puesta, y en qué orden llega cada cosa.',
+      rappels: [
+        { titulo: 'Une table dressée',
+          html: `<p>La regla que lo ordena todo: <b>los cubiertos se usan de fuera hacia
+          dentro</b>, en el orden en que llegan los platos. Y los vasos van arriba a la
+          derecha, el del agua más grande que el del vino.</p>
+          <div class="ex">le pain se pose <b>à gauche</b>, directement sur la nappe ou sur
+          une petite assiette — jamais dans l’assiette.</div>` }
+      ],
+      ejercicios: [3, 4]
+    },
+
+    { titulo: '4. Le dîner : à toi de décider',
+      sous: 'Seis momentos de una cena. Elige y mira lo que pasa.',
+      rappels: [],
+      ejercicios: [5]
+    },
+
+    { titulo: '5. La vidéo',
+      sous: 'Para comprobar, y para oír cómo lo cuenta Carmel.',
       rappels: [
         { titulo: 'Avant de regarder',
           html: `<p>Tres personas hablan deprisa y se interrumpen: es normal perderse.
-          Escucha las <b>ideas</b> y los <b>ejemplos</b>, no las palabras.</p>
-          <div class="ex">Carmel es la invitada, experta en <i>savoir-vivre</i>;
-          Mcfly y Carlito son los dos vidéastes que preguntan.</div>` }
+          Escucha las <b>ideas</b> y los <b>ejemplos</b>, no las palabras.</p>` }
       ],
-      ejercicios: [5, 6]
+      ejercicios: [6, 7]
     },
 
-    { titulo: '4. Plus… plus, et les expressions avec valoir',
-      sous: 'Lo de las actividades 19 y 20, que es la gramática que toca aquí.',
+    { titulo: '6. La langue, et la nétiquette',
+      sous: 'Lo de las actividades 19, 20, 23 y 24.',
       rappels: [
-        { titulo: 'Plus… plus · moins… moins (act. 19)',
-          html: `<p>Dos mitades, y el verbo va en cada una:</p>
-          <div class="ex"><b>Plus</b> je vieillis, <b>plus</b> je tiens à ces règles.<br>
-          <b>Plus</b> il y a d’objets dans un salon, <b>moins</b> la pièce paraît grande.<br>
-          <b>Moins</b> on connaît les codes, <b>plus</b> on a peur de se tromper.</div>
+        { titulo: 'Plus… plus · valoir',
+          html: `<div class="ex">Plus je vieillis, plus je tiens à ces règles.<br>
+          Il vaut mieux éviter. · Mieux vaut prévenir que guérir.<br>
+          Un homme averti en vaut deux. · Deux précautions valent mieux qu’une.</div>
           <div class="piege">Delante de un nombre hace falta <b>de</b>:
           <i>plus <b>de</b> monde</i>, <i>moins <b>d’</b>objets</i>.</div>` },
-        { titulo: 'Valoir (act. 20)',
-          html: `<ul>
-            <li><b>Il vaut mieux</b> + infinitivo = es preferible. <i>Il vaut mieux éviter.</i></li>
-            <li><b>Mieux vaut</b> + infinitivo = lo mismo, más corto y más escrito.</li>
-            <li><b>Ça vaut la peine</b> / <b>le coup</b> = merece el esfuerzo.</li>
-          </ul>
-          <div class="ex"><b>Los dos proverbios del margen:</b><br>
-          « Un homme averti en vaut deux » — el que está avisado vale por dos.<br>
-          « Deux précautions valent mieux qu’une » — más vale prevenir dos veces.</div>` }
-      ],
-      ejercicios: [7, 8, 9]
-    },
-
-    { titulo: '5. La nétiquette',
-      sous: 'La buena educación, pero en línea (act. 23 y 24).',
-      rappels: [
-        { titulo: 'De la table à l’écran',
-          html: `<p>La <b>nétiquette</b> es la etiqueta de internet: las reglas no escritas
-          del correo, del chat y de la videollamada. Cambian el soporte, pero no la idea:
+        { titulo: 'La nétiquette',
+          html: `<p>La buena educación, pero en línea. Cambia el soporte, no la idea:
           <b>no incomodar al otro</b>.</p>` }
       ],
-      ejercicios: [10, 11]
+      ejercicios: [8, 9, 10, 11]
     },
 
-    { titulo: '6. À toi',
-      sous: 'Lo contrastivo, por escrito. Es lo que vamos a comentar en clase.',
+    { titulo: '7. Et chez toi ?',
+      sous: 'Lo contrastivo, que es lo que vamos a comentar en clase.',
       rappels: [],
       ejercicios: [12]
     }
@@ -760,96 +753,191 @@ FICHAS.push({
       ] },
 
     /* 1 */ { t:'qcm', etiqueta:'La bonne expression',
-      consigne:'¿Qué dirías en cada situación? Hay una que encaja mejor que las otras.',
+      consigne:'¿Qué dirías en cada situación?',
       q: [
         { enonce:'Quelqu’un met son couteau dans la bouche.',
           o:['Ça ne se fait pas.', 'C’est vexant.', 'Ça s’apprend.'], r:0,
-          note:'Es el ejemplo del libro. <b>Vexant</b> no: no hiere a nadie, simplemente no se hace.' },
+          note:'Es el ejemplo del libro. <b>Vexant</b> no: no hiere a nadie.' },
         { enonce:'Un ami arrive à un entretien avec un t-shirt taché.',
-          o:['C’est n’importe quoi.', 'Ça donne une mauvaise première impression.', 'C’est la base.'], r:1,
-          note:'Aquí lo que importa es la <b>consecuencia</b>: lo que el otro va a pensar.' },
+          o:['C’est n’importe quoi.', 'Ça donne une mauvaise première impression.', 'C’est la base.'],
+          r:1 },
         { enonce:'Quelqu’un te reprend devant tout le monde à table.',
-          o:['Ça fait vulgaire.', 'C’est vexant et ça met mal à l’aise.', 'Ça s’apprend.'], r:1,
-          note:'Y es justo lo que Carmel llama la regla número uno: no señalar al otro.' },
-        { enonce:'Dire bonjour en entrant, pour toi, c’est évident.',
-          o:['C’est la base.', 'C’est gênant.', 'Ça ne se fait pas.'], r:0 },
-        { enonce:'Alguien dice: « yo no tengo por qué saber esas reglas, nadie me las enseñó ».',
+          o:['Ça fait vulgaire.', 'C’est vexant et ça met mal à l’aise.', 'Ça s’apprend.'], r:1 },
+        { enonce:'Alguien dice: « nadie me enseñó esas reglas ».',
           o:['Ça fait vulgaire.', 'Justement : ça s’apprend.', 'C’est la base.'], r:1,
-          note:'<b>Ça s’apprend</b> es la respuesta amable: no es un defecto, es algo que se aprende.' }
+          note:'Es la respuesta amable: no es un defecto, es algo que se aprende.' }
       ] },
 
-    /* 2 */ { t:'tri', etiqueta:'En France',
-      consigne:'Según las reglas clásicas francesas: ¿se hace o no se hace?',
+    /* 2 */ { t:'defi', etiqueta:'Contre la montre', segundos:60,
+      consigne:'Doce reglas francesas. Una carta cada vez: ¿se hace o no se hace?',
+      sous:'Si fallas, al final te dice cuáles. Puedes repetirlo las veces que quieras.',
       cols: ['Ça se fait', 'Ça ne se fait pas'],
       items: [
-        ['garder les poignets sur la table', 0],
-        ['poser son pain sur la nappe, à gauche de l’assiette', 0],
-        ['rompre le pain avec les doigts', 0],
-        ['poser sa serviette froissée à côté de l’assiette à la fin', 0],
-        ['mettre les coudes sur la table', 1],
-        ['couper son pain avec un couteau', 1],
-        ['mettre son couteau dans la bouche', 1],
-        ['lever le petit doigt en buvant', 1],
-        ['replier soigneusement sa serviette à la fin', 1]
+        ['Garder les poignets sur la table.', 0],
+        ['Poser son pain sur la nappe, à gauche.', 0],
+        ['Rompre le pain avec les doigts.', 0],
+        ['Laisser sa serviette froissée à côté de l’assiette, à la fin.', 0],
+        ['Prendre la soupe sur le bord de l’assiette.', 0],
+        ['Décortiquer une crevette avec les doigts, à l’apéritif.', 0],
+        ['Mettre les coudes sur la table.', 1],
+        ['Couper son pain avec un couteau.', 1],
+        ['Mettre son couteau dans la bouche.', 1],
+        ['Lever le petit doigt en buvant son thé.', 1],
+        ['Saucer son assiette avec un morceau de pain tenu à la main.', 1],
+        ['Replier soigneusement sa serviette à la fin du repas.', 1]
       ],
-      aide:'Dos que sorprenden: las <b>manos</b> se quedan a la vista (viene de cuando había que '
-         + 'demostrar que no se escondía nada), y la <b>servilleta</b> no se vuelve a doblar — '
-         + 'doblarla significaría que uno cuenta con volver a comer ahí.' },
+      aide:'Las dos que más sorprenden: las <b>manos</b> se quedan a la vista (viene de cuando '
+         + 'había que demostrar que no se escondía nada), y la <b>servilleta</b> no se vuelve a '
+         + 'doblar — doblarla significaría que uno cuenta con volver a comer ahí.' },
 
-    /* 3 */ { t:'qcm', etiqueta:'Et toi, tu fais comment ?',
-      consigne:'Situaciones concretas. Elige lo que harías y mira después lo que dice Carmel.',
-      q: [
-        { enonce:'À l’apéritif, on te sert des crevettes entières. Tu les décortiques…',
-          min:'7:09',
-          o:['avec les doigts', 'à la fourchette et au couteau', 'tu n’y touches pas'], r:0,
-          note:'<b>Con los dedos</b>, y no pasa nada: en el aperitivo está perfectamente admitido '
-             + '[09:22]. En un plato servido en la mesa, en cambio, se hace con cubiertos: '
-             + 'cabeza, cola, patas, y por último el caparazón [08:49]. Las dos están bien — '
-             + 'lo que cambia es el momento.' },
-        { enonce:'Il reste de la sauce dans ton assiette. Tu…', min:'22:24',
-          o:['prends un morceau de pain dans la main et tu sauces',
-             'piques un petit morceau de pain au bout de ta fourchette',
-             'laisses la sauce'], r:1,
-          note:'Con el pan <b>en la mano</b> no; con el pan <b>en el tenedor</b> sí, discretamente '
-             + '[24:07]. Es el término medio francés.' },
-        { enonce:'Tu manges une soupe très chaude. Tu…', min:'11:51',
-          o:['penches le buste vers l’assiette', 'souffles dessus',
-             'prends la soupe sur le bord de l’assiette, où elle est moins chaude'], r:2,
-          note:'Y la espalda recta: es la cuchara la que sube a la boca [12:02].' },
-        { enonce:'Des spaghettis. Tu les enroules…', min:'25:16',
-          o:['avec une cuillère', 'avec la fourchette seulement, peu à la fois',
-             'tu les coupes au couteau'], r:1,
-          note:'La cuchara está muy extendida, pero no forma parte de los códigos.' },
-        { enonce:'L’hôte te sert un plat que tu n’aimes pas. Tu…',
-          o:['dis que tu n’aimes pas', 'en prends un peu, pour goûter',
-             'refuses sans explication'], r:1,
-          note:'La cantidad es la forma educada de decir que no. Y conecta con la regla número uno.' },
-        { enonce:'Quelqu’un à table ne connaît pas une règle et se trompe. Tu…',
-          min:'13:26',
-          o:['le corriges tout de suite', 'ne dis rien', 'en parles après le repas, devant tout le monde'],
-          r:1, note:'La regla número uno de Carmel: <b>nunca</b> hacer sentir mal al otro ni '
-                  + 'mostrarle que se equivoca [14:15]. La anécdota de la reina y el rince-doigts '
-                  + 'lo dice todo [13:48].' }
-      ] },
-
-    /* 4 */ { t:'prod', etiqueta:'Contraste', mots:80,
-      consigne:'Y en México, ¿qué pasa con esas mismas cosas?',
-      sous:'80 palabras. Nadie mejor que tú para decirlo: aquí no hay respuesta correcta.',
-      check: [
-        'Tres cosas que <b>se hacen</b> aquí y que en Francia <b>no se hacen</b> (o al revés).',
-        'Una que sea igual en los dos sitios.',
-        'Tres expresiones de la actividad 22 (<i>ça ne se fait pas, c’est la base…</i>).',
-        'Una cosa que a ti te parezca exagerada, y por qué.'
+    /* 3 */ { t:'points', etiqueta:'Montre-moi',
+      consigne:'Señala en la mesa lo que se te pide. Ocho veces.',
+      sous:'Pulsa directamente sobre el dibujo.',
+      puntos: [
+        { id:'assiette',   nombre:'l’assiette' },
+        { id:'fourchette', nombre:'la fourchette' },
+        { id:'couteau',    nombre:'le couteau' },
+        { id:'cuillere',   nombre:'la cuillère' },
+        { id:'verre-eau',  nombre:'le verre à eau' },
+        { id:'verre-vin',  nombre:'le verre à vin' },
+        { id:'pain',       nombre:'le pain' },
+        { id:'serviette',  nombre:'la serviette' }
       ],
-      modele:'Chez nous, on mange beaucoup de choses avec les mains — un taco, une quesadilla — '
-           + 'et ça ne choque personne : c’est même la base. En France, ça ferait mauvais genre '
-           + 'dans un repas un peu formel. En revanche, poser les coudes sur la table, ça ne se '
-           + 'fait pas non plus ici : ma grand-mère me reprenait tout le temps. Ce qui est pareil, '
-           + 'c’est qu’on attend que tout le monde soit servi. Ce qui me paraît exagéré, c’est de '
-           + 'ne pas souhaiter « bon appétit » : ici, ne pas le dire serait presque vexant.' },
+      svg: `<svg viewBox="0 0 520 330" role="img" aria-label="Une table dressée">
+        <rect x="0" y="0" width="520" height="330" rx="10" class="mantel"/>
+        <g data-punto="assiette">
+          <circle cx="260" cy="195" r="80" data-pieza class="pieza"/>
+          <circle cx="260" cy="195" r="62" class="pieza-fina"/>
+        </g>
+        <g data-punto="fourchette">
+          <rect x="158" y="140" width="11" height="112" rx="5" data-pieza class="pieza"/>
+          <rect x="156" y="130" width="3" height="26" class="pieza-fina"/>
+          <rect x="162" y="130" width="3" height="26" class="pieza-fina"/>
+          <rect x="168" y="130" width="3" height="26" class="pieza-fina"/>
+        </g>
+        <g data-punto="couteau">
+          <rect x="352" y="140" width="11" height="112" rx="5" data-pieza class="pieza"/>
+          <path d="M352 140 L363 140 L363 176 L352 186 Z" class="pieza-fina"/>
+        </g>
+        <g data-punto="cuillere">
+          <rect x="382" y="152" width="11" height="100" rx="5" data-pieza class="pieza"/>
+          <ellipse cx="387" cy="143" rx="11" ry="16" class="pieza-fina"/>
+        </g>
+        <g data-punto="verre-eau">
+          <path d="M330 52 L356 52 L352 100 L334 100 Z" data-pieza class="pieza"/>
+          <rect x="339" y="100" width="8" height="18" class="pieza-fina"/>
+          <rect x="331" y="117" width="24" height="5" rx="2" class="pieza-fina"/>
+        </g>
+        <g data-punto="verre-vin">
+          <path d="M378 62 L399 62 L396 98 L381 98 Z" data-pieza class="pieza"/>
+          <rect x="385" y="98" width="7" height="20" class="pieza-fina"/>
+          <rect x="377" y="117" width="22" height="5" rx="2" class="pieza-fina"/>
+        </g>
+        <g data-punto="pain">
+          <circle cx="148" cy="80" r="36" data-pieza class="pieza"/>
+          <ellipse cx="148" cy="78" rx="22" ry="14" class="pieza-fina"/>
+          <path d="M136 72 L160 72 M134 80 L162 80 M138 88 L158 88" class="pieza-linea"/>
+        </g>
+        <g data-punto="serviette">
+          <rect x="62" y="150" width="62" height="92" rx="4" data-pieza class="pieza"/>
+          <path d="M62 174 L124 174 M62 198 L124 198" class="pieza-linea"/>
+        </g>
+      </svg>`,
+      aide:'La regla de oro: <b>los cubiertos se usan de fuera hacia dentro</b>, según van '
+         + 'llegando los platos. Y los vasos, arriba a la derecha.' },
 
-    /* 5 */ { t:'qcm', etiqueta:'La vidéo', min:'0:00',
-      consigne:'Seis preguntas sobre el vídeo. Usa los botones de minuto para comprobar.',
+    /* 4 */ { t:'ordre', etiqueta:'L’ordre du repas',
+      consigne:'Pon en orden un menú francés completo, del principio al final.',
+      sous:'Hay uno que casi nadie coloca bien, y es el que más sorprende fuera de Francia.',
+      items: [
+        'L’apéritif',
+        'L’entrée',
+        'Le plat principal',
+        'La salade',
+        'Le fromage',
+        'Le dessert',
+        'Le café'
+      ],
+      aide:'El que sorprende: <b>el queso va antes del postre</b>, no después. Y la ensalada, '
+         + 'antes del queso — nunca de entrada, como en muchos otros países.' },
+
+    /* 5 */ { t:'dialogue', etiqueta:'Un dîner chez les parents de ton ami',
+      consigne:'Seis momentos de la cena. Elige qué haces y mira lo que pasa.',
+      sous:'No hay trampa: casi todas las respuestas son razonables. Solo una es la que harías '
+         + 'si conocieras los códigos.',
+      final: 'Tu es rentré sans avoir mis personne mal à l’aise — y compris toi-même. '
+           + 'C’est exactement la règle numéro un de Carmel.',
+      escenas: [
+        { texto:'On t’a invité à dîner à <b>20 h</b>. Tu es devant la porte à 19 h 50. Tu…',
+          opciones: [
+            { texto:'sonnes tout de suite, pour ne pas être en retard', ok:false,
+              replica:'La mère ouvre en tablier, un peu surprise : elle était encore en cuisine. '
+                    + 'Arriver pile à l’heure, ou avant, met l’hôte en difficulté.' },
+            { texto:'fais un tour et sonnes vers 20 h 15', ok:true,
+              replica:'Parfait. C’est le « quart d’heure de politesse » : on arrive un peu après, '
+                    + 'jamais avant. Au-delà de 20-30 minutes, en revanche, on prévient.' },
+            { texto:'attends qu’il soit 21 h, pour être sûr', ok:false,
+              replica:'Trop. Le plat t’attendait depuis une heure et tout le monde a faim.' }
+          ] },
+        { texto:'Tu es à table. Tu ne manges pas encore. Tes mains…', min:'8:04',
+          opciones: [
+            { texto:'sur tes genoux, sous la table', ok:false,
+              replica:'C’est l’usage anglo-saxon. En France, ça intrigue : historiquement, '
+                    + 'les mains devaient rester visibles — question de poison et d’armes cachées.' },
+            { texto:'les poignets posés sur la table', ok:true,
+              replica:'Exactement. Les poignets ou les mains sur la table, mais jamais les coudes.' },
+            { texto:'les coudes sur la table, tu es détendu', ok:false,
+              replica:'Là, la grand-mère te regarde. Les coudes, c’est le reproche classique.' }
+          ] },
+        { texto:'On sert une soupe brûlante. Tu…', min:'11:51',
+          opciones: [
+            { texto:'souffles dessus', ok:false,
+              replica:'Ça s’entend, et ça se voit. On évite.' },
+            { texto:'penches le buste vers l’assiette pour aller plus vite', ok:false,
+              replica:'C’est la cuillère qui monte à la bouche, pas le buste qui descend. '
+                    + 'Le dos reste droit.' },
+            { texto:'la prends sur le bord de l’assiette, en effleurant la surface', ok:true,
+              replica:'Oui : c’est là qu’elle est la moins chaude. Et le dos reste droit.' }
+          ] },
+        { texto:'Il reste de la sauce dans ton assiette, et elle est très bonne. Tu…', min:'22:24',
+          opciones: [
+            { texto:'prends un morceau de pain dans la main et tu sauces', ok:false,
+              replica:'C’est le geste qu’on évite. Pourtant tout le monde en a envie — '
+                    + 'il existe une solution.' },
+            { texto:'piques un petit morceau de pain au bout de ta fourchette', ok:true,
+              replica:'C’est le compromis français : discret, et personne n’y trouve rien à redire.' },
+            { texto:'laisses la sauce, à regret', ok:false,
+              replica:'Dommage : ce n’était pas interdit, à condition de passer par la fourchette.' }
+          ] },
+        { texto:'Un invité étranger boit l’eau de son <b>rince-doigts</b>. '
+              + 'Les autres se regardent. Tu…', min:'13:39',
+          opciones: [
+            { texto:'lui expliques gentiment à quoi ça sert', ok:false,
+              replica:'Gentiment ou pas, tu viens de lui montrer qu’il s’est trompé devant '
+                    + 'tout le monde. C’est précisément ce qu’il ne faut pas faire.' },
+            { texto:'ne dis rien et tu regardes ailleurs', ok:false,
+              replica:'Pas mal — mais il reste seul avec son malaise. On peut faire mieux.' },
+            { texto:'bois la tienne aussi', ok:true,
+              replica:'C’est ce qu’a fait la reine d’Angleterre dans la même situation. '
+                    + 'Plus personne ne remarque rien, et l’invité ne saura jamais. '
+                    + 'Règle numéro un : ne jamais mettre l’autre mal à l’aise.' }
+          ] },
+        { texto:'Le repas est fini, on se lève. Ta serviette…', min:'33:29',
+          opciones: [
+            { texto:'tu la replies soigneusement', ok:false,
+              replica:'Attention : replier sa serviette signifiait qu’on compte revenir au '
+                    + 'repas suivant. Chez des inconnus, c’est presque drôle.' },
+            { texto:'tu la poses légèrement froissée à côté de l’assiette', ok:true,
+              replica:'C’est exactement ça. Ni pliée, ni jetée : posée.' },
+            { texto:'tu la laisses sur la chaise', ok:false,
+              replica:'Elle finit par terre, et quelqu’un devra la ramasser.' }
+          ] }
+      ],
+      aide:'Si has acertado menos de cuatro, vuelve a jugar después de ver el vídeo: todas las '
+         + 'respuestas están ahí, con su minuto.' },
+
+    /* 6 */ { t:'qcm', etiqueta:'La vidéo', min:'0:00',
+      consigne:'Seis preguntas. Usa los botones de minuto para comprobar.',
       q: [
         { enonce:'Pourquoi la couleur des vêtements des animateurs est-elle une erreur ?',
           min:'0:37',
@@ -865,20 +953,18 @@ FICHAS.push({
         { enonce:'Selon Carmel, ne pas connaître les codes…', min:'3:15',
           o:['fait peur et empêche d’oser entrer quelque part',
              'n’a aucune importance', 'se voit tout de suite'], r:0,
-          note:'Su ejemplo: no atreverse a entrar en un gran hotel por una pastelería, por miedo '
-             + 'a la mirada de los demás [03:48].' },
+          note:'Su ejemplo: no atreverse a entrar en un gran hotel por una pastelería [03:48].' },
         { enonce:'Pourquoi, traditionnellement, on ne dit pas « bon appétit » ?', min:'14:40',
           o:['parce que ça renvoie à la digestion, et le repas est un art de vivre',
              'parce que c’est trop familier', 'parce que ça porte malheur'], r:0,
-          note:'Pero si nos lo dicen, se responde « Merci, vous également » [14:46]. Hoy casi '
-             + 'todo el mundo lo dice.' },
+          note:'Pero si nos lo dicen, se responde « Merci, vous également » [14:46].' },
         { enonce:'Quelle est, selon Carmel, la règle numéro un ?', min:'13:26',
           o:['connaître l’ordre des couverts',
              'ne jamais mettre les autres mal à l’aise',
              'ne jamais parler à table'], r:1 }
       ] },
 
-    /* 6 */ { t:'prod', etiqueta:'Après la vidéo', mots:50,
+    /* 7 */ { t:'prod', etiqueta:'Après la vidéo', mots:50,
       consigne:'Una cosa del vídeo que te sorprendió, y una que ya hacías sin saber por qué.',
       sous:'50 palabras. Dos frases bien hechas valen más que diez a medias.',
       check: [
@@ -892,7 +978,7 @@ FICHAS.push({
            + 'savoir, c’est garder les mains sur la table. Chez moi, les cacher, ça ne se fait pas '
            + 'non plus.' },
 
-    /* 7 */ { t:'transfo', etiqueta:'Plus… plus',
+    /* 8 */ { t:'transfo', etiqueta:'Plus… plus',
       consigne:'Termina cada frase a tu manera. Compara después con el modelo.',
       sous:'Es la actividad 19 del libro: no hay una sola respuesta buena.',
       q: [
@@ -900,47 +986,26 @@ FICHAS.push({
           modele:'Plus je vois ce qui est à la mode, moins j’ai envie de suivre la mode.' },
         { enonce:'Plus je vieillis, plus / moins…',
           modele:'Plus je vieillis, plus je comprends à quoi servent ces règles.' },
-        { enonce:'Plus je vois les ados, plus / moins…',
-          modele:'Plus je vois les ados, plus je me dis qu’ils sont simplement plus directs.' },
         { enonce:'Plus / Moins il y a d’objets dans un salon, plus / moins…',
           modele:'Moins il y a d’objets dans un salon, plus la pièce paraît grande.',
-          note:'Delante de un nombre, <b>de</b>: <i>moins d’objets</i>, <i>plus de monde</i>.' },
+          note:'Delante de un nombre, <b>de</b>: <i>moins d’objets</i>.' },
         { enonce:'Moins on connaît les codes, plus / moins…',
           modele:'Moins on connaît les codes, plus on a peur de se tromper.' }
       ] },
 
-    /* 8 */ { t:'trous', etiqueta:'Valoir',
+    /* 9 */ { t:'trous', etiqueta:'Valoir',
       consigne:'Completa con el verbo valoir.',
       q: [
         { enonce:'Il ___ mieux éviter d’en parler à table.', r:['vaut'], taille:10 },
         { enonce:'Mieux ___ prévenir que guérir.', r:['vaut'], taille:10 },
-        { enonce:'Un homme averti en ___ deux. <i>(proverbe)</i>', r:['vaut'], taille:10 },
-        { enonce:'Deux précautions ___ mieux qu’une. <i>(proverbe)</i>', r:['valent'], taille:10,
+        { enonce:'Un homme averti en ___ deux.', r:['vaut'], taille:10 },
+        { enonce:'Deux précautions ___ mieux qu’une.', r:['valent'], taille:10,
           note:'Aquí el sujeto es <b>deux précautions</b>, plural: <i>valent</i>.' },
         { enonce:'Apprendre ces règles, ça ___ la peine.', r:['vaut'], taille:10 }
       ] },
 
-    /* 9 */ { t:'qcm', etiqueta:'Les proverbes',
-      consigne:'¿Qué quiere decir cada uno?',
-      q: [
-        { enonce:'« Un homme averti en vaut deux. »',
-          o:['Quien está prevenido tiene ventaja',
-             'Dos personas trabajan mejor que una',
-             'Hay que avisar dos veces'], r:0 },
-        { enonce:'« Deux précautions valent mieux qu’une. »',
-          o:['Es mejor no arriesgarse nunca',
-             'Más vale tomar una precaución de más que una de menos',
-             'Hay que hacer las cosas dos veces'], r:1 },
-        { enonce:'¿Por qué los usa Vincent en el mensaje ?',
-          o:['para presumir de cultura',
-             'para suavizar un consejo: dice la regla sin señalar a nadie',
-             'porque no sabe explicarlo de otra forma'], r:1,
-          note:'Es exactamente lo que hace un proverbio: dice la norma <b>sin</b> acusar a nadie. '
-             + 'Muy útil cuando quieres corregir a alguien sin que se sienta atacado.' }
-      ] },
-
     /* 10 */ { t:'tri', etiqueta:'La nétiquette',
-      consigne:'En un correo o un chat con alguien a quien no tuteas: ¿se hace o no?',
+      consigne:'En un correo con alguien a quien no tuteas: ¿se hace o no?',
       cols: ['Ça se fait', 'Ça ne se fait pas'],
       items: [
         ['commencer par « Bonjour » avant de demander quelque chose', 0],
@@ -957,7 +1022,7 @@ FICHAS.push({
          + 'el trabajo al otro: tú tardas ocho minutos en hablar, él tarda ocho en escucharte.' },
 
     /* 11 */ { t:'qcm', etiqueta:'Nétiquette',
-      consigne:'Tres situaciones. ¿Qué expresión de la actividad 22 usarías?',
+      consigne:'¿Qué expresión de la actividad 22 usarías?',
       q: [
         { enonce:'Un camarade t’envoie un vocal de huit minutes à minuit.',
           o:['C’est la base.', 'Ça ne se fait pas vraiment, et ça met mal à l’aise.', 'C’est vexant.'],
@@ -967,8 +1032,8 @@ FICHAS.push({
              'C’est la base.', 'Ça s’apprend.'], r:0 },
         { enonce:'Un étudiant écrit à un professeur sans dire bonjour.',
           o:['C’est n’importe quoi.', 'Ça ne se fait pas — mais ça s’apprend.', 'C’est vexant.'],
-          r:1, note:'Las dos juntas: señalas la norma y al mismo tiempo no humillas a nadie. '
-                  + 'Es la fórmula más útil de toda la lista.' }
+          r:1, note:'Las dos juntas: señalas la norma y no humillas a nadie. Es la fórmula más '
+                  + 'útil de toda la lista.' }
       ] },
 
     /* 12 */ { t:'prod', etiqueta:'Production finale', mots:120,
@@ -990,8 +1055,8 @@ FICHAS.push({
            + 'pas. Et on attend l’hôte avant de commencer, comme chez toi.<br><br>'
            + 'Ce qui ne se fait pas : refuser un plat sans goûter, partir tout de suite après le '
            + 'repas — plus tu restes à table, plus on te trouve sympathique —, et arriver à '
-           + 'l’heure exacte à une invitation chez quelqu’un. Il vaut mieux arriver vingt '
-           + 'minutes plus tard : autrement, tu surprends tout le monde en cuisine.' }
+           + 'l’heure exacte à une invitation. Il vaut mieux arriver vingt minutes plus tard : '
+           + 'autrement, tu surprends tout le monde en cuisine.' }
   ]
 });
 

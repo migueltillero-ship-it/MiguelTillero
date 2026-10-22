@@ -90,6 +90,7 @@ function botonMinuto(min){
 
 function irAlMinuto(min){
   const s = segundos(min);
+  desplegarVideo();
   if(reproductor && videoListo){
     reproductor.seekTo(s, true);
     reproductor.playVideo();
@@ -100,11 +101,29 @@ function irAlMinuto(min){
   }
 }
 
+/* El vídeo se queda pegado arriba, y en un ejercicio largo eso estorba.
+   Se puede plegar sin perder el minuto: el reproductor sigue ahí, solo
+   deja de ocupar sitio. Al saltar a un minuto se despliega solo. */
+function plegarVideo(){
+  const caja = document.getElementById('caja-video');
+  if(!caja) return;
+  const plegada = caja.classList.toggle('plegada');
+  const b = document.getElementById('btn-plegar');
+  if(b) b.textContent = plegada ? 'Afficher la vidéo ▼' : 'Réduire la vidéo ▲';
+}
+
+function desplegarVideo(){
+  const caja = document.getElementById('caja-video');
+  if(caja && caja.classList.contains('plegada')) plegarVideo();
+}
+
 function montarVideo(v){
   const caja = document.getElementById('caja-video');
   if(!caja) return;
   caja.innerHTML = `<div class="video-marco"><div id="yt-player"></div></div>
-    <div class="video-pie"><span>${esc(v.titulo || '')}</span>
+    <div class="video-pie">
+      <button class="btn-plegar" id="btn-plegar" onclick="plegarVideo()">Réduire la vidéo ▲</button>
+      <span class="video-titulo">${esc(v.titulo || '')}</span>
       <a href="https://www.youtube.com/watch?v=${esc(v.id)}" target="_blank" rel="noopener">Ouvrir sur YouTube ↗</a></div>`;
   function crear(){
     reproductor = new YT.Player('yt-player', {
@@ -325,10 +344,13 @@ function pintarEjercicio(f, i){
       ${e.sous?`<small>${esc(e.sous)}</small>`:''}</div>
     <div id="cuerpo-${i}">${PINTAR[e.t] ? PINTAR[e.t](e,i) : ''}</div>
     <div class="actions">
-      ${e.t==='prod' ? `<button class="btn" onclick="guardarRedaccion(${i})">Enregistrer mon texte</button>
-                        <button class="btn doux" onclick="verModelo(${i})">Voir un modèle</button>`
-                     : `<button class="btn" onclick="corregir(${i})">Corriger</button>
-                        <button class="btn doux" onclick="rehacer(${i})">Recommencer</button>`}
+      ${e.t==='prod'
+          ? `<button class="btn" onclick="guardarRedaccion(${i})">Enregistrer mon texte</button>
+             <button class="btn doux" onclick="verModelo(${i})">Voir un modèle</button>`
+          : AUTOCORRIGE.indexOf(e.t) >= 0
+          ? `<button class="btn doux" onclick="rehacer(${i})">Recommencer</button>`
+          : `<button class="btn" onclick="corregir(${i})">Corriger</button>
+             <button class="btn doux" onclick="rehacer(${i})">Recommencer</button>`}
     </div>
     <div class="verdict" id="verdict-${i}"></div>
     ${e.aide?`<div class="aide" id="aide-${i}"><b>Pour comprendre&#8239;:</b> ${e.aide}</div>`:''}
@@ -336,7 +358,233 @@ function pintarEjercicio(f, i){
   </div>`;
 }
 
+
+/* ═══ TIPOS QUE SE JUEGAN ══════════════════════════════════════════════
+   Los cuatro de abajo no se «corrigen» al final: van respondiendo
+   mientras se juega. Un cuestionario de doce preguntas seguidas se
+   abandona a la quinta; un reto de un minuto, no.
+   ═══════════════════════════════════════════════════════════════════════ */
+const AUTOCORRIGE = ['defi', 'dialogue', 'points', 'ordre'];
+
+/* ── ORDRE · poner en orden ─────────────────────────────────────────── */
+function moverJeton(i, pos, dir){
+  const caja = document.getElementById('orden-' + i);
+  const items = Array.prototype.slice.call(caja.children);
+  const destino = pos + dir;
+  if(destino < 0 || destino >= items.length) return;
+  if(dir < 0) caja.insertBefore(items[pos], items[destino]);
+  else caja.insertBefore(items[destino], items[pos]);
+  Array.prototype.forEach.call(caja.children, (el, k) => {
+    el.querySelector('[data-pos]').textContent = k + 1;
+    el.dataset.pos = k;
+    el.querySelector('.sube').setAttribute('onclick', `moverJeton(${i},${k},-1)`);
+    el.querySelector('.baja').setAttribute('onclick', `moverJeton(${i},${k},1)`);
+  });
+}
+
+function comprobarOrden(i){
+  const e = fichaActual.ejercicios[i];
+  const caja = document.getElementById('orden-' + i);
+  let bien = 0;
+  Array.prototype.forEach.call(caja.children, (el, k) => {
+    const ok = +el.dataset.item === k;
+    el.classList.add(ok ? 'juste' : 'faux');
+    if(ok) bien++;
+    else el.querySelector('.pista').textContent = '→ ' + (+el.dataset.item + 1);
+    el.querySelectorAll('button').forEach(b => b.disabled = true);
+  });
+  anotar(i, bien, e.items.length);
+  const aide = document.getElementById('aide-' + i);
+  if(aide) aide.classList.add('vue');
+  mostrarVerdicto(i, bien, e.items.length);
+  pintarSello();
+}
+
+/* ── DÉFI · una carta cada vez, con reloj ───────────────────────────── */
+function empezarDefi(i){
+  const e = fichaActual.ejercicios[i];
+  const st = estado[i];
+  st.orden = mezclar(e.items.map((x, k) => k));
+  st.n = 0; st.bien = 0; st.fallos = [];
+  st.queda = e.segundos || 60;
+  document.getElementById('defi-intro-' + i).style.display = 'none';
+  document.getElementById('defi-juego-' + i).style.display = 'block';
+  siguienteCarta(i);
+  clearInterval(st.reloj);
+  st.reloj = setInterval(() => {
+    st.queda--;
+    const r = document.getElementById('defi-reloj-' + i);
+    if(r) r.textContent = st.queda + ' s';
+    if(st.queda <= 0) terminarDefi(i);
+  }, 1000);
+}
+
+function siguienteCarta(i){
+  const e = fichaActual.ejercicios[i], st = estado[i];
+  if(st.n >= st.orden.length){ terminarDefi(i); return; }
+  const it = e.items[st.orden[st.n]];
+  document.getElementById('defi-carta-' + i).innerHTML = it[0];
+  document.getElementById('defi-cuenta-' + i).textContent =
+    (st.n + 1) + ' / ' + st.orden.length;
+}
+
+function responderDefi(i, col){
+  const e = fichaActual.ejercicios[i], st = estado[i];
+  if(st.n >= st.orden.length) return;
+  const it = e.items[st.orden[st.n]];
+  const carta = document.getElementById('defi-carta-' + i);
+  const ok = it[1] === col;
+  if(ok) st.bien++; else st.fallos.push(it);
+  carta.classList.add(ok ? 'acierto' : 'fallo');
+  setTimeout(() => {
+    carta.classList.remove('acierto', 'fallo');
+    st.n++; siguienteCarta(i);
+  }, 320);
+}
+
+function terminarDefi(i){
+  const e = fichaActual.ejercicios[i], st = estado[i];
+  clearInterval(st.reloj);
+  document.getElementById('defi-juego-' + i).style.display = 'none';
+  const caja = document.getElementById('defi-fin-' + i);
+  caja.style.display = 'block';
+  caja.innerHTML = `<p><b>${st.bien} / ${e.items.length}</b>`
+    + (st.queda <= 0 ? ' — le temps est écoulé.' : '') + '</p>'
+    + (st.fallos.length
+        ? '<p>À revoir&#8239;:</p><ul class="liste-fallos">' + st.fallos.map(f =>
+            `<li>${f[0]} <span class="etiquette">${esc(e.cols[f[1]])}</span></li>`).join('') + '</ul>'
+        : '<p>Rien à revoir. Bravo.</p>');
+  anotar(i, st.bien, e.items.length);
+  const aide = document.getElementById('aide-' + i);
+  if(aide) aide.classList.add('vue');
+  mostrarVerdicto(i, st.bien, e.items.length);
+  pintarSello();
+}
+
+/* ── DIALOGUE · una escena, una decisión, una consecuencia ──────────── */
+function pintarEscena(i){
+  const e = fichaActual.ejercicios[i], st = estado[i];
+  const esc_ = e.escenas[st.escena];
+  if(!esc_){ terminarDialogue(i); return; }
+  document.getElementById('dial-cuerpo-' + i).innerHTML =
+    `<div class="dial-paso">${st.escena + 1} / ${e.escenas.length}</div>
+     <div class="dial-scene">${esc_.texto}${botonMinuto(esc_.min)}</div>
+     <div class="opts">${esc_.opciones.map((o, k) =>
+        `<button class="opt" onclick="elegirEscena(${i},${k})">${o.texto}</button>`).join('')}</div>
+     <div class="dial-replica" id="dial-replica-${i}"></div>`;
+}
+
+function elegirEscena(i, k){
+  const e = fichaActual.ejercicios[i], st = estado[i];
+  const o = e.escenas[st.escena].opciones[k];
+  if(o.ok) st.bien++;
+  document.querySelectorAll(`#dial-cuerpo-${i} .opt`).forEach((b, bi) => {
+    b.disabled = true;
+    if(e.escenas[st.escena].opciones[bi].ok) b.classList.add('juste');
+    else if(bi === k) b.classList.add('faux');
+  });
+  document.getElementById('dial-replica-' + i).innerHTML =
+    `<p>${o.replica}</p>
+     <button class="btn" onclick="avanzarEscena(${i})">Continuer →</button>`;
+}
+
+function avanzarEscena(i){
+  const st = estado[i];
+  st.escena++;
+  pintarEscena(i);
+}
+
+function terminarDialogue(i){
+  const e = fichaActual.ejercicios[i], st = estado[i];
+  document.getElementById('dial-cuerpo-' + i).innerHTML =
+    `<div class="dial-fin"><b>${st.bien} / ${e.escenas.length}</b> —
+     ${e.final || 'Le dîner est fini. Tu peux recommencer et essayer d’autres réponses.'}</div>`;
+  anotar(i, st.bien, e.escenas.length);
+  const aide = document.getElementById('aide-' + i);
+  if(aide) aide.classList.add('vue');
+  mostrarVerdicto(i, st.bien, e.escenas.length);
+  pintarSello();
+}
+
+/* ── POINTS · señalar sobre un dibujo ───────────────────────────────── */
+function pintarConsignaPunto(i){
+  const e = fichaActual.ejercicios[i], st = estado[i];
+  const caja = document.getElementById('pts-consigna-' + i);
+  if(st.n >= e.puntos.length){
+    caja.innerHTML = `<b>${st.bien} / ${e.puntos.length}</b>`;
+    anotar(i, st.bien, e.puntos.length);
+    const aide = document.getElementById('aide-' + i);
+    if(aide) aide.classList.add('vue');
+    mostrarVerdicto(i, st.bien, e.puntos.length);
+    pintarSello();
+    return;
+  }
+  caja.innerHTML = `<span class="pts-cuenta">${st.n + 1}/${e.puntos.length}</span>
+    Montre&#8239;: <b>${e.puntos[st.n].nombre}</b>`;
+}
+
+function tocarPunto(i, id){
+  const e = fichaActual.ejercicios[i], st = estado[i];
+  if(st.n >= e.puntos.length) return;
+  const esperado = e.puntos[st.n].id;
+  const zona = document.querySelector(`#ex-${i} [data-punto="${id}"]`);
+  const ok = id === esperado;
+  if(ok){
+    st.bien++;
+    zona.classList.add('punto-ok');
+  } else {
+    zona.classList.add('punto-ko');
+    setTimeout(() => zona.classList.remove('punto-ko'), 500);
+    const bueno = document.querySelector(`#ex-${i} [data-punto="${esperado}"]`);
+    if(bueno) bueno.classList.add('punto-pista');
+  }
+  st.n++;
+  setTimeout(() => pintarConsignaPunto(i), ok ? 260 : 700);
+}
+
 const PINTAR = {
+  /* Poner en orden */
+  ordre: (e,i) => `<div class="orden" id="orden-${i}">
+      ${mezclar(e.items.map((x,k)=>k)).map((k, pos) => `
+        <div class="orden-fila" data-item="${k}" data-pos="${pos}">
+          <span class="orden-num" data-pos>${pos+1}</span>
+          <span class="orden-txt">${e.items[k]}</span>
+          <span class="pista"></span>
+          <button class="orden-btn sube" onclick="moverJeton(${i},${pos},-1)" title="Monter">▲</button>
+          <button class="orden-btn baja" onclick="moverJeton(${i},${pos},1)" title="Descendre">▼</button>
+        </div>`).join('')}
+    </div>
+    <div class="actions"><button class="btn" onclick="comprobarOrden(${i})">Vérifier l’ordre</button></div>`,
+
+  /* Reto con reloj */
+  defi: (e,i) => `<div id="defi-intro-${i}" class="defi-intro">
+      <p>${e.items.length} cartes, ${e.segundos || 60} secondes. Une seule question&#8239;:
+         <b>${esc(e.cols[0])}</b> ou <b>${esc(e.cols[1])}</b>&#8239;?</p>
+      <button class="btn" onclick="empezarDefi(${i})">Commencer le défi</button>
+    </div>
+    <div id="defi-juego-${i}" class="defi" style="display:none;">
+      <div class="defi-barra">
+        <span class="defi-cuenta" id="defi-cuenta-${i}"></span>
+        <span class="defi-reloj" id="defi-reloj-${i}">${e.segundos || 60} s</span>
+      </div>
+      <div class="defi-carta" id="defi-carta-${i}"></div>
+      <div class="defi-botones">
+        <button class="btn doux" onclick="responderDefi(${i},0)">${esc(e.cols[0])}</button>
+        <button class="btn doux" onclick="responderDefi(${i},1)">${esc(e.cols[1])}</button>
+      </div>
+    </div>
+    <div id="defi-fin-${i}" class="defi-fin" style="display:none;"></div>`,
+
+  /* Conversación con decisiones */
+  dialogue: (e,i) => `<div class="dialogue" id="dial-cuerpo-${i}"></div>`,
+
+  /* Señalar sobre un dibujo */
+  points: (e,i) => `<div class="puntos" onclick="(function(ev){
+        var z = ev.target.closest('[data-punto]');
+        if(z) tocarPunto(${i}, z.getAttribute('data-punto'));
+      })(event)">${e.svg}</div>
+    <div class="pts-consigna" id="pts-consigna-${i}"></div>`,
+
   /* Elección múltiple */
   qcm: (e,i) => e.q.map((q,qi) => `<div class="q">
       <div class="enonce">${qi+1}. ${q.enonce} ${botonMinuto(q.min)}
@@ -401,7 +649,10 @@ const PINTAR = {
 /* ── Estado vivo de cada ejercicio (no se guarda: solo la nota) ── */
 const estado = {};
 function montar(e, i){
-  estado[i] = { tipo:e.t, elegido:{}, cols:{}, pares:{}, ultimoG:null };
+  estado[i] = { tipo:e.t, elegido:{}, cols:{}, pares:{}, ultimoG:null,
+                escena:0, bien:0, n:0, fallos:[], reloj:null };
+  if(e.t === 'dialogue') pintarEscena(i);
+  if(e.t === 'points')   pintarConsignaPunto(i);
   if(e.t === 'prod'){
     const guardado = (avance[fichaActual.id]||{})['texto'+i];
     if(guardado){ document.getElementById('redac-'+i).value = guardado; contarPalabras(i); }
@@ -590,6 +841,7 @@ function anotar(i, bien, total, clave, valor){
 }
 
 function rehacer(i){
+  if(estado[i] && estado[i].reloj) clearInterval(estado[i].reloj);
   const cuerpo = document.getElementById('cuerpo-'+i);
   const e = fichaActual.ejercicios[i];
   cuerpo.innerHTML = PINTAR[e.t](e, i);

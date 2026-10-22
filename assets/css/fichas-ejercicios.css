@@ -253,3 +253,73 @@ footer a{color:var(--bleu)}
 .esquema .guia{stroke:var(--bleu);stroke-width:1;stroke-dasharray:3 3}
 .esquema text{font-family:var(--font-texte);font-size:13px;fill:var(--bleu);font-weight:700}
 .esquema .pie-esquema{font-size:.92rem;color:var(--texte-doux);max-width:60ch;margin:.6rem auto 0;text-align:left}
+
+/* ── Poner en orden ───────────────────────────────────────────────────── */
+.orden{display:grid;gap:.5rem;margin:.8rem 0}
+.orden-fila{display:flex;align-items:center;gap:.7rem;background:var(--fond-doux);
+  border:1px solid var(--gris);border-radius:8px;padding:.6rem .8rem}
+.orden-fila.juste{border-color:var(--sauge);background:rgba(85,122,100,.14)}
+.orden-fila.faux{border-color:var(--terre);background:rgba(194,96,60,.1)}
+.orden-num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;
+  border-radius:50%;background:var(--graphite);color:var(--texte-clair);font-size:.8rem;font-weight:700;flex:none}
+.orden-txt{flex:1;font-size:.98rem}
+.orden .pista{color:var(--terre);font-weight:700;font-size:.85rem}
+.orden-btn{background:transparent;border:1px solid var(--gris);border-radius:6px;cursor:pointer;
+  color:var(--texte-doux);width:34px;height:34px;flex:none}
+.orden-btn:hover:not(:disabled){border-color:var(--bleu);color:var(--bleu)}
+
+/* ── Défi con reloj ───────────────────────────────────────────────────── */
+.defi-intro p{margin-bottom:.9rem}
+.defi-barra{display:flex;justify-content:space-between;font-size:.85rem;color:var(--texte-doux);
+  margin-bottom:.6rem}
+.defi-reloj{font-weight:700;color:var(--bleu)}
+.defi-carta{background:var(--fond-doux);border:1px solid var(--gris);border-radius:10px;
+  padding:2rem 1.4rem;min-height:110px;display:flex;align-items:center;justify-content:center;
+  text-align:center;font-size:1.12rem;line-height:1.5;transition:background .25s,border-color .25s}
+.defi-carta.acierto{background:rgba(85,122,100,.2);border-color:var(--sauge)}
+.defi-carta.fallo{background:rgba(194,96,60,.18);border-color:var(--terre)}
+.defi-botones{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:.8rem}
+.defi-botones .btn{width:100%}
+.liste-fallos{margin:.5rem 0 0 1.1rem;font-size:.95rem}
+.liste-fallos li{margin-bottom:.35rem}
+
+/* ── Diálogo ──────────────────────────────────────────────────────────── */
+.dial-paso{font-size:.78rem;text-transform:uppercase;letter-spacing:2px;color:var(--or);
+  font-weight:700;margin-bottom:.5rem}
+.dial-scene{background:var(--fond-doux);border-left:4px solid var(--bleu);border-radius:0 8px 8px 0;
+  padding:1rem 1.2rem;margin-bottom:1rem;font-size:1.02rem;line-height:1.6}
+.dial-replica{margin-top:1rem}
+.dial-replica p{background:rgba(85,122,100,.1);border-left:4px solid var(--sauge);
+  border-radius:0 8px 8px 0;padding:.9rem 1.1rem;margin-bottom:.9rem;font-style:italic}
+.dial-fin{background:rgba(165,130,74,.12);border-left:5px solid var(--or);border-radius:0 8px 8px 0;
+  padding:1.1rem 1.3rem;line-height:1.6}
+
+/* ── Señalar sobre el dibujo ──────────────────────────────────────────── */
+/* La consigna va debajo del dibujo y se queda pegada al pie de la pantalla:
+   arriba la tapaba el vídeo, que también está pegado. */
+.pts-consigna{position:sticky;bottom:.6rem;z-index:30;font-size:1.05rem;min-height:1.8em;
+  background:var(--carte);border:1px solid var(--bleu);border-radius:999px;
+  padding:.6rem 1.1rem;margin:.9rem auto 0;box-shadow:var(--ombre);
+  width:fit-content;max-width:100%;text-align:center}
+.pts-cuenta{display:inline-block;background:var(--graphite);color:var(--texte-clair);
+  border-radius:999px;padding:.1rem .6rem;font-size:.78rem;font-weight:700;margin-right:.5rem}
+.puntos svg{width:100%;max-width:520px;height:auto;display:block;margin:0 auto}
+.puntos [data-punto]{cursor:pointer;transition:opacity .2s}
+.puntos [data-punto]:hover{opacity:.7}
+.puntos .punto-ok [data-pieza],.puntos [data-punto].punto-ok [data-pieza]{fill:rgba(85,122,100,.45)}
+.puntos [data-punto].punto-ko [data-pieza]{fill:rgba(194,96,60,.5)}
+.puntos [data-punto].punto-pista [data-pieza]{fill:rgba(165,130,74,.4)}
+.puntos .mantel{fill:var(--fond-doux);stroke:var(--gris);stroke-width:2}
+.puntos .pieza{fill:var(--carte);stroke:var(--texte-doux);stroke-width:2}
+.puntos .pieza-fina{fill:none;stroke:var(--texte-doux);stroke-width:1.5}
+.puntos .pieza-linea{fill:none;stroke:var(--texte-doux);stroke-width:1.2;opacity:.6}
+
+/* El vídeo se pliega: sigue cargado, deja de ocupar la pantalla. */
+.caja-video.plegada .video-marco{max-height:0;opacity:0;margin:0;pointer-events:none}
+.video-marco{transition:max-height .3s ease,opacity .25s ease}
+.btn-plegar{background:transparent;border:1px solid var(--bleu);color:var(--bleu);
+  border-radius:999px;padding:.25rem .8rem;font-family:var(--font-texte);font-size:.8rem;
+  cursor:pointer;white-space:nowrap;min-height:32px}
+.btn-plegar:hover{background:var(--bleu);color:#fff}
+.video-titulo{flex:1;min-width:0}
+@media (max-width:620px){ .video-titulo{display:none} }
