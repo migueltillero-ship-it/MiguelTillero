@@ -1896,10 +1896,14 @@ function pintarPago() {
     document.getElementById('bloque-pago').style.display = 'block';
 }
 
+/* El precio NO se muestra mientras alguien solo mira los grupos: la cifra
+   aparece una sola vez, en el paso de pago (pintarPago), que únicamente se
+   ve después de haber enviado la inscripción. Antes de ese primer contacto
+   no se publica ninguna cantidad. Si un grupo es gratuito sí se dice, que
+   eso no es un costo y además conviene saberlo de antemano. */
 function costoTexto(g) {
     if (g.costo === null || g.costo === undefined) return '';
-    const n = Number(g.costo);
-    return n > 0 ? `${n.toLocaleString('es-MX')} ${g.moneda || 'MXN'}` : 'Gratuito';
+    return Number(g.costo) > 0 ? '' : 'Gratuito';
 }
 
 function mostrarGrupoFijo(g) {
