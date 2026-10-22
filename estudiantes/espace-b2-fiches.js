@@ -102,7 +102,8 @@ FICHAS.push({
 
   ejercicios: [
     /* 0 */ { t:'paires', etiqueta:'Act. 2',
-      consigne:'Cada viñeta con el dominio que toca.',
+      consigne:'Associe chaque vignette au domaine qu’elle concerne.',
+      sous:'Es la actividad 2 del libro.',
       pairs: [
         ['Ils kiffent les pires bonbons et détestent les légumes.', 'l’alimentation'],
         ['Ils s’habillent n’importe comment et adorent ce qui brille.', 'la mode'],
@@ -115,7 +116,7 @@ FICHAS.push({
          + 'langage). Las otras dos están aquí porque también dicen algo del gusto.' },
 
     /* 1 */ { t:'trous', etiqueta:'Le vocabulaire',
-      consigne:'Completa con las palabras de las viñetas.',
+      consigne:'Complète avec les mots des vignettes.',
       q: [
         { enonce:'Avoir un goût discutable, c’est avoir des goûts ___.', r:['douteux'], taille:12 },
         { enonce:'Le vieux peluche sans un œil, c’est son ___.', r:['doudou'], taille:12 },
@@ -129,7 +130,7 @@ FICHAS.push({
       ] },
 
     /* 2 */ { t:'qcm', etiqueta:'N’importe',
-      consigne:'Elige la forma correcta.',
+      consigne:'Choisis la forme correcte.',
       q: [
         { enonce:'Il s’habille ___ : il met le premier vêtement qu’il trouve.',
           o:['n’importe quoi', 'n’importe comment', 'n’importe qui'], r:1,
@@ -147,7 +148,8 @@ FICHAS.push({
       ] },
 
     /* 3 */ { t:'paires', etiqueta:'Act. 4a',
-      consigne:'Las cuatro frases del libro, con lo que quieren decir de verdad.',
+      consigne:'Les quatre phrases du livre : associe-les à ce qu’elles veulent vraiment dire.',
+      sous:'Fíjate en cuáles son críticas y cuál depende del tono.',
       pairs: [
         ['Il/Elle s’habille n’importe comment.', 'sans faire attention à ce qu’il/elle met'],
         ['Il/Elle n’a pas de goût.', 'ne sait pas choisir ce qui est beau ou élégant'],
@@ -159,7 +161,7 @@ FICHAS.push({
          + 'La actividad 4b te pide justamente de quién lo dirías tú.' },
 
     /* 4 */ { t:'trous', etiqueta:'Plus… plus',
-      consigne:'Completa, como en las viñetas.',
+      consigne:'Complète, comme dans les vignettes.',
       q: [
         { enonce:'Plus c’est chimique, ___ ils aiment.', r:['plus'], taille:10 },
         { enonce:'Plus ça brille, ___ c’est.', r:['mieux'], taille:10,
@@ -171,8 +173,8 @@ FICHAS.push({
       ] },
 
     /* 5 */ { t:'prod', etiqueta:'Act. 1 et 4b', mots:80,
-      consigne:'¿Qué viñeta te divierte más, y por qué? ¿De quién podrías decir tú las cuatro '
-             + 'frases de la actividad 4 ?',
+      consigne:'Quelle vignette t’amuse le plus, et pourquoi ? De qui pourrais-tu dire les '
+             + 'quatre phrases de l’activité 4 ?',
       sous:'80 palabras. Piensa en niños que conozcas — o en adultos, que también valen.',
       check: [
         'La viñeta que eliges, y por qué te hace gracia.',
@@ -298,7 +300,7 @@ FICHAS.push({
 
   ejercicios: [
     /* 0 */ { t:'paires', etiqueta:'Lexique',
-      consigne:'Cada palabra con lo que designa.',
+      consigne:'Associe chaque mot à ce qu’il désigne.',
       pairs: [
         ['le col', 'la partie du vêtement qui entoure le cou'],
         ['les manches', 'les parties qui couvrent les bras'],
@@ -312,7 +314,8 @@ FICHAS.push({
       ] },
 
     /* 1 */ { t:'tri', etiqueta:'Ça fait…',
-      consigne:'Según el artículo de Manu, ¿qué impresión da cada cosa ?',
+      consigne:'D’après l’article de Manu, quelle impression donne chaque chose ?',
+      sous:'Es la actividad 5b de la página 14.',
       cols: ['Ça fait rappeur', 'Ça fait clown', 'Ça fait grand-père', 'Ça fait bourgeois'],
       items: [
         ['un tee-shirt XXL', 0],
@@ -326,7 +329,8 @@ FICHAS.push({
          + 'dice la <b>impresión</b> que da, que es otra cosa.' },
 
     /* 2 */ { t:'qcm', etiqueta:'Exprimer une impression',
-      consigne:'La construcción correcta. Es lo que más se confunde.',
+      consigne:'Choisis la construction correcte.',
+      sous:'Es lo que más se confunde: cada fórmula pide una continuación distinta.',
       q: [
         { enonce:'___ un ministre, avec ce costume !',
           o:['Ça fait', 'On dirait', 'Il ressemble'], r:1,
@@ -349,7 +353,7 @@ FICHAS.push({
       ] },
 
     /* 3 */ { t:'trous', etiqueta:'Pire',
-      consigne:'Completa con las expresiones del recuadro.',
+      consigne:'Complète avec les expressions de l’encadré.',
       q: [
         { enonce:'Les chaussettes dans les sandales, c’est la ___ erreur du monde.',
           r:['pire'], taille:10 },
@@ -364,7 +368,8 @@ FICHAS.push({
       ] },
 
     /* 4 */ { t:'paires', etiqueta:'Reconstituer (act. 6b)',
-      consigne:'Cada prenda con la expresión que usó la cronista. Cuidado con el acuerdo.',
+      consigne:'Associe chaque vêtement à l’expression employée par la chroniqueuse.',
+      sous:'Cuidado con el acuerdo: es la mitad del ejercicio 6b.',
       pairs: [
         ['les polos et tee-shirts…', 'ni trop longs ni trop courts'],
         ['le jean…', 'trop moulant'],
@@ -377,7 +382,7 @@ FICHAS.push({
          + '<i>le col déboutonn<b>é</b></i> (masculino singular). El acuerdo es lo que pide la actividad.' },
 
     /* 5 */ { t:'qcm', etiqueta:'L’article',
-      consigne:'Cuatro preguntas sobre « Fashion faux pas ! ».',
+      consigne:'Quatre questions sur « Fashion faux pas ! ».',
       q: [
         { enonce:'Selon Manu, quelle est la pire erreur — et la plus répandue ?',
           o:['le tee-shirt à message', 'les chaussettes dans les sandales', 'le pantacourt'], r:1 },
@@ -398,7 +403,7 @@ FICHAS.push({
 
     /* 6 */ { t:'prod', etiqueta:'Production écrite', mots:90,
       consigne:'Décris un look que tu aimes bien — le tien ou celui de quelqu’un d’autre. '
-             + '(Actividad 7)',
+             + '(Activité 7)',
       sous:'90 palabras, con el vocabulario de los dos recuadros. Nada de « c’est beau ».',
       check: [
         'Tres prendas con su detalle (le col, les manches, la ceinture…).',
@@ -505,7 +510,7 @@ FICHAS.push({
 
   ejercicios: [
     /* 0 */ { t:'qcm', etiqueta:'Compréhension',
-      consigne:'Cinco preguntas sobre el artículo.',
+      consigne:'Cinq questions sur l’article.',
       q: [
         { enonce:'Selon Bourdieu, nos goûts sont déterminés par…',
           o:['notre caractère', 'notre position sociale', 'notre âge'], r:1,
@@ -529,7 +534,7 @@ FICHAS.push({
       ] },
 
     /* 1 */ { t:'trous', etiqueta:'Définir',
-      consigne:'Completa con c’est quand, c’est ce qui, c’est ce que o c’est une question de.',
+      consigne:'Complète avec c’est quand, c’est ce qui, c’est ce que ou c’est une question de.',
       q: [
         { enonce:'Le kitsch, ___ on accumule des objets voyants et un peu ridicules.',
           r:['c’est quand',"c'est quand"], taille:20 },
@@ -548,7 +553,7 @@ FICHAS.push({
       ] },
 
     /* 2 */ { t:'prod', etiqueta:'À ta façon', mots:60,
-      consigne:'Define tres de estos conceptos con tus palabras: la laideur, le kitsch, '
+      consigne:'Définis trois de ces concepts avec tes mots : la laideur, le kitsch, '
              + 'le bling-bling, le style ringard, l’impolitesse.',
       sous:'60 palabras. Usa una estructura distinta en cada definición.',
       check: [
@@ -564,7 +569,8 @@ FICHAS.push({
            + 'ce qui choque ici ne choque pas forcément ailleurs.' },
 
     /* 3 */ { t:'tri', etiqueta:'Act. 14c',
-      consigne:'¿Esta frase exagera o atenúa lo que se piensa ?',
+      consigne:'Cette phrase exagère ou atténue le propos ?',
+      sous:'Es la actividad 14c del libro.',
       cols: ['Ça exagère (E)', 'Ça atténue (A)'],
       items: [
         ['Ça pique les yeux !', 0],
@@ -580,7 +586,8 @@ FICHAS.push({
          + '<b>-issime</b> (<i>mochissime</i>, de <i>moche</i>).' },
 
     /* 4 */ { t:'tri', etiqueta:'Dire qu’on n’aime pas',
-      consigne:'¿Lo dice con educación o lo dice abiertamente ?',
+      consigne:'Le dit-on poliment, ou ouvertement ?',
+      sous:'Las de la izquierda puedes usarlas delante de la persona. Las otras, no.',
       cols: ['Poliment', 'Ouvertement'],
       items: [
         ['Ce n’est pas très heureux.', 0],
@@ -597,7 +604,7 @@ FICHAS.push({
          + 'derecha, no — salvo que quieras justo ese efecto.' },
 
     /* 5 */ { t:'qcm', etiqueta:'Plutôt',
-      consigne:'¿Qué hace « plutôt » en cada frase ?',
+      consigne:'Que fait « plutôt » dans chaque phrase ?',
       q: [
         { enonce:'« Je n’ai pas peur de le dire, ou plutôt j’ose le dire. »',
           o:['une préférence', 'une précision, une correction', 'il veut dire « assez »'],
@@ -617,8 +624,9 @@ FICHAS.push({
       ] },
 
     /* 6 */ { t:'prod', etiqueta:'Ce qui se fait', mots:90,
-      consigne:'Da ejemplos, en decoración o en ropa, de ce qui ne se fait pas, ce qui se fait, '
-             + 'y ce qui te plaît personnellement, aunque no se lleve. (Actividad 11)',
+      consigne:'Donne des exemples — en décoration ou en mode — de ce qui ne se fait pas, '
+             + 'ce qui se fait, et ce qui te plaît personnellement même si ça ne se porte plus. '
+             + '(Activité 11)',
       sous:'90 palabras. Y una frase para relativizar, que para eso están.',
       check: [
         'Dos ejemplos de <b>ce qui ne se fait pas</b>.',
@@ -740,7 +748,7 @@ FICHAS.push({
 
   ejercicios: [
     /* 0 */ { t:'paires', etiqueta:'Les expressions',
-      consigne:'Cada expresión con lo que quiere decir de verdad.',
+      consigne:'Associe chaque expression à ce qu’elle veut vraiment dire.',
       pairs: [
         ['Ça ne se fait pas.', 'C’est contraire aux usages'],
         ['C’est la base.', 'C’est le minimum, l’élémentaire'],
@@ -753,7 +761,7 @@ FICHAS.push({
       ] },
 
     /* 1 */ { t:'qcm', etiqueta:'La bonne expression',
-      consigne:'¿Qué dirías en cada situación?',
+      consigne:'Que dirais-tu dans chaque situation ?',
       q: [
         { enonce:'Quelqu’un met son couteau dans la bouche.',
           o:['Ça ne se fait pas.', 'C’est vexant.', 'Ça s’apprend.'], r:0,
@@ -769,7 +777,7 @@ FICHAS.push({
       ] },
 
     /* 2 */ { t:'defi', etiqueta:'Contre la montre', segundos:60,
-      consigne:'Doce reglas francesas. Una carta cada vez: ¿se hace o no se hace?',
+      consigne:'Douze règles françaises, une carte à la fois : ça se fait ou ça ne se fait pas ?',
       sous:'Si fallas, al final te dice cuáles. Puedes repetirlo las veces que quieras.',
       cols: ['Ça se fait', 'Ça ne se fait pas'],
       items: [
@@ -791,7 +799,7 @@ FICHAS.push({
          + 'doblar — doblarla significaría que uno cuenta con volver a comer ahí.' },
 
     /* 3 */ { t:'points', etiqueta:'Montre-moi',
-      consigne:'Señala en la mesa lo que se te pide. Ocho veces.',
+      consigne:'Montre sur la table ce qu’on te demande. Huit fois.',
       sous:'Pulsa directamente sobre el dibujo.',
       puntos: [
         { id:'assiette',   nombre:'l’assiette' },
@@ -847,7 +855,7 @@ FICHAS.push({
          + 'llegando los platos. Y los vasos, arriba a la derecha.' },
 
     /* 4 */ { t:'ordre', etiqueta:'L’ordre du repas',
-      consigne:'Pon en orden un menú francés completo, del principio al final.',
+      consigne:'Remets dans l’ordre un repas français complet, du début à la fin.',
       sous:'Hay uno que casi nadie coloca bien, y es el que más sorprende fuera de Francia.',
       items: [
         'L’apéritif',
@@ -862,7 +870,7 @@ FICHAS.push({
          + 'antes del queso — nunca de entrada, como en muchos otros países.' },
 
     /* 5 */ { t:'dialogue', etiqueta:'Un dîner chez les parents de ton ami',
-      consigne:'Seis momentos de la cena. Elige qué haces y mira lo que pasa.',
+      consigne:'Six moments du dîner. Choisis ce que tu fais, et regarde ce qui arrive.',
       sous:'No hay trampa: casi todas las respuestas son razonables. Solo una es la que harías '
          + 'si conocieras los códigos.',
       final: 'Tu es rentré sans avoir mis personne mal à l’aise — y compris toi-même. '
@@ -937,7 +945,7 @@ FICHAS.push({
          + 'respuestas están ahí, con su minuto.' },
 
     /* 6 */ { t:'qcm', etiqueta:'La vidéo', min:'0:00',
-      consigne:'Seis preguntas. Usa los botones de minuto para comprobar.',
+      consigne:'Six questions. Utilise les boutons de minutage pour vérifier.',
       q: [
         { enonce:'Pourquoi la couleur des vêtements des animateurs est-elle une erreur ?',
           min:'0:37',
@@ -965,7 +973,7 @@ FICHAS.push({
       ] },
 
     /* 7 */ { t:'prod', etiqueta:'Après la vidéo', mots:50,
-      consigne:'Una cosa del vídeo que te sorprendió, y una que ya hacías sin saber por qué.',
+      consigne:'Une chose de la vidéo qui t’a surpris, et une que tu faisais déjà sans savoir pourquoi.',
       sous:'50 palabras. Dos frases bien hechas valen más que diez a medias.',
       check: [
         'Lo que te sorprendió, con el porqué.',
@@ -979,7 +987,7 @@ FICHAS.push({
            + 'non plus.' },
 
     /* 8 */ { t:'transfo', etiqueta:'Plus… plus',
-      consigne:'Termina cada frase a tu manera. Compara después con el modelo.',
+      consigne:'Termine chaque phrase à ta façon, puis compare avec le modèle.',
       sous:'Es la actividad 19 del libro: no hay una sola respuesta buena.',
       q: [
         { enonce:'Plus je vois ce qui est à la mode, plus / moins…',
@@ -994,7 +1002,7 @@ FICHAS.push({
       ] },
 
     /* 9 */ { t:'trous', etiqueta:'Valoir',
-      consigne:'Completa con el verbo valoir.',
+      consigne:'Complète avec le verbe valoir.',
       q: [
         { enonce:'Il ___ mieux éviter d’en parler à table.', r:['vaut'], taille:10 },
         { enonce:'Mieux ___ prévenir que guérir.', r:['vaut'], taille:10 },
@@ -1005,7 +1013,7 @@ FICHAS.push({
       ] },
 
     /* 10 */ { t:'tri', etiqueta:'La nétiquette',
-      consigne:'En un correo con alguien a quien no tuteas: ¿se hace o no?',
+      consigne:'Dans un mail à quelqu’un que tu vouvoies : ça se fait ou pas ?',
       cols: ['Ça se fait', 'Ça ne se fait pas'],
       items: [
         ['commencer par « Bonjour » avant de demander quelque chose', 0],
@@ -1022,7 +1030,7 @@ FICHAS.push({
          + 'el trabajo al otro: tú tardas ocho minutos en hablar, él tarda ocho en escucharte.' },
 
     /* 11 */ { t:'qcm', etiqueta:'Nétiquette',
-      consigne:'¿Qué expresión de la actividad 22 usarías?',
+      consigne:'Quelle expression de l’activité 22 emploierais-tu ?',
       q: [
         { enonce:'Un camarade t’envoie un vocal de huit minutes à minuit.',
           o:['C’est la base.', 'Ça ne se fait pas vraiment, et ça met mal à l’aise.', 'C’est vexant.'],
@@ -1037,8 +1045,8 @@ FICHAS.push({
       ] },
 
     /* 12 */ { t:'prod', etiqueta:'Production finale', mots:120,
-      consigne:'Escríbele a un amigo francés que viene a México la semana que viene: '
-             + '¿qué se hace y qué no se hace en la mesa aquí?',
+      consigne:'Écris à un ami français qui arrive au Mexique la semaine prochaine : '
+             + 'qu’est-ce qui se fait et qu’est-ce qui ne se fait pas à table, ici ?',
       sous:'120 palabras. Es lo que vamos a comentar en clase, así que trae lo tuyo, no lo mío.',
       check: [
         'Tres cosas que <b>se hacen</b> aquí y tres que <b>no se hacen</b>.',
@@ -1125,7 +1133,8 @@ FICHAS.push({
 
   ejercicios: [
     /* 0 */ { t:'qcm', etiqueta:'Act. 1 · vrai ou faux',
-      consigne:'Las tres afirmaciones del libro. Lee la corrección: lleva la frase del texto.',
+      consigne:'Les trois affirmations du livre : vrai ou faux ?',
+      sous:'Lee la corrección: lleva la frase exacta del texto.',
       q: [
         { enonce:'<b>1.</b> Quentin dit ce qui est de bon ou de mauvais goût chez les gens.',
           o:['Vrai','Faux'], r:1,
@@ -1143,7 +1152,7 @@ FICHAS.push({
       ] },
 
     /* 1 */ { t:'qcm', etiqueta:'Act. 2 et 3',
-      consigne:'Lo que dice el texto, exactamente.',
+      consigne:'Ce que dit le texte, exactement.',
       q: [
         { enonce:'L’éducation au goût, selon lui, c’est…',
           o:['apprendre à cuisiner',
@@ -1174,7 +1183,7 @@ FICHAS.push({
       ] },
 
     /* 2 */ { t:'tri', etiqueta:'Les aliments',
-      consigne:'La distinción que los niños aprenden a reconocer en sus talleres.',
+      consigne:'La distinction que les enfants apprennent à reconnaître dans ses ateliers.',
       cols: ['Aliment brut', 'Aliment transformé'],
       items: [
         ['une pomme', 0], ['un filet de dinde', 0], ['des petits pois frais', 0],
@@ -1186,7 +1195,7 @@ FICHAS.push({
          + 'que no tendrías en tu cocina.' },
 
     /* 3 */ { t:'trous', etiqueta:'Les quatre goûts',
-      consigne:'Completa con sucré, salé, amer o acide.',
+      consigne:'Complète avec sucré, salé, amer ou acide.',
       q: [
         { enonce:'Le citron est ___.', r:['acide'], taille:10 },
         { enonce:'Le café sans sucre est ___.', r:['amer'], taille:10 },
@@ -1199,7 +1208,7 @@ FICHAS.push({
       ] },
 
     /* 4 */ { t:'paires', etiqueta:'Les idées reçues',
-      consigne:'Cada idea recibida de los niños, con lo que Quentin les responde.',
+      consigne:'Associe chaque idée reçue des enfants à ce que Quentin leur répond.',
       pairs: [
         ['« Plus c’est sucré, mieux c’est ! »',
          'il leur fait découvrir l’excès et la parcimonie par la pratique'],
@@ -1214,7 +1223,7 @@ FICHAS.push({
       ] },
 
     /* 5 */ { t:'trous', etiqueta:'Le lexique du texte',
-      consigne:'Completa con las palabras del texto.',
+      consigne:'Complète avec les mots du texte.',
       q: [
         { enonce:'Mettre trop de sauce, c’est ___ le goût du poisson au lieu de le mettre en valeur.',
           r:['cacher'], taille:12 },
@@ -1229,8 +1238,8 @@ FICHAS.push({
       ] },
 
     /* 6 */ { t:'prod', etiqueta:'Act. 4 · production écrite', mots:90,
-      consigne:'Y tú: ¿qué otras ideas recibidas conoces sobre lo que se hace o no se hace en '
-             + 'la cocina? ¿Qué alimentos van bien juntos?',
+      consigne:'Et toi ? Quelles autres idées reçues connais-tu sur ce qui se fait ou ne se '
+             + 'fait pas en cuisine ? Quels aliments vont bien ensemble ?',
       sous:'90 palabras. Las ideas recibidas de tu casa valen tanto como las francesas.',
       check: [
         'Dos ideas recibidas, con quién las dice.',
@@ -1358,7 +1367,7 @@ FICHAS.push({
 
   ejercicios: [
     /* 0 */ { t:'tri', etiqueta:'Trois registres',
-      consigne:'¿Dónde va cada frase del recuadro de la página 22 ?',
+      consigne:'Où va chaque phrase de l’encadré de la page 22 ?',
       cols: ['Dégoût avec emphase', 'Dégoût poliment', 'Enthousiasme'],
       items: [
         ['C’est horrible !', 0],
@@ -1378,7 +1387,7 @@ FICHAS.push({
          + 'señalarlos (« comme on dit familièrement… ») o cambiarlos.' },
 
     /* 1 */ { t:'trous', etiqueta:'Les expressions avec goût',
-      consigne:'Completa con las cuatro expresiones del recuadro.',
+      consigne:'Complète avec les quatre expressions de l’encadré.',
       q: [
         { enonce:'Elle choisit toujours bien ses vêtements : elle a ___ goût.',
           r:['du'], taille:8 },
@@ -1389,7 +1398,7 @@ FICHAS.push({
       ] },
 
     /* 2 */ { t:'paires', etiqueta:'Décrire le style',
-      consigne:'Cada adjetivo del recuadro con lo que quiere decir.',
+      consigne:'Associe chaque adjectif de l’encadré à ce qu’il veut dire.',
       pairs: [
         ['décontracté', 'relajado, sin rigidez — y es un elogio'],
         ['coincé', 'rígido, incómodo, demasiado formal'],
@@ -1404,7 +1413,7 @@ FICHAS.push({
          + 'uno es una elección, el otro una dejadez.' },
 
     /* 3 */ { t:'qcm', etiqueta:'Réagir',
-      consigne:'¿Qué dirías en cada caso, con las fórmulas del recuadro ?',
+      consigne:'Que dirais-tu dans chaque cas, avec les formules de l’encadré ?',
       q: [
         { enonce:'Alguien pone los codos sobre la mesa en una cena formal.',
           o:['C’est mal élevé.', 'C’est une faute de goût.', 'Ça ne va pas ensemble.'], r:0 },
@@ -1423,7 +1432,7 @@ FICHAS.push({
       ] },
 
     /* 4 */ { t:'trous', etiqueta:'Ce qui / ce que',
-      consigne:'Completa con ce qui o ce que (ce qu’).',
+      consigne:'Complète avec ce qui ou ce que (ce qu’).',
       sous:'La regla: detrás de <b>ce qui</b> viene un verbo; detrás de <b>ce que</b>, un sujeto.',
       q: [
         { enonce:'___ est chimique plaît beaucoup aux enfants.', r:['ce qui'], taille:10 },
@@ -1439,7 +1448,8 @@ FICHAS.push({
       ] },
 
     /* 5 */ { t:'qcm', etiqueta:'Quelle fonction ?',
-      consigne:'¿Qué papel hace el grupo subrayado en la frase ? (La actividad de la página 23.)',
+      consigne:'Quelle fonction a le groupe souligné dans la phrase ?',
+      sous:'Es la actividad de la página 23: sujeto, complemento directo, indirecto o agente.',
       q: [
         { enonce:'<u>Ce qui est chimique</u> plaît beaucoup aux enfants.',
           o:['sujet du verbe', 'complément d’objet direct', 'complément d’agent'], r:0 },
@@ -1454,7 +1464,7 @@ FICHAS.push({
       ] },
 
     /* 6 */ { t:'trous', etiqueta:'Le double comparatif',
-      consigne:'Completa. Ojo con el « de » y con los irregulares.',
+      consigne:'Complète. Attention au « de » et aux irréguliers.',
       q: [
         { enonce:'Plus une phrase est courte, ___ elle est lisible.', r:['plus'], taille:10 },
         { enonce:'Plus je vieillis, ___ je suis la mode.', r:['moins','plus'], taille:10,
@@ -1472,8 +1482,8 @@ FICHAS.push({
       ] },
 
     /* 7 */ { t:'prod', etiqueta:'Production écrite', mots:110,
-      consigne:'Un amigo te manda una foto de su salón recién decorado y te pide tu opinión. '
-             + 'No te convence del todo. Contéstale.',
+      consigne:'Un ami t’envoie une photo de son salon fraîchement décoré et te demande ton '
+             + 'avis. Tu n’es pas vraiment convaincu. Réponds-lui.',
       sous:'110 palabras. Honesto y amable a la vez: ahí está el ejercicio.',
       check: [
         'Una mise en relief con <b>ce qui</b> o <b>ce que</b>.',
@@ -1577,7 +1587,7 @@ FICHAS.push({
 
   ejercicios: [
     /* 0 */ { t:'transfo', etiqueta:'Décoder',
-      consigne:'Las notas del cuadro de la página 24, en frase completa.',
+      consigne:'Les notes de l’encadré de la page 24 : réécris-les en phrases complètes.',
       q: [
         { enonce:'<i>Objf PN : retrouver infos</i>',
           modele:'L’objectif de la prise de notes, c’est de retrouver les informations.' },
@@ -1600,7 +1610,7 @@ FICHAS.push({
          + 'preposiciones cortas. Lo que nunca desaparece: las cifras.' },
 
     /* 1 */ { t:'qcm', etiqueta:'La méthodo',
-      consigne:'Cinco decisiones, según la página 24.',
+      consigne:'Cinq décisions à prendre, d’après la page 24.',
       q: [
         { enonce:'¿Cuántas palabras por minuto se dicen, y cuántas se escriben ?',
           o:['150-200 et 25-40', '100-150 et 50-60', '200-250 et 40-50'], r:0 },
@@ -1620,7 +1630,7 @@ FICHAS.push({
       ] },
 
     /* 2 */ { t:'paires', etiqueta:'Abréviations',
-      consigne:'Las de la lista de la página 25.',
+      consigne:'Celles de la liste de la page 25.',
       pairs: [
         ['bcp', 'beaucoup'], ['tjrs', 'toujours'], ['svt', 'souvent'],
         ['pdt', 'pendant'], ['qd', 'quand'], ['sf', 'sauf, excepté'],
@@ -1629,7 +1639,7 @@ FICHAS.push({
       ] },
 
     /* 3 */ { t:'tri', etiqueta:'Les six procédés',
-      consigne:'¿Cómo se ha fabricado cada abreviatura ?',
+      consigne:'Comment chaque abréviation a-t-elle été fabriquée ?',
       cols: ['Début du mot', 'Consonnes principales', 'Écriture phonétique', 'Symbole ou convention'],
       items: [
         ['ex (exemple)', 0], ['info (information)', 0], ['objf (objectif)', 0],
@@ -1641,7 +1651,7 @@ FICHAS.push({
          + 'documento. Por eso hay que escribir <b>una vez</b> el nombre completo.' },
 
     /* 4 */ { t:'trous', etiqueta:'Abréger',
-      consigne:'Escribe estas palabras como las anotarías, según la lista del libro.',
+      consigne:'Écris ces mots comme tu les noterais, d’après la liste du livre.',
       q: [
         { enonce:'beaucoup → ___', r:['bcp'], taille:8 },
         { enonce:'quelque chose → ___', r:['qqch'], taille:8 },
@@ -1655,7 +1665,8 @@ FICHAS.push({
       ] },
 
     /* 5 */ { t:'dictee', etiqueta:'Les chiffres',
-      consigne:'Las cifras son lo primero que se pierde. Escucha y escribe, en letras.',
+      consigne:'Écoute et écris les chiffres, en lettres.',
+      sous:'Las cifras son lo primero que se pierde en una escucha.',
       q: [
         { texte:'On parle à cent cinquante mots par minute et on écrit à vingt-cinq.' },
         { texte:'Trois enfants sur quatre refusent un légume qu’ils ne connaissent pas.' },
@@ -1665,8 +1676,8 @@ FICHAS.push({
       ] },
 
     /* 6 */ { t:'prod', etiqueta:'Act. 3 · entraînement',
-      consigne:'Escucha el pódcast de la actividad 3 —« Pourquoi pas tous les mêmes goûts ? »— '
-             + 'y toma notas. Después cópialas aquí tal cual.',
+      consigne:'Écoute le podcast de l’activité 3 — « Pourquoi pas tous les mêmes goûts ? » — '
+             + 'et prends des notes. Recopie-les ensuite ici, telles quelles.',
       sous:'Si no tienes el audio a mano, sirve cualquier pódcast en francés de tres minutos. '
          + 'Tráelas a clase: las comparamos, como pide la actividad 3c.',
       check: [
@@ -1763,7 +1774,8 @@ FICHAS.push({
          + 'suena bien, <i>ça aide de comprendre</i> no.' },
 
     /* 1 */ { t:'paires', etiqueta:'Lexique',
-      consigne:'Cada palabra con su definición exacta. Las cuatro primeras se parecen y no son lo mismo.',
+      consigne:'Associe chaque mot à sa définition exacte.',
+      sous:'Las cuatro primeras se parecen y no son lo mismo.',
       pairs: [
         ['un stéréotype', 'une image toute faite d’un groupe, répétée partout'],
         ['un préjugé', 'un jugement porté avant de connaître'],
