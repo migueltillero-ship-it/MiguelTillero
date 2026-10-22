@@ -194,8 +194,13 @@ begin
   -- 8) Materiales del grupo ----------------------------------------------------
   insert into public.materiales (grupo_id, titulo, descripcion, url, categoria, unidad, orden)
   values
-    (v_grupo_id, 'Espace de révision B2',
-     'Módulos con cours, ejercicios auto-corregidos, evaluación final y el depósito de tareas.',
+    -- El espacio del ciclo anterior. Se queda, porque el contenido sigue
+    -- sirviendo, pero el título dice de dónde viene: compartía lista con las
+    -- fichas de este ciclo y se prestaba a confusión.
+    (v_grupo_id, 'Révision B2 — cycles précédents',
+     'El espacio de los ciclos anteriores: la voz pasiva, el condicional y la '
+     || 'argumentación en el discurso. No es de este ciclo, pero sigue sirviendo '
+     || 'para repasar el nivel.',
      'https://migueltillero-ship-it.github.io/espace-b2/', 'refuerzo', null, 1),
     (v_grupo_id, 'Mi libro',
      'El libro del curso, para leerlo en línea desde cualquier dispositivo.',
