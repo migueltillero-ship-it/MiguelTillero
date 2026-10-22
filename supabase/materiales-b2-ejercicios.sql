@@ -22,7 +22,8 @@
 delete from public.materiales m
  using public.grupos g
  where g.id = m.grupo_id and g.codigo = 'B2-OCT2026'
-   and m.url like '%b2-oct2026.html%';
+   and (m.url like '%b2-oct2026.html%'      -- la dirección del ciclo, ya sustituida
+     or m.url like '%#s1-4');               -- la ficha de las páginas 14-19, ahora dividida en dos
 
 do $$
 declare
@@ -41,53 +42,58 @@ begin
        'La portada: una ficha por clase, con tu avance. Empieza por aquí.',
        ''),
 
-      (3, 'Séances 1 à 4 · Question de goût', 'refuerzo', 'Unité 1',
-       'Lo de las cuatro primeras clases por otro camino: expresiones con goût y con '
-       || 'valoir, describir un estilo, las buenas maneras a la francesa.',
-       '#s1-4'),
+      (3, 'Unité 1 · p. 14-15 — Faux pas vestimentaires', 'refuerzo', 'Unité 1',
+       'El artículo de Manu, el léxico de la ropa con un esquema dibujado, las '
+       || 'expresiones con «pire» y las impresiones: ça fait…, on dirait…',
+       '#u1-p14'),
 
-      (4, 'Séance du 19 octobre · Être éducateur au goût', 'refuerzo', 'Unité 1',
+      (4, 'Unité 1 · p. 16-17 — C’est plutôt joli', 'refuerzo', 'Unité 1',
+       'El artículo del «bon mauvais goût», definir un concepto (c’est quand, c’est '
+       || 'ce qui/ce que, c’est une question de), atenuar o exagerar, y plutôt.',
+       '#u1-p16'),
+
+      (6, 'Séance du 19 octobre · Être éducateur au goût', 'refuerzo', 'Unité 1',
        'Las cinco saveurs —con la quinta que el libro no nombra—, las texturas, '
        || 'bruto / transformado / ultraprocesado, y cómo hablar de un plato sin juzgarlo.',
        '#s5'),
 
-      (5, 'Séance du 21 octobre · Ce qui, ce que, comparatifs', 'refuerzo', 'Unité 1',
+      (7, 'Séance du 21 octobre · Ce qui, ce que, comparatifs', 'refuerzo', 'Unité 1',
        'La ficha de gramática del ciclo: ce qui / ce que / ce dont / ce à quoi, la mise '
        || 'en relief, el doble comparativo con mieux y meilleur, y plutôt que.',
        '#s6'),
 
-      (6, 'Parcours · Ça se fait, ça ne se fait pas (p. 19)', 'juego', 'Unité 1',
+      (5, 'Parcours · Ça se fait, ça ne se fait pas (p. 19)', 'juego', 'Unité 1',
        'Las expresiones de la actividad 22, lo que se hace y lo que no en una mesa '
        || 'francesa, y la comparación con lo de aquí. Con el vídeo dentro: cada pregunta '
        || 'salta a su minuto. Se valida al 80 %.',
        '#savoir-vivre'),
 
-      (7, 'Séance du 26 octobre · Prendre des notes', 'refuerzo', 'Unité 1',
+      (8, 'Séance du 26 octobre · Prendre des notes', 'refuerzo', 'Unité 1',
        'Descifrar notas, abreviar, y oír cifras al vuelo. Es la técnica que decide '
        || 'la compréhension orale del examen.',
        '#s7'),
 
-      (8, 'Séance du 28 octobre · Tellement genré !', 'refuerzo', 'Unité 2',
+      (9, 'Séance du 28 octobre · Tellement genré !', 'refuerzo', 'Unité 2',
        'Estereotipo, prejuicio, cliché e idea recibida: cuatro palabras que no son lo '
        || 'mismo. Y la construcción exacta de ça permet de, ça aide à, ça évite de.',
        '#s8'),
 
-      (9, 'Séance du 2 novembre · Tellement, pourvu que, avoir hâte', 'refuerzo', 'Unité 2',
+      (10, 'Séance du 2 novembre · Tellement, pourvu que, avoir hâte', 'refuerzo', 'Unité 2',
        'La gramática más rentable del ciclo: los tres tellement, el subjuntivo del deseo '
        || 'y el léxico de la espera de un hijo.',
        '#s9'),
 
-      (10, 'Révision générale du 4 novembre', 'refuerzo', 'Unité 1-2',
+      (11, 'Révision générale du 4 novembre', 'refuerzo', 'Unité 1-2',
        'Un diagnóstico de todo el ciclo: cada pregunta que falles te dice a qué ficha '
        || 'volver. Hazlo antes del lunes 9.',
        '#s10'),
 
-      (11, 'Épreuve blanche — écrit', 'evaluacion', 'Unité 1-2',
+      (12, 'Épreuve blanche — écrit', 'evaluacion', 'Unité 1-2',
        'Una prueba de ensayo completa con el formato del DELF B2: comprensión oral, '
        || 'comprensión escrita y producción escrita de 250 palabras. Crono en mano.',
        '#s11'),
 
-      (12, 'Préparer l’oral', 'evaluacion', 'Unité 1-2',
+      (13, 'Préparer l’oral', 'evaluacion', 'Unité 1-2',
        'El formato del oral minuto a minuto, las frases que estructuran un exposé y '
        || 'tres temas para ensayar en voz alta.',
        '#s12')

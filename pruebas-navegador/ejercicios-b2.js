@@ -12,10 +12,10 @@ const { chromium } = require('/opt/node-tools/node_modules/playwright');
   await pagina.waitForTimeout(400);
 
   const tarjetas = await pagina.locator('#grille-fiches .carte').count();
-  console.log('1. Fichas en el hub:', tarjetas, tarjetas === 10 ? '✓' : '✗ (esperaba 10)');
+  console.log('1. Fichas en el hub:', tarjetas, tarjetas === 11 ? '✓' : '✗ (esperaba 11)');
 
   /* Abrir la ficha del 21 de octubre (gramática) */
-  await pagina.locator('#grille-fiches .carte').nth(2).click();
+  await pagina.locator('#grille-fiches .carte').nth(4).click();
   await pagina.waitForTimeout(300);
   console.log('2. Título:', await pagina.locator('#f-titulo').textContent());
   const bloques = await pagina.locator('.ex-bloc').count();
@@ -64,7 +64,7 @@ const { chromium } = require('/opt/node-tools/node_modules/playwright');
   /* El avance se guarda y se ve al volver al hub */
   await pagina.locator('button:has-text("Toutes les séances")').first().click();
   await pagina.waitForTimeout(300);
-  const medalla = await pagina.locator('#grille-fiches .carte').nth(2).locator('.medaille').textContent();
+  const medalla = await pagina.locator('#grille-fiches .carte').nth(4).locator('.medaille').textContent();
   console.log('11. Avance guardado en la tarjeta:', medalla, medalla.includes('/') ? '✓' : '✗');
   const pct = await pagina.locator('#pct-global').textContent();
   console.log('12. Porcentaje global:', pct, pct !== '0 %' ? '✓' : '✗');

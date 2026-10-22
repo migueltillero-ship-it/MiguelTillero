@@ -238,3 +238,18 @@ footer a{color:var(--bleu)}
   .pasos .paso{font-size:.8rem}
 }
 @media print{ .caja-video,.pasos,.btn-minuto{display:none !important} }
+
+/* ── Esquemas dibujados ───────────────────────────────────────────────
+   Las páginas del libro no se pueden publicar en un sitio abierto, así
+   que lo que hacía falta ver —las partes de una prenda— se dibuja aquí. */
+.esquema{margin:1.2rem 0;text-align:center}
+.esquema svg{width:100%;max-width:420px;height:auto}
+.esquema .tela{fill:var(--carte);stroke:var(--texte-doux);stroke-width:2}
+.esquema .cuello{fill:var(--fond-doux);stroke:var(--texte-doux);stroke-width:2}
+.esquema .linea{stroke:var(--gris);stroke-width:2}
+.esquema .boton{fill:var(--or)}
+.esquema .detalle{fill:none;stroke:var(--texte-doux);stroke-width:2}
+.esquema .cinturon{fill:var(--graphite);opacity:.75}
+.esquema .guia{stroke:var(--bleu);stroke-width:1;stroke-dasharray:3 3}
+.esquema text{font-family:var(--font-texte);font-size:13px;fill:var(--bleu);font-weight:700}
+.esquema .pie-esquema{font-size:.92rem;color:var(--texte-doux);max-width:60ch;margin:.6rem auto 0;text-align:left}

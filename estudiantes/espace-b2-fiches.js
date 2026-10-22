@@ -25,542 +25,449 @@
 const FICHAS = [];
 
 /* ───────────────────────────────────────────────────────────────────────
-   SÉANCES 1 à 4 · Unité 1, pages 12-19
-   Lo ya trabajado: las expresiones con goût y con valoir, describir el
-   estilo y la ropa, las buenas y las malas maneras.
+   UNITÉ 1 · p. 14-15 — FAUX PAS VESTIMENTAIRES
+   El artículo de Manu, la crónica de la actividad 6, el léxico de la ropa,
+   las expresiones con PIRE y las impresiones (ça fait, on dirait).
    ─────────────────────────────────────────────────────────────────────── */
 FICHAS.push({
-  id: 's1-4',
+  id: 'u1-p14',
   tipo: 'revision',
   ciclo: 'Oct.-nov. 2026',
-  fecha: '5 au 14 octobre · Unité 1, p. 12-19',
-  titulo: 'Question de goût — ce qu’on a déjà fait',
-  resumen: 'Las cuatro primeras clases, repasadas de otra manera: goût y valoir, el estilo, las maneras.',
-  intro: 'Nada nuevo aquí: es lo de las cuatro primeras clases, por otro camino. '
-       + 'Si algo se resiste, es justo lo que hay que traer a clase.',
+  fecha: 'Unité 1 · p. 14-15',
+  titulo: 'Faux pas vestimentaires',
+  resumen: 'El artículo de Manu, el léxico de la ropa y cómo se lleva, las expresiones con «pire» y las impresiones: ça fait…, on dirait…',
+  intro: 'Lo de las páginas 14 y 15, para repasarlo solo. El vocabulario de la ropa '
+       + 'es el que después hace falta para describir un look sin dar rodeos.',
 
   secciones: [
-    { titulo: 'Révision autrement',
-      sous: 'Lo mismo de otra forma: lo que leímos, ahora se empareja y se clasifica.',
+    { titulo: '1. Le vêtement et la façon de le porter',
+      sous: 'Los dos recuadros de las páginas 14 y 15, que son los que hay que saberse.',
       rappels: [
-        { titulo: 'Le goût, dans tous ses sens',
+        { titulo: 'Les pièces et les détails',
           html: `<ul>
-            <li><b>avoir bon / mauvais goût</b> — savoir (ou non) choisir ce qui est beau.</li>
-            <li><b>avoir du goût</b> — avoir du flair pour l’élégance.</li>
-            <li><b>être de mauvais goût</b> — choquer, manquer de délicatesse. <i>Une blague de mauvais goût.</i></li>
-            <li><b>prendre goût à</b> — finir par aimer ce qu’on n’aimait pas.</li>
-            <li><b>un goût prononcé pour</b> — un penchant marqué.</li>
-            <li><b>mettre au goût du jour</b> — moderniser.</li>
-            <li><b>chacun ses goûts</b> · <b>des goûts et des couleurs, on ne discute pas</b> — on ne juge pas.</li>
+            <li><b>les boutons</b> · <b>la ceinture</b> · <b>le col</b> ·
+                <b>le débardeur</b> · <b>les manches</b> · <b>les poches</b> ·
+                <b>le décolleté</b></li>
+            <li><b>Le style :</b> serré / moulant ≠ large · petit / long / sombre ·
+                (pas) à ma taille · bien assorti ≠ mal assorti · la bonne longueur.</li>
+            <li><b>Porter un vêtement :</b> la chemise <b>rentrée</b> dans le pantalon ·
+                boutonnée / <b>déboutonnée</b> / ouverte · porter un <b>décolleté</b> ·
+                jusqu’au <b>nombril</b> · autour de la <b>taille</b> ·
+                sur les <b>épaules</b> · au-dessus ≠ au-dessous du <b>genou</b>.</li>
           </ul>
-          <div class="ex">Attention : <b>ça n’a aucun goût</b> parle de la saveur ;
-          <b>ça n’a aucun goût</b> dit d’un vêtement serait un contresens — là, on dirait
-          <b>ça n’a aucune allure</b>.</div>` },
-        { titulo: 'Valoir, le verbe qui pèse le pour et le contre',
+<div class="esquema">
+          <svg viewBox="-60 0 520 300" role="img" aria-label="Esquema de una camisa con las partes señaladas">
+            <!-- cuerpo -->
+            <path d="M150 60 L150 260 L290 260 L290 60 Z" class="tela"/>
+            <!-- mangas -->
+            <path d="M150 60 L100 90 L120 170 L150 150 Z" class="tela"/>
+            <path d="M290 60 L340 90 L320 170 L290 150 Z" class="tela"/>
+            <!-- cuello -->
+            <path d="M150 60 L220 100 L290 60 L255 45 L220 70 L185 45 Z" class="cuello"/>
+            <!-- botonadura -->
+            <line x1="220" y1="100" x2="220" y2="260" class="linea"/>
+            <circle cx="220" cy="128" r="5" class="boton"/>
+            <circle cx="220" cy="164" r="5" class="boton"/>
+            <circle cx="220" cy="200" r="5" class="boton"/>
+            <!-- bolsillo -->
+            <rect x="172" y="120" width="34" height="30" rx="3" class="detalle"/>
+            <!-- cinturón -->
+            <rect x="150" y="248" width="140" height="14" class="cinturon"/>
+            <!-- líneas guía -->
+            <line x1="220" y1="52" x2="220" y2="22" class="guia"/>
+            <line x1="112" y1="130" x2="60" y2="130" class="guia"/>
+            <line x1="228" y1="164" x2="300" y2="196" class="guia"/>
+            <line x1="172" y1="135" x2="96" y2="196" class="guia"/>
+            <line x1="290" y1="255" x2="360" y2="255" class="guia"/>
+            <!-- etiquetas -->
+            <text x="220" y="16" text-anchor="middle">le col</text>
+            <text x="54"  y="134" text-anchor="end">les manches</text>
+            <text x="304" y="200">les boutons</text>
+            <text x="92"  y="200" text-anchor="end">la poche</text>
+            <text x="364" y="259">la ceinture</text>
+          </svg>
+          <p class="pie-esquema">Y debajo, el <b>débardeur</b> — el que, según Manu, hace
+          <i>grand-père</i>. El <b>décolleté</b> es la abertura sobre el pecho ; el
+          <b>nombril</b>, hasta donde se abre la camisa del artículo.</p>
+        </div>
+          <div class="piege"><b>El acuerdo es la mitad del ejercicio 6b :</b>
+          <i>le jean trop moulant</i> pero <i>une chemise trop moulant<b>e</b></i> ;
+          <i>les manches retrouss<b>ées</b></i>, <i>les polos ni trop long<b>s</b> ni trop court<b>s</b></i>.</div>` },
+        { titulo: 'Exprimer une impression',
           html: `<ul>
-            <li><b>ça vaut la peine / ça vaut le coup</b> — l’effort est justifié.</li>
-            <li><b>ça vaut le détour</b> — ça mérite qu’on se déplace.</li>
-            <li><b>il vaut mieux + infinitif</b> — c’est préférable.</li>
-            <li><b>faire valoir</b> — mettre en avant (un argument, un diplôme, un droit).</li>
-            <li><b>ça ne vaut rien</b> — sans valeur.</li>
+            <li><b>Ça fait</b> + nom o adjetivo : <i>ça fait rappeur · ça fait vieux ·
+                ça fait ringard · ça fait années 80 · ça fait classe · ça fait bourgeois.</i></li>
+            <li><b>On dirait</b> + nombre : <i>on dirait un ministre · on dirait un clown.</i></li>
+            <li><b>Ressembler à</b> + nombre : <i>tu ressembles à un rappeur adolescent.</i></li>
+            <li><b>Avoir l’air de / d’un</b> : <i>vous avez l’air d’un clown.</i></li>
           </ul>
-          <div class="piege"><b>Piège :</b> on dit <i>il vaut mieux partir</i>, jamais
-          <i>il vaut mieux <s>de</s> partir</i>. Et à la première personne :
-          <i>je ferais mieux de partir</i> — là, le <b>de</b> est obligatoire.</div>` }
+          <div class="ex">Y las tres del artículo para juzgar sin insultar :
+          <i>ça peut mettre mal à l’aise · ça ne fait pas assez décontracté ·
+          ça ne va à personne.</i></div>` }
       ],
       ejercicios: [0, 1, 2]
     },
-    { titulo: 'Un pas plus loin',
-      sous: 'El estilo, las maneras y una pequeña producción escrita.',
+    { titulo: '2. Les expressions avec pire',
+      sous: 'El recuadro de la página 15. Son cuatro y entran en la evaluación.',
       rappels: [
-        { titulo: 'Décrire un style',
-          html: `<ul>
-            <li><b>La tenue :</b> décontracté · classique · chic · sobre · soigné ·
-                excentrique · négligé.</li>
-            <li><b>La coupe :</b> serré ≠ large / ample · moulant · cintré · droit.</li>
-            <li><b>Les détails :</b> une chemise <b>boutonnée</b> / <b>sortie</b> du pantalon,
-                les manches <b>retroussées</b>, le col <b>relevé</b>, un pull <b>sur les épaules</b>.</li>
-            <li><b>Juger sans blesser :</b> <i>ça en jette</i> (admiratif, familier) ·
-                <i>ce n’est pas très heureux</i> (critique polie) · <i>ça pique les yeux</i> (familier, sévère).</li>
-          </ul>` },
-        { titulo: 'Les bonnes manières, version française',
-          html: `<p>Ce qui se fait en France ne se fait pas partout, et c’est exactement
-          ce qui se joue dans cette unité.</p>
+        { titulo: 'Pire',
+          html: `<p><b>Pire</b> es el comparativo irregular de <i>mauvais</i> :
+          más malo, peor. No se dice « <s>plus mauvais</s> » en este sentido.</p>
           <ul>
-            <li>À table, <b>les poignets ou les mains sur la table</b> — pas sous la table,
-                comme dans le monde anglo-saxon —, mais <b>jamais les coudes</b>.</li>
-            <li>Le pain se <b>rompt à la main</b> et se pose <b>sur la nappe</b>, pas dans l’assiette.</li>
-            <li>On attend que l’hôte commence, ou son <i>« bon appétit »</i>.</li>
-            <li>Invité à 20 h, on arrive <b>vers 20 h 15</b> : c’est le quart d’heure de politesse.</li>
-            <li>On apporte des fleurs, un vin, un dessert — <b>jamais de chrysanthèmes</b> :
-                ce sont les fleurs du 1<sup>er</sup> novembre.</li>
+            <li><b>C’est la pire erreur du monde.</b> <i>(la peor de todas)</i></li>
+            <li><b>Il n’y a rien de pire que de</b> + infinitivo :
+                <i>il n’y a rien de pire que de porter des chaussettes dans des sandales.</i></li>
+            <li><b>Le pire, c’est de</b> + infinitivo : <i>le pire, c’est de l’imiter.</i></li>
+            <li><b>Le pire, c’est que</b> + frase : <i>le pire, c’est que personne ne lui dit rien.</i></li>
           </ul>` }
       ],
-      ejercicios: [3, 4, 5]
+      ejercicios: [3, 4]
+    },
+    { titulo: '3. L’article et la chronique',
+      sous: 'Lo que dicen Manu y la cronista, y tu propio look.',
+      rappels: [],
+      ejercicios: [5, 6]
     }
   ],
 
   ejercicios: [
     /* 0 */ { t:'paires', etiqueta:'Lexique',
-      consigne:'Associe chaque expression à son sens.',
+      consigne:'Cada palabra con lo que designa.',
       pairs: [
-        ['Avoir bon goût', 'Savoir choisir ce qui est beau'],
-        ['Être de mauvais goût', 'Choquer, manquer de délicatesse'],
-        ['Prendre goût à quelque chose', 'Finir par aimer ce qu’on n’aimait pas'],
-        ['Avoir un goût prononcé pour', 'Aimer beaucoup, de façon marquée'],
-        ['Chacun ses goûts', 'On n’a pas à juger ce que les autres aiment'],
-        ['Mettre au goût du jour', 'Moderniser, rendre actuel'],
-        ['Ça n’a aucun goût', 'C’est fade, ça ne se sent pas en bouche'],
-        ['Un petit goût de revenez-y', 'C’est si bon qu’on en reprendrait']
-      ],
-      aide:'« Un goût de revenez-y » est familier et très imagé : on le garde pour l’oral.' },
-
-    /* 1 */ { t:'trous', etiqueta:'Valoir',
-      consigne:'Complète avec le verbe valoir dans la bonne expression.',
-      sous:'Lo que va entre paréntesis es la idea, no la respuesta.',
-      q: [
-        { enonce:'Deux heures de queue pour ce musée ? Oui, ça ___. <i>(l’effort est justifié)</i>',
-          r:['vaut la peine','vaut le coup','en vaut la peine'], taille:20 },
-        { enonce:'Il ___ arriver en avance que de rater le début. <i>(c’est préférable)</i>',
-          r:['vaut mieux'], taille:16,
-          note:'<b>Il vaut mieux + infinitif</b>, sans « de ».' },
-        { enonce:'Pendant l’entretien, elle a su ___ son année à Lyon. <i>(mettre en avant)</i>',
-          r:['faire valoir'], taille:16 },
-        { enonce:'N’achète pas cette copie : ça ne ___ rien.',
-          r:['vaut'], taille:12 },
-        { enonce:'Ce village perdu dans la montagne ___ le détour.',
-          r:['vaut'], taille:12 },
-        { enonce:'Ça ne ___ pas la peine de courir : le train est parti.',
-          r:['vaut'], taille:12 }
+        ['le col', 'la partie du vêtement qui entoure le cou'],
+        ['les manches', 'les parties qui couvrent les bras'],
+        ['la ceinture', 'la bande qui tient le pantalon à la taille'],
+        ['les boutons', 'ce qu’on ouvre et ferme sur une chemise'],
+        ['le débardeur', 'le maillot sans manches qu’on met dessous'],
+        ['les poches', 'ce dans quoi on met ses clés'],
+        ['le décolleté', 'l’ouverture du vêtement sur la poitrine'],
+        ['le pantacourt', 'le pantalon qui s’arrête au mollet'],
+        ['le nombril', 'le milieu du ventre — jusqu’où s’ouvre la chemise de l’article']
       ] },
 
-    /* 2 */ { t:'transfo', etiqueta:'Reformuler',
-      consigne:'Dis la même chose avec l’expression entre parenthèses.',
-      q: [
-        { enonce:'Ce film est très long, mais il faut absolument le voir. <i>(valoir le coup)</i>',
-          modele:'Ce film est très long, mais il vaut le coup.' },
-        { enonce:'Je n’aimais pas le fromage de chèvre et maintenant j’adore ça. <i>(prendre goût à)</i>',
-          modele:'J’ai pris goût au fromage de chèvre.',
-          note:'prendre goût <b>à</b> + nom → <i>au</i> fromage, <i>aux</i> épices.' },
-        { enonce:'Sa plaisanterie sur l’accident a choqué tout le monde. <i>(de mauvais goût)</i>',
-          modele:'Sa plaisanterie sur l’accident était vraiment de mauvais goût.' },
-        { enonce:'Elle s’habille toujours avec élégance. <i>(avoir du goût)</i>',
-          modele:'Elle a beaucoup de goût.' },
-        { enonce:'Inutile d’insister davantage. <i>(ça ne vaut pas la peine)</i>',
-          modele:'Ça ne vaut pas la peine d’insister.' }
-      ] },
-
-    /* 3 */ { t:'tri', etiqueta:'Le style',
-      consigne:'Classe chaque détail de tenue. Pulsa el jetón hasta que llegue a su columna.',
-      cols: ['Plutôt élégant', 'Plutôt décontracté', 'Plutôt négligé'],
+    /* 1 */ { t:'tri', etiqueta:'Ça fait…',
+      consigne:'Según el artículo de Manu, ¿qué impresión da cada cosa ?',
+      cols: ['Ça fait rappeur', 'Ça fait clown', 'Ça fait grand-père', 'Ça fait bourgeois'],
       items: [
-        ['une chemise boutonnée jusqu’au col', 0],
-        ['un costume bien coupé', 0],
-        ['une robe sobre et des talons', 0],
-        ['un jean et des baskets propres', 1],
-        ['un pull posé sur les épaules', 1],
-        ['les manches retroussées', 1],
-        ['une chemise froissée et sortie du pantalon', 2],
-        ['des baskets trouées', 2],
-        ['un t-shirt taché', 2]
+        ['un tee-shirt XXL', 0],
+        ['un baggy', 0],
+        ['un pantacourt', 1],
+        ['ni court ni long', 1],
+        ['un débardeur blanc sous la chemise', 2],
+        ['un pull sur les épaules', 3]
       ],
-      aide:'<b>Négligé</b> n’est pas <b>décontracté</b> : le premier est un reproche, '
-         + 'le second un choix. C’est toute la différence entre <i>« il est relax »</i> '
-         + 'et <i>« il ne fait aucun effort »</i>.' },
+      aide:'Es exactamente la actividad 5b de la página 14. Manu no dice que esté prohibido : '
+         + 'dice la <b>impresión</b> que da, que es otra cosa.' },
 
-    /* 4 */ { t:'qcm', etiqueta:'Savoir-vivre',
-      consigne:'Cinq situations à la française. Choisis ce qui se fait.',
+    /* 2 */ { t:'qcm', etiqueta:'Exprimer une impression',
+      consigne:'La construcción correcta. Es lo que más se confunde.',
       q: [
-        { enonce:'À table, quand tu ne manges pas, tes mains sont…',
-          o:['sur tes genoux', 'les poignets ou les mains posés sur la table', 'les coudes sur la table'],
-          r:1, note:'En France on garde les mains visibles, mais jamais les coudes. L’usage anglo-saxon '
-                  + '(les mains sous la table) y passe pour bizarre.' },
-        { enonce:'Ton hôte te sert un plat que tu n’aimes pas. Tu dis…',
-          o:['« Je n’aime pas ça. »', '« J’en prendrai juste un peu, merci. »',
-             '« Ce n’est pas très heureux. »'],
-          r:1, note:'Le refus poli passe par la quantité, pas par le jugement. « Ce n’est pas très '
-                  + 'heureux » se dit d’un vêtement ou d’une décoration, pas de ce qu’on vous offre.' },
-        { enonce:'On t’invite à dîner à 20 h. Tu arrives…',
-          o:['à 19 h 55', 'vers 20 h 15', 'à 21 h'],
-          r:1, note:'C’est le « quart d’heure de politesse ». Pile à l’heure, on surprend '
-                  + 'l’hôte en cuisine ; au-delà de 20 ou 30 minutes, on prévient.' },
-        { enonce:'Le pain, pendant le repas…',
-          o:['se pose sur la nappe, à gauche de l’assiette', 'se pose dans l’assiette', 'se coupe au couteau'],
-          r:0, note:'On le rompt à la main. L’assiette est pour le plat.' },
-        { enonce:'Tu es invité chez quelqu’un pour la première fois.',
-          o:['on vient les mains vides, c’est plus simple',
-             'on apporte des fleurs, un vin ou un dessert — mais jamais de chrysanthèmes',
-             'on apporte obligatoirement un cadeau cher'],
-          r:1, note:'Les chrysanthèmes sont les fleurs des cimetières : on les réserve au '
-                  + '1<sup>er</sup> novembre.' }
+        { enonce:'___ un ministre, avec ce costume !',
+          o:['Ça fait', 'On dirait', 'Il ressemble'], r:1,
+          note:'<b>On dirait</b> + nombre. <i>Ça fait</i> iría sin artículo : « ça fait ministre ».' },
+        { enonce:'Avec ce baggy, tu ressembles ___ rappeur adolescent.',
+          o:['à un', 'd’un', 'comme un'], r:0,
+          note:'<b>ressembler à</b> quelqu’un.' },
+        { enonce:'Vous avez l’air ___ clown.',
+          o:['à un', 'd’un', 'comme un'], r:1,
+          note:'<b>avoir l’air de</b> → <i>d’un clown</i>.' },
+        { enonce:'Ce jean trop serré, ça ___ années 80.',
+          o:['fait', 'dirait', 'ressemble'], r:0 },
+        { enonce:'Le col relevé, ça ne fait pas assez ___.',
+          o:['décontracté', 'décontractée', 'de décontracté'], r:0,
+          note:'Tras <b>ça fait</b>, el adjetivo queda en masculino singular : es impersonal.' },
+        { enonce:'Tous les boutons ouverts, ça peut ___.',
+          o:['mettre mal à l’aise', 'mettre mal à l’aise les autres clients', 'faire mal à l’aise'],
+          r:0, note:'Las dos primeras son correctas ; la tercera no existe. Aquí la más corta '
+                  + 'es la del artículo.' }
       ] },
 
-    /* 5 */ { t:'prod', etiqueta:'Production écrite', mots:80,
-      consigne:'Présente une personne dont le style te plaît — quelqu’un que tu connais, '
-             + 'ou une personne connue.',
-      sous:'80 mots. No digas « elle s’habille bien »: dilo con el léxico de la unidad.',
-      check: [
-        'Deux adjectifs de style au moins (sobre, décontracté, soigné, excentrique…).',
-        'Un détail concret de la tenue (le col, les manches, la coupe).',
-        'Une expression avec <b>goût</b>.',
-        'Une expression avec <b>valoir</b>.',
-        'Une critique polie, ou un compliment qui ne soit pas « c’est beau ».'
+    /* 3 */ { t:'trous', etiqueta:'Pire',
+      consigne:'Completa con las expresiones del recuadro.',
+      q: [
+        { enonce:'Les chaussettes dans les sandales, c’est la ___ erreur du monde.',
+          r:['pire'], taille:10 },
+        { enonce:'Il n’y a rien de ___ que de porter un tee-shirt publicitaire.',
+          r:['pire'], taille:10 },
+        { enonce:'Le ___, c’est que personne n’ose le lui dire.',
+          r:['pire'], taille:10,
+          note:'<b>Le pire, c’est que</b> + frase. Si sigue un infinitivo : <i>le pire, c’est de…</i>' },
+        { enonce:'Cette veste est encore ___ que l’autre.',
+          r:['pire','plus moche'], taille:12,
+          note:'<b>Pire</b> es el comparativo de <i>mauvais</i> : nunca « plus mauvais » aquí.' }
+      ] },
+
+    /* 4 */ { t:'paires', etiqueta:'Reconstituer (act. 6b)',
+      consigne:'Cada prenda con la expresión que usó la cronista. Cuidado con el acuerdo.',
+      pairs: [
+        ['les polos et tee-shirts…', 'ni trop longs ni trop courts'],
+        ['le jean…', 'trop moulant'],
+        ['le col…', 'déboutonné'],
+        ['la chemise…', 'ouverte jusqu’au nombril'],
+        ['les manches…', 'retroussées'],
+        ['le décolleté…', 'plongeant']
       ],
-      modele:'Ma tante a un goût très sûr. Elle s’habille de façon sobre : des coupes droites, '
-           + 'jamais rien de moulant, des couleurs qui ne piquent pas les yeux. Son détail à elle, '
-           + 'ce sont les manches toujours légèrement retroussées, même en hiver. Elle dit qu’un '
-           + 'vêtement bien coupé vaut le coup, même s’il coûte trois fois plus cher, parce qu’il '
-           + 'dure dix ans. La seule chose que je ne lui emprunterais pas, ce sont ses chapeaux : '
-           + 'disons que ce n’est pas très heureux.' }
+      aide:'Fíjate en las terminaciones : <i>les manches retrouss<b>ées</b></i> (femenino plural), '
+         + '<i>le col déboutonn<b>é</b></i> (masculino singular). El acuerdo es lo que pide la actividad.' },
+
+    /* 5 */ { t:'qcm', etiqueta:'L’article',
+      consigne:'Cuatro preguntas sobre « Fashion faux pas ! ».',
+      q: [
+        { enonce:'Selon Manu, quelle est la pire erreur — et la plus répandue ?',
+          o:['le tee-shirt à message', 'les chaussettes dans les sandales', 'le pantacourt'], r:1 },
+        { enonce:'Que reproche-t-il au tee-shirt publicitaire ?',
+          o:['c’est une insulte au bon goût', 'ça fait trop cher', 'ça ne va à personne'], r:0 },
+        { enonce:'Pour la chemise, que conseille-t-il ?',
+          o:['tous les boutons ouverts et le col relevé',
+             'unie, rentrée dans le pantalon, cintrée et avec une ceinture',
+             'avec un pull sur les épaules'], r:1 },
+        { enonce:'Choisir des vêtements à sa taille, pour lui, c’est…',
+          o:['la base', 'une question de prix', 'démodé'], r:0,
+          note:'« Ça devrait être la base, non ? » — y es la misma expresión de la '
+             + 'actividad 22, página 19.' },
+        { enonce:'À la fin, qu’est-ce qui compte selon lui ?',
+          o:['la beauté intérieure', 'la première impression', 'les réseaux sociaux'], r:1,
+          note:'En la actividad 9 te preguntan justamente con cuál de las dos estás de acuerdo.' }
+      ] },
+
+    /* 6 */ { t:'prod', etiqueta:'Production écrite', mots:90,
+      consigne:'Décris un look que tu aimes bien — le tien ou celui de quelqu’un d’autre. '
+             + '(Actividad 7)',
+      sous:'90 palabras, con el vocabulario de los dos recuadros. Nada de « c’est beau ».',
+      check: [
+        'Tres prendas con su detalle (le col, les manches, la ceinture…).',
+        'Dos palabras del estilo (moulant, large, assorti, la bonne longueur…).',
+        'Una impresión con <b>ça fait</b> y otra con <b>on dirait</b>.',
+        'Una expresión con <b>pire</b>, para lo que no te gusta.',
+        'Tu posición sobre una de las frases de la actividad 9.'
+      ],
+      modele:'J’aime bien le look de mon cousin : une chemise unie de couleur sombre, '
+           + 'rentrée dans le pantalon, avec les manches retroussées et une ceinture fine. '
+           + 'Rien n’est trop moulant ni trop large : tout est à sa taille, et c’est bien '
+           + 'assorti. Ça fait soigné sans faire bourgeois. Ce que je ne supporte pas, en '
+           + 'revanche, ce sont les tee-shirts à message : il n’y a rien de pire que de '
+           + 'vouloir faire drôle avec une blague écrite sur le ventre — on dirait un panneau '
+           + 'publicitaire. Pour moi, c’est la première impression qui compte, même si la '
+           + 'beauté intérieure compte aussi.' }
   ]
 });
 
 /* ───────────────────────────────────────────────────────────────────────
-   SÉANCE 5 · 19 octobre · p. 20-21
-   Rendez-vous « Être éducateur au goût »
+   UNITÉ 1 · p. 16-17 — C’EST PLUTÔT JOLI
+   El artículo del «bon mauvais goût», definir conceptos, atenuar o
+   exagerar, y el adverbio plutôt.
    ─────────────────────────────────────────────────────────────────────── */
 FICHAS.push({
-  id: 's5',
+  id: 'u1-p16',
+  tipo: 'revision',
   ciclo: 'Oct.-nov. 2026',
-  fecha: 'Lundi 19 octobre · p. 20-21',
-  titulo: 'Être éducateur au goût',
-  resumen: 'Un métier peu connu, les cinq saveurs, les textures y cómo hablar de un plato sin juzgarlo.',
-  intro: 'El oficio del texto sirve de pretexto para lo que de verdad se trabaja aquí: '
-       + 'poner palabras a lo que se siente en la boca.',
+  fecha: 'Unité 1 · p. 16-17',
+  titulo: 'C’est plutôt joli — le « bon mauvais goût »',
+  resumen: 'El artículo de Bourdieu y el «bon mauvais goût», definir un concepto, atenuar o exagerar lo que se dice, y plutôt.',
+  intro: 'La parte más de fondo de la unidad: de dónde vienen los gustos, y cómo se dice '
+       + 'lo que uno piensa sin pasarse — o pasándose a propósito.',
 
   secciones: [
-    { titulo: 'Révision autrement',
-      sous: 'El vrai/faux de clase, ahora clasificando; y los oficios que se parecen y no son lo mismo.',
+    { titulo: '1. L’article',
+      sous: '« Pour le bon mauvais goût », y por qué el gusto no es solo cosa de cada quien.',
       rappels: [
-        { titulo: 'Un métier qui n’est pas un autre',
-          html: `<p>Tout le texte tient sur une distinction : l’éducateur au goût
-          <b>n’est pas</b> un soignant et <b>ne juge pas</b>. Il fait sentir, nommer, comparer.</p>
-          <div class="ex">éveiller les papilles · une dégustation à l’aveugle ·
-          mettre des mots sur une sensation · le palais (le goût fin)</div>` }
+        { titulo: 'Relativiser',
+          html: `<p>Dos fórmulas cortas que lo cambian todo en un debate :</p>
+          <div class="ex"><b>C’est relatif.</b> · <b>C’est subjectif.</b></div>
+          <p>Sirven para no cerrar la discusión y para matizar lo que acabas de decir.</p>` }
       ],
-      ejercicios: [0, 1]
+      ejercicios: [0]
     },
-    { titulo: 'Un pas plus loin',
-      sous: 'Las cinco saveurs —con la quinta que el libro no nombra—, las texturas y el dictado.',
+    { titulo: '2. Définir un concept',
+      sous: 'La actividad 13: tres maneras de definir, y no son intercambiables.',
       rappels: [
-        { titulo: 'Les cinq saveurs et les textures',
+        { titulo: 'Les trois structures',
           html: `<ul>
-            <li><b>Les saveurs :</b> sucré · salé · acide · amer · et la cinquième,
-                <b>l’umami</b> (le parmesan vieilli, la sauce soja, le bouillon de dashi).</li>
-            <li><b>Les textures :</b> croquant (une pomme) · croustillant (une croûte) ·
-                fondant · moelleux · onctueux · filandreux · pâteux.</li>
-            <li><b>Le degré :</b> fade ≠ relevé · doux ≠ piquant · âpre · astringent.</li>
+            <li><b>C’est quand…</b> + frase → se define una <b>situación</b>.
+                <i>Le kitsch, c’est quand on accumule des objets voyants.</i></li>
+            <li><b>C’est ce qui / ce que…</b> → se define por <b>lo que hace o lo que se le hace</b>.
+                <i>La beauté, c’est ce que tout le monde aime.</i> ·
+                <i>Le style rétro, c’est ce qui s’inspire d’une autre époque.</i></li>
+            <li><b>C’est une question de…</b> + nombre → se define por su <b>criterio</b>.
+                <i>La politesse, c’est une question d’éducation.</i></li>
           </ul>
-          <div class="piege"><b>Faux amis de la table :</b> <i>épicé</i> n’est pas
-          <i>piquant</i> (un plat peut être très épicé sans piquer), et <i>fort</i> se dit
-          surtout d’un fromage ou d’une moutarde.</div>` },
-        { titulo: 'Bruts, transformés, ultra-transformés',
-          html: `<p>La classification dont tout le monde parle, en trois marches :</p>
-          <ul>
-            <li><b>brut</b> — tel qu’il sort de la terre ou de la découpe : une pomme, des lentilles.</li>
-            <li><b>transformé</b> — une recette simple et des ingrédients qu’on reconnaît :
-                du pain, du beurre, des tomates pelées.</li>
-            <li><b>ultra-transformé</b> — une liste d’ingrédients qu’on ne trouve pas dans
-                une cuisine : un soda, des nuggets, une soupe en sachet.</li>
-          </ul>` },
-        { titulo: 'Refuser sans blesser',
-          html: `<ul>
-            <li>Je ne suis pas très <b>sensible</b> aux fromages forts.</li>
-            <li>Ce n’est pas <b>ma tasse de thé</b>. <i>(familier)</i></li>
-            <li>Ça ne me <b>parle</b> pas. <i>(sans juger le plat)</i></li>
-            <li>J’en prendrai <b>juste un peu</b>, pour goûter.</li>
-          </ul>` }
+          <div class="piege"><b>ce qui</b> cuando le sigue un verbo sin sujeto
+          (<i>ce qui <u>plaît</u></i>) ; <b>ce que</b> cuando le sigue un sujeto
+          (<i>ce que <u>tout le monde</u> aime</i>). Es la misma regla de la página 23.</div>` }
       ],
-      ejercicios: [2, 3, 4, 5, 6]
+      ejercicios: [1, 2]
+    },
+    { titulo: '3. Atténuer ou exagérer',
+      sous: 'La actividad 14c. Saber en qué lado está cada frase es media nota del oral.',
+      rappels: [
+        { titulo: 'Les deux registres du jugement',
+          html: `<ul>
+            <li><b>Atténuer</b> — se dice menos de lo que se piensa, por cortesía :
+                <i>c’est d’un goût douteux · ce n’est pas très heureux · c’est un style… ·
+                faut aimer… · pourquoi pas ?</i></li>
+            <li><b>Exagérer</b> — se dice más, por efecto :
+                <i>ça pique les yeux · c’est mochissime <span class="note">(familier)</span> ·
+                c’est la pire erreur du monde · c’est d’une laideur ! ·
+                on se croirait dans un cimetière.</i></li>
+          </ul>
+          <div class="ex">Y del lado del entusiasmo, lo mismo : <i>c’est joli</i> (neutro) ·
+          <i>ça fait classe</i> · <i>ça en jette !</i>, <i>ça pète !</i>,
+          <i>je kiffe !</i>, <i>c’est trop stylé !</i> (familiares).</div>` }
+      ],
+      ejercicios: [3, 4]
+    },
+    { titulo: '4. Plutôt',
+      sous: 'Un adverbio con cuatro usos distintos, y los cuatro caen en el examen.',
+      rappels: [
+        { titulo: 'Les quatre emplois',
+          html: `<ol>
+            <li><b>Preferencia</b> — <i>plutôt que</i> + nombre o verbo :
+                <i>On préférait le fastfood plutôt qu’un bon restau.</i></li>
+            <li><b>Sugerencia</b> — al final de la frase :
+                <i>Des fleurs en plastique ? Tu veux pas mettre des cactus, plutôt ?</i></li>
+            <li><b>Precisión o corrección</b> — <i>ou plutôt</i> :
+                <i>Il n’a aucun goût. Ou plutôt, il a des idées d’un goût douteux.</i></li>
+            <li><b>= assez</b>, delante de adjetivo o adverbio :
+                <i>Je trouve son appartement plutôt joli.</i></li>
+          </ol>
+          <div class="piege">Delante de infinitivo se añade <b>de</b> :
+          <i>Plutôt mourir que <b>de</b> mettre une cravate !</i></div>` }
+      ],
+      ejercicios: [5, 6]
     }
   ],
 
   ejercicios: [
-    /* 0 */ { t:'tri', etiqueta:'Révision',
-      consigne:'Un éducateur au goût : il le fait, ou il ne le fait pas ?',
-      cols: ['Il le fait', 'Il ne le fait pas'],
-      items: [
-        ['faire goûter des aliments à l’aveugle', 0],
-        ['apprendre à mettre des mots sur ce qu’on ressent', 0],
-        ['travailler avec les écoles et les cantines', 0],
-        ['éveiller la curiosité devant un légume inconnu', 0],
-        ['prescrire un régime alimentaire', 1],
-        ['calculer les calories d’un menu', 1],
-        ['dire ce qui est de bon ou de mauvais goût', 1],
-        ['juger la cuisine des familles', 1]
-      ],
-      aide:'Es toda la idea del texto : ni médico, ni crítico. Si confundes las dos columnas, '
-         + 'vuelve a leer la act. 1 del libro.' },
-
-    /* 1 */ { t:'paires', etiqueta:'Métiers et mots',
-      consigne:'Quatre métiers qu’on confond, et les mots du goût.',
-      pairs: [
-        ['un(e) nutritionniste', 'médecin : il soigne par l’alimentation'],
-        ['un(e) diététicien(ne)', 'il conçoit des menus et des régimes équilibrés'],
-        ['un(e) éducateur(trice) au goût', 'il apprend à sentir, à goûter et à en parler'],
-        ['un(e) critique gastronomique', 'il juge les restaurants et le publie'],
-        ['un(e) sommelier(ère)', 'il accorde les vins avec les plats'],
-        ['un(e) maraîcher(ère)', 'il cultive les légumes et les vend'],
-        ['les papilles', 'ce qui, sur la langue, perçoit les saveurs'],
-        ['le palais', 'le goût, quand on parle de finesse']
-      ] },
-
-    /* 2 */ { t:'trous', etiqueta:'Saveurs et textures',
-      consigne:'Complète avec le mot juste.',
+    /* 0 */ { t:'qcm', etiqueta:'Compréhension',
+      consigne:'Cinco preguntas sobre el artículo.',
       q: [
-        { enonce:'Le citron et le vinaigre sont ___.', r:['acides','acide'], taille:12 },
-        { enonce:'Un café sans sucre est ___.', r:['amer'], taille:12 },
-        { enonce:'Le pain tout juste sorti du four est ___.', r:['croustillant'], taille:14 },
-        { enonce:'Ce chocolat ___ dans la bouche.', r:['fond'], taille:10,
-          note:'<b>fondre</b> : il fond, ils fondent. <i>Fondant</i> est l’adjectif.' },
-        { enonce:'Une soupe de courge bien lisse est ___.', r:['onctueuse','veloutée'], taille:14 },
-        { enonce:'Un parmesan vieilli, de la sauce soja : c’est la cinquième saveur, l’___.',
-          r:['umami'], taille:10 },
-        { enonce:'Ce plat ne goûte rien du tout, il est complètement ___.', r:['fade'], taille:10 }
+        { enonce:'Selon Bourdieu, nos goûts sont déterminés par…',
+          o:['notre caractère', 'notre position sociale', 'notre âge'], r:1,
+          note:'Las clases dominantes dictan lo que se considera « de bon goût », y '
+             + 'reproducimos esa jerarquía sin darnos cuenta.' },
+        { enonce:'De quoi l’auteur dit-il qu’il ne faut pas se laisser paralyser ?',
+          o:['de la peur du faux pas', 'du prix des objets', 'de la mode'], r:0 },
+        { enonce:'Le « bon mauvais goût », selon lui, c’est…',
+          o:['ce qui est cher et rare',
+             'ce qui est inattendu, vivant, et qui a une âme humaine',
+             'ce que recommandent les magazines'], r:1,
+          note:'Sus ejemplos : los dibujos de tus hijos enmarcados, el sillón de la abuela, '
+             + 'un cartel viejo encontrado en la calle.' },
+        { enonce:'Que reproche-t-il aux logements « dignes des magazines » ?',
+          o:['ils donnent une impression d’absence de vie',
+             'ils coûtent trop cher', 'ils sont trop petits'], r:0 },
+        { enonce:'Sa conclusion :',
+          o:['il faut copier les modèles dominants pour avoir bon goût',
+             'il vaut mieux avoir conscience de ses goûts et les accepter',
+             'le goût ne s’apprend pas'], r:1 }
       ] },
 
-    /* 3 */ { t:'tri', etiqueta:'Classer',
-      consigne:'Brut, transformé ou ultra-transformé ?',
-      cols: ['Brut', 'Transformé', 'Ultra-transformé'],
-      items: [
-        ['une pomme', 0], ['un filet de poulet', 0], ['des lentilles sèches', 0],
-        ['du pain de boulangerie', 1], ['du beurre', 1], ['une conserve de tomates pelées', 1],
-        ['un soda', 2], ['des nuggets', 2], ['une soupe déshydratée en sachet', 2]
-      ],
-      aide:'La frontière n’est pas « industriel ou pas » : c’est la liste des '
-         + 'ingrédients. Si tu y trouves un mot que tu n’as pas dans ta cuisine, '
-         + 'c’est ultra-transformé.' },
-
-    /* 4 */ { t:'transfo', etiqueta:'Politesse de la table',
-      consigne:'Réécris chaque phrase pour dire la même chose sans vexer personne.',
+    /* 1 */ { t:'trous', etiqueta:'Définir',
+      consigne:'Completa con c’est quand, c’est ce qui, c’est ce que o c’est une question de.',
       q: [
-        { enonce:'Je déteste le fromage. <i>(ne pas être sensible à)</i>',
-          modele:'Je ne suis pas très sensible aux fromages forts.' },
-        { enonce:'C’est dégueulasse. <i>(ce n’est pas…)</i>',
-          modele:'Ce n’est pas ce que je préfère, mais j’en goûte volontiers un peu.' },
-        { enonce:'Ton plat n’a aucun goût. <i>(je trouve que… un peu…)</i>',
-          modele:'Je trouve ça un peu doux à mon goût — tu as mis du sel ?',
-          note:'Formuler en « à mon goût » déplace le jugement sur soi : '
-             + 'c’est tout le secret.' },
-        { enonce:'Je n’en veux pas. <i>(juste un peu)</i>',
-          modele:'J’en prendrai juste un peu, merci.' },
-        { enonce:'Cette cuisine, ça ne m’intéresse pas du tout. <i>(ça ne me parle pas)</i>',
-          modele:'Honnêtement, cette cuisine ne me parle pas beaucoup.' }
+        { enonce:'Le kitsch, ___ on accumule des objets voyants et un peu ridicules.',
+          r:['c’est quand',"c'est quand"], taille:20 },
+        { enonce:'La beauté, ___ tout le monde aime.',
+          r:['c’est ce que',"c'est ce que"], taille:20,
+          note:'Detrás viene un sujeto (<i>tout le monde</i>) → <b>ce que</b>.' },
+        { enonce:'Le style rétro, ___ s’inspire d’une autre époque.',
+          r:['c’est ce qui',"c'est ce qui"], taille:20,
+          note:'Detrás viene directamente el verbo → <b>ce qui</b>.' },
+        { enonce:'La politesse, ___ éducation.',
+          r:['c’est une question d’',"c'est une question d'",'c’est une question de'], taille:22 },
+        { enonce:'Le bling-bling, ___ on montre sa richesse sans aucune discrétion.',
+          r:['c’est quand',"c'est quand"], taille:20 },
+        { enonce:'Le style ringard, ___ était à la mode il y a vingt ans.',
+          r:['c’est ce qui',"c'est ce qui"], taille:20 }
       ] },
 
-    /* 5 */ { t:'dictee', etiqueta:'Écoute',
-      consigne:'Écoute et écris. Autant de fois que tu veux.',
-      sous:'La voz es de síntesis, no es un locutor: sirve para el ritmo, no para el acento.',
-      q: [
-        { texte:'Je trouve ce plat un peu trop amer.' },
-        { texte:'Les aliments bruts ont beaucoup plus de goût.' },
-        { texte:'Elle apprend aux enfants à mettre des mots sur ce qu’ils goûtent.' },
-        { texte:'Ça fond dans la bouche et ce n’est pas du tout sucré.' }
-      ] },
-
-    /* 6 */ { t:'prod', etiqueta:'Production écrite', mots:100,
-      consigne:'Présente un plat de chez toi à quelqu’un qui ne l’a jamais goûté.',
-      sous:'100 mots. Prohibido escribir « c’est très bon »: hay que hacerlo sentir.',
+    /* 2 */ { t:'prod', etiqueta:'À ta façon', mots:60,
+      consigne:'Define tres de estos conceptos con tus palabras: la laideur, le kitsch, '
+             + 'le bling-bling, le style ringard, l’impolitesse.',
+      sous:'60 palabras. Usa una estructura distinta en cada definición.',
       check: [
-        'Deux saveurs au moins, nommées (sucré, salé, acide, amer, umami).',
-        'Une texture (croquant, fondant, onctueux…).',
-        'Quand on le mange : la fête, la saison, l’heure.',
-        'Une comparaison pour aider l’autre : <i>c’est un peu comme…</i>',
-        'Aucun « c’est bon », aucun « c’est délicieux ».'
+        'Una definición con <b>c’est quand</b>.',
+        'Una con <b>c’est ce qui</b> o <b>c’est ce que</b>.',
+        'Una con <b>c’est une question de</b>.',
+        'Un ejemplo concreto en cada una.'
       ],
-      modele:'Chez nous, on prépare les <i>cachapas</i> quand le maïs est tendre, vers la fin '
-           + 'des pluies. C’est une galette épaisse, faite de maïs frais écrasé : le dessus '
-           + 'reste un peu croustillant, l’intérieur est fondant et presque sucré, parce qu’on '
-           + 'ne met pas de farine. On la plie en deux sur un fromage blanc très salé qui fond '
-           + 'à la chaleur. C’est ce contraste qui fait tout : le sucré du maïs contre le '
-           + 'salé du fromage. C’est un peu comme une crêpe, mais plus dense, et ça se mange '
-           + 'avec les mains, au bord de la route.' }
-  ]
-});
+      modele:'Le kitsch, c’est quand on accumule des objets voyants qui ne vont pas ensemble : '
+           + 'un flamant rose en plastique à côté d’un nain de jardin. Le style ringard, c’est ce '
+           + 'qui était à la mode il y a vingt ans et qui ne l’est pas encore redevenu — les '
+           + 'lunettes de mon oncle, par exemple. L’impolitesse, c’est une question de contexte : '
+           + 'ce qui choque ici ne choque pas forcément ailleurs.' },
 
-/* ───────────────────────────────────────────────────────────────────────
-   SÉANCE 6 · 21 octobre · p. 22-23
-   Communication et Grammaire — cierre de la Unité 1
-   ─────────────────────────────────────────────────────────────────────── */
-FICHAS.push({
-  id: 's6',
-  ciclo: 'Oct.-nov. 2026',
-  fecha: 'Mercredi 21 octobre · p. 22-23',
-  titulo: 'Communication et grammaire · ce qui, ce que, comparatifs',
-  resumen: 'Ce qui / ce que / ce dont, el doble comparativo, plutôt que, y el registro de lo que se dice.',
-  intro: 'La sesión más gramatical del ciclo. Lo que se practica aquí vuelve a salir '
-       + 'en la evaluación del 9 de noviembre.',
-
-  secciones: [
-    { titulo: 'Révision autrement',
-      sous: 'Las expresiones del libro, ahora emparejadas con su intención — y clasificadas por registro.',
-      rappels: [
-        { titulo: 'Dire ce qu’on aime, et ce qu’on n’aime pas',
-          html: `<ul>
-            <li><b>Avec enthousiasme :</b> ça en jette ! · j’ai un faible pour… ·
-                je craque pour… · c’est ça qui me plaît.</li>
-            <li><b>En critiquant avec douceur :</b> ce n’est pas très heureux ·
-                ça ne me parle pas · c’est… particulier.</li>
-            <li><b>Franchement :</b> ça pique les yeux · c’est du plus mauvais goût.</li>
-          </ul>
-          <div class="piege"><b>Registre :</b> <i>ça en jette</i> et <i>ça pique les yeux</i>
-          sont familiers. À l’examen oral, on les signale (<i>« comme on dit familièrement… »</i>)
-          ou on les garde pour la conversation.</div>` }
-      ],
-      ejercicios: [0, 1]
-    },
-    { titulo: 'Un pas plus loin',
-      sous: 'Ce dont y ce à quoi, que el libro no da; y el comparativo doble con sus irregulares.',
-      rappels: [
-        { titulo: 'Ce qui · ce que · ce dont · ce à quoi',
-          html: `<p>Un seul principe : on reprend <b>une idée entière</b>, pas un nom.
-          La forme dépend de ce que demande le verbe qui suit.</p>
-          <ul>
-            <li><b>ce qui</b> — sujet. <i>Ce qui me plaît, c’est la couleur.</i> (quelque chose <u>plaît</u>)</li>
-            <li><b>ce que</b> — complément direct. <i>Raconte-moi ce que tu as vu.</i> (voir <u>quelque chose</u>)</li>
-            <li><b>ce dont</b> — pour les verbes en <b>de</b>. <i>Ce dont j’ai besoin…</i>
-                (avoir besoin <u>de</u>) · parler <u>de</u>, rêver <u>de</u>, se souvenir <u>de</u>.</li>
-            <li><b>ce à quoi</b> — pour les verbes en <b>à</b>. <i>Ce à quoi je pense…</i>
-                (penser <u>à</u>) · s’attendre <u>à</u>, tenir <u>à</u>.</li>
-          </ul>
-          <div class="ex"><b>La mise en relief :</b> « Ce qui me dérange, <b>c’est</b> le bruit »
-          · « Ce qui me dérange, <b>ce sont</b> les commentaires » — pluriel, donc <i>ce sont</i>.</div>` },
-        { titulo: 'Le double comparatif',
-          html: `<ul>
-            <li><b>Plus… plus · moins… moins · plus… moins</b> —
-                <i>Plus on goûte tôt, plus on est curieux.</i></li>
-            <li>Avec un nom : <b>plus de / moins de</b> + nom.
-                <i>Il y a moins de monde qu’hier.</i></li>
-            <li><b>Les irréguliers :</b> bon → <b>meilleur</b> (adjectif) ·
-                bien → <b>mieux</b> (adverbe) · mauvais → <b>pire</b>.</li>
-          </ul>
-          <div class="piege"><b>Le piège de l’examen :</b> <i>Ce vin est <b>meilleur</b></i>
-          (adjectif, il accompagne un nom) mais <i>Elle cuisine <b>mieux</b></i>
-          (adverbe, il accompagne un verbe). Jamais « plus bon », jamais « plus bien ».</div>` },
-        { titulo: 'Plutôt que',
-          html: `<ul>
-            <li><b>plutôt que</b> + nom : <i>une salade plutôt qu’un dessert.</i></li>
-            <li><b>plutôt que de</b> + infinitif : <i>Plutôt que de te plaindre, propose quelque chose.</i></li>
-            <li><b>plutôt</b> seul = assez, un peu : <i>Elle est plutôt timide. C’est plutôt classe.</i></li>
-          </ul>` }
-      ],
-      ejercicios: [2, 3, 4, 5, 6]
-    }
-  ],
-
-  ejercicios: [
-    /* 0 */ { t:'paires', etiqueta:'Révision',
-      consigne:'Chaque formule, son intention exacte.',
-      pairs: [
-        ['Ça en jette !', 'C’est spectaculaire, ça impressionne'],
-        ['Ça pique les yeux.', 'C’est visuellement agressif, ça jure'],
-        ['Ce n’est pas très heureux.', 'Dit avec douceur : c’est raté'],
-        ['J’ai un faible pour…', 'J’aime particulièrement, avec tendresse'],
-        ['Je craque pour…', 'Je ne résiste pas'],
-        ['Ça ne me parle pas.', 'Ça ne me touche pas — sans juger'],
-        ['C’est du plus mauvais goût.', 'C’est franchement choquant'],
-        ['C’est sobre, mais ça a du cachet.', 'Discret et pourtant élégant']
-      ] },
-
-    /* 1 */ { t:'tri', etiqueta:'Registre',
-      consigne:'Dans quel registre dirais-tu chacune de ces phrases ?',
-      cols: ['Familier', 'Standard', 'Soutenu'],
+    /* 3 */ { t:'tri', etiqueta:'Act. 14c',
+      consigne:'¿Esta frase exagera o atenúa lo que se piensa ?',
+      cols: ['Ça exagère (E)', 'Ça atténue (A)'],
       items: [
-        ['Ça en jette !', 0],
-        ['C’est top.', 0],
-        ['C’est pas mon truc.', 0],
-        ['Ça pique les yeux.', 0],
-        ['C’est très réussi.', 1],
-        ['Ce n’est pas très heureux.', 1],
-        ['C’est d’un goût exquis.', 2],
-        ['Cela ne me séduit guère.', 2],
-        ['Je trouve cela peu heureux.', 2]
+        ['Ça pique les yeux !', 0],
+        ['C’est mochissime.', 0],
+        ['Ça sort de l’ordinaire !', 0],
+        ['On se croirait dans un cimetière.', 0],
+        ['C’est d’un goût douteux.', 1],
+        ['C’est pas très heureux.', 1],
+        ['Ça fait plutôt classe !', 1]
       ],
-      aide:'En el oral del DELF se espera el <b>standard</b>, con algún toque soutenu. '
-         + 'Lo familiar no está prohibido, pero hay que marcarlo como tal.' },
+      aide:'Las que atenúan suelen llevar una marca : <b>pas très</b>, <b>douteux</b>, '
+         + '<b>plutôt</b>. Las que exageran usan superlativos, imágenes o el sufijo familiar '
+         + '<b>-issime</b> (<i>mochissime</i>, de <i>moche</i>).' },
 
-    /* 2 */ { t:'trous', etiqueta:'Grammaire',
-      consigne:'Complète avec ce qui, ce que (ce qu’), ce dont ou ce à quoi.',
+    /* 4 */ { t:'tri', etiqueta:'Dire qu’on n’aime pas',
+      consigne:'¿Lo dice con educación o lo dice abiertamente ?',
+      cols: ['Poliment', 'Ouvertement'],
+      items: [
+        ['Ce n’est pas très heureux.', 0],
+        ['C’est d’un goût douteux.', 0],
+        ['C’est un style…', 0],
+        ['Pourquoi pas ?', 0],
+        ['Faut aimer…', 0],
+        ['C’est horrible !', 1],
+        ['C’est la pire erreur du monde.', 1],
+        ['C’est une insulte au bon goût !', 1],
+        ['C’est d’une vulgarité sans nom !', 1]
+      ],
+      aide:'Las de la izquierda son las que puedes usar delante de la persona. Las de la '
+         + 'derecha, no — salvo que quieras justo ese efecto.' },
+
+    /* 5 */ { t:'qcm', etiqueta:'Plutôt',
+      consigne:'¿Qué hace « plutôt » en cada frase ?',
       q: [
-        { enonce:'___ me plaît dans cette robe, c’est la couleur.', r:['ce qui'], taille:12 },
-        { enonce:'Raconte-moi ___ tu as vu au défilé.', r:['ce que','ce qu'], taille:12 },
-        { enonce:'___ j’ai besoin, c’est d’un manteau qui dure.', r:['ce dont'], taille:12,
-          note:'avoir besoin <b>de</b> → ce <b>dont</b>.' },
-        { enonce:'C’est exactement ___ je m’attendais.', r:['ce à quoi'], taille:14,
-          note:'s’attendre <b>à</b> → ce <b>à quoi</b>.' },
-        { enonce:'Il ne comprend pas ___ je lui reproche.', r:['ce que','ce qu'], taille:12 },
-        { enonce:'Elle fait toujours ___ lui plaît.', r:['ce qui'], taille:12 },
-        { enonce:'___ tout le monde parle, c’est de ce jeune créateur.', r:['ce dont'], taille:12 },
-        { enonce:'___ je tiens le plus, c’est au confort.', r:['ce à quoi'], taille:14 }
+        { enonce:'« Je n’ai pas peur de le dire, ou plutôt j’ose le dire. »',
+          o:['une préférence', 'une précision, une correction', 'il veut dire « assez »'],
+          r:1, note:'<b>ou plutôt</b> corrige lo que se acaba de decir.' },
+        { enonce:'« Je trouve son appartement plutôt amusant. »',
+          o:['une préférence', 'une correction', 'il veut dire « assez »'], r:2,
+          note:'Delante de adjetivo, <b>plutôt</b> = <i>assez</i>.' },
+        { enonce:'« Je préfère vivre dans un bazar plutôt que dans un catalogue. »',
+          o:['une préférence', 'une correction', 'il veut dire « assez »'], r:0 },
+        { enonce:'« Tu veux pas mettre des cactus, plutôt ? »',
+          o:['une suggestion', 'une correction', 'il veut dire « assez »'], r:0,
+          note:'Al final de la frase, propone otra cosa.' },
+        { enonce:'« Plutôt mourir ___ mettre une cravate ! »',
+          o:['que', 'que de', 'de'], r:1,
+          note:'Delante de infinitivo, <b>plutôt que de</b>. También se oye sin « de », '
+             + 'pero con él es lo correcto.' }
       ] },
 
-    /* 3 */ { t:'transfo', etiqueta:'Mise en relief',
-      consigne:'Réécris chaque phrase en mettant en relief l’élément souligné.',
-      sous:'Empieza por « Ce qui… », « Ce que… », « Ce dont… ».',
-      q: [
-        { enonce:'J’aime surtout <u>la liberté</u> qu’il y a dans son style.',
-          modele:'Ce que j’aime surtout dans son style, c’est la liberté.' },
-        { enonce:'<u>Les commentaires sur les réseaux</u> me dérangent.',
-          modele:'Ce qui me dérange, ce sont les commentaires sur les réseaux.',
-          note:'Pluriel → <b>ce sont</b>.' },
-        { enonce:'J’ai besoin <u>de conseils</u>, pas de jugements.',
-          modele:'Ce dont j’ai besoin, ce sont des conseils, pas des jugements.' },
-        { enonce:'Je rêve <u>d’un vêtement qui dure dix ans</u>.',
-          modele:'Ce dont je rêve, c’est d’un vêtement qui dure dix ans.' },
-        { enonce:'Je ne supporte pas <u>qu’on commente ma tenue</u>.',
-          modele:'Ce que je ne supporte pas, c’est qu’on commente ma tenue.' }
-      ] },
-
-    /* 4 */ { t:'qcm', etiqueta:'Comparatifs',
-      consigne:'Choisis la forme correcte.',
-      q: [
-        { enonce:'___ on connaît un plat, ___ on l’apprécie.',
-          o:['Plus… plus', 'Plus… plus de', 'Le plus… le plus'], r:0 },
-        { enonce:'Il y a ___ monde qu’hier.',
-          o:['moins de', 'moins', 'le moins de'], r:0,
-          note:'Devant un nom : <b>moins de</b>, <b>plus de</b>.' },
-        { enonce:'Elle cuisine ___ que moi.',
-          o:['meilleur', 'mieux', 'plus bonne'], r:1,
-          note:'<b>mieux</b> accompagne un verbe ; <b>meilleur</b> accompagne un nom.' },
-        { enonce:'Ce vin est ___ que l’autre.',
-          o:['mieux', 'meilleur', 'plus bon'], r:1 },
-        { enonce:'Plus il insiste, ___ j’ai envie d’accepter.',
-          o:['moins', 'le moins', 'pas'], r:0 },
-        { enonce:'C’est ___ que ce que je craignais.',
-          o:['pire', 'plus pire', 'plus mauvais'], r:0,
-          note:'<i>Plus mauvais</i> existe, mais pour un goût ou une qualité concrète : '
-             + '<i>ce café est plus mauvais que l’autre</i>. Pour une situation, c’est <b>pire</b>.' }
-      ] },
-
-    /* 5 */ { t:'trous', etiqueta:'Plutôt',
-      consigne:'Complète avec plutôt, plutôt que ou plutôt que de.',
-      q: [
-        { enonce:'Je préfère marcher ___ prendre le bus.', r:['plutôt que de','plutôt que'], taille:16 },
-        { enonce:'Elle est ___ timide. <i>(= assez)</i>', r:['plutôt'], taille:10 },
-        { enonce:'___ te plaindre, propose quelque chose.', r:['plutôt que de'], taille:16 },
-        { enonce:'Ce manteau est ___ classe. <i>(familier)</i>', r:['plutôt'], taille:10 },
-        { enonce:'Prends une salade ___ un dessert.', r:['plutôt qu','plutôt que'], taille:14,
-          note:'Devant un nom : <i>plutôt qu’un dessert</i>.' }
-      ] },
-
-    /* 6 */ { t:'prod', etiqueta:'Production écrite', mots:100,
-      consigne:'Un ami t’envoie une photo de la tenue qu’il a choisie pour un entretien '
-             + 'd’embauche et te demande ton avis. Tu n’aimes pas du tout. Réponds-lui.',
-      sous:'100 mots. Hay que ser honesto y amable a la vez: ahí está el ejercicio.',
+    /* 6 */ { t:'prod', etiqueta:'Ce qui se fait', mots:90,
+      consigne:'Da ejemplos, en decoración o en ropa, de ce qui ne se fait pas, ce qui se fait, '
+             + 'y ce qui te plaît personnellement, aunque no se lleve. (Actividad 11)',
+      sous:'90 palabras. Y una frase para relativizar, que para eso están.',
       check: [
-        'Une mise en relief : <i>Ce qui…, c’est…</i> ou <i>Ce que…, c’est…</i>',
-        'Un double comparatif : <i>Plus…, plus…</i>',
-        'Un <i>plutôt que</i>.',
-        'Une critique polie (pas « ça pique les yeux » — il passe un entretien !).',
-        'Une proposition concrète pour remplacer.'
+        'Dos ejemplos de <b>ce qui ne se fait pas</b>.',
+        'Dos de <b>ce qui se fait</b>.',
+        'Uno de <b>ce qui te plaît</b> aunque no se lleve, con el porqué.',
+        'Una frase que atenúe y otra que exagere.',
+        'Un <b>c’est relatif</b> o <b>c’est subjectif</b> para cerrar.'
       ],
-      modele:'Alors, franchement : ce qui me plaît, c’est la chemise — la coupe est '
-           + 'impeccable et le blanc passe partout. Ce qui me gêne un peu plus, c’est la veste. '
-           + 'Elle est très serrée, et plus tu bougeras, moins tu seras à l’aise ; dans un '
-           + 'entretien, ça se voit tout de suite. Je mettrais quelque chose de plus sobre '
-           + 'plutôt que ce motif, qui attire l’œil avant toi. Et garde les manches comme ça, '
-           + 'pas retroussées : c’est un détail, mais ce n’est pas très heureux dans un '
-           + 'bureau. Sinon, ça te va très bien — tu as bon goût, tu le sais.' }
+      modele:'En décoration, ce qui ne se fait pas, chez moi, c’est de peindre les murs en '
+           + 'noir, ni de mettre des fleurs en plastique : ça pique les yeux. Ce qui se '
+           + 'fait, c’est le blanc partout et les meubles clairs, comme dans les magazines — '
+           + 'c’est joli, mais on se croirait parfois dans un catalogue. Ce qui me plaît '
+           + 'personnellement, ce sont les affiches un peu anciennes que ma mère a gardées : '
+           + 'ce n’est pas très à la mode, disons que c’est d’un goût douteux pour certains, '
+           + 'mais ça raconte quelque chose. Après, tout ça est subjectif.' }
   ]
 });
 
@@ -919,6 +826,355 @@ FICHAS.push({
            + 'repas — plus tu restes à table, plus on te trouve sympathique —, et arriver à '
            + 'l’heure exacte à une invitation chez quelqu’un. Il vaut mieux arriver vingt '
            + 'minutes plus tard : autrement, tu surprends tout le monde en cuisine.' }
+  ]
+});
+
+/* ───────────────────────────────────────────────────────────────────────
+   SÉANCE 5 · 19 octobre · p. 20-21
+   Rendez-vous « Être éducateur au goût »
+   ─────────────────────────────────────────────────────────────────────── */
+FICHAS.push({
+  id: 's5',
+  ciclo: 'Oct.-nov. 2026',
+  fecha: 'Lundi 19 octobre · p. 20-21',
+  titulo: 'Être éducateur au goût',
+  resumen: 'Un métier peu connu, les cinq saveurs, les textures y cómo hablar de un plato sin juzgarlo.',
+  intro: 'El oficio del texto sirve de pretexto para lo que de verdad se trabaja aquí: '
+       + 'poner palabras a lo que se siente en la boca.',
+
+  secciones: [
+    { titulo: 'Révision autrement',
+      sous: 'El vrai/faux de clase, ahora clasificando; y los oficios que se parecen y no son lo mismo.',
+      rappels: [
+        { titulo: 'Un métier qui n’est pas un autre',
+          html: `<p>Tout le texte tient sur une distinction : l’éducateur au goût
+          <b>n’est pas</b> un soignant et <b>ne juge pas</b>. Il fait sentir, nommer, comparer.</p>
+          <div class="ex">éveiller les papilles · une dégustation à l’aveugle ·
+          mettre des mots sur une sensation · le palais (le goût fin)</div>` }
+      ],
+      ejercicios: [0, 1]
+    },
+    { titulo: 'Un pas plus loin',
+      sous: 'Las cinco saveurs —con la quinta que el libro no nombra—, las texturas y el dictado.',
+      rappels: [
+        { titulo: 'Les cinq saveurs et les textures',
+          html: `<ul>
+            <li><b>Les saveurs :</b> sucré · salé · acide · amer · et la cinquième,
+                <b>l’umami</b> (le parmesan vieilli, la sauce soja, le bouillon de dashi).</li>
+            <li><b>Les textures :</b> croquant (une pomme) · croustillant (une croûte) ·
+                fondant · moelleux · onctueux · filandreux · pâteux.</li>
+            <li><b>Le degré :</b> fade ≠ relevé · doux ≠ piquant · âpre · astringent.</li>
+          </ul>
+          <div class="piege"><b>Faux amis de la table :</b> <i>épicé</i> n’est pas
+          <i>piquant</i> (un plat peut être très épicé sans piquer), et <i>fort</i> se dit
+          surtout d’un fromage ou d’une moutarde.</div>` },
+        { titulo: 'Bruts, transformés, ultra-transformés',
+          html: `<p>La classification dont tout le monde parle, en trois marches :</p>
+          <ul>
+            <li><b>brut</b> — tel qu’il sort de la terre ou de la découpe : une pomme, des lentilles.</li>
+            <li><b>transformé</b> — une recette simple et des ingrédients qu’on reconnaît :
+                du pain, du beurre, des tomates pelées.</li>
+            <li><b>ultra-transformé</b> — une liste d’ingrédients qu’on ne trouve pas dans
+                une cuisine : un soda, des nuggets, une soupe en sachet.</li>
+          </ul>` },
+        { titulo: 'Refuser sans blesser',
+          html: `<ul>
+            <li>Je ne suis pas très <b>sensible</b> aux fromages forts.</li>
+            <li>Ce n’est pas <b>ma tasse de thé</b>. <i>(familier)</i></li>
+            <li>Ça ne me <b>parle</b> pas. <i>(sans juger le plat)</i></li>
+            <li>J’en prendrai <b>juste un peu</b>, pour goûter.</li>
+          </ul>` }
+      ],
+      ejercicios: [2, 3, 4, 5, 6]
+    }
+  ],
+
+  ejercicios: [
+    /* 0 */ { t:'tri', etiqueta:'Révision',
+      consigne:'Un éducateur au goût : il le fait, ou il ne le fait pas ?',
+      cols: ['Il le fait', 'Il ne le fait pas'],
+      items: [
+        ['faire goûter des aliments à l’aveugle', 0],
+        ['apprendre à mettre des mots sur ce qu’on ressent', 0],
+        ['travailler avec les écoles et les cantines', 0],
+        ['éveiller la curiosité devant un légume inconnu', 0],
+        ['prescrire un régime alimentaire', 1],
+        ['calculer les calories d’un menu', 1],
+        ['dire ce qui est de bon ou de mauvais goût', 1],
+        ['juger la cuisine des familles', 1]
+      ],
+      aide:'Es toda la idea del texto : ni médico, ni crítico. Si confundes las dos columnas, '
+         + 'vuelve a leer la act. 1 del libro.' },
+
+    /* 1 */ { t:'paires', etiqueta:'Métiers et mots',
+      consigne:'Quatre métiers qu’on confond, et les mots du goût.',
+      pairs: [
+        ['un(e) nutritionniste', 'médecin : il soigne par l’alimentation'],
+        ['un(e) diététicien(ne)', 'il conçoit des menus et des régimes équilibrés'],
+        ['un(e) éducateur(trice) au goût', 'il apprend à sentir, à goûter et à en parler'],
+        ['un(e) critique gastronomique', 'il juge les restaurants et le publie'],
+        ['un(e) sommelier(ère)', 'il accorde les vins avec les plats'],
+        ['un(e) maraîcher(ère)', 'il cultive les légumes et les vend'],
+        ['les papilles', 'ce qui, sur la langue, perçoit les saveurs'],
+        ['le palais', 'le goût, quand on parle de finesse']
+      ] },
+
+    /* 2 */ { t:'trous', etiqueta:'Saveurs et textures',
+      consigne:'Complète avec le mot juste.',
+      q: [
+        { enonce:'Le citron et le vinaigre sont ___.', r:['acides','acide'], taille:12 },
+        { enonce:'Un café sans sucre est ___.', r:['amer'], taille:12 },
+        { enonce:'Le pain tout juste sorti du four est ___.', r:['croustillant'], taille:14 },
+        { enonce:'Ce chocolat ___ dans la bouche.', r:['fond'], taille:10,
+          note:'<b>fondre</b> : il fond, ils fondent. <i>Fondant</i> est l’adjectif.' },
+        { enonce:'Une soupe de courge bien lisse est ___.', r:['onctueuse','veloutée'], taille:14 },
+        { enonce:'Un parmesan vieilli, de la sauce soja : c’est la cinquième saveur, l’___.',
+          r:['umami'], taille:10 },
+        { enonce:'Ce plat ne goûte rien du tout, il est complètement ___.', r:['fade'], taille:10 }
+      ] },
+
+    /* 3 */ { t:'tri', etiqueta:'Classer',
+      consigne:'Brut, transformé ou ultra-transformé ?',
+      cols: ['Brut', 'Transformé', 'Ultra-transformé'],
+      items: [
+        ['une pomme', 0], ['un filet de poulet', 0], ['des lentilles sèches', 0],
+        ['du pain de boulangerie', 1], ['du beurre', 1], ['une conserve de tomates pelées', 1],
+        ['un soda', 2], ['des nuggets', 2], ['une soupe déshydratée en sachet', 2]
+      ],
+      aide:'La frontière n’est pas « industriel ou pas » : c’est la liste des '
+         + 'ingrédients. Si tu y trouves un mot que tu n’as pas dans ta cuisine, '
+         + 'c’est ultra-transformé.' },
+
+    /* 4 */ { t:'transfo', etiqueta:'Politesse de la table',
+      consigne:'Réécris chaque phrase pour dire la même chose sans vexer personne.',
+      q: [
+        { enonce:'Je déteste le fromage. <i>(ne pas être sensible à)</i>',
+          modele:'Je ne suis pas très sensible aux fromages forts.' },
+        { enonce:'C’est dégueulasse. <i>(ce n’est pas…)</i>',
+          modele:'Ce n’est pas ce que je préfère, mais j’en goûte volontiers un peu.' },
+        { enonce:'Ton plat n’a aucun goût. <i>(je trouve que… un peu…)</i>',
+          modele:'Je trouve ça un peu doux à mon goût — tu as mis du sel ?',
+          note:'Formuler en « à mon goût » déplace le jugement sur soi : '
+             + 'c’est tout le secret.' },
+        { enonce:'Je n’en veux pas. <i>(juste un peu)</i>',
+          modele:'J’en prendrai juste un peu, merci.' },
+        { enonce:'Cette cuisine, ça ne m’intéresse pas du tout. <i>(ça ne me parle pas)</i>',
+          modele:'Honnêtement, cette cuisine ne me parle pas beaucoup.' }
+      ] },
+
+    /* 5 */ { t:'dictee', etiqueta:'Écoute',
+      consigne:'Écoute et écris. Autant de fois que tu veux.',
+      sous:'La voz es de síntesis, no es un locutor: sirve para el ritmo, no para el acento.',
+      q: [
+        { texte:'Je trouve ce plat un peu trop amer.' },
+        { texte:'Les aliments bruts ont beaucoup plus de goût.' },
+        { texte:'Elle apprend aux enfants à mettre des mots sur ce qu’ils goûtent.' },
+        { texte:'Ça fond dans la bouche et ce n’est pas du tout sucré.' }
+      ] },
+
+    /* 6 */ { t:'prod', etiqueta:'Production écrite', mots:100,
+      consigne:'Présente un plat de chez toi à quelqu’un qui ne l’a jamais goûté.',
+      sous:'100 mots. Prohibido escribir « c’est très bon »: hay que hacerlo sentir.',
+      check: [
+        'Deux saveurs au moins, nommées (sucré, salé, acide, amer, umami).',
+        'Une texture (croquant, fondant, onctueux…).',
+        'Quand on le mange : la fête, la saison, l’heure.',
+        'Une comparaison pour aider l’autre : <i>c’est un peu comme…</i>',
+        'Aucun « c’est bon », aucun « c’est délicieux ».'
+      ],
+      modele:'Chez nous, on prépare les <i>cachapas</i> quand le maïs est tendre, vers la fin '
+           + 'des pluies. C’est une galette épaisse, faite de maïs frais écrasé : le dessus '
+           + 'reste un peu croustillant, l’intérieur est fondant et presque sucré, parce qu’on '
+           + 'ne met pas de farine. On la plie en deux sur un fromage blanc très salé qui fond '
+           + 'à la chaleur. C’est ce contraste qui fait tout : le sucré du maïs contre le '
+           + 'salé du fromage. C’est un peu comme une crêpe, mais plus dense, et ça se mange '
+           + 'avec les mains, au bord de la route.' }
+  ]
+});
+
+/* ───────────────────────────────────────────────────────────────────────
+   SÉANCE 6 · 21 octobre · p. 22-23
+   Communication et Grammaire — cierre de la Unité 1
+   ─────────────────────────────────────────────────────────────────────── */
+FICHAS.push({
+  id: 's6',
+  ciclo: 'Oct.-nov. 2026',
+  fecha: 'Mercredi 21 octobre · p. 22-23',
+  titulo: 'Communication et grammaire · ce qui, ce que, comparatifs',
+  resumen: 'Ce qui / ce que / ce dont, el doble comparativo, plutôt que, y el registro de lo que se dice.',
+  intro: 'La sesión más gramatical del ciclo. Lo que se practica aquí vuelve a salir '
+       + 'en la evaluación del 9 de noviembre.',
+
+  secciones: [
+    { titulo: 'Révision autrement',
+      sous: 'Las expresiones del libro, ahora emparejadas con su intención — y clasificadas por registro.',
+      rappels: [
+        { titulo: 'Dire ce qu’on aime, et ce qu’on n’aime pas',
+          html: `<ul>
+            <li><b>Avec enthousiasme :</b> ça en jette ! · j’ai un faible pour… ·
+                je craque pour… · c’est ça qui me plaît.</li>
+            <li><b>En critiquant avec douceur :</b> ce n’est pas très heureux ·
+                ça ne me parle pas · c’est… particulier.</li>
+            <li><b>Franchement :</b> ça pique les yeux · c’est du plus mauvais goût.</li>
+          </ul>
+          <div class="piege"><b>Registre :</b> <i>ça en jette</i> et <i>ça pique les yeux</i>
+          sont familiers. À l’examen oral, on les signale (<i>« comme on dit familièrement… »</i>)
+          ou on les garde pour la conversation.</div>` }
+      ],
+      ejercicios: [0, 1]
+    },
+    { titulo: 'Un pas plus loin',
+      sous: 'Ce dont y ce à quoi, que el libro no da; y el comparativo doble con sus irregulares.',
+      rappels: [
+        { titulo: 'Ce qui · ce que · ce dont · ce à quoi',
+          html: `<p>Un seul principe : on reprend <b>une idée entière</b>, pas un nom.
+          La forme dépend de ce que demande le verbe qui suit.</p>
+          <ul>
+            <li><b>ce qui</b> — sujet. <i>Ce qui me plaît, c’est la couleur.</i> (quelque chose <u>plaît</u>)</li>
+            <li><b>ce que</b> — complément direct. <i>Raconte-moi ce que tu as vu.</i> (voir <u>quelque chose</u>)</li>
+            <li><b>ce dont</b> — pour les verbes en <b>de</b>. <i>Ce dont j’ai besoin…</i>
+                (avoir besoin <u>de</u>) · parler <u>de</u>, rêver <u>de</u>, se souvenir <u>de</u>.</li>
+            <li><b>ce à quoi</b> — pour les verbes en <b>à</b>. <i>Ce à quoi je pense…</i>
+                (penser <u>à</u>) · s’attendre <u>à</u>, tenir <u>à</u>.</li>
+          </ul>
+          <div class="ex"><b>La mise en relief :</b> « Ce qui me dérange, <b>c’est</b> le bruit »
+          · « Ce qui me dérange, <b>ce sont</b> les commentaires » — pluriel, donc <i>ce sont</i>.</div>` },
+        { titulo: 'Le double comparatif',
+          html: `<ul>
+            <li><b>Plus… plus · moins… moins · plus… moins</b> —
+                <i>Plus on goûte tôt, plus on est curieux.</i></li>
+            <li>Avec un nom : <b>plus de / moins de</b> + nom.
+                <i>Il y a moins de monde qu’hier.</i></li>
+            <li><b>Les irréguliers :</b> bon → <b>meilleur</b> (adjectif) ·
+                bien → <b>mieux</b> (adverbe) · mauvais → <b>pire</b>.</li>
+          </ul>
+          <div class="piege"><b>Le piège de l’examen :</b> <i>Ce vin est <b>meilleur</b></i>
+          (adjectif, il accompagne un nom) mais <i>Elle cuisine <b>mieux</b></i>
+          (adverbe, il accompagne un verbe). Jamais « plus bon », jamais « plus bien ».</div>` },
+        { titulo: 'Plutôt que',
+          html: `<ul>
+            <li><b>plutôt que</b> + nom : <i>une salade plutôt qu’un dessert.</i></li>
+            <li><b>plutôt que de</b> + infinitif : <i>Plutôt que de te plaindre, propose quelque chose.</i></li>
+            <li><b>plutôt</b> seul = assez, un peu : <i>Elle est plutôt timide. C’est plutôt classe.</i></li>
+          </ul>` }
+      ],
+      ejercicios: [2, 3, 4, 5, 6]
+    }
+  ],
+
+  ejercicios: [
+    /* 0 */ { t:'paires', etiqueta:'Révision',
+      consigne:'Chaque formule, son intention exacte.',
+      pairs: [
+        ['Ça en jette !', 'C’est spectaculaire, ça impressionne'],
+        ['Ça pique les yeux.', 'C’est visuellement agressif, ça jure'],
+        ['Ce n’est pas très heureux.', 'Dit avec douceur : c’est raté'],
+        ['J’ai un faible pour…', 'J’aime particulièrement, avec tendresse'],
+        ['Je craque pour…', 'Je ne résiste pas'],
+        ['Ça ne me parle pas.', 'Ça ne me touche pas — sans juger'],
+        ['C’est du plus mauvais goût.', 'C’est franchement choquant'],
+        ['C’est sobre, mais ça a du cachet.', 'Discret et pourtant élégant']
+      ] },
+
+    /* 1 */ { t:'tri', etiqueta:'Registre',
+      consigne:'Dans quel registre dirais-tu chacune de ces phrases ?',
+      cols: ['Familier', 'Standard', 'Soutenu'],
+      items: [
+        ['Ça en jette !', 0],
+        ['C’est top.', 0],
+        ['C’est pas mon truc.', 0],
+        ['Ça pique les yeux.', 0],
+        ['C’est très réussi.', 1],
+        ['Ce n’est pas très heureux.', 1],
+        ['C’est d’un goût exquis.', 2],
+        ['Cela ne me séduit guère.', 2],
+        ['Je trouve cela peu heureux.', 2]
+      ],
+      aide:'En el oral del DELF se espera el <b>standard</b>, con algún toque soutenu. '
+         + 'Lo familiar no está prohibido, pero hay que marcarlo como tal.' },
+
+    /* 2 */ { t:'trous', etiqueta:'Grammaire',
+      consigne:'Complète avec ce qui, ce que (ce qu’), ce dont ou ce à quoi.',
+      q: [
+        { enonce:'___ me plaît dans cette robe, c’est la couleur.', r:['ce qui'], taille:12 },
+        { enonce:'Raconte-moi ___ tu as vu au défilé.', r:['ce que','ce qu'], taille:12 },
+        { enonce:'___ j’ai besoin, c’est d’un manteau qui dure.', r:['ce dont'], taille:12,
+          note:'avoir besoin <b>de</b> → ce <b>dont</b>.' },
+        { enonce:'C’est exactement ___ je m’attendais.', r:['ce à quoi'], taille:14,
+          note:'s’attendre <b>à</b> → ce <b>à quoi</b>.' },
+        { enonce:'Il ne comprend pas ___ je lui reproche.', r:['ce que','ce qu'], taille:12 },
+        { enonce:'Elle fait toujours ___ lui plaît.', r:['ce qui'], taille:12 },
+        { enonce:'___ tout le monde parle, c’est de ce jeune créateur.', r:['ce dont'], taille:12 },
+        { enonce:'___ je tiens le plus, c’est au confort.', r:['ce à quoi'], taille:14 }
+      ] },
+
+    /* 3 */ { t:'transfo', etiqueta:'Mise en relief',
+      consigne:'Réécris chaque phrase en mettant en relief l’élément souligné.',
+      sous:'Empieza por « Ce qui… », « Ce que… », « Ce dont… ».',
+      q: [
+        { enonce:'J’aime surtout <u>la liberté</u> qu’il y a dans son style.',
+          modele:'Ce que j’aime surtout dans son style, c’est la liberté.' },
+        { enonce:'<u>Les commentaires sur les réseaux</u> me dérangent.',
+          modele:'Ce qui me dérange, ce sont les commentaires sur les réseaux.',
+          note:'Pluriel → <b>ce sont</b>.' },
+        { enonce:'J’ai besoin <u>de conseils</u>, pas de jugements.',
+          modele:'Ce dont j’ai besoin, ce sont des conseils, pas des jugements.' },
+        { enonce:'Je rêve <u>d’un vêtement qui dure dix ans</u>.',
+          modele:'Ce dont je rêve, c’est d’un vêtement qui dure dix ans.' },
+        { enonce:'Je ne supporte pas <u>qu’on commente ma tenue</u>.',
+          modele:'Ce que je ne supporte pas, c’est qu’on commente ma tenue.' }
+      ] },
+
+    /* 4 */ { t:'qcm', etiqueta:'Comparatifs',
+      consigne:'Choisis la forme correcte.',
+      q: [
+        { enonce:'___ on connaît un plat, ___ on l’apprécie.',
+          o:['Plus… plus', 'Plus… plus de', 'Le plus… le plus'], r:0 },
+        { enonce:'Il y a ___ monde qu’hier.',
+          o:['moins de', 'moins', 'le moins de'], r:0,
+          note:'Devant un nom : <b>moins de</b>, <b>plus de</b>.' },
+        { enonce:'Elle cuisine ___ que moi.',
+          o:['meilleur', 'mieux', 'plus bonne'], r:1,
+          note:'<b>mieux</b> accompagne un verbe ; <b>meilleur</b> accompagne un nom.' },
+        { enonce:'Ce vin est ___ que l’autre.',
+          o:['mieux', 'meilleur', 'plus bon'], r:1 },
+        { enonce:'Plus il insiste, ___ j’ai envie d’accepter.',
+          o:['moins', 'le moins', 'pas'], r:0 },
+        { enonce:'C’est ___ que ce que je craignais.',
+          o:['pire', 'plus pire', 'plus mauvais'], r:0,
+          note:'<i>Plus mauvais</i> existe, mais pour un goût ou une qualité concrète : '
+             + '<i>ce café est plus mauvais que l’autre</i>. Pour une situation, c’est <b>pire</b>.' }
+      ] },
+
+    /* 5 */ { t:'trous', etiqueta:'Plutôt',
+      consigne:'Complète avec plutôt, plutôt que ou plutôt que de.',
+      q: [
+        { enonce:'Je préfère marcher ___ prendre le bus.', r:['plutôt que de','plutôt que'], taille:16 },
+        { enonce:'Elle est ___ timide. <i>(= assez)</i>', r:['plutôt'], taille:10 },
+        { enonce:'___ te plaindre, propose quelque chose.', r:['plutôt que de'], taille:16 },
+        { enonce:'Ce manteau est ___ classe. <i>(familier)</i>', r:['plutôt'], taille:10 },
+        { enonce:'Prends une salade ___ un dessert.', r:['plutôt qu','plutôt que'], taille:14,
+          note:'Devant un nom : <i>plutôt qu’un dessert</i>.' }
+      ] },
+
+    /* 6 */ { t:'prod', etiqueta:'Production écrite', mots:100,
+      consigne:'Un ami t’envoie une photo de la tenue qu’il a choisie pour un entretien '
+             + 'd’embauche et te demande ton avis. Tu n’aimes pas du tout. Réponds-lui.',
+      sous:'100 mots. Hay que ser honesto y amable a la vez: ahí está el ejercicio.',
+      check: [
+        'Une mise en relief : <i>Ce qui…, c’est…</i> ou <i>Ce que…, c’est…</i>',
+        'Un double comparatif : <i>Plus…, plus…</i>',
+        'Un <i>plutôt que</i>.',
+        'Une critique polie (pas « ça pique les yeux » — il passe un entretien !).',
+        'Une proposition concrète pour remplacer.'
+      ],
+      modele:'Alors, franchement : ce qui me plaît, c’est la chemise — la coupe est '
+           + 'impeccable et le blanc passe partout. Ce qui me gêne un peu plus, c’est la veste. '
+           + 'Elle est très serrée, et plus tu bougeras, moins tu seras à l’aise ; dans un '
+           + 'entretien, ça se voit tout de suite. Je mettrais quelque chose de plus sobre '
+           + 'plutôt que ce motif, qui attire l’œil avant toi. Et garde les manches comme ça, '
+           + 'pas retroussées : c’est un détail, mais ce n’est pas très heureux dans un '
+           + 'bureau. Sinon, ça te va très bien — tu as bon goût, tu le sais.' }
   ]
 });
 
