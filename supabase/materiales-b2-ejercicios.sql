@@ -115,7 +115,7 @@ begin
                   orden       = excluded.orden;
   end loop;
 
-  raise notice 'Diez entradas de ejercicios registradas para el grupo B2-OCT2026.';
+  raise notice 'Entradas de ejercicios registradas para el grupo B2-OCT2026.';
 end $$;
 
 
