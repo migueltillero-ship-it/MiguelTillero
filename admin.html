@@ -82,6 +82,7 @@ details.form-toggle > summary { cursor:pointer; font-family:'Syne', sans-serif; 
             <button class="tab-btn" data-tab="eventos" onclick="cambiarTabPrincipal('eventos')"><i class="fa-solid fa-calendar-days"></i> Eventos</button>
             <button class="tab-btn" data-tab="constancias" onclick="cambiarTabPrincipal('constancias')"><i class="fa-solid fa-certificate"></i> Constancias</button>
             <button class="tab-btn" data-tab="metodos" onclick="cambiarTabPrincipal('metodos')"><i class="fa-solid fa-book"></i> Métodos</button>
+            <button class="tab-btn" data-tab="prospectos" onclick="cambiarTabPrincipal('prospectos')"><i class="fa-solid fa-envelope-open-text"></i> Prospectos <span id="badge-prospectos" class="badge pendiente" style="display:none;margin-left:0.3rem;"></span></button>
         </div>
 
         <!-- ═══ GRUPOS ═══ -->
@@ -316,6 +317,27 @@ details.form-toggle > summary { cursor:pointer; font-family:'Syne', sans-serif; 
                 </table>
             </section>
         </div>
+
+        <!-- ═══ PROSPECTOS ═══ -->
+        <div class="tab-content" id="tabp-prospectos">
+            <section class="panel">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+                    <h2 style="margin:0;">Quien llenó un formulario</h2>
+                    <div style="display:flex; gap:0.6rem; align-items:center;">
+                        <label class="muted" style="display:flex; align-items:center; gap:0.4rem; cursor:pointer;">
+                            <input type="checkbox" id="prosp-ver-todos" onchange="cargarProspectos()"> Ver también los atendidos
+                        </label>
+                        <button class="btn pequeno secundario" onclick="cargarProspectos()"><i class="fa-solid fa-rotate"></i> Actualizar</button>
+                    </div>
+                </div>
+                <p class="muted" style="margin:0.4rem 0 1rem;">Las solicitudes de inscripción, cita y clase de prueba del sitio público. Se guardan aquí antes de intentar el correo, así que siguen estando aunque el envío falle.</p>
+                <div id="msg-prospectos" class="msg"></div>
+                <table style="margin-top:0.6rem;">
+                    <thead><tr><th>Fecha</th><th>Quiere</th><th>Nombre</th><th>Contacto</th><th>Ciudad</th><th>Acciones</th></tr></thead>
+                    <tbody id="tabla-prospectos"></tbody>
+                </table>
+            </section>
+        </div>
     </div>
 </main>
 
@@ -365,6 +387,7 @@ async function iniciar() {
     await cargarEventos();
     await cargarConstancias();
     await cargarMetodos();
+    await cargarProspectos();
 }
 
 // ───────────────────────── GRUPOS ─────────────────────────
@@ -708,6 +731,93 @@ async function avanzarSolicitud(id) {
     const siguiente = orden[Math.min(i + 1, orden.length - 1)];
     await supabaseClient.from('solicitudes_constancia').update({ estado: siguiente }).eq('id', id);
     await cargarConstancias();
+}
+
+// ───────────────────────── PROSPECTOS ─────────────────────────
+/* Lo que llega por los formularios públicos. La tabla la crea
+   supabase/prospectos.sql; mientras no se haya ejecutado, aquí se avisa en
+   lugar de dejar la pantalla en blanco. */
+
+const ORIGEN_PROSPECTO = {
+    'inscripcion':  'Inscribirse',
+    'cita':         'Una cita',
+    'clase-prueba': 'Clase de prueba',
+    'contacto':     'Contacto'
+};
+/* Nombres legibles para las claves del formulario; las que no estén se
+   muestran tal cual, que es mejor que esconder una respuesta. */
+const CAMPO_PROSPECTO = {
+    nivel: 'Nivel actual', horas: 'Horas a contratar', dispo: 'Disponibilidad',
+    motivacion: 'Motivación', expectativas: 'Expectativas', no_gusta: 'Qué no le gustaría',
+    entrevista: 'Entrevista previa', comentarios: 'Comentarios', edad: 'Edad',
+    fecha: 'Fecha pedida', horario: 'Horario', motivo: 'Motivo', objetivo: 'Objetivo',
+    mensaje: 'Mensaje', notas: 'Notas'
+};
+
+async function cargarProspectos() {
+    const verTodos = document.getElementById('prosp-ver-todos').checked;
+    const msg = document.getElementById('msg-prospectos');
+    const cuerpo = document.getElementById('tabla-prospectos');
+
+    let consulta = supabaseClient.from('prospectos').select('*').order('creado_en', { ascending: false });
+    if (!verTodos) consulta = consulta.eq('atendido', false);
+    const { data, error } = await consulta;
+
+    if (error) {
+        cuerpo.innerHTML = '';
+        mostrarMsg(msg, 'No pude leer los prospectos: ' + error.message +
+            ' — si la tabla todavía no existe, ejecuta supabase/prospectos.sql en el SQL Editor.', 'error');
+        return;
+    }
+    msg.style.display = 'none';
+
+    cuerpo.innerHTML = (data || []).map(p => {
+        const r = p.respuestas || {};
+        /* Los campos que ya tienen columna propia no se repiten en el detalle. */
+        const yaMostrados = ['nombre', 'email', 'telefono', 'ciudad'];
+        const detalle = Object.keys(r)
+            .filter(k => yaMostrados.indexOf(k) === -1 && r[k] !== '' && r[k] !== null && r[k] !== undefined)
+            .map(k => {
+                const v = Array.isArray(r[k]) ? r[k].join(', ') : r[k];
+                return `<div style="margin:0.35rem 0;"><strong>${esc(CAMPO_PROSPECTO[k] || k)}:</strong> ${esc(v)}</div>`;
+            }).join('') || '<div class="muted">Sin respuestas adicionales.</div>';
+
+        const tel = p.telefono ? String(p.telefono).replace(/[^0-9+]/g, '') : '';
+        return `<tr${p.atendido ? ' style="opacity:0.55;"' : ''}>
+            <td>${new Date(p.creado_en).toLocaleDateString('es-MX')}</td>
+            <td><span class="badge ${p.atendido ? 'inactivo' : 'pendiente'}">${esc(ORIGEN_PROSPECTO[p.origen] || p.origen)}</span></td>
+            <td>${esc(p.nombre)}</td>
+            <td>
+                <a href="mailto:${esc(p.email)}">${esc(p.email)}</a>
+                ${tel ? `<br><a href="https://wa.me/${esc(tel)}" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> ${esc(p.telefono)}</a>` : ''}
+            </td>
+            <td>${esc(p.ciudad) || '—'}</td>
+            <td class="acciones-fila">
+                <button class="btn pequeno secundario" onclick="alternarDetalleProspecto('${p.id}')">Ver respuestas</button>
+                <button class="btn pequeno" onclick="marcarProspecto('${p.id}', ${p.atendido ? 'false' : 'true'})">${p.atendido ? 'Reabrir' : 'Marcar atendido'}</button>
+            </td>
+        </tr>
+        <tr id="det-${p.id}" style="display:none;"><td colspan="6" style="background:rgba(0,0,0,0.03);">${detalle}</td></tr>`;
+    }).join('') || `<tr><td colspan="6" class="muted">${verTodos ? 'Todavía no ha llegado ninguna solicitud.' : 'Nada pendiente — todas las solicitudes están atendidas.'}</td></tr>`;
+
+    /* El contador de la pestaña cuenta siempre los pendientes, mire lo que
+       mire la tabla en este momento. */
+    const { count } = await supabaseClient.from('prospectos')
+        .select('id', { count: 'exact', head: true }).eq('atendido', false);
+    const badge = document.getElementById('badge-prospectos');
+    badge.textContent = count || '';
+    badge.style.display = count ? 'inline-block' : 'none';
+}
+
+function alternarDetalleProspecto(id) {
+    const fila = document.getElementById('det-' + id);
+    if (fila) fila.style.display = fila.style.display === 'none' ? 'table-row' : 'none';
+}
+
+async function marcarProspecto(id, atendido) {
+    const { error } = await supabaseClient.from('prospectos').update({ atendido: atendido }).eq('id', id);
+    if (error) { mostrarMsg(document.getElementById('msg-prospectos'), 'No se pudo guardar: ' + error.message, 'error'); return; }
+    await cargarProspectos();
 }
 
 // ───────────────────────── MÉTODOS ─────────────────────────
