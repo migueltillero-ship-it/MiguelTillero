@@ -2633,6 +2633,202 @@
     "fr": "Avec une convention tout juste signée",
     "en": "With a newly signed agreement"
    }
+  },
+  {
+   "id": "d-chiapas-autoridades",
+   "cat": "mexico",
+   "src": "assets/images/galeria/d-chiapas-autoridades.jpg",
+   "thumb": "assets/images/galeria/t/d-chiapas-autoridades.jpg",
+   "w": 608,
+   "h": 1080,
+   "alt": "Con autoridades del Gobierno de Chiapas",
+   "pie": {
+    "es": "Con autoridades del Gobierno de Chiapas",
+    "fr": "Avec des autorités du gouvernement du Chiapas",
+    "en": "With Chiapas state government officials"
+   }
+  },
+  {
+   "id": "d-convenio-firma-1",
+   "cat": "mexico",
+   "src": "assets/images/galeria/d-convenio-firma-1.jpg",
+   "thumb": "assets/images/galeria/t/d-convenio-firma-1.jpg",
+   "w": 1080,
+   "h": 813,
+   "alt": "Firmando un convenio educativo",
+   "pie": {
+    "es": "Firmando un convenio educativo",
+    "fr": "Signature d'un partenariat éducatif",
+    "en": "Signing an educational partnership"
+   }
+  },
+  {
+   "id": "d-regalo-estudiantes",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/d-regalo-estudiantes.jpg",
+   "thumb": "assets/images/galeria/t/d-regalo-estudiantes.jpg",
+   "w": 813,
+   "h": 1080,
+   "alt": "Un regalo de mis estudiantes",
+   "pie": {
+    "es": "Un regalo de mis estudiantes",
+    "fr": "Un cadeau de mes étudiants",
+    "en": "A gift from my students"
+   }
+  },
+  {
+   "id": "d-chiapas-reunion",
+   "cat": "mexico",
+   "src": "assets/images/galeria/d-chiapas-reunion.jpg",
+   "thumb": "assets/images/galeria/t/d-chiapas-reunion.jpg",
+   "w": 608,
+   "h": 1080,
+   "alt": "Reunión con autoridades del Gobierno de Chiapas",
+   "pie": {
+    "es": "Reunión con autoridades del Gobierno de Chiapas",
+    "fr": "Réunion avec des autorités du gouvernement du Chiapas",
+    "en": "Meeting with Chiapas state government officials"
+   }
+  },
+  {
+   "id": "d-certificados-grupo",
+   "cat": "mexico",
+   "src": "assets/images/galeria/d-certificados-grupo.jpg",
+   "thumb": "assets/images/galeria/t/d-certificados-grupo.jpg",
+   "w": 1080,
+   "h": 810,
+   "alt": "Entrega de certificados a estudiantes",
+   "pie": {
+    "es": "Entrega de certificados a estudiantes",
+    "fr": "Remise de certificats aux étudiants",
+    "en": "Handing certificates to students"
+   }
+  },
+  {
+   "id": "d-convenio-firma-2",
+   "cat": "mexico",
+   "src": "assets/images/galeria/d-convenio-firma-2.jpg",
+   "thumb": "assets/images/galeria/t/d-convenio-firma-2.jpg",
+   "w": 1080,
+   "h": 813,
+   "alt": "Formalizando una alianza educativa",
+   "pie": {
+    "es": "Formalizando una alianza educativa",
+    "fr": "Formalisation d'un partenariat éducatif",
+    "en": "Formalizing an educational partnership"
+   }
+  },
+  {
+   "id": "d-certificado-banderas",
+   "cat": "mexico",
+   "src": "assets/images/galeria/d-certificado-banderas.jpg",
+   "thumb": "assets/images/galeria/t/d-certificado-banderas.jpg",
+   "w": 813,
+   "h": 1080,
+   "alt": "Entrega de certificado · banderas de Francia y México",
+   "pie": {
+    "es": "Entrega de certificado · banderas de Francia y México",
+    "fr": "Remise de certificat · drapeaux de la France et du Mexique",
+    "en": "Handing over a certificate · France and Mexico flags"
+   }
+  },
+  {
+   "id": "d-parmentier",
+   "cat": "mexico",
+   "src": "assets/images/galeria/d-parmentier.jpg",
+   "thumb": "assets/images/galeria/t/d-parmentier.jpg",
+   "w": 1080,
+   "h": 813,
+   "alt": "Con la directora general y la coordinadora del Instituto de Artes Culinarias Parmentier",
+   "pie": {
+    "es": "Con la directora general y la coordinadora del Instituto de Artes Culinarias Parmentier",
+    "fr": "Avec la directrice générale et la coordinatrice de l’Institut d’arts culinaires Parmentier",
+    "en": "With the general director and the coordinator of the Parmentier Culinary Arts Institute"
+   }
+  },
+  {
+   "id": "d-cogiler-coba",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/d-cogiler-coba.jpg",
+   "thumb": "assets/images/galeria/t/d-cogiler-coba.jpg",
+   "w": 810,
+   "h": 1080,
+   "alt": "Con Juan Francisco Coba, propietario y director general de Cogiler",
+   "pie": {
+    "es": "Con Juan Francisco Coba, propietario y director general de Cogiler",
+    "fr": "Avec Juan Francisco Coba, propriétaire et directeur général de Cogiler",
+    "en": "With Juan Francisco Coba, owner and general manager of Cogiler"
+   }
+  },
+  {
+   "id": "d-banderas-ue-ecuador",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/d-banderas-ue-ecuador.jpg",
+   "thumb": "assets/images/galeria/t/d-banderas-ue-ecuador.jpg",
+   "w": 929,
+   "h": 1080,
+   "alt": "Frente a las banderas de la Unión Europea, Ecuador y Francia",
+   "pie": {
+    "es": "Frente a las banderas de la Unión Europea, Ecuador y Francia",
+    "fr": "Devant les drapeaux de l'Union européenne, de l'Équateur et de la France",
+    "en": "In front of the European Union, Ecuador and France flags"
+   }
+  },
+  {
+   "id": "d-comite-estudiantil",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/d-comite-estudiantil.jpg",
+   "thumb": "assets/images/galeria/t/d-comite-estudiantil.jpg",
+   "w": 1080,
+   "h": 810,
+   "alt": "Reunión con el Comité Estudiantil de la Alianza Francesa",
+   "pie": {
+    "es": "Reunión con el Comité Estudiantil de la Alianza Francesa",
+    "fr": "Réunion avec le Comité étudiant de l’Alliance Française",
+    "en": "Meeting with the Alliance Française Student Committee"
+   }
+  },
+  {
+   "id": "d-consul-venezuela",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/d-consul-venezuela.jpg",
+   "thumb": "assets/images/galeria/t/d-consul-venezuela.jpg",
+   "w": 810,
+   "h": 1080,
+   "alt": "Con el cónsul de Venezuela en Ecuador, en una terraza de Cuenca",
+   "pie": {
+    "es": "Con el cónsul de Venezuela en Ecuador, en una terraza de Cuenca",
+    "fr": "Avec le consul du Venezuela en Équateur, sur une terrasse de Cuenca",
+    "en": "With the consul of Venezuela in Ecuador, on a terrace in Cuenca"
+   }
+  },
+  {
+   "id": "d-fiesta-musica",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/d-fiesta-musica.jpg",
+   "thumb": "assets/images/galeria/t/d-fiesta-musica.jpg",
+   "w": 1080,
+   "h": 810,
+   "alt": "Fiesta de la Música, Cuenca · como organizador, con Soledad Gutiérrez, organizadora oficial y colaboradora de la Alianza",
+   "pie": {
+    "es": "Fiesta de la Música, Cuenca · como organizador, con Soledad Gutiérrez, organizadora oficial y colaboradora de la Alianza",
+    "fr": "Fête de la Musique, Cuenca · en tant qu’organisateur, avec Soledad Gutiérrez, organisatrice officielle et collaboratrice de l’Alliance",
+    "en": "Fiesta de la Música, Cuenca · as an organizer, with Soledad Gutiérrez, official organizer and Alliance collaborator"
+   }
+  },
+  {
+   "id": "d-af-cuenca-fachada",
+   "cat": "ecuador",
+   "src": "assets/images/galeria/d-af-cuenca-fachada.jpg",
+   "thumb": "assets/images/galeria/t/d-af-cuenca-fachada.jpg",
+   "w": 810,
+   "h": 1080,
+   "alt": "Alianza Francesa de Cuenca, Ecuador",
+   "pie": {
+    "es": "Alianza Francesa de Cuenca, Ecuador",
+    "fr": "Alliance Française de Cuenca, Équateur",
+    "en": "Alliance Française de Cuenca, Ecuador"
+   }
   }
  ]
 }

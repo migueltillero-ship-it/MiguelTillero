@@ -344,22 +344,12 @@
       <p class="eyebrow" data-es="Momentos y proyectos" data-fr="Moments et projets" data-en="Moments & projects">Momentos y proyectos</p>
       <h2 class="sec-title" style="margin-top:0.8rem;"><em data-es="Galería" data-fr="Galerie" data-en="Gallery">Galería</em></h2>
     </div>
-    <div class="filmstrip-wrap" data-gallery>
-      <div class="filmstrip-track" id="filmstripTrack" tabindex="0" role="region" aria-label="Galería de imágenes, desplazable con las flechas">
-        <div class="filmstrip-loading"><i class="fa fa-circle-notch fa-spin"></i> <span>Cargando carrete</span></div>
-      </div>
-    </div>
-    <div class="filmstrip-hint">
-      <i class="fa fa-hand-pointer"></i>
-      <span data-es="Arrastra para explorar" data-fr="Glissez pour explorer" data-en="Drag to explore">Arrastra para explorar</span>
-    </div>
-
-    <div class="reveal" style="text-align:center; margin-top:3rem;">
+    <div class="reveal" style="text-align:center; margin-top:1rem;">
       <p style="max-width:540px; margin:0 auto 1.4rem; color:var(--muted); font-size:1.06rem; line-height:1.7;"
-         data-es="El carrete recoge una selección. El álbum completo se actualiza con cada nueva actividad."
-         data-fr="La pellicule en montre une sélection. L'album complet est mis à jour à chaque nouvelle activité."
-         data-en="The reel shows a selection. The full album is updated with every new activity.">
-        El carrete recoge una selección. El álbum completo se actualiza con cada nueva actividad.
+         data-es="Aquí abajo está el álbum completo, que se actualiza con cada nueva actividad. Y en Google Photos hay más."
+         data-fr="Ci-dessous, l'album complet, mis à jour à chaque nouvelle activité. Et sur Google Photos, il y en a d'autres."
+         data-en="The full album is just below, updated with every new activity. And there are more on Google Photos.">
+        Aquí abajo está el álbum completo, que se actualiza con cada nueva actividad. Y en Google Photos hay más.
       </p>
       <a class="btn btn-ghost" href="https://photos.app.goo.gl/Jx5vKwfU4fHpbxjh8"
          target="_blank" rel="noopener"
@@ -1491,160 +1481,6 @@ window.openLBdrive = function(url, alt) {
   document.body.style.overflow = 'hidden';
 };
 
-/* ═══════════════════════════════════════════════════
-   GALERÍA FILMSTRIP — Carrete horizontal arrastrable
-   Recursos: Google Drive folder
-   1ah9ZC4ZkAGj_PNxzMxRRsH0XnfSuab-Z
-═══════════════════════════════════════════════════ */
-window.addEventListener('DOMContentLoaded', function() {
-  var track = document.getElementById('filmstripTrack');
-  if (!track) return;
-
-  /* IDs curados del folder de Drive — solo fotos donde el director
-     es el protagonista (se retiraron grupales lejanas y duplicados).
-     Cada ID lleva un descriptor corto paralelo en GALLERY_CAPTIONS.
-     (Se retiró el ID 1KiKI1T_L0FhIb5CpOmItXqrZBQskS_io: el archivo en
-     Drive no tiene permiso público, Google pide iniciar sesión — hay
-     que corregir su "compartir" antes de poder reincorporarlo.) */
-  var GALLERY_IDS = [
-    '14SrCOErHmePOImKYgNWNTKIcTKdVzKZf','1VhZBSAeZIAGSpqWdoXlInaqfapaJf7RF',
-    '1sDsRlHiS0FfOXPCGkHWrB8Ko5RQd_cNu','1MfcV74qm8D9V7ReD2MNotTyL5EZ0SVnz',
-    '1RfKAm7Qcb4gFQsQeEMTpJs7C1ftKZQGL','170UXYtWSjfXzRa7ZQO1w_eFhVC_utYd9',
-    '1jejddePJzIIfBucfeU2-EqEp6n0Pd5cw','1ogdOJy4E0BufCI0ypWRTbiaAVlSvMfFF',
-    '150zYARzsWMXg7yrPN760sk0gueAoeRF-','17L2cZJUSaOWQbPDulxCh57HslAHDT51B',
-    '1d_pv2jRccFxYcoogvynkF8Ki6O5d6QhB','1seB92AQhCCnX_Vg_rfp0yP8X77ZU1TF4',
-    '1FHzihJC0NVrxTx3dTtpX7-bmW9F3cvAe','1gObW3L9oI5KiuafL6GcutW13SwKfhxJo',
-    '1ANuazsbFfDGu983Xvl5Ha1QCmxXn7Yhj','1WOODU25GiVxUuNJ7YxbfnWjmzlnvKvbq',
-    '1BrM3U6Y73ganlMIrYUBzVq7olCxDEaIT'
-  ];
-  var GALLERY_CAPTIONS = [
-    { es:'Con autoridades del Gobierno de Chiapas', fr:'Avec des autorités du gouvernement du Chiapas', en:'With Chiapas state government officials' },
-    { es:'Firmando un convenio educativo', fr:"Signature d'un partenariat éducatif", en:'Signing an educational partnership' },
-    { es:'Con colegas, en un encuentro institucional', fr:'Avec des collègues, lors d\'une rencontre institutionnelle', en:'With colleagues, at an institutional gathering' },
-    { es:'Un regalo de mis estudiantes', fr:'Un cadeau de mes étudiants', en:'A gift from my students' },
-    { es:'Reunión con autoridades del Gobierno de Chiapas', fr:'Réunion avec des autorités du gouvernement du Chiapas', en:'Meeting with Chiapas state government officials' },
-    { es:'Entrega de certificados a estudiantes', fr:'Remise de certificats aux étudiants', en:'Handing certificates to students' },
-    { es:'Con Paul Rondin, director de la Cité internationale de la langue française', fr:'Avec Paul Rondin, directeur de la Cité internationale de la langue française', en:'With Paul Rondin, director of the Cité internationale de la langue française' },
-    { es:'Formalizando una alianza educativa', fr:"Formalisation d'un partenariat éducatif", en:'Formalizing an educational partnership' },
-    { es:'Entrega de certificado · banderas de Francia y México', fr:'Remise de certificat · drapeaux de la France et du Mexique', en:'Handing over a certificate · France and Mexico flags' },
-    { es:'En el Centro de Lenguas', fr:'Au Centre de Lenguas', en:'At the Centro de Lenguas' },
-    { es:'Con la directora general y la coordinadora del Instituto de Artes Culinarias Parmentier', fr:'Avec la directrice générale et la coordinatrice de l’Institut d’arts culinaires Parmentier', en:'With the general director and the coordinator of the Parmentier Culinary Arts Institute' },
-    { es:'Con Juan Francisco Coba, propietario y director general de Cogiler', fr:'Avec Juan Francisco Coba, propriétaire et directeur général de Cogiler', en:'With Juan Francisco Coba, owner and general manager of Cogiler' },
-    { es:'Frente a las banderas de la Unión Europea, Ecuador y Francia', fr:"Devant les drapeaux de l'Union européenne, de l'Équateur et de la France", en:'In front of the European Union, Ecuador and France flags' },
-    { es:'Reunión con el Comité Estudiantil de la Alianza Francesa', fr:'Réunion avec le Comité étudiant de l’Alliance Française', en:'Meeting with the Alliance Française Student Committee' },
-    { es:'Con el cónsul de Venezuela en Ecuador, en una terraza de Cuenca', fr:'Avec le consul du Venezuela en Équateur, sur une terrasse de Cuenca', en:'With the consul of Venezuela in Ecuador, on a terrace in Cuenca' },
-    { es:'Fiesta de la Música, Cuenca · como organizador, con Soledad Gutiérrez, organizadora oficial y colaboradora de la Alianza', fr:'Fête de la Musique, Cuenca · en tant qu’organisateur, avec Soledad Gutiérrez, organisatrice officielle et collaboratrice de l’Alliance', en:'Fiesta de la Música, Cuenca · as an organizer, with Soledad Gutiérrez, official organizer and Alliance collaborator' },
-    { es:'Alianza Francesa de Cuenca, Ecuador', fr:'Alliance Française de Cuenca, Équateur', en:'Alliance Française de Cuenca, Ecuador' }
-  ];
-  var thumb = function(id) { return 'https://drive.google.com/thumbnail?id=' + id + '&sz=w800'; };
-  var full  = function(id) { return 'https://lh3.googleusercontent.com/d/' + id + '=w2400'; };
-
-  /* Construcción del carrete — duplicado para loop infinito */
-  track.innerHTML = '';
-  var build = function(loopIdx) {
-    GALLERY_IDS.forEach(function(id, i) {
-      var cap = GALLERY_CAPTIONS[i] || { es:'', fr:'', en:'' };
-      var item = document.createElement('div');
-      item.className = 'g-item';
-      item.setAttribute('data-full', full(id));
-      item.setAttribute('data-idx', i);
-      item.innerHTML =
-        '<img loading="lazy" src="' + thumb(id) + '" alt="Miguel Tillero — foto ' + (i+1) + '"' +
-        ' onload="this.classList.add(\'loaded\')"' +
-        ' onerror="this.closest(\'.g-item\').style.display=\'none\'">' +
-        '<div class="g-overlay"><i class="fa fa-expand"></i></div>' +
-        '<div class="g-caption"><span data-es="' + cap.es + '" data-fr="' + cap.fr + '" data-en="' + cap.en + '">' + cap.es + '</span></div>';
-      item.addEventListener('click', function(e) {
-        if (track.classList.contains('was-dragging')) return;
-        window.openLBdrive(full(id), 'Galería Miguel Tillero — foto ' + (i+1));
-      });
-      track.appendChild(item);
-    });
-  };
-  build(0);
-  build(1); /* duplicado para auto-scroll infinito */
-  /* Las tarjetas se crean después de que i18n.js ya aplicó el idioma
-     guardado al cargar la página — sin esto, sus descriptores se
-     quedarían en español hasta el próximo clic en ES/FR/EN. */
-  try { if (window.setLang) setLang(localStorage.getItem('preferenciaIdioma_MT') || 'es'); } catch (e) {}
-
-  /* ── TECLADO ──
-     La tira se movía solo con ratón o dedo, así que con el teclado no
-     había forma de ver más allá de las primeras fotos. Además la
-     animación no se detenía al recibir el foco: quien navega tabulando
-     se encontraba el contenido huyendo. Las flechas la recorren y el
-     foco la detiene, igual que ya hacía el ratón al pasar por encima. */
-  track.addEventListener('keydown', function (e) {
-    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-    e.preventDefault();
-    track.classList.remove('animating');
-    track.classList.add('paused');
-    /* Se asigna scrollLeft en lugar de usar scrollBy con desplazamiento
-       suave: sobre este contenedor el modo suave no llega a aplicarse
-       —se queda en el punto de partida— y además el salto directo es lo
-       que conviene a quien ha pedido menos movimiento en su sistema. */
-    var paso = (track.querySelector('.g-item') || {}).offsetWidth || 240;
-    var avance = (e.key === 'ArrowRight' ? 1 : -1) * (paso + 16);
-    track.scrollLeft = Math.max(0, Math.min(track.scrollWidth - track.clientWidth,
-                                            track.scrollLeft + avance));
-  });
-  track.addEventListener('focus', function () { track.classList.add('paused'); });
-  track.addEventListener('blur',  function () { track.classList.remove('paused'); });
-
-  /* ── DRAG / SWIPE (mouse + touch) ── */
-  var isDown = false, startX = 0, startScroll = 0, moved = 0;
-  var onDown = function(e) {
-    isDown = true; moved = 0;
-    track.classList.add('grabbing');
-    track.classList.remove('animating');
-    startX = (e.touches ? e.touches[0].pageX : e.pageX);
-    startScroll = track.scrollLeft;
-  };
-  var onMove = function(e) {
-    if (!isDown) return;
-    var x = (e.touches ? e.touches[0].pageX : e.pageX);
-    var dx = x - startX;
-    moved = Math.abs(dx);
-    track.scrollLeft = startScroll - dx;
-    if (moved > 6) track.classList.add('was-dragging');
-  };
-  var onUp = function() {
-    if (!isDown) return;
-    isDown = false;
-    track.classList.remove('grabbing');
-    setTimeout(function(){ track.classList.remove('was-dragging'); }, 50);
-  };
-  track.addEventListener('mousedown', onDown);
-  track.addEventListener('mousemove', onMove);
-  track.addEventListener('mouseup', onUp);
-  track.addEventListener('mouseleave', onUp);
-  track.addEventListener('touchstart', onDown, { passive: true });
-  track.addEventListener('touchmove',  onMove, { passive: true });
-  track.addEventListener('touchend',   onUp);
-
-  /* Rueda del ratón → scroll horizontal */
-  track.addEventListener('wheel', function(e) {
-    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-      track.scrollLeft += e.deltaY;
-      e.preventDefault();
-    }
-  }, { passive: false });
-
-  /* Auto-scroll continuo (pausa al hover/drag) */
-  var autoScroll = function() {
-    if (isDown) return;
-    track.scrollLeft += 0.4;
-    if (track.scrollLeft >= track.scrollWidth / 2) {
-      track.scrollLeft = 0;
-    }
-  };
-  var autoId = setInterval(autoScroll, 16);
-  track.addEventListener('mouseenter', function(){ clearInterval(autoId); });
-  track.addEventListener('mouseleave', function(){
-    clearInterval(autoId);
-    autoId = setInterval(autoScroll, 16);
-  });
-});
 
 </script>
 <script>document.addEventListener('DOMContentLoaded', function(){ if (window.SitePages && !window.location.hash) window.SitePages.show('galeria', null, false); });</script>
