@@ -481,6 +481,17 @@
           <a href="https://wa.me/584122465331?text=Hola%20Miguel%2C%20acabo%20de%20enviar%20mi%20formulario%20de%20inscripci%C3%B3n%20en%20tu%20p%C3%A1gina%20web." target="_blank" rel="noopener" class="btn btn-gold"><i class="fab fa-whatsapp"></i>&nbsp;Avisar por WhatsApp</a>
         </div>
         </div>
+        <!-- Si ni la base de datos ni el correo aceptan la solicitud, se dice.
+             Antes se mostraba «¡Inscripción recibida!» pasara lo que pasara, y
+             la persona se iba convencida de haberse inscrito. -->
+        <div class="insc-success insc-fallo" id="inscFallo" role="alert">
+          <span data-es="No pude registrar tu solicitud" data-fr="Je n’ai pas pu enregistrer votre demande" data-en="I couldn’t save your request">No pude registrar tu solicitud</span><br>
+          <span data-es="Algo falló de mi lado, no tuyo. Escríbeme directo y lo resolvemos en un minuto." data-fr="Le problème vient de mon côté, pas du vôtre. Écrivez-moi directement et on règle ça en une minute." data-en="Something broke on my side, not yours. Write to me directly and we’ll sort it out in a minute.">Algo falló de mi lado, no tuyo. Escríbeme directo y lo resolvemos en un minuto.</span>
+          <div class="success-actions">
+            <a id="inscFalloWa" href="https://wa.me/584122465331" target="_blank" rel="noopener" class="btn btn-gold"><i class="fab fa-whatsapp"></i>&nbsp;WhatsApp</a>
+            <a id="inscFalloMail" href="mailto:migueltillero@gmail.com" class="btn btn-ghost"><i class="fa fa-envelope"></i>&nbsp;migueltillero@gmail.com</a>
+          </div>
+        </div>
     </form>
   </div>
 </section>
@@ -975,6 +986,40 @@ const EMAILJS_KEY      = '7FPd-e34G4AgVK5YA';
 if (EMAILJS_KEY && !EMAILJS_KEY.startsWith('TU_')) { try { emailjs.init(EMAILJS_KEY); } catch(e){} }
 
 /* Función de envío unificada */
+/* Red de seguridad para todos los formularios públicos.
+ *
+ * El correo de EmailJS se cae: el 6 de septiembre de 2026 avisaron de que el
+ * servicio llevaba tres intentos seguidos fallando, y durante ese tiempo cada
+ * solicitud se perdió sin dejar rastro. Así que primero se deja la solicitud
+ * en la base de datos y solo después se intenta el correo.
+ *
+ * Devuelve true si quedó guardada. Si la tabla todavía no existe (falta
+ * ejecutar supabase/prospectos.sql) devuelve false sin romper nada: el envío
+ * por correo sigue su curso igual que antes.
+ */
+async function guardarProspecto(origen, datos) {
+  try {
+    /* supabase-config.js lo declara con «let», así que vive en el ámbito
+       global léxico y NO cuelga de window: hay que nombrarlo pelado. Si ese
+       archivo no cargó, el nombre no existe y salta el catch de abajo. */
+    if (typeof supabaseClient === 'undefined' || !supabaseClient) return false;
+    var fila = {
+      origen:   origen,
+      nombre:   datos.nombre   || 'Sin nombre',
+      email:    datos.email    || '',
+      telefono: datos.telefono || null,
+      ciudad:   datos.ciudad   || null,
+      respuestas: datos
+    };
+    var r = await supabaseClient.from('prospectos').insert(fila);
+    if (r && r.error) { console.error('No se pudo guardar el prospecto:', r.error.message); return false; }
+    return true;
+  } catch (err) {
+    console.error('No se pudo guardar el prospecto:', err);
+    return false;
+  }
+}
+
 async function sendEmail(params, successId, formEl) {
   /* Construir payload para la plantilla EmailJS */
   const payload = {
@@ -990,6 +1035,10 @@ async function sendEmail(params, successId, formEl) {
     to_email:    'migueltillero@gmail.com'
   };
 
+  /* Queda guardada antes de intentar el correo: si el envío falla, el
+     prospecto sigue estando. */
+  const guardado = await guardarProspecto(params.origen || 'contacto', params);
+
   try {
     const result = await emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, payload);
     if (result.status === 200) {
@@ -1000,6 +1049,17 @@ async function sendEmail(params, successId, formEl) {
       document.getElementById(successId).classList.add('show');
     } else { throw new Error('EmailJS error'); }
   } catch(err) {
+    /* El correo no salió, pero la solicitud está a salvo en la base: para
+       quien la envió sí está recibida, y no hay nada que pedirle. */
+    if (guardado) {
+      console.warn('EmailJS falló; la solicitud quedó guardada en la base.', err);
+      if (formEl) {
+        formEl.reset();
+        formEl.querySelectorAll('.time-slot').forEach(b => b.classList.remove('sel'));
+      }
+      document.getElementById(successId).classList.add('show');
+      return;
+    }
     console.error('EmailJS error:', err);
     /* Fallback: abrir WhatsApp con los datos */
     const msg = encodeURIComponent(
@@ -1044,6 +1104,7 @@ if (_fc) _fc.addEventListener('submit', function(e) {
   const d = Object.fromEntries(new FormData(this));
   if (!d.nombre || !d.email || !d.fecha) { alert('Completa los campos obligatorios (*)'); return; }
   sendEmail({
+    origen:   'cita',
     subject:  '📅 Solicitud de CITA — MiguelTillero.com',
     nombre:   d.nombre, email: d.email, telefono: d.telefono,
     ciudad:   d.ciudad, tipo: d.motivo || 'Cita/Consultoría',
@@ -1059,6 +1120,7 @@ if (_fcl) _fcl.addEventListener('submit', function(e) {
   const d = Object.fromEntries(new FormData(this));
   if (!d.nombre || !d.email || !d.fecha) { alert('Completa los campos obligatorios (*)'); return; }
   sendEmail({
+    origen:   'clase-prueba',
     subject:  '🎓 Clase de PRUEBA — MiguelTillero.com',
     nombre:   d.nombre, email: d.email, telefono: d.telefono,
     ciudad:   d.ciudad,
@@ -1436,6 +1498,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
     /* Enviar con EmailJS (service_k9b1j7y) */
     function done() {
+      document.getElementById('inscFallo').classList.remove('show');
       document.getElementById('inscSuccess').classList.add('show');
       inscForm.reset();
       inscForm.querySelectorAll('.dispo-option').forEach(function(o){ o.classList.remove('checked'); });
@@ -1443,8 +1506,30 @@ window.addEventListener('DOMContentLoaded', function() {
       document.getElementById('inscSuccess').scrollIntoView({behavior:'smooth', block:'center'});
     }
 
-    try {
-      emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
+    /* Cuando no hay forma de registrar la solicitud hay que decirlo. Antes
+       se llamaba a done() también aquí, así que la persona leía «¡Inscripción
+       recibida!» y se marchaba tranquila mientras el formulario no había
+       entregado nada. El mailto de respaldo tampoco servía: se abría desde
+       dentro de un .catch asíncrono, fuera del gesto del usuario, y el
+       navegador lo bloquea como ventana emergente. */
+    function fallo() {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa fa-paper-plane"></i>&nbsp; Reintentar';
+      var wa = document.getElementById('inscFalloWa');
+      var ml = document.getElementById('inscFalloMail');
+      if (wa) wa.href = 'https://wa.me/584122465331?text=' + encodeURIComponent(
+        'Hola Miguel, el formulario de tu página no pudo registrar mi inscripción.\n\n' + mensaje);
+      if (ml) ml.href = 'mailto:migueltillero@gmail.com?subject=' +
+        encodeURIComponent('Nueva inscripción - ' + d.nombre) +
+        '&body=' + encodeURIComponent(mensaje);
+      var caja = document.getElementById('inscFallo');
+      caja.classList.add('show');
+      caja.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    d.dispo = dispos;
+    guardarProspecto('inscripcion', d).then(function (guardado) {
+      return emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
         subject: '🎓 NUEVA INSCRIPCIÓN — ' + d.nombre,
         from_name: d.nombre,
         from_email: d.email,
@@ -1455,19 +1540,13 @@ window.addEventListener('DOMContentLoaded', function() {
         horario: dispos.join(', ') || '-',
         message: mensaje,
         to_email: 'migueltillero@gmail.com'
-      }).then(done).catch(function() {
-        /* Fallback mailto */
-        window.open('mailto:migueltillero@gmail.com?subject=' +
-          encodeURIComponent('Nueva inscripción - ' + d.nombre) +
-          '&body=' + encodeURIComponent(mensaje), '_blank');
-        done();
+      }).then(done, function (err) {
+        /* El correo falló. Si la solicitud quedó en la base, para quien la
+           envió está recibida de verdad y no hay nada que pedirle. */
+        if (guardado) { console.warn('EmailJS falló; queda guardada en la base.', err); done(); }
+        else { console.error('EmailJS falló y no se pudo guardar.', err); fallo(); }
       });
-    } catch(err) {
-      window.open('mailto:migueltillero@gmail.com?subject=' +
-        encodeURIComponent('Nueva inscripción - ' + d.nombre) +
-        '&body=' + encodeURIComponent(mensaje), '_blank');
-      done();
-    }
+    }).catch(function (err) { console.error(err); fallo(); });
   });
 });
 

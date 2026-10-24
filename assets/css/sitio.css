@@ -1441,6 +1441,9 @@ body.intro-active > *:not(#video-intro):not(#cursor-dot):not(#cursor-ring) { vis
   font-size: 0.82rem; letter-spacing:0.1em; color: var(--gold-lt); line-height: 1.8;
 }
 .insc-success.show { display: block; animation: fadeIn 0.5s ease; }
+/* El mismo recuadro, pero en rojo: un fallo no puede parecerse a un acuse de
+   recibo. Lo usa #inscFallo cuando no se logra registrar la solicitud. */
+.insc-fallo { border-color: rgba(154,42,42,.45); background: rgba(198,91,91,.09); color: #8f2727; }
 .success-actions { display:flex; gap:0.8rem; justify-content:center; flex-wrap:wrap; margin-top:1.3rem; }
 .success-actions .btn { font-size:0.79rem; padding:0.75rem 1.5rem; }
 @media (max-width: 640px) { .insc-row { grid-template-columns: 1fr; } .insc-form { padding: 1.5rem; } }
