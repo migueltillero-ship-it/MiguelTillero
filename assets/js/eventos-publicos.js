@@ -53,7 +53,7 @@
     var cuando = formatearCuando(evento.fecha, evento.hora_inicio, evento.hora_fin);
     var accionTexto = evento.texto_accion || 'Más información';
     var accionUrl = evento.url_accion ||
-      ('https://wa.me/584122465331?text=' + encodeURIComponent('Hola Miguel, quiero saber más sobre "' + evento.titulo + '".'));
+      ('https://wa.me/529671836405?text=' + encodeURIComponent('Hola Miguel, quiero saber más sobre "' + evento.titulo + '".'));
 
     if (popup) {
       if (!evento.destacado) {
