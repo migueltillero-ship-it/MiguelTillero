@@ -79,3 +79,32 @@
   .banda-foto.bajo-nav .eyebrow { font-size: 0.95rem; }
   .banda-foto.completa .banda-img { height: calc(100% - 4rem); max-width: min(46vw, 860px); }
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   ÁREA DE TOQUE EN PANTALLAS TÁCTILES
+   La recomendación es que nada que se pulse baje de 44x44 px. Se aplica
+   con «pointer: coarse» —el dedo— y no por ancho de pantalla: una tablet
+   grande también se toca, y con el ratón estos controles no necesitan
+   crecer. Aquí solo van los que fallaban por poco alto, nunca por ancho:
+   ensanchar un control pegado a otro provoca pulsaciones cruzadas, que es
+   lo que pasó con los puntos de los carruseles y por eso siguen estrechos
+   con su capa de 44 px solo en vertical.
+   ══════════════════════════════════════════════════════════════════════ */
+@media (pointer: coarse) {
+  /* Filtros del álbum (galería) y de las preguntas (contacto): 37 y 38 px. */
+  .alb-chip, .faq-chip { min-height: 44px; }
+
+  /* Buscador de preguntas: el campo medía 21 px de alto. Se le da el alto
+     recomendado y se le quita al contorno el relleno que sobra, para que
+     la píldora no acabe mucho más gorda que antes. */
+  .faq-buscar { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+  .faq-buscar input { min-height: 44px; }
+
+  /* Flechas de los carruseles de cultura: 2,7rem son 43,2 px. */
+  .cul-nav button { width: 2.75rem; height: 2.75rem; }
+
+  /* Enlaces sueltos dentro de un párrafo: los idiomas del CV y el del club
+     en el pie. Son «inline», así que el alto mínimo no les afecta hasta
+     que dejan de serlo. */
+  .cv-resumen a, .footer-copy a { display: inline-flex; align-items: center; min-height: 44px; }
+}
