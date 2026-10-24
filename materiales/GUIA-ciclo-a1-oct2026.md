@@ -178,7 +178,7 @@ copiar y un enlace directo a tu WhatsApp para mandarte el comprobante.
 > [TU ENLACE PERSONALIZADO]
 >
 > Al terminar verás las formas de pago disponibles. Manda el comprobante por
-> WhatsApp (+58 412-2465331) y activo tu inscripción el mismo día. El cupo se
+> WhatsApp (+52 967 183 6405) y activo tu inscripción el mismo día. El cupo se
 > aparta con el pago, antes del martes 29.
 >
 > Desde tu cuenta vas a poder ver el calendario con el contenido de cada clase,

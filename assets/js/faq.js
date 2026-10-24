@@ -42,7 +42,7 @@
   txt.appendChild(tri('h3', 'faq-lado-t', '¿No encuentras tu respuesta?', 'Vous ne trouvez pas votre réponse ?', "Can't find your answer?"));
   txt.appendChild(tri('p', 'faq-lado-p', 'Pregúntame directamente: respondo yo, en persona y sin prisa.', 'Posez-moi la question directement : je réponds moi-même, sans me presser.', "Ask me directly: I answer personally, with no rush."));
   var wa = document.createElement('a');
-  wa.className = 'btn btn-gold'; wa.href = 'https://wa.me/584122465331'; wa.target = '_blank'; wa.rel = 'noopener';
+  wa.className = 'btn btn-gold'; wa.href = 'https://wa.me/529671836405'; wa.target = '_blank'; wa.rel = 'noopener';
   wa.innerHTML = '<i class="fab fa-whatsapp"></i>';
   wa.appendChild(tri('span', '', 'Escribirme por WhatsApp', 'M’écrire sur WhatsApp', 'Message me on WhatsApp'));
   var cl = document.createElement('button');

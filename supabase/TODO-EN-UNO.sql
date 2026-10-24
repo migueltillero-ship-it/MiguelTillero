@@ -465,7 +465,7 @@ create trigger on_auth_user_created
 
 alter table public.profiles drop constraint if exists profiles_role_check;
 alter table public.profiles add constraint profiles_role_check
-  check (role in ('docente', 'estudiante', 'admin'));
+  check (role in ('docente', 'estudiante', 'admin', 'representante'));
 
 -- ¿El usuario actual es admin? (coordinación general, ve todo)
 create or replace function public.es_admin()
@@ -593,17 +593,25 @@ set cupo_actual = (
 );
 
 -- Vista: grupos con cupo disponible (para inscripción pública y para el panel).
-create or replace view public.v_grupos_disponibles as
-select
-  g.id, g.codigo, g.curso_id, c.nombre as curso_nombre, c.nivel as curso_nivel,
-  g.formato, g.modalidad, g.cupo_maximo, g.cupo_actual,
-  (g.cupo_maximo - g.cupo_actual) as cupo_disponible,
-  g.fecha_inicio, g.fecha_fin, g.horario, g.costo, g.moneda, g.estado,
-  p.nombre_completo as docente_nombre
-from public.grupos g
-join public.cursos c on c.id = g.curso_id
-left join public.profiles p on p.id = g.docente_id
-where g.estado in ('abierto', 'en_curso');
+-- Solo se crea si no existe: la versión que ya está en la base (plazo-inscripcion.sql)
+-- tiene más columnas (fecha de cierre, plazo de pago, inscripción abierta) y
+-- «create or replace» no puede quitarlas.
+do $vista$
+begin
+  if to_regclass('public.v_grupos_disponibles') is null then
+    create view public.v_grupos_disponibles as
+    select
+      g.id, g.codigo, g.curso_id, c.nombre as curso_nombre, c.nivel as curso_nivel,
+      g.formato, g.modalidad, g.cupo_maximo, g.cupo_actual,
+      (g.cupo_maximo - g.cupo_actual) as cupo_disponible,
+      g.fecha_inicio, g.fecha_fin, g.horario, g.costo, g.moneda, g.estado,
+      p.nombre_completo as docente_nombre
+    from public.grupos g
+    join public.cursos c on c.id = g.curso_id
+    left join public.profiles p on p.id = g.docente_id
+    where g.estado in ('abierto', 'en_curso');
+  end if;
+end $vista$;
 
 -- Helpers de permisos (mismo patrón que es_docente_del_curso en schema.sql).
 create or replace function public.es_docente_del_grupo(p_grupo_id uuid)
@@ -804,7 +812,7 @@ select
   '2026-09-19', '16:00', '18:00',
   'Centro Cultural de mi Corazón, San Cristóbal de Las Casas',
   'presencial', true,
-  'https://wa.me/584122465331?text=Hola%20Miguel%2C%20quiero%20saber%20m%C3%A1s%20sobre%20la%20clase%20abierta%20de%20iniciaci%C3%B3n%20al%20franc%C3%A9s%20del%20s%C3%A1bado%2019.',
+  'https://wa.me/529671836405?text=Hola%20Miguel%2C%20quiero%20saber%20m%C3%A1s%20sobre%20la%20clase%20abierta%20de%20iniciaci%C3%B3n%20al%20franc%C3%A9s%20del%20s%C3%A1bado%2019.',
   'Escribir por WhatsApp',
   true, true
 where not exists (select 1 from public.eventos where titulo = 'Iniciación al francés — clase abierta' and fecha = '2026-09-19');
