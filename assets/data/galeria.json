@@ -931,8 +931,8 @@
    "cat": "ecuador",
    "src": "assets/images/galeria/n-meirieu-podio.jpg",
    "thumb": "assets/images/galeria/t/n-meirieu-podio.jpg",
-   "w": 1112,
-   "h": 881,
+   "w": 1080,
+   "h": 895,
    "alt": "Philippe Meirieu en el podio y, a la mesa, Miguel Tillero con el micrófono, interpretando; pancartas de la UNAE y la Alianza Francesa",
    "pie": {
     "es": "Interpretando en vivo a Philippe Meirieu · UNAE y Alianza Francesa, Cuenca",
@@ -2576,6 +2576,62 @@
     "es": "Con Ivan Kabacoff, presentador de la serie «Destination Francophonie» · TV5MONDE",
     "fr": "Avec Ivan Kabacoff, présentateur de la série « Destination Francophonie » · TV5MONDE",
     "en": "With Ivan Kabacoff, host of the “Destination Francophonie” series · TV5MONDE"
+   }
+  },
+  {
+   "id": "n-rodaje-despacho",
+   "cat": "medios",
+   "src": "assets/images/galeria/n-rodaje-despacho.jpg",
+   "thumb": "assets/images/galeria/t/n-rodaje-despacho.jpg",
+   "w": 1080,
+   "h": 1030,
+   "alt": "Una cámara sobre trípode enfoca a Miguel Tillero mientras escribe en su escritorio; en la pantalla se ve el encuadre",
+   "pie": {
+    "es": "Rodaje en el despacho, ante la cámara",
+    "fr": "Tournage dans le bureau, face à la caméra",
+    "en": "Filming in the office, in front of the camera"
+   }
+  },
+  {
+   "id": "n-clase-linea-grupo",
+   "cat": "clases",
+   "src": "assets/images/galeria/n-clase-linea-grupo.jpg",
+   "thumb": "assets/images/galeria/t/n-clase-linea-grupo.jpg",
+   "w": 1080,
+   "h": 536,
+   "alt": "Captura de una videollamada con seis participantes sonriendo a la cámara",
+   "pie": {
+    "es": "Encuentro en línea con el grupo",
+    "fr": "Rencontre en ligne avec le groupe",
+    "en": "Online meeting with the group"
+   }
+  },
+  {
+   "id": "n-mascara-payaso",
+   "cat": "mexico",
+   "src": "assets/images/galeria/n-mascara-payaso.jpg",
+   "thumb": "assets/images/galeria/t/n-mascara-payaso.jpg",
+   "w": 1080,
+   "h": 1045,
+   "alt": "Miguel Tillero, de traje, sostiene ante su rostro una máscara de payaso pintada a mano",
+   "pie": {
+    "es": "Con una máscara de payaso, en un acto cultural",
+    "fr": "Avec un masque de clown, lors d’un événement culturel",
+    "en": "With a clown mask, at a cultural event"
+   }
+  },
+  {
+   "id": "n-convenio-firmado",
+   "cat": "mexico",
+   "src": "assets/images/galeria/n-convenio-firmado.jpg",
+   "thumb": "assets/images/galeria/t/n-convenio-firmado.jpg",
+   "w": 731,
+   "h": 1080,
+   "alt": "Dos personas sonriendo; una de ellas sostiene un documento firmado",
+   "pie": {
+    "es": "Con un convenio recién firmado",
+    "fr": "Avec une convention tout juste signée",
+    "en": "With a newly signed agreement"
    }
   }
  ]
