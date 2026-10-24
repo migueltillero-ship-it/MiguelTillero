@@ -1020,6 +1020,24 @@ async function guardarProspecto(origen, datos) {
   }
 }
 
+/* La plantilla de EmailJS evalúa como aritmética lo que parece una cuenta.
+ * Una fecha «24/10/2026» llegaba al correo como 0.0011846001974333662, que
+ * es 24÷10÷2026, y una de un campo <input type="date">, «2026-11-03», como
+ * 2012. Escrita con el mes en letra ya no hay nada que operar.
+ */
+function fechaLegible(valor) {
+  if (!valor) return '—';
+  const texto = String(valor).trim();
+  let d;
+  const iso = texto.match(/^(\d{4})-(\d{2})-(\d{2})$/);          // 2026-11-03
+  const dmy = texto.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);    // 3/11/2026
+  if (iso)      d = new Date(+iso[1], +iso[2] - 1, +iso[3]);
+  else if (dmy) d = new Date(+dmy[3], +dmy[2] - 1, +dmy[1]);
+  else return texto;                                             // ya es texto
+  if (isNaN(d)) return texto;
+  return d.toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
 async function sendEmail(params, successId, formEl) {
   /* Construir payload para la plantilla EmailJS */
   const payload = {
@@ -1029,7 +1047,7 @@ async function sendEmail(params, successId, formEl) {
     telefono:    params.telefono   || '—',
     ciudad:      params.ciudad     || '—',
     tipo:        params.tipo       || 'Contacto general',
-    fecha:       params.fecha      || '—',
+    fecha:       fechaLegible(params.fecha),
     horario:     params.horario    || '—',
     message:     params.message    || params.mensaje || params.notas || '—',
     to_email:    'migueltillero@gmail.com'
@@ -1536,7 +1554,7 @@ window.addEventListener('DOMContentLoaded', function() {
         telefono: d.telefono || '-',
         ciudad: d.ciudad || '-',
         tipo: 'Inscripción a clases',
-        fecha: new Date().toLocaleDateString('es-MX'),
+        fecha: fechaLegible(new Date().toLocaleDateString('es-MX')),
         horario: dispos.join(', ') || '-',
         message: mensaje,
         to_email: 'migueltillero@gmail.com'
