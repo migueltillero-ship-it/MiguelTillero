@@ -34,7 +34,7 @@
   .portal-flecha { display: none; }
 }
 
-/* Banda «Destination Francophonie · TV5MONDE»: en escritorio, más alta y
+/* Banda destacada de la portada: en escritorio, más alta y
    cinematográfica, para que se lea la escena del rodaje y el título mande. */
 @media (min-width: 1100px) {
   #novedad-tira { padding: clamp(4.5rem, 11vh, 8rem) 0; }

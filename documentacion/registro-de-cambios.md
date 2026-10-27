@@ -127,12 +127,10 @@ Ciclo A1.4 con sus doce sesiones. Espacio del estudiante. Datos del representant
 
 | Fecha | Cambio | Qué se hizo |
 |---|---|---|
-| 2026-09-25 | `e83b1a3` | 24 fotos editadas en el relato, novedad Destination Francophonie y fondos fotográficos |
 | 2026-09-25 | `0d4d417` | Ciclo A1 octubre 2026: plan de 12 sesiones, paso de pago y materiales |
 | 2026-09-25 | `1bffbfe` | Álbum completo de la trayectoria, 19 capítulos verificados y más fotos en cada sección |
 | 2026-09-25 | `05794bd` | Archivo único para pegar en Supabase de una sola vez |
 | 2026-09-25 | `be5ca28` | Video «Mi trayectoria» en el perfil y en la galería de videos |
-| 2026-09-25 | `d5b429e` | El rodaje de Destination Francophonie presenta la sede renovada de la Alianza (rol confirmado por Miguel) |
 | 2026-09-25 | `159cf99` | Karen Elizabeth (ITAES), Patrick de Bréon (†2026) y la foto de entrevista pasa al video de presentación |
 | 2026-09-25 | `e6d607e` | Espacio del estudiante: bienvenida, recorrido y detalles del curso |
 | 2026-09-25 | `b3f0fe6` | Romain Nadal (embajador en Venezuela, 2023) y L'Étape Ecuador con el embajador Frédéric Desagneaux |
@@ -144,7 +142,6 @@ Ciclo A1.4 con sus doce sesiones. Espacio del estudiante. Datos del representant
 | 2026-09-25 | `dc7b476` | Datos del representante y enlaces de clase bajo llave |
 | 2026-09-25 | `edf2488` | Auditoría móvil: objetivos táctiles y textos legibles en el teléfono |
 | 2026-09-25 | `b967f49` | Evita que el plan B del login invalide la sesión recién creada |
-| 2026-09-25 | `233703e` | Invitación a la première de «Destination Francophonie au Mexique» (26 de septiembre, 18:00, El Rastro) |
 | 2026-09-25 | `fd65d39` | Un token caducado ya no deja al usuario encerrado fuera de su panel |
 | 2026-09-25 | `04d4130` | Fotos reales del rodaje, encuadres sin solapes, miniaturas nuevas del video de clases y botón Vendredi compacto |
 | 2026-09-25 | `a4e94f4` | Solo fotos profesionales en la galería y nombres verificados en los pies de foto |
@@ -167,7 +164,6 @@ Correo propio, plazos de inscripción y de pago separados, material de comunicac
 | 2026-09-26 | `8fe2255` | Llevar a su panel a quien entra por la página equivocada |
 | 2026-09-26 | `c4d3f2d` | Infografía del ciclo, al día y con lo que faltaba |
 | 2026-09-26 | `9dce871` | Guardar los mensajes del ciclo y la guía del correo propio |
-| 2026-09-26 | `2dc73ca` | Juan Francisco Coba (Cogiler) y horarios de TV5MONDE en hora de México |
 | 2026-09-26 | `61cfa9a` | Inscripción sin curso — la cuenta se crea aunque el grupo no exista y el administrador asigna después |
 | 2026-09-27 | `c3810db` | El rol admin entra ahora a admin.html, no a panel-docente.html |
 | 2026-09-27 | `03f6bdc` | Botón «Reabrir» para deshacer un «Cerrar» sin pasar por Supabase |
@@ -219,6 +215,5 @@ Libro virtual en un almacenamiento privado, segundo grupo (B2) con la misma estr
 | 2026-10-05 | `0ceb6c0` | Sin desbordes en el teléfono (cursos, exámenes, carrusel de vídeos) |
 | 2026-10-05 | `7218074` | Grupo B2 (ciclo del 5 de octubre al 11 de noviembre) y boletines para cualquier grupo |
 | 2026-10-05 | `857fd5c` | Costo del ciclo B2 |
-| 2026-10-05 | `5d20a45` | Enlace al episodio «Destination francophonie · México (Parte 1)» en TV5MONDE+ |
 | 2026-10-09 | `dff5f23` | Enlaces de Zoom fuera del repositorio y botón «Entrar a la clase» en el panel del representante |
 | 2026-10-09 | `6bfd736` | Documentación del proyecto para revisión externa |
