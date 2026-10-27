@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contrato de aprendizaje | Miguel Tillero</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root { --bg-color:#eef0e5; --primary-color:#8c734b; --text-dark:#1a2e24; --text-light:#5a665f;
+  --card-bg:#ffffff; --accent-green:#2b4535; --border:rgba(165,130,74,0.3);
+  --r-sm:14px; --r-md:18px; --r-pill:999px; --gold:#a5824a; --gold2:#86673a; --cyan:#0d7f57;
+  --shadow-card:0 4px 20px rgba(20,45,32,0.07), 0 1px 2px rgba(20,45,32,0.05); }
+* { box-sizing:border-box; }
+body { background:var(--bg-color); color:var(--text-dark); font-family:'Syne',sans-serif; margin:0; }
+nav.main-nav { background:#fff; border-bottom:1px solid rgba(43,69,53,0.2); padding:1rem 5%;
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.8rem; }
+.nav-brand { font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:600;
+  color:var(--accent-green); text-decoration:none; }
+.nav-right { display:flex; align-items:center; gap:1rem; font-size:0.9rem; }
+.envoltura { max-width:860px; margin:0 auto; padding:2.5rem 5% 5rem; }
+h1 { font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(2rem,5vw,2.8rem);
+  margin:0 0 0.4rem; color:var(--accent-green); }
+.sub { color:var(--text-light); margin:0 0 2rem; line-height:1.6; }
+.tarjeta { background:var(--card-bg); border:1px solid var(--border); border-radius:var(--r-md);
+  box-shadow:var(--shadow-card); padding:clamp(1.3rem,4vw,2rem); margin-bottom:1.5rem; }
+.tarjeta h2 { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:1.5rem;
+  margin:0 0 1rem; color:var(--accent-green); }
+.cifras { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1rem; }
+.cifra { background:rgba(165,130,74,0.07); border-radius:var(--r-sm); padding:0.9rem 1rem; }
+.cifra small { display:block; font-size:0.74rem; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--text-light); margin-bottom:0.25rem; }
+.cifra b { font-size:1.25rem; color:var(--accent-green); }
+.cifra.regalo b { color:var(--cyan); }
+table.clases { width:100%; border-collapse:collapse; font-size:0.97rem; }
+table.clases th { text-align:left; font-size:0.74rem; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--text-light); padding:0.5rem 0.6rem; border-bottom:1px solid var(--border); }
+table.clases td { padding:0.6rem; border-bottom:1px solid rgba(165,130,74,0.14); }
+table.clases tr:last-child td { border-bottom:0; }
+.cuerpo-contrato { white-space:pre-wrap; line-height:1.75; font-size:1rem;
+  max-height:420px; overflow-y:auto; padding:1.2rem; background:rgba(255,255,255,0.6);
+  border:1px solid var(--border); border-radius:var(--r-sm); }
+.casilla { display:flex; gap:0.75rem; align-items:flex-start; margin:1rem 0; cursor:pointer;
+  line-height:1.6; }
+.casilla input { margin-top:0.25rem; width:20px; height:20px; flex:0 0 auto; accent-color:var(--gold); }
+.campo { display:block; margin:1.2rem 0 0.4rem; font-size:0.85rem; color:var(--text-light); }
+input[type=text] { width:100%; padding:0.85rem 1rem; border:1px solid var(--border);
+  border-radius:var(--r-sm); font-family:'Syne',sans-serif; font-size:1rem; min-height:44px; }
+.btn { display:inline-flex; align-items:center; justify-content:center; gap:0.5rem;
+  padding:0.95rem 1.8rem; border-radius:var(--r-pill); border:1px solid var(--gold);
+  background:var(--gold); color:#fff; font-family:'Syne',sans-serif; font-size:0.95rem;
+  font-weight:600; cursor:pointer; min-height:44px; text-decoration:none; transition:background .25s; }
+.btn:hover:not(:disabled) { background:var(--gold2); }
+.btn:disabled { opacity:0.45; cursor:not-allowed; }
+.btn.fantasma { background:transparent; color:var(--gold2); }
+.btn.wa { background:#25D366; border-color:#25D366; }
+.aviso { padding:1rem 1.2rem; border-radius:var(--r-sm); margin:1rem 0; line-height:1.6; }
+.aviso.error { background:rgba(198,91,91,0.09); border:1px solid rgba(154,42,42,0.45); color:#8f2727; }
+.aviso.ok { background:rgba(13,127,87,0.09); border:1px solid rgba(13,127,87,0.4); color:#0a6444; }
+.sello { display:flex; gap:0.8rem; align-items:center; font-size:0.95rem; }
+.sello i { font-size:1.6rem; color:var(--cyan); }
+.banco { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1rem; }
+.banco article { border:1px solid var(--border); border-radius:var(--r-sm); padding:1rem; }
+.banco small { display:block; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--text-light); }
+.banco b { font-size:1.05rem; letter-spacing:0.02em; }
+.oculto { display:none !important; }
+@media (max-width:640px){ .envoltura { padding-top:1.5rem; } }
+</style>
+</head>
+<body>
+
+<nav class="main-nav">
+  <a href="index.html" class="nav-brand">Miguel Tillero</a>
+  <div class="nav-right">
+    <span id="quien"></span>
+    <a href="panel-estudiante.html" class="btn fantasma" style="padding:0.5rem 1.1rem;">Mi espacio</a>
+  </div>
+</nav>
+
+<div class="envoltura">
+
+  <div id="cargando" class="tarjeta"><p style="margin:0;">Cargando tu contrato…</p></div>
+  <div id="aviso-config" class="oculto"></div>
+
+  <div id="sin-contrato" class="tarjeta oculto">
+    <h2>Todavía no hay un contrato para ti</h2>
+    <p class="sub" style="margin:0;">Cuando acordemos las horas y el calendario, tu contrato aparecerá
+      aquí para que lo leas y lo aceptes. Si crees que ya debería estar, escríbeme.</p>
+    <a class="btn wa" id="wa-sin" href="#" target="_blank" rel="noopener">
+      <i class="fab fa-whatsapp"></i> Escribirme por WhatsApp</a>
+  </div>
+
+  <div id="todo" class="oculto">
+    <h1>Contrato de aprendizaje</h1>
+    <p class="sub" id="encabezado"></p>
+
+    <!-- Lo contratado, de un vistazo -->
+    <section class="tarjeta">
+      <h2>Lo que estás contratando</h2>
+      <div class="cifras" id="cifras"></div>
+      <p class="sub" id="vigencia" style="margin:1.2rem 0 0;"></p>
+    </section>
+
+    <!-- El calendario acordado -->
+    <section class="tarjeta" id="bloque-clases">
+      <h2>Tu calendario</h2>
+      <table class="clases">
+        <thead><tr><th>Día</th><th>Fecha</th><th>Horario</th><th>Duración</th></tr></thead>
+        <tbody id="tabla-clases"></tbody>
+      </table>
+      <p class="sub" style="margin:1rem 0 0; font-size:0.9rem;">Si necesitas mover una clase,
+        escríbeme con antelación y la reacomodamos.</p>
+    </section>
+
+    <!-- El documento -->
+    <section class="tarjeta">
+      <h2>El documento</h2>
+      <div class="cuerpo-contrato" id="cuerpo"></div>
+    </section>
+
+    <!-- Aceptación -->
+    <section class="tarjeta" id="bloque-aceptar">
+      <h2>Aceptación</h2>
+      <div id="ya-aceptado" class="oculto">
+        <div class="aviso ok sello">
+          <i class="fa fa-circle-check"></i>
+          <div><strong>Contrato aceptado.</strong><br><span id="detalle-aceptacion"></span></div>
+        </div>
+      </div>
+
+      <div id="form-aceptar">
+        <label class="casilla">
+          <input type="checkbox" id="ok-contrato">
+          <span>He leído el contrato completo y acepto sus términos: las horas, las fechas,
+                los horarios y el importe que aparecen arriba.</span>
+        </label>
+        <label class="casilla">
+          <input type="checkbox" id="ok-reglamento">
+          <span>He leído el <a href="reglamento.html" target="_blank" rel="noopener"><strong>reglamento
+                de las clases</strong> <i class="fa fa-arrow-up-right-from-square" style="font-size:0.75em;"></i></a>
+                y entiendo las normas de asistencia, puntualidad y cancelación.</span>
+        </label>
+        <label class="campo" for="nombre-firma">Escribe tu nombre completo para firmar</label>
+        <input type="text" id="nombre-firma" autocomplete="name" placeholder="Nombre y apellidos">
+        <div id="msg-aceptar"></div>
+        <p style="margin:1.3rem 0 0;">
+          <button class="btn" id="btn-aceptar" disabled>
+            <i class="fa fa-pen-nib"></i> Aceptar y firmar</button>
+        </p>
+      </div>
+    </section>
+
+    <!-- El pago: va al final y no condiciona nada -->
+    <section class="tarjeta oculto" id="bloque-pago">
+      <h2>Cómo pagar</h2>
+      <p class="sub">Tu lugar ya está reservado y puedes empezar las clases: el pago no te bloquea
+        nada. Cuando te venga bien, usa cualquiera de estas opciones y avísame.</p>
+      <div class="banco">
+        <article>
+          <small>Transferencia · México · albo</small>
+          <b>7211 8010 0037 9159 95</b>
+          <small style="margin-top:0.5rem;">Beneficiario</small>
+          <b style="font-size:0.95rem;">Miguel David Tillero Álvarez</b>
+        </article>
+        <article>
+          <small>Transferencia · México · Nu</small>
+          <b>6381 8000 0116 2530 75</b>
+          <small style="margin-top:0.5rem;">Beneficiario</small>
+          <b style="font-size:0.95rem;">Miguel David Tillero Álvarez</b>
+        </article>
+        <article>
+          <small>Desde el exterior · Remitly</small>
+          <b>miguelt4540</b>
+          <a href="https://remitly.com/pay/miguelt4540" target="_blank" rel="noopener"
+             style="display:inline-block;margin-top:0.5rem;font-size:0.88rem;color:var(--gold2);">
+            remitly.com/pay/miguelt4540</a>
+        </article>
+      </div>
+
+      <h2 style="margin-top:2rem;">Tu comprobante</h2>
+      <p class="sub">Súbelo aquí o mándamelo por WhatsApp, lo que te resulte más cómodo.</p>
+      <p style="display:flex; gap:0.8rem; flex-wrap:wrap; align-items:center;">
+        <input type="file" id="archivo-comprobante" accept="image/*,application/pdf"
+               style="font-size:0.9rem;">
+        <button class="btn" id="btn-subir"><i class="fa fa-upload"></i> Subir comprobante</button>
+        <a class="btn wa" id="wa-pago" href="#" target="_blank" rel="noopener">
+          <i class="fab fa-whatsapp"></i> Enviarlo por WhatsApp</a>
+      </p>
+      <div id="msg-pago"></div>
+      <div id="lista-comprobantes"></div>
+    </section>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/js/supabase-config.js?v=1790462574"></script>
+<script src="assets/js/auth-helpers.js?v=1790462574"></script>
+<script>
+/* Contrato de aprendizaje.
+ *
+ * Se lee lo contratado, el calendario y el documento; se aceptan dos cosas por
+ * separado —el contrato y la lectura del reglamento— y solo entonces aparece
+ * cómo pagar. El pago va al final a propósito: no condiciona el acceso ni las
+ * clases, así que nada de esta página lo exige.
+ */
+const WA = '529671836405';
+let contratacion = null, contrato = null, perfil = null;
+
+function el(id) { return document.getElementById(id); }
+function msg(destino, texto, tipo) {
+  destino.innerHTML = '<div class="aviso ' + tipo + '"></div>';
+  destino.firstChild.textContent = texto;
+}
+const DIAS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+function fechaLarga(iso) {
+  const [a, m, d] = iso.split('-').map(Number);
+  return new Date(a, m - 1, d).toLocaleDateString('es-MX',
+    { day: 'numeric', month: 'long', year: 'numeric' });
+}
+function diaDe(iso) {
+  const [a, m, d] = iso.split('-').map(Number);
+  return DIAS[new Date(a, m - 1, d).getDay()];
+}
+function hhmm(t) { return (t || '').slice(0, 5); }
+function dinero(n, moneda) {
+  return Number(n).toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+    + ' ' + (moneda || 'MXN');
+}
+
+async function iniciar() {
+  if (!supabaseConfigurado) { mostrarAvisoSinConfigurar('aviso-config'); el('cargando').classList.add('oculto'); return; }
+  const contexto = await requerirSesion();
+  if (!contexto) return;
+  perfil = contexto.perfil;
+  el('quien').textContent = perfil.nombre_completo || '';
+
+  /* La política de la base ya limita lo que se ve a lo propio: aquí no hace
+     falta filtrar por estudiante, y si alguien manipula la consulta no
+     obtiene nada ajeno. */
+  const { data: cs, error } = await supabaseClient
+    .from('contrataciones')
+    .select('*')
+    .not('estado', 'in', '("cancelada")')
+    .order('fecha_inicio', { ascending: false })
+    .limit(1);
+
+  el('cargando').classList.add('oculto');
+
+  if (error) { el('sin-contrato').classList.remove('oculto'); prepararWa('wa-sin'); return; }
+  if (!cs || !cs.length) { el('sin-contrato').classList.remove('oculto'); prepararWa('wa-sin'); return; }
+
+  contratacion = cs[0];
+  const [{ data: clases }, { data: ks }] = await Promise.all([
+    supabaseClient.from('clases').select('*')
+      .eq('contratacion_id', contratacion.id).neq('estado', 'cancelada')
+      .order('fecha').order('hora_inicio'),
+    supabaseClient.from('contratos').select('*').eq('contratacion_id', contratacion.id).limit(1)
+  ]);
+  contrato = (ks && ks[0]) || null;
+
+  pintar(clases || []);
+  el('todo').classList.remove('oculto');
+}
+
+function pintar(clases) {
+  const c = contratacion;
+  el('encabezado').textContent =
+    (perfil.nombre_completo || '') + ' · ' + (contrato ? 'Contrato ' + contrato.numero : 'Pendiente de emitir');
+
+  const regalo = Number(c.horas_totales) - Number(c.horas_pagadas);
+  el('cifras').innerHTML =
+    tarjetaCifra('Horas que pagas', Number(c.horas_pagadas) + ' h') +
+    tarjetaCifra('Horas que recibes', Number(c.horas_totales) + ' h', regalo > 0) +
+    (regalo > 0 ? tarjetaCifra('De regalo', regalo + ' h', true) : '') +
+    tarjetaCifra('Precio por hora', dinero(c.precio_hora, c.moneda)) +
+    tarjetaCifra('Total a pagar', dinero(c.importe_total, c.moneda));
+
+  el('vigencia').textContent = 'Del ' + fechaLarga(c.fecha_inicio) +
+    (c.fecha_fin ? ' al ' + fechaLarga(c.fecha_fin) : '') +
+    ' · ' + ({ en_linea: 'en línea', presencial: 'presencial', mixta: 'en línea y presencial' }[c.modalidad] || c.modalidad);
+
+  if (!clases.length) {
+    el('bloque-clases').classList.add('oculto');
+  } else {
+    el('tabla-clases').innerHTML = clases.map(function (k) {
+      const h = (new Date('1970-01-01T' + k.hora_fin) - new Date('1970-01-01T' + k.hora_inicio)) / 3600000;
+      const td = [diaDe(k.fecha), fechaLarga(k.fecha), hhmm(k.hora_inicio) + ' – ' + hhmm(k.hora_fin), h + ' h'];
+      return '<tr>' + td.map(function (v) {
+        const c = document.createElement('td'); c.textContent = v; return c.outerHTML;
+      }).join('') + '</tr>';
+    }).join('');
+  }
+
+  el('cuerpo').textContent = contrato ? contrato.cuerpo
+    : 'El documento todavía no está emitido. En cuanto lo prepare aparecerá aquí.';
+
+  if (contrato && contrato.aceptado_en) {
+    el('form-aceptar').classList.add('oculto');
+    el('ya-aceptado').classList.remove('oculto');
+    el('detalle-aceptacion').textContent =
+      'Firmado por ' + (contrato.aceptado_nombre || '') + ' el ' +
+      new Date(contrato.aceptado_en).toLocaleString('es-MX') +
+      (contrato.reglamento_aceptado_en ? ' · reglamento confirmado' : '');
+    mostrarPago();
+  } else if (!contrato) {
+    el('bloque-aceptar').classList.add('oculto');
+  }
+}
+
+function tarjetaCifra(rotulo, valor, destacar) {
+  const d = document.createElement('div');
+  d.className = 'cifra' + (destacar ? ' regalo' : '');
+  const s = document.createElement('small'); s.textContent = rotulo;
+  const b = document.createElement('b'); b.textContent = valor;
+  d.appendChild(s); d.appendChild(b);
+  return d.outerHTML;
+}
+
+/* El botón solo se enciende con las dos casillas marcadas y el nombre escrito:
+   las tres cosas son la firma, no un trámite. */
+function revisarFirma() {
+  el('btn-aceptar').disabled = !(el('ok-contrato').checked && el('ok-reglamento').checked
+    && el('nombre-firma').value.trim().length >= 3);
+}
+['ok-contrato', 'ok-reglamento'].forEach(function (id) {
+  el(id).addEventListener('change', revisarFirma);
+});
+el('nombre-firma').addEventListener('input', revisarFirma);
+
+el('btn-aceptar').addEventListener('click', async function () {
+  const b = el('btn-aceptar');
+  b.disabled = true; b.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Firmando…';
+  const { error } = await supabaseClient.rpc('aceptar_contrato', {
+    p_contrato: contrato.id,
+    p_nombre: el('nombre-firma').value.trim(),
+    p_acepta_reglamento: true,
+    p_reglamento_version: document.querySelector('meta[name="reglamento-version"]')?.content || 'vigente',
+    p_agente: navigator.userAgent.slice(0, 250)
+  });
+  if (error) {
+    msg(el('msg-aceptar'), 'No se pudo firmar: ' + error.message, 'error');
+    b.disabled = false; b.innerHTML = '<i class="fa fa-pen-nib"></i> Aceptar y firmar';
+    return;
+  }
+  const { data } = await supabaseClient.from('contratos').select('*').eq('id', contrato.id).limit(1);
+  contrato = (data && data[0]) || contrato;
+  el('form-aceptar').classList.add('oculto');
+  el('ya-aceptado').classList.remove('oculto');
+  el('detalle-aceptacion').textContent = 'Firmado por ' + (contrato.aceptado_nombre || '') +
+    ' el ' + new Date(contrato.aceptado_en).toLocaleString('es-MX') + ' · reglamento confirmado';
+  mostrarPago();
+  el('bloque-pago').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+function prepararWa(id, texto) {
+  const a = el(id);
+  if (a) a.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(
+    texto || 'Hola Miguel, te escribo desde mi espacio de la plataforma.');
+}
+
+function mostrarPago() {
+  el('bloque-pago').classList.remove('oculto');
+  prepararWa('wa-pago', 'Hola Miguel, ya firmé mi contrato ' +
+    (contrato ? contrato.numero : '') + ' y te mando el comprobante de pago.');
+  listarComprobantes();
+}
+
+async function listarComprobantes() {
+  const { data } = await supabaseClient.from('comprobantes_pago')
+    .select('*').eq('contratacion_id', contratacion.id).order('enviado_en', { ascending: false });
+  if (!data || !data.length) { el('lista-comprobantes').innerHTML = ''; return; }
+  const ESTADO = { recibido: 'recibido, pendiente de revisar', verificado: 'verificado', rechazado: 'rechazado' };
+  el('lista-comprobantes').innerHTML = '<p class="sub" style="margin:1.2rem 0 0.4rem;">Lo que has enviado:</p>'
+    + '<ul style="margin:0; padding-left:1.1rem; line-height:1.9;">' + data.map(function (p) {
+      const li = document.createElement('li');
+      li.textContent = new Date(p.enviado_en).toLocaleDateString('es-MX') + ' · ' +
+        (p.via === 'whatsapp' ? 'enviado por WhatsApp' : 'archivo subido') +
+        ' · ' + (ESTADO[p.estado] || p.estado);
+      return li.outerHTML;
+    }).join('') + '</ul>';
+}
+
+el('btn-subir').addEventListener('click', async function () {
+  const f = el('archivo-comprobante').files[0];
+  if (!f) { msg(el('msg-pago'), 'Elige primero un archivo.', 'error'); return; }
+  if (f.size > 8 * 1024 * 1024) { msg(el('msg-pago'), 'El archivo pasa de 8 MB. Mándamelo por WhatsApp.', 'error'); return; }
+  const b = el('btn-subir');
+  b.disabled = true; b.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Subiendo…';
+
+  const ruta = contratacion.id + '/' + Date.now() + '-' + f.name.replace(/[^\w.\-]/g, '_');
+  const { error: errSubida } = await supabaseClient.storage.from('comprobantes').upload(ruta, f);
+  if (errSubida) {
+    /* Si el almacén no está creado o rechaza el archivo, no se deja a la
+       persona sin salida: queda WhatsApp, que es igual de válido. */
+    msg(el('msg-pago'), 'No pude guardar el archivo (' + errSubida.message +
+      '). Mándamelo por WhatsApp con el botón verde y listo.', 'error');
+    b.disabled = false; b.innerHTML = '<i class="fa fa-upload"></i> Subir comprobante';
+    return;
+  }
+  const { error } = await supabaseClient.from('comprobantes_pago').insert({
+    contratacion_id: contratacion.id, via: 'archivo', archivo: ruta,
+    monto: contratacion.importe_total, moneda: contratacion.moneda, estado: 'recibido'
+  });
+  if (error) { msg(el('msg-pago'), 'No se pudo registrar: ' + error.message, 'error'); }
+  else {
+    msg(el('msg-pago'), 'Recibido. Lo reviso y te confirmo.', 'ok');
+    el('archivo-comprobante').value = '';
+    listarComprobantes();
+  }
+  b.disabled = false; b.innerHTML = '<i class="fa fa-upload"></i> Subir comprobante';
+});
+
+/* Avisar de que el comprobante va por WhatsApp deja constancia aquí también,
+   para que no dependa de acordarse de mirar el teléfono. */
+el('wa-pago').addEventListener('click', async function () {
+  await supabaseClient.from('comprobantes_pago').insert({
+    contratacion_id: contratacion.id, via: 'whatsapp',
+    monto: contratacion.importe_total, moneda: contratacion.moneda, estado: 'recibido',
+    nota: 'La persona indicó que envía el comprobante por WhatsApp.'
+  });
+  listarComprobantes();
+});
+
+iniciar();
+</script>
+</body>
+</html>
