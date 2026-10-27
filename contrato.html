@@ -35,7 +35,16 @@ h1 { font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(2r
   color:var(--text-light); margin-bottom:0.25rem; }
 .cifra b { font-size:1.25rem; color:var(--accent-green); }
 .cifra.regalo b { color:var(--cyan); }
-table.clases { width:100%; border-collapse:collapse; font-size:0.97rem; }
+/* La tabla se queda sin sitio por debajo de unos 360 px: con la fecha
+   compacta cabe, y el desplazamiento lateral es la red por si alguna
+   combinación de idioma o tipografía la vuelve a estirar. Nunca se recorta
+   una columna en silencio. */
+.tabla-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+table.clases { width:100%; border-collapse:collapse; font-size:0.97rem; min-width:290px; }
+@media (max-width:420px){
+  table.clases { font-size:0.9rem; }
+  table.clases th, table.clases td { padding:0.5rem 0.35rem; }
+}
 table.clases th { text-align:left; font-size:0.74rem; letter-spacing:0.08em; text-transform:uppercase;
   color:var(--text-light); padding:0.5rem 0.6rem; border-bottom:1px solid var(--border); }
 table.clases td { padding:0.6rem; border-bottom:1px solid rgba(165,130,74,0.14); }
@@ -108,10 +117,12 @@ input[type=text] { width:100%; padding:0.85rem 1rem; border:1px solid var(--bord
     <!-- El calendario acordado -->
     <section class="tarjeta" id="bloque-clases">
       <h2>Tu calendario</h2>
-      <table class="clases">
-        <thead><tr><th>Día</th><th>Fecha</th><th>Horario</th><th>Duración</th></tr></thead>
-        <tbody id="tabla-clases"></tbody>
-      </table>
+      <div class="tabla-scroll">
+        <table class="clases">
+          <thead><tr><th>Día</th><th>Fecha</th><th>Horario</th><th>Duración</th></tr></thead>
+          <tbody id="tabla-clases"></tbody>
+        </table>
+      </div>
       <p class="sub" style="margin:1rem 0 0; font-size:0.9rem;">Si necesitas mover una clase,
         escríbeme con antelación y la reacomodamos.</p>
     </section>
@@ -221,6 +232,14 @@ function fechaLarga(iso) {
   return new Date(a, m - 1, d).toLocaleDateString('es-MX',
     { day: 'numeric', month: 'long', year: 'numeric' });
 }
+/* En la tabla la fecha va compacta —«4 nov 2026»— porque con el mes entero
+   la columna no cabe en un teléfono estrecho. En el resumen y la vigencia,
+   donde hay sitio, se escribe completa. */
+function fechaCorta(iso) {
+  const [a, m, d] = iso.split('-').map(Number);
+  return new Date(a, m - 1, d).toLocaleDateString('es-MX',
+    { day: 'numeric', month: 'short', year: 'numeric' }).replace(/\./g, '');
+}
 function diaDe(iso) {
   const [a, m, d] = iso.split('-').map(Number);
   return DIAS[new Date(a, m - 1, d).getDay()];
@@ -288,7 +307,7 @@ function pintar(clases) {
   } else {
     el('tabla-clases').innerHTML = clases.map(function (k) {
       const h = (new Date('1970-01-01T' + k.hora_fin) - new Date('1970-01-01T' + k.hora_inicio)) / 3600000;
-      const td = [diaDe(k.fecha), fechaLarga(k.fecha), hhmm(k.hora_inicio) + ' – ' + hhmm(k.hora_fin), h + ' h'];
+      const td = [diaDe(k.fecha), fechaCorta(k.fecha), hhmm(k.hora_inicio) + ' – ' + hhmm(k.hora_fin), h + ' h'];
       return '<tr>' + td.map(function (v) {
         const c = document.createElement('td'); c.textContent = v; return c.outerHTML;
       }).join('') + '</tr>';
