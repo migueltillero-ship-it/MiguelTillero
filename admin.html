@@ -343,9 +343,13 @@ details.form-toggle > summary { cursor:pointer; font-family:'Syne', sans-serif; 
                   <div id="acu-cuenta" class="msg"></div>
                   <div id="acu-cuerpo" style="display:none;">
                     <div class="form-grid">
-                      <div class="form-field"><label>Horas que paga *</label>
+                      <!-- «Paga» y «recibe» no decían cuál iba al calendario.
+                           Ahora se nombran por lo que hacen: las de clase se
+                           reservan en la agenda; el total añade las tutorías
+                           de regalo, que se piden sobre la marcha. -->
+                      <div class="form-field"><label>Horas de clase (se reservan) *</label>
                         <input id="acu-pagadas" type="number" min="1" step="0.5" value="12"></div>
-                      <div class="form-field"><label>Horas que recibe *</label>
+                      <div class="form-field"><label>Total con tutorías de regalo *</label>
                         <input id="acu-totales" type="number" min="1" step="0.5" value="12"></div>
                       <div class="form-field"><label>Precio por hora *</label>
                         <input id="acu-precio" type="number" min="0" step="10" value="350"></div>
@@ -1101,9 +1105,12 @@ function recalcularAcuerdo() {
     if (totales < pagadas) { caja.className = 'msg error'; caja.textContent = 'No puede recibir menos horas de las que paga.'; return; }
     const regalo = totales - pagadas;
     caja.className = 'msg ok';
-    caja.textContent = porSemana + ' h por semana · ' + Math.ceil(totales / porSemana) + ' semanas · ' +
+    /* Las semanas se cuentan sobre las horas de clase, no sobre el total: las
+       de tutoría ya no van al calendario, se piden sobre la marcha, así que
+       meterlas aquí alargaba el curso sobre el papel. */
+    caja.textContent = porSemana + ' h por semana · ' + Math.ceil(pagadas / porSemana) + ' semanas de clase · ' +
         'cobra ' + money(pagadas * precio, 'MXN') +
-        (regalo > 0 ? ' · regala ' + regalo + ' h' : '');
+        (regalo > 0 ? ' · más ' + regalo + ' h de tutoría, sin cobrar y fuera del calendario' : '');
 }
 
 function cerrarAcuerdo() {
