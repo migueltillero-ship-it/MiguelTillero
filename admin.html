@@ -332,6 +332,42 @@ details.form-toggle > summary { cursor:pointer; font-family:'Syne', sans-serif; 
                 </div>
                 <p class="muted" style="margin:0.4rem 0 1rem;">Las solicitudes de inscripción, cita y clase de prueba del sitio público. Se guardan aquí antes de intentar el correo, así que siguen estando aunque el envío falle.</p>
                 <div id="msg-prospectos" class="msg"></div>
+
+                <!-- Formulario para convertir un prospecto en alumno. Aparece
+                     solo al pulsar «Crear acuerdo» en una fila. -->
+                <div id="panel-acuerdo" class="panel" style="display:none; margin:1rem 0; background:rgba(165,130,74,0.06);">
+                  <div style="display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap;">
+                    <h3 style="margin:0;" id="acu-titulo"></h3>
+                    <button class="btn pequeno secundario" onclick="cerrarAcuerdo()">Cerrar</button>
+                  </div>
+                  <div id="acu-cuenta" class="msg"></div>
+                  <div id="acu-cuerpo" style="display:none;">
+                    <div class="form-grid">
+                      <div class="form-field"><label>Horas que paga *</label>
+                        <input id="acu-pagadas" type="number" min="1" step="0.5" value="12"></div>
+                      <div class="form-field"><label>Horas que recibe *</label>
+                        <input id="acu-totales" type="number" min="1" step="0.5" value="12"></div>
+                      <div class="form-field"><label>Precio por hora *</label>
+                        <input id="acu-precio" type="number" min="0" step="10" value="350"></div>
+                      <div class="form-field"><label>Empieza el *</label>
+                        <input id="acu-inicio" type="date"></div>
+                      <div class="form-field"><label>Modalidad</label>
+                        <select id="acu-modalidad">
+                          <option value="en_linea">En línea</option>
+                          <option value="presencial">Presencial</option>
+                          <option value="mixta">En línea y presencial</option>
+                        </select></div>
+                      <div class="form-field"><label>Plan pedagógico</label>
+                        <select id="acu-plan"><option value="">Sin plan</option></select></div>
+                    </div>
+                    <p class="muted" style="margin:1rem 0 0.5rem;">Días y horas. Vienen de lo que pidió; cámbialos si hace falta.</p>
+                    <div id="acu-dias"></div>
+                    <div id="acu-resumen" class="msg"></div>
+                    <p style="margin-top:1rem;">
+                      <button class="btn" id="acu-crear"><i class="fa-solid fa-file-signature"></i> Crear acuerdo y agendar clases</button>
+                    </p>
+                  </div>
+                </div>
                 <table style="margin-top:0.6rem;">
                     <thead><tr><th>Fecha</th><th>Quiere</th><th>Nombre</th><th>Contacto</th><th>Ciudad</th><th>Acciones</th></tr></thead>
                     <tbody id="tabla-prospectos"></tbody>
@@ -822,6 +858,9 @@ async function cargarProspectos() {
         const botones = [
             `<button class="btn pequeno secundario" onclick="alternarDetalleProspecto('${p.id}')">Ver respuestas</button>`
         ];
+        if (!p.contratacion_id && p.estado !== 'descartado') {
+            botones.push(`<button class="btn pequeno" onclick="abrirAcuerdo('${p.id}')">Crear acuerdo</button>`);
+        }
         if (et.siguiente) {
             /* Avisar por WhatsApp y marcar el envío del contrato son el mismo
                gesto: así no queda registrado que se envió algo que no se envió. */
@@ -895,6 +934,149 @@ async function avisarYEnviarContrato(id) {
     window.open('https://wa.me/' + tel + '?text=' + encodeURIComponent(texto), '_blank', 'noopener');
     await moverProspecto(id, 'contrato');
 }
+
+/* ── Convertir un prospecto en alumno ──────────────────────────────
+   Un prospecto no es un usuario: quien llena el formulario público no crea
+   cuenta. Por eso lo primero que hace esta pantalla es mirar si ya se
+   registró; sin perfil no hay acuerdo posible, y lo que toca es invitarla. */
+let acuProspecto = null, acuEstudiante = null;
+
+async function abrirAcuerdo(id) {
+    const { data: p } = await supabaseClient.from('prospectos').select('*').eq('id', id).single();
+    if (!p) return;
+    acuProspecto = p; acuEstudiante = null;
+
+    document.getElementById('panel-acuerdo').style.display = 'block';
+    document.getElementById('acu-titulo').textContent = 'Acuerdo para ' + (p.nombre || '');
+    const avisoCuenta = document.getElementById('acu-cuenta');
+    const cuerpo = document.getElementById('acu-cuerpo');
+
+    const { data: enc } = await supabaseClient.rpc('buscar_estudiante', { p_email: p.email });
+    const perfil = Array.isArray(enc) ? enc[0] : enc;
+
+    if (!perfil) {
+        cuerpo.style.display = 'none';
+        const url = new URL('registro/inscripcion.html', window.location.href).href;
+        const tel = String(p.telefono || '').replace(/[^0-9]/g, '');
+        const texto = '¡Hola ' + (p.nombre || '').split(' ')[0] + '! Para poder darte tu espacio y tu ' +
+            'acuerdo de aprendizaje necesito que crees tu cuenta aquí: ' + url +
+            ' . Usa este mismo correo (' + p.email + ') para que todo quede enlazado. En cuanto lo hagas te aviso.';
+        avisoCuenta.className = 'msg error';
+        avisoCuenta.style.display = 'block';
+        avisoCuenta.innerHTML = '';
+        avisoCuenta.appendChild(document.createTextNode(
+            'Todavía no tiene cuenta con el correo ' + p.email + '. Sin cuenta no puede entrar a ver ni firmar su acuerdo. ' +
+            'Pídele que se registre con ese mismo correo y vuelve aquí.'));
+        if (tel) {
+            const a = document.createElement('a');
+            a.className = 'btn pequeno'; a.style.marginTop = '0.8rem'; a.target = '_blank'; a.rel = 'noopener';
+            a.href = 'https://wa.me/' + tel + '?text=' + encodeURIComponent(texto);
+            a.textContent = 'Pedirle que cree su cuenta (WhatsApp)';
+            avisoCuenta.appendChild(document.createElement('br'));
+            avisoCuenta.appendChild(a);
+        }
+        return;
+    }
+
+    acuEstudiante = perfil;
+    avisoCuenta.className = 'msg ok'; avisoCuenta.style.display = 'block';
+    avisoCuenta.textContent = 'Cuenta encontrada: ' + (perfil.nombre_completo || p.email);
+    cuerpo.style.display = 'block';
+
+    /* Precargar con lo que pidió: así no se reescribe a mano lo que ya dijo. */
+    const r = p.respuestas || {};
+    const horasPaquete = parseFloat(String(r.horas || '').replace(/[^0-9.]/g, '')) || 12;
+    document.getElementById('acu-pagadas').value = horasPaquete;
+    document.getElementById('acu-totales').value = horasPaquete;
+    document.getElementById('acu-inicio').value = r.desde_cuando || new Date().toISOString().slice(0, 10);
+
+    const sel = document.getElementById('acu-plan');
+    const { data: planes } = await supabaseClient.from('planes_pedagogicos')
+        .select('id, nombre').eq('activo', true).order('nombre');
+    sel.innerHTML = '<option value="">Sin plan</option>' +
+        (planes || []).map(x => `<option value="${esc(x.id)}">${esc(x.nombre)}</option>`).join('');
+
+    pintarDiasAcuerdo(r.horario || {});
+    recalcularAcuerdo();
+}
+
+function pintarDiasAcuerdo(horario) {
+    document.getElementById('acu-dias').innerHTML = ORDEN_DIAS.map(k => {
+        const h = horario[k] || {};
+        const on = !!(h.desde && h.hasta);
+        return `<div style="display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;padding:0.4rem 0;">
+            <label style="display:flex;align-items:center;gap:0.5rem;min-width:8rem;">
+              <input type="checkbox" class="acu-dia" data-dia="${k}" ${on ? 'checked' : ''}> ${NOMBRE_DIA[k]}</label>
+            <input type="time" class="acu-desde" data-dia="${k}" value="${esc(h.desde || '')}" step="900">
+            <input type="time" class="acu-hasta" data-dia="${k}" value="${esc(h.hasta || '')}" step="900">
+          </div>`;
+    }).join('');
+    document.querySelectorAll('#acu-dias input, #acu-pagadas, #acu-totales, #acu-precio')
+        .forEach(i => i.addEventListener('input', recalcularAcuerdo));
+}
+
+function patronAcuerdo() {
+    const patron = {};
+    document.querySelectorAll('.acu-dia:checked').forEach(c => {
+        const k = c.dataset.dia;
+        const d = document.querySelector(`.acu-desde[data-dia="${k}"]`).value;
+        const h = document.querySelector(`.acu-hasta[data-dia="${k}"]`).value;
+        if (d && h && h > d) patron[k] = { desde: d, hasta: h };
+    });
+    return patron;
+}
+
+/* Lo que se va a crear, antes de crearlo: cuántas horas por semana cubre el
+   patrón y cuántas semanas harán falta. Un acuerdo mal calculado se descubre
+   aquí y no cuando el estudiante lo está leyendo. */
+function recalcularAcuerdo() {
+    const patron = patronAcuerdo();
+    const pagadas = parseFloat(document.getElementById('acu-pagadas').value) || 0;
+    const totales = parseFloat(document.getElementById('acu-totales').value) || 0;
+    const precio = parseFloat(document.getElementById('acu-precio').value) || 0;
+    const porSemana = Object.values(patron).reduce((s, h) =>
+        s + (new Date('1970-01-01T' + h.hasta) - new Date('1970-01-01T' + h.desde)) / 3600000, 0);
+    const caja = document.getElementById('acu-resumen');
+    caja.style.display = 'block';
+    if (!porSemana) { caja.className = 'msg error'; caja.textContent = 'Marca al menos un día con sus dos horas.'; return; }
+    if (totales < pagadas) { caja.className = 'msg error'; caja.textContent = 'No puede recibir menos horas de las que paga.'; return; }
+    const regalo = totales - pagadas;
+    caja.className = 'msg ok';
+    caja.textContent = porSemana + ' h por semana · ' + Math.ceil(totales / porSemana) + ' semanas · ' +
+        'cobra ' + money(pagadas * precio, 'MXN') +
+        (regalo > 0 ? ' · regala ' + regalo + ' h' : '');
+}
+
+function cerrarAcuerdo() {
+    document.getElementById('panel-acuerdo').style.display = 'none';
+    acuProspecto = null; acuEstudiante = null;
+}
+
+document.addEventListener('click', async function (e) {
+    if (e.target.id !== 'acu-crear' && !e.target.closest('#acu-crear')) return;
+    if (!acuProspecto || !acuEstudiante) return;
+    const b = document.getElementById('acu-crear');
+    const patron = patronAcuerdo();
+    if (!Object.keys(patron).length) return;
+    b.disabled = true; b.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Creando…';
+    const { error } = await supabaseClient.rpc('crear_acuerdo_desde_prospecto', {
+        p_prospecto: acuProspecto.id,
+        p_estudiante: acuEstudiante.id,
+        p_horas_pagadas: parseFloat(document.getElementById('acu-pagadas').value),
+        p_horas_totales: parseFloat(document.getElementById('acu-totales').value),
+        p_precio_hora: parseFloat(document.getElementById('acu-precio').value),
+        p_fecha_inicio: document.getElementById('acu-inicio').value,
+        p_patron: patron,
+        p_plan: document.getElementById('acu-plan').value || null,
+        p_modalidad: document.getElementById('acu-modalidad').value
+    });
+    b.disabled = false; b.innerHTML = '<i class="fa-solid fa-file-signature"></i> Crear acuerdo y agendar clases';
+    if (error) { mostrarMsg(document.getElementById('acu-resumen'), 'No se pudo crear: ' + error.message, 'error'); return; }
+    cerrarAcuerdo();
+    mostrarMsg(document.getElementById('msg-prospectos'),
+        'Acuerdo creado y clases agendadas. Ya puedes avisarle por WhatsApp.', 'ok');
+    await cargarProspectos();
+});
 
 // ───────────────────────── MÉTODOS ─────────────────────────
 async function cargarMetodos() {
