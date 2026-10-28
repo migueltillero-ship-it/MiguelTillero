@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 42 600 212" width="600" height="212" role="img" aria-label="Un reloj junto a un calendario con una flecha que mueve un día">
+  <rect width="600" height="300" fill="#f6f1e7"/>
+  <circle cx="420" cy="138" r="104" fill="#bcdcc9"/>
+  <path d="M0 232 H600 V300 H0 Z" fill="#0d3b2e"/>
+  <path d="M0 232 H600 v10 H0 Z" fill="#1d6b4f"/>
+  <!-- reloj -->
+  <circle cx="196" cy="140" r="82" fill="#0d3b2e"/>
+  <circle cx="196" cy="140" r="68" fill="#fffdf7"/>
+  <circle cx="196" cy="78" r="4" fill="#c9a96e"/>
+  <circle cx="258" cy="140" r="4" fill="#c9a96e"/>
+  <circle cx="196" cy="202" r="4" fill="#c9a96e"/>
+  <circle cx="134" cy="140" r="4" fill="#c9a96e"/>
+  <path d="M196 140 V96" stroke="#0d3b2e" stroke-width="7" stroke-linecap="round"/>
+  <path d="M196 140 h40" stroke="#a5824a" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="196" cy="140" r="7" fill="#a5824a"/>
+  <rect x="188" y="212" width="16" height="20" fill="#0d3b2e"/>
+  <!-- calendario -->
+  <rect x="320" y="92" width="184" height="140" rx="12" fill="#fffdf7"/>
+  <path d="M320 104 a12 12 0 0 1 12-12 h160 a12 12 0 0 1 12 12 v22 H320 Z" fill="#0d3b2e"/>
+  <rect x="352" y="78" width="10" height="28" rx="5" fill="#a5824a"/>
+  <rect x="462" y="78" width="10" height="28" rx="5" fill="#a5824a"/>
+  <g fill="#bcdcc9">
+    <rect x="338" y="140" width="30" height="22" rx="4"/>
+    <rect x="376" y="140" width="30" height="22" rx="4"/>
+    <rect x="414" y="140" width="30" height="22" rx="4"/>
+    <rect x="452" y="140" width="30" height="22" rx="4"/>
+    <rect x="338" y="170" width="30" height="22" rx="4"/>
+    <rect x="414" y="170" width="30" height="22" rx="4"/>
+    <rect x="452" y="170" width="30" height="22" rx="4"/>
+    <rect x="338" y="200" width="30" height="22" rx="4"/>
+    <rect x="376" y="200" width="30" height="22" rx="4"/>
+    <rect x="414" y="200" width="30" height="22" rx="4"/>
+  </g>
+  <rect x="376" y="170" width="30" height="22" rx="4" fill="#c9a96e"/>
+  <rect x="452" y="200" width="30" height="22" rx="4" fill="#a5824a"/>
+  <!-- la flecha que mueve un día al otro -->
+  <path d="M398 166 C410 136 452 136 466 192" stroke="#a5824a" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M466 196 l-9-14 h18 Z" fill="#a5824a"/>
+</svg>

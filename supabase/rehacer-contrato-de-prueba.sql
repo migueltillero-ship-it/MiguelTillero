@@ -20,7 +20,23 @@ do $$
 declare
   v_contratacion uuid;
   v_nuevo        uuid;
+  v_docente      uuid;
 begin
+  -- crear_contrato() solo deja emitir al docente, y lo comprueba con
+  -- auth.uid(). En el editor de SQL no hay sesión de nadie: auth.uid() es
+  -- nulo y la función responde «Solo el docente puede emitir un contrato».
+  -- Así que, solo durante esta transacción, decimos quiénes somos.
+  select id into v_docente from public.profiles
+   where role in ('docente','admin')
+   order by case when role = 'admin' then 0 else 1 end
+   limit 1;
+  if v_docente is null then
+    raise exception 'No hay ningún perfil docente o admin.';
+  end if;
+  perform set_config('request.jwt.claims',
+                     json_build_object('sub', v_docente, 'role', 'authenticated')::text,
+                     true);
+
   select contratacion_id into v_contratacion
     from public.contratos
    where numero = 'CA-2026-0001'

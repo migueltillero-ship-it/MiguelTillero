@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 42 600 212" width="600" height="212" role="img" aria-label="Una pila de libros con un diploma enrollado y su cinta">
+  <rect width="600" height="300" fill="#f6f1e7"/>
+  <circle cx="420" cy="138" r="104" fill="#bcdcc9"/>
+  <path d="M0 232 H600 V300 H0 Z" fill="#0d3b2e"/>
+  <path d="M0 232 H600 v10 H0 Z" fill="#1d6b4f"/>
+  <!-- pila de libros -->
+  <g>
+    <path d="M150 232 h190 v-26 H150 Z" fill="#0d3b2e"/>
+    <path d="M150 206 h190 v-6 H150 Z" fill="#1d6b4f"/>
+    <path d="M160 200 h170 v-26 H160 Z" fill="#a5824a"/>
+    <path d="M160 174 h170 v-6 H160 Z" fill="#c9a96e"/>
+    <path d="M144 168 h182 v-26 H144 Z" fill="#1d6b4f"/>
+    <path d="M144 142 h182 v-6 H144 Z" fill="#bcdcc9"/>
+    <rect x="300" y="142" width="8" height="26" fill="#c9a96e"/>
+    <rect x="300" y="174" width="8" height="26" fill="#0d3b2e"/>
+    <rect x="310" y="206" width="8" height="26" fill="#c9a96e"/>
+  </g>
+  <!-- libro abierto, encima -->
+  <path d="M152 136 l83-18 l83 18 l-83 15 Z" fill="#fffdf7"/>
+  <path d="M152 136 l83 15 v8 l-83-15 Z" fill="#bcdcc9"/>
+  <path d="M318 136 l-83 15 v8 l83-15 Z" fill="#bcdcc9"/>
+  <!-- diploma enrollado con su cinta -->
+  <g transform="rotate(-9 420 190)">
+    <rect x="352" y="168" width="138" height="42" rx="21" fill="#fffdf7"/>
+    <circle cx="352" cy="189" r="21" fill="#f6f1e7" stroke="#bcdcc9" stroke-width="4"/>
+    <circle cx="490" cy="189" r="21" fill="#f6f1e7" stroke="#bcdcc9" stroke-width="4"/>
+    <rect x="408" y="168" width="26" height="42" fill="#c9a96e"/>
+    <path d="M408 210 h26 l-6 18 l-7-9 l-7 9 Z" fill="#a5824a"/>
+  </g>
+  <!-- sello -->
+  <circle cx="494" cy="118" r="26" fill="#c9a96e"/>
+  <circle cx="494" cy="118" r="17" fill="#f6f1e7"/>
+  <path d="M494 106 l3.6 7.6 l8.4 1.1 l-6.2 5.8 l1.6 8.3 l-7.4-4 l-7.4 4 l1.6-8.3 l-6.2-5.8 l8.4-1.1 Z" fill="#a5824a"/>
+  <!-- lápiz apoyado -->
+  <g transform="rotate(32 120 190)">
+    <rect x="84" y="150" width="14" height="74" fill="#c9a96e"/>
+    <rect x="84" y="150" width="14" height="12" fill="#0d3b2e"/>
+    <path d="M84 224 h14 l-7 16 Z" fill="#fffdf7"/>
+  </g>
+</svg>
