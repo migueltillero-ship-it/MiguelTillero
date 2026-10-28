@@ -320,8 +320,8 @@
     <button class="hamburger" onclick="toggleMob()" aria-label="Menú"><i class="fa fa-bars"></i></button>
   </div>
 </nav>
-<section class="banda-foto compacta bajo-nav completa z10" data-page="contacto" style="--fondo:url('../images/relato/clase-aula.jpg');">
-  <img class="banda-img" src="assets/images/relato/clase-aula.jpg" alt="" width="1200" height="800" decoding="async">
+<section class="banda-foto compacta bajo-nav completa z10" data-page="contacto" style="--fondo:url('../images/trayectoria/clase-presencial.jpg');">
+  <img class="banda-img" src="assets/images/trayectoria/clase-presencial.jpg" alt="" width="1080" height="774" decoding="async">
   <div class="container">
     <p class="eyebrow" data-es="Tu lugar en el aula" data-fr="Votre place en classe" data-en="Your place in class">Tu lugar en el aula</p>
     <p class="banda-cita" data-es="Empieza hoy: el francés te está esperando." data-fr="Commencez aujourd’hui : le français vous attend." data-en="Start today: French is waiting for you.">Empieza hoy: el francés te está esperando.</p>
@@ -579,6 +579,28 @@
         </div>
       </div>
 
+      <!-- TU ACCESO -->
+      <!-- Va al final a propósito: pedir una contraseña de entrada espanta,
+           y a estas alturas la persona ya invirtió seis pasos y quiere
+           terminar. Con esto el formulario deja de ser solo una solicitud y
+           crea de verdad la cuenta, que es lo que hacía falta para que
+           pueda entrar a leer y firmar su acuerdo. -->
+      <div class="insc-group">
+        <div class="insc-legend"><i class="fa fa-key"></i> <span data-es="Tu acceso" data-fr="Votre accès" data-en="Your access">Tu acceso</span></div>
+        <p class="insc-ayuda" data-es="Con esto te creo tu espacio en la plataforma: ahí tendrás tu acuerdo de aprendizaje, tu calendario, tus materiales y tus resultados. Entrarás con el correo que pusiste al principio." data-fr="Avec cela je vous crée votre espace : vous y trouverez votre accord, votre calendrier, vos supports et vos résultats. Vous entrerez avec l'adresse indiquée au début." data-en="With this I create your space: your agreement, calendar, materials and results live there. You'll sign in with the email you gave at the start.">Con esto te creo tu espacio en la plataforma: ahí tendrás tu acuerdo de aprendizaje, tu calendario, tus materiales y tus resultados. Entrarás con el correo que pusiste al principio.</p>
+        <div class="insc-row">
+          <div class="insc-field">
+            <label for="f-clave" data-es="Elige una contraseña" data-fr="Choisissez un mot de passe" data-en="Choose a password">Elige una contraseña <span class="req">*</span></label>
+            <input id="f-clave" type="password" name="clave" required minlength="8" autocomplete="new-password" placeholder="Mínimo 8 caracteres" data-es="Mínimo 8 caracteres" data-fr="8 caractères minimum" data-en="At least 8 characters">
+          </div>
+          <div class="insc-field">
+            <label for="f-clave2" data-es="Repítela" data-fr="Répétez-le" data-en="Repeat it">Repítela <span class="req">*</span></label>
+            <input id="f-clave2" type="password" name="clave2" required minlength="8" autocomplete="new-password" placeholder="La misma de al lado" data-es="La misma de al lado" data-fr="Le même qu'à côté" data-en="The same as beside">
+          </div>
+        </div>
+        <small class="insc-nota" id="clave-aviso"></small>
+      </div>
+
       <button type="submit" class="insc-submit">
         <i class="fa fa-paper-plane"></i>&nbsp;
         <span data-es="Enviar mi inscripción" data-fr="Envoyer mon inscription" data-en="Submit my enrollment">Enviar mi inscripción</span>
@@ -587,8 +609,9 @@
       <div class="insc-success" id="inscSuccess">
         <span data-es="✦ ¡Inscripción recibida! ✦" data-fr="✦ Inscription reçue ! ✦" data-en="✦ Enrollment received! ✦">✦ ¡Inscripción recibida! ✦</span><br>
         <span data-es="Revisaré tus respuestas y te contactaré pronto para coordinar tu plan de clases." data-fr="Je vais examiner vos réponses et vous contacterai bientôt pour coordonner votre plan de cours." data-en="I will review your answers and contact you soon to coordinate your class plan.">Revisaré tus respuestas y te contactaré pronto para coordinar tu plan de clases.</span>
+        <div id="cuenta-estado" style="display:none; margin-top:0.9rem; font-size:0.95rem; line-height:1.6;"></div>
         <div class="success-actions">
-          <a href="index.html" data-route="inicio" class="btn btn-ghost"><i class="fa fa-house"></i>&nbsp;Volver al inicio</a>
+          <a href="login.html" class="btn btn-ghost"><i class="fa fa-right-to-bracket"></i>&nbsp;Entrar a mi espacio</a>
           <a href="https://wa.me/529671836405?text=Hola%20Miguel%2C%20acabo%20de%20enviar%20mi%20formulario%20de%20inscripci%C3%B3n%20en%20tu%20p%C3%A1gina%20web." target="_blank" rel="noopener" class="btn btn-gold"><i class="fab fa-whatsapp"></i>&nbsp;Avisar por WhatsApp</a>
         </div>
         </div>
@@ -1699,6 +1722,21 @@ window.addEventListener('DOMContentLoaded', function() {
   inscForm.addEventListener('reset', function () { setTimeout(sincronizarDias, 0); });
   sincronizarDias();
 
+  /* Que las dos contraseñas coincidan se comprueba aquí y no al enviar:
+     descubrirlo al final, después de seis pasos, es la peor manera. */
+  var c1 = inscForm.querySelector('[name="clave"]');
+  var c2 = inscForm.querySelector('[name="clave2"]');
+  function revisarClave() {
+    if (!c1 || !c2) return;
+    var distintas = c2.value && c1.value !== c2.value;
+    c2.setCustomValidity(distintas ? 'Las dos contraseñas tienen que ser iguales.' : '');
+    var n = document.getElementById('clave-aviso');
+    if (n) { n.textContent = distintas ? 'Las dos contraseñas no coinciden.' : '';
+             n.className = 'insc-nota' + (distintas ? ' desacuerdo' : ''); }
+  }
+  if (c1) c1.addEventListener('input', revisarClave);
+  if (c2) c2.addEventListener('input', revisarClave);
+
   inscForm.addEventListener('submit', function(e) {
     e.preventDefault();
     var d = {};
@@ -1724,6 +1762,10 @@ window.addEventListener('DOMContentLoaded', function() {
        «horario». Guardar las tres formas del mismo dato invita a que un día
        se lean la que no es. */
     delete d.dia;
+    /* La contraseña no se guarda en la base ni viaja en el correo: solo va a
+       Supabase para crear la cuenta y se olvida aquí mismo. */
+    var clave = d.clave || '';
+    delete d.clave; delete d.clave2;
     Object.keys(d).forEach(function (k) {
       if (/_(desde|hasta)$/.test(k)) delete d[k];
       if (d[k] === '') delete d[k];
@@ -1762,6 +1804,19 @@ window.addEventListener('DOMContentLoaded', function() {
       'ENTREVISTA PREVIA: ' + (d.entrevista||'-') + '\n\n' +
       'COMENTARIOS\n' + (d.comentarios||'-');
 
+    /* El estado de la cuenta se añade al mandar, no aquí: cuando se arma
+       este texto todavía no se ha intentado crearla, y antes el correo
+       llegaba siempre diciendo «-». */
+    function lineaCuenta() {
+      return '\n\nCUENTA EN LA PLATAFORMA: ' + ({
+        'creada':     'creada, pendiente de que confirme el correo',
+        'ya-existia': 'ya tenía cuenta',
+        'fallo':      'NO se pudo crear — hay que dársela a mano',
+        'sin-clave':  'no eligió contraseña',
+        'sin-cliente':'no se pudo contactar la plataforma'
+      }[d.cuenta] || 'sin dato');
+    }
+
     /* Enviar con EmailJS (service_uv779js) */
     function done() {
       document.getElementById('inscFallo').classList.remove('show');
@@ -1794,7 +1849,55 @@ window.addEventListener('DOMContentLoaded', function() {
     }
 
     d.dispo = dispos;
+    /* Crear la cuenta de la plataforma.
+     *
+     * Va después de guardar el prospecto y antes del correo, y nunca puede
+     * tumbar el envío: si el registro falla —correo ya usado, Supabase
+     * caído— la solicitud sigue llegando igual. Perder un prospecto por un
+     * problema de la cuenta sería el peor intercambio posible.
+     */
+    function crearCuenta() {
+      if (!clave) return Promise.resolve('sin-clave');
+      try {
+        if (typeof supabaseClient === 'undefined' || !supabaseClient) return Promise.resolve('sin-cliente');
+        return supabaseClient.auth.signUp({
+          email: d.email,
+          password: clave,
+          options: {
+            data: { nombre_completo: d.nombre, telefono: d.telefono },
+            emailRedirectTo: new URL('login.html', window.location.href).href
+          }
+        }).then(function (r) {
+          if (!r.error) return 'creada';
+          var m = (r.error.message || '').toLowerCase();
+          return (m.indexOf('already registered') >= 0 || m.indexOf('user already') >= 0)
+            ? 'ya-existia' : 'fallo';
+        }).catch(function () { return 'fallo'; });
+      } catch (err) { return Promise.resolve('fallo'); }
+    }
+
+    /* El mensaje final cambia según lo que pasó con la cuenta: no es lo
+       mismo «revisa tu correo» que «ya tenías cuenta, entra». */
+    function contarCuenta(estado) {
+      var caja = document.getElementById('cuenta-estado');
+      if (!caja) return;
+      var textos = {
+        'creada':     'Te mandé un correo a ' + d.email + ' para confirmar tu cuenta. Ábrelo y ya podrás entrar a tu espacio.',
+        'ya-existia': 'Ese correo ya tenía cuenta en la plataforma, así que entra con tu contraseña de siempre.',
+        'fallo':      'Tu solicitud llegó, pero no pude crear tu cuenta en este momento. Te escribo yo para dártela.',
+        'sin-clave':  '', 'sin-cliente': ''
+      };
+      caja.textContent = textos[estado] || '';
+      caja.style.display = caja.textContent ? 'block' : 'none';
+    }
+
     guardarProspecto('inscripcion', d).then(function (guardado) {
+      return crearCuenta().then(function (estadoCuenta) {
+        d.cuenta = estadoCuenta;
+        contarCuenta(estadoCuenta);
+        return guardado;
+      });
+    }).then(function (guardado) {
       return emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
         subject: '🎓 NUEVA INSCRIPCIÓN — ' + d.nombre,
         from_name: d.nombre,
@@ -1804,7 +1907,7 @@ window.addEventListener('DOMContentLoaded', function() {
         tipo: 'Inscripción a clases',
         fecha: fechaLegible(new Date().toLocaleDateString('es-MX')),
         horario: dispos.join(', ') || '-',
-        message: mensaje,
+        message: mensaje + lineaCuenta(),
         to_email: 'migueltillero@gmail.com'
       }).then(done, function (err) {
         /* El correo falló. Si la solicitud quedó en la base, para quien la
