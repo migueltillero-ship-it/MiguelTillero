@@ -958,19 +958,24 @@ FICHAS.push({
       requiere: { de: 5, pct: 80 },
       rappels: [
         { titulo: 'Deux exercices de TV5MONDE',
-          html: `<p>Se abren en otra pestaña, se corrigen allí mismo y están hechos por
-          profesores de francés como lengua extranjera. Valen la pena.</p>
+          html: `<p>Se abren en otra pestaña y se corrigen allí mismo. Cada enlace tiene
+          <b>varios ejercicios</b>, y no todos son de lo nuestro: te digo cuáles.</p>
           <ul>
             <li><a href="https://apprendre.tv5monde.com/fr/exercices/a1-debutant/le-lycee-cest-fini"
-                   target="_blank" rel="noopener"><b>Le lycée, c’est fini</b></a>
-                — nivel A1. El más cercano a lo de hoy: empieza por aquí.</li>
+                   target="_blank" rel="noopener"><b>Le lycée, c’est fini&#8239;!</b></a>
+                — nivel A1, empieza por aquí. Haz el <b>3 (Écouter)</b>, el
+                <b>4 (Grammaire&#8239;: passé composé)</b> y el
+                <b>5 (Grammaire&#8239;: futur proche)</b>. El 4 y el 5 juntos son
+                exactamente la etapa 1 de esta ficha: distinguir el pasado del futuro.</li>
             <li><a href="https://apprendre.tv5monde.com/fr/exercices/a2-elementaire/reconnaitre-la-forme-du-passe-compose"
                    target="_blank" rel="noopener"><b>Reconnaître la forme du passé
-                   composé</b></a> — nivel A2. Un paso por encima del tuyo: hazlo después,
-                   y sin agobiarte si fallas.</li>
+                   composé</b></a> — nivel A2, para después. Los que cuentan son el
+                   <b>3</b> y el <b>4 (Grammaire&#8239;: passé composé)</b>; el 1 y el 2
+                   son de escucha, y puedes hacerlos si te apetece.</li>
           </ul>
           <div class="piege">Si en el A2 sacas menos de la mitad, no es mala señal: es un
-          nivel por encima. Lo que me interesa es que me digas <b>qué</b> falló.</div>` }
+          nivel por encima del tuyo. Lo que me interesa no es la nota, sino que me digas
+          <b>qué</b> falló.</div>` }
       ],
       ejercicios: [17]
     }
@@ -1286,8 +1291,10 @@ FICHAS.push({
       consigne:'Fais les deux exercices de TV5MONDE, puis note ici ce qui s’est passé.',
       sous:'40 palabras. Lo que me interesa no es la nota, sino qué te costó y por qué.',
       check: [
-        'Tu resultado en «&nbsp;Le lycée, c’est fini&nbsp;» (A1).',
-        'Tu resultado en «&nbsp;Reconnaître la forme du passé composé&nbsp;» (A2).',
+        'Tu resultado en los ejercicios <b>4</b> y <b>5</b> de '
+          + '«&nbsp;Le lycée, c’est fini&nbsp;» (A1).',
+        'Tu resultado en los ejercicios <b>3</b> y <b>4</b> de '
+          + '«&nbsp;Reconnaître la forme du passé composé&nbsp;» (A2).',
         'Un fallo concreto, y a qué etapa de esta ficha corresponde.',
         'Una palabra nueva que aprendiste allí.'
       ],
