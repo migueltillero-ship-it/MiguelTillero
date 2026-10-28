@@ -56,6 +56,11 @@
   function valido() {
     var campos = grupos[actual].querySelectorAll('input, select, textarea');
     for (var i = 0; i < campos.length; i++) {
+      /* Un campo que no se ve no se puede llenar: exigirlo deja el paso
+         bloqueado pidiendo algo que la persona no tiene delante, y el
+         navegador ni siquiera puede señalarlo porque no hay dónde poner el
+         globo. Pasó de verdad con las horas de un día sin marcar. */
+      if (!campos[i].getClientRects().length) continue;
       if (!campos[i].checkValidity()) { campos[i].reportValidity(); return false; }
     }
     return true;

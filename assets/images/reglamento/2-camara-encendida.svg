@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 42 600 212" width="600" height="212" role="img" aria-label="Un portátil con una videollamada y la cámara encendida">
+  <rect width="600" height="300" fill="#f6f1e7"/>
+  <circle cx="420" cy="138" r="104" fill="#bcdcc9"/>
+  <path d="M0 232 H600 V300 H0 Z" fill="#0d3b2e"/>
+  <path d="M0 232 H600 v10 H0 Z" fill="#1d6b4f"/>
+  <!-- ondas de voz -->
+  <path d="M470 118 a44 44 0 0 1 0 56" stroke="#c9a96e" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M492 104 a66 66 0 0 1 0 84" stroke="#c9a96e" stroke-width="5" fill="none" stroke-linecap="round" opacity=".55"/>
+  <path d="M130 118 a44 44 0 0 0 0 56" stroke="#c9a96e" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M108 104 a66 66 0 0 0 0 84" stroke="#c9a96e" stroke-width="5" fill="none" stroke-linecap="round" opacity=".55"/>
+  <!-- cámara encendida, encima de la pantalla -->
+  <circle cx="300" cy="70" r="13" fill="#0d3b2e"/>
+  <circle cx="300" cy="70" r="6" fill="#c9a96e"/>
+  <path d="M276 56 a34 34 0 0 1 48 0" stroke="#c9a96e" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <!-- pantalla -->
+  <rect x="172" y="80" width="256" height="132" rx="10" fill="#0d3b2e"/>
+  <rect x="182" y="90" width="236" height="112" rx="6" fill="#fffdf7"/>
+  <!-- recuadro grande: una persona -->
+  <rect x="190" y="98" width="140" height="96" rx="5" fill="#bcdcc9"/>
+  <circle cx="260" cy="140" r="21" fill="#0d3b2e"/>
+  <path d="M229 194 a31 31 0 0 1 62 0 Z" fill="#0d3b2e"/>
+  <!-- dos recuadros pequeños -->
+  <rect x="338" y="98" width="72" height="45" rx="5" fill="#c9a96e"/>
+  <circle cx="374" cy="117" r="11" fill="#0d3b2e"/>
+  <path d="M358 143 a16 16 0 0 1 32 0 Z" fill="#0d3b2e"/>
+  <rect x="338" y="149" width="72" height="45" rx="5" fill="#c9a96e"/>
+  <circle cx="374" cy="168" r="11" fill="#0d3b2e"/>
+  <path d="M358 194 a16 16 0 0 1 32 0 Z" fill="#0d3b2e"/>
+  <!-- base del portátil -->
+  <path d="M148 212 h304 l16 20 H132 Z" fill="#a5824a"/>
+  <rect x="268" y="218" width="64" height="5" rx="2.5" fill="#c9a96e"/>
+</svg>

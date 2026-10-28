@@ -151,7 +151,7 @@ details.form-toggle > summary { cursor:pointer; font-family:'Syne', sans-serif; 
         <div class="tab-content" id="tabp-docentes">
             <section class="panel">
                 <h2>Roster de docentes</h2>
-                <p class="muted">Miguel ya existe como docente/admin. Para sumar otro profesor: primero esa persona crea su cuenta de estudiante en <a href="registro/inscripcion.html">el registro público</a>, y aquí la promueves a docente.</p>
+                <p class="muted">Miguel ya existe como docente/admin. Para sumar otro profesor: primero esa persona crea su cuenta en <a href="registro/inscripcion.html">el registro directo</a> —el formulario corto, sin las preguntas de estudiante— y aquí la promueves a docente.</p>
 
                 <div class="form-grid" style="align-items:end; max-width:600px;">
                     <div class="form-field"><label>Promover un perfil existente a docente</label><select id="doc-promover-select"></select></div>
@@ -343,9 +343,13 @@ details.form-toggle > summary { cursor:pointer; font-family:'Syne', sans-serif; 
                   <div id="acu-cuenta" class="msg"></div>
                   <div id="acu-cuerpo" style="display:none;">
                     <div class="form-grid">
-                      <div class="form-field"><label>Horas que paga *</label>
+                      <!-- «Paga» y «recibe» no decían cuál iba al calendario.
+                           Ahora se nombran por lo que hacen: las de clase se
+                           reservan en la agenda; el total añade las tutorías
+                           de regalo, que se piden sobre la marcha. -->
+                      <div class="form-field"><label>Horas de clase (se reservan) *</label>
                         <input id="acu-pagadas" type="number" min="1" step="0.5" value="12"></div>
-                      <div class="form-field"><label>Horas que recibe *</label>
+                      <div class="form-field"><label>Total con tutorías de regalo *</label>
                         <input id="acu-totales" type="number" min="1" step="0.5" value="12"></div>
                       <div class="form-field"><label>Precio por hora *</label>
                         <input id="acu-precio" type="number" min="0" step="10" value="350"></div>
@@ -378,6 +382,10 @@ details.form-toggle > summary { cursor:pointer; font-family:'Syne', sans-serif; 
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<!-- EmailJS: el panel manda al estudiante el aviso de que su acuerdo ya está
+     listo. El WhatsApp se lee al momento, pero se pierde entre mensajes; el
+     correo queda y lleva el enlace y los datos de pago por escrito. -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script src="assets/js/supabase-config.js?v=1790462574"></script>
 <script src="assets/js/auth-helpers.js?v=1790462574"></script>
 <script>
@@ -916,22 +924,77 @@ async function moverProspecto(id, estado) {
 /* Avisar de que el horario quedó validado y que el acuerdo ya está listo.
    Se abre WhatsApp con el mensaje escrito y, solo si la ventana llegó a
    abrirse, se da el paso por hecho. */
+/* Los tres valores de EmailJS son los mismos de los formularios públicos. */
+const EMAILJS_SERVICE  = 'service_uv779js';
+const EMAILJS_TEMPLATE = 'template_sp4hl5f';
+const EMAILJS_KEY      = '7FPd-e34G4AgVK5YA';
+try { emailjs.init(EMAILJS_KEY); } catch (e) {}
+
+/* El correo de la segunda etapa: su acuerdo ya está listo.
+ *
+ * Repite las coordenadas de pago aunque ya fueran en el acuse de la
+ * inscripción, y sigue sin decir ninguna cifra: el importe está en el acuerdo,
+ * que es donde se acordó. */
+function correoContratoListo(nombre, email, url) {
+    if (!email) return Promise.resolve();
+    const cuerpo =
+        'Hola ' + nombre + ', revisé el horario que me propusiste y me cuadra.\n\n' +
+        'Tu acuerdo de aprendizaje ya está listo. Entra con tu cuenta y lo ' +
+        'encuentras aquí:\n' + url + '\n\n' +
+        'Ahí tienes tu calendario, nuestro plan de trabajo y lo que cada uno ' +
+        'pone de su parte. Léelo con calma; si algo no te cuadra, me lo dices ' +
+        'antes de firmar.\n\n' +
+        'Antes de firmar tendrás que pasar por el reglamento de las clases, ' +
+        'que es corto y evita malentendidos:\n' +
+        'https://migueltillero-ship-it.github.io/MiguelTillero/reglamento.html\n\n' +
+        'El pago no condiciona nada: puedes firmar y empezar las clases antes ' +
+        'de pagar. Cuando te venga bien:\n\n' +
+        'Transferencia · albo: 7211 8010 0037 9159 95\n' +
+        'Transferencia · Nu:   6381 8000 0116 2530 75\n' +
+        'Beneficiario: Miguel David Tillero Álvarez\n' +
+        'Desde el exterior · Remitly: miguelt4540\n' +
+        'https://remitly.com/pay/miguelt4540\n\n' +
+        'El comprobante me lo subes en tu espacio o me lo mandas por WhatsApp.\n\n' +
+        'À bientôt !\nMiguel Tillero';
+    return emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
+        subject: 'Tu acuerdo de aprendizaje ya está listo',
+        from_name: 'Miguel Tillero',
+        from_email: 'migueltillero@gmail.com',
+        telefono: '+52 967 183 6405',
+        ciudad: '-', tipo: 'Acuerdo listo para firmar',
+        fecha: new Date().toLocaleDateString('es-MX'),
+        horario: '-', message: cuerpo, to_email: email
+    });
+}
+
 async function avisarYEnviarContrato(id) {
-    const { data } = await supabaseClient.from('prospectos').select('nombre, telefono').eq('id', id).single();
+    const { data } = await supabaseClient.from('prospectos').select('nombre, email, telefono').eq('id', id).single();
     if (!data) return;
     const tel = String(data.telefono || '').replace(/[^0-9]/g, '');
-    if (!tel) {
-        mostrarMsg(document.getElementById('msg-prospectos'),
-            'Esta persona no dejó teléfono. Avísale por correo y luego usa «Reabrir» para mover la etapa a mano.', 'error');
-        return;
-    }
     const nombre = (data.nombre || '').split(' ')[0];
     const url = new URL('contrato.html', window.location.href).href;
-    const texto = '¡Hola ' + nombre + '! Revisé el horario que me propusiste y me cuadra perfecto. ' +
-        'Ya te preparé tu acuerdo de aprendizaje: entra con tu cuenta y lo encuentras aquí — ' + url +
-        ' . Ahí lo lees, lo firmas y, cuando te venga bien, están también los datos para el pago. ' +
-        'Cualquier duda me dices. À bientôt !';
-    window.open('https://wa.me/' + tel + '?text=' + encodeURIComponent(texto), '_blank', 'noopener');
+    const caja = document.getElementById('msg-prospectos');
+
+    /* El correo sale siempre, haya teléfono o no: es lo que deja constancia. */
+    let correoOk = false;
+    try { await correoContratoListo(nombre, data.email, url); correoOk = true; }
+    catch (e) { console.warn('No salió el correo del acuerdo.', e); }
+
+    if (!tel) {
+        mostrarMsg(caja, correoOk
+            ? 'No dejó teléfono, pero el correo con su acuerdo ya salió. La etapa queda en «contrato».'
+            : 'No dejó teléfono y el correo tampoco salió. Avísale a mano antes de mover la etapa.',
+            correoOk ? 'ok' : 'error');
+        if (!correoOk) return;
+    } else {
+        const texto = '¡Hola ' + nombre + '! Revisé el horario que me propusiste y me cuadra perfecto. ' +
+            'Ya te preparé tu acuerdo de aprendizaje: entra con tu cuenta y lo encuentras aquí — ' + url +
+            ' . Ahí lo lees, lo firmas y, cuando te venga bien, están también los datos para el pago. ' +
+            'Cualquier duda me dices. À bientôt !';
+        window.open('https://wa.me/' + tel + '?text=' + encodeURIComponent(texto), '_blank', 'noopener');
+        if (!correoOk) mostrarMsg(caja,
+            'El WhatsApp se abrió, pero el correo no salió. Si quieres que quede por escrito, mándaselo a mano.', 'error');
+    }
     await moverProspecto(id, 'contrato');
 }
 
@@ -1042,9 +1105,12 @@ function recalcularAcuerdo() {
     if (totales < pagadas) { caja.className = 'msg error'; caja.textContent = 'No puede recibir menos horas de las que paga.'; return; }
     const regalo = totales - pagadas;
     caja.className = 'msg ok';
-    caja.textContent = porSemana + ' h por semana · ' + Math.ceil(totales / porSemana) + ' semanas · ' +
+    /* Las semanas se cuentan sobre las horas de clase, no sobre el total: las
+       de tutoría ya no van al calendario, se piden sobre la marcha, así que
+       meterlas aquí alargaba el curso sobre el papel. */
+    caja.textContent = porSemana + ' h por semana · ' + Math.ceil(pagadas / porSemana) + ' semanas de clase · ' +
         'cobra ' + money(pagadas * precio, 'MXN') +
-        (regalo > 0 ? ' · regala ' + regalo + ' h' : '');
+        (regalo > 0 ? ' · más ' + regalo + ' h de tutoría, sin cobrar y fuera del calendario' : '');
 }
 
 function cerrarAcuerdo() {

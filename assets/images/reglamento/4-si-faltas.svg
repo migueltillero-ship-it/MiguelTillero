@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 42 600 212" width="600" height="212" role="img" aria-label="Un teléfono con un mensaje y las hojas de la clase llegando">
+  <rect width="600" height="300" fill="#f6f1e7"/>
+  <circle cx="420" cy="138" r="104" fill="#bcdcc9"/>
+  <path d="M0 232 H600 V300 H0 Z" fill="#0d3b2e"/>
+  <path d="M0 232 H600 v10 H0 Z" fill="#1d6b4f"/>
+  <!-- teléfono -->
+  <rect x="150" y="56" width="124" height="176" rx="16" fill="#0d3b2e"/>
+  <rect x="160" y="74" width="104" height="146" rx="8" fill="#fffdf7"/>
+  <rect x="196" y="63" width="32" height="5" rx="2.5" fill="#1d6b4f"/>
+  <!-- burbuja de mensaje -->
+  <path d="M170 90 h84 a7 7 0 0 1 7 7 v34 a7 7 0 0 1 -7 7 h-62 l-14 13 v-13 h-8 a7 7 0 0 1 -7-7 v-34 a7 7 0 0 1 7-7 Z" fill="#bcdcc9"/>
+  <g fill="#0d3b2e" opacity=".55">
+    <rect x="180" y="102" width="62" height="5" rx="2.5"/>
+    <rect x="180" y="113" width="48" height="5" rx="2.5"/>
+    <rect x="180" y="124" width="56" height="5" rx="2.5"/>
+  </g>
+  <!-- clip de archivo adjunto -->
+  <rect x="172" y="152" width="80" height="46" rx="8" fill="#f6f1e7"/>
+  <path d="M190 166 v18 a10 10 0 0 0 20 0 v-22 a6 6 0 0 0 -12 0 v21" stroke="#a5824a" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+  <rect x="218" y="166" width="26" height="5" rx="2.5" fill="#c9a96e"/>
+  <rect x="218" y="178" width="18" height="5" rx="2.5" fill="#c9a96e"/>
+  <!-- hojas que llegan -->
+  <g transform="rotate(-14 390 170)">
+    <rect x="344" y="128" width="86" height="104" rx="6" fill="#fffdf7"/>
+    <g fill="#bcdcc9">
+      <rect x="356" y="146" width="62" height="6" rx="3"/>
+      <rect x="356" y="162" width="48" height="6" rx="3"/>
+      <rect x="356" y="178" width="58" height="6" rx="3"/>
+      <rect x="356" y="194" width="38" height="6" rx="3"/>
+    </g>
+  </g>
+  <g transform="rotate(9 452 160)">
+    <rect x="412" y="108" width="86" height="104" rx="6" fill="#fffdf7"/>
+    <g fill="#bcdcc9">
+      <rect x="424" y="126" width="62" height="6" rx="3"/>
+      <rect x="424" y="142" width="52" height="6" rx="3"/>
+      <rect x="424" y="158" width="60" height="6" rx="3"/>
+    </g>
+    <rect x="424" y="176" width="34" height="18" rx="4" fill="#c9a96e"/>
+  </g>
+</svg>

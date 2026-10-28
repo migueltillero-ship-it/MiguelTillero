@@ -6,7 +6,8 @@
 -- cambiado y lo que vale es lo que la persona leyó el día que firmó.
 --
 -- CÓMO USAR: Supabase → SQL Editor → New query → pegar → Run.
--- Ejecutar DESPUÉS de contrataciones.sql. Es seguro repetirlo.
+-- Ejecutar DESPUÉS de contrataciones.sql y de fechas-en-espanol.sql, que es
+-- de donde sale fecha_larga(). Es seguro repetirlo.
 -- ===========================================================================
 
 create or replace function public.crear_contrato(p_contratacion uuid)
@@ -36,9 +37,11 @@ begin
   select nombre_completo into v_docente from profiles where id = c.docente_id;
   v_regalo := c.horas_totales - c.horas_pagadas;
 
-  -- El calendario, una línea por clase, en el orden en que ocurren.
+  -- El calendario, una línea por clase, en el orden en que ocurren. Las fechas
+  -- pasan por fecha_larga() y no por to_char(…'TMDay'…): ese patrón se escribe
+  -- en el idioma del servidor, que está en inglés.
   select coalesce(string_agg(
-           '  · ' || to_char(k.fecha, 'TMDay DD "de" TMMonth "de" YYYY') || ', de ' ||
+           '  · ' || fecha_larga(k.fecha, true) || ', de ' ||
            to_char(k.hora_inicio, 'HH24:MI') || ' a ' || to_char(k.hora_fin, 'HH24:MI'),
            E'\n' order by k.fecha, k.hora_inicio), '  (por acordar)')
     into v_calend
@@ -67,16 +70,22 @@ begin
     else '' end ||
 
     '3. LAS HORAS' || E'\n' ||
-    'Contratas ' || trim(to_char(c.horas_pagadas, '999D9')) || ' horas de clase.' ||
+    'Contratas ' || horas_legibles(c.horas_pagadas) ||
+    ' horas de clase, y son las que quedan reservadas en el calendario.' ||
     case when v_regalo > 0 then
-      ' A esas añado ' || trim(to_char(v_regalo, '999D9')) ||
-      ' horas sin costo, de manera excepcional, así que recibirás ' ||
-      trim(to_char(c.horas_totales, '999D9')) || ' horas en total.'
+      E'\n\n' ||
+      'Además, de manera excepcional, te añado ' || horas_legibles(v_regalo) ||
+      ' horas de tutoría complementaria sin costo. No van en el calendario ' ||
+      'porque no son clase nueva: son horas que me pides cuando las ' ||
+      'necesites — para afianzar un sonido que se resiste, repasar antes de ' ||
+      'una evaluación o retomar algo que quedó a medias. Me escribes, buscamos ' ||
+      'hueco y las usamos.'
     else '' end || E'\n\n' ||
 
     '4. NUESTRO CALENDARIO' || E'\n' ||
-    'Estas son las fechas y horarios que reservamos (hora de la Ciudad de ' ||
-    'México):' || E'\n' || v_calend || E'\n\n' ||
+    'Estas son las fechas y horarios que reservamos para tus ' ||
+    horas_legibles(c.horas_pagadas) || ' horas de clase (hora de la ' ||
+    'Ciudad de México):' || E'\n' || v_calend || E'\n\n' ||
     'Si a alguno de los dos se le cruza algo, lo movemos: basta con avisar al ' ||
     'otro con 24 horas de antelación. Una clase cancelada con menos aviso cuenta ' ||
     'como dada, salvo que ocurra algo de fuerza mayor — y esto vale para los dos: ' ||
@@ -87,8 +96,7 @@ begin
     'un capricho: enseño francés por el método comunicativo, y ver tu gesto, tu ' ||
     'boca y tu reacción es parte de cómo corrijo la pronunciación. Necesitarás un ' ||
     'lugar tranquilo, buena conexión y un equipo con cámara y micrófono que ' ||
-    'funcionen.' || E'\n' ||
-    E'\n\n' ||
+    'funcionen.' || E'\n\n' ||
 
     '6. TU ESPACIO EN LA PLATAFORMA' || E'\n' ||
     'Desde el primer día tienes tu propio espacio, y no es un archivo muerto: ' ||
@@ -103,9 +111,9 @@ begin
     'la lengua con otras personas, no solo conmigo.' || E'\n\n' ||
 
     '7. LA INVERSIÓN' || E'\n' ||
-    'El precio es de ' || trim(to_char(c.precio_hora, '999G999D99')) || ' ' || c.moneda ||
-    ' por hora. En total son ' || trim(to_char(c.importe_total, '999G999D99')) || ' ' || c.moneda ||
-    ', por las ' || trim(to_char(c.horas_pagadas, '999D9')) || ' horas contratadas.' ||
+    'El precio es de ' || dinero_legible(c.precio_hora) || ' ' || c.moneda ||
+    ' por hora. En total son ' || dinero_legible(c.importe_total) || ' ' || c.moneda ||
+    ', por las ' || horas_legibles(c.horas_pagadas) || ' horas contratadas.' ||
     case when v_regalo > 0 then ' Las horas que añado no se cobran.' else '' end || E'\n\n' ||
 
     '8. EL PAGO' || E'\n' ||
@@ -119,8 +127,8 @@ begin
     'de los materiales. Lo confirmas aparte al aceptar.' || E'\n\n' ||
 
     '10. VIGENCIA' || E'\n' ||
-    'Del ' || to_char(c.fecha_inicio, 'DD "de" TMMonth "de" YYYY') ||
-    coalesce(' al ' || to_char(c.fecha_fin, 'DD "de" TMMonth "de" YYYY'), '') ||
+    'Del ' || fecha_larga(c.fecha_inicio) ||
+    coalesce(' al ' || fecha_larga(c.fecha_fin), '') ||
     '. Si al terminar quedaran horas sin usar, las reprogramamos entre los dos.' || E'\n\n' ||
 
     '11. LA FIRMA' || E'\n' ||

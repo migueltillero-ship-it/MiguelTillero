@@ -102,9 +102,12 @@ begin
     perform asignar_plan(v_contrat, p_plan);
   end if;
 
-  -- Repartir las horas en el calendario.
+  -- Repartir las horas en el calendario. Se reservan solo las horas pagadas:
+  -- las de regalo son tutorías complementarias que el estudiante pide cuando
+  -- las necesita, y meterlas en el calendario confundía — leía «contratas 12»
+  -- junto a una agenda de 14 y nadie sabía cuál era su compromiso.
   v_fecha  := p_fecha_inicio;
-  v_restan := p_horas_totales;
+  v_restan := p_horas_pagadas;
   while v_restan > 0.01 and v_vueltas < 400 loop
     v_vueltas := v_vueltas + 1;
     v_clave := (array['dom','lun','mar','mie','jue','vie','sab'])[extract(dow from v_fecha)::int + 1];
@@ -114,7 +117,8 @@ begin
       v_hasta := nullif(p_patron -> v_clave ->> 'hasta', '')::time;
       if v_desde is not null and v_hasta is not null and v_hasta > v_desde then
         v_horas := horas_de_clase(v_desde, v_hasta);
-        -- La última clase puede recortarse para no pasarse de las horas pagadas.
+        -- La última clase puede recortarse para no pasarse de las horas
+        -- reservadas.
         if v_horas > v_restan then
           v_hasta := v_desde + make_interval(mins => (v_restan * 60)::int);
           v_horas := horas_de_clase(v_desde, v_hasta);

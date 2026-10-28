@@ -1,0 +1,10 @@
+Ilustraciones de las tarjetas del reglamento.
+
+Son seis dibujos vectoriales hechos a medida, no fotos ni imágenes de banco.
+Comparten lienzo (600x300), paleta y composición —cielo crema, círculo de
+salvia, suelo verde— para que las seis se lean como una sola familia. La
+franja verde de abajo queda casi vacía a propósito: ahí cae el degradado
+oscuro de la tarjeta y el número dorado.
+
+Paleta: verde hondo #0d3b2e · verde medio #1d6b4f · salvia #bcdcc9
+        oro #c9a96e · oro oscuro #a5824a · crema #f6f1e7 · blanco #fffdf7

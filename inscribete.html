@@ -320,8 +320,8 @@
     <button class="hamburger" onclick="toggleMob()" aria-label="Menú"><i class="fa fa-bars"></i></button>
   </div>
 </nav>
-<section class="banda-foto compacta bajo-nav completa z10" data-page="contacto" style="--fondo:url('../images/relato/clase-aula.jpg');">
-  <img class="banda-img" src="assets/images/relato/clase-aula.jpg" alt="" width="1200" height="800" decoding="async">
+<section class="banda-foto compacta bajo-nav completa z10" data-page="contacto" style="--fondo:url('../images/trayectoria/clase-presencial.jpg');">
+  <img class="banda-img" src="assets/images/trayectoria/clase-presencial.jpg" alt="" width="1080" height="774" decoding="async">
   <div class="container">
     <p class="eyebrow" data-es="Tu lugar en el aula" data-fr="Votre place en classe" data-en="Your place in class">Tu lugar en el aula</p>
     <p class="banda-cita" data-es="Empieza hoy: el francés te está esperando." data-fr="Commencez aujourd’hui : le français vous attend." data-en="Start today: French is waiting for you.">Empieza hoy: el francés te está esperando.</p>
@@ -341,7 +341,7 @@
 
     <div class="insc-intro reveal">
       <p data-es="Completa este formulario para que pueda conocerte mejor y diseñar un plan de clases a tu medida. Tus respuestas me ayudarán a organizar horarios, adaptar la metodología a tus objetivos y ofrecerte la mejor experiencia de aprendizaje del francés." data-fr="Remplissez ce formulaire pour que je puisse mieux vous connaître et concevoir un plan de cours sur mesure." data-en="Fill out this form so I can get to know you better and design a class plan tailored to you. Your answers will help me organize schedules, adapt the methodology to your goals and offer you the best possible French-learning experience.">Completa este formulario para que pueda conocerte mejor y diseñar un plan de clases a tu medida. Tus respuestas me ayudarán a organizar horarios, adaptar la metodología a tus objetivos y ofrecerte la mejor experiencia de aprendizaje del francés.</p>
-      <p style="text-align:center;margin-top:1.2rem">
+      <p style="text-align:center;margin-top:1.4rem;text-justify:auto;hyphens:none;">
         <a href="registro/alta.html" class="btn btn-ghost btn-express">
           <i class="fa fa-bolt"></i>
           <span data-es="¿Ya hablaste con Miguel? Ficha exprés en 3 pasos" data-fr="Déjà en contact avec Miguel ? Fiche express en 3 étapes" data-en="Already talked to Miguel? Express form in 3 steps">¿Ya hablaste con Miguel? Ficha exprés en 3 pasos</span>
@@ -360,29 +360,50 @@
       <!-- DATOS PERSONALES -->
       <div class="insc-group">
         <div class="insc-legend"><i class="fa fa-user"></i> <span data-es="Datos personales" data-fr="Données personnelles" data-en="Personal details">Datos personales</span></div>
+        <p class="insc-ayuda" data-es="Estos datos van tal cual en tu acuerdo de aprendizaje, así que escríbelos completos." data-fr="Ces données figureront telles quelles dans votre accord, écrivez-les donc au complet." data-en="These details go into your learning agreement exactly as written, so please give them in full.">Estos datos van tal cual en tu acuerdo de aprendizaje, así que escríbelos completos.</p>
         <div class="insc-row">
           <div class="insc-field">
             <label for="f-nombre" data-es="Nombre completo" data-fr="Nom complet" data-en="Full name">Nombre completo <span class="req">*</span></label>
-            <input id="f-nombre" type="text" name="nombre" required placeholder="Tu nombre y apellidos" data-es="Tu nombre y apellidos" data-fr="Votre nom et prénoms" data-en="Your first and last name">
+            <input id="f-nombre" type="text" name="nombre" required autocomplete="name" placeholder="Como aparece en tu identificación" data-es="Como aparece en tu identificación" data-fr="Tel qu'il figure sur votre pièce d'identité" data-en="As it appears on your ID">
           </div>
           <div class="insc-field">
             <label for="f-email-2">Email <span class="req">*</span></label>
-            <input id="f-email-2" type="email" name="email" required placeholder="tu@correo.com" data-es="tu@correo.com" data-fr="vous@email.com" data-en="you@email.com">
+            <input id="f-email-2" type="email" name="email" required autocomplete="email" placeholder="tu@correo.com" data-es="tu@correo.com" data-fr="vous@courriel.com" data-en="you@email.com">
           </div>
         </div>
         <div class="insc-row">
           <div class="insc-field">
-            <label for="f-telefono" data-es="WhatsApp / Teléfono" data-fr="WhatsApp / Téléphone" data-en="WhatsApp / Phone">WhatsApp / Teléfono</label>
-            <input id="f-telefono" type="tel" name="telefono" placeholder="+58 ..." data-es="+58 ..." data-fr="+33 ..." data-en="+58 ...">
+            <label for="f-tel-num" data-es="WhatsApp" data-fr="WhatsApp" data-en="WhatsApp">WhatsApp <span class="req">*</span></label>
+            <div class="tel-combo">
+              <select id="f-tel-pais" name="tel_pais" aria-label="Código de país">
+                <option value="+52" selected>+52 · México</option>
+                <option value="+58">+58 · Venezuela</option>
+                <option value="+1">+1 · EE. UU. / Canadá</option>
+                <option value="+33">+33 · Francia</option>
+                <option value="+34">+34 · España</option>
+                <option value="+57">+57 · Colombia</option>
+                <option value="+54">+54 · Argentina</option>
+                <option value="+56">+56 · Chile</option>
+                <option value="+51">+51 · Perú</option>
+                <option value="+593">+593 · Ecuador</option>
+                <option value="+502">+502 · Guatemala</option>
+                <option value="+55">+55 · Brasil</option>
+                <option value="otro">otro · Otro país</option>
+              </select>
+              <input id="f-tel-num" type="tel" name="tel_numero" required inputmode="tel" autocomplete="tel-national"
+                     placeholder="961 737 8306" data-es="961 737 8306" data-fr="961 737 8306" data-en="961 737 8306">
+            </div>
+            <small class="insc-nota" data-es="Por aquí te aviso y te mando tu acuerdo." data-fr="C'est par là que je vous préviens et vous envoie votre accord." data-en="This is how I'll reach you and send your agreement.">Por aquí te aviso y te mando tu acuerdo.</small>
           </div>
           <div class="insc-field">
-            <label for="f-edad" data-es="Edad" data-fr="Âge" data-en="Age">Edad</label>
-            <input id="f-edad" type="text" name="edad" placeholder="Opcional" data-es="Opcional" data-fr="Optionnel" data-en="Optional">
+            <label for="f-nacimiento" data-es="Fecha de nacimiento" data-fr="Date de naissance" data-en="Date of birth">Fecha de nacimiento <span class="req">*</span></label>
+            <input id="f-nacimiento" type="date" name="fecha_nacimiento" required>
+            <small class="insc-nota" id="edad-calculada"></small>
           </div>
         </div>
         <div class="insc-field">
-          <label for="f-ciudad" data-es="Lugar donde vives (ciudad / zona)" data-fr="Lieu de résidence" data-en="Where you live (city / area)">Lugar donde vives (ciudad / zona)</label>
-          <input id="f-ciudad" type="text" name="ciudad" placeholder="Ciudad, colonia o zona" data-es="Ciudad, colonia o zona" data-fr="Ville, quartier ou zone" data-en="City, neighborhood or area">
+          <label for="f-ciudad" data-es="Lugar donde vives (ciudad / zona)" data-fr="Où vivez-vous (ville / quartier)" data-en="Where you live (city / area)">Lugar donde vives (ciudad / zona)</label>
+          <input id="f-ciudad" type="text" name="ciudad" placeholder="Ciudad, colonia o zona" data-es="Ciudad, colonia o zona" data-fr="Ville, quartier ou zone" data-en="City, neighbourhood or area">
         </div>
       </div>
 
@@ -492,6 +513,8 @@
           </div>
         </div>
 
+        <small class="insc-nota" id="horas-suman"></small>
+
         <div class="insc-row" style="margin-top:1.2rem;">
           <div class="form-field">
             <label for="f-horas-semana" data-es="¿Cuántas horas por semana quieres?" data-fr="Combien d'heures par semaine ?" data-en="How many hours per week?">¿Cuántas horas por semana quieres?</label>
@@ -556,6 +579,28 @@
         </div>
       </div>
 
+      <!-- TU ACCESO -->
+      <!-- Va al final a propósito: pedir una contraseña de entrada espanta,
+           y a estas alturas la persona ya invirtió seis pasos y quiere
+           terminar. Con esto el formulario deja de ser solo una solicitud y
+           crea de verdad la cuenta, que es lo que hacía falta para que
+           pueda entrar a leer y firmar su acuerdo. -->
+      <div class="insc-group">
+        <div class="insc-legend"><i class="fa fa-key"></i> <span data-es="Tu acceso" data-fr="Votre accès" data-en="Your access">Tu acceso</span></div>
+        <p class="insc-ayuda" data-es="Con esto te creo tu espacio en la plataforma: ahí tendrás tu acuerdo de aprendizaje, tu calendario, tus materiales y tus resultados. Entrarás con el correo que pusiste al principio." data-fr="Avec cela je vous crée votre espace : vous y trouverez votre accord, votre calendrier, vos supports et vos résultats. Vous entrerez avec l'adresse indiquée au début." data-en="With this I create your space: your agreement, calendar, materials and results live there. You'll sign in with the email you gave at the start.">Con esto te creo tu espacio en la plataforma: ahí tendrás tu acuerdo de aprendizaje, tu calendario, tus materiales y tus resultados. Entrarás con el correo que pusiste al principio.</p>
+        <div class="insc-row">
+          <div class="insc-field">
+            <label for="f-clave" data-es="Elige una contraseña" data-fr="Choisissez un mot de passe" data-en="Choose a password">Elige una contraseña <span class="req">*</span></label>
+            <input id="f-clave" type="password" name="clave" required minlength="8" autocomplete="new-password" placeholder="Mínimo 8 caracteres" data-es="Mínimo 8 caracteres" data-fr="8 caractères minimum" data-en="At least 8 characters">
+          </div>
+          <div class="insc-field">
+            <label for="f-clave2" data-es="Repítela" data-fr="Répétez-le" data-en="Repeat it">Repítela <span class="req">*</span></label>
+            <input id="f-clave2" type="password" name="clave2" required minlength="8" autocomplete="new-password" placeholder="La misma de al lado" data-es="La misma de al lado" data-fr="Le même qu'à côté" data-en="The same as beside">
+          </div>
+        </div>
+        <small class="insc-nota" id="clave-aviso"></small>
+      </div>
+
       <button type="submit" class="insc-submit">
         <i class="fa fa-paper-plane"></i>&nbsp;
         <span data-es="Enviar mi inscripción" data-fr="Envoyer mon inscription" data-en="Submit my enrollment">Enviar mi inscripción</span>
@@ -564,8 +609,9 @@
       <div class="insc-success" id="inscSuccess">
         <span data-es="✦ ¡Inscripción recibida! ✦" data-fr="✦ Inscription reçue ! ✦" data-en="✦ Enrollment received! ✦">✦ ¡Inscripción recibida! ✦</span><br>
         <span data-es="Revisaré tus respuestas y te contactaré pronto para coordinar tu plan de clases." data-fr="Je vais examiner vos réponses et vous contacterai bientôt pour coordonner votre plan de cours." data-en="I will review your answers and contact you soon to coordinate your class plan.">Revisaré tus respuestas y te contactaré pronto para coordinar tu plan de clases.</span>
+        <div id="cuenta-estado" style="display:none; margin-top:0.9rem; font-size:0.95rem; line-height:1.6;"></div>
         <div class="success-actions">
-          <a href="index.html" data-route="inicio" class="btn btn-ghost"><i class="fa fa-house"></i>&nbsp;Volver al inicio</a>
+          <a href="login.html" class="btn btn-ghost"><i class="fa fa-right-to-bracket"></i>&nbsp;Entrar a mi espacio</a>
           <a href="https://wa.me/529671836405?text=Hola%20Miguel%2C%20acabo%20de%20enviar%20mi%20formulario%20de%20inscripci%C3%B3n%20en%20tu%20p%C3%A1gina%20web." target="_blank" rel="noopener" class="btn btn-gold"><i class="fab fa-whatsapp"></i>&nbsp;Avisar por WhatsApp</a>
         </div>
         </div>
@@ -1038,7 +1084,11 @@ function pickTime(btn, valId) {
 
 /* Set min date */
 const today = new Date().toISOString().split('T')[0];
-document.querySelectorAll('input[type="date"]').forEach(d => d.min = today);
+/* Solo las fechas que miran al futuro: una cita o el inicio de las clases.
+   La fecha de nacimiento es justo lo contrario, y con esta regla el
+   formulario exigía haber nacido hoy o después. */
+document.querySelectorAll('input[type="date"]:not([name="fecha_nacimiento"])')
+  .forEach(d => d.min = today);
 
 /* ══════════════════════════════════════════════════════
    SISTEMA DE EMAIL — 100% GRATUITO
@@ -1560,27 +1610,140 @@ window.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  /* Las horas de un día solo tienen sentido si ese día está marcado: aparecen
-     al marcarlo y se exigen, que es justo el dato que faltaba para poder
-     armar un calendario sin volver a preguntar. */
-  inscForm.querySelectorAll('input[name="dia"]').forEach(function (cb) {
-    cb.addEventListener('change', function () {
+  /* El teléfono se arma con el código del país: «+52» y «961 737 8306» son
+     dos cosas que la gente separa en su cabeza, y pedirlas juntas acaba en
+     números sin código que luego no sirven para escribir por WhatsApp. */
+  var selPais = inscForm.querySelector('[name="tel_pais"]');
+  var inpNum  = inscForm.querySelector('[name="tel_numero"]');
+  function telCompleto() {
+    var pais = selPais ? selPais.value : '';
+    var num  = (inpNum ? inpNum.value : '').replace(/[^0-9]/g, '');
+    if (!num) return '';
+    return (pais === 'otro' ? '+' : pais) + num;
+  }
+
+  /* Edad al vuelo: confirma que la fecha es la que la persona quería. Una
+     fecha de nacimiento mal tecleada se nota enseguida si dice «3 años». */
+  var inpNac = inscForm.querySelector('[name="fecha_nacimiento"]');
+  var avisoEdad = document.getElementById('edad-calculada');
+  if (inpNac) {
+    inpNac.max = new Date().toISOString().slice(0, 10);
+    inpNac.addEventListener('change', function () {
+      if (!inpNac.value || !avisoEdad) { if (avisoEdad) avisoEdad.textContent = ''; return; }
+      var n = new Date(inpNac.value), h = new Date();
+      var e = h.getFullYear() - n.getFullYear();
+      if (h.getMonth() < n.getMonth() || (h.getMonth() === n.getMonth() && h.getDate() < n.getDate())) e--;
+      avisoEdad.textContent = (e >= 0 && e < 120) ? e + ' años' : 'Revisa la fecha';
+    });
+  }
+
+  /* Las horas de un día solo tienen sentido si ese día está marcado.
+     El estado se recalcula entero a partir de las casillas en vez de ir
+     arrastrándolo evento a evento: si por lo que sea se pierde un «change»
+     —el formulario se reinicia, el navegador restaura valores al volver
+     atrás, se pulsa dos veces seguidas— quedaba un campo oculto marcado
+     como obligatorio, y entonces el asistente se negaba a avanzar pidiendo
+     que se llenara un día que ni siquiera estaba elegido. */
+  function sincronizarDias() {
+    inscForm.querySelectorAll('input[name="dia"]').forEach(function (cb) {
       var caja = inscForm.querySelector('[data-horas="' + cb.value + '"]');
       if (!caja) return;
       caja.hidden = !cb.checked;
       caja.querySelectorAll('input[type="time"]').forEach(function (t) {
         t.required = cb.checked;
-        if (!cb.checked) t.value = '';
+        if (!cb.checked) { t.value = ''; t.setCustomValidity(''); }
       });
-      cb.closest('.dia-fila').classList.toggle('activa', cb.checked);
+      var fila = cb.closest('.dia-fila');
+      if (fila) fila.classList.toggle('activa', cb.checked);
+    });
+    revisarHoras();
+  }
+
+  /* La hora de fin tiene que ir después de la de inicio. Sin esto se podía
+     pedir «de 01:00 a 01:00», que son cero horas de clase. */
+  function validarTramo(t) {
+    var caja = t.closest('.dia-horas');
+    if (!caja) return;
+    var desde = caja.querySelector('input[name$="_desde"]');
+    var hasta = caja.querySelector('input[name$="_hasta"]');
+    if (!desde || !hasta) return;
+    var mal = desde.value && hasta.value && hasta.value <= desde.value;
+    hasta.setCustomValidity(mal ? 'La hora de fin tiene que ir después de la de inicio.' : '');
+  }
+
+  /* Cuántas horas suman los días elegidos, al lado de las que pidió. Así se
+     ve de inmediato si una cosa no cuadra con la otra, en vez de descubrirlo
+     cuando ya mandó el formulario. */
+  function revisarHoras() {
+    var total = 0;
+    inscForm.querySelectorAll('input[name="dia"]:checked').forEach(function (cb) {
+      var caja = inscForm.querySelector('[data-horas="' + cb.value + '"]');
+      if (!caja) return;
+      var a = caja.querySelector('input[name$="_desde"]').value;
+      var z = caja.querySelector('input[name$="_hasta"]').value;
+      if (a && z && z > a) {
+        total += (new Date('1970-01-01T' + z) - new Date('1970-01-01T' + a)) / 3600000;
+      }
+    });
+    var aviso = document.getElementById('horas-suman');
+    if (!aviso) return;
+    var pedidas = parseFloat(inscForm.querySelector('[name="horas_semana"]').value);
+    if (!total) { aviso.textContent = ''; aviso.className = 'insc-nota'; return; }
+    var txt = 'Los días que marcaste suman ' + (Math.round(total * 100) / 100) + ' h por semana';
+    if (!isNaN(pedidas) && Math.abs(total - pedidas) > 0.01) {
+      aviso.className = 'insc-nota desacuerdo';
+      aviso.textContent = txt + ', y arriba pediste ' + pedidas + ' h. No pasa nada: lo afinamos al hablar.';
+    } else {
+      aviso.className = 'insc-nota';
+      aviso.textContent = txt + '.';
+    }
+  }
+
+  inscForm.querySelectorAll('input[name="dia"]').forEach(function (cb) {
+    cb.addEventListener('change', sincronizarDias);
+  });
+  inscForm.querySelectorAll('.dia-horas input[type="time"]').forEach(function (t) {
+    t.addEventListener('change', function () {
+      validarTramo(t);
+      var h = parseInt((t.value || '').split(':')[0], 10);
+      var n = t.parentElement.querySelector('.hora-aviso');
+      /* El campo se muestra en formato de 12 horas y es fácil poner «01:00
+         a.m.» queriendo decir la una de la tarde. Se avisa, no se impide. */
+      if (!isNaN(h) && (h < 6 || h >= 22)) {
+        if (!n) { n = document.createElement('small'); n.className = 'hora-aviso';
+                  t.parentElement.appendChild(n); }
+        n.textContent = '¿Seguro? Son las ' + t.value + ' de la madrugada o de la noche.';
+      } else if (n) { n.remove(); }
+      revisarHoras();
     });
   });
+  var selHoras = inscForm.querySelector('[name="horas_semana"]');
+  if (selHoras) selHoras.addEventListener('change', revisarHoras);
+  inscForm.addEventListener('reset', function () { setTimeout(sincronizarDias, 0); });
+  sincronizarDias();
+
+  /* Que las dos contraseñas coincidan se comprueba aquí y no al enviar:
+     descubrirlo al final, después de seis pasos, es la peor manera. */
+  var c1 = inscForm.querySelector('[name="clave"]');
+  var c2 = inscForm.querySelector('[name="clave2"]');
+  function revisarClave() {
+    if (!c1 || !c2) return;
+    var distintas = c2.value && c1.value !== c2.value;
+    c2.setCustomValidity(distintas ? 'Las dos contraseñas tienen que ser iguales.' : '');
+    var n = document.getElementById('clave-aviso');
+    if (n) { n.textContent = distintas ? 'Las dos contraseñas no coinciden.' : '';
+             n.className = 'insc-nota' + (distintas ? ' desacuerdo' : ''); }
+  }
+  if (c1) c1.addEventListener('input', revisarClave);
+  if (c2) c2.addEventListener('input', revisarClave);
 
   inscForm.addEventListener('submit', function(e) {
     e.preventDefault();
     var d = {};
     var fd = new FormData(inscForm);
     for (var pair of fd.entries()) { d[pair[0]] = pair[1]; }
+    d.telefono = telCompleto();
+    delete d.tel_pais; delete d.tel_numero;
 
     /* Disponibilidad: cada día marcado con su hora concreta. */
     var NOMBRE_DIA = { lun:'Lunes', mar:'Martes', mie:'Miércoles', jue:'Jueves',
@@ -1593,6 +1756,20 @@ window.addEventListener('DOMContentLoaded', function() {
       dispos.push(NOMBRE_DIA[c.value] + (desde ? ' de ' + desde + ' a ' + (hasta || '—') : ''));
     });
     d.horario = horario;
+    /* Fuera el ruido antes de guardar: «dia» es el valor suelto de la última
+       casilla marcada, que FormData entrega aunque no signifique nada, y los
+       pares lun_desde/lun_hasta ya están recogidos y ordenados dentro de
+       «horario». Guardar las tres formas del mismo dato invita a que un día
+       se lean la que no es. */
+    delete d.dia;
+    /* La contraseña no se guarda en la base ni viaja en el correo: solo va a
+       Supabase para crear la cuenta y se olvida aquí mismo. */
+    var clave = d.clave || '';
+    delete d.clave; delete d.clave2;
+    Object.keys(d).forEach(function (k) {
+      if (/_(desde|hasta)$/.test(k)) delete d[k];
+      if (d[k] === '') delete d[k];
+    });
 
     /* Validación mínima */
     if (!d.nombre || !d.email) {
@@ -1612,7 +1789,7 @@ window.addEventListener('DOMContentLoaded', function() {
       'Nombre: ' + (d.nombre||'-') + '\n' +
       'Email: ' + (d.email||'-') + '\n' +
       'Teléfono: ' + (d.telefono||'-') + '\n' +
-      'Edad: ' + (d.edad||'-') + '\n' +
+      'Fecha de nacimiento: ' + fechaLegible(d.fecha_nacimiento) + '\n' +
       'Ciudad/Zona: ' + (d.ciudad||'-') + '\n\n' +
       'NIVEL Y OBJETIVOS\n' +
       'Nivel actual: ' + (d.nivel||'-') + '\n' +
@@ -1626,6 +1803,82 @@ window.addEventListener('DOMContentLoaded', function() {
       'QUÉ NO LE GUSTARÍA\n' + (d.no_gusta||'-') + '\n\n' +
       'ENTREVISTA PREVIA: ' + (d.entrevista||'-') + '\n\n' +
       'COMENTARIOS\n' + (d.comentarios||'-');
+
+    /* El estado de la cuenta se añade al mandar, no aquí: cuando se arma
+       este texto todavía no se ha intentado crearla, y antes el correo
+       llegaba siempre diciendo «-». */
+    function lineaCuenta() {
+      return '\n\nCUENTA EN LA PLATAFORMA: ' + ({
+        'creada':     'creada, pendiente de que confirme el correo',
+        'ya-existia': 'ya tenía cuenta',
+        'fallo':      'NO se pudo crear — hay que dársela a mano',
+        'sin-clave':  'no eligió contraseña',
+        'sin-cliente':'no se pudo contactar la plataforma'
+      }[d.cuenta] || 'sin dato');
+    }
+
+    /* Acuse de recibo para quien se inscribe.
+     *
+     * Hasta ahora el correo salía solo para Miguel y la persona se quedaba con
+     * la pantalla de «recibido» y nada más: si cerraba la pestaña, no le
+     * quedaba constancia de lo que había pedido ni de qué venía después. Este
+     * segundo envío le deja por escrito lo que mandó, lo que pasa a partir de
+     * aquí y las coordenadas de pago.
+     *
+     * No lleva ninguna cifra: el precio depende de las horas que acordemos y
+     * no se anuncia antes de hablarlo. Lo que se adelanta es el cómo, no el
+     * cuánto, para que llegado el momento no haya que explicarlo de cero.
+     */
+    function correoAlEstudiante() {
+      if (!d.email) return Promise.resolve();
+      var nombre = (d.nombre || '').trim().split(/\s+/)[0] || '';
+      var cuerpo =
+        'Hola ' + nombre + ', recibí tu inscripción. Gracias por la confianza.\n\n' +
+        'ESTO ES LO QUE ME MANDASTE\n' +
+        'Nombre: ' + (d.nombre || '-') + '\n' +
+        'Teléfono: ' + (d.telefono || '-') + '\n' +
+        'Nivel: ' + (d.nivel || '-') + '\n' +
+        'Horas que te interesan: ' + (d.horas || 'por definir') + '\n' +
+        'Disponibilidad: ' + (dispos.length ? dispos.join(' · ') : '-') + '\n' +
+        'Quieres empezar: ' + fechaLegible(d.desde_cuando) + '\n\n' +
+        'QUÉ PASA AHORA\n' +
+        '1. Reviso tu disponibilidad y la cruzo con mi agenda.\n' +
+        '2. Te escribo por WhatsApp para confirmar días y horas contigo.\n' +
+        '3. Te mando tu acuerdo de aprendizaje, con tu calendario y tu plan.\n' +
+        '4. Lo lees con calma, lo firmas en línea y empezamos.\n\n' +
+        'El pago no condiciona nada de esto: puedes entrar a la plataforma, ' +
+        'firmar y empezar las clases antes de haber pagado. Te dejo igualmente ' +
+        'mis datos, para que los tengas desde ya y no haya que buscarlos ' +
+        'cuando toque.\n\n' +
+        'DÓNDE PAGAR, CUANDO TE VENGA BIEN\n' +
+        'Transferencia · albo: 7211 8010 0037 9159 95\n' +
+        'Transferencia · Nu:   6381 8000 0116 2530 75\n' +
+        'Beneficiario: Miguel David Tillero Álvarez\n' +
+        'Desde el exterior · Remitly: miguelt4540\n' +
+        'https://remitly.com/pay/miguelt4540\n\n' +
+        'El importe lo fijamos juntos cuando cerremos cuántas horas quieres: ' +
+        'no te cobro nada antes de haberlo hablado contigo. El comprobante me ' +
+        'lo subes a la plataforma o me lo mandas por WhatsApp, lo que prefieras.\n\n' +
+        'Mientras tanto, échale un ojo al reglamento de las clases, que es ' +
+        'corto y evita malentendidos:\n' +
+        'https://migueltillero-ship-it.github.io/MiguelTillero/reglamento.html\n\n' +
+        'Cualquier duda, respóndeme a este correo o escríbeme al ' +
+        'WhatsApp +52 967 183 6405.\n\n' +
+        'Un saludo,\nMiguel Tillero\nProfesor de francés — San Cristóbal de Las Casas';
+
+      return emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
+        subject: 'Recibí tu inscripción — Miguel Tillero',
+        from_name: 'Miguel Tillero',
+        from_email: 'migueltillero@gmail.com',
+        telefono: '+52 967 183 6405',
+        ciudad: d.ciudad || '-',
+        tipo: 'Confirmación de inscripción',
+        fecha: fechaLegible(new Date().toLocaleDateString('es-MX')),
+        horario: dispos.join(', ') || '-',
+        message: cuerpo,
+        to_email: d.email
+      });
+    }
 
     /* Enviar con EmailJS (service_uv779js) */
     function done() {
@@ -1659,7 +1912,55 @@ window.addEventListener('DOMContentLoaded', function() {
     }
 
     d.dispo = dispos;
+    /* Crear la cuenta de la plataforma.
+     *
+     * Va después de guardar el prospecto y antes del correo, y nunca puede
+     * tumbar el envío: si el registro falla —correo ya usado, Supabase
+     * caído— la solicitud sigue llegando igual. Perder un prospecto por un
+     * problema de la cuenta sería el peor intercambio posible.
+     */
+    function crearCuenta() {
+      if (!clave) return Promise.resolve('sin-clave');
+      try {
+        if (typeof supabaseClient === 'undefined' || !supabaseClient) return Promise.resolve('sin-cliente');
+        return supabaseClient.auth.signUp({
+          email: d.email,
+          password: clave,
+          options: {
+            data: { nombre_completo: d.nombre, telefono: d.telefono },
+            emailRedirectTo: new URL('login.html', window.location.href).href
+          }
+        }).then(function (r) {
+          if (!r.error) return 'creada';
+          var m = (r.error.message || '').toLowerCase();
+          return (m.indexOf('already registered') >= 0 || m.indexOf('user already') >= 0)
+            ? 'ya-existia' : 'fallo';
+        }).catch(function () { return 'fallo'; });
+      } catch (err) { return Promise.resolve('fallo'); }
+    }
+
+    /* El mensaje final cambia según lo que pasó con la cuenta: no es lo
+       mismo «revisa tu correo» que «ya tenías cuenta, entra». */
+    function contarCuenta(estado) {
+      var caja = document.getElementById('cuenta-estado');
+      if (!caja) return;
+      var textos = {
+        'creada':     'Te mandé un correo a ' + d.email + ' para confirmar tu cuenta. Ábrelo y ya podrás entrar a tu espacio.',
+        'ya-existia': 'Ese correo ya tenía cuenta en la plataforma, así que entra con tu contraseña de siempre.',
+        'fallo':      'Tu solicitud llegó, pero no pude crear tu cuenta en este momento. Te escribo yo para dártela.',
+        'sin-clave':  '', 'sin-cliente': ''
+      };
+      caja.textContent = textos[estado] || '';
+      caja.style.display = caja.textContent ? 'block' : 'none';
+    }
+
     guardarProspecto('inscripcion', d).then(function (guardado) {
+      return crearCuenta().then(function (estadoCuenta) {
+        d.cuenta = estadoCuenta;
+        contarCuenta(estadoCuenta);
+        return guardado;
+      });
+    }).then(function (guardado) {
       return emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
         subject: '🎓 NUEVA INSCRIPCIÓN — ' + d.nombre,
         from_name: d.nombre,
@@ -1669,12 +1970,23 @@ window.addEventListener('DOMContentLoaded', function() {
         tipo: 'Inscripción a clases',
         fecha: fechaLegible(new Date().toLocaleDateString('es-MX')),
         horario: dispos.join(', ') || '-',
-        message: mensaje,
+        message: mensaje + lineaCuenta(),
         to_email: 'migueltillero@gmail.com'
-      }).then(done, function (err) {
+      }).then(function () {
+        /* El acuse va después y aparte: si falla, la inscripción ya llegó y
+           no hay por qué alarmar a nadie ni reintentar el formulario. */
+        correoAlEstudiante().catch(function (err) {
+          console.warn('No se pudo mandar el acuse de recibo al estudiante.', err);
+        });
+        done();
+      }, function (err) {
         /* El correo falló. Si la solicitud quedó en la base, para quien la
            envió está recibida de verdad y no hay nada que pedirle. */
-        if (guardado) { console.warn('EmailJS falló; queda guardada en la base.', err); done(); }
+        if (guardado) {
+          console.warn('EmailJS falló; queda guardada en la base.', err);
+          correoAlEstudiante().catch(function (e) { console.warn('Acuse tampoco salió.', e); });
+          done();
+        }
         else { console.error('EmailJS falló y no se pudo guardar.', err); fallo(); }
       });
     }).catch(function (err) { console.error(err); fallo(); });
