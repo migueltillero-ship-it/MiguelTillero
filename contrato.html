@@ -144,6 +144,18 @@ nav.barra{display:flex; justify-content:space-between; align-items:center; gap:1
 .casilla input{margin-top:0.2rem; width:22px; height:22px; flex:0 0 auto; accent-color:var(--gold);}
 .casilla span{font-size:0.99rem; line-height:1.65;}
 .casilla a{color:var(--gold2); font-weight:600;}
+/* El paso del reglamento se separa del resto: es una condición, no una casilla
+   más que se marca de pasada. Mientras está bloqueada se ve apagada, para que
+   quede claro que falta algo y no parezca que la página no responde. */
+.paso-reglamento{margin:1.4rem 0; padding:1.2rem 1.3rem; border-radius:var(--r-sm);
+  background:rgba(13,127,87,0.06); border:1px solid rgba(13,127,87,0.25);}
+.paso-reglamento > p{font-size:0.99rem; line-height:1.7; text-align:justify;
+  hyphens:auto; -webkit-hyphens:auto;}
+.casilla.bloqueada{opacity:0.5; cursor:not-allowed;}
+.casilla.bloqueada input{cursor:not-allowed;}
+.pista{margin:0.2rem 0 0; font-size:0.86rem; line-height:1.6; color:var(--muted);}
+.pista.listo{color:var(--cyan); font-weight:600;}
+@media (max-width:560px){ .paso-reglamento > p{text-align:left; hyphens:none;} }
 label.campo{display:block; margin:1.4rem 0 0.45rem; font-size:0.8rem; letter-spacing:0.1em;
   text-transform:uppercase; color:var(--muted);}
 input[type=text]{width:100%; padding:0.95rem 1.1rem; border:1px solid var(--border);
@@ -301,12 +313,23 @@ input[type=text]:focus{outline:none; border-color:var(--gold); box-shadow:0 0 0 
           <span>He leído este acuerdo completo y lo acepto: las horas, las fechas, los horarios
                 y la inversión que aparecen arriba.</span>
         </label>
-        <label class="casilla">
-          <input type="checkbox" id="ok-reglamento">
-          <span>He leído el <a href="reglamento.html" target="_blank" rel="noopener">reglamento de
-                las clases <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.72em;"></i></a>
-                y entiendo nuestros acuerdos sobre puntualidad, cámara encendida y cancelaciones.</span>
-        </label>
+        <!-- El reglamento no se marca a ciegas: la casilla no se puede tocar
+             hasta haber abierto la página y haber estado allí un rato. -->
+        <div class="paso-reglamento">
+          <p style="margin:0 0 0.9rem;">Antes de firmar tienes que pasar por el reglamento de las
+            clases. Ahí están, con todo el detalle, nuestros acuerdos sobre puntualidad, cámara
+            encendida, cancelaciones y materiales.</p>
+          <p style="margin:0 0 1rem;">
+            <button type="button" class="btn cyan" id="btn-reglamento">
+              <i class="fa-solid fa-book-open"></i> Abrir el reglamento</button>
+          </p>
+          <label class="casilla bloqueada" id="casilla-reglamento">
+            <input type="checkbox" id="ok-reglamento" disabled>
+            <span>He leído el reglamento de las clases y estoy de acuerdo.</span>
+          </label>
+          <p class="pista" id="pista-reglamento">Se abrirá en otra pestaña. Cuando vuelvas podrás
+            marcar esta casilla.</p>
+        </div>
         <label class="campo" for="nombre-firma">Escribe tu nombre completo para firmar</label>
         <input type="text" id="nombre-firma" autocomplete="name" placeholder="Nombre y apellidos">
         <div id="msg-aceptar"></div>
@@ -596,6 +619,60 @@ function revisarFirma(){
 }
 ['ok-contrato','ok-reglamento'].forEach(function(id){ el(id).addEventListener('change', revisarFirma); });
 el('nombre-firma').addEventListener('input', revisarFirma);
+
+/* El reglamento, obligatorio de verdad.
+ *
+ * Antes bastaba con marcar la casilla sin haber abierto el enlace, y entonces
+ * la firma decía algo que no había pasado. Ahora la casilla nace bloqueada y
+ * solo se suelta después de haber abierto la página y haber estado allí un
+ * rato razonable: no se puede comprobar que alguien lea, pero sí que haya
+ * tenido delante el documento el tiempo de leerlo.
+ */
+const LECTURA_MIN = 25000;   /* milisegundos mínimos con el reglamento abierto */
+const MARCA = 'reglamento-abierto-en';
+let pestana = null;
+/* Se guarda en la sesión del navegador porque, si la ventana emergente está
+   bloqueada, se navega a reglamento.html en esta misma pestaña y al volver la
+   página se carga de cero: sin esto, el contador empezaría otra vez. */
+let abiertoEn = 0;
+try { abiertoEn = Number(sessionStorage.getItem(MARCA) || 0) || 0; } catch(e){}
+
+function soltarReglamento(){
+  const c = el('ok-reglamento');
+  if (!c.disabled) return;
+  c.disabled = false;
+  el('casilla-reglamento').classList.remove('bloqueada');
+  const p = el('pista-reglamento');
+  p.textContent = 'Listo: ya puedes confirmar que lo leíste.';
+  p.classList.add('listo');
+}
+
+function revisarLectura(){
+  if (!abiertoEn) return;
+  const faltan = LECTURA_MIN - (Date.now() - abiertoEn);
+  if (faltan <= 0){ soltarReglamento(); return; }
+  el('pista-reglamento').textContent =
+    'Tómate un momento con el reglamento: podrás marcar la casilla en ' +
+    Math.ceil(faltan / 1000) + ' s.';
+  setTimeout(revisarLectura, Math.min(faltan, 1000));
+}
+
+el('btn-reglamento').addEventListener('click', function(){
+  if (!abiertoEn){
+    abiertoEn = Date.now();
+    try { sessionStorage.setItem(MARCA, String(abiertoEn)); } catch(e){}
+  }
+  /* Si el navegador bloquea la ventana emergente, se navega en la misma
+     pestaña: antes dejar la página que dejar a la persona sin reglamento. */
+  pestana = window.open('reglamento.html', '_blank', 'noopener');
+  if (!pestana){ window.location.href = 'reglamento.html'; return; }
+  revisarLectura();
+});
+document.addEventListener('visibilitychange', function(){
+  if (!document.hidden) revisarLectura();
+});
+/* Quien vuelve del reglamento en esta misma pestaña entra por aquí. */
+revisarLectura();
 
 el('btn-aceptar').addEventListener('click', async function(){
   const b = el('btn-aceptar');

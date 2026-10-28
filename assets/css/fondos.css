@@ -482,7 +482,14 @@ body:has(#hero.hero-rotativo) #nav:not(.scrolled) .ctrl-btn.active { background:
 .rg-cuerpo { padding: 1.4rem 1.5rem 1.7rem; }
 .rg-titulo { display: flex; align-items: center; gap: 0.7rem; font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--white); margin: 0 0 0.6rem; }
 .rg-titulo i { color: var(--gold); }
-.rg-texto { font-family: 'Syne', sans-serif; font-size: 1.04rem; line-height: 1.7; color: var(--muted); margin: 0; text-align: left; }
+/* Cada acuerdo es un párrafo largo dentro de una columna estrecha: justificado
+   da un bloque limpio y la vista no tiene que buscar dónde empieza la línea
+   siguiente. Se parte por sílabas para que no se abran ríos de espacio entre
+   palabras, y en el teléfono vuelve a bandera: con cinco palabras por línea,
+   justificar queda peor que no hacerlo. */
+.rg-texto { font-family: 'Syne', sans-serif; font-size: 1.04rem; line-height: 1.7; color: var(--muted); margin: 0;
+  text-align: justify; text-justify: inter-word; hyphens: auto; -webkit-hyphens: auto; }
+@media (max-width: 560px) { .rg-texto { text-align: left; hyphens: none; } }
 .rg-cierre { display: flex; flex-wrap: wrap; gap: 0.9rem; justify-content: center; margin: 2.6rem 0 0; }
 @media (max-width: 900px) { .rg-datos { grid-template-columns: repeat(2, minmax(0, 1fr)); } .rg-grid { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 480px) { .rg-datos { grid-template-columns: minmax(0, 1fr); } }
