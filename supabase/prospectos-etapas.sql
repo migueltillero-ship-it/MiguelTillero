@@ -58,7 +58,12 @@ create trigger trg_prospectos_atendido
 
 -- Lo que falta por hacer, lo más antiguo primero: quien lleva más tiempo
 -- esperando es quien más riesgo tiene de perderse.
-create or replace view public.v_prospectos_pendientes as
+--
+-- Se borra antes de crearla: «create or replace view» solo deja añadir
+-- columnas al final, no cambiarlas de nombre ni de sitio, y aquí «estado»
+-- ocupa el lugar que antes tenía «origen».
+drop view if exists public.v_prospectos_pendientes;
+create view public.v_prospectos_pendientes as
   select id, estado, origen, nombre, email, telefono, ciudad, respuestas,
          creado_en, avisado_en, contratacion_id,
          extract(day from now() - creado_en)::int as dias_esperando
