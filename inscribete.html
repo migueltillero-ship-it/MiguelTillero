@@ -1817,6 +1817,69 @@ window.addEventListener('DOMContentLoaded', function() {
       }[d.cuenta] || 'sin dato');
     }
 
+    /* Acuse de recibo para quien se inscribe.
+     *
+     * Hasta ahora el correo salía solo para Miguel y la persona se quedaba con
+     * la pantalla de «recibido» y nada más: si cerraba la pestaña, no le
+     * quedaba constancia de lo que había pedido ni de qué venía después. Este
+     * segundo envío le deja por escrito lo que mandó, lo que pasa a partir de
+     * aquí y las coordenadas de pago.
+     *
+     * No lleva ninguna cifra: el precio depende de las horas que acordemos y
+     * no se anuncia antes de hablarlo. Lo que se adelanta es el cómo, no el
+     * cuánto, para que llegado el momento no haya que explicarlo de cero.
+     */
+    function correoAlEstudiante() {
+      if (!d.email) return Promise.resolve();
+      var nombre = (d.nombre || '').trim().split(/\s+/)[0] || '';
+      var cuerpo =
+        'Hola ' + nombre + ', recibí tu inscripción. Gracias por la confianza.\n\n' +
+        'ESTO ES LO QUE ME MANDASTE\n' +
+        'Nombre: ' + (d.nombre || '-') + '\n' +
+        'Teléfono: ' + (d.telefono || '-') + '\n' +
+        'Nivel: ' + (d.nivel || '-') + '\n' +
+        'Horas que te interesan: ' + (d.horas || 'por definir') + '\n' +
+        'Disponibilidad: ' + (dispos.length ? dispos.join(' · ') : '-') + '\n' +
+        'Quieres empezar: ' + fechaLegible(d.desde_cuando) + '\n\n' +
+        'QUÉ PASA AHORA\n' +
+        '1. Reviso tu disponibilidad y la cruzo con mi agenda.\n' +
+        '2. Te escribo por WhatsApp para confirmar días y horas contigo.\n' +
+        '3. Te mando tu acuerdo de aprendizaje, con tu calendario y tu plan.\n' +
+        '4. Lo lees con calma, lo firmas en línea y empezamos.\n\n' +
+        'El pago no condiciona nada de esto: puedes entrar a la plataforma, ' +
+        'firmar y empezar las clases antes de haber pagado. Te dejo igualmente ' +
+        'mis datos, para que los tengas desde ya y no haya que buscarlos ' +
+        'cuando toque.\n\n' +
+        'DÓNDE PAGAR, CUANDO TE VENGA BIEN\n' +
+        'Transferencia · albo: 7211 8010 0037 9159 95\n' +
+        'Transferencia · Nu:   6381 8000 0116 2530 75\n' +
+        'Beneficiario: Miguel David Tillero Álvarez\n' +
+        'Desde el exterior · Remitly: miguelt4540\n' +
+        'https://remitly.com/pay/miguelt4540\n\n' +
+        'El importe lo fijamos juntos cuando cerremos cuántas horas quieres: ' +
+        'no te cobro nada antes de haberlo hablado contigo. El comprobante me ' +
+        'lo subes a la plataforma o me lo mandas por WhatsApp, lo que prefieras.\n\n' +
+        'Mientras tanto, échale un ojo al reglamento de las clases, que es ' +
+        'corto y evita malentendidos:\n' +
+        'https://migueltillero-ship-it.github.io/MiguelTillero/reglamento.html\n\n' +
+        'Cualquier duda, respóndeme a este correo o escríbeme al ' +
+        'WhatsApp +52 967 183 6405.\n\n' +
+        'Un saludo,\nMiguel Tillero\nProfesor de francés — San Cristóbal de Las Casas';
+
+      return emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
+        subject: 'Recibí tu inscripción — Miguel Tillero',
+        from_name: 'Miguel Tillero',
+        from_email: 'migueltillero@gmail.com',
+        telefono: '+52 967 183 6405',
+        ciudad: d.ciudad || '-',
+        tipo: 'Confirmación de inscripción',
+        fecha: fechaLegible(new Date().toLocaleDateString('es-MX')),
+        horario: dispos.join(', ') || '-',
+        message: cuerpo,
+        to_email: d.email
+      });
+    }
+
     /* Enviar con EmailJS (service_uv779js) */
     function done() {
       document.getElementById('inscFallo').classList.remove('show');
@@ -1909,10 +1972,21 @@ window.addEventListener('DOMContentLoaded', function() {
         horario: dispos.join(', ') || '-',
         message: mensaje + lineaCuenta(),
         to_email: 'migueltillero@gmail.com'
-      }).then(done, function (err) {
+      }).then(function () {
+        /* El acuse va después y aparte: si falla, la inscripción ya llegó y
+           no hay por qué alarmar a nadie ni reintentar el formulario. */
+        correoAlEstudiante().catch(function (err) {
+          console.warn('No se pudo mandar el acuse de recibo al estudiante.', err);
+        });
+        done();
+      }, function (err) {
         /* El correo falló. Si la solicitud quedó en la base, para quien la
            envió está recibida de verdad y no hay nada que pedirle. */
-        if (guardado) { console.warn('EmailJS falló; queda guardada en la base.', err); done(); }
+        if (guardado) {
+          console.warn('EmailJS falló; queda guardada en la base.', err);
+          correoAlEstudiante().catch(function (e) { console.warn('Acuse tampoco salió.', e); });
+          done();
+        }
         else { console.error('EmailJS falló y no se pudo guardar.', err); fallo(); }
       });
     }).catch(function (err) { console.error(err); fallo(); });
