@@ -238,9 +238,21 @@ select { padding:0.7rem; border:1px solid var(--border); border-radius:8px; font
 
 <main>
     <div id="aviso-config" class="msg error" style="display:none; margin-bottom:1.5rem;"></div>
+    <!-- Quien toma clases particulares no tiene grupo, así que antes caía
+         aquí y se encontraba una pantalla que no le ofrecía nada. Ahora
+         encuentra lo mismo que le sirve desde el primer día: su acuerdo y el
+         material con el que empieza. -->
     <div id="sin-inscripciones" class="panel" style="display:none;">
         <h2>Tu cuenta está lista</h2>
-        <p class="muted">Todavía no tienes un grupo asignado. Miguel te asignará el que corresponda a tu nivel y horario; en cuanto lo haga, tu curso aparecerá aquí con su calendario, asistencia y notas.</p>
+        <p class="muted">Todavía no tienes un curso en grupo asignado. Si tus clases son particulares es normal: tu calendario y tus horas están en tu acuerdo de aprendizaje.</p>
+        <p style="margin:1.2rem 0;">
+            <a href="contrato.html" class="sec-btn" style="display:inline-block;">Ver mi acuerdo de aprendizaje</a>
+        </p>
+        <div id="materiales-sueltos" style="display:none;">
+            <h3 style="margin:1.8rem 0 0.4rem;">Para empezar</h3>
+            <p class="muted" style="margin:0 0 1rem;">Con esto abrimos la primera clase. Puedes mirarlo antes si quieres llegar con ventaja.</p>
+            <div class="materiales" id="lista-materiales-sueltos"></div>
+        </div>
         <a href="https://wa.me/529671836405" target="_blank" rel="noopener" class="muted">Escribirle a Miguel por WhatsApp →</a>
     </div>
 
@@ -447,6 +459,7 @@ async function iniciar() {
     inscripciones = insc || [];
     if (inscripciones.length === 0) {
         document.getElementById('sin-inscripciones').style.display = 'block';
+        await cargarMaterialesSueltos();
         return;
     }
 
@@ -580,29 +593,56 @@ const ICONO_MATERIAL = { material: 'fa-book-open', refuerzo: 'fa-dumbbell', jueg
 async function cargarMateriales(grupo) {
     const lista = document.getElementById('lista-materiales');
     const vacio = document.getElementById('sin-materiales');
-    if (!grupo.id) { lista.innerHTML = ''; vacio.style.display = 'block'; return; }
 
-    const { data } = await supabaseClient
-        .from('materiales')
-        .select('*')
-        .eq('grupo_id', grupo.id)
-        .order('orden');
-
-    const materiales = data || [];
+    /* Dos consultas, no una.
+     *
+     * Antes solo se pedían los materiales del grupo, y quien no tenía grupo
+     * —toda clase particular— se quedaba sin ver ninguno. Los materiales con
+     * «grupo_id» nulo son los comunes, los que valen para cualquier
+     * estudiante: con ellos empieza la primera clase, tenga grupo o no.
+     * Van primero porque son el punto de partida.
+     */
+    const consultas = [
+        supabaseClient.from('materiales').select('*').is('grupo_id', null).order('orden')
+    ];
+    if (grupo && grupo.id) {
+        consultas.push(supabaseClient.from('materiales').select('*').eq('grupo_id', grupo.id).order('orden'));
+    }
+    const respuestas = await Promise.all(consultas);
+    const materiales = respuestas.reduce((todos, r) => todos.concat(r.data || []), []);
     vacio.style.display = materiales.length ? 'none' : 'block';
     // Se resalta el módulo de la unidad que se está trabajando ahora.
-    const unidadHoy = grupo.unidad_actual || '';
-    lista.innerHTML = materiales.map(m => {
-        const esActual = m.unidad && unidadHoy.includes(m.unidad.replace(/Unité\s*/, '').split('-')[0].trim());
-        return `<a class="material cat-${esc(m.categoria)}${esActual ? ' actual' : ''}" href="${esc(m.url)}" target="_blank" rel="noopener">
-            <span class="mat-ico"><i class="fa-solid ${ICONO_MATERIAL[m.categoria] || 'fa-file-lines'}"></i></span>
-            <div>
-                <span class="cat">${esc(CATEGORIA[m.categoria] || m.categoria)}${m.unidad ? ' · ' + esc(m.unidad) : ''}${esActual ? ' · ahora' : ''}</span>
-                <div class="tit">${esc(m.titulo)}</div>
-                ${m.descripcion ? `<div class="des">${esc(m.descripcion)}</div>` : ''}
-            </div>
-        </a>`;
-    }).join('');
+    const unidadHoy = (grupo && grupo.unidad_actual) || '';
+    lista.innerHTML = materiales.map(m => tarjetaMaterial(m, unidadHoy)).join('');
+}
+
+/* La tarjeta se dibuja aparte porque hace falta en dos sitios: el repositorio
+   del curso y la pantalla de quien todavía no tiene grupo. */
+function tarjetaMaterial(m, unidadHoy) {
+    const esActual = m.unidad && (unidadHoy || '').includes(m.unidad.replace(/Unité\s*/, '').split('-')[0].trim());
+    return `<a class="material cat-${esc(m.categoria)}${esActual ? ' actual' : ''}" href="${esc(m.url)}" target="_blank" rel="noopener">
+        <span class="mat-ico"><i class="fa-solid ${ICONO_MATERIAL[m.categoria] || 'fa-file-lines'}"></i></span>
+        <div>
+            <span class="cat">${esc(CATEGORIA[m.categoria] || m.categoria)}${m.unidad ? ' · ' + esc(m.unidad) : ''}${esActual ? ' · ahora' : ''}</span>
+            <div class="tit">${esc(m.titulo)}</div>
+            ${m.descripcion ? `<div class="des">${esc(m.descripcion)}</div>` : ''}
+        </div>
+    </a>`;
+}
+
+/* Lo que ve quien aún no tiene grupo: los materiales comunes, que son con
+   los que se abre la primera clase. Si no hubiera ninguno, no se enseña la
+   sección vacía. */
+async function cargarMaterialesSueltos() {
+    const caja = document.getElementById('materiales-sueltos');
+    const lista = document.getElementById('lista-materiales-sueltos');
+    if (!caja || !lista) return;
+    const { data } = await supabaseClient
+        .from('materiales').select('*').is('grupo_id', null).order('orden');
+    const materiales = data || [];
+    if (!materiales.length) return;
+    lista.innerHTML = materiales.map(m => tarjetaMaterial(m, '')).join('');
+    caja.style.display = 'block';
 }
 
 function pintarResultados(evaluaciones, notas) {
