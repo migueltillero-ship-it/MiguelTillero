@@ -1935,8 +1935,10 @@ function pintarSelectorHijos() {
     if (!hijos.length) { document.getElementById('sin-hijos').style.display = 'block'; return; }
 
     const nombre = (datos.representante && datos.representante.nombre) || '';
+    /* Sin género: no se sabe si quien representa al estudiante es madre,
+       padre o tutor, y el verbo no obliga a elegir. */
     document.getElementById('saludo').innerHTML =
-        'Bienvenido a tu espacio, <em>' + esc(nombre.split(' ')[0] || '') + '</em>';
+        'Te doy la más cordial bienvenida a tu espacio, <em>' + esc(nombre.split(' ')[0] || '') + '</em>';
     document.getElementById('subsaludo').textContent = hijos.length === 1
         ? 'Aquí puedes seguir el avance de ' + hijos[0].nombre + ' sin tener que preguntar.'
         : 'Aquí puedes seguir el avance de tus ' + hijos.length + ' estudiantes.';

@@ -74,9 +74,28 @@ nav.barra{display:flex; justify-content:space-between; align-items:center; gap:1
 /* Los importes llevan moneda y decimales, así que necesitan más sitio que un
    «12 h»: con el mismo cuerpo se partían en dos líneas. */
 .cifra.dinero b{font-size:1.32rem; line-height:1.25;}
+/* Una nota al pie de las cifras: lo que un número no puede explicar solo.
+   Las horas de tutoría, por ejemplo, necesitan decir que se piden, no que
+   están reservadas. */
+.nota-cifras{margin:1.2rem 0 0; padding:0.95rem 1.1rem; border-radius:var(--r-sm);
+  background:rgba(13,127,87,0.07); border:1px solid rgba(13,127,87,0.22);
+  font-size:0.94rem; line-height:1.7; color:var(--muted);
+  text-align:justify; hyphens:auto; -webkit-hyphens:auto;}
+.nota-cifras b{color:var(--cyan);}
 
-/* ── Calendario como línea de tiempo ── */
+/* ── Calendario como línea de tiempo ──
+   Se agrupa por mes y, si el calendario es largo, se muestran las primeras
+   clases y el resto queda detrás de un botón: una lista de veinte fechas
+   seguidas no se lee, se sobrevuela. */
 .agenda{list-style:none; margin:0; padding:0;}
+.agenda li.mes{display:block; margin:1.4rem 0 0; padding:0 0 0.45rem;
+  border-bottom:1px solid rgba(165,130,74,0.3);
+  font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold2);}
+.agenda li.mes:first-child{margin-top:0;}
+.agenda li.resto{display:none;}
+.agenda.abierta li.resto{display:grid;}
+.agenda.abierta li.mes.resto{display:block;}
+#ver-todas{margin:1.1rem 0 0;}
 .agenda li{display:grid; grid-template-columns:auto 1fr auto; gap:0.9rem; align-items:center;
   padding:0.85rem 0; border-bottom:1px solid rgba(165,130,74,0.16);}
 .agenda li:last-child{border-bottom:0;}
@@ -90,12 +109,34 @@ nav.barra{display:flex; justify-content:space-between; align-items:center; gap:1
 .agenda .que span{font-size:0.86rem; color:var(--muted);}
 .agenda .dur{font-size:0.8rem; letter-spacing:0.08em; color:var(--gold2); white-space:nowrap;}
 
-/* ── El documento, por secciones ── */
-.clausula{padding:1.1rem 0; border-top:1px solid rgba(165,130,74,0.16);}
-.clausula:first-child{border-top:0; padding-top:0;}
-.clausula h3{font-family:'Cormorant Garamond',serif; font-weight:600; font-size:1.2rem;
-  margin:0 0 0.5rem; color:var(--gold2);}
-.clausula p{margin:0; white-space:pre-wrap; font-size:0.99rem; line-height:1.75;}
+/* ── El documento, por secciones ──
+   Once cláusulas seguidas son un muro: se lee la primera, se abandona la
+   tercera y nadie llega al pago. Cada una se pliega, así que la página se
+   recorre con la vista en un segundo y se abre lo que interesa. Las dos
+   primeras —el objetivo y el plan— vienen abiertas, porque son las que dan
+   sentido a todo lo demás. Al imprimir se abren todas. */
+.clausula{border-top:1px solid rgba(165,130,74,0.16);}
+.clausula:first-child{border-top:0;}
+.clausula > summary{display:flex; gap:0.8rem; align-items:center; cursor:pointer;
+  padding:1.05rem 0; list-style:none; min-height:44px;}
+.clausula > summary::-webkit-details-marker{display:none;}
+.clausula > summary::marker{content:'';}
+.clausula > summary .t{font-family:'Cormorant Garamond',serif; font-weight:600;
+  font-size:1.2rem; color:var(--gold2); line-height:1.3;}
+.clausula > summary .chev{margin-left:auto; flex:0 0 auto; font-size:0.78rem;
+  color:var(--gold2); transition:transform .22s;}
+.clausula[open] > summary .chev{transform:rotate(180deg);}
+.clausula > summary:hover .t{color:var(--white);}
+.clausula .cuerpo{padding:0 0 1.3rem;}
+.clausula p{margin:0; white-space:pre-wrap; font-size:0.99rem; line-height:1.75;
+  text-align:justify; hyphens:auto; -webkit-hyphens:auto;}
+@media (max-width:560px){ .clausula p{text-align:left; hyphens:none;} }
+/* El calendario viene dentro del texto con sangría; justificarlo lo rompería. */
+.clausula p.lista{text-align:left; hyphens:none;}
+.abrir-todo{display:flex; justify-content:flex-end; margin:0 0 0.2rem;}
+.abrir-todo button{background:none; border:0; cursor:pointer; padding:0.4rem 0;
+  font-family:'Syne',sans-serif; font-size:0.78rem; letter-spacing:0.1em;
+  text-transform:uppercase; color:var(--gold2); min-height:44px;}
 
 /* ── Aceptación ── */
 .firma{border:1px solid var(--gold); background:linear-gradient(135deg, rgba(165,130,74,0.10), rgba(255,255,255,0.4));}
@@ -139,12 +180,22 @@ input[type=text]:focus{outline:none; border-color:var(--gold); box-shadow:0 0 0 
    El acuerdo se convierte en un documento sobrio de papel: sin fondo 3D, sin
    barra, sin botones y sin cortar una cláusula por la mitad. */
 @media print{
-  #vanta-bg, nav.barra, .btn, #form-aceptar, #bloque-pago, .no-imprime{display:none !important;}
+  #vanta-bg, nav.barra, .btn, #form-aceptar, #bloque-pago, .no-imprime,
+  .clausula > summary .chev, .abrir-todo{display:none !important;}
   body{background:#fff !important; color:#000;}
   .hoja{max-width:none; padding:0;}
   .bloque{box-shadow:none; border:1px solid #ccc; background:#fff;
     break-inside:avoid; page-break-inside:avoid; margin-bottom:1rem;}
   .clausula{break-inside:avoid; page-break-inside:avoid;}
+  /* Ojo: un <details> cerrado NO se abre desde CSS. Chromium oculta su
+     contenido por dentro del elemento y ningún display lo levanta. Quien se
+     encarga de que el acuerdo salga entero en papel es el JS, abriéndolos
+     todos antes de imprimir. Esto de aquí es solo por si algún navegador sí
+     lo respetara. */
+  .clausula .cuerpo{display:block !important;}
+  .clausula > summary{cursor:default;}
+  .agenda li.resto{display:grid !important;}
+  .agenda li.mes.resto{display:block !important;}
   .portada h1{font-size:2.2rem;}
 }
 @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .btn{transition:none} }
@@ -180,7 +231,9 @@ input[type=text]:focus{outline:none; border-color:var(--gold); box-shadow:0 0 0 
     <!-- 1 · Portada -->
     <header class="portada">
       <span class="sello"><i class="fa-solid fa-feather"></i> Acuerdo de aprendizaje</span>
-      <h1>Bienvenida,<br><em id="nombre-portada"></em></h1>
+      <!-- «Bienvenida, X» obliga a saber si X es hombre o mujer, y a veces no
+           se sabe o no viene al caso. El verbo no tiene ese problema. -->
+      <h1>Te doy la más cordial bienvenida,<br><em id="nombre-portada"></em></h1>
       <p class="num" id="num-portada"></p>
     </header>
 
@@ -198,6 +251,7 @@ input[type=text]:focus{outline:none; border-color:var(--gold); box-shadow:0 0 0 
       <h2>Lo que acordamos</h2>
       <p class="pie" id="vigencia"></p>
       <div class="cifras" id="cifras"></div>
+      <p class="nota-cifras oculto" id="nota-tutorias"></p>
     </section>
 
     <!-- 4 · Calendario -->
@@ -207,12 +261,18 @@ input[type=text]:focus{outline:none; border-color:var(--gold); box-shadow:0 0 0 
       <p class="pie">Hora de la Ciudad de México. Si necesitas mover una clase, avísame con
         antelación y la reacomodamos sin problema.</p>
       <ul class="agenda" id="agenda"></ul>
+      <p id="ver-todas" class="no-imprime oculto">
+        <button class="btn fantasma" id="btn-ver-todas" style="padding:0.55rem 1.3rem;"></button>
+      </p>
     </section>
 
     <!-- 5 · El documento -->
     <section class="bloque">
       <p class="eyebrow">El texto completo</p>
       <h2>Nuestros compromisos</h2>
+      <p class="pie">Cada punto se abre y se cierra. Ábrelos todos si prefieres leerlo
+        de corrido; al guardarlo en PDF sale completo de todas formas.</p>
+      <p class="abrir-todo no-imprime"><button type="button" id="btn-abrir-todo"></button></p>
       <div id="clausulas"></div>
     </section>
 
@@ -230,7 +290,7 @@ input[type=text]:focus{outline:none; border-color:var(--gold); box-shadow:0 0 0 
           </div>
         </div>
         <p class="no-imprime" style="margin:1.2rem 0 0;">
-          <button class="btn fantasma" onclick="window.print()">
+          <button class="btn fantasma" onclick="imprimirAcuerdo()">
             <i class="fa-solid fa-file-arrow-down"></i> Guardar en PDF</button>
         </p>
       </div>
@@ -364,13 +424,28 @@ function pintar(clases){
     '! Felicito tu decisión de aprender francés y te agradezco la confianza. ' +
     'A partir del ' + fechaLarga(c.fecha_inicio) + ' empezamos.';
 
+  /* Antes había dos cifras de horas, «las que contratas» y «las que recibes»,
+     y puestas una al lado de la otra no se entendía cuál era el compromiso:
+     se pagan 12 pero dice 14. Ahora solo aparecen las horas de clase, que son
+     las que se reservan en el calendario, y las de tutoría se explican con
+     palabras debajo, que es lo que necesitaban. */
   const regalo = Number(c.horas_totales) - Number(c.horas_pagadas);
   const cifras = el('cifras'); cifras.innerHTML = '';
-  cifras.appendChild(cifra('Horas que contratas', Number(c.horas_pagadas) + ' h'));
-  cifras.appendChild(cifra('Horas que recibes', Number(c.horas_totales) + ' h', regalo > 0 ? 'regalo' : ''));
-  if (regalo > 0) cifras.appendChild(cifra('De regalo', regalo + ' h', 'regalo'));
+  cifras.appendChild(cifra('Horas de clase', Number(c.horas_pagadas) + ' h'));
+  if (regalo > 0) cifras.appendChild(cifra('Tutorías', regalo + ' h', 'regalo'));
   cifras.appendChild(cifra('Por hora', dinero(c.precio_hora, c.moneda), 'dinero'));
   cifras.appendChild(cifra('Inversión total', dinero(c.importe_total, c.moneda), 'total dinero'));
+
+  const nota = el('nota-tutorias');
+  if (regalo > 0){
+    nota.innerHTML = '';
+    nota.appendChild(texto('b','', 'Las ' + regalo + ' horas de tutoría no se cobran y no van en el calendario. '));
+    nota.appendChild(document.createTextNode(
+      'No son clase nueva: son horas complementarias que me pides cuando las necesites, ' +
+      'para afianzar un sonido que se resiste, repasar antes de una evaluación o retomar ' +
+      'algo que quedó a medias. Me escribes, buscamos hueco y las usamos.'));
+    nota.classList.remove('oculto');
+  }
 
   const MODO = { en_linea:'clases en línea', presencial:'clases presenciales', mixta:'en línea y presencial' };
   el('vigencia').textContent = 'Del ' + fechaLarga(c.fecha_inicio) +
@@ -379,11 +454,24 @@ function pintar(clases){
   /* Calendario */
   if (!clases.length){ el('bloque-agenda').classList.add('oculto'); }
   else {
+    /* Las clases se agrupan por mes y, pasadas las seis primeras, el resto
+       queda plegado: una columna de veinte fechas no se lee. «resto» marca
+       lo que se oculta, y la cabecera de un mes solo cuenta como resto si
+       todas sus clases también lo son. */
+    const VISIBLES = 6;
     const lista = el('agenda'); lista.innerHTML = '';
-    clases.forEach(function(k){
+    let mesActual = '';
+    clases.forEach(function(k, i){
       const f = aFecha(k.fecha);
+      const esResto = i >= VISIBLES;
+      const mes = f.toLocaleDateString('es-MX',{ month:'long', year:'numeric' });
+      if (mes !== mesActual){
+        mesActual = mes;
+        const cab = texto('li','mes' + (esResto ? ' resto' : ''), mes);
+        lista.appendChild(cab);
+      }
       const h = (new Date('1970-01-01T'+k.hora_fin) - new Date('1970-01-01T'+k.hora_inicio)) / 3600000;
-      const li = document.createElement('li');
+      const li = texto('li', esResto ? 'resto' : '');
       const dia = texto('div','dia');
       dia.appendChild(texto('span','d', String(f.getDate())));
       dia.appendChild(texto('span','m', f.toLocaleDateString('es-MX',{month:'short'}).replace('.','')));
@@ -393,6 +481,19 @@ function pintar(clases){
       li.appendChild(dia); li.appendChild(que); li.appendChild(texto('div','dur', h + ' h'));
       lista.appendChild(li);
     });
+
+    const ocultas = clases.length - VISIBLES;
+    if (ocultas > 0){
+      const boton = el('btn-ver-todas');
+      boton.textContent = 'Ver las ' + ocultas + ' clases restantes';
+      el('ver-todas').classList.remove('oculto');
+      boton.addEventListener('click', function(){
+        const abierta = lista.classList.toggle('abierta');
+        boton.textContent = abierta
+          ? 'Ver solo las primeras clases'
+          : 'Ver las ' + ocultas + ' clases restantes';
+      });
+    }
   }
 
   /* El texto congelado, partido por sus títulos numerados para maquetarlo.
@@ -402,21 +503,39 @@ function pintar(clases){
   if (!contrato){
     caja.appendChild(texto('p','', 'El documento todavía no está emitido. En cuanto lo prepare aparecerá aquí.'));
     el('bloque-aceptar').classList.add('oculto');
+    el('btn-abrir-todo').parentNode.classList.add('oculto');
   } else {
     const partes = contrato.cuerpo.split(/\n(?=\d+\.\s+[A-ZÁÉÍÓÚÑ])/);
-    partes.forEach(function(p){
+    partes.forEach(function(p, i){
       const corte = p.indexOf('\n');
       const cab = corte > 0 ? p.slice(0, corte).trim() : '';
       const esTitulo = /^\d+\.\s+[A-ZÁÉÍÓÚÑ]/.test(cab);
-      const d = texto('div','clausula');
-      if (esTitulo){
-        d.appendChild(texto('h3','', cab));
-        d.appendChild(texto('p','', p.slice(corte + 1).trim()));
-      } else {
-        d.appendChild(texto('p','', p.trim()));
+      if (!esTitulo){
+        /* La cabecera del documento y lo que no venga numerado se queda a la
+           vista: es el encabezado, no una cláusula que haya que desplegar. */
+        const d = texto('div','clausula');
+        const cuerpo = texto('div','cuerpo');
+        cuerpo.appendChild(texto('p','', p.trim()));
+        d.appendChild(cuerpo);
+        caja.appendChild(d);
+        return;
       }
+      const d = document.createElement('details');
+      d.className = 'clausula';
+      /* Las dos primeras abiertas: el objetivo y el plan son lo que da sentido
+         al resto, y empezar con todo cerrado parece una página vacía. */
+      if (i <= 2) d.open = true;
+      const s = document.createElement('summary');
+      s.appendChild(texto('span','t', cab));
+      s.appendChild(texto('i','chev fa-solid fa-chevron-down'));
+      const cuerpo = texto('div','cuerpo');
+      const cuerpoTexto = p.slice(corte + 1).trim();
+      /* El calendario va con sangría y viñetas; justificarlo lo desfiguraría. */
+      cuerpo.appendChild(texto('p', /^\s*·|\n\s+·/.test(cuerpoTexto) ? 'lista' : '', cuerpoTexto));
+      d.appendChild(s); d.appendChild(cuerpo);
       caja.appendChild(d);
     });
+    prepararAbrirTodo();
   }
 
   if (contrato && contrato.aceptado_en) mostrarFirmado();
@@ -428,6 +547,37 @@ function cifra(rotulo, valor, extra){
   d.appendChild(texto('b','', valor));
   return d;
 }
+
+/* Un solo botón para abrir o cerrar todo el documento, y la garantía de que
+   al imprimir sale completo aunque el navegador ignore el display del CSS. */
+function prepararAbrirTodo(){
+  const boton = el('btn-abrir-todo');
+  const todas = function(){ return el('clausulas').querySelectorAll('details.clausula'); };
+  if (!todas().length){ boton.parentNode.classList.add('oculto'); return; }
+  const rotular = function(){
+    const cerradas = Array.prototype.filter.call(todas(), function(d){ return !d.open; }).length;
+    boton.textContent = cerradas ? 'Abrir todo el documento' : 'Cerrar todo';
+  };
+  boton.addEventListener('click', function(){
+    const abrir = Array.prototype.some.call(todas(), function(d){ return !d.open; });
+    Array.prototype.forEach.call(todas(), function(d){ d.open = abrir; });
+    rotular();
+  });
+  el('clausulas').addEventListener('toggle', rotular, true);
+  rotular();
+  /* «beforeprint» cubre el Ctrl+P del navegador; el botón llama antes a
+     abrirTodoParaImprimir() porque no todos los navegadores lo disparan. */
+  window.addEventListener('beforeprint', abrirTodoParaImprimir);
+}
+
+function abrirTodoParaImprimir(){
+  const ds = document.querySelectorAll('#clausulas details.clausula');
+  Array.prototype.forEach.call(ds, function(d){ d.open = true; });
+  const agenda = el('agenda');
+  if (agenda) agenda.classList.add('abierta');
+}
+
+function imprimirAcuerdo(){ abrirTodoParaImprimir(); window.print(); }
 
 function mostrarFirmado(){
   el('form-aceptar').classList.add('oculto');

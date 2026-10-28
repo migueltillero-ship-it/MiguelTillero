@@ -433,7 +433,10 @@ async function iniciar() {
 
     // El primer nombre basta para el saludo; el completo ya sale en la barra.
     const primerNombre = (perfilEstudiante.nombre_completo || '').trim().split(/\s+/)[0] || '';
-    document.getElementById('saludo').innerHTML = 'Bienvenido a tu espacio, <em>' + esc(primerNombre) + '</em>';
+    /* «Bienvenido» obliga a saber el género de quien entra, y no siempre se
+       sabe ni hace falta. El verbo evita el problema sin inventar grafías. */
+    document.getElementById('saludo').innerHTML =
+        'Te doy la más cordial bienvenida a tu espacio, <em>' + esc(primerNombre) + '</em>';
 
     const { data: insc } = await supabaseClient
         .from('inscripciones')
