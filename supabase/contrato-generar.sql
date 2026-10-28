@@ -48,60 +48,70 @@ begin
   v_numero := nuevo_numero_contrato();
 
   v_cuerpo :=
-    'CONTRATO DE APRENDIZAJE — ' || v_numero || E'\n' ||
-    '===========================================================' || E'\n\n' ||
-    'Entre ' || coalesce(v_docente, 'Miguel David Tillero Álvarez') ||
-    ', profesor de francés (en adelante, el profesor), y ' ||
-    coalesce(v_alumno, '—') || ' (en adelante, el estudiante), se acuerda lo siguiente.' || E'\n\n' ||
+    'ACUERDO DE APRENDIZAJE — ' || v_numero || E'\n' ||
+    'Clases particulares de francés con ' || coalesce(v_docente, 'Miguel Tillero') || E'\n\n' ||
 
-    '1. OBJETO' || E'\n' ||
-    'El profesor impartirá clases particulares de francés al estudiante, en la ' ||
-    'modalidad y el calendario que se detallan abajo.' || E'\n\n' ||
+    'Este acuerdo lo firmamos ' || coalesce(v_alumno, '—') || ' y ' ||
+    coalesce(v_docente, 'Miguel David Tillero Álvarez') ||
+    '. No es un trámite: es el mapa de lo que vamos a hacer juntos y de lo que ' ||
+    'cada uno pone de su parte.' || E'\n\n' ||
 
-    '2. HORAS' || E'\n' ||
-    'El estudiante contrata ' || trim(to_char(c.horas_pagadas, '999D9')) || ' horas de clase.' ||
+    '1. NUESTRO OBJETIVO' || E'\n' ||
+    'Trabajaremos el francés en clases particulares, adaptadas a tu nivel y a tus ' ||
+    'metas. Yo preparo cada sesión a partir de lo que necesitas; tú llegas con ' ||
+    'ganas de hablar, que es como de verdad se aprende un idioma.' || E'\n\n' ||
+
+    '2. LAS HORAS' || E'\n' ||
+    'Contratas ' || trim(to_char(c.horas_pagadas, '999D9')) || ' horas de clase.' ||
     case when v_regalo > 0 then
-      E'\n' || 'El profesor añade ' || trim(to_char(v_regalo, '999D9')) ||
-      ' horas sin costo, de manera excepcional, por lo que el estudiante recibirá ' ||
+      ' A esas añado ' || trim(to_char(v_regalo, '999D9')) ||
+      ' horas sin costo, de manera excepcional, así que recibirás ' ||
       trim(to_char(c.horas_totales, '999D9')) || ' horas en total.'
     else '' end || E'\n\n' ||
 
-    '3. CALENDARIO' || E'\n' ||
-    'Las clases se impartirán en las siguientes fechas y horarios (hora de la ' ||
-    'Ciudad de México):' || E'\n' || v_calend || E'\n\n' ||
-    'Cualquier cambio de fecha u horario se acuerda entre las partes con ' ||
-    'antelación. Una clase cancelada con menos de 24 horas de aviso se ' ||
-    'considera impartida, salvo caso de fuerza mayor.' || E'\n\n' ||
+    '3. NUESTRO CALENDARIO' || E'\n' ||
+    'Estas son las fechas y horarios que reservamos (hora de la Ciudad de ' ||
+    'México):' || E'\n' || v_calend || E'\n\n' ||
+    'Si a alguno de los dos se le cruza algo, lo movemos: basta con avisar al ' ||
+    'otro con 24 horas de antelación. Una clase cancelada con menos aviso cuenta ' ||
+    'como dada, salvo que ocurra algo de fuerza mayor — y esto vale para los dos: ' ||
+    'si el que falla soy yo, la repongo sin descontarla.' || E'\n\n' ||
 
-    '4. IMPORTE' || E'\n' ||
+    '4. CÓMO TRABAJAREMOS' || E'\n' ||
+    'Las clases en línea se dan por videollamada, con la cámara encendida. No es ' ||
+    'un capricho: enseño francés por el método comunicativo, y ver tu gesto, tu ' ||
+    'boca y tu reacción es parte de cómo corrijo la pronunciación. Necesitarás un ' ||
+    'lugar tranquilo, buena conexión y un equipo con cámara y micrófono que ' ||
+    'funcionen.' || E'\n' ||
+    'Los materiales y tus resultados los encontrarás siempre en tu espacio de la ' ||
+    'plataforma, y tendrás acceso al club de conversación de los viernes.' || E'\n\n' ||
+
+    '5. LA INVERSIÓN' || E'\n' ||
     'El precio es de ' || trim(to_char(c.precio_hora, '999G999D99')) || ' ' || c.moneda ||
-    ' por hora. El importe total a pagar es de ' ||
-    trim(to_char(c.importe_total, '999G999D99')) || ' ' || c.moneda ||
-    ', correspondiente a las ' || trim(to_char(c.horas_pagadas, '999D9')) ||
-    ' horas contratadas.' ||
-    case when v_regalo > 0 then ' Las horas añadidas no se facturan.' else '' end || E'\n\n' ||
+    ' por hora. En total son ' || trim(to_char(c.importe_total, '999G999D99')) || ' ' || c.moneda ||
+    ', por las ' || trim(to_char(c.horas_pagadas, '999D9')) || ' horas contratadas.' ||
+    case when v_regalo > 0 then ' Las horas que añado no se cobran.' else '' end || E'\n\n' ||
 
-    '5. PAGO' || E'\n' ||
-    'El pago no condiciona el inicio de las clases ni el acceso a la ' ||
-    'plataforma. El estudiante dispone de los datos bancarios en su espacio y ' ||
-    'puede enviar el comprobante subiéndolo a la plataforma o por mensajería.' || E'\n\n' ||
+    '6. EL PAGO' || E'\n' ||
+    'El pago no condiciona nada: puedes entrar a la plataforma y empezar las ' ||
+    'clases antes de pagar. En tu espacio tienes mis datos bancarios y, cuando te ' ||
+    'venga bien, subes el comprobante o me lo mandas por WhatsApp.' || E'\n\n' ||
 
-    '6. REGLAMENTO' || E'\n' ||
-    'El estudiante declara haber leído el reglamento de las clases, que forma ' ||
-    'parte de este contrato y regula la asistencia, la puntualidad, las ' ||
-    'cancelaciones y el uso de los materiales.' || E'\n\n' ||
+    '7. EL REGLAMENTO' || E'\n' ||
+    'El reglamento de las clases forma parte de este acuerdo. Ahí están, con más ' ||
+    'detalle, nuestros compromisos sobre puntualidad, cámara, cancelaciones y uso ' ||
+    'de los materiales. Lo confirmas aparte al aceptar.' || E'\n\n' ||
 
-    '7. VIGENCIA' || E'\n' ||
+    '8. VIGENCIA' || E'\n' ||
     'Del ' || to_char(c.fecha_inicio, 'DD "de" TMMonth "de" YYYY') ||
     coalesce(' al ' || to_char(c.fecha_fin, 'DD "de" TMMonth "de" YYYY'), '') ||
-    '. Las horas no utilizadas dentro de la vigencia se reprograman de común ' ||
-    'acuerdo.' || E'\n\n' ||
+    '. Si al terminar quedaran horas sin usar, las reprogramamos entre los dos.' || E'\n\n' ||
 
-    '8. ACEPTACIÓN' || E'\n' ||
-    'La aceptación se realiza en línea. Al marcar las casillas y escribir su ' ||
-    'nombre completo, el estudiante acepta este contrato y confirma la lectura ' ||
-    'del reglamento. Queda registrada la fecha, la hora y el dispositivo desde ' ||
-    'el que se aceptó, con el mismo valor que una firma.';
+    '9. LA FIRMA' || E'\n' ||
+    'Este acuerdo se acepta en línea. Al marcar las dos casillas y escribir tu ' ||
+    'nombre completo quedas firmando: se guarda la fecha, la hora y el ' ||
+    'dispositivo desde el que lo aceptaste, con el mismo valor que una firma de ' ||
+    'puño y letra.';
 
   insert into contratos (contratacion_id, numero, cuerpo)
   values (p_contratacion, v_numero, v_cuerpo)

@@ -3,201 +3,284 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contrato de aprendizaje | Miguel Tillero</title>
+<title>Acuerdo de aprendizaje | Miguel Tillero</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-:root { --bg-color:#eef0e5; --primary-color:#8c734b; --text-dark:#1a2e24; --text-light:#5a665f;
-  --card-bg:#ffffff; --accent-green:#2b4535; --border:rgba(165,130,74,0.3);
-  --r-sm:14px; --r-md:18px; --r-pill:999px; --gold:#a5824a; --gold2:#86673a; --cyan:#0d7f57;
-  --shadow-card:0 4px 20px rgba(20,45,32,0.07), 0 1px 2px rgba(20,45,32,0.05); }
-* { box-sizing:border-box; }
-body { background:var(--bg-color); color:var(--text-dark); font-family:'Syne',sans-serif; margin:0; }
-nav.main-nav { background:#fff; border-bottom:1px solid rgba(43,69,53,0.2); padding:1rem 5%;
-  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.8rem; }
-.nav-brand { font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:600;
-  color:var(--accent-green); text-decoration:none; }
-.nav-right { display:flex; align-items:center; gap:1rem; font-size:0.9rem; }
-.envoltura { max-width:860px; margin:0 auto; padding:2.5rem 5% 5rem; }
-h1 { font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(2rem,5vw,2.8rem);
-  margin:0 0 0.4rem; color:var(--accent-green); }
-.sub { color:var(--text-light); margin:0 0 2rem; line-height:1.6; }
-.tarjeta { background:var(--card-bg); border:1px solid var(--border); border-radius:var(--r-md);
-  box-shadow:var(--shadow-card); padding:clamp(1.3rem,4vw,2rem); margin-bottom:1.5rem; }
-.tarjeta h2 { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:1.5rem;
-  margin:0 0 1rem; color:var(--accent-green); }
-.cifras { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1rem; }
-.cifra { background:rgba(165,130,74,0.07); border-radius:var(--r-sm); padding:0.9rem 1rem; }
-.cifra small { display:block; font-size:0.74rem; letter-spacing:0.08em; text-transform:uppercase;
-  color:var(--text-light); margin-bottom:0.25rem; }
-.cifra b { font-size:1.25rem; color:var(--accent-green); }
-.cifra.regalo b { color:var(--cyan); }
-/* La tabla se queda sin sitio por debajo de unos 360 px: con la fecha
-   compacta cabe, y el desplazamiento lateral es la red por si alguna
-   combinación de idioma o tipografía la vuelve a estirar. Nunca se recorta
-   una columna en silencio. */
-.tabla-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
-table.clases { width:100%; border-collapse:collapse; font-size:0.97rem; min-width:290px; }
-@media (max-width:420px){
-  table.clases { font-size:0.9rem; }
-  table.clases th, table.clases td { padding:0.5rem 0.35rem; }
+:root{
+  --gold:#a5824a; --gold2:#86673a; --goldx:rgba(201,169,110,0.16);
+  --cyan:#0d7f57; --white:#12291c; --text:rgba(18,41,28,0.92); --muted:rgba(18,41,28,0.78);
+  --border:rgba(165,130,74,0.38); --panel:rgba(255,255,255,0.93);
+  --glow:0 0 40px rgba(201,169,110,0.18), 0 0 80px rgba(201,169,110,0.07);
+  --bg-grad:radial-gradient(ellipse 80% 80% at 50% 40%, #c5e0d3 0%, #b8d9ca 55%, #a5cdbf 100%);
+  --r-sm:14px; --r-md:20px; --r-pill:999px;
 }
-table.clases th { text-align:left; font-size:0.74rem; letter-spacing:0.08em; text-transform:uppercase;
-  color:var(--text-light); padding:0.5rem 0.6rem; border-bottom:1px solid var(--border); }
-table.clases td { padding:0.6rem; border-bottom:1px solid rgba(165,130,74,0.14); }
-table.clases tr:last-child td { border-bottom:0; }
-.cuerpo-contrato { white-space:pre-wrap; line-height:1.75; font-size:1rem;
-  max-height:420px; overflow-y:auto; padding:1.2rem; background:rgba(255,255,255,0.6);
-  border:1px solid var(--border); border-radius:var(--r-sm); }
-.casilla { display:flex; gap:0.75rem; align-items:flex-start; margin:1rem 0; cursor:pointer;
-  line-height:1.6; }
-.casilla input { margin-top:0.25rem; width:20px; height:20px; flex:0 0 auto; accent-color:var(--gold); }
-.campo { display:block; margin:1.2rem 0 0.4rem; font-size:0.85rem; color:var(--text-light); }
-input[type=text] { width:100%; padding:0.85rem 1rem; border:1px solid var(--border);
-  border-radius:var(--r-sm); font-family:'Syne',sans-serif; font-size:1rem; min-height:44px; }
-.btn { display:inline-flex; align-items:center; justify-content:center; gap:0.5rem;
-  padding:0.95rem 1.8rem; border-radius:var(--r-pill); border:1px solid var(--gold);
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0; color:var(--text); font-family:'Syne',sans-serif; line-height:1.6;
+  background:var(--bg-grad); background-attachment:fixed;}
+/* El fondo 3D vive detrás de todo; si no arranca, queda el degradado del body. */
+#vanta-bg{position:fixed; inset:0; z-index:0;}
+.capa{position:relative; z-index:1;}
+
+nav.barra{display:flex; justify-content:space-between; align-items:center; gap:1rem;
+  flex-wrap:wrap; padding:1rem clamp(1rem,5vw,3rem);
+  background:rgba(255,255,255,0.72); backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);}
+.marca{font-family:'Cormorant Garamond',serif; font-size:1.55rem; font-weight:600;
+  color:var(--white); text-decoration:none; letter-spacing:0.01em;}
+.barra .der{display:flex; align-items:center; gap:0.9rem; font-size:0.88rem; color:var(--muted);}
+
+.hoja{max-width:860px; margin:0 auto; padding:clamp(2rem,6vw,4.5rem) clamp(1rem,5vw,2rem) 6rem;}
+
+/* ── Portada del acuerdo ── */
+.portada{text-align:center; margin-bottom:clamp(2rem,6vw,3.5rem);}
+.sello{display:inline-flex; align-items:center; gap:0.55rem; padding:0.45rem 1.1rem;
+  border:1px solid var(--border); border-radius:var(--r-pill); background:rgba(255,255,255,0.7);
+  font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold2);}
+.portada h1{font-family:'Cormorant Garamond',serif; font-weight:300;
+  font-size:clamp(2.4rem,7vw,4rem); line-height:1.08; margin:1.2rem 0 0.6rem; color:var(--white);}
+.portada h1 em{font-style:italic; color:var(--gold2);}
+.portada .num{font-size:0.8rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted);}
+
+/* ── Tarjetas de papel ── */
+.bloque{background:var(--panel); border:1px solid var(--border); border-radius:var(--r-md);
+  box-shadow:var(--glow), 0 18px 50px rgba(20,45,32,0.10);
+  padding:clamp(1.4rem,4.5vw,2.6rem); margin-bottom:clamp(1.2rem,3vw,1.8rem);}
+.bloque > h2{font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(1.6rem,3.6vw,2.1rem);
+  margin:0 0 0.3rem; color:var(--white);}
+.bloque > h2 + .pie{margin:0 0 1.6rem; color:var(--muted); font-size:0.95rem;}
+.eyebrow{font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold2);
+  margin:0 0 0.4rem;}
+
+.bienvenida p{font-size:1.1rem; line-height:1.8; margin:0 0 1rem;}
+.bienvenida p:last-child{margin-bottom:0;}
+
+/* ── Cifras ── */
+.cifras{display:grid; grid-template-columns:repeat(auto-fit,minmax(145px,1fr)); gap:0.9rem;}
+.cifra{padding:1.1rem 1.2rem; border-radius:var(--r-sm); background:rgba(165,130,74,0.08);
+  border:1px solid rgba(165,130,74,0.18);}
+.cifra small{display:block; font-size:0.68rem; letter-spacing:0.13em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:0.35rem;}
+.cifra b{font-family:'Cormorant Garamond',serif; font-size:1.75rem; font-weight:600;
+  color:var(--white); line-height:1;}
+.cifra.regalo{background:rgba(13,127,87,0.09); border-color:rgba(13,127,87,0.28);}
+.cifra.regalo b{color:var(--cyan);}
+.cifra.total{background:linear-gradient(135deg, rgba(165,130,74,0.18), rgba(165,130,74,0.08));
+  border-color:var(--gold);}
+/* Los importes llevan moneda y decimales, así que necesitan más sitio que un
+   «12 h»: con el mismo cuerpo se partían en dos líneas. */
+.cifra.dinero b{font-size:1.32rem; line-height:1.25;}
+
+/* ── Calendario como línea de tiempo ── */
+.agenda{list-style:none; margin:0; padding:0;}
+.agenda li{display:grid; grid-template-columns:auto 1fr auto; gap:0.9rem; align-items:center;
+  padding:0.85rem 0; border-bottom:1px solid rgba(165,130,74,0.16);}
+.agenda li:last-child{border-bottom:0;}
+.agenda .dia{width:52px; min-width:52px; text-align:center; border-radius:12px;
+  background:rgba(255,255,255,0.85); border:1px solid var(--border); padding:0.35rem 0;}
+.agenda .dia .d{font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:600;
+  color:var(--white); display:block; line-height:1;}
+.agenda .dia .m{font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted);}
+.agenda .que{min-width:0;}
+.agenda .que b{display:block; font-size:0.98rem; color:var(--white); font-weight:600;}
+.agenda .que span{font-size:0.86rem; color:var(--muted);}
+.agenda .dur{font-size:0.8rem; letter-spacing:0.08em; color:var(--gold2); white-space:nowrap;}
+
+/* ── El documento, por secciones ── */
+.clausula{padding:1.1rem 0; border-top:1px solid rgba(165,130,74,0.16);}
+.clausula:first-child{border-top:0; padding-top:0;}
+.clausula h3{font-family:'Cormorant Garamond',serif; font-weight:600; font-size:1.2rem;
+  margin:0 0 0.5rem; color:var(--gold2);}
+.clausula p{margin:0; white-space:pre-wrap; font-size:0.99rem; line-height:1.75;}
+
+/* ── Aceptación ── */
+.firma{border:1px solid var(--gold); background:linear-gradient(135deg, rgba(165,130,74,0.10), rgba(255,255,255,0.4));}
+.casilla{display:flex; gap:0.85rem; align-items:flex-start; margin:0 0 1.1rem; cursor:pointer;}
+.casilla input{margin-top:0.2rem; width:22px; height:22px; flex:0 0 auto; accent-color:var(--gold);}
+.casilla span{font-size:0.99rem; line-height:1.65;}
+.casilla a{color:var(--gold2); font-weight:600;}
+label.campo{display:block; margin:1.4rem 0 0.45rem; font-size:0.8rem; letter-spacing:0.1em;
+  text-transform:uppercase; color:var(--muted);}
+input[type=text]{width:100%; padding:0.95rem 1.1rem; border:1px solid var(--border);
+  border-radius:var(--r-sm); background:rgba(255,255,255,0.9);
+  font-family:'Cormorant Garamond',serif; font-size:1.35rem; color:var(--white); min-height:44px;}
+input[type=text]:focus{outline:none; border-color:var(--gold); box-shadow:0 0 0 4px var(--goldx);}
+
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:0.6rem;
+  padding:1rem 2rem; border-radius:var(--r-pill); border:1px solid var(--gold);
   background:var(--gold); color:#fff; font-family:'Syne',sans-serif; font-size:0.95rem;
-  font-weight:600; cursor:pointer; min-height:44px; text-decoration:none; transition:background .25s; }
-.btn:hover:not(:disabled) { background:var(--gold2); }
-.btn:disabled { opacity:0.45; cursor:not-allowed; }
-.btn.fantasma { background:transparent; color:var(--gold2); }
-.btn.wa { background:#25D366; border-color:#25D366; }
-.aviso { padding:1rem 1.2rem; border-radius:var(--r-sm); margin:1rem 0; line-height:1.6; }
-.aviso.error { background:rgba(198,91,91,0.09); border:1px solid rgba(154,42,42,0.45); color:#8f2727; }
-.aviso.ok { background:rgba(13,127,87,0.09); border:1px solid rgba(13,127,87,0.4); color:#0a6444; }
-.sello { display:flex; gap:0.8rem; align-items:center; font-size:0.95rem; }
-.sello i { font-size:1.6rem; color:var(--cyan); }
-.banco { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1rem; }
-.banco article { border:1px solid var(--border); border-radius:var(--r-sm); padding:1rem; }
-.banco small { display:block; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase;
-  color:var(--text-light); }
-.banco b { font-size:1.05rem; letter-spacing:0.02em; }
-.oculto { display:none !important; }
-@media (max-width:640px){ .envoltura { padding-top:1.5rem; } }
+  font-weight:600; cursor:pointer; min-height:44px; text-decoration:none;
+  transition:background .25s, transform .25s, box-shadow .25s;}
+.btn:hover:not(:disabled){background:var(--gold2); transform:translateY(-2px); box-shadow:var(--glow);}
+.btn:disabled{opacity:0.4; cursor:not-allowed;}
+.btn.fantasma{background:transparent; color:var(--gold2);}
+.btn.wa{background:#25D366; border-color:#25D366;}
+.btn.cyan{background:var(--cyan); border-color:var(--cyan);}
+
+.aviso{padding:1rem 1.2rem; border-radius:var(--r-sm); margin:1rem 0;}
+.aviso.error{background:rgba(198,91,91,0.09); border:1px solid rgba(154,42,42,0.45); color:#8f2727;}
+.aviso.ok{background:rgba(13,127,87,0.09); border:1px solid rgba(13,127,87,0.4); color:#0a6444;}
+.rubrica{display:flex; gap:1rem; align-items:center;}
+.rubrica i{font-size:2rem; color:var(--cyan);}
+.rubrica .nombre{font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:var(--white);}
+
+.banco{display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:0.9rem;}
+.banco article{border:1px solid var(--border); border-radius:var(--r-sm); padding:1rem 1.1rem;
+  background:rgba(255,255,255,0.6);}
+.banco small{display:block; font-size:0.66rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted);}
+.banco b{font-size:1.02rem; letter-spacing:0.03em; color:var(--white);}
+.oculto{display:none !important;}
+
+/* ── Al imprimir o guardar como PDF ──
+   El acuerdo se convierte en un documento sobrio de papel: sin fondo 3D, sin
+   barra, sin botones y sin cortar una cláusula por la mitad. */
+@media print{
+  #vanta-bg, nav.barra, .btn, #form-aceptar, #bloque-pago, .no-imprime{display:none !important;}
+  body{background:#fff !important; color:#000;}
+  .hoja{max-width:none; padding:0;}
+  .bloque{box-shadow:none; border:1px solid #ccc; background:#fff;
+    break-inside:avoid; page-break-inside:avoid; margin-bottom:1rem;}
+  .clausula{break-inside:avoid; page-break-inside:avoid;}
+  .portada h1{font-size:2.2rem;}
+}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .btn{transition:none} }
 </style>
 </head>
 <body>
+<div id="vanta-bg"></div>
 
-<nav class="main-nav">
-  <a href="index.html" class="nav-brand">Miguel Tillero</a>
-  <div class="nav-right">
+<div class="capa">
+<nav class="barra no-imprime">
+  <a href="index.html" class="marca">Miguel Tillero</a>
+  <div class="der">
     <span id="quien"></span>
     <a href="panel-estudiante.html" class="btn fantasma" style="padding:0.5rem 1.1rem;">Mi espacio</a>
   </div>
 </nav>
 
-<div class="envoltura">
+<div class="hoja">
 
-  <div id="cargando" class="tarjeta"><p style="margin:0;">Cargando tu contrato…</p></div>
-  <div id="aviso-config" class="oculto"></div>
+  <div id="cargando" class="bloque"><p style="margin:0;">Preparando tu acuerdo…</p></div>
+  <div id="aviso-config"></div>
 
-  <div id="sin-contrato" class="tarjeta oculto">
-    <h2>Todavía no hay un contrato para ti</h2>
-    <p class="sub" style="margin:0;">Cuando acordemos las horas y el calendario, tu contrato aparecerá
-      aquí para que lo leas y lo aceptes. Si crees que ya debería estar, escríbeme.</p>
+  <div id="sin-acuerdo" class="bloque oculto">
+    <h2>Todavía no hay un acuerdo preparado</h2>
+    <p class="pie">Cuando definamos juntos las horas y el calendario, tu acuerdo aparecerá aquí
+      para que lo leas con calma y lo aceptes. Si crees que ya debería estar, escríbeme.</p>
     <a class="btn wa" id="wa-sin" href="#" target="_blank" rel="noopener">
       <i class="fab fa-whatsapp"></i> Escribirme por WhatsApp</a>
   </div>
 
   <div id="todo" class="oculto">
-    <h1>Contrato de aprendizaje</h1>
-    <p class="sub" id="encabezado"></p>
 
-    <!-- Lo contratado, de un vistazo -->
-    <section class="tarjeta">
-      <h2>Lo que estás contratando</h2>
+    <!-- 1 · Portada -->
+    <header class="portada">
+      <span class="sello"><i class="fa-solid fa-feather"></i> Acuerdo de aprendizaje</span>
+      <h1>Bienvenida,<br><em id="nombre-portada"></em></h1>
+      <p class="num" id="num-portada"></p>
+    </header>
+
+    <!-- 2 · Mensaje de bienvenida -->
+    <section class="bloque bienvenida">
+      <p id="saludo"></p>
+      <p>Este documento no es un trámite: es el mapa de lo que vamos a hacer juntos. Aquí está
+        nuestro plan de trabajo, lo que yo me comprometo a darte y lo que necesito de ti para
+        que funcione. Léelo con calma y, si algo no te cuadra, me lo dices antes de aceptar.</p>
+    </section>
+
+    <!-- 3 · Esquema operativo -->
+    <section class="bloque">
+      <p class="eyebrow">Nuestro plan de trabajo</p>
+      <h2>Lo que acordamos</h2>
+      <p class="pie" id="vigencia"></p>
       <div class="cifras" id="cifras"></div>
-      <p class="sub" id="vigencia" style="margin:1.2rem 0 0;"></p>
     </section>
 
-    <!-- El calendario acordado -->
-    <section class="tarjeta" id="bloque-clases">
-      <h2>Tu calendario</h2>
-      <div class="tabla-scroll">
-        <table class="clases">
-          <thead><tr><th>Día</th><th>Fecha</th><th>Horario</th><th>Duración</th></tr></thead>
-          <tbody id="tabla-clases"></tbody>
-        </table>
-      </div>
-      <p class="sub" style="margin:1rem 0 0; font-size:0.9rem;">Si necesitas mover una clase,
-        escríbeme con antelación y la reacomodamos.</p>
+    <!-- 4 · Calendario -->
+    <section class="bloque" id="bloque-agenda">
+      <p class="eyebrow">Fechas reservadas</p>
+      <h2>Nuestro calendario</h2>
+      <p class="pie">Hora de la Ciudad de México. Si necesitas mover una clase, avísame con
+        antelación y la reacomodamos sin problema.</p>
+      <ul class="agenda" id="agenda"></ul>
     </section>
 
-    <!-- El documento -->
-    <section class="tarjeta">
-      <h2>El documento</h2>
-      <div class="cuerpo-contrato" id="cuerpo"></div>
+    <!-- 5 · El documento -->
+    <section class="bloque">
+      <p class="eyebrow">El texto completo</p>
+      <h2>Nuestros compromisos</h2>
+      <div id="clausulas"></div>
     </section>
 
-    <!-- Aceptación -->
-    <section class="tarjeta" id="bloque-aceptar">
-      <h2>Aceptación</h2>
+    <!-- 6 · Aceptación -->
+    <section class="bloque firma" id="bloque-aceptar">
+      <p class="eyebrow">Para cerrar</p>
+      <h2>Tu aceptación</h2>
+
       <div id="ya-aceptado" class="oculto">
-        <div class="aviso ok sello">
-          <i class="fa fa-circle-check"></i>
-          <div><strong>Contrato aceptado.</strong><br><span id="detalle-aceptacion"></span></div>
+        <div class="aviso ok rubrica">
+          <i class="fa-solid fa-circle-check"></i>
+          <div>
+            <div class="nombre" id="firmante"></div>
+            <span id="detalle-aceptacion"></span>
+          </div>
         </div>
+        <p class="no-imprime" style="margin:1.2rem 0 0;">
+          <button class="btn fantasma" onclick="window.print()">
+            <i class="fa-solid fa-file-arrow-down"></i> Guardar en PDF</button>
+        </p>
       </div>
 
       <div id="form-aceptar">
         <label class="casilla">
           <input type="checkbox" id="ok-contrato">
-          <span>He leído el contrato completo y acepto sus términos: las horas, las fechas,
-                los horarios y el importe que aparecen arriba.</span>
+          <span>He leído este acuerdo completo y lo acepto: las horas, las fechas, los horarios
+                y la inversión que aparecen arriba.</span>
         </label>
         <label class="casilla">
           <input type="checkbox" id="ok-reglamento">
-          <span>He leído el <a href="reglamento.html" target="_blank" rel="noopener"><strong>reglamento
-                de las clases</strong> <i class="fa fa-arrow-up-right-from-square" style="font-size:0.75em;"></i></a>
-                y entiendo las normas de asistencia, puntualidad y cancelación.</span>
+          <span>He leído el <a href="reglamento.html" target="_blank" rel="noopener">reglamento de
+                las clases <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.72em;"></i></a>
+                y entiendo nuestros acuerdos sobre puntualidad, cámara encendida y cancelaciones.</span>
         </label>
         <label class="campo" for="nombre-firma">Escribe tu nombre completo para firmar</label>
         <input type="text" id="nombre-firma" autocomplete="name" placeholder="Nombre y apellidos">
         <div id="msg-aceptar"></div>
-        <p style="margin:1.3rem 0 0;">
+        <p style="margin:1.5rem 0 0;">
           <button class="btn" id="btn-aceptar" disabled>
-            <i class="fa fa-pen-nib"></i> Aceptar y firmar</button>
+            <i class="fa-solid fa-feather-pointed"></i> Aceptar y firmar</button>
         </p>
       </div>
     </section>
 
-    <!-- El pago: va al final y no condiciona nada -->
-    <section class="tarjeta oculto" id="bloque-pago">
-      <h2>Cómo pagar</h2>
-      <p class="sub">Tu lugar ya está reservado y puedes empezar las clases: el pago no te bloquea
-        nada. Cuando te venga bien, usa cualquiera de estas opciones y avísame.</p>
+    <!-- 7 · El pago, al final y sin condicionar nada -->
+    <section class="bloque oculto no-imprime" id="bloque-pago">
+      <p class="eyebrow">Cuando te venga bien</p>
+      <h2>Cómo hacer tu pago</h2>
+      <p class="pie">Tu lugar ya está reservado y puedes empezar las clases: el pago no te bloquea
+        nada. Elige la vía que te resulte más cómoda.</p>
       <div class="banco">
-        <article>
-          <small>Transferencia · México · albo</small>
-          <b>7211 8010 0037 9159 95</b>
-          <small style="margin-top:0.5rem;">Beneficiario</small>
-          <b style="font-size:0.95rem;">Miguel David Tillero Álvarez</b>
-        </article>
-        <article>
-          <small>Transferencia · México · Nu</small>
-          <b>6381 8000 0116 2530 75</b>
-          <small style="margin-top:0.5rem;">Beneficiario</small>
-          <b style="font-size:0.95rem;">Miguel David Tillero Álvarez</b>
-        </article>
-        <article>
-          <small>Desde el exterior · Remitly</small>
-          <b>miguelt4540</b>
+        <article><small>Transferencia · albo</small><b>7211 8010 0037 9159 95</b>
+          <small style="margin-top:0.6rem;">Beneficiario</small>
+          <b style="font-size:0.92rem;">Miguel David Tillero Álvarez</b></article>
+        <article><small>Transferencia · Nu</small><b>6381 8000 0116 2530 75</b>
+          <small style="margin-top:0.6rem;">Beneficiario</small>
+          <b style="font-size:0.92rem;">Miguel David Tillero Álvarez</b></article>
+        <article><small>Desde el exterior · Remitly</small><b>miguelt4540</b>
           <a href="https://remitly.com/pay/miguelt4540" target="_blank" rel="noopener"
-             style="display:inline-block;margin-top:0.5rem;font-size:0.88rem;color:var(--gold2);">
-            remitly.com/pay/miguelt4540</a>
-        </article>
+             style="display:inline-block;margin-top:0.5rem;font-size:0.85rem;color:var(--gold2);">
+             remitly.com/pay/miguelt4540</a></article>
       </div>
 
-      <h2 style="margin-top:2rem;">Tu comprobante</h2>
-      <p class="sub">Súbelo aquí o mándamelo por WhatsApp, lo que te resulte más cómodo.</p>
+      <h2 style="margin-top:2.2rem;">Tu comprobante</h2>
+      <p class="pie">Súbelo aquí o mándamelo por WhatsApp, lo que prefieras.</p>
       <p style="display:flex; gap:0.8rem; flex-wrap:wrap; align-items:center;">
-        <input type="file" id="archivo-comprobante" accept="image/*,application/pdf"
-               style="font-size:0.9rem;">
-        <button class="btn" id="btn-subir"><i class="fa fa-upload"></i> Subir comprobante</button>
+        <input type="file" id="archivo-comprobante" accept="image/*,application/pdf" style="font-size:0.9rem;">
+        <button class="btn cyan" id="btn-subir"><i class="fa-solid fa-upload"></i> Subir comprobante</button>
         <a class="btn wa" id="wa-pago" href="#" target="_blank" rel="noopener">
           <i class="fab fa-whatsapp"></i> Enviarlo por WhatsApp</a>
       </p>
@@ -206,245 +289,278 @@ input[type=text] { width:100%; padding:0.85rem 1rem; border:1px solid var(--bord
     </section>
   </div>
 </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="assets/js/supabase-config.js?v=1790462574"></script>
 <script src="assets/js/auth-helpers.js?v=1790462574"></script>
 <script>
-/* Contrato de aprendizaje.
+/* Acuerdo de aprendizaje.
  *
- * Se lee lo contratado, el calendario y el documento; se aceptan dos cosas por
- * separado —el contrato y la lectura del reglamento— y solo entonces aparece
- * cómo pagar. El pago va al final a propósito: no condiciona el acceso ni las
- * clases, así que nada de esta página lo exige.
+ * El texto que vale es el que quedó congelado en la base el día que se emitió;
+ * aquí solo se presenta bien. Las cláusulas se parten por sus títulos
+ * numerados para poder maquetarlas, pero no se reescribe ni una palabra.
+ *
+ * La aceptación son tres gestos, no uno: el acuerdo, el reglamento y el
+ * nombre escrito. Y el pago aparece al final, después de firmar, porque no
+ * condiciona ni el acceso ni las clases.
  */
 const WA = '529671836405';
 let contratacion = null, contrato = null, perfil = null;
 
-function el(id) { return document.getElementById(id); }
-function msg(destino, texto, tipo) {
+function el(id){ return document.getElementById(id); }
+function msg(destino, texto, tipo){
   destino.innerHTML = '<div class="aviso ' + tipo + '"></div>';
   destino.firstChild.textContent = texto;
 }
 const DIAS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
-function fechaLarga(iso) {
-  const [a, m, d] = iso.split('-').map(Number);
-  return new Date(a, m - 1, d).toLocaleDateString('es-MX',
-    { day: 'numeric', month: 'long', year: 'numeric' });
-}
-/* En la tabla la fecha va compacta —«4 nov 2026»— porque con el mes entero
-   la columna no cabe en un teléfono estrecho. En el resumen y la vigencia,
-   donde hay sitio, se escribe completa. */
-function fechaCorta(iso) {
-  const [a, m, d] = iso.split('-').map(Number);
-  return new Date(a, m - 1, d).toLocaleDateString('es-MX',
-    { day: 'numeric', month: 'short', year: 'numeric' }).replace(/\./g, '');
-}
-function diaDe(iso) {
-  const [a, m, d] = iso.split('-').map(Number);
-  return DIAS[new Date(a, m - 1, d).getDay()];
-}
-function hhmm(t) { return (t || '').slice(0, 5); }
-function dinero(n, moneda) {
-  return Number(n).toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-    + ' ' + (moneda || 'MXN');
-}
+function aFecha(iso){ const [a,m,d] = iso.split('-').map(Number); return new Date(a, m-1, d); }
+function fechaLarga(iso){ return aFecha(iso).toLocaleDateString('es-MX',
+  { day:'numeric', month:'long', year:'numeric' }); }
+function hhmm(t){ return (t||'').slice(0,5); }
+function dinero(n, moneda){ return Number(n).toLocaleString('es-MX',
+  { minimumFractionDigits:2, maximumFractionDigits:2 }) + ' ' + (moneda||'MXN'); }
+function texto(tag, clase, t){ const n = document.createElement(tag);
+  if (clase) n.className = clase; if (t !== undefined) n.textContent = t; return n; }
 
-async function iniciar() {
-  if (!supabaseConfigurado) { mostrarAvisoSinConfigurar('aviso-config'); el('cargando').classList.add('oculto'); return; }
+async function iniciar(){
+  if (!supabaseConfigurado){ mostrarAvisoSinConfigurar('aviso-config'); el('cargando').classList.add('oculto'); return; }
   const contexto = await requerirSesion();
   if (!contexto) return;
   perfil = contexto.perfil;
   el('quien').textContent = perfil.nombre_completo || '';
 
-  /* La política de la base ya limita lo que se ve a lo propio: aquí no hace
-     falta filtrar por estudiante, y si alguien manipula la consulta no
-     obtiene nada ajeno. */
-  const { data: cs, error } = await supabaseClient
-    .from('contrataciones')
-    .select('*')
-    .not('estado', 'in', '("cancelada")')
-    .order('fecha_inicio', { ascending: false })
-    .limit(1);
+  /* La política de la base ya limita lo que se ve a lo propio. */
+  const { data: cs, error } = await supabaseClient.from('contrataciones')
+    .select('*').not('estado','in','("cancelada")')
+    .order('fecha_inicio',{ ascending:false }).limit(1);
 
   el('cargando').classList.add('oculto');
-
-  if (error) { el('sin-contrato').classList.remove('oculto'); prepararWa('wa-sin'); return; }
-  if (!cs || !cs.length) { el('sin-contrato').classList.remove('oculto'); prepararWa('wa-sin'); return; }
+  if (error || !cs || !cs.length){
+    el('sin-acuerdo').classList.remove('oculto');
+    el('wa-sin').href = 'https://wa.me/' + WA + '?text=' +
+      encodeURIComponent('Hola Miguel, entré a ver mi acuerdo de aprendizaje y aún no aparece.');
+    return;
+  }
 
   contratacion = cs[0];
   const [{ data: clases }, { data: ks }] = await Promise.all([
-    supabaseClient.from('clases').select('*')
-      .eq('contratacion_id', contratacion.id).neq('estado', 'cancelada')
-      .order('fecha').order('hora_inicio'),
+    supabaseClient.from('clases').select('*').eq('contratacion_id', contratacion.id)
+      .neq('estado','cancelada').order('fecha').order('hora_inicio'),
     supabaseClient.from('contratos').select('*').eq('contratacion_id', contratacion.id).limit(1)
   ]);
   contrato = (ks && ks[0]) || null;
-
   pintar(clases || []);
   el('todo').classList.remove('oculto');
 }
 
-function pintar(clases) {
+function pintar(clases){
   const c = contratacion;
-  el('encabezado').textContent =
-    (perfil.nombre_completo || '') + ' · ' + (contrato ? 'Contrato ' + contrato.numero : 'Pendiente de emitir');
+  const nombre = perfil.nombre_completo || '';
+  el('nombre-portada').textContent = nombre.split(' ')[0] || nombre;
+  el('num-portada').textContent = contrato ? contrato.numero : 'Pendiente de emitir';
+
+  el('saludo').textContent = '¡Qué gusto tenerte aquí, ' + (nombre.split(' ')[0] || '') +
+    '! Felicito tu decisión de aprender francés y te agradezco la confianza. ' +
+    'A partir del ' + fechaLarga(c.fecha_inicio) + ' empezamos.';
 
   const regalo = Number(c.horas_totales) - Number(c.horas_pagadas);
-  el('cifras').innerHTML =
-    tarjetaCifra('Horas que pagas', Number(c.horas_pagadas) + ' h') +
-    tarjetaCifra('Horas que recibes', Number(c.horas_totales) + ' h', regalo > 0) +
-    (regalo > 0 ? tarjetaCifra('De regalo', regalo + ' h', true) : '') +
-    tarjetaCifra('Precio por hora', dinero(c.precio_hora, c.moneda)) +
-    tarjetaCifra('Total a pagar', dinero(c.importe_total, c.moneda));
+  const cifras = el('cifras'); cifras.innerHTML = '';
+  cifras.appendChild(cifra('Horas que contratas', Number(c.horas_pagadas) + ' h'));
+  cifras.appendChild(cifra('Horas que recibes', Number(c.horas_totales) + ' h', regalo > 0 ? 'regalo' : ''));
+  if (regalo > 0) cifras.appendChild(cifra('De regalo', regalo + ' h', 'regalo'));
+  cifras.appendChild(cifra('Por hora', dinero(c.precio_hora, c.moneda), 'dinero'));
+  cifras.appendChild(cifra('Inversión total', dinero(c.importe_total, c.moneda), 'total dinero'));
 
+  const MODO = { en_linea:'clases en línea', presencial:'clases presenciales', mixta:'en línea y presencial' };
   el('vigencia').textContent = 'Del ' + fechaLarga(c.fecha_inicio) +
-    (c.fecha_fin ? ' al ' + fechaLarga(c.fecha_fin) : '') +
-    ' · ' + ({ en_linea: 'en línea', presencial: 'presencial', mixta: 'en línea y presencial' }[c.modalidad] || c.modalidad);
+    (c.fecha_fin ? ' al ' + fechaLarga(c.fecha_fin) : '') + ' · ' + (MODO[c.modalidad] || c.modalidad);
 
-  if (!clases.length) {
-    el('bloque-clases').classList.add('oculto');
-  } else {
-    el('tabla-clases').innerHTML = clases.map(function (k) {
-      const h = (new Date('1970-01-01T' + k.hora_fin) - new Date('1970-01-01T' + k.hora_inicio)) / 3600000;
-      const td = [diaDe(k.fecha), fechaCorta(k.fecha), hhmm(k.hora_inicio) + ' – ' + hhmm(k.hora_fin), h + ' h'];
-      return '<tr>' + td.map(function (v) {
-        const c = document.createElement('td'); c.textContent = v; return c.outerHTML;
-      }).join('') + '</tr>';
-    }).join('');
+  /* Calendario */
+  if (!clases.length){ el('bloque-agenda').classList.add('oculto'); }
+  else {
+    const lista = el('agenda'); lista.innerHTML = '';
+    clases.forEach(function(k){
+      const f = aFecha(k.fecha);
+      const h = (new Date('1970-01-01T'+k.hora_fin) - new Date('1970-01-01T'+k.hora_inicio)) / 3600000;
+      const li = document.createElement('li');
+      const dia = texto('div','dia');
+      dia.appendChild(texto('span','d', String(f.getDate())));
+      dia.appendChild(texto('span','m', f.toLocaleDateString('es-MX',{month:'short'}).replace('.','')));
+      const que = texto('div','que');
+      que.appendChild(texto('b','', DIAS[f.getDay()]));
+      que.appendChild(texto('span','', hhmm(k.hora_inicio) + ' – ' + hhmm(k.hora_fin)));
+      li.appendChild(dia); li.appendChild(que); li.appendChild(texto('div','dur', h + ' h'));
+      lista.appendChild(li);
+    });
   }
 
-  el('cuerpo').textContent = contrato ? contrato.cuerpo
-    : 'El documento todavía no está emitido. En cuanto lo prepare aparecerá aquí.';
-
-  if (contrato && contrato.aceptado_en) {
-    el('form-aceptar').classList.add('oculto');
-    el('ya-aceptado').classList.remove('oculto');
-    el('detalle-aceptacion').textContent =
-      'Firmado por ' + (contrato.aceptado_nombre || '') + ' el ' +
-      new Date(contrato.aceptado_en).toLocaleString('es-MX') +
-      (contrato.reglamento_aceptado_en ? ' · reglamento confirmado' : '');
-    mostrarPago();
-  } else if (!contrato) {
+  /* El texto congelado, partido por sus títulos numerados para maquetarlo.
+     Si algún día cambia el formato, cae entero en un solo bloque y se lee
+     igual: nunca se pierde contenido. */
+  const caja = el('clausulas'); caja.innerHTML = '';
+  if (!contrato){
+    caja.appendChild(texto('p','', 'El documento todavía no está emitido. En cuanto lo prepare aparecerá aquí.'));
     el('bloque-aceptar').classList.add('oculto');
+  } else {
+    const partes = contrato.cuerpo.split(/\n(?=\d+\.\s+[A-ZÁÉÍÓÚÑ])/);
+    partes.forEach(function(p){
+      const corte = p.indexOf('\n');
+      const cab = corte > 0 ? p.slice(0, corte).trim() : '';
+      const esTitulo = /^\d+\.\s+[A-ZÁÉÍÓÚÑ]/.test(cab);
+      const d = texto('div','clausula');
+      if (esTitulo){
+        d.appendChild(texto('h3','', cab));
+        d.appendChild(texto('p','', p.slice(corte + 1).trim()));
+      } else {
+        d.appendChild(texto('p','', p.trim()));
+      }
+      caja.appendChild(d);
+    });
   }
+
+  if (contrato && contrato.aceptado_en) mostrarFirmado();
 }
 
-function tarjetaCifra(rotulo, valor, destacar) {
-  const d = document.createElement('div');
-  d.className = 'cifra' + (destacar ? ' regalo' : '');
-  const s = document.createElement('small'); s.textContent = rotulo;
-  const b = document.createElement('b'); b.textContent = valor;
-  d.appendChild(s); d.appendChild(b);
-  return d.outerHTML;
+function cifra(rotulo, valor, extra){
+  const d = texto('div','cifra' + (extra ? ' ' + extra : ''));
+  d.appendChild(texto('small','', rotulo));
+  d.appendChild(texto('b','', valor));
+  return d;
 }
 
-/* El botón solo se enciende con las dos casillas marcadas y el nombre escrito:
-   las tres cosas son la firma, no un trámite. */
-function revisarFirma() {
+function mostrarFirmado(){
+  el('form-aceptar').classList.add('oculto');
+  el('ya-aceptado').classList.remove('oculto');
+  el('firmante').textContent = contrato.aceptado_nombre || '';
+  el('detalle-aceptacion').textContent = 'Aceptado el ' +
+    new Date(contrato.aceptado_en).toLocaleString('es-MX') +
+    (contrato.reglamento_aceptado_en ? ' · reglamento confirmado' : '');
+  mostrarPago();
+}
+
+/* Las tres cosas juntas son la firma, no un trámite. */
+function revisarFirma(){
   el('btn-aceptar').disabled = !(el('ok-contrato').checked && el('ok-reglamento').checked
     && el('nombre-firma').value.trim().length >= 3);
 }
-['ok-contrato', 'ok-reglamento'].forEach(function (id) {
-  el(id).addEventListener('change', revisarFirma);
-});
+['ok-contrato','ok-reglamento'].forEach(function(id){ el(id).addEventListener('change', revisarFirma); });
 el('nombre-firma').addEventListener('input', revisarFirma);
 
-el('btn-aceptar').addEventListener('click', async function () {
+el('btn-aceptar').addEventListener('click', async function(){
   const b = el('btn-aceptar');
   b.disabled = true; b.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Firmando…';
   const { error } = await supabaseClient.rpc('aceptar_contrato', {
     p_contrato: contrato.id,
     p_nombre: el('nombre-firma').value.trim(),
     p_acepta_reglamento: true,
-    p_reglamento_version: document.querySelector('meta[name="reglamento-version"]')?.content || 'vigente',
-    p_agente: navigator.userAgent.slice(0, 250)
+    p_reglamento_version: 'vigente',
+    p_agente: navigator.userAgent.slice(0,250)
   });
-  if (error) {
+  if (error){
     msg(el('msg-aceptar'), 'No se pudo firmar: ' + error.message, 'error');
-    b.disabled = false; b.innerHTML = '<i class="fa fa-pen-nib"></i> Aceptar y firmar';
+    b.disabled = false; b.innerHTML = '<i class="fa-solid fa-feather-pointed"></i> Aceptar y firmar';
     return;
   }
   const { data } = await supabaseClient.from('contratos').select('*').eq('id', contrato.id).limit(1);
   contrato = (data && data[0]) || contrato;
-  el('form-aceptar').classList.add('oculto');
-  el('ya-aceptado').classList.remove('oculto');
-  el('detalle-aceptacion').textContent = 'Firmado por ' + (contrato.aceptado_nombre || '') +
-    ' el ' + new Date(contrato.aceptado_en).toLocaleString('es-MX') + ' · reglamento confirmado';
-  mostrarPago();
-  el('bloque-pago').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (!contrato.aceptado_en){ contrato.aceptado_en = new Date().toISOString();
+    contrato.aceptado_nombre = el('nombre-firma').value.trim(); }
+  mostrarFirmado();
+  el('bloque-pago').scrollIntoView({ behavior:'smooth', block:'start' });
 });
 
-function prepararWa(id, texto) {
-  const a = el(id);
-  if (a) a.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(
-    texto || 'Hola Miguel, te escribo desde mi espacio de la plataforma.');
-}
-
-function mostrarPago() {
+function mostrarPago(){
   el('bloque-pago').classList.remove('oculto');
-  prepararWa('wa-pago', 'Hola Miguel, ya firmé mi contrato ' +
-    (contrato ? contrato.numero : '') + ' y te mando el comprobante de pago.');
+  el('wa-pago').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(
+    'Hola Miguel, ya firmé mi acuerdo ' + (contrato ? contrato.numero : '') +
+    ' y te mando el comprobante de pago.');
   listarComprobantes();
 }
 
-async function listarComprobantes() {
-  const { data } = await supabaseClient.from('comprobantes_pago')
-    .select('*').eq('contratacion_id', contratacion.id).order('enviado_en', { ascending: false });
-  if (!data || !data.length) { el('lista-comprobantes').innerHTML = ''; return; }
-  const ESTADO = { recibido: 'recibido, pendiente de revisar', verificado: 'verificado', rechazado: 'rechazado' };
-  el('lista-comprobantes').innerHTML = '<p class="sub" style="margin:1.2rem 0 0.4rem;">Lo que has enviado:</p>'
-    + '<ul style="margin:0; padding-left:1.1rem; line-height:1.9;">' + data.map(function (p) {
-      const li = document.createElement('li');
-      li.textContent = new Date(p.enviado_en).toLocaleDateString('es-MX') + ' · ' +
-        (p.via === 'whatsapp' ? 'enviado por WhatsApp' : 'archivo subido') +
-        ' · ' + (ESTADO[p.estado] || p.estado);
-      return li.outerHTML;
-    }).join('') + '</ul>';
+async function listarComprobantes(){
+  const { data } = await supabaseClient.from('comprobantes_pago').select('*')
+    .eq('contratacion_id', contratacion.id).order('enviado_en',{ ascending:false });
+  const caja = el('lista-comprobantes'); caja.innerHTML = '';
+  if (!data || !data.length) return;
+  const ESTADO = { recibido:'recibido, pendiente de revisar', verificado:'verificado', rechazado:'rechazado' };
+  caja.appendChild(texto('p','pie','Lo que has enviado:'));
+  const ul = document.createElement('ul'); ul.style.cssText = 'margin:0;padding-left:1.1rem;line-height:1.9';
+  data.forEach(function(p){
+    ul.appendChild(texto('li','', new Date(p.enviado_en).toLocaleDateString('es-MX') + ' · ' +
+      (p.via === 'whatsapp' ? 'avisado por WhatsApp' : 'archivo subido') + ' · ' +
+      (ESTADO[p.estado] || p.estado)));
+  });
+  caja.appendChild(ul);
 }
 
-el('btn-subir').addEventListener('click', async function () {
+el('btn-subir').addEventListener('click', async function(){
   const f = el('archivo-comprobante').files[0];
-  if (!f) { msg(el('msg-pago'), 'Elige primero un archivo.', 'error'); return; }
-  if (f.size > 8 * 1024 * 1024) { msg(el('msg-pago'), 'El archivo pasa de 8 MB. Mándamelo por WhatsApp.', 'error'); return; }
+  if (!f){ msg(el('msg-pago'), 'Elige primero un archivo.', 'error'); return; }
+  if (f.size > 8*1024*1024){ msg(el('msg-pago'), 'El archivo pasa de 8 MB. Mándamelo por WhatsApp.', 'error'); return; }
   const b = el('btn-subir');
   b.disabled = true; b.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Subiendo…';
-
-  const ruta = contratacion.id + '/' + Date.now() + '-' + f.name.replace(/[^\w.\-]/g, '_');
+  const ruta = contratacion.id + '/' + Date.now() + '-' + f.name.replace(/[^\w.\-]/g,'_');
   const { error: errSubida } = await supabaseClient.storage.from('comprobantes').upload(ruta, f);
-  if (errSubida) {
-    /* Si el almacén no está creado o rechaza el archivo, no se deja a la
-       persona sin salida: queda WhatsApp, que es igual de válido. */
+  if (errSubida){
+    /* Nunca se deja a la persona sin salida: queda WhatsApp, igual de válido. */
     msg(el('msg-pago'), 'No pude guardar el archivo (' + errSubida.message +
       '). Mándamelo por WhatsApp con el botón verde y listo.', 'error');
-    b.disabled = false; b.innerHTML = '<i class="fa fa-upload"></i> Subir comprobante';
-    return;
+  } else {
+    const { error } = await supabaseClient.from('comprobantes_pago').insert({
+      contratacion_id: contratacion.id, via:'archivo', archivo: ruta,
+      monto: contratacion.importe_total, moneda: contratacion.moneda, estado:'recibido' });
+    if (error) msg(el('msg-pago'), 'No se pudo registrar: ' + error.message, 'error');
+    else { msg(el('msg-pago'), 'Recibido. Lo reviso y te confirmo.', 'ok');
+           el('archivo-comprobante').value = ''; listarComprobantes(); }
   }
-  const { error } = await supabaseClient.from('comprobantes_pago').insert({
-    contratacion_id: contratacion.id, via: 'archivo', archivo: ruta,
-    monto: contratacion.importe_total, moneda: contratacion.moneda, estado: 'recibido'
-  });
-  if (error) { msg(el('msg-pago'), 'No se pudo registrar: ' + error.message, 'error'); }
-  else {
-    msg(el('msg-pago'), 'Recibido. Lo reviso y te confirmo.', 'ok');
-    el('archivo-comprobante').value = '';
-    listarComprobantes();
-  }
-  b.disabled = false; b.innerHTML = '<i class="fa fa-upload"></i> Subir comprobante';
+  b.disabled = false; b.innerHTML = '<i class="fa-solid fa-upload"></i> Subir comprobante';
 });
 
-/* Avisar de que el comprobante va por WhatsApp deja constancia aquí también,
-   para que no dependa de acordarse de mirar el teléfono. */
-el('wa-pago').addEventListener('click', async function () {
+el('wa-pago').addEventListener('click', async function(){
   await supabaseClient.from('comprobantes_pago').insert({
-    contratacion_id: contratacion.id, via: 'whatsapp',
-    monto: contratacion.importe_total, moneda: contratacion.moneda, estado: 'recibido',
-    nota: 'La persona indicó que envía el comprobante por WhatsApp.'
-  });
+    contratacion_id: contratacion.id, via:'whatsapp',
+    monto: contratacion.importe_total, moneda: contratacion.moneda, estado:'recibido',
+    nota:'La persona indicó que envía el comprobante por WhatsApp.' });
   listarComprobantes();
 });
 
 iniciar();
+</script>
+
+<script>
+/* Fondo 3D: el mismo de las demás páginas. Se pide después de la carga para
+   no retrasar el texto, y no se enciende en equipos modestos, con ahorro de
+   datos o si se pidió menos movimiento — ahí queda el degradado esmeralda. */
+function fondo3DPermitido(){
+  try{
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    var c = navigator.connection;
+    if (c && (c.saveData || /(^|-)2g$/.test(c.effectiveType || ''))) return false;
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) return false;
+    if (navigator.deviceMemory && navigator.deviceMemory <= 2) return false;
+  } catch(e){}
+  return true;
+}
+function cargar(src, listo){ var s = document.createElement('script'); s.src = src; s.onload = listo;
+  document.head.appendChild(s); }
+window.addEventListener('load', function(){
+  if (!fondo3DPermitido()) return;
+  cargar('https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js', function(){
+    cargar('https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js', function(){
+      if (typeof VANTA === 'undefined' || typeof THREE === 'undefined') return;
+      try{
+        var movil = window.innerWidth < 768;
+        VANTA.NET({ el:'#vanta-bg', THREE: window.THREE,
+          mouseControls:true, touchControls:true, gyroControls:false,
+          minHeight:200, minWidth:200, scale:1.0, scaleMobile:0.6,
+          color:0xa5824a, backgroundColor:0xbcdcc9,
+          points: movil ? 5 : 8, maxDistance: movil ? 17 : 21,
+          spacing: movil ? 25 : 21, showDots:true });
+      } catch(e){}
+    });
+  });
+});
 </script>
 </body>
 </html>
