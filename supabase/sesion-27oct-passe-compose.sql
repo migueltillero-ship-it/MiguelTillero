@@ -102,13 +102,21 @@ select distinct i.estudiante_id,
   'fermée jusqu''à ce que la précédente soit faite en entier et à 80 %. On ne '
   'peut donc pas cliquer au hasard pour avancer : il faut comprendre, et '
   'c''est le but.\n\n'
-  'L''ordre est celui de la grammaire elle-même : reconnaître le passé '
-  'composé, choisir entre être et avoir, former le participe passé, accorder, '
-  'nier, et enfin raconter votre journée d''hier.\n\n'
-  'À la dernière étape, deux exercices de TV5MONDE à faire aussi : '
+  -- En dos tandas a propósito. Dieciocho ejercicios para mañana es pedir que
+  -- se hagan mal y de madrugada; las tres primeras etapas son justo la base
+  -- que hace falta para la clase siguiente, y el resto llega de sobra para
+  -- la evaluación. Dice lo mismo que el mensaje que reciben por WhatsApp:
+  -- dos textos que se contradicen es lo que hace que no se crea ninguno.
+  'Pour jeudi : les étapes 1, 2 et 3 — reconnaître le passé composé, '
+  'choisir entre être et avoir, former le participe passé. Vingt minutes, '
+  'pas plus.\n\n'
+  'Pour le week-end : les étapes 4 à 7 — l''accord, la négation, et '
+  'raconter votre journée d''hier — avec les deux exercices de TV5MONDE : '
   '« Le lycée, c''est fini » (A1) et « Reconnaître la forme du '
-  'passé composé » (A2). Notez vos résultats dans le dernier exercice de '
-  'la fiche et apportez vos questions en classe.',
+  'passé composé » (A2). Notez vos résultats dans le dernier exercice '
+  'de la fiche.\n\n'
+  'Si une étape ne s''ouvre pas, c''est normal : cliquez sur « Recommencer » '
+  'et refaites les exercices en rouge. Apportez vos questions en classe.',
   'aviso',
   -- Hay que decir el tipo: con «select distinct» Postgres toma un null suelto
   -- por texto y no por fecha.
