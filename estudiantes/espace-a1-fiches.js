@@ -3,16 +3,19 @@
    ═══════════════════════════════════════════════════════════════════════
    Lo trabajado en clase: los adjetivos posesivos, los pronombres posesivos,
    los números —con las reglas de ortografía y los difíciles, 70, 80, 90—,
-   y la concordancia de género y número con sus excepciones.
+   la concordancia de género y número con sus excepciones, y el passé
+   composé, que empezó el 27 de octubre.
 
-   Cada ficha tiene dos partes: «Lo que ya viste», para volver sobre lo de
-   clase por otro camino, y «Un paso más», con lo que no dio tiempo a ver.
+   Las seis primeras fichas tienen dos partes: «Lo que ya viste», para volver
+   sobre lo de clase por otro camino, y «Un paso más», con lo que no dio
+   tiempo a ver. La séptima funciona de otra manera: siete etapas cerradas
+   con llave, cada una abierta solo cuando la anterior está entera y al 80 %.
 
    No hay nombres ni datos de estudiantes en este archivo: se publica con el
    sitio. Los números de teléfono de los ejercicios están inventados.
 
    Tipos de ejercicio (motor en assets/js/fichas-ejercicios.js):
-     qcm · trous · tri · paires · transfo · dictee · prod
+     qcm · trous · tri · paires · transfo · dictee · prod · ordre
    ═══════════════════════════════════════════════════════════════════════ */
 
 const FICHAS = [];
@@ -802,5 +805,496 @@ FICHAS.push({
            + 'travailleurs. Mes amies Lucía et Ana sont mexicaines aussi, et elles sont '
            + 'très gentilles. Mon numéro, c’est le zéro un, quarante-cinq, soixante-dix-huit, '
            + 'quatre-vingt-treize, vingt. Et toi, tu as des frères et sœurs&nbsp;?' }
+  ]
+});
+
+
+/* ───────────────────────────────────────────────────────────────────────
+   7 · LE PASSÉ COMPOSÉ — clase del 27 de octubre
+   ---------------------------------------------------------------------
+   Siete etapas cerradas con llave. No se abre la siguiente hasta tener
+   la anterior entera y al 80 %: es lo que impide «pasar» una gramática
+   clicando hasta acertar.
+
+   El orden no es decorativo, es el de la adquisición:
+     reconocer → elegir el auxiliar → formar el participio → acordar →
+     negar → contar → salir de la plataforma (TV5MONDE).
+   La producción llega al final, cuando las piezas están.
+   ─────────────────────────────────────────────────────────────────────── */
+FICHAS.push({
+  id: 'passe-compose',
+  tipo: 'outil',
+  ciclo: 'Oct. 2026 · A1.4',
+  fecha: 'Fiche 7 · Séance du 27 octobre',
+  titulo: 'Le passé composé, étape par étape',
+  resumen: 'Siete etapas que se abren una a una: reconocerlo, elegir el auxiliar, formar el '
+         + 'participio, acordar, negar y contar. No se avanza sin superar la anterior.',
+  intro: 'Lo de la clase del 27, para asentarlo solo. Cada etapa se abre cuando la anterior '
+       + 'está completa y con un 80 % — y no por capricho: si la base no está, lo que sigue '
+       + 'no sirve de nada. Al final hay dos actividades de TV5MONDE que también hay que hacer.',
+
+  secciones: [
+    /* 0 ─ IDENTIFICACIÓN ─────────────────────────────────────────────── */
+    { titulo: 'Étape 1 · Le reconnaître',
+      sous: 'Antes de formarlo hay que verlo. Un passé composé tiene siempre dos partes.',
+      rappels: [
+        { titulo: 'Deux parties, toujours',
+          html: `<p>El <b>passé composé</b> es un tiempo <b>compuesto</b>: nunca es una sola
+          palabra.</p>
+          <div class="ex"><b>auxiliaire</b> (être o avoir, <u>en présent</u>)
+          + <b>participe passé</b><br>
+          il <b>a</b> appelé &nbsp;·&nbsp; il <b>est</b> allé &nbsp;·&nbsp;
+          nous <b>avons</b> mangé &nbsp;·&nbsp; elle <b>est</b> partie</div>
+          <p>Sirve para contar un acontecimiento <b>pasado, terminado y limitado en el
+          tiempo</b>: lo que hiciste ayer, lo que pasó el sábado.</p>
+          <div class="piege">Cuidado con el <b>futur proche</b>, que también tiene dos partes:
+          <i>il <b>va</b> aller</i> (mañana) ≠ <i>il <b>est</b> allé</i> (ayer). Lo que cambia
+          es el auxiliar, no el resto.</div>` }
+      ],
+      ejercicios: [0, 1, 2]
+    },
+
+    /* 1 ─ EL AUXILIAR ────────────────────────────────────────────────── */
+    { titulo: 'Étape 2 · Être ou avoir ?',
+      sous: 'La pregunta que decide todo. Hay una lista corta que hay que saberse.',
+      requiere: { de: 0, pct: 80 },
+      rappels: [
+        { titulo: 'La maison d’être',
+          html: `<p>Con la <b>mayoría</b> de los verbos el auxiliar es <b>avoir</b>.
+          Pero hay un grupo que va con <b>être</b>, y son los diez de la casa:</p>
+          <div class="ex"><b>aller · venir · arriver · partir · entrer · sortir ·
+          monter · descendre · rester · tomber</b></div>
+          <p>Y además: <b>naître, mourir, devenir, retourner, passer</b> — y
+          <b>todos los verbos pronominales</b> (se lever, se promener, se coucher).</p>
+          <div class="piege">Casi todos son verbos de <b>movimiento</b> o de <b>cambio de
+          estado</b>. No es una regla perfecta, pero ayuda: <i>manger</i> no te mueve de
+          sitio; <i>partir</i>, sí.</div>` }
+      ],
+      ejercicios: [3, 4, 5]
+    },
+
+    /* 2 ─ EL PARTICIPIO ──────────────────────────────────────────────── */
+    { titulo: 'Étape 3 · Former le participe passé',
+      sous: 'Tres familias: las dos regulares, y la que hay que aprender de memoria.',
+      requiere: { de: 1, pct: 80 },
+      rappels: [
+        { titulo: 'Les trois familles',
+          html: `<ul>
+            <li>Verbos en <b>-er</b> → <b>-é</b>: parler → parl<b>é</b>,
+                manger → mang<b>é</b>, aller → all<b>é</b>.</li>
+            <li>Verbos en <b>-ir</b> → <b>-i</b>: finir → fin<b>i</b>,
+                partir → part<b>i</b>, dormir → dorm<b>i</b>.</li>
+            <li>Los demás (<b>-re</b>, <b>-oir</b>) no tienen regla: voir → <b>vu</b>,
+                pouvoir → <b>pu</b>, connaître → <b>connu</b>, apprendre → <b>appris</b>,
+                faire → <b>fait</b>, prendre → <b>pris</b>.</li>
+          </ul>
+          <div class="ex">Los dos más útiles de todos: <b>être → été</b> y
+          <b>avoir → eu</b> (que se pronuncia como la <i>u</i> de <i>tu</i>).</div>
+          <div class="piege"><b>Aller</b> engaña: lleva <i>être</i> como auxiliar, pero su
+          participio es regular, <b>allé</b>. Elegir el auxiliar y formar el participio son
+          dos decisiones distintas.</div>` }
+      ],
+      ejercicios: [6, 7, 8]
+    },
+
+    /* 3 ─ EL ACUERDO ─────────────────────────────────────────────────── */
+    { titulo: 'Étape 4 · L’accord avec être',
+      sous: 'Con être, el participio concuerda con el sujeto. Con avoir, no.',
+      requiere: { de: 2, pct: 80 },
+      rappels: [
+        { titulo: 'La règle, en une ligne',
+          html: `<p>Con <b>être</b>, el participio se porta como un adjetivo: concuerda con
+          el <b>sujeto</b>.</p>
+          <div class="ex">Il est all<b>é</b> &nbsp;·&nbsp; Elle est all<b>ée</b> &nbsp;·&nbsp;
+          Ils sont all<b>és</b> &nbsp;·&nbsp; Elles sont all<b>ées</b></div>
+          <p>Con <b>avoir</b>, <b>no</b> hay acuerdo con el sujeto:</p>
+          <div class="ex">Elle a mang<b>é</b> &nbsp;·&nbsp; Elles ont mang<b>é</b>
+          &nbsp; <i>(nunca «&nbsp;mangées&nbsp;» aquí)</i></div>
+          <div class="piege">En el oral casi no se oye —<i>allé</i> y <i>allée</i> suenan
+          igual—, pero en el escrito <b>cuenta</b>. Es de las cosas que más se corrigen en
+          un examen.</div>` }
+      ],
+      ejercicios: [9, 10, 11]
+    },
+
+    /* 4 ─ LA NEGACIÓN ────────────────────────────────────────────────── */
+    { titulo: 'Étape 5 · La négation',
+      sous: 'El ne y el pas abrazan al auxiliar. Al auxiliar, no al participio.',
+      requiere: { de: 3, pct: 80 },
+      rappels: [
+        { titulo: 'Où mettre ne… pas',
+          html: `<div class="ex">Je <b>ne</b> suis <b>pas</b> allé à l’université.<br>
+          Tu <b>n’</b>as <b>pas</b> travaillé.<br>
+          Nous <b>n’</b>avons <b>pas</b> mangé.</div>
+          <p>Con los <b>pronominales</b>, el <i>ne</i> va <b>antes del pronombre</b>:</p>
+          <div class="ex">Je <b>ne</b> me suis <b>pas</b> promené.<br>
+          Elle <b>ne</b> s’est <b>pas</b> levée tôt.</div>
+          <div class="piege">El error más común del nivel: «&nbsp;<s>j’ai mangé pas</s>&nbsp;».
+          El <b>pas</b> va <b>antes</b> del participio, siempre. Orden fijo:
+          <b>ne + (pronombre) + auxiliaire + pas + participe</b>.</div>` }
+      ],
+      ejercicios: [12, 13]
+    },
+
+    /* 5 ─ ASIMILACIÓN ────────────────────────────────────────────────── */
+    { titulo: 'Étape 6 · Raconter',
+      sous: 'Todas las piezas juntas, que es para lo que servían.',
+      requiere: { de: 4, pct: 80 },
+      rappels: [
+        { titulo: 'Le voyage d’Ousmane',
+          html: `<p>La historia del vídeo de clase: <i>il a appelé un taxi, il est allé à
+          l’aéroport, il a lu un livre, il a dormi dans l’avion, il est sorti de l’avion,
+          il est arrivé chez sa sœur Mani.</i></p>
+          <p>Fíjate en que no hay ni un adorno: una acción detrás de otra, en orden. Eso es
+          exactamente lo que sirve el passé composé — y por eso un relato en passé composé
+          avanza tan rápido.</p>` }
+      ],
+      ejercicios: [14, 15, 16]
+    },
+
+    /* 6 ─ FUERA DE LA PLATAFORMA ─────────────────────────────────────── */
+    { titulo: 'Étape 7 · Pour aller plus loin',
+      sous: 'Dos actividades de TV5MONDE, fuera de la plataforma. Hazlas y vuelve aquí.',
+      requiere: { de: 5, pct: 80 },
+      rappels: [
+        { titulo: 'Deux exercices de TV5MONDE',
+          html: `<p>Se abren en otra pestaña, se corrigen allí mismo y están hechos por
+          profesores de francés como lengua extranjera. Valen la pena.</p>
+          <ul>
+            <li><a href="https://apprendre.tv5monde.com/fr/exercices/a1-debutant/le-lycee-cest-fini"
+                   target="_blank" rel="noopener"><b>Le lycée, c’est fini</b></a>
+                — nivel A1. El más cercano a lo de hoy: empieza por aquí.</li>
+            <li><a href="https://apprendre.tv5monde.com/fr/exercices/a2-elementaire/reconnaitre-la-forme-du-passe-compose"
+                   target="_blank" rel="noopener"><b>Reconnaître la forme du passé
+                   composé</b></a> — nivel A2. Un paso por encima del tuyo: hazlo después,
+                   y sin agobiarte si fallas.</li>
+          </ul>
+          <div class="piege">Si en el A2 sacas menos de la mitad, no es mala señal: es un
+          nivel por encima. Lo que me interesa es que me digas <b>qué</b> falló.</div>` }
+      ],
+      ejercicios: [17]
+    }
+  ],
+
+  ejercicios: [
+    /* ══ Étape 1 ══════════════════════════════════════════════════════ */
+    /* 0 */ { t:'tri', etiqueta:'Reconnaître',
+      consigne:'Présent, passé composé ou futur proche ? Classe les neuf phrases.',
+      sous:'Fíjate solo en la forma del verbo, no en el sentido de la frase.',
+      cols: ['Présent', 'Passé composé', 'Futur proche'],
+      items: [
+        ['Il mange une pomme.', 0],
+        ['Nous habitons à Paris.', 0],
+        ['Elle part demain.', 0],
+        ['Il a mangé une pomme.', 1],
+        ['Nous sommes allés à Paris.', 1],
+        ['Elle est partie hier.', 1],
+        ['Il va manger une pomme.', 2],
+        ['Nous allons habiter à Paris.', 2],
+        ['Elle va partir demain.', 2]
+      ],
+      aide:'La trampa está entre <b>elle est partie</b> (pasado) y <b>elle va partir</b> '
+         + '(futuro): las dos tienen dos partes. Y entre <b>elle part demain</b>, que es un '
+         + 'presente con valor de futuro, y las otras dos.' },
+
+    /* 1 */ { t:'qcm', etiqueta:'Comprendre la règle',
+      consigne:'Cuatro preguntas para comprobar que la regla está clara.',
+      sous:'No es de memoria: piensa antes de responder.',
+      q: [
+        { enonce:'Un verbe au passé composé est formé de…',
+          o:['une seule partie',
+             'deux parties : un auxiliaire et un participe passé',
+             'trois parties'], r:1 },
+        { enonce:'Dans «&nbsp;il est allé&nbsp;», l’auxiliaire est…',
+          o:['allé', 'est', 'il'], r:1,
+          note:'<b>est</b> es el verbo <i>être</i> en presente; <b>allé</b> es el participio '
+             + 'pasado de <i>aller</i>.' },
+        { enonce:'L’auxiliaire se met toujours…',
+          o:['au présent', 'au passé', 'à l’infinitif'], r:0,
+          note:'Por eso se llama <b>composé</b>: un presente + un participio dan un pasado. '
+             + 'Si pones el auxiliar en pasado, ya es otro tiempo.' },
+        { enonce:'On utilise le passé composé pour…',
+          o:['décrire un paysage ou une habitude',
+             'raconter un événement passé et terminé',
+             'parler de demain'], r:1,
+          note:'Describir o hablar de costumbres en el pasado es trabajo del <i>imparfait</i>, '
+             + 'que veremos más adelante.' }
+      ] },
+
+    /* 2 */ { t:'trous', etiqueta:'Repérer',
+      consigne:'Écris l’auxiliaire de chaque phrase, et rien d’autre.',
+      sous:'Solo el auxiliar: una palabra.',
+      q: [
+        { enonce:'Il a appelé un taxi. → ___', r:['a'], taille:8 },
+        { enonce:'Elle est arrivée à midi. → ___', r:['est'], taille:8 },
+        { enonce:'Nous avons mangé ensemble. → ___', r:['avons'], taille:8 },
+        { enonce:'Ils sont partis très tôt. → ___', r:['sont'], taille:8 },
+        { enonce:'Tu as dormi dans l’avion. → ___', r:['as'], taille:8 },
+        { enonce:'Je me suis levée à six heures. → ___', r:['suis'], taille:8,
+          note:'El pronombre <b>me</b> no es el auxiliar: se cuela entre el sujeto y el '
+             + 'auxiliar, pero el auxiliar es <b>suis</b>.' }
+      ] },
+
+    /* ══ Étape 2 ══════════════════════════════════════════════════════ */
+    /* 3 */ { t:'tri', etiqueta:'La maison d’être',
+      consigne:'Ce verbe se conjugue avec être ou avec avoir ?',
+      sous:'Catorce verbos. Diez de la casa no están todos aquí: busca el criterio.',
+      cols: ['Avec être', 'Avec avoir'],
+      items: [
+        ['aller', 0], ['venir', 0], ['partir', 0], ['arriver', 0],
+        ['monter', 0], ['tomber', 0], ['se lever', 0],
+        ['manger', 1], ['faire', 1], ['lire', 1], ['dormir', 1],
+        ['appeler', 1], ['voir', 1], ['travailler', 1]
+      ],
+      aide:'<b>Se lever</b> es pronominal, y <u>todos</u> los pronominales van con être: si el '
+         + 'verbo lleva <i>se</i> delante, no hay que pensarlo. Y ojo con <b>dormir</b>: es '
+         + 'de los que acaban en -ir pero no es de la casa — va con <b>avoir</b>.' },
+
+    /* 4 */ { t:'trous', etiqueta:'Choisir',
+      consigne:'Complète avec l’auxiliaire au présent.',
+      q: [
+        { enonce:'Il ___ allé à l’aéroport.', r:['est'], taille:8 },
+        { enonce:'Tu ___ passé un examen.', r:['as'], taille:8 },
+        { enonce:'Nous ___ mangé ensemble.', r:['avons'], taille:8 },
+        { enonce:'Elles ___ parties à huit heures.', r:['sont'], taille:8 },
+        { enonce:'J’___ lu un livre dans l’avion.', r:['ai'], taille:8 },
+        { enonce:'Vous ___ restés à la maison.', r:['êtes'], taille:8 },
+        { enonce:'Je me ___ promené dans le parc.', r:['suis'], taille:8,
+          note:'Pronominal → <b>être</b>. Y fíjate en el orden: <i>je <b>me suis</b> '
+             + 'promené</i>, no «&nbsp;<s>je suis me promené</s>&nbsp;».' },
+        { enonce:'Elle ___ eu un petit garçon.', r:['a'], taille:8,
+          note:'<i>Avoir</i> se conjuga con <b>avoir</b>: <i>elle a eu</i>.' }
+      ] },
+
+    /* 5 */ { t:'qcm', etiqueta:'Pourquoi ?',
+      consigne:'Explique le choix de l’auxiliaire. C’est ça qui compte, pas la réponse.',
+      sous:'Aquí no se adivina: hay que saber por qué. Es la pregunta que te vas a hacer tú '
+         + 'sola o solo cada vez que escribas una frase.',
+      q: [
+        { enonce:'«&nbsp;Elle est partie&nbsp;» → pourquoi <i>être</i> ?',
+          o:['parce que le sujet est une femme',
+             'parce que partir est un verbe de la maison d’être',
+             'parce que le participe est au féminin'], r:1,
+          note:'El sujeto no decide nunca el auxiliar. <b>El verbo</b>, sí. El sujeto decide '
+             + 'otra cosa: el acuerdo — etapa 4.' },
+        { enonce:'«&nbsp;Ils ont mangé&nbsp;» → pourquoi <i>avoir</i> ?',
+          o:['parce qu’ils sont plusieurs',
+             'parce que manger n’est pas dans la liste d’être',
+             'parce que c’est masculin'], r:1 },
+        { enonce:'«&nbsp;Je me suis levé&nbsp;» → pourquoi <i>être</i> ?',
+          o:['parce que le verbe est pronominal',
+             'parce que c’est le matin',
+             'parce que je parle de moi'], r:0 },
+        { enonce:'«&nbsp;Nous avons fait un gâteau&nbsp;» → et si «&nbsp;nous&nbsp;» '
+               + 'était deux femmes ?',
+          o:['l’auxiliaire changerait',
+             'rien ne changerait',
+             'il faudrait écrire «&nbsp;faites&nbsp;»'], r:1,
+          note:'Con <b>avoir</b> no cambia nada por el sujeto: ni el auxiliar ni el '
+             + 'participio. Con <b>être</b> sí cambiaría — lo verás en la etapa 4.' },
+        { enonce:'Tu veux dire «&nbsp;he dormido&nbsp;». Tu hésites entre <i>j’ai dormi</i> '
+               + 'et <i>je suis dormi</i>. Comment tranches-tu ?',
+          o:['je choisis être, parce que dormir finit en -ir',
+             'je vérifie si dormir est dans la liste d’être : il n’y est pas, donc avoir',
+             'je choisis au hasard, les deux existent'], r:1,
+          note:'La terminación del infinitivo no dice nada sobre el auxiliar. Lo único que '
+             + 'decide es la lista.' }
+      ] },
+
+    /* ══ Étape 3 ══════════════════════════════════════════════════════ */
+    /* 6 */ { t:'tri', etiqueta:'Trois familles',
+      consigne:'Quel participe passé ? Classe chaque infinitif dans sa famille.',
+      cols: ['en -é', 'en -i', 'irrégulier'],
+      items: [
+        ['parler', 0], ['manger', 0], ['aller', 0], ['travailler', 0],
+        ['finir', 1], ['partir', 1], ['dormir', 1], ['sortir', 1],
+        ['voir', 2], ['faire', 2], ['prendre', 2], ['être', 2]
+      ],
+      aide:'<b>Aller</b> está en la primera columna: su participio es regular (<i>allé</i>), '
+         + 'aunque su auxiliar sea <i>être</i>. Son dos cosas independientes, y confundirlas '
+         + 'es el error más frecuente.' },
+
+    /* 7 */ { t:'trous', etiqueta:'Former',
+      consigne:'Écris le participe passé de l’infinitif entre parenthèses.',
+      q: [
+        { enonce:'<i>(manger)</i> → ___', r:['mangé'], taille:12 },
+        { enonce:'<i>(finir)</i> → ___', r:['fini'], taille:12 },
+        { enonce:'<i>(aller)</i> → ___', r:['allé'], taille:12 },
+        { enonce:'<i>(dormir)</i> → ___', r:['dormi'], taille:12 },
+        { enonce:'<i>(voir)</i> → ___', r:['vu'], taille:12 },
+        { enonce:'<i>(faire)</i> → ___', r:['fait'], taille:12 },
+        { enonce:'<i>(être)</i> → ___', r:['été'], taille:12 },
+        { enonce:'<i>(avoir)</i> → ___', r:['eu'], taille:12,
+          note:'Se escribe <b>eu</b> y se pronuncia como la <i>u</i> de <i>tu</i>. '
+             + 'Dos letras, un solo sonido.' },
+        { enonce:'<i>(prendre)</i> → ___', r:['pris'], taille:12 },
+        { enonce:'<i>(apprendre)</i> → ___', r:['appris'], taille:12,
+          note:'Los compuestos siguen al simple: <i>prendre → pris</i>, '
+             + 'luego <i>apprendre → appris</i>, <i>comprendre → compris</i>.' }
+      ] },
+
+    /* 8 */ { t:'paires', etiqueta:'Les irréguliers',
+      consigne:'Associe chaque infinitif à son participe passé.',
+      sous:'Estos no tienen regla: se aprenden. Son los diez más frecuentes.',
+      pairs: [
+        ['voir', 'vu'], ['pouvoir', 'pu'], ['connaître', 'connu'],
+        ['apprendre', 'appris'], ['faire', 'fait'], ['prendre', 'pris'],
+        ['lire', 'lu'], ['boire', 'bu'], ['être', 'été'], ['avoir', 'eu']
+      ],
+      aide:'Hay un atajo: <b>vu, pu, connu, lu, bu, eu</b> acaban todos en <b>-u</b>. '
+         + 'Si dudas con un verbo en -oir o -re corto, prueba con -u.' },
+
+    /* ══ Étape 4 ══════════════════════════════════════════════════════ */
+    /* 9 */ { t:'trous', etiqueta:'Accorder',
+      consigne:'Complète la fin du participe passé. Attention à l’accord.',
+      sous:'Solo hay acuerdo con être. Escribe solo la terminación.',
+      q: [
+        { enonce:'Elle est all___ à l’université.', r:['ée'], taille:8 },
+        { enonce:'Ils sont arriv___ en retard.', r:['és'], taille:8 },
+        { enonce:'Elles sont parti___ ensemble.', r:['es'], taille:8 },
+        { enonce:'Il est mont___ dans l’avion.', r:['é'], taille:8 },
+        { enonce:'Elle a mang___ une pomme.', r:['é'], taille:8,
+          note:'Auxiliar <b>avoir</b> → sin acuerdo con el sujeto: <i>mangé</i>, '
+             + 'aunque el sujeto sea «&nbsp;elle&nbsp;».' },
+        { enonce:'Nous sommes all___ à Paris. <i>(nous = deux femmes)</i>',
+          r:['ées'], taille:8,
+          note:'Femenino plural: <b>-ées</b>. Es el ejemplo de la ficha de clase.' },
+        { enonce:'Elles ont travaill___ toute la journée.', r:['é'], taille:8,
+          note:'Otra vez <b>avoir</b>: femenino plural, pero el participio no se mueve.' }
+      ] },
+
+    /* 10 */ { t:'transfo', etiqueta:'Changer de sujet',
+      consigne:'Réécris la phrase avec le sujet entre parenthèses.',
+      sous:'Escribe tu frase y compárala después con el modelo. Lo que importa es el acuerdo.',
+      q: [
+        { enonce:'Il est allé au cinéma. <i>(elle)</i>',
+          modele:'Elle est allée au cinéma.' },
+        { enonce:'Il est parti à huit heures. <i>(elles)</i>',
+          modele:'Elles sont parties à huit heures.' },
+        { enonce:'Elle est restée à la maison. <i>(ils)</i>',
+          modele:'Ils sont restés à la maison.' },
+        { enonce:'Il a travaillé toute la journée. <i>(elle)</i>',
+          modele:'Elle a travaillé toute la journée.',
+          note:'Con <b>avoir</b> no cambia nada más que el pronombre.' },
+        { enonce:'Je me suis levé tôt. <i>(ma sœur)</i>',
+          modele:'Ma sœur s’est levée tôt.',
+          note:'Cambian tres cosas: el pronombre (<i>me</i> → <i>se</i>), el auxiliar '
+             + '(<i>suis</i> → <i>est</i>) y el acuerdo (<i>levé</i> → <i>levée</i>).' }
+      ] },
+
+    /* 11 */ { t:'dictee', etiqueta:'Écoute et écris',
+      consigne:'Écoute et écris la phrase complète.',
+      sous:'El acuerdo casi no se oye: hay que deducirlo del sujeto que escuchas.',
+      q: [
+        { texte:'Elle est allée à l’université.' },
+        { texte:'Ils sont arrivés à midi.' },
+        { texte:'Nous avons mangé ensemble.' },
+        { texte:'Elles sont parties très tôt.' },
+        { texte:'Je ne me suis pas levé à six heures.' }
+      ],
+      aide:'En las cuatro primeras, lo que te dice la terminación es el <b>sujeto</b>: '
+         + '«&nbsp;elles sont parties&nbsp;» suena igual que «&nbsp;elle est partie&nbsp;» '
+         + 'salvo por el auxiliar. Escucha el auxiliar.' },
+
+    /* ══ Étape 5 ══════════════════════════════════════════════════════ */
+    /* 12 */ { t:'transfo', etiqueta:'Nier',
+      consigne:'Mets la phrase à la forme négative.',
+      q: [
+        { enonce:'Il est allé à l’université.',
+          modele:'Il n’est pas allé à l’université.' },
+        { enonce:'Tu as travaillé hier.',
+          modele:'Tu n’as pas travaillé hier.' },
+        { enonce:'Nous avons mangé au restaurant.',
+          modele:'Nous n’avons pas mangé au restaurant.' },
+        { enonce:'Je me suis promené dans le parc.',
+          modele:'Je ne me suis pas promené dans le parc.',
+          note:'Pronominal: el <b>ne</b> va antes del <i>me</i>, no antes del auxiliar.' },
+        { enonce:'Elles sont sorties samedi.',
+          modele:'Elles ne sont pas sorties samedi.' }
+      ] },
+
+    /* 13 */ { t:'qcm', etiqueta:'Où va le pas ?',
+      consigne:'Choisis la seule phrase correcte.',
+      q: [
+        { enonce:'Hier soir, je n’ai rien mangé.',
+          o:['Je n’ai mangé pas.', 'Je n’ai pas mangé.', 'Je ne mangé pas ai.'], r:1 },
+        { enonce:'Elle n’était pas là.',
+          o:['Elle n’est pas venue.', 'Elle n’est venue pas.',
+             'Elle ne venue pas est.'], r:0 },
+        { enonce:'Ce matin, j’ai dormi jusqu’à midi.',
+          o:['Je me ne suis pas levé tôt.', 'Je ne me suis pas levé tôt.',
+             'Je ne me pas suis levé tôt.'], r:1,
+          note:'Orden fijo: <b>ne + pronombre + auxiliaire + pas + participe</b>.' },
+        { enonce:'Et au futur proche, pour comparer :',
+          o:['Je ne vais pas sortir.', 'Je vais ne pas sortir.',
+             'Je ne sortir vais pas.'], r:0,
+          note:'La lógica es la misma en los dos tiempos: <i>ne… pas</i> abraza el verbo '
+             + 'conjugado (el auxiliar, o <i>aller</i>), nunca el infinitivo ni el '
+             + 'participio.' }
+      ] },
+
+    /* ══ Étape 6 ══════════════════════════════════════════════════════ */
+    /* 14 */ { t:'ordre', etiqueta:'Le voyage d’Ousmane',
+      consigne:'Remets le voyage d’Ousmane dans l’ordre.',
+      sous:'Es la historia del vídeo de clase. Seis acciones.',
+      items: [
+        'Il a appelé un taxi.',
+        'Il est allé à l’aéroport.',
+        'Il a lu un livre.',
+        'Il a dormi dans l’avion.',
+        'Il est sorti de l’avion.',
+        'Il est arrivé chez sa sœur Mani.'
+      ],
+      aide:'Seis acciones, una detrás de otra, sin descripciones y sin explicaciones. '
+         + 'Así se cuenta en passé composé: el relato avanza solo.' },
+
+    /* 15 */ { t:'transfo', etiqueta:'Du présent au passé',
+      consigne:'Réécris la phrase au passé composé.',
+      sous:'Dos decisiones cada vez: qué auxiliar, y qué participio.',
+      q: [
+        { enonce:'Je mange une pomme.', modele:'J’ai mangé une pomme.' },
+        { enonce:'Elle va à l’université.', modele:'Elle est allée à l’université.' },
+        { enonce:'Nous faisons un gâteau.', modele:'Nous avons fait un gâteau.' },
+        { enonce:'Ils partent à sept heures.', modele:'Ils sont partis à sept heures.' },
+        { enonce:'Tu lis un livre.', modele:'Tu as lu un livre.' },
+        { enonce:'Je me lève à six heures.', modele:'Je me suis levé à six heures.',
+          note:'Si eres mujer: <i>je me suis levé<b>e</b></i>.' },
+        { enonce:'Elle ne sort pas le samedi.', modele:'Elle n’est pas sortie samedi.',
+          note:'Aquí se juntan las tres cosas: auxiliar <i>être</i>, acuerdo en femenino '
+             + 'y la negación alrededor del auxiliar.' }
+      ] },
+
+    /* 16 */ { t:'prod', etiqueta:'Raconter hier', mots:60,
+      consigne:'Raconte ta journée d’hier en six phrases.',
+      sous:'60 palabras. Seis acciones, una detrás de otra, como Ousmane.',
+      check: [
+        'Seis frases en passé composé.',
+        'Al menos <b>dos</b> con el auxiliar <b>être</b>.',
+        'Al menos <b>tres</b> con <b>avoir</b>.',
+        'Una frase en <b>negativa</b>.',
+        'Si eres mujer, cuidado con el acuerdo: <i>je suis allé<b>e</b></i>.',
+        'Un momento del día en cada frase (à huit heures, le matin, après, le soir…).'
+      ],
+      modele:'Hier matin, je me suis levée à six heures et j’ai pris mon petit-déjeuner très '
+           + 'vite. Je suis allée au lycée à sept heures et demie. J’ai eu un examen de '
+           + 'mathématiques&nbsp;: il a été difficile. À midi, j’ai mangé avec mes amies à la '
+           + 'cafétéria. Je ne suis pas sortie l’après-midi, parce qu’il a plu. Le soir, j’ai '
+           + 'lu un peu et je me suis couchée tôt.' },
+
+    /* ══ Étape 7 ══════════════════════════════════════════════════════ */
+    /* 17 */ { t:'prod', etiqueta:'TV5MONDE', mots:40,
+      consigne:'Fais les deux exercices de TV5MONDE, puis note ici ce qui s’est passé.',
+      sous:'40 palabras. Lo que me interesa no es la nota, sino qué te costó y por qué.',
+      check: [
+        'Tu resultado en «&nbsp;Le lycée, c’est fini&nbsp;» (A1).',
+        'Tu resultado en «&nbsp;Reconnaître la forme du passé composé&nbsp;» (A2).',
+        'Un fallo concreto, y a qué etapa de esta ficha corresponde.',
+        'Una palabra nueva que aprendiste allí.'
+      ],
+      modele:'Dans «&nbsp;Le lycée, c’est fini&nbsp;», j’ai eu 8 sur 10. J’ai fait deux '
+           + 'fautes avec l’auxiliaire&nbsp;: j’ai écrit «&nbsp;il a resté&nbsp;» au lieu de '
+           + '«&nbsp;il est resté&nbsp;» — c’est l’étape 2. Dans l’exercice A2, j’ai eu 6 sur '
+           + '10, parce qu’il y avait des participes irréguliers que je ne connaissais pas. '
+           + 'J’ai appris le mot «&nbsp;diplôme&nbsp;».' }
   ]
 });

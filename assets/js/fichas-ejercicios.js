@@ -141,6 +141,93 @@ function montarVideo(v){
   }
 }
 
+
+/* ═══ PALIERS ══════════════════════════════════════════════════════════
+   Una sección puede estar cerrada hasta que la anterior esté superada:
+     requiere: { de: 0, pct: 80 }
+   Mientras no lo esté, no se ve: ni los ejercicios ni las respuestas. No
+   es un adorno — es lo que impide que alguien «pase» una gramática a
+   base de clicar hasta acertar, porque para abrir la siguiente hay que
+   haber hecho TODA la anterior y con 80 % como mínimo.
+   ═══════════════════════════════════════════════════════════════════════ */
+function notaDeSeccion(f, si){
+  const hechos = avance[f.id] || {};
+  const idx = f.secciones[si].ejercicios || [];
+  let bien = 0, total = 0, faltan = 0;
+  idx.forEach(i => {
+    const r = hechos[i];
+    if(!r || typeof r.t !== 'number'){ faltan++; return; }
+    bien += r.b; total += r.t;
+  });
+  return { bien, total, faltan, pct: total ? Math.round(bien*100/total) : 0 };
+}
+
+function seccionAbierta(f, si){
+  const req = f.secciones[si].requiere;
+  if(!req) return true;
+  const n = notaDeSeccion(f, req.de);
+  return n.faltan === 0 && n.pct >= (req.pct || 80);
+}
+
+function candadoHTML(f, si){
+  const req = f.secciones[si].requiere;
+  const n = notaDeSeccion(f, req.de);
+  const titulo = f.secciones[req.de].titulo;
+  return `<div class="candado">
+    <div class="candado-ico">🔒</div>
+    <div>
+      <b>Cette étape s’ouvre quand la précédente est acquise.</b><br>
+      ${n.faltan
+        ? `Il te reste <b>${n.faltan} exercice${n.faltan>1?'s':''}</b> à faire dans
+           «${esc(titulo)}».`
+        : `Tu es à <b>${n.pct}${' '}%</b> dans «${esc(titulo)}»&nbsp;; il en faut
+           <b>${req.pct || 80}${' '}%</b>. Reprends les exercices en rouge avec
+           «${' '}Recommencer${' '}».`}
+      <div class="candado-por">Ce n’est pas une punition&nbsp;: tant que la base n’est pas
+      solide, la suite ne sert à rien.</div>
+    </div></div>`;
+}
+
+function contenidoSeccion(f, si){
+  const sec = f.secciones[si];
+  return (sec.rappels||[]).map(pintarRappel).join('')
+       + (sec.ejercicios||[]).map(i => pintarEjercicio(f, i)).join('');
+}
+
+/* Tras corregir, se mira si algún palier acaba de abrirse. */
+function revisarPaliers(){
+  const f = fichaActual;
+  if(!f) return;
+  (f.secciones||[]).forEach((sec, si) => {
+    const caja = document.getElementById('cuerpo-sec-' + si);
+    if(!caja) return;
+    const abierta = seccionAbierta(f, si);
+    const estaba = caja.dataset.abierta === 'si';
+    if(abierta && !estaba){
+      caja.dataset.abierta = 'si';
+      caja.innerHTML = contenidoSeccion(f, si);
+      (sec.ejercicios||[]).forEach(i => montar(f.ejercicios[i], i));
+      document.getElementById('sec-' + si).classList.remove('cerrada');
+      document.getElementById('sec-' + si).classList.add('recien-abierta');
+    } else if(!abierta && estaba === false && sec.requiere){
+      caja.innerHTML = candadoHTML(f, si);   // se actualiza lo que falta
+    }
+  });
+  pintarPasosEstado();
+}
+
+/* Los pasos de arriba muestran cuáles están cerrados. */
+function pintarPasosEstado(){
+  const f = fichaActual;
+  if(!f) return;
+  document.querySelectorAll('.pasos .paso').forEach((b, si) => {
+    const abierta = seccionAbierta(f, si);
+    b.classList.toggle('paso-cerrado', !abierta);
+    const n = notaDeSeccion(f, si);
+    b.classList.toggle('paso-hecho', abierta && n.faltan === 0 && n.pct >= 80);
+  });
+}
+
 /* ═══ HUB ═══ */
 /* ── El filtro por ciclo ───────────────────────────────────────────────
    El espacio es del nivel, no del ciclo: las fichas se quedan de un ciclo
@@ -261,11 +348,13 @@ function abrirFicha(id){
   if(f.video) html += '<div class="caja-video" id="caja-video"></div>';
   if((f.secciones||[]).length > 1) html += pintarPasos(f);
   (f.secciones || []).forEach((sec, si) => {
-    html += `<div class="fiche" id="sec-${si}">
+    const abierta = seccionAbierta(f, si);
+    html += `<div class="fiche ${abierta?'':'cerrada'}" id="sec-${si}">
       <div class="bloc-titre">${esc(sec.titulo)}</div>
       <p class="bloc-sous">${esc(sec.sous||'')}</p>
-      ${(sec.rappels||[]).map(pintarRappel).join('')}
-      ${(sec.ejercicios||[]).map(i => pintarEjercicio(f, i)).join('')}
+      <div id="cuerpo-sec-${si}" data-abierta="${abierta?'si':'no'}">
+        ${abierta ? contenidoSeccion(f, si) : candadoHTML(f, si)}
+      </div>
     </div>`;
   });
   html += `<div class="sello" id="sello"></div>
@@ -279,9 +368,12 @@ function abrirFicha(id){
   document.getElementById('vue-fiche').classList.add('active');
   history.replaceState(null,'','#'+id);
   window.scrollTo({top:0});
-  (f.secciones||[]).forEach(sec => (sec.ejercicios||[]).forEach(i => montar(f.ejercicios[i], i)));
+  (f.secciones||[]).forEach((sec, si) => {
+    if(seccionAbierta(f, si)) (sec.ejercicios||[]).forEach(i => montar(f.ejercicios[i], i));
+  });
   if(f.video) montarVideo(f.video);
   pintarSello();
+  pintarPasosEstado();
 }
 
 /* ── Los pasos del recorrido ──────────────────────────────────────────
@@ -398,6 +490,7 @@ function comprobarOrden(i){
   if(aide) aide.classList.add('vue');
   mostrarVerdicto(i, bien, e.items.length);
   pintarSello();
+  revisarPaliers();
 }
 
 /* ── DÉFI · una carta cada vez, con reloj ───────────────────────────── */
@@ -459,6 +552,7 @@ function terminarDefi(i){
   if(aide) aide.classList.add('vue');
   mostrarVerdicto(i, st.bien, e.items.length);
   pintarSello();
+  revisarPaliers();
 }
 
 /* ── DIALOGUE · una escena, una decisión, una consecuencia ──────────── */
@@ -504,6 +598,7 @@ function terminarDialogue(i){
   if(aide) aide.classList.add('vue');
   mostrarVerdicto(i, st.bien, e.escenas.length);
   pintarSello();
+  revisarPaliers();
 }
 
 /* ── POINTS · señalar sobre un dibujo ───────────────────────────────── */
@@ -517,6 +612,7 @@ function pintarConsignaPunto(i){
     if(aide) aide.classList.add('vue');
     mostrarVerdicto(i, st.bien, e.puntos.length);
     pintarSello();
+    revisarPaliers();
     return;
   }
   caja.innerHTML = `<span class="pts-cuenta">${st.n + 1}/${e.puntos.length}</span>
@@ -811,6 +907,7 @@ function corregir(i){
   if(modele) modele.classList.add('vue');
   mostrarVerdicto(i, bien, total);
   pintarSello();
+  revisarPaliers();
 }
 
 function mostrarVerdicto(i, bien, total, texto){

@@ -1,4 +1,4 @@
-/* Prueba del espacio de ejercicios B2 en un navegador real. */
+/* Prueba del espacio de ejercicios A1.4 en un navegador real. */
 const { chromium } = require('/opt/node-tools/node_modules/playwright');
 
 (async () => {
@@ -12,7 +12,7 @@ const { chromium } = require('/opt/node-tools/node_modules/playwright');
   await pagina.waitForTimeout(400);
 
   const tarjetas = await pagina.locator('#grille-fiches .carte').count();
-  console.log('1. Fichas en el hub:', tarjetas, tarjetas === 6 ? '✓' : '✗ (esperaba 9)');
+  console.log('1. Fichas en el hub:', tarjetas, tarjetas === 7 ? '✓' : '✗ (esperaba 7)');
 
   /* Abrir la ficha del 21 de octubre (gramática) */
   await pagina.locator('#grille-fiches .carte').nth(2).click();

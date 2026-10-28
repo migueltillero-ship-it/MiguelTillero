@@ -2,15 +2,16 @@
 -- EJERCICIOS COMPLEMENTARIOS A1.4 · OCTUBRE 2026
 -- ===========================================================================
 -- Dos cosas:
---   1) Registra en «Materiales» las seis fichas de ejercicios del grupo A1
+--   1) Registra en «Materiales» las fichas de ejercicios del grupo A1
 --      híbrido: posesivos, pronombres posesivos, los números (escribirlos y
---      oírlos), género y número con sus excepciones, y el repaso.
+--      oírlos), género y número con sus excepciones, el repaso y —desde el 27
+--      de octubre— el passé composé.
 --   2) Deja un recordatorio en el espacio de CADA estudiante del grupo, para
 --      que lo vean al entrar. No hace falta escribir ningún nombre: se toma
 --      la lista del grupo.
 --
 -- La página vive en el sitio:
---   estudiantes/a1-4-oct2026.html  +  estudiantes/a1-4-oct2026-fiches.js
+--   estudiantes/espace-a1-exercices.html  +  estudiantes/espace-a1-fiches.js
 --
 -- CÓMO USAR: después de ciclo-a1-oct2026.sql, materiales-y-resultados.sql
 -- y avisos.sql. Es seguro repetirlo: ni duplica materiales ni duplica avisos.
@@ -39,8 +40,8 @@ begin
   -- ── 1) Las fichas, en Materiales ────────────────────────────────────────
   for r in
     select * from (values
-      (10, 'Exercices complémentaires A1.4 — les six fiches', 'material', null::text,
-       'La portada de los ejercicios de este mes, con tu avance. Empieza por aquí.',
+      (10, 'Exercices complémentaires A1.4 — toutes les fiches', 'material', null::text,
+       'La portada de los ejercicios del nivel, con tu avance. Empieza por aquí.',
        ''),
 
       (11, 'Fiche 1 · Mon, ma, mes — les adjectifs possessifs', 'refuerzo', 'Unité 4',
@@ -71,7 +72,18 @@ begin
       (16, 'Fiche 6 · Le bilan', 'evaluacion', 'Unité 4',
        'Un diagnóstico de las cinco fichas: cada fallo te dice a cuál volver. '
        || 'Y una presentación escrita que lo usa todo.',
-       '#repaso')
+       '#repaso'),
+
+      -- La del 27 de octubre. Funciona distinto de las seis anteriores: siete
+      -- etapas cerradas con llave, y la siguiente no se abre hasta tener la
+      -- anterior entera y al 80 %. Es lo que impide «pasar» una gramática
+      -- clicando hasta acertar.
+      (17, 'Fiche 7 · Le passé composé, étape par étape', 'refuerzo', 'Unité 5',
+       'Lo del 27 de octubre, para asentarlo solo: reconocerlo, elegir entre être y '
+       || 'avoir, formar el participio, acordar, negar y contar. Siete etapas que se '
+       || 'abren una a una. Al final, dos actividades de TV5MONDE que también hay que '
+       || 'hacer.',
+       '#passe-compose')
     ) as t(orden, titulo, categoria, unidad, descripcion, ancla)
   loop
     insert into public.materiales (grupo_id, titulo, descripcion, url, categoria, unidad, orden)
@@ -84,7 +96,7 @@ begin
                   orden       = excluded.orden;
   end loop;
 
-  raise notice 'Siete entradas de ejercicios registradas para el grupo A1-OCT2026.';
+  raise notice 'Entradas de ejercicios registradas para el grupo A1-OCT2026.';
 end $$;
 
 
@@ -105,7 +117,7 @@ delete from public.avisos a
 insert into public.avisos (estudiante_id, titulo, mensaje, tipo, desde, hasta)
 select distinct i.estudiante_id,
   'Ejercicios para practicar en casa',
-  E'Ya tienes en «Materiales» seis fichas de ejercicios con todo lo que hemos '
+  E'Ya tienes en «Materiales» las fichas de ejercicios con todo lo que hemos '
   'trabajado este mes: los posesivos, los números —sobre todo los difíciles, '
   '70, 80 y 90— y la concordancia de género y número con sus excepciones.\n\n'
   'Se corrigen solas y puedes repetirlas las veces que quieras. La ficha 4 es '
