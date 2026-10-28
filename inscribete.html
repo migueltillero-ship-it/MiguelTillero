@@ -360,29 +360,50 @@
       <!-- DATOS PERSONALES -->
       <div class="insc-group">
         <div class="insc-legend"><i class="fa fa-user"></i> <span data-es="Datos personales" data-fr="Données personnelles" data-en="Personal details">Datos personales</span></div>
+        <p class="insc-ayuda" data-es="Estos datos van tal cual en tu acuerdo de aprendizaje, así que escríbelos completos." data-fr="Ces données figureront telles quelles dans votre accord, écrivez-les donc au complet." data-en="These details go into your learning agreement exactly as written, so please give them in full.">Estos datos van tal cual en tu acuerdo de aprendizaje, así que escríbelos completos.</p>
         <div class="insc-row">
           <div class="insc-field">
             <label for="f-nombre" data-es="Nombre completo" data-fr="Nom complet" data-en="Full name">Nombre completo <span class="req">*</span></label>
-            <input id="f-nombre" type="text" name="nombre" required placeholder="Tu nombre y apellidos" data-es="Tu nombre y apellidos" data-fr="Votre nom et prénoms" data-en="Your first and last name">
+            <input id="f-nombre" type="text" name="nombre" required autocomplete="name" placeholder="Como aparece en tu identificación" data-es="Como aparece en tu identificación" data-fr="Tel qu'il figure sur votre pièce d'identité" data-en="As it appears on your ID">
           </div>
           <div class="insc-field">
             <label for="f-email-2">Email <span class="req">*</span></label>
-            <input id="f-email-2" type="email" name="email" required placeholder="tu@correo.com" data-es="tu@correo.com" data-fr="vous@email.com" data-en="you@email.com">
+            <input id="f-email-2" type="email" name="email" required autocomplete="email" placeholder="tu@correo.com" data-es="tu@correo.com" data-fr="vous@courriel.com" data-en="you@email.com">
           </div>
         </div>
         <div class="insc-row">
           <div class="insc-field">
-            <label for="f-telefono" data-es="WhatsApp / Teléfono" data-fr="WhatsApp / Téléphone" data-en="WhatsApp / Phone">WhatsApp / Teléfono</label>
-            <input id="f-telefono" type="tel" name="telefono" placeholder="+58 ..." data-es="+58 ..." data-fr="+33 ..." data-en="+58 ...">
+            <label for="f-tel-num" data-es="WhatsApp" data-fr="WhatsApp" data-en="WhatsApp">WhatsApp <span class="req">*</span></label>
+            <div class="tel-combo">
+              <select id="f-tel-pais" name="tel_pais" aria-label="Código de país">
+                <option value="+52" selected>+52 · México</option>
+                <option value="+58">+58 · Venezuela</option>
+                <option value="+1">+1 · EE. UU. / Canadá</option>
+                <option value="+33">+33 · Francia</option>
+                <option value="+34">+34 · España</option>
+                <option value="+57">+57 · Colombia</option>
+                <option value="+54">+54 · Argentina</option>
+                <option value="+56">+56 · Chile</option>
+                <option value="+51">+51 · Perú</option>
+                <option value="+593">+593 · Ecuador</option>
+                <option value="+502">+502 · Guatemala</option>
+                <option value="+55">+55 · Brasil</option>
+                <option value="otro">otro · Otro país</option>
+              </select>
+              <input id="f-tel-num" type="tel" name="tel_numero" required inputmode="tel" autocomplete="tel-national"
+                     placeholder="961 737 8306" data-es="961 737 8306" data-fr="961 737 8306" data-en="961 737 8306">
+            </div>
+            <small class="insc-nota" data-es="Por aquí te aviso y te mando tu acuerdo." data-fr="C'est par là que je vous préviens et vous envoie votre accord." data-en="This is how I'll reach you and send your agreement.">Por aquí te aviso y te mando tu acuerdo.</small>
           </div>
           <div class="insc-field">
-            <label for="f-edad" data-es="Edad" data-fr="Âge" data-en="Age">Edad</label>
-            <input id="f-edad" type="text" name="edad" placeholder="Opcional" data-es="Opcional" data-fr="Optionnel" data-en="Optional">
+            <label for="f-nacimiento" data-es="Fecha de nacimiento" data-fr="Date de naissance" data-en="Date of birth">Fecha de nacimiento <span class="req">*</span></label>
+            <input id="f-nacimiento" type="date" name="fecha_nacimiento" required>
+            <small class="insc-nota" id="edad-calculada"></small>
           </div>
         </div>
         <div class="insc-field">
-          <label for="f-ciudad" data-es="Lugar donde vives (ciudad / zona)" data-fr="Lieu de résidence" data-en="Where you live (city / area)">Lugar donde vives (ciudad / zona)</label>
-          <input id="f-ciudad" type="text" name="ciudad" placeholder="Ciudad, colonia o zona" data-es="Ciudad, colonia o zona" data-fr="Ville, quartier ou zone" data-en="City, neighborhood or area">
+          <label for="f-ciudad" data-es="Lugar donde vives (ciudad / zona)" data-fr="Où vivez-vous (ville / quartier)" data-en="Where you live (city / area)">Lugar donde vives (ciudad / zona)</label>
+          <input id="f-ciudad" type="text" name="ciudad" placeholder="Ciudad, colonia o zona" data-es="Ciudad, colonia o zona" data-fr="Ville, quartier ou zone" data-en="City, neighbourhood or area">
         </div>
       </div>
 
@@ -491,6 +512,8 @@
             </div>
           </div>
         </div>
+
+        <small class="insc-nota" id="horas-suman"></small>
 
         <div class="insc-row" style="margin-top:1.2rem;">
           <div class="form-field">
@@ -1038,7 +1061,11 @@ function pickTime(btn, valId) {
 
 /* Set min date */
 const today = new Date().toISOString().split('T')[0];
-document.querySelectorAll('input[type="date"]').forEach(d => d.min = today);
+/* Solo las fechas que miran al futuro: una cita o el inicio de las clases.
+   La fecha de nacimiento es justo lo contrario, y con esta regla el
+   formulario exigía haber nacido hoy o después. */
+document.querySelectorAll('input[type="date"]:not([name="fecha_nacimiento"])')
+  .forEach(d => d.min = today);
 
 /* ══════════════════════════════════════════════════════
    SISTEMA DE EMAIL — 100% GRATUITO
@@ -1560,27 +1587,125 @@ window.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  /* Las horas de un día solo tienen sentido si ese día está marcado: aparecen
-     al marcarlo y se exigen, que es justo el dato que faltaba para poder
-     armar un calendario sin volver a preguntar. */
-  inscForm.querySelectorAll('input[name="dia"]').forEach(function (cb) {
-    cb.addEventListener('change', function () {
+  /* El teléfono se arma con el código del país: «+52» y «961 737 8306» son
+     dos cosas que la gente separa en su cabeza, y pedirlas juntas acaba en
+     números sin código que luego no sirven para escribir por WhatsApp. */
+  var selPais = inscForm.querySelector('[name="tel_pais"]');
+  var inpNum  = inscForm.querySelector('[name="tel_numero"]');
+  function telCompleto() {
+    var pais = selPais ? selPais.value : '';
+    var num  = (inpNum ? inpNum.value : '').replace(/[^0-9]/g, '');
+    if (!num) return '';
+    return (pais === 'otro' ? '+' : pais) + num;
+  }
+
+  /* Edad al vuelo: confirma que la fecha es la que la persona quería. Una
+     fecha de nacimiento mal tecleada se nota enseguida si dice «3 años». */
+  var inpNac = inscForm.querySelector('[name="fecha_nacimiento"]');
+  var avisoEdad = document.getElementById('edad-calculada');
+  if (inpNac) {
+    inpNac.max = new Date().toISOString().slice(0, 10);
+    inpNac.addEventListener('change', function () {
+      if (!inpNac.value || !avisoEdad) { if (avisoEdad) avisoEdad.textContent = ''; return; }
+      var n = new Date(inpNac.value), h = new Date();
+      var e = h.getFullYear() - n.getFullYear();
+      if (h.getMonth() < n.getMonth() || (h.getMonth() === n.getMonth() && h.getDate() < n.getDate())) e--;
+      avisoEdad.textContent = (e >= 0 && e < 120) ? e + ' años' : 'Revisa la fecha';
+    });
+  }
+
+  /* Las horas de un día solo tienen sentido si ese día está marcado.
+     El estado se recalcula entero a partir de las casillas en vez de ir
+     arrastrándolo evento a evento: si por lo que sea se pierde un «change»
+     —el formulario se reinicia, el navegador restaura valores al volver
+     atrás, se pulsa dos veces seguidas— quedaba un campo oculto marcado
+     como obligatorio, y entonces el asistente se negaba a avanzar pidiendo
+     que se llenara un día que ni siquiera estaba elegido. */
+  function sincronizarDias() {
+    inscForm.querySelectorAll('input[name="dia"]').forEach(function (cb) {
       var caja = inscForm.querySelector('[data-horas="' + cb.value + '"]');
       if (!caja) return;
       caja.hidden = !cb.checked;
       caja.querySelectorAll('input[type="time"]').forEach(function (t) {
         t.required = cb.checked;
-        if (!cb.checked) t.value = '';
+        if (!cb.checked) { t.value = ''; t.setCustomValidity(''); }
       });
-      cb.closest('.dia-fila').classList.toggle('activa', cb.checked);
+      var fila = cb.closest('.dia-fila');
+      if (fila) fila.classList.toggle('activa', cb.checked);
+    });
+    revisarHoras();
+  }
+
+  /* La hora de fin tiene que ir después de la de inicio. Sin esto se podía
+     pedir «de 01:00 a 01:00», que son cero horas de clase. */
+  function validarTramo(t) {
+    var caja = t.closest('.dia-horas');
+    if (!caja) return;
+    var desde = caja.querySelector('input[name$="_desde"]');
+    var hasta = caja.querySelector('input[name$="_hasta"]');
+    if (!desde || !hasta) return;
+    var mal = desde.value && hasta.value && hasta.value <= desde.value;
+    hasta.setCustomValidity(mal ? 'La hora de fin tiene que ir después de la de inicio.' : '');
+  }
+
+  /* Cuántas horas suman los días elegidos, al lado de las que pidió. Así se
+     ve de inmediato si una cosa no cuadra con la otra, en vez de descubrirlo
+     cuando ya mandó el formulario. */
+  function revisarHoras() {
+    var total = 0;
+    inscForm.querySelectorAll('input[name="dia"]:checked').forEach(function (cb) {
+      var caja = inscForm.querySelector('[data-horas="' + cb.value + '"]');
+      if (!caja) return;
+      var a = caja.querySelector('input[name$="_desde"]').value;
+      var z = caja.querySelector('input[name$="_hasta"]').value;
+      if (a && z && z > a) {
+        total += (new Date('1970-01-01T' + z) - new Date('1970-01-01T' + a)) / 3600000;
+      }
+    });
+    var aviso = document.getElementById('horas-suman');
+    if (!aviso) return;
+    var pedidas = parseFloat(inscForm.querySelector('[name="horas_semana"]').value);
+    if (!total) { aviso.textContent = ''; aviso.className = 'insc-nota'; return; }
+    var txt = 'Los días que marcaste suman ' + (Math.round(total * 100) / 100) + ' h por semana';
+    if (!isNaN(pedidas) && Math.abs(total - pedidas) > 0.01) {
+      aviso.className = 'insc-nota desacuerdo';
+      aviso.textContent = txt + ', y arriba pediste ' + pedidas + ' h. No pasa nada: lo afinamos al hablar.';
+    } else {
+      aviso.className = 'insc-nota';
+      aviso.textContent = txt + '.';
+    }
+  }
+
+  inscForm.querySelectorAll('input[name="dia"]').forEach(function (cb) {
+    cb.addEventListener('change', sincronizarDias);
+  });
+  inscForm.querySelectorAll('.dia-horas input[type="time"]').forEach(function (t) {
+    t.addEventListener('change', function () {
+      validarTramo(t);
+      var h = parseInt((t.value || '').split(':')[0], 10);
+      var n = t.parentElement.querySelector('.hora-aviso');
+      /* El campo se muestra en formato de 12 horas y es fácil poner «01:00
+         a.m.» queriendo decir la una de la tarde. Se avisa, no se impide. */
+      if (!isNaN(h) && (h < 6 || h >= 22)) {
+        if (!n) { n = document.createElement('small'); n.className = 'hora-aviso';
+                  t.parentElement.appendChild(n); }
+        n.textContent = '¿Seguro? Son las ' + t.value + ' de la madrugada o de la noche.';
+      } else if (n) { n.remove(); }
+      revisarHoras();
     });
   });
+  var selHoras = inscForm.querySelector('[name="horas_semana"]');
+  if (selHoras) selHoras.addEventListener('change', revisarHoras);
+  inscForm.addEventListener('reset', function () { setTimeout(sincronizarDias, 0); });
+  sincronizarDias();
 
   inscForm.addEventListener('submit', function(e) {
     e.preventDefault();
     var d = {};
     var fd = new FormData(inscForm);
     for (var pair of fd.entries()) { d[pair[0]] = pair[1]; }
+    d.telefono = telCompleto();
+    delete d.tel_pais; delete d.tel_numero;
 
     /* Disponibilidad: cada día marcado con su hora concreta. */
     var NOMBRE_DIA = { lun:'Lunes', mar:'Martes', mie:'Miércoles', jue:'Jueves',
@@ -1612,7 +1737,7 @@ window.addEventListener('DOMContentLoaded', function() {
       'Nombre: ' + (d.nombre||'-') + '\n' +
       'Email: ' + (d.email||'-') + '\n' +
       'Teléfono: ' + (d.telefono||'-') + '\n' +
-      'Edad: ' + (d.edad||'-') + '\n' +
+      'Fecha de nacimiento: ' + fechaLegible(d.fecha_nacimiento) + '\n' +
       'Ciudad/Zona: ' + (d.ciudad||'-') + '\n\n' +
       'NIVEL Y OBJETIVOS\n' +
       'Nivel actual: ' + (d.nivel||'-') + '\n' +

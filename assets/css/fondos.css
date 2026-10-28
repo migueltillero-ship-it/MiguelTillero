@@ -675,3 +675,11 @@ body:has(#hero.hero-rotativo) #nav:not(.scrolled) .ctrl-btn.active { background:
   .dia-horas { width:100%; }
   .dia-horas input[type="time"] { flex:1; min-width:0; }
 }
+
+/* Teléfono con código de país: dos campos que se leen como uno solo. */
+.tel-combo { display:flex; gap:0.5rem; }
+.tel-combo select { flex:0 0 auto; width:auto; min-width:7.5rem; }
+.tel-combo input { flex:1; min-width:0; }
+.insc-nota { display:block; margin-top:0.35rem; font-size:0.82rem; color:var(--muted); }
+.hora-aviso { display:block; width:100%; margin-top:0.3rem; font-size:0.82rem; color:#8f2727; }
+.insc-nota.desacuerdo { color:#8f6a1f; }
