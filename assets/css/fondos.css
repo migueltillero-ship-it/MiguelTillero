@@ -649,3 +649,29 @@ body:has(#hero.hero-rotativo) #nav:not(.scrolled) .ctrl-btn.active { background:
 #lite .btn-gold, #lite .btn-ghost { position: relative; overflow: hidden; }
 /* Novedad · ficha sobre el botón destacado */
 .nov-grid .nov-nota { margin: 0 0 1rem; }
+
+/* ── Disponibilidad día a día (inscribete.html) ──────────────────────
+   Antes se marcaban franjas vagas —«entre semana por la mañana»— y con eso
+   no se puede armar un calendario: había que volver a preguntar por WhatsApp
+   a qué hora exactamente y si todos los días igual. Ahora cada día marcado
+   abre sus dos horas. */
+.insc-ayuda { font-size:0.95rem; color:var(--muted); margin:0 0 1rem; line-height:1.6; }
+.dias-grid { display:grid; gap:0.5rem; }
+.dia-fila { display:flex; flex-wrap:wrap; align-items:center; gap:0.6rem 1rem;
+  padding:0.7rem 0.9rem; border:1px solid var(--border); border-radius:var(--r-sm);
+  background:rgba(255,255,255,0.55); transition:border-color .25s, background .25s; }
+.dia-fila.activa { border-color:var(--gold); background:rgba(165,130,74,0.07); }
+.dia-marca { display:flex; align-items:center; gap:0.6rem; cursor:pointer;
+  min-width:9.5rem; min-height:44px; }
+.dia-marca input { width:20px; height:20px; accent-color:var(--gold); flex:0 0 auto; }
+.dia-horas { display:flex; align-items:center; gap:0.8rem; flex-wrap:wrap; }
+.dia-horas label { display:flex; align-items:center; gap:0.4rem; font-size:0.92rem;
+  color:var(--muted); }
+.dia-horas input[type="time"] { padding:0.5rem 0.6rem; border:1px solid var(--border);
+  border-radius:8px; font-family:'Syne',sans-serif; font-size:0.95rem; min-height:44px;
+  background:#fff; color:var(--white); }
+@media (max-width:520px){
+  .dia-marca { min-width:100%; }
+  .dia-horas { width:100%; }
+  .dia-horas input[type="time"] { flex:1; min-width:0; }
+}

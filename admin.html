@@ -738,6 +738,25 @@ async function avanzarSolicitud(id) {
    supabase/prospectos.sql; mientras no se haya ejecutado, aquí se avisa en
    lugar de dejar la pantalla en blanco. */
 
+/* El recorrido de un prospecto. «atendido sí o no» no decía nada: entre que
+   alguien llena el formulario y empieza a dar clases hay pasos que importan,
+   y cada uno tiene una acción concreta asociada. */
+const ETAPAS = {
+  nuevo:     { rotulo:'Sin revisar',      clase:'pendiente', siguiente:'validado',
+               accion:'Validar su horario' },
+  validado:  { rotulo:'Horario validado', clase:'activo',    siguiente:'contrato',
+               accion:'Avisar y enviar contrato' },
+  contrato:  { rotulo:'Contrato enviado', clase:'activo',    siguiente:'firmado',
+               accion:'Marcar como firmado' },
+  firmado:   { rotulo:'Firmado',          clase:'activo',    siguiente:'pagado',
+               accion:'Marcar como pagado' },
+  pagado:    { rotulo:'Pagado',           clase:'activo',    siguiente:null,  accion:null },
+  descartado:{ rotulo:'Descartado',       clase:'inactivo',  siguiente:null,  accion:null }
+};
+const ORDEN_DIAS = ['lun','mar','mie','jue','vie','sab','dom'];
+const NOMBRE_DIA = { lun:'Lunes', mar:'Martes', mie:'Miércoles', jue:'Jueves',
+                     vie:'Viernes', sab:'Sábado', dom:'Domingo' };
+
 const ORIGEN_PROSPECTO = {
     'inscripcion':  'Inscribirse',
     'cita':         'Una cita',
@@ -751,7 +770,9 @@ const CAMPO_PROSPECTO = {
     motivacion: 'Motivación', expectativas: 'Expectativas', no_gusta: 'Qué no le gustaría',
     entrevista: 'Entrevista previa', comentarios: 'Comentarios', edad: 'Edad',
     fecha: 'Fecha pedida', horario: 'Horario', motivo: 'Motivo', objetivo: 'Objetivo',
-    mensaje: 'Mensaje', notas: 'Notas'
+    mensaje: 'Mensaje', notas: 'Notas',
+    horas_semana: 'Horas por semana', desde_cuando: 'Quiere empezar',
+    requerimientos: 'Requerimientos de horario'
 };
 
 async function cargarProspectos() {
@@ -760,50 +781,81 @@ async function cargarProspectos() {
     const cuerpo = document.getElementById('tabla-prospectos');
 
     let consulta = supabaseClient.from('prospectos').select('*').order('creado_en', { ascending: false });
-    if (!verTodos) consulta = consulta.eq('atendido', false);
+    if (!verTodos) consulta = consulta.not('estado', 'in', '("pagado","descartado")');
     const { data, error } = await consulta;
 
     if (error) {
         cuerpo.innerHTML = '';
         mostrarMsg(msg, 'No pude leer los prospectos: ' + error.message +
-            ' — si la tabla todavía no existe, ejecuta supabase/prospectos.sql en el SQL Editor.', 'error');
+            ' — si falta la columna de etapas, ejecuta supabase/prospectos-etapas.sql.', 'error');
         return;
     }
     msg.style.display = 'none';
 
     cuerpo.innerHTML = (data || []).map(p => {
         const r = p.respuestas || {};
-        /* Los campos que ya tienen columna propia no se repiten en el detalle. */
-        const yaMostrados = ['nombre', 'email', 'telefono', 'ciudad'];
-        const detalle = Object.keys(r)
+        const et = ETAPAS[p.estado] || ETAPAS.nuevo;
+        const tel = p.telefono ? String(p.telefono).replace(/[^0-9+]/g, '') : '';
+        const dias = Math.floor((Date.now() - new Date(p.creado_en)) / 86400000);
+
+        /* El horario propuesto es lo que decide si se puede o no dar la clase:
+           va arriba, no escondido entre las demás respuestas. */
+        let horario = '';
+        if (r.horario && typeof r.horario === 'object') {
+            const lineas = ORDEN_DIAS.filter(k => r.horario[k]).map(k => {
+                const h = r.horario[k];
+                return NOMBRE_DIA[k] + (h.desde ? ' de ' + h.desde + ' a ' + (h.hasta || '—') : '');
+            });
+            if (lineas.length) horario = '<div style="margin:0.4rem 0 0.8rem;padding:0.6rem 0.8rem;' +
+                'background:rgba(165,130,74,0.10);border-radius:8px;">' +
+                '<strong>Horario que propone:</strong><br>' + lineas.map(esc).join('<br>') + '</div>';
+        }
+
+        const yaMostrados = ['nombre','email','telefono','ciudad','horario'];
+        const detalle = horario + Object.keys(r)
             .filter(k => yaMostrados.indexOf(k) === -1 && r[k] !== '' && r[k] !== null && r[k] !== undefined)
             .map(k => {
                 const v = Array.isArray(r[k]) ? r[k].join(', ') : r[k];
                 return `<div style="margin:0.35rem 0;"><strong>${esc(CAMPO_PROSPECTO[k] || k)}:</strong> ${esc(v)}</div>`;
-            }).join('') || '<div class="muted">Sin respuestas adicionales.</div>';
+            }).join('');
 
-        const tel = p.telefono ? String(p.telefono).replace(/[^0-9+]/g, '') : '';
-        return `<tr${p.atendido ? ' style="opacity:0.55;"' : ''}>
-            <td>${new Date(p.creado_en).toLocaleDateString('es-MX')}</td>
-            <td><span class="badge ${p.atendido ? 'inactivo' : 'pendiente'}">${esc(ORIGEN_PROSPECTO[p.origen] || p.origen)}</span></td>
+        const botones = [
+            `<button class="btn pequeno secundario" onclick="alternarDetalleProspecto('${p.id}')">Ver respuestas</button>`
+        ];
+        if (et.siguiente) {
+            /* Avisar por WhatsApp y marcar el envío del contrato son el mismo
+               gesto: así no queda registrado que se envió algo que no se envió. */
+            const fn = et.siguiente === 'contrato'
+                ? `avisarYEnviarContrato('${p.id}')`
+                : `moverProspecto('${p.id}', '${et.siguiente}')`;
+            botones.push(`<button class="btn pequeno" onclick="${fn}">${esc(et.accion)}</button>`);
+        }
+        if (p.estado !== 'descartado' && p.estado !== 'pagado') {
+            botones.push(`<button class="btn pequeno secundario" onclick="moverProspecto('${p.id}', 'descartado')">Descartar</button>`);
+        }
+        if (p.estado !== 'nuevo') {
+            botones.push(`<button class="btn pequeno secundario" onclick="moverProspecto('${p.id}', 'nuevo')">Reabrir</button>`);
+        }
+
+        return `<tr${['pagado','descartado'].includes(p.estado) ? ' style="opacity:0.55;"' : ''}>
+            <td>${new Date(p.creado_en).toLocaleDateString('es-MX')}
+                ${dias > 2 && !['pagado','descartado'].includes(p.estado)
+                  ? `<br><small class="muted">hace ${dias} días</small>` : ''}</td>
+            <td><span class="badge ${et.clase}">${esc(et.rotulo)}</span><br>
+                <small class="muted">${esc(ORIGEN_PROSPECTO[p.origen] || p.origen)}</small></td>
             <td>${esc(p.nombre)}</td>
             <td>
                 <a href="mailto:${esc(p.email)}">${esc(p.email)}</a>
                 ${tel ? `<br><a href="https://wa.me/${esc(tel)}" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> ${esc(p.telefono)}</a>` : ''}
             </td>
             <td>${esc(p.ciudad) || '—'}</td>
-            <td class="acciones-fila">
-                <button class="btn pequeno secundario" onclick="alternarDetalleProspecto('${p.id}')">Ver respuestas</button>
-                <button class="btn pequeno" onclick="marcarProspecto('${p.id}', ${p.atendido ? 'false' : 'true'})">${p.atendido ? 'Reabrir' : 'Marcar atendido'}</button>
-            </td>
+            <td class="acciones-fila">${botones.join('')}</td>
         </tr>
-        <tr id="det-${p.id}" style="display:none;"><td colspan="6" style="background:rgba(0,0,0,0.03);">${detalle}</td></tr>`;
-    }).join('') || `<tr><td colspan="6" class="muted">${verTodos ? 'Todavía no ha llegado ninguna solicitud.' : 'Nada pendiente — todas las solicitudes están atendidas.'}</td></tr>`;
+        <tr id="det-${p.id}" style="display:none;"><td colspan="6" style="background:rgba(0,0,0,0.03);">${detalle || '<span class="muted">Sin respuestas adicionales.</span>'}</td></tr>`;
+    }).join('') || `<tr><td colspan="6" class="muted">${verTodos ? 'Todavía no ha llegado ninguna solicitud.' : 'Nada pendiente.'}</td></tr>`;
 
-    /* El contador de la pestaña cuenta siempre los pendientes, mire lo que
-       mire la tabla en este momento. */
     const { count } = await supabaseClient.from('prospectos')
-        .select('id', { count: 'exact', head: true }).eq('atendido', false);
+        .select('id', { count: 'exact', head: true }).eq('estado', 'nuevo');
     const badge = document.getElementById('badge-prospectos');
     badge.textContent = count || '';
     badge.style.display = count ? 'inline-block' : 'none';
@@ -814,10 +866,34 @@ function alternarDetalleProspecto(id) {
     if (fila) fila.style.display = fila.style.display === 'none' ? 'table-row' : 'none';
 }
 
-async function marcarProspecto(id, atendido) {
-    const { error } = await supabaseClient.from('prospectos').update({ atendido: atendido }).eq('id', id);
+async function moverProspecto(id, estado) {
+    const campos = { estado: estado };
+    if (estado === 'contrato') campos.avisado_en = new Date().toISOString();
+    const { error } = await supabaseClient.from('prospectos').update(campos).eq('id', id);
     if (error) { mostrarMsg(document.getElementById('msg-prospectos'), 'No se pudo guardar: ' + error.message, 'error'); return; }
     await cargarProspectos();
+}
+
+/* Avisar de que el horario quedó validado y que el acuerdo ya está listo.
+   Se abre WhatsApp con el mensaje escrito y, solo si la ventana llegó a
+   abrirse, se da el paso por hecho. */
+async function avisarYEnviarContrato(id) {
+    const { data } = await supabaseClient.from('prospectos').select('nombre, telefono').eq('id', id).single();
+    if (!data) return;
+    const tel = String(data.telefono || '').replace(/[^0-9]/g, '');
+    if (!tel) {
+        mostrarMsg(document.getElementById('msg-prospectos'),
+            'Esta persona no dejó teléfono. Avísale por correo y luego usa «Reabrir» para mover la etapa a mano.', 'error');
+        return;
+    }
+    const nombre = (data.nombre || '').split(' ')[0];
+    const url = new URL('contrato.html', window.location.href).href;
+    const texto = '¡Hola ' + nombre + '! Revisé el horario que me propusiste y me cuadra perfecto. ' +
+        'Ya te preparé tu acuerdo de aprendizaje: entra con tu cuenta y lo encuentras aquí — ' + url +
+        ' . Ahí lo lees, lo firmas y, cuando te venga bien, están también los datos para el pago. ' +
+        'Cualquier duda me dices. À bientôt !';
+    window.open('https://wa.me/' + tel + '?text=' + encodeURIComponent(texto), '_blank', 'noopener');
+    await moverProspecto(id, 'contrato');
 }
 
 // ───────────────────────── MÉTODOS ─────────────────────────

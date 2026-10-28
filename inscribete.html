@@ -417,15 +417,103 @@
 
       <!-- DISPONIBILIDAD -->
       <div class="insc-group">
-        <div class="insc-legend"><i class="fa fa-clock"></i> <span data-es="Disponibilidad horaria (marca todas las que apliquen)" data-fr="Disponibilités" data-en="Availability (select all that apply)">Disponibilidad horaria — marca todas las que apliquen</span></div>
-        <div class="dispo-grid">
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Lunes a viernes - mañana"> <span data-es="Entre semana · Mañana" data-fr="Entre semaine · Matin" data-en="Weekday · Morning">Entre semana · Mañana</span></label>
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Lunes a viernes - tarde"> <span data-es="Entre semana · Tarde" data-fr="Entre semaine · Après-midi" data-en="Weekday · Afternoon">Entre semana · Tarde</span></label>
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Lunes a viernes - noche"> <span data-es="Entre semana · Noche" data-fr="Entre semaine · Soirée" data-en="Weekday · Evening">Entre semana · Noche</span></label>
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Sábado - mañana"> <span data-es="Sábado · Mañana" data-fr="Samedi · Matin" data-en="Saturday · Morning">Sábado · Mañana</span></label>
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Sábado - tarde"> <span data-es="Sábado · Tarde" data-fr="Samedi · Après-midi" data-en="Saturday · Afternoon">Sábado · Tarde</span></label>
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Domingo"> <span data-es="Domingo" data-fr="Dimanche" data-en="Sunday">Domingo</span></label>
-          <label class="dispo-option"><input type="checkbox" name="dispo" value="Horario flexible"> <span data-es="Horario flexible" data-fr="Horaire flexible" data-en="Flexible schedule">Horario flexible</span></label>
+        <div class="insc-legend"><i class="fa fa-clock"></i> <span data-es="Tu disponibilidad" data-fr="Vos disponibilités" data-en="Your availability">Tu disponibilidad</span></div>
+        <p class="insc-ayuda" data-es="Marca los días que te sirven y dime a qué hora. Si un día necesitas otro horario, ponlo tal cual: así preparo tu propuesta sin tener que preguntarte después." data-fr="Cochez les jours qui vous conviennent et indiquez l'heure. Si un jour vous arrange à une autre heure, indiquez-la telle quelle." data-en="Tick the days that work for you and tell me the time. If one day needs a different time, put it as it is.">Marca los días que te sirven y dime a qué hora. Si un día necesitas otro horario, ponlo tal cual: así preparo tu propuesta sin tener que preguntarte después.</p>
+        <div class="dias-grid">
+          <div class="dia-fila">
+            <label class="dia-marca"><input type="checkbox" name="dia" value="lun" data-dia="lun">
+              <span data-es="Lunes" data-fr="Lundi" data-en="Monday">Lunes</span></label>
+            <div class="dia-horas" data-horas="lun" hidden>
+              <label><span data-es="de" data-fr="de" data-en="from">de</span>
+                <input type="time" name="lun_desde" step="900"></label>
+              <label><span data-es="a" data-fr="à" data-en="to">a</span>
+                <input type="time" name="lun_hasta" step="900"></label>
+            </div>
+          </div>
+          <div class="dia-fila">
+            <label class="dia-marca"><input type="checkbox" name="dia" value="mar" data-dia="mar">
+              <span data-es="Martes" data-fr="Mardi" data-en="Tuesday">Martes</span></label>
+            <div class="dia-horas" data-horas="mar" hidden>
+              <label><span data-es="de" data-fr="de" data-en="from">de</span>
+                <input type="time" name="mar_desde" step="900"></label>
+              <label><span data-es="a" data-fr="à" data-en="to">a</span>
+                <input type="time" name="mar_hasta" step="900"></label>
+            </div>
+          </div>
+          <div class="dia-fila">
+            <label class="dia-marca"><input type="checkbox" name="dia" value="mie" data-dia="mie">
+              <span data-es="Miércoles" data-fr="Mercredi" data-en="Wednesday">Miércoles</span></label>
+            <div class="dia-horas" data-horas="mie" hidden>
+              <label><span data-es="de" data-fr="de" data-en="from">de</span>
+                <input type="time" name="mie_desde" step="900"></label>
+              <label><span data-es="a" data-fr="à" data-en="to">a</span>
+                <input type="time" name="mie_hasta" step="900"></label>
+            </div>
+          </div>
+          <div class="dia-fila">
+            <label class="dia-marca"><input type="checkbox" name="dia" value="jue" data-dia="jue">
+              <span data-es="Jueves" data-fr="Jeudi" data-en="Thursday">Jueves</span></label>
+            <div class="dia-horas" data-horas="jue" hidden>
+              <label><span data-es="de" data-fr="de" data-en="from">de</span>
+                <input type="time" name="jue_desde" step="900"></label>
+              <label><span data-es="a" data-fr="à" data-en="to">a</span>
+                <input type="time" name="jue_hasta" step="900"></label>
+            </div>
+          </div>
+          <div class="dia-fila">
+            <label class="dia-marca"><input type="checkbox" name="dia" value="vie" data-dia="vie">
+              <span data-es="Viernes" data-fr="Vendredi" data-en="Friday">Viernes</span></label>
+            <div class="dia-horas" data-horas="vie" hidden>
+              <label><span data-es="de" data-fr="de" data-en="from">de</span>
+                <input type="time" name="vie_desde" step="900"></label>
+              <label><span data-es="a" data-fr="à" data-en="to">a</span>
+                <input type="time" name="vie_hasta" step="900"></label>
+            </div>
+          </div>
+          <div class="dia-fila">
+            <label class="dia-marca"><input type="checkbox" name="dia" value="sab" data-dia="sab">
+              <span data-es="Sábado" data-fr="Samedi" data-en="Saturday">Sábado</span></label>
+            <div class="dia-horas" data-horas="sab" hidden>
+              <label><span data-es="de" data-fr="de" data-en="from">de</span>
+                <input type="time" name="sab_desde" step="900"></label>
+              <label><span data-es="a" data-fr="à" data-en="to">a</span>
+                <input type="time" name="sab_hasta" step="900"></label>
+            </div>
+          </div>
+          <div class="dia-fila">
+            <label class="dia-marca"><input type="checkbox" name="dia" value="dom" data-dia="dom">
+              <span data-es="Domingo" data-fr="Dimanche" data-en="Sunday">Domingo</span></label>
+            <div class="dia-horas" data-horas="dom" hidden>
+              <label><span data-es="de" data-fr="de" data-en="from">de</span>
+                <input type="time" name="dom_desde" step="900"></label>
+              <label><span data-es="a" data-fr="à" data-en="to">a</span>
+                <input type="time" name="dom_hasta" step="900"></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="insc-row" style="margin-top:1.2rem;">
+          <div class="form-field">
+            <label for="f-horas-semana" data-es="¿Cuántas horas por semana quieres?" data-fr="Combien d'heures par semaine ?" data-en="How many hours per week?">¿Cuántas horas por semana quieres?</label>
+            <select id="f-horas-semana" name="horas_semana">
+              <option value="">Aún no lo sé</option>
+              <option value="1">1 hora</option>
+              <option value="1.5">1 hora y media</option>
+              <option value="2">2 horas</option>
+              <option value="3">3 horas</option>
+              <option value="4">4 horas</option>
+              <option value="Más de 4">Más de 4 horas</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="f-desde-cuando" data-es="¿Desde cuándo quieres empezar?" data-fr="À partir de quand ?" data-en="When would you like to start?">¿Desde cuándo quieres empezar?</label>
+            <input type="date" id="f-desde-cuando" name="desde_cuando">
+          </div>
+        </div>
+
+        <div class="form-field" style="margin-top:0.6rem;">
+          <label for="f-req" data-es="¿Algún requerimiento especial con los horarios?" data-fr="Une contrainte particulière d'horaire ?" data-en="Any special scheduling requirement?">¿Algún requerimiento especial con los horarios?</label>
+          <textarea id="f-req" name="requerimientos" rows="2" placeholder="Por ejemplo: los jueves solo puedo quincenalmente, o en diciembre viajo."></textarea>
         </div>
       </div>
 
@@ -1472,17 +1560,39 @@ window.addEventListener('DOMContentLoaded', function() {
     });
   });
 
+  /* Las horas de un día solo tienen sentido si ese día está marcado: aparecen
+     al marcarlo y se exigen, que es justo el dato que faltaba para poder
+     armar un calendario sin volver a preguntar. */
+  inscForm.querySelectorAll('input[name="dia"]').forEach(function (cb) {
+    cb.addEventListener('change', function () {
+      var caja = inscForm.querySelector('[data-horas="' + cb.value + '"]');
+      if (!caja) return;
+      caja.hidden = !cb.checked;
+      caja.querySelectorAll('input[type="time"]').forEach(function (t) {
+        t.required = cb.checked;
+        if (!cb.checked) t.value = '';
+      });
+      cb.closest('.dia-fila').classList.toggle('activa', cb.checked);
+    });
+  });
+
   inscForm.addEventListener('submit', function(e) {
     e.preventDefault();
     var d = {};
     var fd = new FormData(inscForm);
     for (var pair of fd.entries()) { d[pair[0]] = pair[1]; }
 
-    /* Recoger disponibilidad (múltiple) */
-    var dispos = [];
-    inscForm.querySelectorAll('input[name="dispo"]:checked').forEach(function(c) {
-      dispos.push(c.value);
+    /* Disponibilidad: cada día marcado con su hora concreta. */
+    var NOMBRE_DIA = { lun:'Lunes', mar:'Martes', mie:'Miércoles', jue:'Jueves',
+                       vie:'Viernes', sab:'Sábado', dom:'Domingo' };
+    var horario = {}, dispos = [];
+    inscForm.querySelectorAll('input[name="dia"]:checked').forEach(function (c) {
+      var desde = (d[c.value + '_desde'] || '').trim();
+      var hasta = (d[c.value + '_hasta'] || '').trim();
+      horario[c.value] = { desde: desde, hasta: hasta };
+      dispos.push(NOMBRE_DIA[c.value] + (desde ? ' de ' + desde + ' a ' + (hasta || '—') : ''));
     });
+    d.horario = horario;
 
     /* Validación mínima */
     if (!d.nombre || !d.email) {
@@ -1507,7 +1617,10 @@ window.addEventListener('DOMContentLoaded', function() {
       'NIVEL Y OBJETIVOS\n' +
       'Nivel actual: ' + (d.nivel||'-') + '\n' +
       'Horas a contratar: ' + (d.horas||'-') + '\n\n' +
-      'DISPONIBILIDAD\n' + (dispos.length ? dispos.join(', ') : '-') + '\n\n' +
+      'DISPONIBILIDAD\n' + (dispos.length ? dispos.join('\n') : '-') + '\n' +
+      'Horas por semana: ' + (d.horas_semana || '-') + '\n' +
+      'Quiere empezar: ' + fechaLegible(d.desde_cuando) + '\n' +
+      'Requerimientos de horario: ' + (d.requerimientos || '-') + '\n\n' +
       'MOTIVACIÓN\n' + (d.motivacion||'-') + '\n\n' +
       'EXPECTATIVAS\n' + (d.expectativas||'-') + '\n\n' +
       'QUÉ NO LE GUSTARÍA\n' + (d.no_gusta||'-') + '\n\n' +
