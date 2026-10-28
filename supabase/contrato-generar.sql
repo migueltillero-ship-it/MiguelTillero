@@ -70,11 +70,11 @@ begin
     else '' end ||
 
     '3. LAS HORAS' || E'\n' ||
-    'Contratas ' || trim(to_char(c.horas_pagadas, '999D9')) ||
+    'Contratas ' || horas_legibles(c.horas_pagadas) ||
     ' horas de clase, y son las que quedan reservadas en el calendario.' ||
     case when v_regalo > 0 then
       E'\n\n' ||
-      'Además, de manera excepcional, te añado ' || trim(to_char(v_regalo, '999D9')) ||
+      'Además, de manera excepcional, te añado ' || horas_legibles(v_regalo) ||
       ' horas de tutoría complementaria sin costo. No van en el calendario ' ||
       'porque no son clase nueva: son horas que me pides cuando las ' ||
       'necesites — para afianzar un sonido que se resiste, repasar antes de ' ||
@@ -84,7 +84,7 @@ begin
 
     '4. NUESTRO CALENDARIO' || E'\n' ||
     'Estas son las fechas y horarios que reservamos para tus ' ||
-    trim(to_char(c.horas_pagadas, '999D9')) || ' horas de clase (hora de la ' ||
+    horas_legibles(c.horas_pagadas) || ' horas de clase (hora de la ' ||
     'Ciudad de México):' || E'\n' || v_calend || E'\n\n' ||
     'Si a alguno de los dos se le cruza algo, lo movemos: basta con avisar al ' ||
     'otro con 24 horas de antelación. Una clase cancelada con menos aviso cuenta ' ||
@@ -111,9 +111,9 @@ begin
     'la lengua con otras personas, no solo conmigo.' || E'\n\n' ||
 
     '7. LA INVERSIÓN' || E'\n' ||
-    'El precio es de ' || trim(to_char(c.precio_hora, '999G999D99')) || ' ' || c.moneda ||
-    ' por hora. En total son ' || trim(to_char(c.importe_total, '999G999D99')) || ' ' || c.moneda ||
-    ', por las ' || trim(to_char(c.horas_pagadas, '999D9')) || ' horas contratadas.' ||
+    'El precio es de ' || dinero_legible(c.precio_hora) || ' ' || c.moneda ||
+    ' por hora. En total son ' || dinero_legible(c.importe_total) || ' ' || c.moneda ||
+    ', por las ' || horas_legibles(c.horas_pagadas) || ' horas contratadas.' ||
     case when v_regalo > 0 then ' Las horas que añado no se cobran.' else '' end || E'\n\n' ||
 
     '8. EL PAGO' || E'\n' ||
