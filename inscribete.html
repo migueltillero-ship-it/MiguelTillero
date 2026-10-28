@@ -1718,6 +1718,16 @@ window.addEventListener('DOMContentLoaded', function() {
       dispos.push(NOMBRE_DIA[c.value] + (desde ? ' de ' + desde + ' a ' + (hasta || '—') : ''));
     });
     d.horario = horario;
+    /* Fuera el ruido antes de guardar: «dia» es el valor suelto de la última
+       casilla marcada, que FormData entrega aunque no signifique nada, y los
+       pares lun_desde/lun_hasta ya están recogidos y ordenados dentro de
+       «horario». Guardar las tres formas del mismo dato invita a que un día
+       se lean la que no es. */
+    delete d.dia;
+    Object.keys(d).forEach(function (k) {
+      if (/_(desde|hasta)$/.test(k)) delete d[k];
+      if (d[k] === '') delete d[k];
+    });
 
     /* Validación mínima */
     if (!d.nombre || !d.email) {
