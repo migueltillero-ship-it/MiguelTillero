@@ -249,6 +249,23 @@ begin
         asignado_el = excluded.asignado_el, entregar_antes = excluded.entregar_antes,
         orden = excluded.orden;
 
+  -- Lo que se vio de verdad el 28 de octubre, en la planificación del grupo.
+  update public.sesiones set
+    tema = 'Révision du vocabulaire · La nétiquette (livre p. 19, act. 23-24)',
+    contenido = E'Repaso general del vocabulario de la unidad.
+'
+      '• Act. 23 — Vídeo: ¿qué es la nétiquette? ¿Qué se hace y qué no, según el interviniente?
+'
+      '• Las fórmulas para juzgar: ça se fait / ça ne se fait pas, ce qu''il faut dire / faire, il vaut mieux, mieux vaut, proverbios con valoir.
+'
+      '• Deberes para el 2 de noviembre (en «Mes devoirs»): los buenos modales en la mesa en México, con una imagen; y ceder el asiento en el transporte público.'
+   where grupo_id = v_grupo and fecha = date '2026-10-28';
+
+  -- «Prendre des notes» se queda como ficha de método, sin la fecha de hoy.
+  update public.materiales
+     set titulo = 'Méthodologie DELF · Prendre des notes', orden = 15
+   where grupo_id = v_grupo and url like '%espace-b2-exercices.html#s7';
+
   -- Las dos entradas en «Materiales» del espacio del estudiante.
   insert into public.materiales (grupo_id, titulo, descripcion, url, categoria, unidad, orden)
   values

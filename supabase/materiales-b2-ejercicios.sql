@@ -74,7 +74,7 @@ begin
        || 'salta a su minuto. Se valida al 80 %.',
        '#savoir-vivre', null::date),
 
-      (9, 'Séance du 28 octobre · Prendre des notes', 'refuerzo', 'Unité 1',
+      (15, 'Méthodologie DELF · Prendre des notes', 'refuerzo', 'Unité 1',
        'Descifrar notas, abreviar, y oír cifras al vuelo. Es la técnica que decide '
        || 'la compréhension orale del examen.',
        '#s7', null::date),

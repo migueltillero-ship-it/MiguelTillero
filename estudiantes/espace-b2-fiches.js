@@ -1505,13 +1505,13 @@ FICHAS.push({
 });
 
 /* ───────────────────────────────────────────────────────────────────────
-   SÉANCE 7 · 28 octobre · p. 24-25
+   MÉTHODOLOGIE · p. 24-25 (sin fecha: el 28 de octubre se vio la nétiquette)
    MÉTHODOLOGIE ET PRÉPARATION AU DELF — Prendre des notes
    ─────────────────────────────────────────────────────────────────────── */
 FICHAS.push({
   id: 's7',
   ciclo: 'Oct.-nov. 2026',
-  fecha: 'Mercredi 28 octobre · p. 24-25',
+  fecha: 'Méthodologie DELF · p. 24-25',
   titulo: 'Prendre des notes — méthodologie DELF',
   resumen: 'Las notas manuscritas de la página 24 descifradas, la lista de abreviaturas del libro y los seis procedimientos para crear las tuyas.',
   intro: 'Se habla a 150-200 palabras por minuto y se escribe a 25-40. Tomar notas no es '
