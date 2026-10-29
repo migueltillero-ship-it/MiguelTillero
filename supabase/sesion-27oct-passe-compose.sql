@@ -89,11 +89,14 @@ delete from public.avisos a
  using public.inscripciones i, public.grupos g
  where a.estudiante_id = i.estudiante_id
    and i.grupo_id = g.id and g.codigo = 'A1-OCT2026'
-   and a.titulo = 'Le passé composé — à faire avant la prochaine séance';
+   -- Por los dos títulos: este aviso ya se ha llamado de otra forma, y si
+   -- solo se borrara el actual quedarían dos en el espacio del estudiante,
+   -- con dos fechas distintas. Cualquier título que empiece igual.
+   and a.titulo like 'Le passé composé — %';
 
 insert into public.avisos (estudiante_id, titulo, mensaje, tipo, desde, hasta)
 select distinct i.estudiante_id,
-  'Le passé composé — à faire avant la prochaine séance',
+  'Le passé composé — à faire avant l''évaluation du 3 novembre',
   -- « Materiales » en español a propósito: es como se llama la pestaña en su
   -- panel. Traducirla aquí los mandaría a buscar algo que no existe.
   E'Dans l''onglet « Materiales », la fiche 7 vous attend : '
@@ -102,19 +105,22 @@ select distinct i.estudiante_id,
   'fermée jusqu''à ce que la précédente soit faite en entier et à 80 %. On ne '
   'peut donc pas cliquer au hasard pour avancer : il faut comprendre, et '
   'c''est le but.\n\n'
-  -- En dos tandas a propósito. Dieciocho ejercicios para mañana es pedir que
-  -- se hagan mal y de madrugada; las tres primeras etapas son justo la base
-  -- que hace falta para la clase siguiente, y el resto llega de sobra para
-  -- la evaluación. Dice lo mismo que el mensaje que reciben por WhatsApp:
-  -- dos textos que se contradicen es lo que hace que no se crea ninguno.
-  'Pour jeudi : les étapes 1, 2 et 3 — reconnaître le passé composé, '
-  'choisir entre être et avoir, former le participe passé. Vingt minutes, '
-  'pas plus.\n\n'
-  'Pour le week-end : les étapes 4 à 7 — l''accord, la négation, et '
-  'raconter votre journée d''hier — avec les deux exercices de TV5MONDE : '
-  '« Le lycée, c''est fini » (A1) et « Reconnaître la forme du '
-  'passé composé » (A2). Notez vos résultats dans le dernier exercice '
-  'de la fiche.\n\n'
+  -- La fecha manda. Cuando se escribió esto el plazo era el jueves; ese
+  -- jueves ya pasó y el martes 3 es la evaluación de cierre, así que la
+  -- ficha deja de ser un deber suelto y pasa a ser el repaso de la prueba.
+  -- Un aviso con una fecha vencida no es un detalle: enseña que lo que
+  -- dice la plataforma no hay que tomárselo en serio.
+  'Pour mardi 3 novembre : toute la fiche, les sept étapes. Ce jour-là '
+  'nous avons l''évaluation de fin de cycle, et cette fiche est exactement '
+  'la révision qu''il vous faut.\n\n'
+  'Ne la faites pas d''une traite. Les étapes 1 à 4 ce week-end, les 5, 6 '
+  'et 7 lundi : vingt minutes par jour valent mieux que deux heures la '
+  'veille.\n\n'
+  'À l''étape 7 il y a deux liens de TV5MONDE. N''y faites que ces '
+  'exercices-là : dans « Le lycée, c''est fini ! » les numéros 3, 4 et 5 ; '
+  'dans « Reconnaître la forme du passé composé » les numéros 3 et 4. '
+  'Les autres ne sont pas pour nous. Notez vos résultats dans le dernier '
+  'exercice de la fiche.\n\n'
   'Si une étape ne s''ouvre pas, c''est normal : cliquez sur « Recommencer » '
   'et refaites les exercices en rouge. Apportez vos questions en classe.',
   'aviso',
