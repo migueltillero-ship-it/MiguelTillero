@@ -11,6 +11,7 @@ PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers node pruebas-navegador/ejercicios-b2.j
 PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers node pruebas-navegador/ejercicios-a1.js
 PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers node pruebas-navegador/filtro-de-ciclos.js
 PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers node pruebas-navegador/paliers.js
+PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers node pruebas-navegador/sync-a1.js
 ```
 
 (En otra máquina, cambia la ruta de Playwright por la que tengas instalada.)
@@ -28,6 +29,7 @@ con ✗, el número entre paréntesis dice lo que encontró en lugar de lo esper
 | `parcours-video.js` | El recorrido con vídeo: el reproductor pegado, los saltos por minuto al segundo exacto, las etapas, y el sello que solo valida con todo hecho y un 80 % de acierto. |
 | `tipos-nuevos.js` | Los cuatro tipos que se juegan: el reto con reloj (que cuenta, corrige al vuelo y dice al final qué falló), la mesa en la que se señala, el orden del menú y la cena con decisiones. |
 | `paliers.js` | Las etapas cerradas con llave de la ficha del passé composé: que al entrar solo se pinta la primera, que **las respuestas de una etapa cerrada no están en el HTML**, que con la anterior a medias no abre, que al superarla se abre sola sin recargar, y que el umbral es exactamente el 80 % (con 79 no, con 80 sí). |
+| `sync-a1.js` | Que el espacio A1.4 está conectado a la plataforma como el B2: carga el SDK, `MT_SYNC` queda definido, al visitante sin cuenta se le dice cómo entrar, y sin cuenta **no** se escribe nada en la base. |
 | `fichas-con-fecha.js` | Que una ficha con `desde` no se ve antes de tiempo —ni en el índice ni por enlace directo— y que aparece sola el día que toca. Finge el reloj del navegador para ver el antes y el después. |
 
 ## Por qué importan los dos últimos

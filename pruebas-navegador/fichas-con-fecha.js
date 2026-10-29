@@ -24,8 +24,8 @@ const { chromium } = require('/opt/node-tools/node_modules/playwright');
 
   const antes = await abrir('2026-10-25');
   const nAntes = await antes.locator('#grille-fiches .carte').count();
-  console.log('1. El 25 de octubre se ven 10 fichas (sin las dos pruebas):',
-              nAntes === 10 ? '✓' : '✗ (' + nAntes + ')');
+  console.log('1. El 25 de octubre se ven 11 fichas (sin las dos pruebas):',
+              nAntes === 11 ? '✓' : '✗ (' + nAntes + ')');
   const textoAntes = await antes.locator('#grille-fiches').innerText();
   console.log('2. La épreuve blanche no aparece:',
               textoAntes.includes('Épreuve blanche') ? '✗' : '✓');
@@ -39,12 +39,12 @@ const { chromium } = require('/opt/node-tools/node_modules/playwright');
 
   const durante = await abrir('2026-11-09');
   const nDurante = await durante.locator('#grille-fiches .carte').count();
-  console.log('4. El 9 de noviembre aparece la épreuve blanche (11):',
-              nDurante === 11 ? '✓' : '✗ (' + nDurante + ')');
+  console.log('4. El 9 de noviembre aparece la épreuve blanche (12):',
+              nDurante === 12 ? '✓' : '✗ (' + nDurante + ')');
 
   const despues = await abrir('2026-11-16');
   const nDespues = await despues.locator('#grille-fiches .carte').count();
-  console.log('5. El 16 están las doce:', nDespues === 12 ? '✓' : '✗ (' + nDespues + ')');
+  console.log('5. El 16 están las trece:', nDespues === 13 ? '✓' : '✗ (' + nDespues + ')');
 
   console.log(errores.length ? '\nErrores JS: ' + errores.join(' | ') : '\nSin errores de JavaScript ✓');
   await b.close();

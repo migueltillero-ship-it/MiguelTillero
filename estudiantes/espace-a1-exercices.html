@@ -65,7 +65,14 @@
 
 <script>window.MT_FICHAS_CLAVE = 'mt-a1';
        window.MT_CICLO_ACTUAL = 'Oct. 2026 · A1.4';</script>
-<script src="espace-a1-fiches.js"></script>
-<script src="../assets/js/fichas-ejercicios.js"></script>
+<script src="espace-a1-fiches.js?v=2"></script>
+<script src="../assets/js/fichas-ejercicios.js?v=2"></script>
+<!-- El camino de vuelta, igual que en el espacio B2: si el estudiante ha
+     entrado con su cuenta, cada ejercicio resuelto se copia a fichas_avance
+     y aparece en evaluaciones/seguimiento.html. Sin cuenta todo funciona
+     igual que siempre; solo sale el aviso para entrar. -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../assets/js/supabase-config.js?v=1790500000"></script>
+<script src="../assets/js/fichas-sync.js?v=1"></script>
 </body>
 </html>
