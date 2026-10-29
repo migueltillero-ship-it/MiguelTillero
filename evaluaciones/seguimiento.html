@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Seguimiento · deberes y fichas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../assets/js/supabase-config.js?v=1790500000"></script>
+<style>
+:root{--cream:#eef4ee;--ink:#12291c;--ink2:#0d3b2e;--muted:rgba(18,41,28,.64);--line:rgba(18,41,28,.13);--gold:#a5824a;--gold2:#e3c68e;--green:#0d7f57;--red:#b4533a;--blue:#2b5c8f;
+--display:'Cormorant Garamond',Georgia,serif;--sans:'Syne',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.45}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+input,textarea,select{font:inherit}
+.hidden{display:none!important}
+.wrap{max-width:1280px;margin:0 auto;padding:0 16px}
+h1,h2,h3{font-family:var(--display);line-height:1.1}
+.btn{display:inline-flex;align-items:center;gap:.35rem;padding:.5rem .95rem;border-radius:999px;background:var(--ink);color:#fff;font-weight:700;font-size:.98rem;text-decoration:none;white-space:nowrap}
+.btn.ghost{background:#fff;border:1.5px solid var(--line);color:var(--ink)}
+.btn.sm{padding:.32rem .7rem;font-size:.92rem}
+.btn:disabled{opacity:.4;cursor:default}
+header{background:var(--ink2);color:#fff}
+header .wrap{display:flex;align-items:center;gap:1rem;min-height:64px;flex-wrap:wrap}
+header h1{font-size:1.6rem}
+header h1 em{color:var(--gold2);font-style:normal}
+header .sp{flex:1}
+header a{color:#fff;font-size:1rem}
+#login{max-width:380px;margin:80px auto;background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:.8rem}
+#login input{padding:.7rem .9rem;border:1.5px solid var(--line);border-radius:10px}
+#l-err{color:var(--red)}
+.intro{padding:22px 0 8px;max-width:80ch}
+.intro h2{font-size:2rem;margin-bottom:.3rem}
+.hint{color:var(--muted);font-size:1.01rem}
+section{margin:22px 0 34px}
+section>h3{font-size:1.7rem;margin-bottom:.6rem}
+.tbl{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:16px}
+table{width:100%;border-collapse:collapse;font-size:1rem}
+th,td{padding:.6rem .7rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+tr:last-child td{border-bottom:0}
+th{font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+th.f{min-width:7rem}
+td.c{text-align:center;white-space:nowrap;font-variant-numeric:tabular-nums}
+.chip{display:inline-block;padding:.2rem .65rem;border-radius:999px;font-size:.88rem;font-weight:700;background:rgba(18,41,28,.07);color:var(--muted)}
+.chip.ok{background:rgba(13,127,87,.14);color:var(--green)}
+.chip.rev{background:rgba(43,92,143,.14);color:var(--blue)}
+.chip.mid{background:rgba(165,130,74,.18);color:#7a5d2e}
+button.chip{cursor:pointer}
+.deber-cab{display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:baseline;margin-bottom:.5rem}
+.deber-cab b{font-size:1.1rem}
+.deber-cab small{color:var(--muted)}
+.det{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:12px}
+.det h4{font-size:1.15rem;margin-bottom:.4rem}
+.det .texto{white-space:pre-wrap;background:var(--cream);border-radius:10px;padding:.8rem 1rem;margin:.5rem 0;line-height:1.6;font-size:1.05rem}
+.det img{max-width:100%;max-height:420px;border-radius:10px;display:block;margin:.5rem 0}
+.det textarea{width:100%;min-height:6rem;padding:.6rem .8rem;border:1.5px solid var(--line);border-radius:10px;margin:.4rem 0}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:.6rem 1rem;border-radius:10px;z-index:50}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1><em>Seguimiento</em> · deberes y fichas</h1><div class="sp"></div>
+  <a href="boletines.html">Boletines</a>
+  <a href="panel.html">Sentinelle</a>
+  <a href="../panel-docente.html">Panel docente</a>
+</div></header>
+
+<form id="login" class="hidden">
+  <h2 style="font-size:2rem">Acceso docente</h2>
+  <p class="hint">Usa tu cuenta de docente de la plataforma Vive el francés.</p>
+  <input id="l-mail" type="email" placeholder="correo" autocomplete="username" required>
+  <input id="l-pass" type="password" placeholder="contraseña" autocomplete="current-password" required>
+  <button class="btn" type="submit">Entrar</button>
+  <div id="l-err"></div>
+</form>
+
+<main id="app" class="hidden"><div class="wrap">
+  <div class="intro">
+    <h2>Grupo <select id="grupo" aria-label="Grupo" style="font:inherit;font-size:1.6rem;border:0;border-bottom:2px solid var(--line);background:none;color:inherit;padding:0 .2rem"></select></h2>
+    <p class="hint">Quién entregó cada deber y cuánto avanzó en las fichas de ejercicios. El avance de las fichas solo llega cuando el alumno las resuelve después de entrar con su cuenta.</p>
+  </div>
+
+  <section>
+    <h3>Deberes</h3>
+    <div id="deberes"></div>
+  </section>
+
+  <section>
+    <h3>Fichas de ejercicios</h3>
+    <p class="hint" style="margin-bottom:.6rem">Ejercicios hechos / total de la ficha, y el porcentaje de aciertos. Pulsa una celda para leer lo que escribió.</p>
+    <div class="tbl"><table id="fichas"></table></div>
+    <div id="det-ficha"></div>
+  </section>
+</div></main>
+<div class="toast hidden" id="toast"></div>
+
+<script>
+(function(){
+'use strict';
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sb = typeof supabaseClient !== 'undefined' ? supabaseClient : null;
+// Cada grupo con su espacio de ejercicios: la clave con que guarda el avance y su archivo de fichas.
+const ESPACIOS = {
+  'B2-OCT2026': { clave:'mt-b2', js:'../estudiantes/espace-b2-fiches.js' },
+  'A1-OCT2026': { clave:'mt-a1', js:'../estudiantes/espace-a1-fiches.js' }
+};
+let GRUPO = new URLSearchParams(location.search).get('grupo') || 'B2-OCT2026';
+let datos = null, FICHAS_GRUPO = [];
+const fichasCargadas = {};
+
+function toast(m){ const t = $('#toast'); t.textContent = m; t.classList.remove('hidden'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.add('hidden'), 2800); }
+function showLogin(m){ $('#app').classList.add('hidden'); $('#login').classList.remove('hidden'); $('#l-err').textContent = m || ''; }
+const fechaCorta = d => new Date(d).toLocaleDateString('es-MX', { day:'numeric', month:'short' });
+
+$('#login').addEventListener('submit', async e => {
+  e.preventDefault();
+  const { error } = await sb.auth.signInWithPassword({ email:$('#l-mail').value.trim(), password:$('#l-pass').value });
+  if(error) return showLogin('Correo o contraseña incorrectos.');
+  boot();
+});
+
+// Los archivos de fichas declaran «const FICHAS»: se leen como texto y se
+// evalúan aparte para poder cambiar de grupo sin recargar.
+async function fichasDe(grupo){
+  const esp = ESPACIOS[grupo];
+  if(!esp) return [];
+  if(fichasCargadas[grupo]) return fichasCargadas[grupo];
+  try {
+    const txt = await (await fetch(esp.js, { cache:'no-cache' })).text();
+    fichasCargadas[grupo] = new Function(txt + '\n;return FICHAS;')();
+  } catch(e){ fichasCargadas[grupo] = []; }
+  return fichasCargadas[grupo];
+}
+
+async function boot(){
+  if(!sb) return showLogin('No se pudo conectar con la plataforma.');
+  const { data:{ user } } = await sb.auth.getUser();
+  if(!user) return showLogin();
+  const { data:gs } = await sb.from('grupos').select('codigo').order('codigo');
+  const codigos = [...new Set([...(gs || []).map(g => g.codigo), GRUPO])].sort();
+  $('#grupo').innerHTML = codigos.map(c => `<option ${c === GRUPO ? 'selected' : ''}>${esc(c)}</option>`).join('');
+  $('#grupo').onchange = e => { GRUPO = e.target.value; history.replaceState(null, '', '?grupo=' + encodeURIComponent(GRUPO)); boot(); };
+  const esp = ESPACIOS[GRUPO] || { clave:'' };
+  const [{ data, error }, fs] = await Promise.all([
+    sb.rpc('seguimiento_grupo', { p_grupo: GRUPO, p_clave: esp.clave }),
+    fichasDe(GRUPO)
+  ]);
+  if(error) return showLogin('Falta preparar el seguimiento: ejecuta supabase/deberes-y-seguimiento.sql en Supabase, y entra con tu cuenta de docente. (' + error.message + ')');
+  datos = data; FICHAS_GRUPO = fs;
+  $('#login').classList.add('hidden'); $('#app').classList.remove('hidden');
+  pintarDeberes(); pintarFichas();
+}
+
+/* ── Deberes ── */
+function pintarDeberes(){
+  const { alumnos, deberes, entregas } = datos;
+  if(!deberes.length){ $('#deberes').innerHTML = '<p class="hint">Este grupo todavía no tiene deberes.</p>'; return; }
+  const por = {}; entregas.forEach(e => { por[e.deber_id + '|' + e.estudiante_id] = e; });
+  $('#deberes').innerHTML = deberes.map(d => {
+    const hechos = alumnos.filter(a => por[d.id + '|' + a.id]).length;
+    return `<div style="margin-bottom:1.4rem">
+      <div class="deber-cab"><b>${esc(d.titulo)}</b>
+        <small>asignado el ${esc(fechaCorta(d.asignado_el + 'T12:00'))}${d.entregar_antes ? ' · para el ' + esc(fechaCorta(d.entregar_antes + 'T12:00')) : ''} · ${hechos}/${alumnos.length} entregados</small></div>
+      <div class="tbl"><table>
+        <thead><tr><th>Alumno</th><th>Estado</th><th>Entregado</th><th>Palabras</th><th>Archivo</th><th></th></tr></thead>
+        <tbody>${alumnos.map(a => {
+          const e = por[d.id + '|' + a.id];
+          if(!e) return `<tr><td>${esc(a.nombre)}</td><td><span class="chip">Pendiente</span></td><td>—</td><td>—</td><td>—</td><td></td></tr>`;
+          const n = e.texto && e.texto.trim() ? e.texto.trim().split(/\s+/).length : 0;
+          return `<tr><td>${esc(a.nombre)}</td>
+            <td>${e.estado === 'revisado' ? '<span class="chip rev">Revisado</span>' : '<span class="chip ok">Entregado</span>'}</td>
+            <td>${esc(new Date(e.entregado_en).toLocaleString('es-MX', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' }))}</td>
+            <td class="c">${n}${d.palabras ? ' / ' + d.palabras : ''}</td>
+            <td>${e.archivo ? '📎 ' + esc(e.archivo_nombre || 'archivo') : '—'}</td>
+            <td><button class="btn sm ghost" data-ver="${e.id}">Leer</button></td></tr>`;
+        }).join('')}</tbody>
+      </table></div>
+      <div id="det-${d.id}"></div>
+    </div>`;
+  }).join('');
+  document.querySelectorAll('[data-ver]').forEach(b => b.onclick = () => verEntrega(b.dataset.ver));
+}
+
+async function verEntrega(id){
+  const e = datos.entregas.find(x => x.id === id);
+  const a = datos.alumnos.find(x => x.id === e.estudiante_id) || { nombre:'' };
+  const caja = $('#det-' + e.deber_id);
+  let adjunto = '';
+  if(e.archivo){
+    const { data } = await sb.storage.from('deberes').createSignedUrl(e.archivo, 3600);
+    if(data && data.signedUrl){
+      adjunto = /\.(jpe?g|png|webp|gif)$/i.test(e.archivo)
+        ? `<a href="${esc(data.signedUrl)}" target="_blank" rel="noopener"><img src="${esc(data.signedUrl)}" alt="Imagen entregada por ${esc(a.nombre)}"></a>`
+        : `<p><a class="btn sm ghost" href="${esc(data.signedUrl)}" target="_blank" rel="noopener">Abrir ${esc(e.archivo_nombre || 'archivo')}</a></p>`;
+    } else adjunto = '<p class="hint">No se pudo abrir el archivo.</p>';
+  }
+  caja.innerHTML = `<div class="det">
+    <h4>${esc(a.nombre)}</h4>
+    ${e.texto ? `<div class="texto">${esc(e.texto)}</div>` : '<p class="hint">Sin texto.</p>'}
+    ${adjunto}
+    <label class="hint" for="com-${e.id}">Tu comentario (lo verá el alumno en «Mes devoirs»)</label>
+    <textarea id="com-${e.id}">${esc(e.comentario || '')}</textarea>
+    <button class="btn" id="guardar-${e.id}">Guardar y marcar revisado</button>
+    <button class="btn ghost" id="cerrar-${e.id}">Cerrar</button>
+  </div>`;
+  caja.scrollIntoView({ behavior:'smooth', block:'nearest' });
+  $('#cerrar-' + e.id).onclick = () => { caja.innerHTML = ''; };
+  $('#guardar-' + e.id).onclick = async () => {
+    const com = $('#com-' + e.id).value;
+    const { error } = await sb.rpc('revisar_entrega', { p_entrega: e.id, p_comentario: com });
+    if(error) return toast('No se pudo guardar: ' + error.message);
+    e.comentario = com; e.estado = 'revisado';
+    toast('Guardado'); pintarDeberes();
+  };
+}
+
+/* ── Fichas ── */
+function pintarFichas(){
+  const { alumnos, fichas } = datos;
+  if(!FICHAS_GRUPO.length){ $('#fichas').innerHTML = '<tr><td class="hint">Este grupo no tiene espacio de ejercicios.</td></tr>'; return; }
+  const por = {};
+  fichas.forEach(f => { ((por[f.estudiante_id] = por[f.estudiante_id] || {})[f.ficha] = por[f.estudiante_id][f.ficha] || []).push(f); });
+  $('#fichas').innerHTML = `<thead><tr><th>Alumno</th>${FICHAS_GRUPO.map(f =>
+      `<th class="f" title="${esc(f.titulo)}">${esc(f.fecha.split('·')[0])}<br><span style="text-transform:none;letter-spacing:0">${esc(f.titulo.slice(0, 28))}${f.titulo.length > 28 ? '…' : ''}</span></th>`).join('')}</tr></thead>
+    <tbody>${alumnos.map(a => `<tr><td>${esc(a.nombre)}</td>${FICHAS_GRUPO.map(f => {
+      const filas = ((por[a.id] || {})[f.id]) || [];
+      if(!filas.length) return '<td class="c"><span class="chip">—</span></td>';
+      const n = f.ejercicios.length, hechos = Math.min(filas.length, n);
+      const b = filas.reduce((s, x) => s + x.bien, 0), t = filas.reduce((s, x) => s + x.total, 0);
+      const pct = t ? Math.round(b / t * 100) : 0;
+      const cls = hechos >= n ? 'ok' : 'mid';
+      return `<td class="c"><button class="chip ${cls}" data-a="${a.id}" data-f="${esc(f.id)}">${hechos}/${n} · ${pct} %</button></td>`;
+    }).join('')}</tr>`).join('')}</tbody>`;
+  document.querySelectorAll('#fichas [data-f]').forEach(b => b.onclick = () => verFicha(b.dataset.a, b.dataset.f));
+}
+
+function verFicha(alumno, fid){
+  const a = datos.alumnos.find(x => x.id === alumno), f = FICHAS_GRUPO.find(x => x.id === fid);
+  const filas = datos.fichas.filter(x => x.estudiante_id === alumno && x.ficha === fid)
+    .sort((x, y) => Number(x.ejercicio) - Number(y.ejercicio));
+  $('#det-ficha').innerHTML = `<div class="det">
+    <h4>${esc(a.nombre)} · ${esc(f.titulo)}</h4>
+    <div class="tbl"><table><thead><tr><th>Ejercicio</th><th>Aciertos</th><th>Cuándo</th></tr></thead><tbody>
+    ${filas.map(x => {
+      const ej = f.ejercicios[Number(x.ejercicio)] || {};
+      return `<tr><td>${esc(ej.etiqueta || 'Ejercicio ' + (Number(x.ejercicio) + 1))}${x.texto ? `<div class="texto">${esc(x.texto)}</div>` : ''}</td>
+        <td class="c">${x.bien} / ${x.total}</td>
+        <td>${esc(new Date(x.actualizado).toLocaleString('es-MX', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' }))}</td></tr>`;
+    }).join('')}</tbody></table></div>
+    <p style="margin-top:.8rem"><button class="btn ghost" id="cerrar-ficha">Cerrar</button></p>
+  </div>`;
+  $('#cerrar-ficha').onclick = () => { $('#det-ficha').innerHTML = ''; };
+  $('#det-ficha').scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+
+if(sb) sb.auth.getSession().then(({ data }) => data.session ? boot() : showLogin());
+else showLogin('No se pudo conectar con la plataforma.');
+})();
+</script>
+</body>
+</html>

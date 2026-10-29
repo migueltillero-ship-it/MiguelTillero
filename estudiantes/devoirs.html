@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="clair">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Mes devoirs | Professeur Miguel Tillero</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/fichas-ejercicios.css">
+<style>
+/* Lo propio de esta página; el resto viene de la hoja de las fichas. */
+.vue{display:block;opacity:1}
+header{padding:3.5rem 1.25rem 4.5rem}
+.conteneur{max-width:860px;margin:-2.5rem auto 0;padding:0 16px;position:relative}
+.deber{background:var(--carte);border-radius:16px;box-shadow:var(--ombre);padding:1.6rem 1.5rem;margin-bottom:1.6rem}
+.deber .quand{font-size:.85rem;text-transform:uppercase;letter-spacing:2px;color:var(--bleu);font-weight:700}
+.deber h2{font-family:var(--font-titre);font-size:1.6rem;line-height:1.25;margin:.3rem 0 .8rem}
+.deber .consigna p{margin-bottom:.7rem;font-size:1.08rem}
+.deber .consigna .pista{background:var(--fond-doux);border-left:4px solid var(--or);padding:.6rem .9rem;border-radius:8px;font-size:1rem}
+.deber textarea{width:100%;min-height:14rem;padding:.9rem 1rem;border:1.5px solid var(--gris);border-radius:12px;
+  font:inherit;font-size:1.08rem;line-height:1.6;background:var(--carte);color:var(--texte);resize:vertical}
+.deber textarea:focus{outline:2px solid var(--bleu);outline-offset:1px}
+.fila{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin-top:.8rem}
+.cuenta{color:var(--texte-doux);font-size:.95rem}
+.archivo{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin-top:1rem;padding:.9rem 1rem;border:1.5px dashed var(--gris);border-radius:12px}
+.archivo img{max-width:160px;max-height:120px;border-radius:8px;display:block}
+.boton{display:inline-flex;align-items:center;gap:.4rem;padding:.7rem 1.3rem;border-radius:999px;border:0;cursor:pointer;
+  background:var(--bleu);color:#fff;font:inherit;font-weight:700;font-size:1.02rem;text-decoration:none}
+.boton.doux{background:transparent;color:var(--texte);border:1.5px solid var(--gris)}
+.boton:disabled{opacity:.5;cursor:default}
+.estado{display:inline-block;padding:.25rem .8rem;border-radius:999px;font-size:.9rem;font-weight:700;background:var(--gris)}
+.estado.entregado{background:rgba(85,122,100,.18);color:var(--sauge)}
+.estado.revisado{background:rgba(43,92,143,.15);color:var(--bleu)}
+.comentario{margin-top:1rem;padding:1rem 1.1rem;border-radius:12px;background:rgba(43,92,143,.08);border-left:4px solid var(--bleu)}
+.comentario b{display:block;font-size:.85rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--bleu);margin-bottom:.3rem}
+.mensaje{background:var(--carte);border-radius:16px;box-shadow:var(--ombre);padding:1.6rem 1.5rem;font-size:1.1rem}
+.retour{margin:2rem 0;text-align:center}
+.retour a{color:var(--bleu)}
+.aviso{margin-top:.6rem;font-size:.98rem}
+.aviso.err{color:var(--terre)}
+.aviso.ok{color:var(--sauge)}
+</style>
+</head>
+<body>
+<div class="vue">
+  <header>
+    <div class="sur-titre">Mon espace · Français</div>
+    <h1>Mes devoirs</h1>
+    <p>Les devoirs de chaque séance. Tu les écris ici et tu les rends : ton professeur
+       les voit et te répond par un commentaire.</p>
+  </header>
+
+  <div class="conteneur" id="contenu">
+    <div class="mensaje">Chargement…</div>
+  </div>
+  <p class="retour"><a href="../panel-estudiante.html">Volver a mi espacio</a></p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../assets/js/supabase-config.js?v=1790500000"></script>
+<script>
+(function(){
+'use strict';
+const sb = typeof supabaseClient !== 'undefined' ? supabaseClient : null;
+const caja = document.getElementById('contenu');
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fecha = d => new Date(d + 'T12:00:00').toLocaleDateString('es-MX', { weekday:'long', day:'numeric', month:'long' });
+const palabras = t => (t.trim() ? t.trim().split(/\s+/).length : 0);
+let usuario = null, entregas = {};
+
+function mensaje(html){ caja.innerHTML = `<div class="mensaje">${html}</div>`; }
+
+async function iniciar(){
+  if(!sb) return mensaje('No se pudo conectar con la plataforma. Inténtalo más tarde.');
+  const { data } = await sb.auth.getSession();
+  if(!data || !data.session){
+    return mensaje('Para ver y entregar tus deberes, <a href="../login.html">entra con tu cuenta</a>; '
+      + 'luego abre «Mes devoirs» desde Materiales.');
+  }
+  usuario = data.session.user.id;
+  const [{ data:ds, error }, { data:es }] = await Promise.all([
+    sb.from('deberes').select('*').eq('publicado', true).order('asignado_el', { ascending:false }).order('orden'),
+    sb.from('deberes_entregas').select('*').eq('estudiante_id', usuario)
+  ]);
+  if(error) return mensaje('Todavía no se pueden cargar los deberes. Avísale a tu profesor.');
+  entregas = {}; (es || []).forEach(e => { entregas[e.deber_id] = e; });
+  if(!ds || !ds.length) return mensaje('No tienes deberes por ahora. 🎉');
+  caja.innerHTML = ds.map(pintar).join('');
+  ds.forEach(montar);
+}
+
+function pintar(d){
+  const e = entregas[d.id];
+  const estado = !e ? '<span class="estado">À rendre</span>'
+    : e.estado === 'revisado' ? '<span class="estado revisado">Corrigé</span>'
+    : '<span class="estado entregado">Rendu le ' + esc(new Date(e.entregado_en).toLocaleDateString('es-MX')) + '</span>';
+  return `<article class="deber" id="d-${d.id}">
+    <div class="quand">Séance du ${esc(fecha(d.asignado_el))}${d.entregar_antes ? ' · à rendre avant le ' + esc(fecha(d.entregar_antes)) : ''}</div>
+    <h2>${esc(d.titulo)}</h2>
+    <div class="consigna">${d.consigna}</div>
+    ${d.ficha ? `<p class="aviso"><a href="${esc(d.ficha)}">Voir la fiche de la séance</a></p>` : ''}
+    <textarea id="t-${d.id}" aria-label="Ton texte" placeholder="Écris ici ton texte…">${esc(e ? e.texto : '')}</textarea>
+    <div class="fila"><span class="cuenta" id="c-${d.id}"></span></div>
+    ${d.pide_archivo ? `<div class="archivo">
+      <span>Image ou diapositive (JPG, PNG, PDF ou PowerPoint, 10 Mo max.)</span>
+      <input type="file" id="f-${d.id}" accept="image/*,.pdf,.pptx">
+      <span id="a-${d.id}">${e && e.archivo ? 'Déjà envoyé : <b>' + esc(e.archivo_nombre || 'fichier') + '</b>' : ''}</span>
+    </div>` : ''}
+    <div class="fila">
+      <button class="boton" id="b-${d.id}">${e ? 'Rendre à nouveau' : 'Rendre mon devoir'}</button>
+      ${estado}
+    </div>
+    <div class="aviso" id="m-${d.id}"></div>
+    ${e && e.comentario ? `<div class="comentario"><b>Commentaire du professeur</b>${esc(e.comentario).replace(/\n/g, '<br>')}</div>` : ''}
+  </article>`;
+}
+
+function montar(d){
+  const t = document.getElementById('t-' + d.id), c = document.getElementById('c-' + d.id);
+  const contar = () => { const n = palabras(t.value); c.textContent = n + ' mot' + (n > 1 ? 's' : '') + (d.palabras ? ' · objectif : ' + d.palabras + ' mots' : ''); };
+  // El borrador se guarda en este navegador mientras escribe.
+  const clave = 'mt-deber-' + d.id;
+  if(!entregas[d.id]){ try { const b = localStorage.getItem(clave); if(b) t.value = b; } catch(e){} }
+  t.addEventListener('input', () => { contar(); try { localStorage.setItem(clave, t.value); } catch(e){} });
+  contar();
+  document.getElementById('b-' + d.id).onclick = () => entregar(d, clave);
+}
+
+async function entregar(d, clave){
+  const btn = document.getElementById('b-' + d.id), m = document.getElementById('m-' + d.id);
+  const texto = document.getElementById('t-' + d.id).value;
+  const inp = document.getElementById('f-' + d.id);
+  const f = inp && inp.files[0];
+  m.className = 'aviso'; m.textContent = '';
+  if(!texto.trim() && !f){ m.className = 'aviso err'; m.textContent = 'Écris ton texte avant de rendre le devoir.'; return; }
+  if(d.pide_archivo && !f && !(entregas[d.id] && entregas[d.id].archivo)){
+    if(!confirm('Ce devoir demande une image ou une diapositive. Rendre seulement le texte ?')) return;
+  }
+  if(f && f.size > 10 * 1024 * 1024){ m.className = 'aviso err'; m.textContent = 'Le fichier dépasse 10 Mo.'; return; }
+  btn.disabled = true; btn.textContent = 'Envoi…';
+  let ruta = null, nombre = null;
+  if(f){
+    const ext = (f.name.split('.').pop() || 'bin').toLowerCase().replace(/[^a-z0-9]/g, '');
+    ruta = `${usuario}/${d.id}/${Date.now()}.${ext}`; nombre = f.name;
+    const up = await sb.storage.from('deberes').upload(ruta, f, { contentType: f.type || undefined, upsert: true });
+    if(up.error){ btn.disabled = false; btn.textContent = 'Rendre mon devoir'; m.className = 'aviso err';
+      m.textContent = 'Le fichier n’a pas pu être envoyé : ' + up.error.message; return; }
+  }
+  const { data, error } = await sb.rpc('entregar_deber', { p_deber: d.id, p_texto: texto, p_archivo: ruta, p_archivo_nombre: nombre });
+  btn.disabled = false;
+  if(error){ btn.textContent = 'Rendre mon devoir'; m.className = 'aviso err'; m.textContent = 'Pas envoyé : ' + error.message; return; }
+  entregas[d.id] = data;
+  try { localStorage.removeItem(clave); } catch(e){}
+  const art = document.getElementById('d-' + d.id);
+  art.outerHTML = pintar(d); montar(d);
+  const m2 = document.getElementById('m-' + d.id);
+  m2.className = 'aviso ok'; m2.textContent = 'C’est rendu. Merci ! Ton professeur le verra.';
+}
+
+iniciar();
+})();
+</script>
+</body>
+</html>

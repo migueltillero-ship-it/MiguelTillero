@@ -79,6 +79,11 @@ begin
        || 'la compréhension orale del examen.',
        '#s7', null::date),
 
+      (9, 'Séance du 28 octobre · La nétiquette', 'refuerzo', 'Unité 1',
+       'El vídeo de la actividad 23, las reglas de la buena educación en línea y las fórmulas '
+       || 'para juzgar: ce qu’il faut faire, il vaut mieux, ça ne se fait pas. Con los deberes.',
+       '#netiquette', null::date),
+
       (10, 'Séance du 2 novembre · Tellement genré !', 'refuerzo', 'Unité 2',
        'Estereotipo, prejuicio, cliché e idea recibida: cuatro palabras que no son lo '
        || 'mismo. Y la construcción exacta de ça permet de, ça aide à, ça évite de.',

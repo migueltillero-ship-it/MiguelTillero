@@ -1702,6 +1702,193 @@ FICHAS.push({
 });
 
 /* ───────────────────────────────────────────────────────────────────────
+   SÉANCE DU 28 OCTOBRE · livre p. 19, act. 23-24
+   LA NÉTIQUETTE — révision du vocabulaire et vidéo
+   Lo que se hizo en clase: repaso general del léxico de la unidad y el
+   vídeo de la actividad 23. Cierra con los dos deberes, que se entregan
+   en «Mes devoirs» (estudiantes/devoirs.html) para que el profesor los vea.
+   ─────────────────────────────────────────────────────────────────────── */
+FICHAS.push({
+  id: 'netiquette',
+  ciclo: 'Oct.-nov. 2026',
+  fecha: 'Mercredi 28 octobre · p. 19, act. 23-24',
+  titulo: 'La nétiquette — ce qu’il faut faire, ce qu’il ne faut pas faire',
+  resumen: 'El vídeo de la actividad 23, las reglas de la buena educación en línea y las fórmulas para juzgar: ça ne se fait pas, il vaut mieux, ce qu’il faut dire… Con los dos deberes de la clase.',
+  intro: 'Hoy repasamos el vocabulario de la unidad y vimos el vídeo de la actividad 23. '
+       + 'La idea es la misma que en la mesa: cambia el soporte, no la regla. '
+       + 'Al final están los dos deberes, que se entregan en línea.',
+
+  secciones: [
+    { titulo: '1. La vidéo (act. 23)',
+      sous: 'Qu’est-ce que la nétiquette ? Qu’est-ce qui se fait, ou ne se fait pas, selon l’intervenant ?',
+      rappels: [
+        { titulo: 'Ce qu’on a retenu en classe',
+          html: `<p>La <b>nétiquette</b> (net + étiquette) es el conjunto de reglas de cortesía
+          en internet: correos, redes sociales, grupos de mensajería. El vídeo empieza por la
+          más conocida:</p>
+          <div class="ex"><b>1. Proscrire les majuscules.</b> Un message écrit en majuscules
+          est considéré comme <b>crié</b>. Privilégiez les minuscules : vos publications n’en
+          seront que plus agréables à lire.</div>
+          <p>El vídeo está en el <a href="https://espacevirtuel-emdl.avallainmagnet.com/" target="_blank" rel="noopener">espace virtuel</a>
+          del libro, actividad 23.</p>` },
+        { titulo: 'Définir : c’est quand… / c’est ce qui…',
+          html: `<p>Para responder a la 23a sirven las estructuras de la página 16:</p>
+          <div class="ex">La nétiquette, <b>c’est</b> l’ensemble des règles de politesse sur internet.<br>
+          <b>C’est ce qui</b> permet de communiquer sans blesser personne.<br>
+          <b>C’est quand</b> on se relit avant de publier.</div>` }
+      ],
+      ejercicios: [0, 1]
+    },
+
+    { titulo: '2. Les mots pour juger',
+      sous: 'Las fórmulas de la actividad 22 y del recuadro: las que hay que usar en los deberes.',
+      rappels: [
+        { titulo: 'Ce qu’il faut / ce qu’il ne faut pas',
+          html: `<div class="ex">Ce qu’il faut <b>dire</b> / ce qu’il ne faut pas dire.<br>
+          Ce qu’il faut <b>faire</b> / ce qu’il ne faut pas faire.</div>
+          <p>Con <i>c’est</i> delante, sirve para poner una idea en relieve:</p>
+          <div class="ex">Ce qu’il ne faut pas faire, <b>c’est</b> écrire en majuscules.</div>` },
+        { titulo: 'Valoir : proverbes et expressions',
+          html: `<div class="ex">Un homme averti en vaut deux. · Deux précautions valent mieux qu’une.<br>
+          <b>Il vaut mieux</b> éviter. · <b>Mieux vaut</b> éviter.</div>
+          <div class="piege"><i>Il vaut mieux</i> y <i>mieux vaut</i> van seguidos de
+          <b>infinitivo</b>: <i>il vaut mieux <b>se relire</b></i>, nunca <i>il vaut mieux que tu relis</i>
+          (con <i>que</i>, subjuntivo: <i>il vaut mieux que tu te <b>relises</b></i>).</div>` }
+      ],
+      ejercicios: [2, 3, 4]
+    },
+
+    { titulo: '3. Sur les réseaux et dans les groupes',
+      sous: 'La actividad 24: ¿estás de acuerdo? ¿Tienes ejemplos?',
+      rappels: [],
+      ejercicios: [5, 6]
+    },
+
+    { titulo: '4. Les devoirs',
+      sous: 'Dos producciones para el lunes 2 de noviembre. Se escriben y se entregan en «Mes devoirs».',
+      rappels: [
+        { titulo: 'Où les rendre',
+          html: `<p>Los dos deberes se entregan en <a href="devoirs.html"><b>Mes devoirs</b></a>,
+          con tu cuenta de la plataforma: así el profesor ve que los hiciste y te devuelve
+          un comentario. El primero lleva además una imagen o una diapositiva.</p>
+          <p>Aquí abajo tienes un borrador para preparar el texto; luego lo copias allí.</p>` }
+      ],
+      ejercicios: [7]
+    }
+  ],
+
+  ejercicios: [
+    /* 0 */ { t:'qcm', etiqueta:'La vidéo',
+      consigne:'D’après la vidéo et ce qu’on a dit en classe.',
+      q: [
+        { enonce:'La nétiquette, c’est…',
+          o:['l’ensemble des règles de politesse sur internet.',
+             'une application pour classer ses messages.',
+             'la loi qui interdit certains contenus en ligne.'], r:0 },
+        { enonce:'Selon l’intervenant, un message écrit EN MAJUSCULES…',
+          o:['attire l’attention, c’est conseillé pour une promotion.',
+             'est considéré comme crié.',
+             'est plus facile à lire.'], r:1,
+          note:'Y añade que ni siquiera una promoción justifica las mayúsculas.' },
+        { enonce:'Que conseille-t-il à la place ?',
+          o:['Écrire en gras.', 'Privilégier les minuscules.', 'Mettre beaucoup de points d’exclamation.'], r:1 }
+      ] },
+
+    /* 1 */ { t:'prod', etiqueta:'Act. 23a', mots:40,
+      consigne:'Qu’est-ce que la nétiquette ? Donne ta définition en deux ou trois phrases.',
+      check: [
+        'Una frase con <b>c’est</b> + definición.',
+        'Una con <b>c’est ce qui</b> o <b>c’est quand</b>.',
+        'Un ejemplo de regla.'
+      ],
+      modele:'La nétiquette, c’est l’ensemble des règles de politesse qu’on respecte sur internet. '
+           + 'C’est ce qui permet d’échanger sans mettre l’autre mal à l’aise. Par exemple, '
+           + 'c’est quand on évite d’écrire en majuscules, parce que ça revient à crier.' },
+
+    /* 2 */ { t:'paires', etiqueta:'Expressions',
+      consigne:'Associe chaque situation en ligne à l’expression qui convient le mieux.',
+      pairs: [
+        ['Écrire tout un message en majuscules.', 'Ça fait mauvais genre : on crie.'],
+        ['Dire bonjour avant de poser sa question.', 'C’est la base.'],
+        ['Se moquer d’une faute d’orthographe en public.', 'C’est vexant.'],
+        ['Publier la photo d’un ami sans lui demander.', 'Ça ne se fait pas.'],
+        ['Ne pas connaître les codes d’un groupe nouveau.', 'Ça s’apprend.'],
+        ['Un premier mail plein de fautes à un recruteur.', 'Ça donne une mauvaise première impression.']
+      ] },
+
+    /* 3 */ { t:'trous', etiqueta:'Ce qu’il faut…',
+      consigne:'Complète avec faut, vaut, valent ou mieux.',
+      q: [
+        { enonce:'Ce qu’il ne ___ pas faire, c’est répondre à tout le monde.', r:['faut'], taille:8 },
+        { enonce:'Il ___ mieux se relire avant d’envoyer.', r:['vaut'], taille:8 },
+        { enonce:'___ vaut prévenir que guérir.', r:['mieux'], taille:8 },
+        { enonce:'Deux précautions ___ mieux qu’une.', r:['valent'], taille:8 },
+        { enonce:'Ce qu’il ___ dire, c’est merci.', r:['faut'], taille:8 },
+        { enonce:'Un homme averti en ___ deux.', r:['vaut'], taille:8 }
+      ] },
+
+    /* 4 */ { t:'transfo', etiqueta:'Mettre en relief',
+      consigne:'Transforme la règle en commençant par la formule indiquée.',
+      q: [
+        { enonce:'N’écris pas en majuscules. → <i>Ce qu’il ne faut pas faire, c’est…</i>',
+          modele:'Ce qu’il ne faut pas faire, c’est écrire en majuscules.' },
+        { enonce:'Relis ton message. → <i>Il vaut mieux…</i>',
+          modele:'Il vaut mieux relire son message.' },
+        { enonce:'Ne réponds pas sous le coup de la colère. → <i>Mieux vaut…</i>',
+          modele:'Mieux vaut ne pas répondre sous le coup de la colère.',
+          note:'Con infinitivo negativo, <b>ne pas</b> va junto, delante del verbo.' },
+        { enonce:'Dis « s’il vous plaît » et « merci ». → <i>Ce qu’il faut dire, c’est…</i>',
+          modele:'Ce qu’il faut dire, c’est « s’il vous plaît » et « merci ».' }
+      ] },
+
+    /* 5 */ { t:'tri', etiqueta:'Le groupe WhatsApp de la classe',
+      consigne:'Dans un groupe de messagerie : ça se fait ou ça ne se fait pas ?',
+      cols: ['Ça se fait', 'Ça ne se fait pas'],
+      items: [
+        ['répondre en privé quand le message ne concerne qu’une personne', 0],
+        ['prévenir quand on sera absent', 0],
+        ['écrire à une heure raisonnable', 0],
+        ['remercier en un seul message plutôt qu’en dix', 0],
+        ['envoyer des chaînes et des rumeurs', 1],
+        ['partager le numéro de quelqu’un sans son accord', 1],
+        ['envoyer quinze messages d’un mot à la suite', 1],
+        ['écrire EN MAJUSCULES POUR ÊTRE SÛR QU’ON LISE', 1]
+      ],
+      aide:'El criterio es siempre el mismo que en la mesa: <b>no incomodar al otro</b> '
+         + 'ni hacerle perder el tiempo.' },
+
+    /* 6 */ { t:'prod', etiqueta:'Act. 24', mots:80,
+      consigne:'Êtes-vous d’accord avec l’intervenant ? Donnez un exemple de non-respect de la nétiquette que vous avez vu ou vécu.',
+      check: [
+        'Tu opinión: <i>je suis d’accord / je ne suis pas tout à fait d’accord</i>.',
+        'Un ejemplo concreto.',
+        'Dos expresiones de la actividad 22.',
+        'Un <i>il vaut mieux</i> o un <i>mieux vaut</i>.'
+      ],
+      modele:'Je suis plutôt d’accord avec lui. Dans le groupe de mon immeuble, une voisine '
+           + 'écrit toujours en majuscules : on a l’impression qu’elle est en colère, et ça met '
+           + 'tout le monde mal à l’aise. Ça ne se fait pas, mais ça s’apprend : personne ne lui '
+           + 'a jamais dit. Il vaut mieux le lui expliquer gentiment qu’en rire derrière son dos.' },
+
+    /* 7 */ { t:'prod', etiqueta:'Brouillon des devoirs', mots:150,
+      consigne:'Prépare ici ton premier devoir : au Mexique, au déjeuner ou au dîner, qu’est-ce qui se fait et qu’est-ce qui ne se fait pas ?',
+      sous:'Es solo el borrador: la entrega, con tu imagen, se hace en «Mes devoirs».',
+      check: [
+        'Tres cosas que <b>se hacen</b> y tres que <b>no se hacen</b>.',
+        '<i>Ce qu’il faut faire / ce qu’il ne faut pas faire, c’est…</i>',
+        'Tres expresiones de la actividad 22.',
+        'Un <i>il vaut mieux</i> y un proverbio con <i>valoir</i>.'
+      ],
+      modele:'Au Mexique, ce qu’il faut faire avant tout, c’est dire « provecho » en arrivant à '
+           + 'table, même à des inconnus au restaurant. On attend aussi que tout le monde soit servi '
+           + 'pour commencer : c’est la base. Ce qu’il ne faut pas faire, c’est partir juste après '
+           + 'le repas : la sobremesa compte autant que le plat, et partir trop vite, ça vexe. '
+           + 'Refuser de goûter, ça ne se fait pas non plus. Il vaut mieux prendre un peu de '
+           + 'tout… et deux précautions valent mieux qu’une : demandez si c’est piquant !' }
+  ]
+});
+
+/* ───────────────────────────────────────────────────────────────────────
    SÉANCE 8 · 2 novembre · p. 26-27
    Unité 2 «Tellement genré !» — los estereotipos de género
    ─────────────────────────────────────────────────────────────────────── */

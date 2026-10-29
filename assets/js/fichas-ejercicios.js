@@ -935,6 +935,9 @@ function anotar(i, bien, total, clave, valor){
   avance[fichaActual.id][i] = { b: bien, t: total, cuando: Date.now() };
   if(clave) avance[fichaActual.id][clave] = valor;
   guardarAvance();
+  // Si la página cargó fichas-sync.js y el alumno entró con su cuenta, el
+  // resultado se copia también en la plataforma para que lo vea el profesor.
+  if(window.MT_SYNC) window.MT_SYNC(fichaActual.id, i, bien, total, clave ? valor : null);
 }
 
 function rehacer(i){
