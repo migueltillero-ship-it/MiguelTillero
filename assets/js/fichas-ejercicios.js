@@ -59,8 +59,11 @@ function hablar(texto, btn){
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(texto);
   u.lang = 'fr-FR'; u.rate = 0.9;
+  // Las voces «naturales» (Edge, Chrome) suenan mucho mejor que la del sistema.
   const vs = speechSynthesis.getVoices().filter(v => v.lang.startsWith('fr'));
-  if(vs.length) u.voice = vs[0];
+  const buena = vs.find(v => /natural|online|neural/i.test(v.name) && /fr-FR/i.test(v.lang))
+             || vs.find(v => /google/i.test(v.name)) || vs.find(v => /fr-FR/i.test(v.lang)) || vs[0];
+  if(buena) u.voice = buena;
   if(btn){ const o = btn.textContent; btn.textContent = '▶ …';
            u.onend = () => { btn.textContent = o; }; }
   speechSynthesis.speak(u);
@@ -350,6 +353,8 @@ function abrirFicha(id){
   (f.secciones || []).forEach((sec, si) => {
     const abierta = seccionAbierta(f, si);
     html += `<div class="fiche ${abierta?'':'cerrada'}" id="sec-${si}">
+      ${sec.imagen ? `<div class="sec-banner"><img src="${esc(sec.imagen.src)}" alt="${esc(sec.imagen.alt||'')}" loading="lazy">
+         ${sec.imagen.credito ? `<span class="credito">${sec.imagen.credito}</span>` : ''}</div>` : ''}
       <div class="bloc-titre">${esc(sec.titulo)}</div>
       <p class="bloc-sous">${esc(sec.sous||'')}</p>
       <div id="cuerpo-sec-${si}" data-abierta="${abierta?'si':'no'}">
@@ -419,11 +424,65 @@ function siguienteFicha(f){
   return i >= 0 && i < FICHAS.length-1 ? FICHAS[i+1] : null;
 }
 
+/* Un recuadro puede llevar, además de su html:
+     img:     { src, alt, pie, credito }       una foto con su crédito
+     video:   { id, titulo, desde, hasta, nota } un vídeo que se abre aquí mismo
+     lexique: [ ['mot', 'traducción', 'exemple', '🔤'] ]  tarjetas con su voz
+     escuchar: 'texte'                          un botón que lo lee en francés */
 function pintarRappel(r){
-  return `<div class="rappel">
-    <h4>${esc(r.titulo)}</h4>
-    ${r.html}
+  return `<div class="rappel ${r.clase||''}">
+    ${r.titulo ? `<h4>${esc(r.titulo)}</h4>` : ''}
+    ${r.img ? pintarFoto(r.img) : ''}
+    ${r.html || ''}
+    ${r.escuchar ? botonVoz(r.escuchar, 'Écouter') : ''}
+    ${r.lexique ? pintarLexique(r.lexique) : ''}
+    ${r.video ? pintarVideoLite(r.video) : ''}
   </div>`;
+}
+
+function pintarFoto(im){
+  return `<figure class="foto">
+    <img src="${esc(im.src)}" alt="${esc(im.alt||'')}" loading="lazy">
+    ${(im.pie || im.credito) ? `<figcaption>${im.pie || ''}${im.credito ? `<span class="credito">${im.credito}</span>` : ''}</figcaption>` : ''}
+  </figure>`;
+}
+
+// El texto va en un atributo y se lee desde ahí: así no hay que escapar comillas.
+function botonVoz(texto, etiqueta){
+  const limpio = String(texto).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  return `<button type="button" class="btn-voz" data-voz="${esc(limpio)}"
+    onclick="hablar(this.dataset.voz, this)" title="Écouter en français">🔊 ${etiqueta||''}</button>`;
+}
+
+function pintarLexique(lista){
+  return `<div class="lexique">${lista.map(([mot, es, ex, ico]) => `
+    <div class="mot">
+      <div class="mot-cab">${ico ? `<span class="mot-ico">${ico}</span>` : ''}
+        <b>${mot}</b>${botonVoz(mot + (ex ? '. ' + ex : ''))}</div>
+      <div class="mot-es">${es}</div>
+      ${ex ? `<div class="mot-ex">${ex}</div>` : ''}
+    </div>`).join('')}</div>`;
+}
+
+/* El vídeo explicativo no se carga hasta que se pulsa: una ficha con tres
+   vídeos no debe tardar tres veces más en abrirse. */
+function pintarVideoLite(v){
+  const ini = v.desde ? segundos(v.desde) : 0, fin = v.hasta ? segundos(v.hasta) : 0;
+  return `<div class="video-lite" data-id="${esc(v.id)}" data-desde="${ini}" data-hasta="${fin}"
+      onclick="abrirVideoLite(this)" role="button" tabindex="0" aria-label="Voir la vidéo : ${esc(v.titulo||'')}">
+      <img src="https://i.ytimg.com/vi/${esc(v.id)}/hqdefault.jpg" alt="" loading="lazy">
+      <span class="vl-play">▶</span>
+      <span class="vl-titulo">${esc(v.titulo||'')}${v.desde ? ' · de ' + esc(String(v.desde)) + (v.hasta ? ' à ' + esc(String(v.hasta)) : '') : ''}</span>
+    </div>
+    ${v.nota ? `<p class="vl-nota">${v.nota}</p>` : ''}`;
+}
+function abrirVideoLite(el){
+  const p = new URLSearchParams({ autoplay:1, rel:0, cc_load_policy:1, cc_lang_pref:'fr', hl:'fr' });
+  if(+el.dataset.desde) p.set('start', el.dataset.desde);
+  if(+el.dataset.hasta) p.set('end', el.dataset.hasta);
+  const id = el.dataset.id.replace(/[^\w-]/g, '');
+  el.outerHTML = `<div class="video-marco"><iframe src="https://www.youtube-nocookie.com/embed/${id}?${p}"
+    title="Vidéo" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>`;
 }
 
 /* ═══ EJERCICIOS ═══ */
@@ -432,7 +491,7 @@ function pintarEjercicio(f, i){
   const hecho = avance[f.id] && avance[f.id][i];
   return `<div class="ex-bloc ${hecho?'resolu':''}" id="ex-${i}">
     <div class="ex-num">Exercice ${i+1}${e.etiqueta?' · '+esc(e.etiqueta):''}</div>
-    <div class="ex-consigne">${esc(e.consigne)} ${botonMinuto(e.min)}
+    <div class="ex-consigne">${esc(e.consigne)} ${botonVoz(e.consigne)} ${botonMinuto(e.min)}
       ${e.sous?`<small>${esc(e.sous)}</small>`:''}</div>
     <div id="cuerpo-${i}">${PINTAR[e.t] ? PINTAR[e.t](e,i) : ''}</div>
     <div class="actions">
