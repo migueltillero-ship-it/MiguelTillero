@@ -353,7 +353,8 @@ function abrirFicha(id){
   (f.secciones || []).forEach((sec, si) => {
     const abierta = seccionAbierta(f, si);
     html += `<div class="fiche ${abierta?'':'cerrada'}" id="sec-${si}">
-      ${sec.imagen ? `<div class="sec-banner"><img src="${esc(sec.imagen.src)}" alt="${esc(sec.imagen.alt||'')}" loading="lazy">
+      ${sec.imagen ? `<div class="sec-banner"><img src="${esc(sec.imagen.src)}" alt="${esc(sec.imagen.alt||'')}" loading="lazy"
+         ${sec.imagen.pos ? `style="object-position:${esc(sec.imagen.pos)}"` : ''}>
          ${sec.imagen.credito ? `<span class="credito">${sec.imagen.credito}</span>` : ''}</div>` : ''}
       <div class="bloc-titre">${esc(sec.titulo)}</div>
       <p class="bloc-sous">${esc(sec.sous||'')}</p>

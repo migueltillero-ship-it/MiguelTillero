@@ -2304,76 +2304,196 @@ FICHAS.push({
 });
 
 /* ───────────────────────────────────────────────────────────────────────
-   SÉANCE 8 · 2 novembre · p. 26-27
-   Unité 2 «Tellement genré !» — los estereotipos de género
+   SÉANCE 8 · 2 novembre · livre p. 26-27
+   SÉQUENCE COMPLÈTE — UNITÉ 2 « TELLEMENT GENRÉ ! » : NOMMER LES CLICHÉS
+   Apertura de la unidad: el juego de cartas de los estereotipos (act. 1-4)
+   y la crónica de radio (act. 5-6). Antes de clase, para preparar; después,
+   para fijar.
+
+   Vídeos (subtítulos en francés, comprobados el 29/10/2026):
+     nKwVOTntlVc  1 jour, 1 question — C’est quoi l’égalité entre les filles
+                  et les garçons ? (1:42) — vídeo principal
+     CvGD-mo2ldk  Stéréotypes inversés, ép. 1 (1:31) — puesta en contexto
+     eTOMCCEcgC4  Stéréotype, préjugé, fait réel (1:31) — Social Builder
+     1XkwA08G7EY  Les verbes avec « à » et « de » — Guillaume Posé (fragmento)
    ─────────────────────────────────────────────────────────────────────── */
 FICHAS.push({
   id: 's8',
   ciclo: 'Oct.-nov. 2026',
-  fecha: 'Lundi 2 novembre · p. 26-27',
-  titulo: 'Tellement genré ! — nommer les clichés',
-  resumen: 'El léxico del estereotipo, las construcciones «ça permet de / ça évite de», y distinguir hecho de opinión.',
+  fecha: 'Lundi 2 novembre · livre p. 26-27',
+  titulo: 'Tellement genré ! — nommer les clichés',
+  resumen: 'La secuencia completa de la apertura de la Unité 2: un sketch para empezar, el léxico del estereotipo con audio, dos vídeos, las construcciones «ça permet de / ça aide à», cómo matizar sin pelearse y la preparación del debate.',
   intro: 'La unidad empieza con un juego de cartas que da mucho que hablar. Para hablar bien '
-       + 'hacen falta dos cosas: las palabras exactas y la construcción correcta del verbo.',
+       + 'hacen falta tres cosas: las palabras exactas, la construcción correcta del verbo '
+       + 'y la manera de no estar de acuerdo sin ofender.',
+
+  video: {
+    id: 'nKwVOTntlVc',
+    titulo: '1 jour, 1 question — C’est quoi l’égalité entre les filles et les garçons ? (1 min 42)'
+  },
 
   secciones: [
-    { titulo: 'Révision autrement',
-      sous: 'Las expresiones de la etiqueta del libro, ahora clasificadas por su construcción.',
+    /* ── 1 ── */
+    { titulo: '1. Pour commencer : et si on inversait les rôles ?',
+      sous: 'La puesta en contexto: un sketch de un minuto y medio, y una escena que todos hemos vivido.',
+      imagen: { src: '../assets/images/fichas/b2/garcon-poupee.jpg', pos: 'center 12%',
+                alt: 'Un petit garçon berce une poupée',
+                credito: 'Photo : Ms. Melissa, <a href="https://commons.wikimedia.org/wiki/File:A_boy_playing,_nursing_his_doll.jpg" target="_blank" rel="noopener">CC BY-SA 3.0</a>' },
       rappels: [
-        { titulo: 'Dire à quoi ça sert — et la préposition qui va avec',
+        { titulo: 'Objectifs de la séquence', clase: 'objectifs',
+          html: `<p>À la fin, tu sauras :</p>
+          <ul>
+            <li><b>distinguer</b> un stéréotype, un préjugé, une idée reçue et un fait vérifiable ;</li>
+            <li><b>comprendre</b> une vidéo sur l’égalité filles-garçons et en retenir les exemples ;</li>
+            <li><b>dire à quoi ça sert</b> avec la bonne construction : <i>ça permet <b>de</b></i>, <i>ça aide <b>à</b></i>, <i>ça favorise</i> + nom ;</li>
+            <li><b>réagir et nuancer</b> sans te fâcher (act. 4) ;</li>
+            <li><b>préparer un débat</b> : trois arguments, deux objections, une concession.</li>
+          </ul>` },
+        { titulo: 'La scène',
+          html: `<p>Repas de famille. Ton neveu de trois ans demande une poupée pour Noël.
+          Sa grand-mère : <i>« Une poupée ? Mais enfin, c’est pour les filles ! »</i>
+          Tout le monde rit… sauf lui.</p>
+          <p><b>Et toi, qu’est-ce que tu réponds ?</b> Garde ta réponse en tête : à la fin de
+          la séquence, tu sauras la dire beaucoup mieux.</p>`,
+          escuchar: 'Repas de famille. Ton neveu de trois ans demande une poupée pour Noël. '
+                  + 'Sa grand-mère : « Une poupée ? Mais enfin, c’est pour les filles ! » '
+                  + 'Tout le monde rit, sauf lui. Et toi, qu’est-ce que tu réponds ?' },
+        { titulo: 'Un sketch : « Stéréotypes inversés »',
+          html: `<p>Un entretien d’embauche… où les rôles sont inversés : c’est l’homme qui
+          entend les phrases que beaucoup de femmes connaissent par cœur. Regarde-le une fois
+          pour rire, une deuxième fois pour répondre aux questions.</p>`,
+          video: { id: 'CvGD-mo2ldk', titulo: 'Stéréotypes inversés — épisode 1',
+                   nota: 'Coup de Projecteur. Diálogo rápido: activa los subtítulos en francés.' } }
+      ],
+      ejercicios: [0]
+    },
+
+    /* ── 2 ── */
+    { titulo: '2. Les mots pour nommer',
+      sous: 'Las cuatro primeras palabras se parecen y no son lo mismo. El vídeo de 1 minuto 30 lo explica mejor que cualquier definición.',
+      rappels: [
+        { titulo: 'Le lexique',
+          lexique: [
+            ['un stéréotype', 'una imagen fija y simplificada de un grupo', 'Les filles aiment le rose : c’est un stéréotype.', '🏷️'],
+            ['un préjugé', 'un juicio previo, sin fundamento', 'Il a des préjugés sur les femmes ingénieures.', '⚖️'],
+            ['un cliché', 'una fórmula gastada de tanto repetirla', 'C’est tellement cliché !', '🔁'],
+            ['une idée reçue', 'lo que todos creen saber sin verificar', 'C’est une idée reçue : les garçons ne pleurent pas.', '💭'],
+            ['un fait vérifiable', 'un dato objetivo, comprobable', 'Un fait se vérifie avec des chiffres.', '📊'],
+            ['genré(e)', 'asociado a un sexo (juguete, oficio, color)', 'Les rayons de jouets sont très genrés.', '🚻'],
+            ['être enfermé(e) dans un rôle', 'quedar encerrado en un papel', 'Les enfants sont enfermés dans des rôles.', '🔒'],
+            ['l’égalité des chances', 'la igualdad de oportunidades', 'L’école doit garantir l’égalité des chances.', '🎯'],
+            ['la mixité', 'que chicas y chicos estén juntos', 'La mixité à l’école date des années 1970 en France.', '👫'],
+            ['la parité', 'el mismo número de mujeres y hombres', 'La parité au gouvernement.', '⚖️'],
+            ['le sexisme ordinaire', 'el machismo cotidiano, banalizado', 'Une petite remarque, c’est du sexisme ordinaire.', '💬'],
+            ['la charge mentale', 'la carga de tener que pensar en todo', 'La charge mentale pèse surtout sur les mères.', '🧠'],
+            ['un homme au foyer', 'un amo de casa', 'Il a choisi d’être homme au foyer.', '🏠'],
+            ['s’éclater (familier)', 'pasarlo genial', 'Elle s’éclate avec les jeux vidéo d’action.', '🎮']
+          ] },
+        { titulo: 'Stéréotype, préjugé ou fait réel ?',
+          html: `<p>Una mujer de Social Builder lo explica con un ejemplo de cada uno. Anota los tres ejemplos.</p>`,
+          video: { id: 'eTOMCCEcgC4', titulo: 'Quelle est la différence entre un stéréotype, un préjugé et un fait réel ?',
+                   nota: 'Social Builder · 1 min 31' } }
+      ],
+      ejercicios: [1, 2, 3]
+    },
+
+    /* ── 3 ── */
+    { titulo: '3. La vidéo : l’égalité filles-garçons',
+      sous: 'El vídeo principal, arriba y fijo. Una serie francesa muy conocida para explicar la actualidad. Los botones ▶ saltan al minuto.',
+      rappels: [
+        { titulo: 'Comment regarder',
+          html: `<ol>
+            <li><b>Première écoute</b> : quels métiers sont cités pour les filles ? Et pour les garçons ?</li>
+            <li><b>Deuxième écoute</b> : les exercices, avec les boutons ▶.</li>
+          </ol>
+          <p>Escucha bien la frase de 0:23: <i>« cela ne doit pas les <b>empêcher d’</b>avoir les mêmes
+          chances »</i>. Es exactamente la gramática de la etapa 4.</p>` }
+      ],
+      ejercicios: [4, 5]
+    },
+
+    /* ── 4 ── */
+    { titulo: '4. Grammaire : dire à quoi ça sert (act. 3)',
+      sous: 'Las expresiones de la etiqueta del libro, ordenadas por su construcción. El error típico no está en el verbo sino en la preposición.',
+      rappels: [
+        { titulo: 'Trois constructions',
           html: `<ul>
-            <li><b>+ nom :</b> ça favorise <i>l’égalité</i> · ça renforce <i>les clichés</i> ·
+            <li><b>+ nom :</b> ça favorise <i>l’égalité</i> · ça renforce <i>les clichés</i> ·
                 ça entraîne <i>des inégalités</i>.</li>
-            <li><b>+ de + infinitif :</b> ça permet <i>de choisir</i> · ça évite <i>de répéter</i> ·
+            <li><b>+ de + infinitif :</b> ça permet <i>de choisir</i> · ça évite <i>de répéter</i> ·
                 ça empêche <i>de jouer</i>.</li>
-            <li><b>+ à + infinitif :</b> ça aide <i>à comprendre</i> · ça contribue <i>à construire</i> ·
+            <li><b>+ à + infinitif :</b> ça aide <i>à comprendre</i> · ça contribue <i>à construire</i> ·
                 ça pousse <i>à croire</i>.</li>
           </ul>
-          <div class="piege"><b>Les deux pièges :</b> <i>ça évite <b>de</b> le répéter</i>
-          mais aussi <i>ça évite <b>les</b> malentendus</i> (les deux existent) ; et
-          <i>ça aide <b>à</b></i>, jamais « ça aide de ».</div>` }
+          <div class="piege"><b>Les deux pièges :</b> <i>ça évite <b>de</b> le répéter</i>
+          mais aussi <i>ça évite <b>les</b> malentendus</i> (les deux existent) ; et
+          <i>ça aide <b>à</b></i>, jamais « ça aide de ».<br>
+          Con persona: <i>ça permet <b>aux</b> enfants <b>de</b> choisir</i> · <i>ça empêche <b>les</b> garçons <b>de</b> danser</i>.</div>`,
+          escuchar: 'Ça favorise l’égalité. Ça permet de choisir. Ça évite de répéter. Ça empêche de jouer. '
+                  + 'Ça aide à comprendre. Ça contribue à construire. Ça pousse à croire.',
+          video: { id: '1XkwA08G7EY', titulo: 'Les verbes avec « à » — Guillaume Posé', desde: '0:59', hasta: '7:15',
+                   nota: 'Fragmento de 6 minutos, solo los verbos con «à». Para quien quiera ir más lejos: los verbos con «de» siguen a partir de 7:15.' } }
       ],
-      ejercicios: [0, 1]
+      ejercicios: [6, 7, 8]
     },
-    { titulo: 'Un pas plus loin',
-      sous: 'Matizar sin ofender, y la diferencia entre un hecho, una opinión y un estereotipo.',
+
+    /* ── 5 ── */
+    { titulo: '5. Réagir et nuancer (act. 4)',
+      sous: 'Del «¡n’importe quoi!» del libro a la respuesta que convence. Matizar no es ceder: es lo que hace que el otro siga escuchando.',
       rappels: [
-        { titulo: 'Les mots pour nommer',
-          html: `<ul>
-            <li><b>un stéréotype</b> — une image toute faite d’un groupe, répétée partout.</li>
-            <li><b>un préjugé</b> — un jugement porté <i>avant</i> de connaître.</li>
-            <li><b>un cliché</b> — une formule usée à force d’être répétée.</li>
-            <li><b>une idée reçue</b> — ce que tout le monde croit savoir sans l’avoir vérifié.</li>
-            <li><b>la mixité</b> (filles et garçons ensemble) ≠ <b>la parité</b> (le même nombre).</li>
-            <li><b>le sexisme ordinaire</b> · <b>la charge mentale</b> · <b>les métiers genrés</b>.</li>
-          </ul>` },
-        { titulo: 'Nuancer sans se fâcher',
-          html: `<ul>
-            <li><b>Désaccord net, mais poli :</b> Là, je ne te suis pas du tout. ·
-                Je ne suis pas d’accord, et je vais te dire pourquoi.</li>
-            <li><b>Nuancer :</b> Je nuancerais : … · Ça dépend du contexte. ·
-                C’est plus compliqué que ça.</li>
-            <li><b>Concéder avant de répondre :</b> Je te l’accorde, mais… ·
-                Tu as raison sur un point, en revanche…</li>
-            <li><b>Signaler une généralisation :</b> Tu généralises. · Tu pars d’un cas particulier.</li>
-            <li><b>Familier :</b> N’importe quoi ! · C’est tellement cliché !</li>
-          </ul>` }
+        { titulo: 'Du plus familier au plus nuancé',
+          html: `<div class="escala">
+            <span class="e4">N’importe quoi !</span><span class="e4">C’est tellement cliché !</span>
+            <span class="e3">Là, je ne te suis pas du tout.</span><span class="e3">Tu généralises.</span>
+            <span class="e2">C’est plus compliqué que ça.</span><span class="e2">Ça dépend du contexte.</span>
+            <span class="e1">Je te l’accorde, mais…</span><span class="e1">Je nuancerais : …</span>
+          </div>
+          <ul>
+            <li><b>Concéder avant de répondre :</b> Je te l’accorde, mais… · Tu as raison sur un point, en revanche…</li>
+            <li><b>Signaler une généralisation :</b> Tu généralises. · Tu pars d’un cas particulier.</li>
+            <li><b>Demander une preuve :</b> D’où tu tiens ça ? · Tu as des chiffres ?</li>
+          </ul>`,
+          escuchar: 'N’importe quoi ! C’est tellement cliché ! Là, je ne te suis pas du tout. Tu généralises. '
+                  + 'C’est plus compliqué que ça. Ça dépend du contexte. Je te l’accorde, mais… Je nuancerais.' }
       ],
-      ejercicios: [2, 3, 4, 5]
+      ejercicios: [9, 10]
+    },
+
+    /* ── 6 ── */
+    { titulo: '6. La chronique radio (act. 5-6) et le débat',
+      sous: 'En clase escuchamos una crónica sobre un estudio. Aquí preparas el vocabulario para entenderla y el debate que viene después.',
+      imagen: { src: '../assets/images/fichas/b2/infirmier.jpg', pos: 'center 40%',
+                alt: 'Un infirmier et une infirmière au bloc opératoire',
+                credito: 'Photo : U.S. Navy, Continuing Promise 2015, <a href="https://commons.wikimedia.org/wiki/File:Continuing_Promise_2015_150618-N-NK134-095.jpg" target="_blank" rel="noopener">domaine public</a>' },
+      rappels: [
+        { titulo: 'Pour parler d’une étude',
+          lexique: [
+            ['une étude montre que…', 'un estudio muestra que…', 'Une étude montre que les clichés ont la vie dure.', '🔬'],
+            ['selon les chercheurs', 'según los investigadores', 'Selon les chercheurs, l’écart se creuse dès l’école.', '👩‍🔬'],
+            ['à compétences égales', 'a igualdad de competencias', 'À compétences égales, elle est moins payée.', '🟰'],
+            ['être perçu(e) comme', 'ser percibido como', 'Une femme ambitieuse est parfois perçue comme agressive.', '👀'],
+            ['un écart', 'una brecha, una diferencia', 'L’écart de salaire est encore de plusieurs points.', '📉'],
+            ['remettre en question', 'cuestionar', 'L’étude remet en question une carte du jeu.', '❓']
+          ] }
+      ],
+      ejercicios: [11, 12]
     }
   ],
 
   ejercicios: [
-    /* 0 */ { t:'tri', etiqueta:'Constructions',
-      consigne:'Quelle suite demande chaque expression ?',
-      cols: ['+ nom', '+ de + infinitif', '+ à + infinitif'],
-      items: [
-        ['ça favorise…', 0], ['ça renforce…', 0], ['ça entraîne…', 0],
-        ['ça permet…', 1], ['ça évite…', 1], ['ça empêche…', 1],
-        ['ça aide…', 2], ['ça contribue…', 2], ['ça pousse…', 2]
-      ],
-      aide:'Cuando dudes, prueba con el infinitivo en la cabeza : <i>ça aide à comprendre</i> '
-         + 'suena bien, <i>ça aide de comprendre</i> no.' },
+    /* 0 */ { t:'qcm', etiqueta:'Le sketch',
+      consigne:'Regarde « Stéréotypes inversés » et réponds.',
+      q: [
+        { enonce:'Où se passe la scène ?',
+          o:['Dans un entretien d’embauche.', 'Dans un repas de famille.', 'Dans une salle de classe.'], r:0 },
+        { enonce:'La recruteuse ne veut pas de quelqu’un qui…',
+          o:['parle anglais', 'va vouloir s’imposer et « faire ses gros bras »', 'a fait un stage'], r:1 },
+        { enonce:'« Au pire, on trouvera bien quelqu’un pour porter mes cartons. » C’est…',
+          o:['un compliment', 'un stéréotype inversé : on réduit l’homme à sa force', 'une question'], r:1 },
+        { enonce:'À la fin, on lui annonce qu’il sera payé…',
+          o:['10 % de plus que ses collègues', '10 % de moins que ses homologues féminines', 'comme tout le monde'], r:1,
+          note:'Es el chiste: invertida, la brecha salarial suena absurda. Y en realidad existe… al revés.' }
+      ] },
 
     /* 1 */ { t:'paires', etiqueta:'Lexique',
       consigne:'Associe chaque mot à sa définition exacte.',
@@ -2389,19 +2509,21 @@ FICHAS.push({
         ['la charge mentale', 'le poids d’avoir à penser à tout, à la maison']
       ] },
 
-    /* 2 */ { t:'trous', etiqueta:'Grammaire',
-      consigne:'Complète avec le verbe entre parenthèses, au présent.',
+    /* 2 */ { t:'qcm', etiqueta:'La vidéo Social Builder',
+      consigne:'D’après la vidéo « Stéréotype, préjugé, fait réel ».',
       q: [
-        { enonce:'La mixité dans les jeux ___ l’égalité. <i>(favoriser)</i>', r:['favorise'], taille:12 },
-        { enonce:'Un jouet neutre ___ de choisir librement. <i>(permettre)</i>', r:['permet'], taille:12 },
-        { enonce:'Ce genre de remarque ___ à croire que c’est normal. <i>(pousser)</i>', r:['pousse'], taille:12 },
-        { enonce:'Nommer un stéréotype ___ de le répéter. <i>(éviter)</i>', r:['évite'], taille:12 },
-        { enonce:'La peur du ridicule ___ beaucoup de garçons de danser. <i>(empêcher)</i>', r:['empêche'], taille:12 },
-        { enonce:'L’école ___ à construire ces habitudes. <i>(contribuer)</i>', r:['contribue'], taille:12 }
+        { enonce:'« Une femme ne sera jamais aussi compétente qu’un homme en mathématiques. » La vidéo dit que c’est…',
+          o:['un fait réel', 'un préjugé : une opinion négative sans fondement réel', 'un stéréotype positif'], r:1 },
+        { enonce:'« Les mathématicien·nes sont des geeks asociaux. » C’est…',
+          o:['un stéréotype : une généralisation simpliste d’un groupe', 'un fait réel', 'un préjugé sur les femmes'], r:0 },
+        { enonce:'« En 2023, les femmes représentent 26,5 % des emplois du numérique. » C’est un fait réel parce que…',
+          o:['tout le monde le pense', 'il est basé sur des données vérifiables', 'il est négatif'], r:1 },
+        { enonce:'Un stéréotype peut-il être positif ?',
+          o:['Non, jamais.', 'Oui : la vidéo dit « positive ou négative ».', 'Seulement pour les hommes.'], r:1 }
       ] },
 
     /* 3 */ { t:'tri', etiqueta:'Esprit critique',
-      consigne:'Fait vérifiable, opinion ou stéréotype ?',
+      consigne:'Fait vérifiable, opinion ou stéréotype ?',
       cols: ['Fait vérifiable', 'Opinion', 'Stéréotype'],
       items: [
         ['En France, les femmes gagnent en moyenne moins que les hommes.', 0],
@@ -2413,131 +2535,426 @@ FICHAS.push({
         ['Les hommes ne savent pas s’occuper d’un bébé.', 2],
         ['Les filles sont naturellement plus ordonnées.', 2]
       ],
-      aide:'Es la distinción que más puntos da en el DELF : un hecho se verifica, una opinión '
-         + 'se asume (« je trouve que »), un estereotipo se presenta como un hecho sin serlo.' },
+      aide:'Es la distinción que más puntos da en el DELF : un hecho se verifica, una opinión '
+         + 'se asume (« je trouve que »), un estereotipo se presenta como un hecho sin serlo.' },
 
-    /* 4 */ { t:'qcm', etiqueta:'Réagir',
-      consigne:'Tu veux répondre sans te fâcher et sans donner raison. Que dis-tu ?',
+    /* 4 */ { t:'qcm', etiqueta:'1 jour, 1 question',
+      consigne:'Écoute chaque passage avec le bouton ▶ et choisis la bonne réponse.',
       q: [
-        { enonce:'« Les filles sont naturellement plus douces. »',
+        { enonce:'L’égalité, c’est le principe selon lequel tous les êtres humains…', min:'0:11',
+          o:['sont identiques', 'doivent être traités de la même manière et ont les mêmes droits', 'doivent faire le même métier'], r:1 },
+        { enonce:'Filles et garçons sont différents, mais…', min:'0:21',
+          o:['ça ne doit pas les empêcher d’avoir les mêmes chances', 'ils doivent rester séparés', 'ils n’ont pas les mêmes droits'], r:0 },
+        { enonce:'Pourquoi l’égalité n’est-elle pas facile à respecter ?', min:'0:28',
+          o:['À cause des lois.', 'Parce que des idées toutes faites circulent : les stéréotypes.', 'Parce que les filles ne veulent pas.'], r:1 },
+        { enonce:'Lequel de ces métiers est cité pour les filles ?', min:'0:53',
+          o:['pilote de chasse', 'infirmière', 'secrétaire'], r:0 },
+        { enonce:'Lequel est cité pour les garçons ?', min:'1:08',
+          o:['pompier', 'homme au foyer', 'président'], r:1 },
+        { enonce:'Pour la vidéo, l’égalité, c’est penser que tu peux…', min:'1:23',
+          o:['choisir librement tes loisirs, tes études et ton métier', 'faire comme tout le monde', 'changer de sexe'], r:0 }
+      ] },
+
+    /* 5 */ { t:'trous', etiqueta:'Les mots exacts',
+      consigne:'Complète les phrases de la vidéo.',
+      sous:'Un hueco, una palabra. Revisa el minuto si dudas.',
+      q: [
+        { enonce:'Cela ne doit pas les ___ d’avoir les mêmes chances. (0:25)', r:['empecher'], taille:10,
+          note:'<b>Empêcher quelqu’un de</b> + infinitivo: es la construcción de la etapa 4.' },
+        { enonce:'Des idées toutes ___ circulent au sujet des filles et des garçons. (0:34)', r:['faites'], taille:8 },
+        { enonce:'Les filles et les garçons sont ___ dans des rôles. (0:41)', r:['enfermes','enfermees'], taille:10 },
+        { enonce:'On a du mal à imaginer qu’elle s’___ avec des jeux vidéo d’action. (0:50)', r:['eclate'], taille:8 },
+        { enonce:'Certains garçons rêvent d’être instituteur ou homme au ___. (1:13)', r:['foyer'], taille:8 }
+      ] },
+
+    /* 6 */ { t:'tri', etiqueta:'Constructions',
+      consigne:'Quelle suite demande chaque expression ?',
+      cols: ['+ nom', '+ de + infinitif', '+ à + infinitif'],
+      items: [
+        ['ça favorise…', 0], ['ça renforce…', 0], ['ça entraîne…', 0],
+        ['ça permet…', 1], ['ça évite…', 1], ['ça empêche…', 1],
+        ['ça aide…', 2], ['ça contribue…', 2], ['ça pousse…', 2]
+      ],
+      aide:'Cuando dudes, prueba con el infinitivo en la cabeza : <i>ça aide à comprendre</i> '
+         + 'suena bien, <i>ça aide de comprendre</i> no.' },
+
+    /* 7 */ { t:'trous', etiqueta:'Le verbe',
+      consigne:'Complète avec le verbe entre parenthèses, au présent.',
+      q: [
+        { enonce:'La mixité dans les jeux ___ l’égalité. <i>(favoriser)</i>', r:['favorise'], taille:12 },
+        { enonce:'Un jouet neutre ___ de choisir librement. <i>(permettre)</i>', r:['permet'], taille:12 },
+        { enonce:'Ce genre de remarque ___ à croire que c’est normal. <i>(pousser)</i>', r:['pousse'], taille:12 },
+        { enonce:'Nommer un stéréotype ___ de le répéter. <i>(éviter)</i>', r:['évite'], taille:12 },
+        { enonce:'La peur du ridicule ___ beaucoup de garçons de danser. <i>(empêcher)</i>', r:['empêche'], taille:12 },
+        { enonce:'L’école ___ à construire ces habitudes. <i>(contribuer)</i>', r:['contribue'], taille:12 }
+      ] },
+
+    /* 8 */ { t:'transfo', etiqueta:'Construire la phrase',
+      consigne:'Fais une phrase complète avec les éléments donnés.',
+      sous:'Atención a la preposición y, con persona, al «à» o «de» que cambia.',
+      q: [
+        { enonce:'les jouets neutres / permettre / les enfants / choisir',
+          modele:'Les jouets neutres permettent aux enfants de choisir.' },
+        { enonce:'les rayons roses et bleus / renforcer / les clichés',
+          modele:'Les rayons roses et bleus renforcent les clichés.' },
+        { enonce:'la peur des moqueries / empêcher / les garçons / jouer à la poupée',
+          modele:'La peur des moqueries empêche les garçons de jouer à la poupée.' },
+        { enonce:'ce jeu de cartes / aider / repérer les stéréotypes',
+          modele:'Ce jeu de cartes aide à repérer les stéréotypes.' },
+        { enonce:'parler des clichés en classe / éviter / les reproduire',
+          modele:'Parler des clichés en classe évite de les reproduire.' }
+      ] },
+
+    /* 9 */ { t:'dialogue', etiqueta:'Le repas de famille',
+      consigne:'L’oncle enchaîne les clichés. Choisis la réponse qui le fait réfléchir sans fâcher personne.',
+      sous:'Ninguna respuesta es «mala» del todo: busca la que sostiene tu posición y deja hablar al otro.',
+      final:'Le repas s’est terminé sans dispute, et ton oncle a dit : « Bon, je n’y avais jamais pensé. » '
+           + 'C’est tout l’art de nuancer.',
+      escenas: [
+        { texto:'« Une poupée pour un garçon ? N’importe quoi ! »',
+          opciones: [
+            { texto:'« C’est toi qui dis n’importe quoi. »', ok:false,
+              replica:'Il se vexe, et la conversation est finie. Tu as répondu au cliché par une insulte.' },
+            { texto:'« Je te l’accorde, c’est rare. Mais pourquoi un futur papa n’apprendrait pas à bercer un bébé ? »', ok:true,
+              replica:'Tu concèdes d’abord, puis tu poses une question. Il réfléchit.' },
+            { texto:'Tu ne dis rien et tu changes de sujet.', ok:false,
+              replica:'Tu évites le conflit, mais ton neveu a tout entendu.' }
+          ] },
+        { texto:'« Les femmes sont moins ambitieuses, c’est connu. »',
+          opciones: [
+            { texto:'« D’où tu tiens ça ? Tu as des chiffres ? »', ok:true,
+              replica:'Tu demandes une preuve : c’est la meilleure façon de montrer qu’un stéréotype n’est pas un fait.' },
+            { texto:'« C’est tellement cliché ! »', ok:false,
+              replica:'Vrai, mais familier, et ça ne le convainc pas. Il te répond : « Et alors ? »' },
+            { texto:'« Oui, peut-être. »', ok:false,
+              replica:'Tu viens de valider un préjugé.' }
+          ] },
+        { texto:'« Un homme au foyer ? Il ne doit pas avoir de travail. »',
+          opciones: [
+            { texto:'« Tu généralises : certains le choisissent, et ça permet à leur femme de faire carrière. »', ok:true,
+              replica:'Tu signales la généralisation et tu utilises « ça permet à… de ». Parfait.' },
+            { texto:'« Tu es vraiment d’une autre époque. »', ok:false,
+              replica:'Une attaque personnelle : il se ferme.' },
+            { texto:'« Ah bon ? »', ok:false,
+              replica:'Ça ne fait pas avancer la discussion.' }
+          ] },
+        { texto:'« De toute façon, les filles adorent le rose, c’est naturel. »',
+          opciones: [
+            { texto:'« C’est plus compliqué que ça : au début du XXe siècle, certains magazines conseillaient le rose pour les garçons. »', ok:true,
+              replica:'Un fait historique contre une idée reçue. Les couleurs « de fille » et « de garçon » ont changé avec le temps : ce n’est donc pas naturel.' },
+            { texto:'« Pas du tout ! »', ok:false,
+              replica:'Sans argument, c’est ta parole contre la sienne.' },
+            { texto:'« Bon, si tu le dis. »', ok:false,
+              replica:'Dommage : tu avais de quoi répondre.' }
+          ] }
+      ] },
+
+    /* 10 */ { t:'qcm', etiqueta:'Réagir',
+      consigne:'Tu veux répondre sans te fâcher et sans donner raison. Que dis-tu ?',
+      q: [
+        { enonce:'« Les filles sont naturellement plus douces. »',
           o:['N’importe quoi, tu dis vraiment des bêtises.',
-             'Je nuancerais : on les élève aussi comme ça.',
+             'Je nuancerais : on les élève aussi comme ça.',
              'C’est vrai, c’est bien connu.'], r:1 },
-        { enonce:'« Les hommes ne savent pas s’occuper d’un bébé. »',
+        { enonce:'« Les hommes ne savent pas s’occuper d’un bébé. »',
           o:['Oui, c’est biologique.',
              'C’est tellement cliché — et démenti par tous les pères que je connais.',
              'Je m’en fiche complètement.'], r:1 },
-        { enonce:'À l’écrit, pour marquer un désaccord fort mais correct :',
-          o:['« Là, je ne vous suis pas du tout. »',
-             '« Vous racontez n’importe quoi. »',
-             '« Mdr non. »'], r:0 },
-        { enonce:'« Tu généralises » veut dire :',
-          o:['tu exagères un détail',
-             'tu étends à tout un groupe ce qui vaut pour quelques cas',
-             'tu changes de sujet'], r:1 },
-        { enonce:'Quelle formule concède un point avant de répondre ?',
-          o:['« Je te l’accorde, mais… »', '« De toute façon… »',
-             '« Point final. »'], r:0,
-          note:'Concéder d’abord, c’est la technique la plus efficace du débat : '
-             + 'l’autre écoute la suite.' }
+        { enonce:'À l’écrit, pour marquer un désaccord fort mais correct :',
+          o:['« Là, je ne vous suis pas du tout. »', '« Vous racontez n’importe quoi. »', '« Mdr non. »'], r:0 },
+        { enonce:'« Tu généralises » veut dire :',
+          o:['tu exagères un détail', 'tu étends à tout un groupe ce qui vaut pour quelques cas', 'tu changes de sujet'], r:1 },
+        { enonce:'Quelle formule concède un point avant de répondre ?',
+          o:['« Je te l’accorde, mais… »', '« De toute façon… »', '« Point final. »'], r:0,
+          note:'Concéder d’abord, c’est la technique la plus efficace du débat : l’autre écoute la suite.' }
       ] },
 
-    /* 5 */ { t:'prod', etiqueta:'Préparer le débat', mots:120,
-      consigne:'Choisis une affirmation du jeu de cartes et prépare ta réponse : '
-             + 'trois arguments pour, deux contre.',
+    /* 11 */ { t:'paires', etiqueta:'Parler d’une étude',
+      consigne:'Associe chaque expression à son sens.',
+      pairs: [
+        ['à compétences égales', 'avec exactement les mêmes capacités'],
+        ['être perçu comme', 'donner l’image de, aux yeux des autres'],
+        ['un écart', 'une différence mesurable entre deux groupes'],
+        ['selon les chercheurs', 'd’après les scientifiques qui ont fait l’étude'],
+        ['remettre en question', 'faire douter de quelque chose qu’on croyait vrai']
+      ] },
+
+    /* 12 */ { t:'prod', etiqueta:'Préparer le débat', mots:120,
+      consigne:'Choisis une affirmation du jeu de cartes et prépare ta réponse : trois arguments pour, deux contre.',
       sous:'120 palabras. No se trata de ganar: se trata de sostener una posición y reconocer la otra.',
       check: [
-        'Une reformulation de l’affirmation : <i>Si je comprends bien, on dit que…</i>',
+        'Une reformulation de l’affirmation : <i>Si je comprends bien, on dit que…</i>',
         'Trois arguments, chacun avec un exemple concret.',
         'Deux objections, présentées honnêtement.',
-        'Deux constructions de la liste : <i>ça permet de</i>, <i>ça évite de</i>, <i>ça renforce</i>…',
-        'Une formule de concession : <i>Je te l’accorde, mais…</i>'
+        'Deux constructions de l’étape 4 : <i>ça permet de</i>, <i>ça évite de</i>, <i>ça aide à</i>…',
+        'Une formule de concession : <i>Je te l’accorde, mais…</i>',
+        'Et ta réponse à la grand-mère du début, maintenant que tu as les mots.'
       ],
       modele:'On dit que les jouets devraient être neutres, sans rayon rose ni rayon bleu. '
            + 'D’abord, ça permet à l’enfant de choisir ce qui l’attire vraiment, et pas ce '
-           + 'qu’on attend de lui. Ensuite, ça évite de fermer très tôt des portes : une '
+           + 'qu’on attend de lui. Ensuite, ça évite de fermer très tôt des portes : une '
            + 'fille qui n’a jamais eu de jeu de construction ne saura pas qu’elle aime ça. '
-           + 'Enfin, ça contribue à normaliser les métiers mixtes : on joue avant de '
+           + 'Enfin, ça contribue à normaliser les métiers mixtes : on joue avant de '
            + 'choisir un métier. Je te l’accorde, les magasins y perdraient un repère '
            + 'commode, et beaucoup de parents disent que leurs enfants choisissent le rose '
-           + 'tout seuls. Mais justement : comment savoir, si tout le reste du monde le '
-           + 'leur a déjà soufflé ?' }
+           + 'tout seuls. Mais justement : comment savoir, si tout le reste du monde le '
+           + 'leur a déjà soufflé ?' }
   ]
 });
 
 /* ───────────────────────────────────────────────────────────────────────
-   SÉANCE 9 · 4 novembre · p. 28-29
-   Bébés et jouets · tellement, pourvu que, avoir hâte de
+   SÉANCE 9 · 4 novembre · livre p. 28-29
+   SÉQUENCE COMPLÈTE — BÉBÉS ET JOUETS : TELLEMENT, POURVU QUE, AVOIR HÂTE
+   Act. 7-9 (el artículo sobre no querer saber el sexo del bebé), la gramática
+   de la intensidad y del deseo (act. 10-13) y el vídeo de los juguetes
+   «genrés» (act. 14-16).
+
+   Vídeos (subtítulos en francés, comprobados el 29/10/2026):
+     rujP_1Nrkao  Quand les jouets favorisent les stéréotypes (3:03) — Parents ! — principal
+     wLyRNXibIh8  Jouets et genre, 40 ans de clichés (2:03) — INA / franceinfo
+     FesSha_6Ljs  Si, tellement, tant — Français avec Pierre (fragmento 1:54-4:22)
+     TqI42aEQWag  Pourvu que — Valentina Sancler (3:29, con equivalencias en español)
+     58GCahXrBuU  Avoir hâte de / avoir hâte que — Irlanda Di Marco (2:57)
    ─────────────────────────────────────────────────────────────────────── */
 FICHAS.push({
   id: 's9',
   ciclo: 'Oct.-nov. 2026',
-  fecha: 'Mercredi 4 novembre · p. 28-29',
-  titulo: 'Tellement, pourvu que, avoir hâte',
-  resumen: 'La intensidad, el deseo con subjuntivo y el léxico del nacimiento. La gramática más rentable del ciclo.',
-  intro: 'Tres estructuras que un B2 usa todo el tiempo y que casi nadie domina del todo. '
-       + 'Si solo haces una ficha de gramática, que sea esta.',
+  fecha: 'Mercredi 4 novembre · livre p. 28-29',
+  titulo: 'Bébés et jouets — tellement, pourvu que, avoir hâte',
+  resumen: 'La secuencia completa: ¿saber o no el sexo del bebé?, el léxico de la espera con audio, un testimonio para leer, tellement / pourvu que / avoir hâte con tres vídeos explicativos, y dos vídeos sobre los juguetes «genrés».',
+  intro: 'Tres estructuras que un B2 usa todo el tiempo y que casi nadie domina del todo, '
+       + 'alrededor de un tema que divide a las familias: rosa o azul, ¿y antes de nacer?',
+
+  video: {
+    id: 'rujP_1Nrkao',
+    titulo: 'Quand les jouets favorisent les stéréotypes de nos enfants — Parents ! (3 min 03)'
+  },
 
   secciones: [
-    { titulo: 'Révision autrement',
-      sous: 'Las frases del libro con «tellement», ahora clasificadas por lo que expresan.',
+    /* ── 1 ── */
+    { titulo: '1. Pour commencer : fille ou garçon ?',
+      sous: 'La puesta en contexto del artículo del libro (act. 7): ¿quieres saberlo antes de que nazca?',
+      imagen: { src: '../assets/images/fichas/b2/grossesse.jpg', pos: 'center 30%',
+                alt: 'Une femme enceinte pose les mains sur son ventre',
+                credito: 'Photo : Juanedc, <a href="https://commons.wikimedia.org/wiki/File:Pregnant_woman_holding_her_belly_01.jpg" target="_blank" rel="noopener">CC BY 2.0</a>' },
       rappels: [
-        { titulo: 'Les trois tellement',
+        { titulo: 'Objectifs de la séquence', clase: 'objectifs',
+          html: `<p>À la fin, tu sauras :</p>
+          <ul>
+            <li><b>parler</b> de l’attente d’un enfant avec le vocabulaire précis ;</li>
+            <li><b>exprimer l’intensité</b> avec <i>tellement</i>, <i>tellement de</i>, <i>tellement… que</i> (et <i>si</i>, <i>tant</i>) ;</li>
+            <li><b>exprimer un souhait</b> avec <i>pourvu que</i> + subjonctif ;</li>
+            <li><b>exprimer l’impatience</b> avec <i>avoir hâte de</i> / <i>avoir hâte que</i> ;</li>
+            <li><b>comprendre</b> deux reportages sur les jouets « genrés » (act. 14-16) et donner ton avis.</li>
+          </ul>` },
+        { titulo: 'La question du livre',
+          html: `<p>L’article de la page 28 pose une question qui divise les couples :
+          <b>« Grossesse : pourquoi ne pas vouloir connaître le sexe de son bébé ? »</b></p>
+          <p>Et toi, tu voudrais savoir ? Pourquoi ? Pense à deux raisons, puis classe les
+          arguments ci-dessous.</p>`,
+          escuchar: 'Grossesse : pourquoi ne pas vouloir connaître le sexe de son bébé ? Et toi, tu voudrais savoir ? Pourquoi ?' }
+      ],
+      ejercicios: [0]
+    },
+
+    /* ── 2 ── */
+    { titulo: '2. Les mots de l’attente',
+      sous: 'El léxico de la página 29 y algo más. Escucha cada palabra: la pronunciación de «grossesse» y «échographie» se equivoca mucho.',
+      rappels: [
+        { titulo: 'Attendre un enfant',
+          lexique: [
+            ['attendre un enfant', 'esperar un hijo', 'Ils attendent leur premier enfant.', '🤰'],
+            ['tomber enceinte', 'quedar embarazada', 'Elle est tombée enceinte au printemps.', '🌱'],
+            ['la grossesse', 'el embarazo', 'La grossesse dure environ neuf mois.', '🗓️'],
+            ['une échographie', 'un ultrasonido', 'À l’échographie, on peut voir le sexe.', '🖥️'],
+            ['l’accouchement', 'el parto', 'L’accouchement est prévu en mars.', '🏥'],
+            ['la naissance', 'el nacimiento', 'Ils ont gardé la surprise jusqu’à la naissance.', '👶'],
+            ['le congé maternité / paternité', 'la licencia de maternidad / paternidad', 'Il a pris tout son congé paternité.', '📅'],
+            ['la layette', 'la ropita del bebé', 'Une layette jaune, pour ne pas choisir.', '🧸'],
+            ['un prénom mixte', 'un nombre unisex', 'Camille, Dominique, Sacha : des prénoms mixtes.', '🔤'],
+            ['garder la surprise', 'guardar la sorpresa', 'Nous avons préféré garder la surprise.', '🎁'],
+            ['une fête de révélation du sexe', 'un «gender reveal»', 'Pour la fête de révélation du sexe, des ballons roses sont sortis du carton.', '🎈']
+          ] }
+      ],
+      ejercicios: [1]
+    },
+
+    /* ── 3 ── */
+    { titulo: '3. Lire : un témoignage (act. 7-9)',
+      sous: 'Un testimonio escrito para esta ficha, en la línea del artículo del libro. Léelo dos veces; la segunda, escuchándolo.',
+      rappels: [
+        { titulo: '« Nous n’avons pas voulu savoir » — Claire, 34 ans',
+          html: `<p>Quand l’échographiste nous a demandé si nous voulions connaître le sexe, nous
+          avons dit non tous les deux, sans hésiter. On nous a <b>tellement</b> répété que
+          c’était « pratique pour préparer la chambre » ! Mais justement : je ne voulais pas
+          d’une chambre rose ou bleue avant même que notre enfant ait respiré.</p>
+          <p>Ma mère, elle, n’a pas compris. Elle avait <b>tellement de</b> vêtements à
+          acheter qu’elle a fini par tout prendre en jaune et en vert. Mon conjoint plaisantait :
+          « <b>Pourvu que</b> ce ne soit pas un bébé qui déteste le jaune ! »</p>
+          <p>Les dernières semaines, j’étais <b>tellement</b> impatiente <b>que</b> je n’arrivais
+          plus à dormir. J’<b>avais hâte de</b> le rencontrer, et surtout, j’<b>avais hâte que</b>
+          les questions s’arrêtent. C’est une fille. Elle a trois ans, elle adore les camions…
+          et le rose. Comme quoi.</p>`,
+          escuchar: 'Quand l’échographiste nous a demandé si nous voulions connaître le sexe, nous avons dit non tous les deux, sans hésiter. '
+                  + 'On nous a tellement répété que c’était pratique pour préparer la chambre ! Mais justement : je ne voulais pas '
+                  + 'd’une chambre rose ou bleue avant même que notre enfant ait respiré. Ma mère, elle, n’a pas compris. Elle avait '
+                  + 'tellement de vêtements à acheter qu’elle a fini par tout prendre en jaune et en vert. Mon conjoint plaisantait : '
+                  + 'pourvu que ce ne soit pas un bébé qui déteste le jaune ! Les dernières semaines, j’étais tellement impatiente '
+                  + 'que je n’arrivais plus à dormir. J’avais hâte de le rencontrer, et surtout, j’avais hâte que les questions '
+                  + 's’arrêtent. C’est une fille. Elle a trois ans, elle adore les camions… et le rose. Comme quoi.' }
+      ],
+      ejercicios: [2, 3]
+    },
+
+    /* ── 4 ── */
+    { titulo: '4. Grammaire : les trois tellement',
+      sous: 'Intensidad, cantidad, consecuencia. Primero el vídeo (dos minutos y medio), luego la regla.',
+      rappels: [
+        { titulo: 'Si, tellement, tant',
+          video: { id: 'FesSha_6Ljs', titulo: 'Si, tellement, tant — Français avec Pierre', desde: '1:54', hasta: '4:22',
+                   nota: 'Solo la parte de la intensidad. El resto del vídeo (aussi, autant) es la comparación.' },
           html: `<ul>
-            <li><b>Intensité</b> — tellement + adjectif ou adverbe :
-                <i>Je suis tellement contente ! Il parle tellement vite.</i></li>
-            <li><b>Quantité</b> — tellement <b>de</b> + nom :
+            <li><b>Intensité</b> — tellement + adjectif ou adverbe :
+                <i>Je suis tellement contente ! Il parle tellement vite.</i></li>
+            <li><b>Quantité</b> — tellement <b>de</b> + nom :
                 <i>Il y avait tellement de monde.</i></li>
-            <li><b>Conséquence</b> — tellement… <b>que</b> :
+            <li><b>Conséquence</b> — tellement… <b>que</b> :
                 <i>J’étais tellement fatiguée que je me suis endormie.</i></li>
           </ul>
-          <div class="ex"><b>La famille :</b> <i>si</i> remplace <i>tellement</i> devant un
-          adjectif (si belle) ; <i>tant</i> le remplace devant un verbe ou un nom
-          (j’ai tant travaillé · tant de gens). <b>Tellement</b> va partout : c’est le
-          plus sûr à l’examen.</div>` }
+          <div class="ex"><b>La famille :</b> <i>si</i> remplace <i>tellement</i> devant un
+          adjectif ou un adverbe (si belle, si vite) ; <i>tant</i> le remplace devant un verbe ou
+          un nom (il parle tant · tant de gens). <b>Tellement</b> va partout : c’est le plus sûr
+          à l’examen.</div>
+          <div class="piege">Sin <i>que</i>, es una exclamación: <i>Il est tellement grand !</i>
+          Con <i>que</i>, hace falta la consecuencia: <i>Il est tellement grand <b>que</b> son pantalon ne lui va plus.</i></div>` }
       ],
-      ejercicios: [0, 1]
+      ejercicios: [4, 5]
     },
-    { titulo: 'Un pas plus loin',
-      sous: 'Pourvu que, avoir hâte, y el léxico que acompaña a la espera de un hijo.',
+
+    /* ── 5 ── */
+    { titulo: '5. Grammaire : pourvu que, avoir hâte (act. 10-13)',
+      sous: 'El deseo y la impaciencia, con subjuntivo. Dos vídeos cortos: el de «pourvu que» da además la equivalencia en español.',
       rappels: [
         { titulo: 'Pourvu que + subjonctif',
+          video: { id: 'TqI42aEQWag', titulo: 'Pourvu que — Valentina Sancler',
+                   nota: '3 min 29. Dice cuándo se traduce «a condición de que» y cuándo «ojalá».' },
           html: `<ul>
-            <li><b>Seul, en exclamation :</b> un souhait teinté d’inquiétude.
-                <i>Pourvu qu’il ne pleuve pas !</i></li>
-            <li><b>Dans la phrase :</b> la seule condition qui compte.
+            <li><b>Seul, en exclamation :</b> un souhait teinté d’inquiétude (= <i>ojalá</i>).
+                <i>Pourvu qu’il ne pleuve pas !</i></li>
+            <li><b>Dans la phrase :</b> la seule condition qui compte (= <i>con tal de que</i>).
                 <i>Je viendrai, pourvu que tu sois là.</i></li>
-            <li><b>Même famille, tous au subjonctif :</b> à condition que · pour peu que ·
-                à moins que (+ <i>ne</i> explétif : <i>à moins qu’il ne pleuve</i>).</li>
+            <li><b>Même famille, tous au subjonctif :</b> à condition que · pour peu que ·
+                à moins que (+ <i>ne</i> explétif : <i>à moins qu’il ne pleuve</i>).</li>
           </ul>
-          <div class="piege">Ce <b>ne</b> de « à moins qu’il ne pleuve »
-          <b>n’est pas une négation</b> : c’est un usage soutenu. La phrase veut dire
-          « sauf s’il pleut ».</div>` },
+          <div class="piege">Ce <b>ne</b> de « à moins qu’il ne pleuve »
+          <b>n’est pas une négation</b> : c’est un usage soutenu. La phrase veut dire
+          « sauf s’il pleut ».</div>` },
         { titulo: 'Avoir hâte',
+          video: { id: '58GCahXrBuU', titulo: 'Avoir hâte de / avoir hâte que — Irlanda Di Marco',
+                   nota: '2 min 57, en francés.' },
           html: `<ul>
-            <li><b>même sujet</b> → avoir hâte <b>de</b> + infinitif :
+            <li><b>même sujet</b> → avoir hâte <b>de</b> + infinitif :
                 <i>J’ai hâte de le rencontrer.</i></li>
-            <li><b>sujets différents</b> → avoir hâte <b>que</b> + subjonctif :
+            <li><b>sujets différents</b> → avoir hâte <b>que</b> + subjonctif :
                 <i>J’ai hâte que tu le voies.</i></li>
-            <li>Soutenu : <i>il me tarde de…</i> · Oral : <i>J’ai trop hâte !</i></li>
+            <li>Soutenu : <i>il me tarde de…</i> · Oral : <i>J’ai trop hâte !</i></li>
           </ul>
-          <div class="piege">C’est exactement la règle de <i>vouloir</i> : on ne dit pas
-          « je veux que je parte », mais « je veux partir ».</div>` },
-        { titulo: 'Attendre un enfant',
-          html: `<div class="ex">attendre un enfant · tomber enceinte · la grossesse ·
-          une échographie · l’accouchement · la naissance · le congé maternité / paternité ·
-          la layette · un prénom mixte</div>` }
+          <div class="piege">C’est exactement la règle de <i>vouloir</i> et de <i>il vaut mieux</i> :
+          on ne dit pas « j’ai hâte que je parte », mais « j’ai hâte de partir ».</div>`,
+          escuchar: 'Pourvu qu’il ne pleuve pas ! Je viendrai, pourvu que tu sois là. J’ai hâte de le rencontrer. J’ai hâte que tu le voies.' }
       ],
-      ejercicios: [2, 3, 4, 5, 6]
+      ejercicios: [6, 7, 8]
+    },
+
+    /* ── 6 ── */
+    { titulo: '6. Les jouets genrés (act. 14-16)',
+      sous: 'El vídeo principal, arriba y fijo: unos gemelos de seis años en Lyon. Luego un archivo del INA: cuarenta años de clichés.',
+      imagen: { src: '../assets/images/fichas/b2/voiture-rose.jpg', pos: 'center 40%',
+                alt: 'Deux fillettes rient dans une petite voiture rose',
+                credito: 'Photo : CustomKlicks, <a href="https://commons.wikimedia.org/wiki/File:BarbieCar_smaller.jpg" target="_blank" rel="noopener">CC BY-SA 4.0</a>' },
+      rappels: [
+        { titulo: 'Avant de regarder',
+          html: `<p>À quoi jouaient les enfants de ta famille ? Qui choisissait les jouets ?
+          Le livre pose la question (act. 16) : <b>et les jouets de votre entourage ?</b></p>` },
+        { titulo: 'Archive : « Jouets et genre, 40 ans de clichés »',
+          html: `<p>Des extraits de télévision de 1958 à 2004. Écoute surtout l’éducateur de 1978
+          et l’institutrice de la fin.</p>`,
+          video: { id: 'wLyRNXibIh8', titulo: 'Jouets et genre, 40 ans de clichés — INA / franceinfo',
+                   nota: '2 min 03. Archivos antiguos: el sonido no siempre es claro, no te preocupes si pierdes palabras.' } }
+      ],
+      ejercicios: [9, 10]
+    },
+
+    /* ── 7 ── */
+    { titulo: '7. À toi : souhaits et opinion',
+      sous: 'Act. 13 y 16 del libro, por escrito. Lo comentamos en clase antes de la evaluación.',
+      rappels: [],
+      ejercicios: [11, 12]
     }
   ],
 
   ejercicios: [
-    /* 0 */ { t:'tri', etiqueta:'Révision',
-      consigne:'Que fait « tellement » dans chaque phrase ?',
+    /* 0 */ { t:'tri', etiqueta:'Savoir ou garder la surprise ?',
+      consigne:'Classe chaque argument : pour connaître le sexe du bébé, ou pour garder la surprise ?',
+      cols: ['Pour savoir', 'Pour garder la surprise'],
+      items: [
+        ['On peut préparer la chambre et les vêtements.', 0],
+        ['On peut choisir le prénom à l’avance.', 0],
+        ['On commence à imaginer l’enfant plus concrètement.', 0],
+        ['La famille sait quoi offrir.', 0],
+        ['La naissance garde tout son mystère.', 1],
+        ['On évite le rose et le bleu avant même la naissance.', 1],
+        ['On ne projette pas d’attentes sur l’enfant.', 1],
+        ['C’est la dernière vraie surprise de la vie.', 1]
+      ],
+      aide:'No hay una respuesta «correcta» al debate; solo hay que saber de qué lado juega cada argumento.' },
+
+    /* 1 */ { t:'paires', etiqueta:'Lexique',
+      consigne:'Le vocabulaire de l’attente d’un enfant.',
+      pairs: [
+        ['attendre un enfant', 'être enceinte — la façon la plus courante de le dire'],
+        ['tomber enceinte', 'le début de la grossesse'],
+        ['une échographie', 'l’examen où l’on voit le bébé à l’écran'],
+        ['l’accouchement', 'le moment où l’enfant naît'],
+        ['le congé paternité', 'l’arrêt de travail du second parent'],
+        ['la layette', 'les premiers vêtements du bébé'],
+        ['garder la surprise', 'ne pas vouloir savoir avant la naissance']
+      ] },
+
+    /* 2 */ { t:'qcm', etiqueta:'Compréhension',
+      consigne:'D’après le témoignage de Claire.',
+      q: [
+        { enonce:'Pourquoi Claire n’a-t-elle pas voulu savoir ?',
+          o:['Parce que l’échographie ne le montrait pas.',
+             'Pour ne pas enfermer l’enfant dans le rose ou le bleu avant sa naissance.',
+             'Parce que son conjoint voulait un garçon.'], r:1 },
+        { enonce:'Comment la mère de Claire a-t-elle résolu le problème des vêtements ?',
+          o:['Elle n’a rien acheté.', 'Elle a tout acheté en jaune et en vert.', 'Elle a acheté du rose et du bleu.'], r:1 },
+        { enonce:'« Comme quoi » à la fin veut dire…',
+          o:['« ce qui prouve bien que… » : les goûts de l’enfant ne se décident pas à l’avance',
+             '« comme d’habitude »', '« quel dommage »'], r:0,
+          note:'<b>Comme quoi</b> (oral) = «lo que demuestra que». Cierra el texto con una ironía: la niña eligió sola… el rosa y los camiones.' }
+      ] },
+
+    /* 3 */ { t:'transfo', etiqueta:'Reformuler (act. 8)',
+      consigne:'Reformule chaque passage du témoignage avec tes propres mots.',
+      sous:'Como en la act. 8 del libro: decir lo mismo de otra manera, sin copiar las palabras en negrita.',
+      q: [
+        { enonce:'« On nous a <b>tellement</b> répété que c’était pratique. »',
+          modele:'On nous a dit et redit que c’était pratique. / Tout le monde insistait : c’était pratique.' },
+        { enonce:'« Elle avait <b>tellement de</b> vêtements à acheter… »',
+          modele:'Elle avait une quantité énorme de vêtements à acheter…' },
+        { enonce:'« J’étais <b>tellement</b> impatiente <b>que</b> je n’arrivais plus à dormir. »',
+          modele:'Mon impatience était si grande qu’elle m’empêchait de dormir.' },
+        { enonce:'« J’<b>avais hâte de</b> le rencontrer. »',
+          modele:'J’attendais avec impatience de le rencontrer. / Il me tardait de le rencontrer.' }
+      ] },
+
+    /* 4 */ { t:'tri', etiqueta:'Les trois tellement',
+      consigne:'Que fait « tellement » dans chaque phrase ?',
       cols: ['Intensité', 'Quantité', 'Conséquence'],
       items: [
-        ['Je suis tellement contente !', 0],
+        ['Je suis tellement contente !', 0],
         ['C’est tellement cliché.', 0],
         ['Il est tellement gentil.', 0],
         ['Il y avait tellement de monde.', 1],
@@ -2547,88 +2964,124 @@ FICHAS.push({
         ['J’étais tellement fatigué que je me suis endormi.', 2]
       ] },
 
-    /* 1 */ { t:'trous', etiqueta:'Intensité',
+    /* 5 */ { t:'trous', etiqueta:'Intensité',
       consigne:'Complète avec tellement, tellement de, si ou tant.',
       q: [
         { enonce:'Il y a ___ préjugés sur ce métier.', r:['tellement de','tant de'], taille:14 },
         { enonce:'Elle est ___ convaincante qu’on l’écoute sans bouger.', r:['tellement','si'], taille:12 },
         { enonce:'J’ai ___ travaillé que je n’ai pas vu l’heure.', r:['tellement','tant'], taille:12 },
-        { enonce:'C’était ___ beau !', r:['tellement','si'], taille:12 },
+        { enonce:'C’était ___ beau !', r:['tellement','si'], taille:12 },
         { enonce:'___ que tu y es, prends du pain.', r:['tant'], taille:10,
-          note:'<b>Tant que tu y es</b> = pendant que tu le fais. Ici, <i>tellement</i> est impossible : '
-             + 'c’est une expression figée.' },
+          note:'<b>Tant que tu y es</b> = pendant que tu le fais. Ici, <i>tellement</i> est impossible : c’est une expression figée.' },
         { enonce:'Ils ont ___ d’arguments qu’on finit par douter.', r:['tellement','tant'], taille:12 }
       ] },
 
-    /* 2 */ { t:'qcm', etiqueta:'Subjonctif',
+    /* 6 */ { t:'qcm', etiqueta:'Subjonctif',
       consigne:'Choisis la forme correcte.',
       q: [
         { enonce:'J’ai hâte ___ partir en vacances.', o:['de', 'que', 'à'], r:0 },
         { enonce:'J’ai hâte ___ les vacances commencent.', o:['de', 'que', 'qui'], r:1,
-          note:'Sujets différents → <b>avoir hâte que</b> + subjonctif : <i>qu’elles commencent</i>.' },
-        { enonce:'Pourvu qu’il ___ beau demain !', o:['fait', 'fasse', 'fera'], r:1 },
+          note:'Sujets différents → <b>avoir hâte que</b> + subjonctif : <i>qu’elles commencent</i>.' },
+        { enonce:'Pourvu qu’il ___ beau demain !', o:['fait', 'fasse', 'fera'], r:1 },
         { enonce:'Je t’accompagne, pourvu que tu ___ à l’heure.', o:['es', 'sois', 'seras'], r:1 },
-        { enonce:'« Pourvu que… ! » tout seul exprime…',
-          o:['une condition', 'un souhait mêlé d’inquiétude', 'un ordre'], r:1 },
-        { enonce:'Dans « à moins qu’il ne pleuve », le « ne »…',
-          o:['est une négation : il ne pleut pas',
-             'n’est pas une négation : c’est un usage soutenu',
-             'est une faute'], r:1 }
+        { enonce:'« Pourvu que… ! » tout seul exprime…',
+          o:['une condition', 'un souhait mêlé d’inquiétude (ojalá)', 'un ordre'], r:1 },
+        { enonce:'Dans « à moins qu’il ne pleuve », le « ne »…',
+          o:['est une négation : il ne pleut pas', 'n’est pas une négation : c’est un usage soutenu', 'est une faute'], r:1 }
       ] },
 
-    /* 3 */ { t:'transfo', etiqueta:'Transformer',
+    /* 7 */ { t:'transfo', etiqueta:'Transformer',
       consigne:'Réécris avec la structure demandée.',
       q: [
         { enonce:'J’attends avec impatience de connaître le prénom. <i>(avoir hâte)</i>',
           modele:'J’ai hâte de connaître le prénom.' },
         { enonce:'J’attends avec impatience que le bébé arrive. <i>(avoir hâte)</i>',
-          modele:'J’ai hâte que le bébé arrive.',
-          note:'Sujets différents : <i>que</i> + subjonctif.' },
-        { enonce:'J’espère qu’on ne nous demandera pas le sexe du bébé ! <i>(pourvu que)</i>',
-          modele:'Pourvu qu’on ne nous demande pas le sexe du bébé !' },
+          modele:'J’ai hâte que le bébé arrive.', note:'Sujets différents : <i>que</i> + subjonctif.' },
+        { enonce:'J’espère qu’on ne nous demandera pas le sexe du bébé ! <i>(pourvu que)</i>',
+          modele:'Pourvu qu’on ne nous demande pas le sexe du bébé !' },
         { enonce:'Je viendrai à la condition que tu me préviennes. <i>(pourvu que)</i>',
           modele:'Je viendrai, pourvu que tu me préviennes.' },
         { enonce:'Elle était très émue et elle a pleuré. <i>(tellement… que)</i>',
           modele:'Elle était tellement émue qu’elle a pleuré.' }
       ] },
 
-    /* 4 */ { t:'paires', etiqueta:'Lexique',
-      consigne:'Le vocabulaire de l’attente d’un enfant.',
-      pairs: [
-        ['attendre un enfant', 'être enceinte — la façon la plus courante de le dire'],
-        ['tomber enceinte', 'le début de la grossesse'],
-        ['une échographie', 'l’examen où l’on voit le bébé à l’écran'],
-        ['l’accouchement', 'le moment où l’enfant naît'],
-        ['la naissance', 'le jour où l’enfant vient au monde'],
-        ['le congé maternité', 'l’arrêt de travail de la mère'],
-        ['le congé paternité', 'l’arrêt de travail du second parent'],
-        ['la layette', 'les premiers vêtements du bébé']
-      ] },
-
-    /* 5 */ { t:'dictee', etiqueta:'Écoute',
-      consigne:'Écoute et écris. Attention au subjonctif : il s’entend.',
+    /* 8 */ { t:'dictee', etiqueta:'Écoute (act. 12)',
+      consigne:'Écoute et écris. Attention au subjonctif : il s’entend. Puis répète en imitant l’intonation.',
+      sous:'La act. 12 trabaja la entonación del deseo: escucha cómo sube la voz en «pourvu que».',
       q: [
-        { texte:'Pourvu qu’ils ne nous demandent pas le prénom !' },
+        { texte:'Pourvu qu’ils ne nous demandent pas le prénom !' },
         { texte:'J’ai tellement hâte que tu le voies.' },
         { texte:'Elle a tellement de choses à préparer avant la naissance.' },
         { texte:'Nous avons hâte de le rencontrer.' }
       ] },
 
-    /* 6 */ { t:'prod', etiqueta:'Production écrite', mots:80,
-      consigne:'Exprime trois souhaits pour la fin de ce cycle.',
-      sous:'80 palabras. Uno con pourvu que, uno con avoir hâte que, uno con tellement.',
+    /* 9 */ { t:'qcm', etiqueta:'Les jumeaux de Lyon',
+      consigne:'Écoute chaque passage avec le bouton ▶ et choisis la bonne réponse.',
+      q: [
+        { enonce:'Combien un enfant reçoit-il en jouets, environ, chaque année ?', min:'0:01',
+          o:['35 euros', '235 euros', '2 350 euros'], r:1 },
+        { enonce:'Filles et garçons sont aussi gâtés, mais…', min:'0:08',
+          o:['ils ne reçoivent pas le même genre de jeu', 'les filles reçoivent plus', 'les garçons préfèrent l’argent'], r:0 },
+        { enonce:'Qu’ont fait les fabricants, selon le reportage ?', min:'0:18',
+          o:['Des jouets neutres.', 'Des univers bien distincts selon le sexe de l’enfant.', 'Des jouets moins chers.'], r:1 },
+        { enonce:'Léo-Paul et Paloma fêtent leurs…', min:'0:49',
+          o:['six ans', 'trois ans', 'dix ans'], r:0 },
+        { enonce:'Pourquoi, selon Léo-Paul, son jouet n’est « pas un truc de fille » ?', min:'1:09',
+          o:['Parce qu’il est bleu.', 'Parce que c’est un truc de guerre, et les garçons aiment la guerre.', 'Parce qu’il est cher.'], r:1,
+          note:'Tiene seis años y ya repite el estereotipo palabra por palabra: es justo lo que muestra el reportaje.' },
+        { enonce:'D’après le père, d’où vient la différence entre ses enfants ?', min:'1:34',
+          o:['Uniquement de la nature.', 'Un peu des parents, sans doute, mais aussi des habits, des copains, de l’école.', 'De la télévision seulement.'], r:1 },
+        { enonce:'Que font les parents qui refusent « la caricature des rôles » ?', min:'2:33',
+          o:['Ils n’achètent plus de jouets.', 'Ils pratiquent une éducation plus neutre.', 'Ils changent d’école.'], r:1 }
+      ] },
+
+    /* 10 */ { t:'qcm', etiqueta:'40 ans de clichés',
+      consigne:'D’après l’archive de l’INA.',
+      q: [
+        { enonce:'En 1958, la petite Ghislaine apprenait, avec ses jouets, à devenir…',
+          o:['une bonne maman et une bonne ménagère', 'une ingénieure', 'une sportive'], r:0 },
+        { enonce:'Et les garçons, comment les présentait-on ?',
+          o:['doux et calmes', 'fonceurs, bricoleurs, bagarreurs', 'artistes'], r:1 },
+        { enonce:'Selon l’éducateur de 1978, le premier responsable de ce conditionnement, c’est…',
+          o:['l’enfant', 'l’adulte', 'la publicité'], r:1 },
+        { enonce:'Quand on laisse jouer librement filles et garçons…',
+          o:['on ne constate pas de différence', 'les filles choisissent toujours les poupées', 'ils se disputent'], r:0 },
+        { enonce:'La phrase de l’institutrice, à la fin : « Le jeu, c’est la sphère des enfants… »',
+          o:['« … les grandes personnes n’ont pas à s’en mêler. »', '« … il faut le surveiller. »', '« … c’est inutile. »'], r:0 }
+      ] },
+
+    /* 11 */ { t:'prod', etiqueta:'Act. 13 · Tes souhaits', mots:80,
+      consigne:'Exprime trois souhaits pour la fin de ce cycle et le prochain.',
+      sous:'80 palabras. Uno con pourvu que, uno con avoir hâte que, uno con tellement… que.',
       check: [
         'Un <i>pourvu que</i> + subjonctif.',
         'Un <i>avoir hâte que</i> + subjonctif, et un <i>avoir hâte de</i> + infinitif.',
         'Un <i>tellement… que</i>.',
-        'Rien au futur simple après ces structures : c’est la faute classique.'
+        'Rien au futur simple après ces structures : c’est la faute classique.'
       ],
-      modele:'Pourvu que l’évaluation du 9 ne tombe pas le jour où je travaille ! '
+      modele:'Pourvu que l’évaluation du 9 ne tombe pas le jour où je travaille ! '
            + 'J’ai tellement révisé ces dernières semaines que je serais déçu de la rater '
            + 'pour une question d’horaire. J’ai hâte de voir mes résultats, mais j’ai surtout '
-           + 'hâte qu’on commence l’unité suivante : le thème m’intéresse beaucoup plus. '
-           + 'Et pourvu qu’on garde le même groupe : on a mis deux mois à oser parler '
-           + 'devant les autres.' }
+           + 'hâte qu’on commence l’unité suivante : le thème m’intéresse beaucoup plus. '
+           + 'Et pourvu qu’on garde le même groupe : on a mis deux mois à oser parler '
+           + 'devant les autres.' },
+
+    /* 12 */ { t:'prod', etiqueta:'Act. 16 · Et chez toi ?', mots:120,
+      consigne:'Et les jouets de ton entourage ? Sont-ils genrés ? Est-ce un problème, selon toi ?',
+      sous:'120 palabras. Un recuerdo de infancia, lo que observas hoy y tu opinión matizada.',
+      check: [
+        'Un souvenir d’enfance, au passé (imparfait).',
+        'Une observation actuelle : un magasin, un cadeau, un neveu…',
+        'Deux constructions de la séance du 2 : <i>ça permet de</i>, <i>ça renforce</i>, <i>ça empêche de</i>…',
+        'Un <i>tellement</i> et un <i>pourvu que</i>.',
+        'Une concession : <i>je te l’accorde</i>, <i>certes… mais</i>.'
+      ],
+      modele:'Quand j’étais petite, mon frère avait des voitures et moi des poupées, et personne ne '
+           + 'se posait la question. Aujourd’hui, quand j’achète un cadeau pour ma nièce, les rayons '
+           + 'sont encore tellement roses qu’on a l’impression d’entrer dans un autre monde. Certes, '
+           + 'elle adore les licornes, et je ne vais pas l’en empêcher. Mais ça renforce l’idée qu’il '
+           + 'existe des jeux « de filles », et ça empêche les garçons d’y toucher sans qu’on se moque '
+           + 'd’eux. Mon cadeau cette année : un jeu de construction. Pourvu qu’elle l’aime !' }
   ]
 });
 
