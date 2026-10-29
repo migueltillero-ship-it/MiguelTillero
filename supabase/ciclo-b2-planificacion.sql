@@ -70,18 +70,29 @@ begin
    where grupo_id = v_grupo and fecha = date '2026-10-26';
 
   -- ── 28 de octubre ────────────────────────────────────────────────────
+  -- Lo que se hizo de verdad: la apertura de la Unité 2 pasó al 2 de noviembre.
+  update public.sesiones set
+    tema = 'Révision du vocabulaire · La nétiquette (livre p. 19, act. 23-24)',
+    contenido = E'Repaso general del vocabulario de la unidad.\n'
+      '• Act. 23 — Vídeo: ¿qué es la nétiquette? ¿Qué se hace y qué no, según el interviniente?\n'
+      '• Las fórmulas para juzgar: ça se fait / ça ne se fait pas, ce qu''il faut dire / faire, il vaut mieux, mieux vaut, proverbios con valoir.\n'
+      '• Deberes para el 2 de noviembre (en «Mes devoirs»): los buenos modales en la mesa en México, con una imagen; y ceder el asiento en el transporte público.'
+   where grupo_id = v_grupo and fecha = date '2026-10-28';
+
+  -- ── 2 de noviembre ───────────────────────────────────────────────────
   update public.sesiones set
     tema = 'Unité 2 · Tellement genré ! — los estereotipos de género',
     contenido = E'Páginas 26-27 · Abrimos unidad con un juego que da mucho que hablar.\n'
+      '• Al empezar: comentamos los deberes de la nétiquette (la mesa en México y ceder el asiento).\n'
       '• Act. 1 — El juego de cartas de los estereotipos: escuchar las reglas y jugar. «Vrai ou faux ?»\n'
       '• Act. 2 — ¿En qué frases hubo acuerdo mayoritario?\n'
       '• Act. 3 — Opinar sobre el juego con las expresiones de la etiqueta: ça favorise… · ça permet de… · ça aide à… · ça évite / empêche de…\n'
       '• Act. 4 — En grupos, proponer otras frases y reaccionar: «N''importe quoi ! C''est tellement cliché !»\n'
       '• Act. 5 — Comprensión oral: la crónica de radio. ¿Qué dice el estudio sobre las cualidades profesionales, la ambición y las consecuencias?\n'
       '• Act. 6 — ¿Qué carta del juego queda cuestionada por el estudio?'
-   where grupo_id = v_grupo and fecha = date '2026-10-28';
+   where grupo_id = v_grupo and fecha = date '2026-11-02';
 
-  -- ── 2 de noviembre ───────────────────────────────────────────────────
+  -- ── 4 de noviembre ───────────────────────────────────────────────────
   update public.sesiones set
     tema = 'Bébés et jouets · tellement, pourvu que, avoir hâte de',
     contenido = E'Páginas 28-29 · Del artículo a la gramática de la intensidad y el deseo.\n'
@@ -92,18 +103,8 @@ begin
       '• Act. 12 — Pronunciación: imitar la entonación. ¿Se usa igual en nuestra lengua?\n'
       '• Act. 13 — En grupos: expresar deseos para el próximo curso.\n'
       '• Act. 14-16 — VÍDEO «Les jouets genrés»: a qué juegan la niña y el niño, qué valores se asocian a cada juego, y los juguetes de nuestro entorno.\n'
-      '• Léxico: attendre un enfant — la grossesse, tomber enceinte, l''accouchement, la naissance.'
-   where grupo_id = v_grupo and fecha = date '2026-11-02';
-
-  -- ── 4 de noviembre ───────────────────────────────────────────────────
-  update public.sesiones set
-    tema = 'Repaso general y preparación de la evaluación',
-    contenido = E'Sin contenido nuevo: ordenamos lo trabajado y resolvemos dudas antes de las pruebas.\n'
-      '• GRAMÁTICA que entra en la evaluación: ce qui / ce que · le double comparatif · plutôt que · tellement (intensidad, cantidad, consecuencia) · pourvu que y avoir hâte de + subjuntivo.\n'
-      '• LÉXICO: expresiones con goût y con valoir · describir el estilo y la ropa · las buenas y las malas maneras · los estereotipos de género · esperar un hijo.\n'
-      '• Entrenamiento de comprensión oral con la técnica de toma de notas de la sesión del 26.\n'
-      '• Ensayo de la producción oral: formato, duración y criterios de la prueba individual.\n'
-      '• Espacio abierto para las dudas que cada quien traiga.'
+      '• Léxico: attendre un enfant — la grossesse, tomber enceinte, l''accouchement, la naissance.\n'
+      '• Al final: dudas antes de las pruebas. El repaso de todo el ciclo se hace con la ficha «Révision générale» del espacio de ejercicios.'
    where grupo_id = v_grupo and fecha = date '2026-11-04';
 
   -- ── Las dos evaluaciones: decir qué se evalúa ────────────────────────
