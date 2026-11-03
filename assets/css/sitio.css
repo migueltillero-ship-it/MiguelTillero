@@ -2404,6 +2404,12 @@ body { animation: pageFadeIn 0.5s ease; }
 /* Botones del menú: legibles pero compactos para que quepan en una sola fila */
 .nav-links { flex-wrap: nowrap; gap: 0.3rem; }
 .nav-links a { font-size: 0.78rem; letter-spacing: 0.05em; padding: 0.5rem 0.8rem; }
+/* Con «Pagos» de vuelta en la barra son nueve botones, y entre 1400 y 1500 px
+   se salían trece píxeles por la derecha. Se les quita un poco de respiro
+   lateral solo en esa franja; de 1500 para arriba caben holgados. */
+@media (min-width: 1401px) and (max-width: 1500px) {
+  .nav-links a { padding: 0.5rem 0.55rem; letter-spacing: 0.03em; }
+}
 
 /* ══════════════════════════════════════════════════════════════
    TOCAR CON EL DEDO Y LEER EN EL TELÉFONO
