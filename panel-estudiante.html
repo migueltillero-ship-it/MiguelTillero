@@ -253,6 +253,49 @@ select { padding:0.7rem; border:1px solid var(--border); border-radius:8px; font
             <p class="muted" style="margin:0 0 1rem;">Con esto abrimos la primera clase. Puedes mirarlo antes si quieres llegar con ventaja.</p>
             <div class="materiales" id="lista-materiales-sueltos"></div>
         </div>
+        <!-- La prueba de ubicación. Va aquí, en lo primero que ve quien
+             acaba de entrar, porque de su resultado depende por dónde
+             empieza el curso. Se oculta sola en cuanto ya la mandó. -->
+        <div id="caja-ubicacion" style="display:none;">
+            <h3 style="margin:1.8rem 0 0.4rem;">Tu prueba de ubicación</h3>
+            <p class="muted" style="margin:0 0 1rem;">Para saber exactamente de dónde partimos.
+                No es un examen y no hay que prepararla: lo que no sepas, lo dejas, que eso
+                también me dice mucho. Cuando termines, apunta aquí tu resultado.</p>
+            <p style="margin:0 0 1.2rem;">
+                <a class="sec-btn" href="https://apprendre.tv5monde.com/fr/tcf/simulation-du-tcf"
+                   target="_blank" rel="noopener">Hacer la prueba (TV5MONDE) ↗</a>
+            </p>
+            <div id="ubicacion-hecha" class="msg ok" style="display:none;"></div>
+            <form id="form-ubicacion" style="display:grid; gap:0.9rem; max-width:34rem;">
+                <label>Nivel que te dio la prueba
+                    <select id="ub-nivel" required style="width:100%">
+                        <option value="">Elige…</option>
+                        <option value="A1">A1 · principiante</option>
+                        <option value="A2">A2 · elemental</option>
+                        <option value="B1">B1 · intermedio</option>
+                        <option value="B2">B2 · intermedio alto</option>
+                        <option value="C1">C1 · avanzado</option>
+                        <option value="C2">C2 · superior</option>
+                        <option value="no_concluida">No la pude terminar</option>
+                    </select>
+                </label>
+                <label>Puntaje, si te lo dio
+                    <input type="text" id="ub-puntaje" placeholder="Por ejemplo, 212/699" style="width:100%">
+                </label>
+                <label>Captura de pantalla del resultado
+                    <input type="file" id="ub-captura" accept="image/*,application/pdf" style="width:100%">
+                </label>
+                <label>¿Quieres contarme algo de cómo te fue?
+                    <textarea id="ub-comentario" rows="2" style="width:100%"
+                        placeholder="Opcional: qué se te hizo difícil, qué te sorprendió…"></textarea>
+                </label>
+                <div id="ub-msg"></div>
+                <p style="margin:0;">
+                    <button type="submit" class="sec-btn" id="ub-enviar">Enviar mi resultado</button>
+                </p>
+            </form>
+        </div>
+
         <a href="https://wa.me/529671836405" target="_blank" rel="noopener" class="muted">Escribirle a Miguel por WhatsApp →</a>
     </div>
 
@@ -422,6 +465,9 @@ select { padding:0.7rem; border:1px solid var(--border); border-radius:8px; font
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<!-- EmailJS: el aviso de la prueba de ubicación sale por correo, porque
+     esperar a que Miguel entre al panel es esperar demasiado. -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script src="assets/js/supabase-config.js?v=1790462574"></script>
 <script src="assets/js/auth-helpers.js?v=1790462574"></script>
 <script>
@@ -460,6 +506,7 @@ async function iniciar() {
     if (inscripciones.length === 0) {
         document.getElementById('sin-inscripciones').style.display = 'block';
         await cargarMaterialesSueltos();
+        await cargarUbicacion();
         return;
     }
 
@@ -628,6 +675,105 @@ function tarjetaMaterial(m, unidadHoy) {
             ${m.descripcion ? `<div class="des">${esc(m.descripcion)}</div>` : ''}
         </div>
     </a>`;
+}
+
+/* La prueba de ubicación.
+ *
+ * El estudiante declara su nivel y, sobre todo, sube la captura: sin ella el
+ * nivel es lo que la persona cree recordar, y el nivel decide por dónde
+ * empieza el curso. El aviso a Miguel sale por correo en cuanto se guarda,
+ * porque si se queda esperando a que él entre al panel, no se entera.
+ */
+const EMAILJS_SERVICE  = 'service_uv779js';
+const EMAILJS_TEMPLATE = 'template_sp4hl5f';
+const EMAILJS_KEY      = '7FPd-e34G4AgVK5YA';
+try { emailjs.init(EMAILJS_KEY); } catch (e) {}
+
+const NIVEL_LARGO = { A1:'A1 · principiante', A2:'A2 · elemental', B1:'B1 · intermedio',
+    B2:'B2 · intermedio alto', C1:'C1 · avanzado', C2:'C2 · superior',
+    no_concluida:'No la pudo terminar' };
+
+document.addEventListener('submit', function (ev) {
+    if (ev.target && ev.target.id === 'form-ubicacion') enviarUbicacion(ev);
+});
+
+async function cargarUbicacion() {
+    const caja = document.getElementById('caja-ubicacion');
+    if (!caja) return;
+    caja.style.display = 'block';
+    const { data } = await supabaseClient.from('pruebas_ubicacion')
+        .select('*').order('enviado_en', { ascending: false }).limit(1);
+    const prueba = data && data[0];
+    if (!prueba) return;
+    /* Ya la mandó: se enseña lo que puso y se guarda el formulario. */
+    document.getElementById('form-ubicacion').style.display = 'none';
+    const hecha = document.getElementById('ubicacion-hecha');
+    hecha.style.display = 'block';
+    hecha.textContent = 'Recibí tu resultado: ' + (NIVEL_LARGO[prueba.nivel] || prueba.nivel) +
+        (prueba.puntaje ? ' · ' + prueba.puntaje : '') +
+        '. Lo reviso y lo hablamos en clase.' +
+        (prueba.nivel_asignado ? ' Nivel asignado: ' + prueba.nivel_asignado + '.' : '');
+}
+
+async function enviarUbicacion(ev) {
+    ev.preventDefault();
+    const boton = document.getElementById('ub-enviar');
+    const msg = document.getElementById('ub-msg');
+    const nivel = document.getElementById('ub-nivel').value;
+    if (!nivel) { mostrarMsg(msg, 'Elige el nivel que te dio la prueba.', 'error'); return; }
+    boton.disabled = true; boton.textContent = 'Enviando…';
+
+    let ruta = null;
+    const archivo = document.getElementById('ub-captura').files[0];
+    if (archivo) {
+        if (archivo.size > 8 * 1024 * 1024) {
+            mostrarMsg(msg, 'La captura pasa de 8 MB. Mándamela por WhatsApp y guarda el resto.', 'error');
+        } else {
+            ruta = perfilEstudiante.id + '/' + Date.now() + '-' + archivo.name.replace(/[^\w.\-]/g, '_');
+            const { error } = await supabaseClient.storage.from('pruebas').upload(ruta, archivo);
+            /* Si la captura no sube, el resultado se guarda igual: perder el
+               dato por un archivo sería el peor intercambio. */
+            if (error) { ruta = null; console.warn('No subió la captura:', error); }
+        }
+    }
+
+    const puntaje = document.getElementById('ub-puntaje').value.trim();
+    const comentario = document.getElementById('ub-comentario').value.trim();
+    const { error } = await supabaseClient.from('pruebas_ubicacion').insert({
+        estudiante_id: perfilEstudiante.id, nivel, puntaje: puntaje || null,
+        captura: ruta, comentario: comentario || null });
+
+    if (error) {
+        mostrarMsg(msg, 'No se pudo guardar: ' + error.message, 'error');
+        boton.disabled = false; boton.textContent = 'Enviar mi resultado';
+        return;
+    }
+
+    avisarUbicacion(nivel, puntaje, comentario, ruta).catch(e => console.warn('Aviso no salió:', e));
+    document.getElementById('form-ubicacion').style.display = 'none';
+    const hecha = document.getElementById('ubicacion-hecha');
+    hecha.style.display = 'block';
+    hecha.textContent = '¡Listo! Recibí tu resultado: ' + (NIVEL_LARGO[nivel] || nivel) +
+        (puntaje ? ' · ' + puntaje : '') + '. Lo reviso y lo hablamos en clase.';
+}
+
+function avisarUbicacion(nivel, puntaje, comentario, ruta) {
+    const quien = (perfilEstudiante.nombre_completo || '').trim() || 'Un estudiante';
+    const cuerpo =
+        quien + ' acaba de mandar su prueba de ubicación.\n\n' +
+        'NIVEL QUE DECLARA: ' + (NIVEL_LARGO[nivel] || nivel) + '\n' +
+        'PUNTAJE: ' + (puntaje || 'no lo indicó') + '\n' +
+        'CAPTURA: ' + (ruta ? 'sí, subida a la plataforma (almacén «pruebas»)' : 'no subió ninguna') + '\n' +
+        'COMENTARIO: ' + (comentario || '—') + '\n\n' +
+        'El nivel que vale es el que tú asignes después de revisarlo.';
+    return emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
+        subject: 'Prueba de ubicación — ' + quien,
+        from_name: quien, from_email: 'migueltillero@gmail.com',
+        telefono: '-', ciudad: '-', tipo: 'Prueba de ubicación',
+        fecha: new Date().toLocaleDateString('es-MX'),
+        horario: NIVEL_LARGO[nivel] || nivel,
+        message: cuerpo, to_email: 'migueltillero@gmail.com'
+    });
 }
 
 /* Lo que ve quien aún no tiene grupo: los materiales comunes, que son con

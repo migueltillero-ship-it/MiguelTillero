@@ -102,12 +102,13 @@ begin
     perform asignar_plan(v_contrat, p_plan);
   end if;
 
-  -- Repartir las horas en el calendario. Se reservan solo las horas pagadas:
-  -- las de regalo son tutorías complementarias que el estudiante pide cuando
-  -- las necesita, y meterlas en el calendario confundía — leía «contratas 12»
-  -- junto a una agenda de 14 y nadie sabía cuál era su compromiso.
+  -- Repartir TODAS las horas en el calendario, también las de regalo, que van
+  -- seguidas al final del ciclo. Miguel las agenda como cualquier otra clase:
+  -- una hora regalada que no aparece en el calendario no se usa nunca, y lo
+  -- que evita la confusión no es esconderlas sino decir en el acuerdo cuáles
+  -- son gratuitas, que es lo que hace ahora la cláusula de las horas.
   v_fecha  := p_fecha_inicio;
-  v_restan := p_horas_pagadas;
+  v_restan := p_horas_totales;
   while v_restan > 0.01 and v_vueltas < 400 loop
     v_vueltas := v_vueltas + 1;
     v_clave := (array['dom','lun','mar','mie','jue','vie','sab'])[extract(dow from v_fecha)::int + 1];
