@@ -335,3 +335,43 @@ footer a{color:var(--bleu)}
 .paso-cerrado{opacity:.5}
 .paso-cerrado .paso-num{background:var(--gris);color:var(--texte-doux)}
 .paso-hecho .paso-num{background:var(--sauge)}
+
+/* ── Secuencias completas: fotos, vocabulario con voz y vídeos explicativos ── */
+.sec-banner{position:relative;margin:-2.4rem -2.4rem 1.6rem;height:clamp(11rem,26vw,17rem);overflow:hidden;
+  border-radius:8px 8px 0 0}
+.sec-banner img{width:100%;height:100%;object-fit:cover;display:block}
+.sec-banner + .bloc-titre{margin-top:.6rem}
+.credito{display:block;font-size:.72rem;color:var(--texte-doux);margin-top:.3rem}
+.sec-banner .credito{position:absolute;right:.6rem;bottom:.4rem;margin:0;padding:.1rem .45rem;border-radius:4px;
+  background:rgba(0,0,0,.45);color:#fff}
+.sec-banner .credito a,.foto .credito a{color:inherit}
+.foto{margin:.4rem 0 1rem}
+.foto img{width:100%;max-height:22rem;object-fit:cover;border-radius:8px;display:block}
+.foto figcaption{font-size:.92rem;color:var(--texte-doux);margin-top:.4rem}
+.btn-voz{background:transparent;border:1px solid var(--gris);color:var(--bleu);border-radius:999px;
+  padding:.1rem .55rem;font:inherit;font-size:.85rem;cursor:pointer;vertical-align:middle;white-space:nowrap}
+.btn-voz:hover{background:var(--bleu);color:#fff;border-color:var(--bleu)}
+.lexique{display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:.8rem;margin:1rem 0 .4rem}
+.mot{background:var(--carte);border:1px solid var(--gris);border-radius:10px;padding:.8rem .95rem}
+.mot-cab{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.mot-cab b{font-size:1.08rem;color:var(--texte);flex:1}
+.mot-ico{font-size:1.4rem;line-height:1}
+.mot-es{color:var(--texte-doux);font-size:.93rem;margin-top:.15rem}
+.mot-ex{font-style:italic;font-size:.95rem;margin-top:.35rem;border-left:3px solid var(--sauge);padding-left:.6rem}
+.video-lite{position:relative;aspect-ratio:16/9;max-width:min(100%,46rem);margin:1rem auto .4rem;border-radius:8px;
+  overflow:hidden;cursor:pointer;background:#000;box-shadow:var(--ombre)}
+.video-lite img{width:100%;height:100%;object-fit:cover;opacity:.82;transition:opacity .2s}
+.video-lite:hover img{opacity:1}
+.vl-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:4.2rem;height:4.2rem;border-radius:50%;
+  background:rgba(194,96,60,.92);color:#fff;font-size:1.7rem;display:flex;align-items:center;justify-content:center}
+.vl-titulo{position:absolute;left:0;right:0;bottom:0;padding:.6rem .9rem;color:#fff;font-weight:700;
+  background:linear-gradient(transparent,rgba(0,0,0,.8))}
+.rappel .video-marco{max-height:none;max-width:min(100%,46rem);margin:1rem auto .4rem}
+.vl-nota{font-size:.92rem;color:var(--texte-doux);text-align:center;margin-bottom:.4rem}
+.rappel.objectifs{border-left-color:var(--or)}
+.rappel.objectifs h4{color:var(--or)}
+.escala{display:flex;flex-wrap:wrap;gap:.4rem;margin:.8rem 0}
+.escala span{padding:.35rem .75rem;border-radius:999px;font-size:.95rem;background:var(--gris)}
+.escala .e1{background:rgba(85,122,100,.18)} .escala .e2{background:rgba(165,130,74,.22)}
+.escala .e3{background:rgba(194,96,60,.22)} .escala .e4{background:rgba(194,96,60,.42)}
+@media (max-width:620px){ .sec-banner{margin:-1.5rem -1.2rem 1.2rem} }
