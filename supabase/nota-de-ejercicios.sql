@@ -83,6 +83,9 @@ do $$
 declare
   v_peso numeric := 20;        -- ← el peso de los ejercicios, en %
   v_nombre text := 'Exercices complémentaires — travail à la maison';
+  -- El plazo, no la última clase: es la fecha que el estudiante y la familia
+  -- van a leer en su panel, y tiene que ser la que se les dio.
+  v_plazo date := date '2026-11-06';   -- ← el viernes
   v_curso uuid;
   v_resto numeric;
 begin
@@ -103,14 +106,12 @@ begin
       'Las fichas de ejercicios de la plataforma. La nota sale de todo lo que '
       'se ofreció durante el ciclo, no solo de lo que se intentó: una ficha sin '
       'empezar cuenta como cero. Se actualiza sola a medida que se trabajan.',
-      (select max(fecha) from public.sesiones s
-        join public.grupos g on g.id = s.grupo_id and g.codigo = 'A1-OCT2026'),
-      v_peso, 100);
+      v_plazo, v_peso, 100);
   end if;
 
-  -- Si ya existía, se le pone el peso de arriba igualmente.
+  -- Si ya existía, se le ponen el peso y el plazo de arriba igualmente.
   update public.evaluaciones
-     set ponderacion = v_peso, nota_maxima = 100
+     set ponderacion = v_peso, nota_maxima = 100, fecha = v_plazo
    where curso_id = v_curso and nombre = v_nombre;
 
   -- Y si una versión anterior de este guion llegó a duplicarla, se limpia:
@@ -294,6 +295,50 @@ group by g.codigo, pr.nombre_completo, c.titulo, c.ejercicios, c.ficha
 order by g.codigo, pr.nombre_completo, c.ficha;
 
 grant select on public.v_ejercicios_por_ficha to authenticated;
+
+
+-- ---------------------------------------------------------------------------
+-- 5) El aviso en el espacio de cada estudiante
+-- ---------------------------------------------------------------------------
+-- Si una nota aparece sin que nadie la haya anunciado, lo que se aprende es
+-- que la plataforma te puede poner un cero por sorpresa. El plazo y el peso
+-- van dichos antes, no después.
+--
+-- Borra por cualquier título anterior de este mismo aviso: ha cambiado de
+-- nombre dos veces, y si solo se borrara el actual quedarían varios en la
+-- pantalla del estudiante, con plazos distintos.
+
+delete from public.avisos a
+ using public.inscripciones i, public.grupos g
+ where a.estudiante_id = i.estudiante_id
+   and i.grupo_id = g.id and g.codigo = 'A1-OCT2026'
+   and (a.titulo like 'Le passé composé %'
+     or a.titulo like 'Les exercices %'
+     or a.titulo = 'Ejercicios para practicar en casa');
+
+insert into public.avisos (estudiante_id, titulo, mensaje, tipo, desde, hasta)
+select distinct i.estudiante_id,
+  'Les exercices comptent pour la note — jusqu''au vendredi 6',
+  E'Changement important : les fiches d''exercices de la plateforme comptent '
+  'maintenant pour la note du cycle. Elles valent 20 % de la note finale.\n\n'
+  'Vous avez jusqu''au VENDREDI 6 NOVEMBRE pour faire TOUTES les fiches '
+  'de votre espace : les possessifs, les pronoms possessifs, les nombres '
+  '(les écrire et les entendre), le masculin/féminin, le bilan et le passé '
+  'composé.\n\n'
+  'La note se calcule sur tout ce qui a été proposé, pas seulement sur ce que '
+  'vous avez ouvert : une fiche jamais commencée compte zéro. Une fiche faite '
+  'à moitié ne vaut pas autant qu''une fiche entière.\n\n'
+  'TRÈS IMPORTANT : connectez-vous avec VOTRE COMPTE avant de commencer. '
+  'Sans cela, votre travail reste dans votre navigateur et je ne le vois pas '
+  '— donc il ne compte pas.\n\n'
+  'Si une étape ne s''ouvre pas, c''est normal : cliquez sur « Recommencer » '
+  'et refaites les exercices en rouge.',
+  'importante',
+  null::date,
+  date '2026-11-30'
+from public.inscripciones i
+join public.grupos g on g.id = i.grupo_id and g.codigo = 'A1-OCT2026'
+where i.estado in ('activa', 'pendiente');
 
 
 -- ---------------------------------------------------------------------------
