@@ -20,6 +20,7 @@ psql -d plataforma_test -f 01-funcional-basico.sql
 psql -d plataforma_test -f 02-flujo-completo.sql
 psql -d plataforma_test -f 03-seguridad.sql
 psql -d plataforma_test -f 04-casos-limite.sql
+psql -d plataforma_test -f 07-nota-de-ejercicios.sql   # tras nota-de-ejercicios.sql
 ```
 
 ## Qué debe salir
@@ -29,6 +30,9 @@ psql -d plataforma_test -f 04-casos-limite.sql
   `new row violates row-level security policy`, y los "debe ser 0 filas"
   tienen que devolver `0`. El último caso (el docente creando un curso)
   sí debe funcionar.
+- `07`: los casos 1 y 2 devuelven filas; el 3 falla con «Solo el docente
+  puede recalcular las notas» y el 4 con `permission denied`. Si el 3 o el 4
+  devolvieran filas, cualquiera podría reescribir las notas de todos.
 - `04`: promover un rol desde el SQL Editor funciona; el estudiante puede
   editar su nombre y teléfono; un visitante sin cuenta ve los cursos abiertos
   pero no ve perfiles, notas ni inscripciones.

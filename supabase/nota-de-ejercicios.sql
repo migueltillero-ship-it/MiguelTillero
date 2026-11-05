@@ -144,13 +144,29 @@ create or replace function public.recalcular_nota_ejercicios(p_grupo text)
 returns table (estudiante text, nota numeric, estado text)
 language plpgsql security definer set search_path = public as $$
 declare
+  v_quien text;
   v_curso uuid;
   v_clave text;
   v_eval uuid;
   r record;
 begin
-  if not (public.es_docente() or public.es_admin()) then
-    raise exception 'Solo el docente puede recalcular las notas.';
+  -- Quién llama, de verdad.
+  --
+  -- Aquí hay una trampa que casi me cuela: dentro de una función «security
+  -- definer», current_user NO es quien llama, es la dueña de la función
+  -- (postgres). Comprobar current_user dejaba entrar a cualquiera, incluido
+  -- un visitante sin cuenta.
+  --
+  -- Lo que sí dice quién llama es el ajuste «role», porque PostgREST hace
+  -- SET ROLE anon o authenticated antes de ejecutar nada. El Editor SQL no
+  -- hace SET ROLE, así que ahí vale «none» y se cae a session_user, que es
+  -- postgres. Es la única forma de que el docente pueda recalcular desde el
+  -- editor sin abrirle la puerta a la web.
+  v_quien := coalesce(nullif(current_setting('role', true), 'none'), session_user);
+  if not (public.es_docente() or public.es_admin()
+          or v_quien in ('postgres', 'service_role', 'supabase_admin')) then
+    raise exception 'Solo el docente puede recalcular las notas. '
+                    '(Entras como «%».)', v_quien;
   end if;
 
   select g.curso_id into v_curso from public.grupos g where g.codigo = p_grupo;
@@ -259,6 +275,10 @@ begin
   end loop;
 end $$;
 
+-- PostgreSQL concede EXECUTE a PUBLIC en cuanto se crea una función. Sin
+-- revocarlo, conceder «to authenticated» no quita nada: anon seguía pudiendo
+-- llamarla. Primero se cierra, después se abre a quien toca.
+revoke all on function public.recalcular_nota_ejercicios(text) from public;
 grant execute on function public.recalcular_nota_ejercicios(text) to authenticated;
 
 
