@@ -18,6 +18,7 @@ declare
   v_alumno   text;
   v_docente  text;
   v_regalo   numeric;
+  v_abonado  numeric;
   v_calend   text;
   v_numero   text;
   v_cuerpo   text;
@@ -36,6 +37,11 @@ begin
   select nombre_completo into v_alumno  from profiles where id = c.estudiante_id;
   select nombre_completo into v_docente from profiles where id = c.docente_id;
   v_regalo := c.horas_totales - c.horas_pagadas;
+
+  -- Lo que ya pagó, contando solo lo que Miguel dio por bueno.
+  select coalesce(sum(cp.monto), 0) into v_abonado
+    from comprobantes_pago cp
+   where cp.contratacion_id = p_contratacion and cp.estado = 'verificado';
 
   -- El calendario, una línea por clase, en el orden en que ocurren. Las fechas
   -- pasan por fecha_larga() y no por to_char(…'TMDay'…): ese patrón se escribe
@@ -70,21 +76,24 @@ begin
     else '' end ||
 
     '3. LAS HORAS' || E'\n' ||
-    'Contratas ' || horas_legibles(c.horas_pagadas) ||
-    ' horas de clase, y son las que quedan reservadas en el calendario.' ||
+    'Contratas ' || horas_legibles(c.horas_pagadas) || ' horas de clase.' ||
     case when v_regalo > 0 then
-      E'\n\n' ||
-      'Además, de manera excepcional, te añado ' || horas_legibles(v_regalo) ||
-      ' horas de tutoría complementaria sin costo. No van en el calendario ' ||
-      'porque no son clase nueva: son horas que me pides cuando las ' ||
-      'necesites — para afianzar un sonido que se resiste, repasar antes de ' ||
-      'una evaluación o retomar algo que quedó a medias. Me escribes, buscamos ' ||
-      'hueco y las usamos.'
+      ' A esas te añado ' || horas_legibles(v_regalo) ||
+      ' horas MÁS, de manera excepcional y COMPLETAMENTE GRATUITAS: no se ' ||
+      'cobran, no se descuentan de nada y no tienes que pedirlas. Son clase ' ||
+      'igual que las demás, y van agendadas al final del ciclo, seguidas, ' ||
+      'para cerrar el trabajo con calma.' || E'\n\n' ||
+      'En total recibirás ' || horas_legibles(c.horas_totales) ||
+      ' horas de clase, todas ellas en el calendario que viene abajo. ' ||
+      'Pagas ' || horas_legibles(c.horas_pagadas) || ' y recibes ' ||
+      horas_legibles(c.horas_totales) || '.'
     else '' end || E'\n\n' ||
 
     '4. NUESTRO CALENDARIO' || E'\n' ||
+    'Empezamos el ' || fecha_larga(c.fecha_inicio, true) ||
+    coalesce(' y cerramos el ' || fecha_larga(c.fecha_fin, true), '') || '.' || E'\n\n' ||
     'Estas son las fechas y horarios que reservamos para tus ' ||
-    horas_legibles(c.horas_pagadas) || ' horas de clase (hora de la ' ||
+    horas_legibles(c.horas_totales) || ' horas de clase (hora de la ' ||
     'Ciudad de México):' || E'\n' || v_calend || E'\n\n' ||
     'Si a alguno de los dos se le cruza algo, lo movemos: basta con avisar al ' ||
     'otro con 24 horas de antelación. Una clase cancelada con menos aviso cuenta ' ||
@@ -114,7 +123,20 @@ begin
     'El precio es de ' || dinero_legible(c.precio_hora) || ' ' || c.moneda ||
     ' por hora. En total son ' || dinero_legible(c.importe_total) || ' ' || c.moneda ||
     ', por las ' || horas_legibles(c.horas_pagadas) || ' horas contratadas.' ||
-    case when v_regalo > 0 then ' Las horas que añado no se cobran.' else '' end || E'\n\n' ||
+    case when v_regalo > 0 then
+      ' Las ' || horas_legibles(v_regalo) || ' horas que te añado son gratuitas '
+      || 'y no suman nada a esa cifra.' else '' end || E'\n\n' ||
+    -- Lo abonado se congela aquí con la fecha de la firma a propósito: es el
+    -- estado de cuentas del día que se firmó. El saldo que va cambiando se
+    -- mira en el espacio del estudiante, que sí está vivo.
+    case when v_abonado > 0 then
+      'A la fecha de este acuerdo llevas abonados ' || dinero_legible(v_abonado) ||
+      ' ' || c.moneda || ', así que queda por liquidar ' ||
+      dinero_legible(greatest(c.importe_total - v_abonado, 0)) || ' ' || c.moneda ||
+      '. En tu espacio tienes siempre el saldo al día.'
+    else
+      'Todavía no hay ningún abono registrado: queda por liquidar el total.'
+    end || E'\n\n' ||
 
     '8. EL PAGO' || E'\n' ||
     'El pago no condiciona nada: puedes entrar a la plataforma y empezar las ' ||
