@@ -658,11 +658,11 @@ FICHAS.push({
   tipo: 'outil',
   ciclo: 'Oct.-nov. 2026',
   fecha: 'Parcours · livre p. 19',
-  titulo: 'Ça se fait, ça ne se fait pas — à table, ici et là-bas',
-  resumen: 'Un reto de un minuto, una mesa que hay que saber leer, una cena con decisiones y la comparación con lo de aquí. Con el vídeo dentro.',
-  intro: 'Seis etapas y ninguna es un cuestionario: un reto contrarreloj, una mesa en la que '
-       + 'hay que señalar, un orden que reconstruir y una cena en la que decides tú. '
-       + 'El vídeo está dentro para comprobarlo todo.',
+  titulo: 'Ça se fait, ça ne se fait pas — à table, au travail, en rendez-vous',
+  resumen: 'Tres escenas de la vida francesa: la mesa, el primer día de trabajo y un rendez-vous. Un reto de un minuto, diálogos con decisiones, tres vídeos y la comparación con lo de aquí.',
+  intro: 'Nueve etapas y ninguna es un cuestionario: un reto contrarreloj, una mesa en la que '
+       + 'hay que señalar, un primer día de trabajo en el que eliges tus palabras, y un '
+       + 'rendez-vous en el que decides cómo saludar. Los vídeos están dentro para comprobarlo todo.',
 
   video: {
     id: 'sWtjnwMbEVU',
@@ -743,6 +743,105 @@ FICHAS.push({
       sous: 'Lo contrastivo, que es lo que vamos a comentar en clase.',
       rappels: [],
       ejercicios: [12]
+    },
+
+    /* ───────────────────────────────────────────────────────────────────
+       Ajouté le 6 novembre : ce qui s’est dit en classe le 21 octobre,
+       quand on a comparé trois scènes — à table, le premier jour, et un
+       rendez-vous. La table est au-dessus ; voici les deux autres.
+
+       Vidéos (sous-titres en français, vérifiés le 06/11/2026) :
+         uqLBI1-eQjM  « La politesse en France » — Français avec Pierre (4:52)
+         DJSMzUXkAQg  « Les salutations » — Campus Langues (3:19)
+         gTRpWU3Khtg  « Tu ou vous ? » (histoire vécue) — Le Français en Vrai (11 min, bonus)
+       ─────────────────────────────────────────────────────────────────── */
+    { titulo: '8. Le premier jour — au travail',
+      sous: 'Lo que se comentó en clase: el primer día, con sus códigos propios. Tu o usted, cómo saludar, qué llevar.',
+      imagen: { src: '../assets/images/fichas/b2/entretien.jpg', pos: 'center 38%',
+                alt: 'Trois personnes en réunion autour d’une table de bureau',
+                credito: 'Photo : Alan Cleaver, <a href="https://commons.wikimedia.org/wiki/File:Job_interview.jpg" target="_blank" rel="noopener">CC BY 2.0</a>' },
+      rappels: [
+        { titulo: 'Le vocabulaire du premier jour',
+          lexique: [
+            ['poser sa candidature', 'postularse', 'J’ai posé ma candidature il y a un mois.', '📋'],
+            ['un entretien d’embauche', 'una entrevista de trabajo', 'L’entretien s’est très bien passé.', '🗣️'],
+            ['la période d’essai', 'el periodo de prueba', 'La période d’essai dure trois mois.', '⏳'],
+            ['un(e) collègue', 'un(a) colega', 'Mes collègues m’ont bien accueilli.', '🤝'],
+            ['le service des ressources humaines (RH)', 'recursos humanos', 'Le service RH m’a remis mon badge.', '🗂️'],
+            ['prendre ses marques', 'ubicarse, adaptarse', 'Il faut quelques jours pour prendre ses marques.', '🧭'],
+            ['se présenter', 'presentarse', 'Je me suis présenté à toute l’équipe.', '👋'],
+            ['un trombinoscope', 'un cuadro con fotos del equipo', 'Le trombinoscope est affiché près de l’accueil.', '🖼️'],
+            ['être affecté(e) à', 'ser asignado a', 'J’ai été affecté au service comptabilité.', '📌']
+          ] },
+        { titulo: '« La politesse en France » (4 min 52)',
+          html: `<p>Un podcast de deux voix, très clair. Anota las reglas que menciona y, en especial,
+          cuándo se pasa del <i>vous</i> al <i>tu</i>.</p>`,
+          video: { id: 'uqLBI1-eQjM', titulo: 'La politesse en France — Français avec Pierre' } },
+        { titulo: 'Le vouvoiement au travail',
+          html: `<p>Lo que dice el podcast, resumido:</p>
+          <div class="ex">On <b>vouvoie</b> quelqu’un qu’on ne connaît pas, quelqu’un de plus âgé,
+          ou dans un contexte professionnel.<br>
+          C’est souvent <b>la personne la plus âgée</b> ou <b>la plus haute hiérarchiquement</b>
+          qui propose de se tutoyer — jamais l’inverse.</div>
+          <div class="piege">Tutear demasiado rápido <b>no</b> es simpatía: puede leerse como falta
+          de respeto. Si dudas, <i>vouvoie</i> y espera a que te propongan el <i>tu</i>.</div>
+          <p>Es la misma regla que ya viste con <i>plus… plus</i> en la mesa: el que tiene más
+          autoridad es quien marca el paso.</p>` },
+        { titulo: 'Pour aller plus loin (bonus, sans exercice)',
+          html: `<p>Une histoire vraie et drôle, racontée en 11 minutes, sur une chorale où personne
+          ne sait s’il faut dire « tu » ou « vous ». Pas d’exercice sur cette vidéo : écoute-la
+          juste pour le plaisir, une fois que tu as fait ceux d’en bas.</p>`,
+          video: { id: 'gTRpWU3Khtg', titulo: 'Tu ou vous ? — Le Français en Vrai (podcast, 11 min)' } }
+      ],
+      ejercicios: [13, 14, 15, 16, 17, 18]
+    },
+
+    { titulo: '9. Dans un rendez-vous',
+      sous: 'La tercera escena de la clase: cómo saludar, llegar a tiempo, y quién paga — un tema clásico que da para discutir.',
+      imagen: { src: '../assets/images/fichas/b2/poignee-de-main-cafe.jpg', pos: 'center 45%',
+                alt: 'Deux personnes se serrent la main autour d’un café',
+                credito: 'Photo : rawpixel.com, <a href="https://commons.wikimedia.org/wiki/File:Business_agreement_handshake_at_coffee_shop.jpg" target="_blank" rel="noopener">CC0 — domaine public</a>' },
+      rappels: [
+        { titulo: 'Le vocabulaire du rendez-vous',
+          lexique: [
+            ['fixer un rendez-vous', 'concertar una cita', 'On a fixé le rendez-vous à 18 heures.', '📅'],
+            ['prendre rendez-vous', 'pedir cita', 'J’ai pris rendez-vous chez le dentiste.', '☎️'],
+            ['être en avance / à l’heure / en retard', 'llegar antes de tiempo / a tiempo / tarde', 'Mieux vaut être en avance qu’en retard.', '⏰'],
+            ['prévenir', 'avisar', 'Si tu es en retard, préviens-moi.', '📲'],
+            ['annuler / reporter un rendez-vous', 'cancelar / posponer una cita', 'Elle a dû reporter le rendez-vous.', '🔄'],
+            ['régler l’addition', 'pagar la cuenta', 'C’est lui qui a réglé l’addition.', '💳'],
+            ['partager l’addition', 'dividir la cuenta', 'On a partagé l’addition en deux.', '➗'],
+            ['inviter quelqu’un', 'invitar a alguien', 'C’est moi qui t’invite, aujourd’hui.', '🎁']
+          ] },
+        { titulo: 'Rappel : le quart d’heure de politesse',
+          html: `<p>Ya lo viste en la etapa 3 de esta misma ficha, para una cena. Vale también para
+          un rendez-vous: <b>se llega un poco después de la hora, nunca antes</b>. En el trabajo,
+          en cambio, la norma cambia por completo: para una reunión o una entrevista, lo que se
+          espera es llegar <b>un poco antes</b>, nunca justo a tiempo ni tarde.</p>` },
+        { titulo: '« Les salutations » (3 min 19)',
+          html: `<p>Bonjour, bonsoir, au revoir — y la bise, con sus reglas según la región.</p>`,
+          video: { id: 'DJSMzUXkAQg', titulo: 'Les salutations — Campus Langues' } },
+        { titulo: 'La bise, ou la poignée de main ?',
+          html: `<div class="ex">En règle générale, <b>deux bises</b>, en commençant par <b>la joue gauche</b>
+          (le côté du cœur). Dans le sud de la France, on en fait souvent <b>trois ou quatre</b>,
+          en commençant cette fois par la droite.</div>
+          <ul>
+            <li>Entre deux hommes qui ne sont pas très proches : <b>une poignée de main</b>.</li>
+            <li>Dans un contexte formel (travail, premier rendez-vous professionnel) : <b>poignée de main</b>,
+                homme ou femme.</li>
+            <li>Entre amis, en famille, ou si une femme est présente dans un cadre informel : <b>la bise</b>.</li>
+          </ul>
+          <div class="piege">No hay una regla fija para un primer rendez-vous galant: depende de
+          la persona y de la región. Si dudas, deja que la otra persona inicie el gesto.</div>` },
+        { titulo: 'Qui invite, qui paie ?',
+          html: `<p>No hay una regla escrita, pero sí una costumbre muy extendida: <b>quien invita,
+          paga</b> — y puede ser cualquiera de los dos, hombre o mujer. En un restaurante, a veces
+          todavía se le presenta la cuenta al hombre de la mesa por costumbre, aunque cada vez
+          menos. Entre amigos o colegas, lo más común es <b>partager l’addition</b>.</p>
+          <p>Es exactamente el tema que vamos a debatir en el ejercicio de producción: no hay una
+          respuesta correcta, solo argumentos.</p>` }
+      ],
+      ejercicios: [19, 20, 21, 22, 23]
     }
   ],
 
@@ -1064,7 +1163,229 @@ FICHAS.push({
            + 'Ce qui ne se fait pas : refuser un plat sans goûter, partir tout de suite après le '
            + 'repas — plus tu restes à table, plus on te trouve sympathique —, et arriver à '
            + 'l’heure exacte à une invitation. Il vaut mieux arriver vingt minutes plus tard : '
-           + 'autrement, tu surprends tout le monde en cuisine.' }
+           + 'autrement, tu surprends tout le monde en cuisine.' },
+
+    /* 13 */ { t:'qcm', etiqueta:'La politesse en France',
+      consigne:'Écoute chaque passage avec le bouton ▶ et choisis la bonne réponse.',
+      q: [
+        { enonce:'En France, dire bonjour en entrant dans un magasin est…', min:'1:14',
+          o:['optionnel, ça dépend de l’humeur', 'presque obligatoire', 'réservé aux amis'], r:1 },
+        { enonce:'Ne pas dire bonjour peut être perçu comme…', min:'1:39',
+          o:['discret et poli', 'froid, mal élevé, voire arrogant', 'moderne'], r:1 },
+        { enonce:'Même quand on refuse quelque chose, en France on dit souvent…', min:'2:01',
+          o:['rien du tout', '« non merci, ça ira »', '« c’est non »'], r:1 },
+        { enonce:'Qui propose, en général, de passer du vous au tu ?', min:'2:37',
+          o:['la personne la plus jeune', 'la personne la plus âgée ou la plus haute hiérarchiquement', 'n’importe qui, au hasard'], r:1 },
+        { enonce:'Selon l’étude citée, quel pourcentage de Français apporte un cadeau à un dîner ?', min:'3:24',
+          o:['30 %', '60 %', '90 %'], r:2 }
+      ] },
+
+    /* 14 */ { t:'paires', etiqueta:'Lexique du premier jour',
+      consigne:'Associe chaque mot à sa définition.',
+      pairs: [
+        ['poser sa candidature', 'envoyer son CV pour un poste'],
+        ['la période d’essai', 'les premiers mois, pour voir si ça convient'],
+        ['le service RH', 'celui qui gère l’administratif des employés'],
+        ['prendre ses marques', 's’habituer à un nouvel endroit'],
+        ['un trombinoscope', 'les photos de toute l’équipe, avec les noms'],
+        ['être affecté à', 'être assigné à un poste ou un service']
+      ] },
+
+    /* 15 */ { t:'tri', etiqueta:'Tu ou vous ?',
+      consigne:'Premier jour de travail : tu ou vous ?',
+      cols: ['Vous', 'Tu'],
+      items: [
+        ['Tu parles à la directrice générale, que tu ne connais pas.', 0],
+        ['Un collègue de ton âge t’a proposé de te tutoyer hier.', 1],
+        ['Tu écris un mail au service RH, pour la première fois.', 0],
+        ['Ton responsable, bien plus âgé que toi, te dit « on peut se tutoyer ».', 1],
+        ['Tu parles à un client que tu rencontres pour la première fois.', 0],
+        ['Tu discutes avec un stagiaire arrivé le même jour que toi.', 1]
+      ],
+      aide:'El criterio es siempre el mismo: sin propuesta explícita, se usa <b>vous</b>. '
+         + 'Y quien propone el <i>tu</i> casi siempre es quien tiene más edad o más jerarquía.' },
+
+    /* 16 */ { t:'dialogue', etiqueta:'Ton premier jour',
+      consigne:'Cinq moments de ton premier jour de travail. Choisis ce que tu dis, et regarde ce qui arrive.',
+      sous:'Igual que en la mesa: no hay trampa, pero solo una respuesta usa bien los códigos.',
+      final:'Fin de ta première journée : tu as bien lu les codes, et personne n’a été mal à l’aise. '
+          + 'Demain, ce sera plus facile.',
+      escenas: [
+        { texto:'La responsable RH te présente l’équipe. Tu dis…',
+          opciones: [
+            { texto:'« Salut tout le monde, ça va ? »', ok:false,
+              replica:'Trop familier pour un premier contact : ça donne une mauvaise première impression.' },
+            { texto:'« Bonjour, je suis [ton prénom], ravi(e) de vous rencontrer. »', ok:true,
+              replica:'Formule neutre, « vous » par défaut : c’est la base.' },
+            { texto:'Tu ne dis rien, tu attends qu’on vienne te parler.', ok:false,
+              replica:'Ça fait froid, voire mal élevé — c’est exactement ce que disait le podcast.' }
+          ] },
+        { texto:'Un collègue de ton âge te tutoie dès la première minute. Tu…',
+          opciones: [
+            { texto:'continues à le vouvoyer, poliment.', ok:true,
+              replica:'C’est correct : il a proposé le tu, mais rien ne t’oblige à accepter tout de suite, surtout si tu n’es pas à l’aise.' },
+            { texto:'le tutoies tout de suite, sans réfléchir.', ok:false,
+              replica:'Tu peux, puisqu’il te l’a proposé — mais si tu hésites, continuer à vouvoyer n’est jamais une erreur.' },
+            { texto:'tu lui demandes « on se connaît ? » d’un ton sec.', ok:false,
+              replica:'Le ton compte autant que les mots : sec, même une phrase correcte met mal à l’aise.' }
+          ] },
+        { texto:'Ton nouveau responsable, la cinquantaine, te dit « on peut se tutoyer, si tu veux ». Tu…',
+          opciones: [
+            { texto:'acceptes : « Avec plaisir, merci ! »', ok:true,
+              replica:'C’est lui qui propose, et c’est son rôle de le faire : tu peux accepter sans hésiter.' },
+            { texto:'continues à dire « vous », par principe.', ok:false,
+              replica:'Ce n’est pas une faute, mais ça peut paraître distant alors qu’on t’a tendu la main.' },
+            { texto:'dis « c’est pas très professionnel, ça », d’un ton moqueur.', ok:false,
+              replica:'Une remarque sèche, même en plaisantant : ça ne se fait pas le premier jour.' }
+          ] },
+        { texto:'Tu renverses du café sur un dossier qui n’est pas le tien. Tu…',
+          opciones: [
+            { texto:'dis « excusez-moi, je vais le nettoyer tout de suite » et tu t’en occupes.', ok:true,
+              replica:'Les Français s’excusent beaucoup, même pour un petit incident : c’est ce que disait le podcast.' },
+            { texto:'ne dis rien, en espérant que personne n’a vu.', ok:false,
+              replica:'Ça ne se fait pas : mieux vaut s’excuser tout de suite.' },
+            { texto:'dis « c’est pas grave, ça arrive » sans t’excuser.', ok:false,
+              replica:'C’est toi qui as fait l’erreur : c’est à toi de t’excuser, pas de la minimiser.' }
+          ] },
+        { texto:'À midi, personne ne t’a invité à déjeuner. Tu…',
+          opciones: [
+            { texto:'demandes, avec le sourire, « je peux me joindre à vous ? »', ok:true,
+              replica:'Direct et poli : exactement ce qu’il fallait. Personne n’a pensé à mal, ils ont juste oublié.' },
+            { texto:'manges seul(e) à ton bureau, vexé(e).', ok:false,
+              replica:'Comprensible, pero te pierdes la mejor manera de integrarte el primer día.' },
+            { texto:'suis le groupe sans rien dire, pour voir s’ils t’invitent.', ok:false,
+              replica:'Ça marche parfois, mais une question simple évite le malaise.' }
+          ] }
+      ] },
+
+    /* 17 */ { t:'transfo', etiqueta:'Vouvoyer ou tutoyer',
+      consigne:'Transforme chaque phrase familière en phrase de politesse, comme le premier jour.',
+      q: [
+        { enonce:'« Tu peux me passer le dossier ? » (à un responsable que tu ne connais pas)',
+          modele:'Pourriez-vous me passer le dossier, s’il vous plaît ?' },
+        { enonce:'« Salut, ça va ? » (à la directrice, le premier jour)',
+          modele:'Bonjour, comment allez-vous ?' },
+        { enonce:'« T’es nouveau toi aussi ? » (à un collègue qui vient de proposer le tu)',
+          modele:'Tu es nouveau toi aussi ?' },
+        { enonce:'« C’est bon, j’ai compris. » (à un formateur, le premier jour)',
+          modele:'D’accord, c’est très clair, merci.' }
+      ] },
+
+    /* 18 */ { t:'prod', etiqueta:'Ton premier jour', mots:120,
+      consigne:'Raconte un premier jour (travail, école, ou un nouveau groupe) : comment ça s’est passé, et compare avec ce que tu as appris sur la France.',
+      sous:'120 palabras. Un recuerdo real o inventado, con los códigos de los dos lados.',
+      check: [
+        'Una anécdota concreta del primer día.',
+        'Un <i>vous</i> o un <i>tu</i> bien justificado.',
+        'Una comparación con Francia: ¿aquí se tutea más rápido? ¿Menos?',
+        'Dos expresiones de la secuencia: <i>prendre ses marques</i>, <i>se présenter</i>, <i>être affecté à</i>…'
+      ],
+      modele:'Mon premier jour dans cette entreprise, j’étais tellement nerveux que j’ai vouvoyé '
+           + 'tout le monde, même le stagiaire de mon âge. Au Mexique, on tutoie beaucoup plus vite '
+           + 'qu’en France : dès le premier jour, presque tous mes collègues me disaient « tu », '
+           + 'même les plus âgés. J’ai mis une semaine à prendre mes marques, mais le service RH '
+           + 'avait préparé un trombinoscope, et ça a beaucoup aidé pour retenir les noms. '
+           + 'Aujourd’hui, je me présente avec beaucoup plus d’assurance.' },
+
+    /* 19 */ { t:'qcm', etiqueta:'Les salutations',
+      consigne:'Écoute chaque passage avec le bouton ▶ et choisis la bonne réponse.',
+      q: [
+        { enonce:'Quel est le mot le plus neutre et passe-partout pour saluer ?', min:'0:21',
+          o:['coucou', 'bonjour', 'salut'], r:1 },
+        { enonce:'À partir de quelle heure, environ, dit-on « bonsoir » ?', min:'0:29',
+          o:['midi', '15 heures', '18 heures'], r:2 },
+        { enonce:'« Coucou » et « salut » sont réservés…', min:'0:34',
+          o:['aux relations amicales ou familiales', 'au travail', 'aux personnes âgées'], r:0 },
+        { enonce:'En règle générale, en France, on fait…', min:'2:36',
+          o:['une bise', 'deux bises, en commençant par la gauche', 'quatre bises partout'], r:1 },
+        { enonce:'Dans le sud de la France, on fait souvent…', min:'2:42',
+          o:['une seule bise', 'trois ou quatre bises, en commençant par la droite', 'aucune bise'], r:1 }
+      ] },
+
+    /* 20 */ { t:'tri', etiqueta:'Bise ou poignée de main ?',
+      consigne:'Dans chaque situation : la bise, ou la poignée de main ?',
+      cols: ['La bise', 'La poignée de main'],
+      items: [
+        ['Tu retrouves un ami proche au café.', 0],
+        ['Tu rencontres pour la première fois ton nouveau responsable.', 1],
+        ['Une amie te présente sa mère, que tu ne connais pas.', 0],
+        ['Tu signes un contrat avec un client.', 1],
+        ['Deux hommes qui se connaissent peu se saluent dans la rue.', 1],
+        ['Tu dis au revoir à la famille de ton ami, après le dîner.', 0]
+      ],
+      aide:'Entre dos hombres que no son muy cercanos, lo normal es dar la mano; en un entorno '
+         + 'formal, también — hombre o mujer. La bise queda para la familia, los amigos, o cuando '
+         + 'hay confianza.' },
+
+    /* 21 */ { t:'trous', etiqueta:'Le rendez-vous',
+      consigne:'Complète avec le mot qui convient.',
+      q: [
+        { enonce:'Pour une réunion de travail, mieux vaut arriver un peu en ___, jamais en retard.', r:['avance'], taille:10 },
+        { enonce:'Si tu ne peux vraiment pas venir, il faut ___ la personne.', r:['prevenir'], taille:10 },
+        { enonce:'Pour un dîner chez des amis, c’est le ___ d’heure de politesse : on arrive un peu après.', r:['quart'], taille:8 },
+        { enonce:'Si tu ne peux pas venir du tout, tu dois ___ le rendez-vous, pas juste ne pas venir.', r:['annuler'], taille:10 },
+        { enonce:'Entre amis, au restaurant, le plus courant est de ___ l’addition.', r:['partager'], taille:10 }
+      ] },
+
+    /* 22 */ { t:'dialogue', etiqueta:'Dans un rendez-vous',
+      consigne:'Quatre moments d’un rendez-vous. Choisis ce que tu fais.',
+      sous:'Un rendez-vous professionnel, et un rendez-vous entre amis : les codes ne sont pas les mêmes.',
+      final:'Tu as su adapter tes gestes au contexte : c’est exactement ce que demande le savoir-vivre.',
+      escenas: [
+        { texto:'Tu arrives à un entretien professionnel. On te tend la main. Tu…',
+          opciones: [
+            { texto:'serres la main, fermement, en disant bonjour.', ok:true,
+              replica:'Exactement ce qu’il faut faire dans un contexte formel.' },
+            { texto:'fais la bise, par habitude.', ok:false,
+              replica:'Dans un cadre professionnel, surtout un premier contact, c’est la poignée de main qui prévaut.' },
+            { texto:'hésites et ne fais ni l’un ni l’autre.', ok:false,
+              replica:'L’hésitation se voit et met les deux personnes mal à l’aise.' }
+          ] },
+        { texto:'Une amie te présente son frère, que tu ne connais pas. Il te tend la joue. Tu…',
+          opciones: [
+            { texto:'fais la bise, naturellement.', ok:true,
+              replica:'Dans un cadre informel, entre amis d’amis, c’est tout à fait normal.' },
+            { texto:'lui serres la main, en reculant un peu.', ok:false,
+              replica:'Ce n’est pas une erreur grave, mais ça peut surprendre dans ce contexte précis.' },
+            { texto:'ne fais rien et dis juste « salut ».', ok:false,
+              replica:'Dommage : un petit geste de salutation est attendu.' }
+          ] },
+        { texto:'Tu as dix minutes de retard à un rendez-vous professionnel. Tu…',
+          opciones: [
+            { texto:'préviens par message, avant l’heure prévue.', ok:true,
+              replica:'C’est la base : prévenir avant, pas après.' },
+            { texto:'arrives sans rien dire, et tu t’excuses sur place.', ok:false,
+              replica:'Mejor avisar antes: la otra persona ya no sabe si esperar o no.' },
+            { texto:'annules tout, par honte.', ok:false,
+              replica:'Dix minutes, ça se rattrape très bien avec un simple message.' }
+          ] },
+        { texto:'À la fin du dîner entre amis, l’addition arrive. Tu…',
+          opciones: [
+            { texto:'proposes de partager l’addition.', ok:true,
+              replica:'C’est l’usage le plus courant entre amis, aujourd’hui.' },
+            { texto:'attends que quelqu’un d’autre s’en occupe, sans rien dire.', ok:false,
+              replica:'Ça met tout le monde mal à l’aise : mieux vaut proposer quelque chose.' },
+            { texto:'insistes pour tout payer, même si ce n’est pas toi qui as invité.', ok:false,
+              replica:'Gentil, mais ce n’est pas l’usage si personne n’a dit « je t’invite ».' }
+          ] }
+      ] },
+
+    /* 23 */ { t:'prod', etiqueta:'Débat : qui doit payer ?', mots:120,
+      consigne:'Au premier rendez-vous (galant ou professionnel), qui doit payer l’addition, selon toi ? Compare avec ce qui se fait au Mexique.',
+      sous:'120 palabras. No hay respuesta correcta: lo importante son tus argumentos.',
+      check: [
+        'Tu opinión, claramente expresada desde el principio.',
+        'Un argumento con <i>ça permet de</i>, <i>ça évite de</i> o <i>ça montre que</i>.',
+        'Una comparación explícita con México.',
+        'Dos expresiones del vocabulario: <i>régler l’addition</i>, <i>partager l’addition</i>, <i>inviter quelqu’un</i>.',
+        'Una concesión: <i>je te l’accorde, mais…</i>'
+      ],
+      modele:'Pour moi, celui qui invite devrait payer, peu importe si c’est un homme ou une '
+           + 'femme : ça évite de se poser la question à chaque fois, et ça montre qu’on a vraiment '
+           + 'envie de partager ce moment. Au Mexique, c’est souvent l’homme qui paie, surtout pour '
+           + 'un premier rendez-vous galant, et beaucoup trouvent ça normal. Je te l’accorde, '
+           + 'partager l’addition est plus simple et plus égalitaire. Mais entre amis, c’est '
+           + 'clairement ce que je préfère : chacun paie sa part, sans calcul.' }
   ]
 });
 
