@@ -27,11 +27,17 @@ declare
 begin
   for r in
     -- ── CAMBIA ESTA TABLA ──────────────────────────────────────────────
-    --    quién          · qué se pagó                      · cuándo
+    --    quién · qué se pagó · cuándo (null si no se sabe) · importe (null = el del grupo)
     select * from (values
-      ('Annette', 'Ciclo Français A1.4 — Défi 1',          date '2026-09-29'),
-      ('MELISSA', 'Bimestre oct-nov 2026 · Français B2',   date '2026-10-06')
-    ) as t(quien, concepto, cuando)
+      ('Annette',  'Ciclo Français A1.4 — Défi 1',        date '2026-09-29', null::numeric),
+      ('MELISSA',  'Bimestre oct-nov 2026 · Français B2', date '2026-10-06', null),
+      -- Tarifa especial de los hermanos, solo este ciclo: 1 900 cada uno en
+      -- lugar de 2 300. El papá pagó por los dos juntos y no consta el día:
+      -- no se inventa. Con la fecha en null el pago queda como cubierto y la
+      -- fecha se completa el día que aparezca el comprobante.
+      -- Sebastián se añade aquí en cuanto cree su cuenta.
+      ('Rothman',  'Bimestre oct-nov 2026 · Français B2 · tarifa especial hermanos', null::date, 1900)
+    ) as t(quien, concepto, cuando, importe)
     -- ───────────────────────────────────────────────────────────────────
   loop
     select count(*), min(i.id::text)::uuid, min(g.costo), min(g.moneda)
@@ -50,11 +56,15 @@ begin
 
     -- El concepto es lo que identifica el pago: si ya estaba anotado, se
     -- corrige; si no, se crea. Así repetir el guion no cobra dos veces.
+    -- Una tarifa especial manda sobre la del grupo.
+    v_costo := coalesce(r.importe, v_costo);
+
     if exists (select 1 from public.pagos pg
                 where pg.inscripcion_id = v_insc and pg.concepto = r.concepto) then
+      -- coalesce: si ya hay una fecha y aquí va vacía, no se la borra.
       update public.pagos
          set monto = v_costo, moneda = v_moneda, estado = 'pagado',
-             pagado_en = r.cuando, updated_at = now()
+             pagado_en = coalesce(r.cuando, pagado_en), updated_at = now()
        where inscripcion_id = v_insc and concepto = r.concepto;
     else
       insert into public.pagos (inscripcion_id, monto, moneda, concepto, estado, metodo, pagado_en)
@@ -75,7 +85,8 @@ end $$;
 
 select g.codigo as grupo,
        p.nombre_completo as estudiante,
-       coalesce(string_agg(pg.concepto || ' (' || to_char(pg.pagado_en,'DD/MM/YYYY') || ')',
+       coalesce(string_agg(pg.concepto || ' (' || coalesce(to_char(pg.pagado_en,'DD/MM/YYYY'), 'fecha sin confirmar')
+                           || ') $' || trim(to_char(pg.monto,'FM999G999D00')),
                            E'\n' order by pg.pagado_en), '— nada registrado —') as pagos,
        '$' || trim(to_char(g.costo,'FM999G999D00')) || ' ' || g.moneda as cuota_del_ciclo
 from public.inscripciones i
