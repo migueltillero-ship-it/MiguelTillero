@@ -424,7 +424,7 @@ details.form-toggle > summary { cursor:pointer; font-family:'Syne', sans-serif; 
                 <h3 style="margin:2rem 0 0.3rem;">Propuestas enviadas</h3>
                 <p class="muted" style="margin:0 0 0.6rem;">Si la abrieron, si aceptaron y qué comentaron. «Sin abrir» quiere decir que todavía no entró a verla.</p>
                 <table>
-                    <thead><tr><th>Estudiante</th><th>Preparada</th><th>Estado</th><th>Lo que respondió</th></tr></thead>
+                    <thead><tr><th>Estudiante</th><th>Preparada</th><th>Estado</th><th>Lo que respondió</th><th></th></tr></thead>
                     <tbody id="tabla-propuestas"></tbody>
                 </table>
             </section>
@@ -1174,7 +1174,7 @@ function recalcularAcuerdo() {
  * Se crea desde la ficha del prospecto, igual que el acuerdo, y necesita que
  * la persona tenga cuenta: la propuesta solo se ve con su sesión.
  */
-let proProspecto = null, proEstudiante = null;
+let proProspecto = null, proEstudiante = null, proEditando = null;
 const DIAS_PRO = { lun:'Lunes', mar:'Martes', mie:'Miércoles', jue:'Jueves', vie:'Viernes', sab:'Sábado', dom:'Domingo' };
 const PRO_DEFECTO = {
     mensaje: 'Felicitaciones por dar el primer paso. Aprender francés es una decisión que le abrirá muchas puertas, y será un gusto acompañarle en este camino. Esta propuesta reúne su horario, la cotización y todo lo que incluye; revísela con calma y, si le parece bien, deje su horario asegurado con un solo clic.',
@@ -1229,7 +1229,8 @@ function agregarHorarioPropuesta(tipo, dia, hora, nota) {
 async function abrirPropuesta(id) {
     const { data: p } = await supabaseClient.from('prospectos').select('*').eq('id', id).single();
     if (!p) return;
-    proProspecto = p; proEstudiante = null;
+    proProspecto = p; proEstudiante = null; proEditando = null;
+    document.getElementById('pro-crear').innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Crear propuesta';
 
     document.getElementById('panel-propuesta').style.display = 'block';
     document.getElementById('panel-propuesta').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1281,7 +1282,7 @@ async function abrirPropuesta(id) {
 
 function cerrarPropuesta() {
     document.getElementById('panel-propuesta').style.display = 'none';
-    proProspecto = null; proEstudiante = null;
+    proProspecto = null; proEstudiante = null; proEditando = null;
 }
 
 function leerHorariosPropuesta() {
@@ -1298,7 +1299,8 @@ function leerHorariosPropuesta() {
 
 document.addEventListener('click', async function (e) {
     if (e.target.id !== 'pro-crear' && !e.target.closest('#pro-crear')) return;
-    if (!proProspecto || !proEstudiante) return;
+    if (!proEstudiante) return;
+    if (!proEditando && !proProspecto) return;
     const caja = document.getElementById('pro-resumen');
     const falla = function (t) { caja.className = 'msg error'; caja.style.display = 'block'; caja.textContent = t; };
 
@@ -1315,8 +1317,7 @@ document.addEventListener('click', async function (e) {
 
     const b = document.getElementById('pro-crear');
     b.disabled = true; b.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Creando…';
-    const { data, error } = await supabaseClient.from('propuestas').insert({
-        estudiante_id: proEstudiante.id,
+    const campos = {
         mensaje: document.getElementById('pro-mensaje').value.trim() || null,
         horario: horario,
         duracion_minutos: parseInt(document.getElementById('pro-minutos').value, 10) || null,
@@ -1324,13 +1325,67 @@ document.addEventListener('click', async function (e) {
         incluye: document.getElementById('pro-incluye').value.split('\n').map(l => l.trim()).filter(Boolean),
         nota_incluye: document.getElementById('pro-nota').value.trim() || null,
         compromiso: document.getElementById('pro-compromiso').value.trim() || null
-    }).select().single();
-    b.disabled = false; b.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Crear propuesta';
-    if (error) return falla('No se pudo crear: ' + error.message);
+    };
+    /* Al editar solo cambia el contenido: el estado, si la abrió y si aceptó
+       se quedan como están, para no borrar lo que la persona ya hizo. */
+    const q = proEditando
+        ? supabaseClient.from('propuestas').update(campos).eq('id', proEditando).select().single()
+        : supabaseClient.from('propuestas').insert(Object.assign({ estudiante_id: proEstudiante.id }, campos)).select().single();
+    const { data, error } = await q;
+    b.disabled = false;
+    b.innerHTML = proEditando ? '<i class="fa-solid fa-floppy-disk"></i> Guardar cambios'
+                              : '<i class="fa-solid fa-wand-magic-sparkles"></i> Crear propuesta';
+    if (error) return falla('No se pudo ' + (proEditando ? 'guardar: ' : 'crear: ') + error.message);
 
-    mostrarPropuestaCreada(data);
+    if (proEditando) mostrarPropuestaEditada(data); else mostrarPropuestaCreada(data);
     cargarPropuestas();
 });
+
+/* Editar una propuesta ya enviada: el enlace es el mismo, así que lo que se
+   cambia aquí lo ve la persona al recargar, sin mandarle nada de nuevo. */
+async function editarPropuesta(id) {
+    const { data: x } = await supabaseClient.from('propuestas').select('*, profiles(nombre_completo)').eq('id', id).single();
+    if (!x) return;
+    proEditando = id; proProspecto = null; proEstudiante = { id: x.estudiante_id };
+    const nombre = (x.profiles && x.profiles.nombre_completo) || 'Estudiante';
+    document.getElementById('panel-propuesta').style.display = 'block';
+    document.getElementById('panel-propuesta').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('pro-titulo').textContent = 'Editar la propuesta de ' + nombre;
+    document.getElementById('pro-resultado').style.display = 'none';
+    document.getElementById('pro-resumen').style.display = 'none';
+    const aviso = document.getElementById('pro-cuenta');
+    aviso.style.display = 'block';
+    aviso.className = x.aceptada_en ? 'msg error' : 'msg ok';
+    aviso.textContent = x.aceptada_en
+        ? 'Ya aceptó esta propuesta. Si cambias horarios o cifras, avísale: lo que aceptó era otra cosa.'
+        : x.visto_en ? 'Ya la abrió. Verá los cambios al recargar la página.' : 'Todavía no la ha abierto.';
+    document.getElementById('pro-cuerpo').style.display = 'block';
+    document.getElementById('pro-tarifa').value = x.tarifa;
+    document.getElementById('pro-paquete').value = x.horas_paquete;
+    document.getElementById('pro-regalo').value = x.horas_regalo;
+    document.getElementById('pro-minutos').value = x.duracion_minutos || 90;
+    document.getElementById('pro-mensaje').value = x.mensaje || '';
+    const h = x.horario || {};
+    document.getElementById('pro-inicio').value = h.inicio || '';
+    document.getElementById('pro-incluye').value = (x.incluye || []).join('\n');
+    document.getElementById('pro-nota').value = x.nota_incluye || '';
+    document.getElementById('pro-compromiso').value = x.compromiso || '';
+    document.getElementById('pro-slots').innerHTML = '';
+    [['confirmados', 'confirmado'], ['alternativas', 'alternativa'], ['extras', 'extra']].forEach(function (par) {
+        (h[par[0]] || []).forEach(function (it) { agregarHorarioPropuesta(par[1], it.dia, it.hora, it.nota); });
+    });
+    document.getElementById('pro-crear').innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Guardar cambios';
+}
+
+function mostrarPropuestaEditada() {
+    document.getElementById('pro-cuerpo').style.display = 'none';
+    const r = document.getElementById('pro-resultado');
+    r.style.display = 'block'; r.innerHTML = '';
+    const ok = document.createElement('div'); ok.className = 'msg ok'; ok.style.display = 'block';
+    ok.textContent = 'Cambios guardados. Con el mismo enlace verá la versión nueva al recargar.';
+    r.appendChild(ok);
+    proEditando = null;
+}
 
 /* Al crearla, lo siguiente es hacérsela llegar: el enlace, un WhatsApp corto y
    el correo ya redactado en Gmail, donde se programa para la hora que sea. */
@@ -1407,8 +1462,8 @@ async function cargarPropuestas() {
                 return r.texto ? `<div><strong>Eligió:</strong> ${esc(r.texto)}</div>` : '<div>Aceptó.</div>';
             }).join('');
             const nombre = (x.profiles && x.profiles.nombre_completo) || 'Estudiante';
-            return `<tr><td>${esc(nombre)}</td><td>${dia(x.creado_en)}</td><td>${estado}</td><td>${dichas || '<span class="muted">—</span>'}</td></tr>`;
-        }).join('') || '<tr><td colspan="4" class="muted">Todavía no has enviado ninguna propuesta.</td></tr>';
+            return `<tr><td>${esc(nombre)}</td><td>${dia(x.creado_en)}</td><td>${estado}</td><td>${dichas || '<span class="muted">—</span>'}</td><td><button class="btn pequeno secundario" onclick="editarPropuesta('${x.id}')"><i class="fa-solid fa-pen"></i> Editar</button></td></tr>`;
+        }).join('') || '<tr><td colspan="5" class="muted">Todavía no has enviado ninguna propuesta.</td></tr>';
     } catch (e) { console.warn('No se pudieron cargar las propuestas:', e); }
 }
 
