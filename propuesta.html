@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Su propuesta | Miguel Tillero</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --gold:#a5824a; --gold2:#86673a; --goldx:rgba(201,169,110,0.16);
+  --cyan:#0d7f57; --white:#12291c; --text:rgba(18,41,28,0.92); --muted:rgba(18,41,28,0.78);
+  --border:rgba(165,130,74,0.38); --panel:rgba(255,255,255,0.93);
+  --glow:0 0 40px rgba(201,169,110,0.18), 0 0 80px rgba(201,169,110,0.07);
+  --bg-grad:radial-gradient(ellipse 80% 80% at 50% 40%, #c5e0d3 0%, #b8d9ca 55%, #a5cdbf 100%);
+  --r-sm:14px; --r-md:20px; --r-pill:999px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0; color:var(--text); font-family:'Syne',sans-serif; line-height:1.6;
+  background:var(--bg-grad); background-attachment:fixed;}
+/* El fondo 3D vive detrás de todo; si no arranca, queda el degradado del body. */
+#vanta-bg{position:fixed; inset:0; z-index:0;}
+.capa{position:relative; z-index:1;}
+
+nav.barra{display:flex; justify-content:space-between; align-items:center; gap:1rem;
+  flex-wrap:wrap; padding:1rem clamp(1rem,5vw,3rem);
+  background:rgba(255,255,255,0.72); backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);}
+.marca{font-family:'Cormorant Garamond',serif; font-size:1.55rem; font-weight:600;
+  color:var(--white); text-decoration:none; letter-spacing:0.01em;}
+.barra .der{display:flex; align-items:center; gap:0.9rem; font-size:0.88rem; color:var(--muted);}
+
+.hoja{max-width:860px; margin:0 auto; padding:clamp(2rem,6vw,4.5rem) clamp(1rem,5vw,2rem) 6rem;}
+
+/* ── Portada ── */
+.portada{text-align:center; margin-bottom:clamp(2rem,6vw,3.5rem);}
+.sello{display:inline-flex; align-items:center; gap:0.55rem; padding:0.45rem 1.1rem;
+  border:1px solid var(--border); border-radius:var(--r-pill); background:rgba(255,255,255,0.7);
+  font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold2);}
+.portada h1{font-family:'Cormorant Garamond',serif; font-weight:300;
+  font-size:clamp(2.6rem,8vw,4.6rem); line-height:1.05; margin:1.2rem 0 0.6rem; color:var(--white);}
+.portada h1 em{font-style:italic; color:var(--gold2);}
+.portada .fecha{font-size:0.8rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted);}
+
+/* ── Tarjetas de papel ── */
+.bloque{background:var(--panel); border:1px solid var(--border); border-radius:var(--r-md);
+  box-shadow:var(--glow), 0 18px 50px rgba(20,45,32,0.10);
+  padding:clamp(1.4rem,4.5vw,2.6rem); margin-bottom:clamp(1.2rem,3vw,1.8rem);}
+.bloque > h2{font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(1.6rem,3.6vw,2.1rem);
+  margin:0 0 0.3rem; color:var(--white);}
+.bloque > h2 + .pie{margin:0 0 1.6rem; color:var(--muted); font-size:0.95rem;}
+.eyebrow{font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold2); margin:0 0 0.4rem;}
+
+/* Los párrafos largos van justificados; en pantalla estrecha, a bandera. */
+.largo{font-size:1.06rem; line-height:1.85; margin:0; text-align:justify; text-justify:inter-word;
+  hyphens:auto; -webkit-hyphens:auto;}
+@media (max-width:560px){ .largo{text-align:left; hyphens:none;} }
+
+/* ── Horario ── */
+.dias{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:0.9rem;}
+.dia{padding:1.2rem 1.3rem; border-radius:var(--r-sm); background:rgba(165,130,74,0.08);
+  border:1px solid rgba(165,130,74,0.22);}
+.dia small{display:block; font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:0.3rem;}
+.dia b{font-family:'Cormorant Garamond',serif; font-size:1.7rem; font-weight:600; color:var(--white);
+  line-height:1.1; display:block;}
+.dia span{display:block; margin-top:0.35rem; font-size:0.95rem; color:var(--gold2); font-weight:600;}
+.dia.alt{background:rgba(13,127,87,0.08); border-color:rgba(13,127,87,0.28);}
+.dia.alt span{color:var(--cyan);}
+.dia .nota{font-size:0.85rem; color:var(--muted); font-weight:400; margin-top:0.5rem;}
+.inicio{margin:1.4rem 0 0; padding:1rem 1.2rem; border-radius:var(--r-sm);
+  background:rgba(13,127,87,0.07); border:1px solid rgba(13,127,87,0.22);
+  font-size:1rem; line-height:1.7;}
+.inicio i{color:var(--cyan); margin-right:0.5rem;}
+
+/* ── Cifras ── */
+.cifras{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:0.9rem;}
+.cifra{padding:1.1rem 1.2rem; border-radius:var(--r-sm); background:rgba(165,130,74,0.08);
+  border:1px solid rgba(165,130,74,0.18);}
+.cifra small{display:block; font-size:0.68rem; letter-spacing:0.13em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:0.35rem;}
+.cifra b{font-family:'Cormorant Garamond',serif; font-size:1.75rem; font-weight:600; color:var(--white); line-height:1;}
+.cifra.regalo{background:rgba(13,127,87,0.09); border-color:rgba(13,127,87,0.28);}
+.cifra.regalo b{color:var(--cyan);}
+.cifra.total{background:linear-gradient(135deg, rgba(165,130,74,0.18), rgba(165,130,74,0.08));
+  border-color:var(--gold);}
+.cifra.dinero b{font-size:1.32rem; line-height:1.25;}
+.resumen{margin:1.3rem 0 0; font-size:1rem; line-height:1.7; color:var(--muted);}
+.resumen b{color:var(--white);}
+
+/* ── Lo que incluye ── */
+.incluye{list-style:none; margin:0; padding:0; display:grid; gap:0.8rem;}
+.incluye li{display:grid; grid-template-columns:auto 1fr; gap:0.85rem; align-items:start;
+  font-size:1.02rem; line-height:1.65;}
+.incluye i{color:var(--cyan); margin-top:0.3rem;}
+.aparte{margin:1.2rem 0 0; font-size:0.9rem; color:var(--muted); font-style:italic;}
+
+/* ── Decisión ── */
+.decision{border:1px solid var(--gold);
+  background:linear-gradient(135deg, rgba(165,130,74,0.10), rgba(255,255,255,0.4));}
+.botones{display:flex; gap:0.9rem; flex-wrap:wrap; margin-top:1.4rem;}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:0.6rem;
+  padding:1rem 1.8rem; border-radius:var(--r-pill); border:1px solid var(--gold);
+  background:var(--gold); color:#fff; font-family:'Syne',sans-serif; font-size:0.95rem;
+  font-weight:600; cursor:pointer; min-height:44px; text-decoration:none;
+  transition:background .25s, transform .25s, box-shadow .25s;}
+.btn:hover:not(:disabled){background:var(--gold2); transform:translateY(-2px); box-shadow:var(--glow);}
+.btn:disabled{opacity:0.45; cursor:not-allowed;}
+.btn.fantasma{background:transparent; color:var(--gold2);}
+.btn.wa{background:#25D366; border-color:#25D366;}
+.btn.cyan{background:var(--cyan); border-color:var(--cyan);}
+textarea{width:100%; padding:0.95rem 1.1rem; border:1px solid var(--border); border-radius:var(--r-sm);
+  background:rgba(255,255,255,0.92); font-family:'Syne',sans-serif; font-size:1rem; color:var(--white);
+  min-height:120px; resize:vertical;}
+textarea:focus{outline:none; border-color:var(--gold); box-shadow:0 0 0 4px var(--goldx);}
+.aviso{padding:1rem 1.2rem; border-radius:var(--r-sm); margin:1rem 0;}
+.aviso.error{background:rgba(198,91,91,0.09); border:1px solid rgba(154,42,42,0.45); color:#8f2727;}
+.aviso.ok{background:rgba(13,127,87,0.09); border:1px solid rgba(13,127,87,0.4); color:#0a6444;}
+
+/* ── Datos de pago ── */
+.banco{display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:0.9rem;}
+.banco article{border:1px solid var(--border); border-radius:var(--r-sm); padding:1rem 1.1rem;
+  background:rgba(255,255,255,0.6);}
+.banco small{display:block; font-size:0.66rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted);}
+.banco b{font-size:1.02rem; letter-spacing:0.03em; color:var(--white); word-break:break-all;}
+.copiar{margin-top:0.6rem; background:none; border:0; color:var(--gold2); font-family:'Syne',sans-serif;
+  font-size:0.82rem; font-weight:600; cursor:pointer; padding:0.4rem 0; min-height:44px;}
+
+/* ── Firma ── */
+.firma{text-align:center; margin-top:clamp(2rem,6vw,3.2rem);}
+.firma .nombre{font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:600;
+  font-size:clamp(2rem,6vw,2.8rem); color:var(--white); line-height:1.1;}
+.firma .cargo{font-size:0.78rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--gold2); margin-top:0.4rem;}
+.firma .filete{width:70px; height:1px; background:var(--gold); margin:0 auto 1.1rem;}
+
+.oculto{display:none !important;}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .btn{transition:none} }
+</style>
+</head>
+<body>
+<div id="vanta-bg"></div>
+
+<div class="capa">
+<nav class="barra">
+  <a href="index.html" class="marca">Miguel Tillero</a>
+  <div class="der">
+    <span id="quien"></span>
+    <a href="panel-estudiante.html" class="btn fantasma" style="padding:0.5rem 1.1rem;">Mi espacio</a>
+  </div>
+</nav>
+
+<div class="hoja">
+  <div id="cargando" class="bloque"><p style="margin:0;">Preparando su propuesta…</p></div>
+  <div id="aviso-config"></div>
+
+  <div id="sin-propuesta" class="bloque oculto">
+    <h2>Todavía no hay una propuesta preparada</h2>
+    <p class="pie">Cuando esté lista aparecerá aquí. Si cree que ya debería estar, escríbame.</p>
+    <a class="btn wa" id="wa-sin" href="#" target="_blank" rel="noopener">
+      <i class="fab fa-whatsapp"></i> Escribirme por WhatsApp</a>
+  </div>
+
+  <div id="todo" class="oculto">
+
+    <header class="portada">
+      <span class="sello"><i class="fa-solid fa-feather"></i> Su propuesta de aprendizaje</span>
+      <h1><em id="nombre-portada"></em>,<br>comencemos.</h1>
+      <p class="fecha" id="fecha-portada"></p>
+    </header>
+
+    <section class="bloque">
+      <p class="largo" id="mensaje"></p>
+    </section>
+
+    <section class="bloque">
+      <p class="eyebrow">Su horario</p>
+      <h2>Confirmado con mi agenda</h2>
+      <p class="pie" id="pie-horario"></p>
+      <div class="dias" id="dias"></div>
+      <p class="inicio oculto" id="inicio"><i class="fa-solid fa-calendar-check"></i><span></span></p>
+    </section>
+
+    <section class="bloque">
+      <p class="eyebrow">La propuesta</p>
+      <h2>Cotización</h2>
+      <p class="pie">Tarifa preferencial, con horas de regalo por el paquete.</p>
+      <div class="cifras" id="cifras"></div>
+      <p class="resumen" id="resumen"></p>
+    </section>
+
+    <section class="bloque">
+      <p class="eyebrow">Incluido</p>
+      <h2>Lo que recibe</h2>
+      <ul class="incluye" id="incluye"></ul>
+      <p class="aparte oculto" id="aparte"></p>
+    </section>
+
+    <section class="bloque oculto" id="bloque-compromiso">
+      <p class="eyebrow">Mi compromiso</p>
+      <h2>Un acompañamiento a su medida</h2>
+      <p class="largo" id="compromiso"></p>
+    </section>
+
+    <section class="bloque decision" id="bloque-decision">
+      <p class="eyebrow">Su respuesta</p>
+      <h2>¿Comenzamos?</h2>
+
+      <div id="antes">
+        <p class="largo">Si le parece bien, puede dejar su horario asegurado con un solo clic.
+          Y si prefiere comentarme algo antes, hay un espacio justo aquí debajo.</p>
+        <div class="botones">
+          <button class="btn" id="btn-asegurar"><i class="fa-solid fa-circle-check"></i> Quiero asegurar mi horario</button>
+          <button class="btn fantasma" id="btn-comentar"><i class="fa-regular fa-comment"></i> Quiero comentar algo</button>
+        </div>
+        <div id="caja-comentario" class="oculto" style="margin-top:1.4rem;">
+          <textarea id="texto-comentario" placeholder="Cuénteme lo que quiera: otro horario, una duda, lo que necesita…"></textarea>
+          <p style="margin:1rem 0 0;">
+            <button class="btn cyan" id="btn-enviar-comentario"><i class="fa-solid fa-paper-plane"></i> Enviar comentario</button>
+          </p>
+        </div>
+      </div>
+
+      <div id="msg-decision"></div>
+    </section>
+
+    <section class="bloque oculto" id="bloque-pago">
+      <p class="eyebrow">Para dejarlo asegurado</p>
+      <h2>Datos para su pago</h2>
+      <p class="pie">Cuando le venga bien. Elija la vía que le resulte más cómoda y, al terminar,
+        envíeme el comprobante por WhatsApp.</p>
+      <div class="banco">
+        <article><small>Transferencia · albo</small><b>7211 8010 0037 9159 95</b>
+          <small style="margin-top:0.6rem;">Beneficiario</small>
+          <b style="font-size:0.92rem;">Miguel David Tillero Álvarez</b><br>
+          <button class="copiar" data-copiar="721180100037915995"><i class="fa fa-copy"></i> Copiar CLABE</button></article>
+        <article><small>Transferencia · Nu</small><b>6381 8000 0116 2530 75</b>
+          <small style="margin-top:0.6rem;">Beneficiario</small>
+          <b style="font-size:0.92rem;">Miguel David Tillero Álvarez</b><br>
+          <button class="copiar" data-copiar="638180000116253075"><i class="fa fa-copy"></i> Copiar CLABE</button></article>
+        <article><small>Desde el exterior · Remitly</small><b>miguelt4540</b>
+          <a href="https://remitly.com/pay/miguelt4540" target="_blank" rel="noopener"
+             style="display:inline-block;margin-top:0.5rem;font-size:0.85rem;color:var(--gold2);">
+             remitly.com/pay/miguelt4540</a></article>
+      </div>
+      <p style="margin:1.6rem 0 0;">
+        <a class="btn wa" id="wa-pago" href="#" target="_blank" rel="noopener">
+          <i class="fab fa-whatsapp"></i> Enviar comprobante por WhatsApp</a>
+      </p>
+    </section>
+
+    <div class="firma">
+      <div class="filete"></div>
+      <div class="nombre">Miguel Tillero</div>
+      <div class="cargo">Profesor de francés · San Cristóbal de Las Casas</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="assets/js/supabase-config.js?v=1790462574"></script>
+<script src="assets/js/auth-helpers.js?v=1790462574"></script>
+<script>
+/* Su propuesta.
+ *
+ * La propuesta es una fila de la base, una por estudiante: la página no lleva
+ * texto de nadie escrito dentro, así que la misma sirve para toda persona
+ * nueva. Todo lo que viene de la base se pone con textContent, nunca como
+ * HTML, por si alguna vez alguien escribiera algo raro en un campo.
+ *
+ * Las cifras solo se ven con la sesión de la persona a quien van dirigidas:
+ * no están en el correo ni en la web pública.
+ *
+ * Al responder no se escribe directamente en la tabla: se llama a
+ * responder_propuesta(), que comprueba que la propuesta sea suya.
+ */
+const WA = '529671836405';
+const EMAILJS_SERVICE  = 'service_uv779js';
+const EMAILJS_TEMPLATE = 'template_sp4hl5f';
+const EMAILJS_KEY      = '7FPd-e34G4AgVK5YA';
+try { emailjs.init(EMAILJS_KEY); } catch (e) {}
+
+let propuesta = null, perfil = null;
+
+function el(id){ return document.getElementById(id); }
+function texto(tag, clase, t){ const n = document.createElement(tag);
+  if (clase) n.className = clase; if (t !== undefined) n.textContent = t; return n; }
+function msg(destino, t, tipo){
+  destino.innerHTML = '<div class="aviso ' + tipo + '"></div>';
+  destino.firstChild.textContent = t;
+}
+function dinero(n, moneda){ return Number(n).toLocaleString('es-MX',
+  { minimumFractionDigits:2, maximumFractionDigits:2 }) + ' ' + (moneda || 'MXN'); }
+/* «10», no «10.0»: el decimal solo cuando de verdad lo hay. */
+function horas(n){ const x = Number(n); return Number.isInteger(x) ? String(x)
+  : x.toLocaleString('es-MX', { maximumFractionDigits:1 }); }
+function fechaLarga(iso){ return new Date(iso).toLocaleDateString('es-MX',
+  { day:'numeric', month:'long', year:'numeric' }); }
+function primerNombre(){ return ((perfil && perfil.nombre_completo) || '').trim().split(/\s+/)[0] || ''; }
+
+async function iniciar(){
+  if (!supabaseConfigurado){ mostrarAvisoSinConfigurar('aviso-config'); el('cargando').classList.add('oculto'); return; }
+  const contexto = await requerirSesion();
+  if (!contexto) return;
+  perfil = contexto.perfil;
+  el('quien').textContent = perfil.nombre_completo || '';
+
+  const { data, error } = await supabaseClient.from('propuestas')
+    .select('*').eq('estudiante_id', perfil.id).order('creado_en', { ascending:false }).limit(1);
+  el('cargando').classList.add('oculto');
+
+  if (error || !data || !data.length){
+    el('sin-propuesta').classList.remove('oculto');
+    el('wa-sin').href = 'https://wa.me/' + WA + '?text=' +
+      encodeURIComponent('Hola Miguel, entré a ver mi propuesta y aún no aparece.');
+    return;
+  }
+  propuesta = data[0];
+  pintar();
+  el('todo').classList.remove('oculto');
+  /* Que Miguel sepa si la abrió. No avisa a nadie: queda en la base. */
+  if (!propuesta.visto_en) supabaseClient.rpc('marcar_propuesta_vista', { p_propuesta: propuesta.id });
+}
+
+function pintar(){
+  const p = propuesta, h = p.horario || {};
+  const nombre = primerNombre();
+  el('nombre-portada').textContent = nombre;
+  el('fecha-portada').textContent = 'Preparada el ' + fechaLarga(p.creado_en);
+  el('mensaje').textContent = p.mensaje || ('Gracias por su confianza, ' + nombre +
+    '. Esta propuesta reúne su horario, la cotización y todo lo que incluye.');
+
+  /* Horario */
+  const dias = el('dias'); dias.innerHTML = '';
+  (h.confirmados || []).forEach(function(d){
+    const t = texto('div', 'dia');
+    t.appendChild(texto('small', '', 'Confirmado'));
+    t.appendChild(texto('b', '', d.dia));
+    t.appendChild(texto('span', '', d.hora));
+    dias.appendChild(t);
+  });
+  (h.alternativas || []).forEach(function(d){
+    const t = texto('div', 'dia alt');
+    t.appendChild(texto('small', '', 'Alternativa'));
+    t.appendChild(texto('b', '', d.dia));
+    t.appendChild(texto('span', '', d.hora));
+    if (d.nota) t.appendChild(texto('div', 'nota', d.nota));
+    dias.appendChild(t);
+  });
+  el('pie-horario').textContent = p.duracion_minutos
+    ? 'Clases de ' + (p.duracion_minutos >= 60
+        ? Math.floor(p.duracion_minutos / 60) + ' h' + (p.duracion_minutos % 60 ? ' ' + (p.duracion_minutos % 60) + ' min' : '')
+        : p.duracion_minutos + ' min') + ', como usted lo indicó.'
+    : 'Los espacios que solicitó, revisados con mi agenda.';
+  if (h.inicio){
+    el('inicio').classList.remove('oculto');
+    el('inicio').lastChild.textContent = h.inicio;
+  }
+
+  /* Cifras */
+  const paquete = Number(p.horas_paquete), regalo = Number(p.horas_regalo);
+  const cifras = el('cifras'); cifras.innerHTML = '';
+  const cifra = function(rotulo, valor, extra){
+    const d = texto('div', 'cifra' + (extra ? ' ' + extra : ''));
+    d.appendChild(texto('small', '', rotulo)); d.appendChild(texto('b', '', valor));
+    cifras.appendChild(d);
+  };
+  cifra('Por hora', dinero(p.tarifa, p.moneda), 'dinero');
+  cifra('Paquete', horas(paquete) + ' h');
+  if (regalo > 0) cifra('De regalo', '+' + horas(regalo) + ' h', 'regalo');
+  cifra('Inversión del paquete', dinero(Number(p.tarifa) * paquete, p.moneda), 'total dinero');
+  const r = el('resumen'); r.innerHTML = '';
+  r.appendChild(document.createTextNode('En total recibe '));
+  r.appendChild(texto('b', '', horas(paquete + regalo) + ' horas de clase'));
+  r.appendChild(document.createTextNode(regalo > 0
+    ? ': ' + horas(paquete) + ' del paquete y ' + horas(regalo) + ' de regalo, sin costo.' : '.'));
+
+  /* Incluye */
+  const lista = el('incluye'); lista.innerHTML = '';
+  (p.incluye || []).forEach(function(linea){
+    const li = document.createElement('li');
+    li.appendChild(texto('i', 'fa-solid fa-circle-check'));
+    li.appendChild(texto('span', '', linea));
+    lista.appendChild(li);
+  });
+  if (p.nota_incluye){ el('aparte').textContent = p.nota_incluye; el('aparte').classList.remove('oculto'); }
+  if (p.compromiso){ el('compromiso').textContent = p.compromiso; el('bloque-compromiso').classList.remove('oculto'); }
+
+  el('wa-pago').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(
+    'Hola Miguel, soy ' + (perfil.nombre_completo || '') + '. Te envío el comprobante de pago de mi paquete.');
+
+  if (p.estado === 'aceptada') mostrarAceptada();
+}
+
+function mostrarAceptada(){
+  el('antes').classList.add('oculto');
+  msg(el('msg-decision'),
+    'Gracias, ' + primerNombre() + '. Recibí su respuesta. Para dejar su horario asegurado, ' +
+    'puede realizar el pago del paquete cuando le venga bien; abajo están los datos. ' +
+    'Y escríbame por WhatsApp para confirmar día y hora de su primera clase.', 'ok');
+  el('bloque-pago').classList.remove('oculto');
+}
+
+/* El aviso a Miguel sale por correo: si se queda esperando a que él entre al
+   panel, la respuesta de una persona que está decidiendo se enfría. */
+function avisarMiguel(asunto, cuerpo){
+  const quien = perfil.nombre_completo || 'Una estudiante';
+  return emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
+    subject: asunto + ' — ' + quien, from_name: quien, from_email: 'migueltillero@gmail.com',
+    telefono: '-', ciudad: '-', tipo: 'Respuesta a su propuesta',
+    fecha: new Date().toLocaleDateString('es-MX'), horario: '-',
+    message: quien + ' respondió a su propuesta.\n\n' + cuerpo + '\n\nEstá en el panel, en Prospectos.',
+    to_email: 'migueltillero@gmail.com'
+  });
+}
+
+el('btn-asegurar').addEventListener('click', async function(){
+  const b = el('btn-asegurar');
+  b.disabled = true; b.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Un momento…';
+  const { error } = await supabaseClient.rpc('responder_propuesta',
+    { p_propuesta: propuesta.id, p_tipo: 'acepta', p_texto: null });
+  if (error){
+    msg(el('msg-decision'), 'No se pudo registrar: ' + error.message, 'error');
+    b.disabled = false; b.innerHTML = '<i class="fa-solid fa-circle-check"></i> Quiero asegurar mi horario';
+    return;
+  }
+  propuesta.estado = 'aceptada';
+  avisarMiguel('Quiere asegurar su horario', 'Pulsó «Quiero asegurar mi horario». Falta que haga el pago ' +
+    'del paquete y que le confirmes día y hora de la primera clase.').catch(function(e){ console.warn('Aviso no salió:', e); });
+  mostrarAceptada();
+  el('bloque-pago').scrollIntoView({ behavior:'smooth', block:'start' });
+});
+
+el('btn-comentar').addEventListener('click', function(){
+  el('caja-comentario').classList.toggle('oculto');
+  if (!el('caja-comentario').classList.contains('oculto')) el('texto-comentario').focus();
+});
+
+el('btn-enviar-comentario').addEventListener('click', async function(){
+  const t = el('texto-comentario').value.trim();
+  if (!t){ msg(el('msg-decision'), 'Escriba primero su comentario.', 'error'); return; }
+  const b = el('btn-enviar-comentario');
+  b.disabled = true; b.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Enviando…';
+  const { error } = await supabaseClient.rpc('responder_propuesta',
+    { p_propuesta: propuesta.id, p_tipo: 'comentario', p_texto: t });
+  b.disabled = false; b.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar comentario';
+  if (error){ msg(el('msg-decision'), 'No se pudo enviar: ' + error.message, 'error'); return; }
+  avisarMiguel('Comentario sobre su propuesta', 'Su comentario:\n\n' + t)
+    .catch(function(e){ console.warn('Aviso no salió:', e); });
+  el('texto-comentario').value = '';
+  el('caja-comentario').classList.add('oculto');
+  msg(el('msg-decision'), 'Gracias, recibí su comentario. Le respondo en breve.', 'ok');
+});
+
+document.addEventListener('click', function(e){
+  const b = e.target.closest('[data-copiar]');
+  if (!b) return;
+  try { navigator.clipboard.writeText(b.dataset.copiar); b.textContent = '¡Copiada!'; } catch (err) {}
+});
+
+iniciar();
+</script>
+
+<script>
+/* Fondo 3D: el mismo de las demás páginas. Se pide después de la carga para
+   no retrasar el texto, y no se enciende en equipos modestos, con ahorro de
+   datos o si se pidió menos movimiento — ahí queda el degradado esmeralda. */
+function fondo3DPermitido(){
+  try{
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    var c = navigator.connection;
+    if (c && (c.saveData || /(^|-)2g$/.test(c.effectiveType || ''))) return false;
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) return false;
+    if (navigator.deviceMemory && navigator.deviceMemory <= 2) return false;
+  } catch(e){}
+  return true;
+}
+function cargar(src, listo){ var s = document.createElement('script'); s.src = src; s.onload = listo;
+  document.head.appendChild(s); }
+window.addEventListener('load', function(){
+  if (!fondo3DPermitido()) return;
+  cargar('https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js', function(){
+    cargar('https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js', function(){
+      if (typeof VANTA === 'undefined' || typeof THREE === 'undefined') return;
+      try{
+        var movil = window.innerWidth < 768;
+        VANTA.NET({ el:'#vanta-bg', THREE: window.THREE,
+          mouseControls:true, touchControls:true, gyroControls:false,
+          minHeight:200, minWidth:200, scale:1.0, scaleMobile:0.6,
+          color:0xa5824a, backgroundColor:0xbcdcc9,
+          points: movil ? 5 : 8, maxDistance: movil ? 17 : 21,
+          spacing: movil ? 25 : 21, showDots:true });
+      } catch(e){}
+    });
+  });
+});
+</script>
+</body>
+</html>
