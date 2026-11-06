@@ -39,14 +39,13 @@ begin
     -- ── CAMBIA ESTA TABLA ──────────────────────────────────────────────
     --    quién · qué se pagó · cuándo (null si no se sabe) · importe (null = el del grupo)
     select * from (values
-      ('Annette',  'Ciclo Français A1.4 — Défi 1',        date '2026-09-29', null::numeric),
-      ('MELISSA',  'Mes 1 · 5 oct al 4 nov 2026 · Français B2', date '2026-10-06', null),
-      -- Tarifa especial de los hermanos, solo este ciclo: 1 900 cada uno en
-      -- lugar de 2 300. El papá pagó por los dos juntos y no consta el día:
-      -- no se inventa. Con la fecha en null el pago queda como cubierto y la
-      -- fecha se completa el día que aparezca el comprobante.
-      -- Sebastián se añade aquí en cuanto cree su cuenta.
-      ('Rothman',  'Mes 1 · 5 oct al 4 nov 2026 · Français B2 · tarifa especial hermanos', null::date, 1900)
+      -- Una fila por pago. El nombre no se guarda en el archivo porque este
+      -- repositorio es público y los estudiantes son menores: se escribe al
+      -- pegar, y basta un trozo del nombre.
+      ('Nombre o trozo de nombre', 'Concepto del pago', date 'AAAA-MM-DD', null::numeric)
+      -- Fecha en null si no consta: no se inventa, el pago queda como cubierto.
+      -- Importe en null = el del grupo; si se pone, manda sobre el del grupo
+      -- (tarifa especial, clase particular sin precio puesto…).
     ) as t(quien, concepto, cuando, importe)
     -- ───────────────────────────────────────────────────────────────────
   loop
