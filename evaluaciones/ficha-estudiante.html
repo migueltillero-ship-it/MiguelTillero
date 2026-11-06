@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Ficha del estudiante</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../assets/js/supabase-config.js?v=1790500000"></script>
+<style>
+:root{--cream:#eef4ee;--ink:#12291c;--ink2:#0d3b2e;--muted:rgba(18,41,28,.64);--line:rgba(18,41,28,.13);--gold:#a5824a;--gold2:#e3c68e;--green:#0d7f57;--red:#b4432f;--amber:#c28a1b;
+--display:'Cormorant Garamond',Georgia,serif;--sans:'Syne',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.45}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+input,select{font:inherit}
+.hidden{display:none!important}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+h1,h2,h3{font-family:var(--display);line-height:1.1}
+.btn{display:inline-flex;align-items:center;gap:.35rem;padding:.5rem .95rem;border-radius:999px;background:var(--ink);color:#fff;font-weight:700}
+header{background:var(--ink2);color:#fff}
+header .wrap{display:flex;align-items:center;gap:1rem;min-height:64px;flex-wrap:wrap}
+header h1{font-size:1.6rem} header h1 em{color:var(--gold2);font-style:normal}
+header .sp{flex:1} header a{color:var(--gold2);text-decoration:none;font-weight:600}
+#login{max-width:380px;margin:3rem auto;padding:0 16px;display:grid;gap:.7rem}
+#login input{padding:.65rem .8rem;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+#l-err{color:var(--red);min-height:1.2em}
+.hint{color:var(--muted)}
+.selector{padding:1.4rem 0 .4rem;display:flex;gap:.8rem;align-items:center;flex-wrap:wrap}
+.selector select{padding:.55rem .8rem;border:1.5px solid var(--line);border-radius:10px;background:#fff;min-width:260px}
+.cab{padding:1rem 0 .4rem}
+.cab h2{font-size:2.4rem}
+.cab .sub{color:var(--muted);margin-top:.3rem}
+.atencion{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0 .4rem}
+.chip{padding:.38rem .85rem;border-radius:999px;font-weight:700;font-size:.88rem;background:#fff;border:1.5px solid var(--line)}
+.chip.rojo{background:rgba(180,67,47,.1);border-color:rgba(180,67,47,.4);color:var(--red)}
+.chip.ambar{background:rgba(194,138,27,.12);border-color:rgba(194,138,27,.45);color:#8a5f0a}
+.chip.verde{background:rgba(13,127,87,.1);border-color:rgba(13,127,87,.35);color:var(--green)}
+.rejilla{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1rem;margin:1rem 0 3rem}
+.tarjeta{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:1.1rem 1.2rem}
+.tarjeta.ancha{grid-column:1/-1}
+.tarjeta h3{font-size:1.45rem;margin-bottom:.15rem}
+.tarjeta .cifra{font-family:var(--display);font-size:2.4rem;font-weight:700}
+.tarjeta .cifra small{font-family:var(--sans);font-size:.9rem;font-weight:600;color:var(--muted);margin-left:.3rem}
+.barra{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin:.45rem 0 .7rem}
+.barra i{display:block;height:100%;background:var(--green)}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th{text-align:left;color:var(--muted);font-weight:700;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;padding:.3rem .4rem;border-bottom:1.5px solid var(--line)}
+td{padding:.42rem .4rem;border-bottom:1px solid var(--line);vertical-align:top}
+.faltan{color:var(--red);font-weight:700}
+.ok{color:var(--green);font-weight:700}
+.aviso-bloque{color:var(--muted);font-style:italic}
+.nota-just{display:block;color:var(--muted);font-size:.82rem}
+.vacio{padding:1.4rem 0;color:var(--muted)}
+@media(max-width:560px){.cab h2{font-size:1.9rem}.rejilla{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <h1><em>Ficha</em> del estudiante</h1><div class="sp"></div>
+  <a href="seguimiento.html">Seguimiento</a>
+  <a href="grabaciones.html">Grabaciones</a>
+  <a href="../panel-docente.html">Panel docente</a>
+</div></header>
+
+<form id="login" class="hidden">
+  <h2 style="font-size:2rem">Acceso docente</h2>
+  <p class="hint">Usa tu cuenta de docente de la plataforma Vive el francés.</p>
+  <input id="l-mail" type="email" placeholder="correo" autocomplete="username" required>
+  <input id="l-pass" type="password" placeholder="contraseña" autocomplete="current-password" required>
+  <button class="btn" type="submit">Entrar</button>
+  <div id="l-err"></div>
+</form>
+
+<main id="app" class="hidden"><div class="wrap">
+  <div class="selector">
+    <label for="quien" class="hint">Estudiante</label>
+    <select id="quien"></select>
+  </div>
+  <div id="ficha"></div>
+</div></main>
+
+<script>
+(function(){
+'use strict';
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sb = typeof supabaseClient !== 'undefined' ? supabaseClient : null;
+const HOY = new Date().toISOString().slice(0, 10);
+const fecha = d => new Date(d + (String(d).length === 10 ? 'T12:00:00' : '')).toLocaleDateString('es-MX', { day:'numeric', month:'short' });
+
+// Cada grupo trabaja en su espacio de ejercicios; la clave con que guarda el avance.
+const CLAVE = g => /^A1/i.test(g) ? 'mt-a1' : /^B2/i.test(g) ? 'mt-b2' : null;
+
+function showLogin(m){ $('#app').classList.add('hidden'); $('#login').classList.remove('hidden'); $('#l-err').textContent = m || ''; }
+$('#login').addEventListener('submit', async e => {
+  e.preventDefault();
+  const { error } = await sb.auth.signInWithPassword({ email:$('#l-mail').value.trim(), password:$('#l-pass').value });
+  if(error) return showLogin('Correo o contraseña incorrectos.');
+  boot();
+});
+
+// Cada bloque se pide por separado: si una tabla todavía no existe en la
+// base, ese bloque lo dice y el resto de la ficha sigue funcionando.
+async function pedir(promesa){
+  try { const r = await promesa; return r.error ? { falla: r.error.message, data: null } : { data: r.data || [] }; }
+  catch(e){ return { falla: String(e.message || e), data: null }; }
+}
+
+async function boot(){
+  const { data: u } = await sb.auth.getUser();
+  const { data: yo } = await sb.from('profiles').select('role').eq('id', u.user.id).single();
+  if(!yo || !['docente','admin'].includes(yo.role)) return showLogin('Esta página es solo para el docente.');
+  $('#login').classList.add('hidden'); $('#app').classList.remove('hidden');
+
+  const { data: alumnos } = await sb.from('profiles').select('id,nombre_completo').eq('role','estudiante').order('nombre_completo');
+  const sel = $('#quien');
+  sel.innerHTML = (alumnos || []).map(a => `<option value="${a.id}">${esc(a.nombre_completo)}</option>`).join('');
+  const pedido = new URLSearchParams(location.search).get('id');
+  if(pedido && (alumnos || []).some(a => a.id === pedido)) sel.value = pedido;
+  sel.onchange = () => { history.replaceState(null, '', '?id=' + sel.value); pintar(sel.value); };
+  if(sel.value) pintar(sel.value); else $('#ficha').innerHTML = '<p class="vacio">Todavía no hay estudiantes.</p>';
+}
+
+async function pintar(id){
+  $('#ficha').innerHTML = '<p class="vacio">Cargando…</p>';
+  const [perfil, insc, tutor, ayuda, grab, avance] = await Promise.all([
+    pedir(sb.from('profiles').select('*').eq('id', id)),
+    pedir(sb.from('inscripciones').select('*').eq('estudiante_id', id)),
+    pedir(sb.from('tutorias').select('representante_id').eq('estudiante_id', id)),
+    pedir(sb.from('solicitudes_ayuda').select('*').eq('estudiante_id', id).order('creada_en', { ascending:false })),
+    pedir(sb.from('grabaciones').select('id,escuchado_en').eq('estudiante_id', id)),
+    pedir(sb.from('fichas_avance').select('*').eq('estudiante_id', id))
+  ]);
+  const p = (perfil.data || [])[0] || {};
+  const activas = (insc.data || []).filter(i => ['activa','pendiente'].includes(i.estado));
+  const grupoIds = activas.map(i => i.grupo_id).filter(Boolean), cursoIds = activas.map(i => i.curso_id);
+
+  const [grupos, sesiones, asist, evals, notas, pagos, catalogo] = await Promise.all([
+    grupoIds.length ? pedir(sb.from('grupos').select('*').in('id', grupoIds)) : { data: [] },
+    grupoIds.length ? pedir(sb.from('sesiones').select('*').in('grupo_id', grupoIds)) : { data: [] },
+    pedir(sb.from('asistencia').select('*').eq('estudiante_id', id)),
+    cursoIds.length ? pedir(sb.from('evaluaciones').select('*').in('curso_id', cursoIds)) : { data: [] },
+    pedir(sb.from('notas').select('*').eq('estudiante_id', id)),
+    activas.length ? pedir(sb.from('pagos').select('*').in('inscripcion_id', activas.map(i => i.id))) : { data: [] },
+    pedir(sb.from('fichas_catalogo').select('*'))
+  ]);
+  const grupo = (grupos.data || [])[0] || null;
+
+  // ── Asistencia: solo sesiones ya ocurridas ────────────────────────────
+  const pasadas = (sesiones.data || []).filter(s => s.fecha <= HOY).sort((a, b) => a.fecha.localeCompare(b.fecha));
+  const porSesion = {}; (asist.data || []).forEach(a => porSesion[a.sesion_id] = a);
+  const justificadas = pasadas.filter(s => porSesion[s.id] && !porSesion[s.id].presente && porSesion[s.id].observacion).length;
+  const vino = pasadas.filter(s => porSesion[s.id] && porSesion[s.id].presente).length;
+  const sinPasar = pasadas.filter(s => !porSesion[s.id]).length;
+  const base = pasadas.length - sinPasar - justificadas;      // las avisadas no restan
+  const pctAsist = base > 0 ? Math.round(100 * vino / base) : null;
+
+  // ── Notas puestas y las que faltan ────────────────────────────────────
+  const notaDe = {}; (notas.data || []).forEach(n => notaDe[n.evaluacion_id] = n);
+  const evs = (evals.data || []).slice().sort((a, b) => String(a.fecha || '9999').localeCompare(String(b.fecha || '9999')));
+  const faltanNotas = evs.filter(e => e.fecha && e.fecha <= HOY && !notaDe[e.id] && !/^Exercices|^Desempeño/.test(e.nombre));
+
+  // ── Ejercicios de la plataforma ───────────────────────────────────────
+  const clave = grupo ? CLAVE(grupo.codigo) : null;
+  const fichas = (catalogo.data || []).filter(c => c.clave === clave && c.cuenta !== false);
+  const filas = fichas.map(c => {
+    const hechos = (avance.data || []).filter(a => a.clave === clave && a.ficha === c.ficha && /^\d+$/.test(a.ejercicio) && +a.ejercicio < c.ejercicios);
+    const bien = hechos.reduce((s, a) => s + a.bien, 0), tot = hechos.reduce((s, a) => s + a.total, 0);
+    return { titulo: c.titulo, n: c.ejercicios, hechos: hechos.length, pct: tot ? Math.round(100 * bien / tot) : null };
+  });
+  const sinEmpezar = filas.length && filas.every(f => f.hechos === 0);
+
+  // ── Ayuda, grabaciones, familia, pagos ────────────────────────────────
+  const ayudaAbierta = (ayuda.data || []).filter(a => a.estado === 'abierta');
+  const sinEscuchar = (grab.data || []).filter(g => !g.escuchado_en);
+  const familia = (tutor.data || []).length > 0;
+  const sinPago = activas.length && !(pagos.data || []).some(x => x.estado === 'pagado');
+
+  // ── Qué pide atención ─────────────────────────────────────────────────
+  const aviso = [];
+  const ult = pasadas.slice(-2).map(s => porSesion[s.id]).filter(Boolean);
+  if(ult.length === 2 && ult.every(a => !a.presente)) aviso.push(['rojo', 'Faltó a las dos últimas clases']);
+  if(ayudaAbierta.length) aviso.push(['rojo', ayudaAbierta.length + ' petición de ayuda sin responder']);
+  if(faltanNotas.length) aviso.push(['ambar', faltanNotas.length + ' nota' + (faltanNotas.length > 1 ? 's' : '') + ' por poner']);
+  if(sinPasar) aviso.push(['ambar', sinPasar + ' lista' + (sinPasar > 1 ? 's' : '') + ' sin pasar']);
+  if(sinEscuchar.length) aviso.push(['ambar', sinEscuchar.length + ' grabación' + (sinEscuchar.length > 1 ? 'es' : '') + ' sin escuchar']);
+  if(sinEmpezar) aviso.push(['ambar', 'No ha empezado los ejercicios']);
+  if(sinPago) aviso.push(['ambar', 'Sin pago registrado']);
+  if(!familia && p.representante_nombre) aviso.push(['ambar', 'Su representante aún no tiene cuenta']);
+  if(!aviso.length) aviso.push(['verde', 'Todo al día']);
+
+  const nombreGrupo = grupo ? grupo.codigo : 'Sin grupo asignado';
+  const bloqueFalla = (r, txt) => r.falla ? `<p class="aviso-bloque">${esc(txt)}</p>` : '';
+
+  $('#ficha').innerHTML = `
+    <div class="cab"><h2>${esc(p.nombre_completo || 'Estudiante')}</h2>
+      <div class="sub">${esc(nombreGrupo)}${grupo && grupo.formato === 'individual' ? ' · clase particular' : ''}${p.representante_nombre ? ' · ' + esc(p.representante_nombre) + (p.representante_parentesco ? ' (' + esc(p.representante_parentesco.toLowerCase()) + ')' : '') : ''}</div>
+      <div class="atencion">${aviso.map(a => `<span class="chip ${a[0]}">${esc(a[1])}</span>`).join('')}</div></div>
+
+    <div class="rejilla">
+      <div class="tarjeta"><h3>Asistencia</h3>
+        <div class="cifra">${pctAsist === null ? '—' : pctAsist + ' %'}<small>${vino} de ${base} clases${justificadas ? ' · ' + justificadas + ' avisada' + (justificadas > 1 ? 's' : '') + ' (no restan)' : ''}</small></div>
+        <div class="barra"><i style="width:${pctAsist || 0}%"></i></div>
+        ${pasadas.length ? `<table><thead><tr><th>Clase</th><th>Estado</th></tr></thead><tbody>${pasadas.slice().reverse().map(s => {
+          const a = porSesion[s.id];
+          return `<tr><td>${esc(fecha(s.fecha))} · ${esc((s.tema || '').slice(0, 42))}</td><td>${!a ? '<span class="faltan">Sin pasar</span>' : a.presente ? '<span class="ok">Presente</span>' : 'No asistió' + (a.observacion ? `<span class="nota-just">${esc(a.observacion)}</span>` : '')}</td></tr>`; }).join('')}</tbody></table>` : '<p class="vacio">Todavía no hay clases dadas.</p>'}
+        ${bloqueFalla(asist, 'No se pudo leer la asistencia.')}
+      </div>
+
+      <div class="tarjeta"><h3>Notas</h3>
+        ${evs.length ? `<table><thead><tr><th>Evaluación</th><th>Nota</th></tr></thead><tbody>${evs.map(e => {
+          const n = notaDe[e.id], max = e.nota_maxima || 100;
+          const pendiente = e.fecha && e.fecha <= HOY && !n;
+          return `<tr><td>${esc(e.nombre)}${e.fecha ? `<span class="nota-just">${esc(fecha(e.fecha))}${e.ponderacion ? ' · peso ' + esc(e.ponderacion) + ' %' : ''}</span>` : ''}</td>
+            <td>${n && n.calificacion != null ? `<b>${esc(n.calificacion)}</b> / ${esc(max)}` : pendiente ? '<span class="faltan">Falta poner</span>' : '<span class="hint">aún no toca</span>'}</td></tr>`; }).join('')}</tbody></table>`
+          : '<p class="vacio">Todavía no hay evaluaciones.</p>'}
+        ${bloqueFalla(notas, 'No se pudieron leer las notas.')}
+      </div>
+
+      <div class="tarjeta"><h3>Ejercicios de la plataforma</h3>
+        ${filas.length ? `<table><thead><tr><th>Ficha</th><th>Hechos</th><th>Acierto</th></tr></thead><tbody>${filas.map(f => `<tr><td>${esc(f.titulo)}</td>
+            <td>${f.hechos === 0 ? '<span class="faltan">0</span>' : f.hechos} / ${f.n}</td><td>${f.pct === null ? '—' : f.pct + ' %'}</td></tr>`).join('')}</tbody></table>`
+          : `<p class="vacio">${clave ? 'No hay fichas en el catálogo.' : 'Este espacio no tiene fichas de ejercicios.'}</p>`}
+        ${bloqueFalla(avance, 'No se pudo leer el avance.')}
+      </div>
+
+      <div class="tarjeta"><h3>Ayuda y grabaciones</h3>
+        ${ayuda.falla ? '<p class="aviso-bloque">La sección de ayuda todavía no está activada en la base.</p>'
+          : ayudaAbierta.length ? ayudaAbierta.map(a => `<p><b>${esc(a.tema)}</b><span class="nota-just">${esc(fecha(a.creada_en))} · sin responder</span></p>`).join('')
+          : '<p class="vacio" style="padding:.4rem 0">Ninguna petición de ayuda pendiente.</p>'}
+        <p style="margin-top:.6rem">${grab.falla ? '<span class="aviso-bloque">Sin grabaciones activadas.</span>'
+          : (grab.data || []).length ? `${(grab.data || []).length} grabaciones · <b class="${sinEscuchar.length ? 'faltan' : 'ok'}">${sinEscuchar.length} sin escuchar</b> · <a href="grabaciones.html">escuchar</a>`
+          : '<span class="hint">Todavía no se ha grabado.</span>'}</p>
+      </div>
+
+      <div class="tarjeta"><h3>Familia y pagos</h3>
+        <p>${familia ? '<span class="ok">Su representante tiene cuenta vinculada.</span>' : (p.representante_email ? 'Su representante aún no ha creado su cuenta.' : '<span class="faltan">No hay correo de su representante.</span>')}</p>
+        ${(pagos.data || []).length ? `<table style="margin-top:.6rem"><thead><tr><th>Pago</th><th>Importe</th></tr></thead><tbody>${(pagos.data || []).map(x => `<tr><td>${esc(x.concepto)}<span class="nota-just">${x.pagado_en ? esc(fecha(x.pagado_en)) : 'fecha sin confirmar'}</span></td><td>$${esc(Number(x.monto).toLocaleString('es-MX'))}</td></tr>`).join('')}</tbody></table>`
+          : '<p class="vacio" style="padding:.5rem 0 0">No consta ningún pago.</p>'}
+      </div>
+    </div>`;
+}
+
+if(sb) sb.auth.getSession().then(({ data }) => data.session ? boot() : showLogin());
+else showLogin('No se pudo conectar con la plataforma.');
+})();
+</script>
+</body>
+</html>

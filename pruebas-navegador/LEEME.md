@@ -33,6 +33,7 @@ con ✗, el número entre paréntesis dice lo que encontró en lugar de lo esper
 | `sync-a1.js` | Que el espacio A1.4 está conectado a la plataforma como el B2: carga el SDK, `MT_SYNC` queda definido, al visitante sin cuenta se le dice cómo entrar, y sin cuenta **no** se escribe nada en la base. |
 | `catalogo-al-dia.js` | Que el catálogo de fichas de `supabase/nota-de-ejercicios.sql` coincide con las fichas del sitio. Si no coinciden, la **nota** de los ejercicios sale mal y nadie se entera: una ficha que falte no cuenta para nadie, y una que creció reparte la nota sobre menos ejercicios de los que hay. No abre navegador. |
 | `pedir-ayuda.sh` | El «pedir ayuda a Miguel»: que el estudiante no envía sin tema, que lo enviado lleva su propio id, que ve tu respuesta con un punto de aviso, y que tú ves lo pendiente, respondes y desaparece. Corre sobre copias de los paneles sin el guardián de sesión. |
+| `ficha-estudiante.js` | La ficha del estudiante: que la asistencia avisada no resta, que distingue «falta poner» de «aún no toca», que no cuenta clases futuras, y que si una tabla no existe lo dice sin romper el resto. |
 | `fichas-con-fecha.js` | Que una ficha con `desde` no se ve antes de tiempo —ni en el índice ni por enlace directo— y que aparece sola el día que toca. Finge el reloj del navegador para ver el antes y el después. |
 
 ## Por qué importan los dos últimos

@@ -608,7 +608,7 @@ async function cargarAyudaPendiente() {
     document.getElementById('n-ayuda').textContent = data.length + ' sin atender';
     document.getElementById('lista-ayuda-docente').innerHTML = data.map(x => `
         <div class="peticion-d" data-id="${x.id}">
-            <div class="p-cab"><span class="p-quien">${esc(nombre[x.estudiante_id] || 'Estudiante')}</span>
+            <div class="p-cab"><a class="p-quien" style="color:inherit;" href="evaluaciones/ficha-estudiante.html?id=${esc(x.estudiante_id)}">${esc(nombre[x.estudiante_id] || 'Estudiante')}</a>
                 <span class="p-tema">${esc(x.tema)}</span>
                 <span class="p-fecha">${esc(new Date(x.creada_en).toLocaleString('es-MX', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' }))}</span></div>
             ${x.detalle ? `<p class="p-detalle">${esc(x.detalle)}</p>` : ''}
@@ -1198,7 +1198,7 @@ async function cargarEstudiantes() {
     document.getElementById('tabla-estudiantes').innerHTML = (inscripciones || []).map(i => {
         const p = perfilPorId[i.estudiante_id] || { nombre_completo: '(perfil no encontrado)', telefono: '' };
         return `<tr>
-            <td>${esc(p.nombre_completo)}</td>
+            <td><a href="evaluaciones/ficha-estudiante.html?id=${esc(i.estudiante_id)}" title="Ver su ficha completa: asistencia, notas, ejercicios, pagos"><strong>${esc(p.nombre_completo)}</strong></a></td>
             <td>${esc(p.telefono)}</td>
             <td><span class="badge ${i.estado}">${i.estado}</span></td>
             <td class="acciones-fila">
