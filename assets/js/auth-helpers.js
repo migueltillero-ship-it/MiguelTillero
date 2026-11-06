@@ -274,6 +274,10 @@ async function requerirSesion(rolRequerido) {
     try { sessionStorage.removeItem('mt_viene_del_login'); } catch (e) {}
 
     if (!vieneDelLogin) {
+      /* Las páginas que llegan por un enlace que Miguel manda —la propuesta y
+         el acuerdo— piden volver aquí tras entrar, no caer en el panel y
+         tener que buscar el enlace otra vez. */
+      try { if (origen === 'propuesta.html' || origen === 'contrato.html') sessionStorage.setItem('mt_volver', origen); } catch (e) {}
       try { sessionStorage.setItem('mt_diag', detalle + ' · desde ' + origen); } catch (e) {}
       window.location.href = 'login.html';
       return null;

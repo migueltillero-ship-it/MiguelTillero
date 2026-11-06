@@ -242,6 +242,15 @@ select { padding:0.7rem; border:1px solid var(--border); border-radius:8px; font
          aquí y se encontraba una pantalla que no le ofrecía nada. Ahora
          encuentra lo mismo que le sirve desde el primer día: su acuerdo y el
          material con el que empieza. -->
+    <!-- Una propuesta pendiente no puede depender de que la persona recuerde un
+         enlace de un correo: aquí es lo primero que ve al entrar. -->
+    <div id="aviso-propuesta" class="panel" style="display:none; border-color:var(--gold, #a5824a);">
+        <h2 style="margin-top:0;">Tiene una propuesta esperándole</h2>
+        <p class="muted" style="margin:0 0 1.1rem;">Preparé su horario, la cotización y todo lo que incluye.
+            Revísela con calma y respóndame cuando quiera.</p>
+        <a href="propuesta.html" class="sec-btn" style="display:inline-block;">Ver mi propuesta</a>
+    </div>
+
     <div id="sin-inscripciones" class="panel" style="display:none;">
         <h2>Tu cuenta está lista</h2>
         <p class="muted">Todavía no tienes un curso en grupo asignado. Si tus clases son particulares es normal: tu calendario y tus horas están en tu acuerdo de aprendizaje.</p>
@@ -496,6 +505,8 @@ async function iniciar() {
     document.getElementById('saludo').innerHTML =
         'Te doy la más cordial bienvenida a tu espacio, <em>' + esc(primerNombre) + '</em>';
 
+    await cargarAvisoPropuesta();
+
     const { data: insc } = await supabaseClient
         .from('inscripciones')
         .select('*, cursos(*), grupos(*)')
@@ -696,6 +707,18 @@ const NIVEL_LARGO = { A1:'A1 · principiante', A2:'A2 · elemental', B1:'B1 · i
 document.addEventListener('submit', function (ev) {
     if (ev.target && ev.target.id === 'form-ubicacion') enviarUbicacion(ev);
 });
+
+/* Solo se avisa de las que siguen esperando respuesta: una ya aceptada deja
+   de ser noticia y no hay por qué insistir. */
+async function cargarAvisoPropuesta() {
+    try {
+        const { data } = await supabaseClient.from('propuestas')
+            .select('id, estado').eq('estudiante_id', perfilEstudiante.id)
+            .order('creado_en', { ascending: false }).limit(1);
+        const aviso = document.getElementById('aviso-propuesta');
+        if (aviso && data && data[0] && data[0].estado === 'enviada') aviso.style.display = 'block';
+    } catch (e) { console.warn('No se pudo mirar la propuesta:', e); }
+}
 
 async function cargarUbicacion() {
     const caja = document.getElementById('caja-ubicacion');

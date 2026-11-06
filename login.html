@@ -1777,7 +1777,13 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
         mostrarMsg(msgEl, 'Entrando… este navegador no conserva la sesión, así que te la pediremos una vez más en la página.', 'ok');
     }
 
-    window.location.href = destinoParaRol(perfil.role);
+    var destino = destinoParaRol(perfil.role);
+    try {
+        var volver = sessionStorage.getItem('mt_volver');
+        sessionStorage.removeItem('mt_volver');
+        if (volver === 'propuesta.html' || volver === 'contrato.html') destino = volver;
+    } catch (e) {}
+    window.location.href = destino;
 });
 
 document.getElementById('link-recuperar').addEventListener('click', async (e) => {
