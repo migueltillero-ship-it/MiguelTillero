@@ -9,8 +9,8 @@
 -- Un aviso de cobro a quien ya pagó cuesta más que no mandarlo. En la base,
 -- hoy, no todos están en la misma situación:
 --   · hay quien pagó el ciclo de octubre y le toca el de noviembre;
---   · hay quien pagó un BIMESTRE oct-nov, y pedirle noviembre otra vez sería
---     cobrarle dos veces;
+--   · hay quien pagó el mes anterior y le toca el siguiente (en B2 las clases
+--     se pagan por mes de 8 sesiones, no por bimestre);
 --   · y hay quien no tiene NINGÚN pago registrado, que puede querer decir que
 --     no pagó… o que pagó y no se anotó.
 -- Por eso la lista de abajo se escribe a mano. Mira antes la consulta del
@@ -33,7 +33,7 @@ declare
   -- A quién se le manda. Nombre o trozo de nombre, como en asistencia.sql.
   v_a_quien  text[] := array['Isaac'];
   v_limite   date   := date '2026-11-13';   -- hasta cuándo pagar
-  v_concepto text   := 'noviembre 2026';    -- lo que se está cobrando
+  v_concepto text   := 'noviembre 2026';    -- lo que se está cobrando (B2: del 9 nov al 2 dic)
   -- ───────────────────────────────────────────────────────────────────────
   v_titulo text := 'Pago de ' || v_concepto;
   v_sin_pareja text;
@@ -98,7 +98,7 @@ end $$;
 -- MIRA ESTO ANTES DE DECIDIR A QUIÉN SE LE MANDA
 -- ---------------------------------------------------------------------------
 -- «Sin pago registrado» no significa «no ha pagado»: significa que no consta.
--- Y quien pagó un bimestre que incluye este mes, ya está cubierto.
+-- Y quien ya pagó este mes concreto no necesita el aviso.
 
 select g.codigo as grupo,
        p.nombre_completo as estudiante,
@@ -107,7 +107,6 @@ select g.codigo as grupo,
        coalesce(to_char(pg.pagado_en at time zone 'America/Mexico_City', 'DD/MM/YYYY'), '—') as cuando,
        case
          when pg.id is null then 'Comprueba antes de cobrarle'
-         when pg.concepto ilike '%bimestre%' then 'Pagó un bimestre: puede estar cubierto'
          else 'Le toca el mes siguiente'
        end as que_hacer,
        case when exists (select 1 from public.tutorias t where t.estudiante_id = p.id)

@@ -16,6 +16,16 @@
 -- Dónde: Supabase → SQL Editor → New query → pegar → Run.
 -- ===========================================================================
 
+-- Los pagos de B2 se anotaron como «Bimestre oct-nov». No lo eran: la
+-- mensualidad son 8 clases, y desde que el grupo es de cuatro personas se
+-- paga por mes. Lo pagado en octubre es el MES 1 (5 oct al 4 nov). Se
+-- renombra antes de nada, porque el guion reconoce cada pago por su
+-- concepto y, si no, dejaría el antiguo al lado del nuevo.
+update public.pagos
+   set concepto = replace(concepto, 'Bimestre oct-nov 2026', 'Mes 1 · 5 oct al 4 nov 2026'),
+       updated_at = now()
+ where concepto like 'Bimestre oct-nov 2026%';
+
 do $$
 declare
   r record;
@@ -30,13 +40,13 @@ begin
     --    quién · qué se pagó · cuándo (null si no se sabe) · importe (null = el del grupo)
     select * from (values
       ('Annette',  'Ciclo Français A1.4 — Défi 1',        date '2026-09-29', null::numeric),
-      ('MELISSA',  'Bimestre oct-nov 2026 · Français B2', date '2026-10-06', null),
+      ('MELISSA',  'Mes 1 · 5 oct al 4 nov 2026 · Français B2', date '2026-10-06', null),
       -- Tarifa especial de los hermanos, solo este ciclo: 1 900 cada uno en
       -- lugar de 2 300. El papá pagó por los dos juntos y no consta el día:
       -- no se inventa. Con la fecha en null el pago queda como cubierto y la
       -- fecha se completa el día que aparezca el comprobante.
       -- Sebastián se añade aquí en cuanto cree su cuenta.
-      ('Rothman',  'Bimestre oct-nov 2026 · Français B2 · tarifa especial hermanos', null::date, 1900)
+      ('Rothman',  'Mes 1 · 5 oct al 4 nov 2026 · Français B2 · tarifa especial hermanos', null::date, 1900)
     ) as t(quien, concepto, cuando, importe)
     -- ───────────────────────────────────────────────────────────────────
   loop
