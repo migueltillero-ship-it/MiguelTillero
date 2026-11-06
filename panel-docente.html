@@ -98,6 +98,12 @@ th { font-family:'Syne', sans-serif; font-size:0.83rem; text-transform:uppercase
 .peticion-d .p-detalle { margin:0.5rem 0 0.7rem; white-space:pre-line; }
 .peticion-d textarea { width:100%; padding:0.6rem 0.75rem; border:1px solid var(--border); border-radius:8px; font:inherit; min-height:4rem; resize:vertical; }
 .peticion-d .p-acc { margin-top:0.6rem; display:flex; gap:0.6rem; align-items:center; flex-wrap:wrap; }
+.hacer { display:flex; gap:0.8rem; align-items:center; flex-wrap:wrap; padding:0.7rem 0; border-bottom:1px solid var(--border); }
+.hacer:last-child { border-bottom:0; }
+.hacer .que { flex:1; min-width:220px; }
+.hacer .que small { display:block; color:#6b7a70; }
+.hacer .num { min-width:2.1rem; height:2.1rem; border-radius:999px; background:rgba(194,96,60,.14); color:#a1652d; font-weight:800; display:flex; align-items:center; justify-content:center; }
+.hacer.verde .num { background:rgba(43,69,53,.12); color:var(--accent-green); }
 </style>
 <link rel="stylesheet" href="assets/css/lite.css?v=109">
 </head>
@@ -131,15 +137,20 @@ th { font-family:'Syne', sans-serif; font-size:0.83rem; text-transform:uppercase
                 <div id="avisos-hoy"></div>
             </section>
 
+            <section class="panel">
+                <h2>Clases de hoy</h2>
+                <div id="clases-hoy"></div>
+            </section>
+
+            <section class="panel" id="panel-por-hacer">
+                <h2>Por hacer</h2>
+                <div id="por-hacer"><p class="muted" style="margin:0;">Cargando…</p></div>
+            </section>
+
             <section class="panel" id="panel-ayuda" style="display:none;">
                 <h2>Quién ha pedido ayuda <span id="n-ayuda" class="estado" style="vertical-align:middle;"></span></h2>
                 <p class="muted" style="margin:-0.4rem 0 1rem;">Lo que no has contestado va primero. Al responder, le aparece en su espacio.</p>
                 <div id="lista-ayuda-docente"></div>
-            </section>
-
-            <section class="panel">
-                <h2>Clases de hoy</h2>
-                <div id="clases-hoy"></div>
             </section>
 
             <section class="panel">
@@ -628,6 +639,82 @@ async function responderAyuda(id, boton) {
     await cargarAyudaPendiente();
 }
 
+/* ── Por hacer ────────────────────────────────────────────────────────
+   Junta lo pendiente de TODOS los cursos en un sitio, para que lo primero que
+   se vea al entrar sea qué falta y no tener que recorrer cada curso. Cada
+   bloque se pide por separado: si algo no se puede leer, el resto sigue. */
+async function cargarPorHacer() {
+    const caja = document.getElementById('por-hacer');
+    const hoy = new Date().toISOString().slice(0, 10);
+    const items = [];
+    const nomCurso = id => (cursos.find(c => c.id === id) || {}).nombre || 'Curso';
+
+    // 1) Listas sin pasar, por curso.
+    cursos.forEach(c => {
+        const pend = listasPendientesDe(c.id);
+        if (pend.length) items.push({ n: pend.length, titulo: `${esc(nomCurso(c.id))}`,
+            sub: pend.length === 1 ? 'una lista sin pasar' : pend.length + ' listas sin pasar',
+            boton: `irAPasarAsistencia('${c.id}','${pend[0].id}')`, texto: 'Pasar lista' });
+    });
+
+    // 2) Notas por poner: evaluaciones ya vencidas, por estudiante activo sin nota.
+    //    Las dos automáticas (ejercicios y desempeño) se excluyen: se calculan solas.
+    const ids = cursos.map(c => c.id);
+    if (ids.length) {
+        const { data: evs } = await supabaseClient.from('evaluaciones').select('id,curso_id,nombre,fecha').in('curso_id', ids);
+        const vencidas = (evs || []).filter(e => e.fecha && e.fecha <= hoy && !/^Exercices|^Desempeño/.test(e.nombre));
+        if (vencidas.length) {
+            const { data: ns } = await supabaseClient.from('notas').select('evaluacion_id,estudiante_id').in('evaluacion_id', vencidas.map(e => e.id));
+            const puestas = new Set((ns || []).map(n => n.evaluacion_id + '|' + n.estudiante_id));
+            vencidas.forEach(e => {
+                const activos = inscripcionesTodas.filter(i => i.curso_id === e.curso_id && i.estado === 'activa');
+                const faltan = activos.filter(i => !puestas.has(e.id + '|' + i.estudiante_id)).length;
+                if (faltan) items.push({ n: faltan, titulo: esc(e.nombre), sub: `${esc(nomCurso(e.curso_id))} · ${faltan} de ${activos.length} sin nota`,
+                    boton: `irANotas('${e.curso_id}')`, texto: 'Poner notas' });
+            });
+        }
+    }
+
+    // 3) Grabaciones sin escuchar.
+    const gr = await supabaseClient.from('grabaciones').select('id').is('escuchado_en', null);
+    if (!gr.error && gr.data && gr.data.length) items.push({ n: gr.data.length, titulo: 'Grabaciones de fonética',
+        sub: gr.data.length === 1 ? 'una sin escuchar' : gr.data.length + ' sin escuchar',
+        enlace: 'evaluaciones/grabaciones.html', texto: 'Escuchar' });
+
+    // 4) Quién necesita atención: faltó a las dos últimas clases dadas de su grupo.
+    const sesIds = todasSesiones.filter(x => x.fecha <= hoy).map(x => x.id);
+    if (sesIds.length) {
+        const { data: as } = await supabaseClient.from('asistencia').select('sesion_id,estudiante_id,presente').in('sesion_id', sesIds);
+        const porSes = {}; (as || []).forEach(a => porSes[a.sesion_id + '|' + a.estudiante_id] = a);
+        const ausentes = [];
+        inscripcionesTodas.filter(i => i.estado === 'activa').forEach(i => {
+            const ult = todasSesiones.filter(x => x.curso_id === i.curso_id && x.fecha <= hoy && !/^Clase anulada/.test(x.tema || ''))
+                .sort((a, b) => b.fecha.localeCompare(a.fecha)).slice(0, 2)
+                .map(x => porSes[x.id + '|' + i.estudiante_id]);
+            if (ult.length === 2 && ult.every(a => a && !a.presente && !a.observacion)) ausentes.push(i.estudiante_id);
+        });
+        if (ausentes.length) {
+            const { data: ps } = await supabaseClient.from('profiles').select('id,nombre_completo').in('id', ausentes);
+            (ps || []).forEach(pf => items.push({ n: 2, titulo: esc(pf.nombre_completo), sub: 'faltó a las dos últimas clases sin avisar',
+                enlace: 'evaluaciones/ficha-estudiante.html?id=' + pf.id, texto: 'Ver su ficha' }));
+        }
+    }
+
+    caja.innerHTML = items.length ? items.map(it => `
+        <div class="hacer"><span class="num">${it.n}</span>
+            <div class="que"><strong>${it.titulo}</strong><small>${it.sub}</small></div>
+            ${it.enlace ? `<a class="btn pequeno" href="${it.enlace}">${it.texto}</a>`
+                        : `<button class="btn pequeno" onclick="${it.boton}">${it.texto}</button>`}
+        </div>`).join('')
+        : '<div class="hacer verde"><span class="num">✓</span><div class="que"><strong>Todo al día</strong><small>No tienes nada pendiente.</small></div></div>';
+}
+
+async function irANotas(cursoId) {
+    cambiarSeccion('cursos');
+    await seleccionarCurso(cursoId);
+    cambiarTab('notas');
+}
+
 async function cargarDatosGlobales() {
     const ids = cursos.map(c => c.id);
     if (!ids.length) {
@@ -645,6 +732,7 @@ async function cargarDatosGlobales() {
     await cargarListasPasadas();
     await cargarAyudaPendiente();
     pintarHoy();
+    cargarPorHacer();
     pintarCalendario();
 }
 
