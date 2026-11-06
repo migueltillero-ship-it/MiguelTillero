@@ -72,6 +72,10 @@ importa: cómo va su hijo o su hija.
   habla a la salida de clase.
 - Si hace falta algo de ellos —un correo, una cuenta—, se pide explicando
   para qué les sirve a ellos, no por qué lo necesita la plataforma.
+- **Cuando algo falló de nuestro lado, se dice primero.** Si un recordatorio
+  no llegó porque faltaba un dato, eso se cuenta antes de mencionar lo que
+  quedó pendiente: una disculpa cambia por completo cómo se lee la frase
+  siguiente, y además es verdad.
 
 Esto vale para WhatsApp, para los avisos de la plataforma y para los correos.
 
