@@ -222,6 +222,24 @@ begin
         return next; continue;
       end if;
 
+      -- UNA NOTA INCOMPLETA NO SE PUBLICA.
+      -- Los paneles de estudiante y de representante enseñan todo lo que hay en
+      -- «notas». Con el oral sin corregir, esta cuenta da 15 sobre 100 a quien
+      -- viene a todas las clases: no es una nota baja, es una nota que todavía
+      -- no existe, y una familia que la lee solo entiende «15». Se enseña aquí,
+      -- en el resultado, y no se guarda hasta que esté completa. Si una
+      -- anterior ya se guardó incompleta, se retira (solo la automática: lo que
+      -- hayas puesto tú a mano no se toca).
+      if array_length(v_falta, 1) is not null then
+        delete from public.notas n
+         where n.evaluacion_id = v_eval and n.estudiante_id = r.estudiante_id
+           and n.detalle ? 'nota_automatica'
+           and n.calificacion is not distinct from (n.detalle->>'nota_automatica')::numeric;
+        desempeno := v_nota;
+        estado := 'provisional, NO se publica: falta ' || array_to_string(v_falta, ' y ');
+        return next; continue;
+      end if;
+
       insert into public.notas (evaluacion_id, estudiante_id, calificacion, comentario, detalle)
       values (v_eval, r.estudiante_id, v_nota,
         'Escrito ' || coalesce(r.escrito::text || '%','por corregir')
@@ -237,8 +255,7 @@ begin
                     detalle      = excluded.detalle;
 
       desempeno := v_nota;
-      estado := case when array_length(v_falta,1) is null then 'completa'
-                     else 'provisional: falta ' || array_to_string(v_falta, ' y ') end;
+      estado := 'completa y publicada';
       return next;
     end;
   end loop;
