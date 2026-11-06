@@ -85,7 +85,7 @@ declare
   v_nombre text := 'Exercices complémentaires — travail à la maison';
   -- El plazo, no la última clase: es la fecha que el estudiante y la familia
   -- van a leer en su panel, y tiene que ser la que se les dio.
-  v_plazo date := date '2026-11-06';   -- ← el viernes
+  v_plazo date := date '2026-11-08';   -- ← el domingo
   v_curso uuid;
   v_resto numeric;
 begin
@@ -338,10 +338,10 @@ delete from public.avisos a
 
 insert into public.avisos (estudiante_id, titulo, mensaje, tipo, desde, hasta)
 select distinct i.estudiante_id,
-  'Les exercices comptent pour la note — jusqu''au vendredi 6',
+  'Les exercices comptent pour la note — jusqu''au dimanche 8',
   E'Changement important : les fiches d''exercices de la plateforme comptent '
   'maintenant pour la note du cycle. Elles valent 20 % de la note finale.\n\n'
-  'Vous avez jusqu''au VENDREDI 6 NOVEMBRE pour faire TOUTES les fiches '
+  'Vous avez jusqu''au DIMANCHE 8 NOVEMBRE pour faire TOUTES les fiches '
   'de votre espace : les possessifs, les pronoms possessifs, les nombres '
   '(les écrire et les entendre), le masculin/féminin, le bilan et le passé '
   'composé.\n\n'
