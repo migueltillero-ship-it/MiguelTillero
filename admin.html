@@ -371,9 +371,61 @@ details.form-toggle > summary { cursor:pointer; font-family:'Syne', sans-serif; 
                     </p>
                   </div>
                 </div>
+                <!-- Propuesta personal: una página privada con su horario, la
+                     cotización y lo que incluye. Aparece al pulsar «Crear
+                     propuesta» en una fila, como el acuerdo. -->
+                <div id="panel-propuesta" class="panel" style="display:none; margin:1rem 0; background:rgba(13,127,87,0.05);">
+                  <div style="display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap;">
+                    <h3 style="margin:0;" id="pro-titulo"></h3>
+                    <button class="btn pequeno secundario" onclick="cerrarPropuesta()">Cerrar</button>
+                  </div>
+                  <div id="pro-cuenta" class="msg"></div>
+                  <div id="pro-cuerpo" style="display:none;">
+                    <div class="form-grid" style="margin-top:1rem;">
+                      <div class="form-field"><label>Tarifa por hora *</label>
+                        <input id="pro-tarifa" type="number" min="0" step="10" value="350"></div>
+                      <div class="form-field"><label>Horas del paquete *</label>
+                        <input id="pro-paquete" type="number" min="1" step="0.5" value="10"></div>
+                      <div class="form-field"><label>Horas de regalo</label>
+                        <input id="pro-regalo" type="number" min="0" step="0.5" value="2"></div>
+                      <div class="form-field"><label>Minutos por clase</label>
+                        <input id="pro-minutos" type="number" min="15" step="15" value="90"></div>
+                    </div>
+                    <div class="form-field"><label>Bienvenida (aparece arriba, justificada)</label>
+                      <textarea id="pro-mensaje" rows="3"></textarea></div>
+
+                    <p class="muted" style="margin:1rem 0 0.4rem;">Horarios que le ofreces. Ella marca los que prefiera y a ti te llega su elección.
+                      <strong>Confirmado</strong> es lo que pidió y te cuadra; <strong>Alternativa</strong>, lo que propones en su lugar;
+                      <strong>Un día más</strong>, una sesión extra si quiere avanzar rápido.</p>
+                    <div id="pro-slots"></div>
+                    <button class="btn pequeno secundario" onclick="agregarHorarioPropuesta()" style="margin:0.4rem 0 1rem;"><i class="fa-solid fa-plus"></i> Añadir horario</button>
+
+                    <div class="form-field"><label>Cuándo pueden empezar</label>
+                      <textarea id="pro-inicio" rows="2"></textarea></div>
+                    <div class="form-field"><label>Qué incluye (una línea por cosa)</label>
+                      <textarea id="pro-incluye" rows="4"></textarea></div>
+                    <div class="form-field"><label>Lo que sí tiene costo aparte (opcional)</label>
+                      <input id="pro-nota"></div>
+                    <div class="form-field"><label>Tu compromiso</label>
+                      <textarea id="pro-compromiso" rows="3"></textarea></div>
+                    <div id="pro-resumen" class="msg"></div>
+                    <p style="margin-top:1rem;">
+                      <button class="btn" id="pro-crear"><i class="fa-solid fa-wand-magic-sparkles"></i> Crear propuesta</button>
+                    </p>
+                  </div>
+                  <div id="pro-resultado" style="display:none;"></div>
+                </div>
+
                 <table style="margin-top:0.6rem;">
                     <thead><tr><th>Fecha</th><th>Quiere</th><th>Nombre</th><th>Contacto</th><th>Ciudad</th><th>Acciones</th></tr></thead>
                     <tbody id="tabla-prospectos"></tbody>
+                </table>
+
+                <h3 style="margin:2rem 0 0.3rem;">Propuestas enviadas</h3>
+                <p class="muted" style="margin:0 0 0.6rem;">Si la abrieron, si aceptaron y qué comentaron. «Sin abrir» quiere decir que todavía no entró a verla.</p>
+                <table>
+                    <thead><tr><th>Estudiante</th><th>Preparada</th><th>Estado</th><th>Lo que respondió</th></tr></thead>
+                    <tbody id="tabla-propuestas"></tbody>
                 </table>
             </section>
         </div>
@@ -865,6 +917,9 @@ async function cargarProspectos() {
         const botones = [
             `<button class="btn pequeno secundario" onclick="alternarDetalleProspecto('${p.id}')">Ver respuestas</button>`
         ];
+        if (p.estado !== 'descartado' && p.estado !== 'pagado') {
+            botones.push(`<button class="btn pequeno" onclick="abrirPropuesta('${p.id}')">Crear propuesta</button>`);
+        }
         if (!p.contratacion_id && p.estado !== 'descartado') {
             botones.push(`<button class="btn pequeno" onclick="abrirAcuerdo('${p.id}')">Crear acuerdo</button>`);
         }
@@ -905,6 +960,7 @@ async function cargarProspectos() {
     const badge = document.getElementById('badge-prospectos');
     badge.textContent = count || '';
     badge.style.display = count ? 'inline-block' : 'none';
+    cargarPropuestas();
 }
 
 function alternarDetalleProspecto(id) {
@@ -1109,6 +1165,251 @@ function recalcularAcuerdo() {
     caja.textContent = porSemana + ' h por semana · ' + Math.ceil(totales / porSemana) + ' semanas · ' +
         'cobra ' + money(pagadas * precio, 'MXN') +
         (regalo > 0 ? ' · regala ' + regalo + ' h, también agendadas' : '');
+}
+
+/* ── Propuesta personal ────────────────────────────────────────────────────
+ *
+ * Lo que antes eran tres mensajes sueltos —el horario, la cotización y lo que
+ * incluye— es una página privada de la persona, con su marca. Aquí se prepara.
+ * Se crea desde la ficha del prospecto, igual que el acuerdo, y necesita que
+ * la persona tenga cuenta: la propuesta solo se ve con su sesión.
+ */
+let proProspecto = null, proEstudiante = null;
+const DIAS_PRO = { lun:'Lunes', mar:'Martes', mie:'Miércoles', jue:'Jueves', vie:'Viernes', sab:'Sábado', dom:'Domingo' };
+const PRO_DEFECTO = {
+    mensaje: 'Felicitaciones por dar el primer paso. Aprender francés es una decisión que le abrirá muchas puertas, y será un gusto acompañarle en este camino. Esta propuesta reúne su horario, la cotización y todo lo que incluye; revísela con calma y, si le parece bien, deje su horario asegurado con un solo clic.',
+    inicio: 'Como ya tuvimos nuestra primera sesión, podemos comenzar directamente: dígame qué día le conviene y arrancamos.',
+    incluye: [
+        'El libro virtual, el cuaderno de actividades y todo el material complementario, sin ningún costo.',
+        'Acceso a la plataforma educativa, con alrededor de 100 horas de práctica complementaria del nivel A1, sin costo.',
+        'Seguimiento especializado y personalizado de su perfil durante todo el proceso.'
+    ],
+    nota: 'El libro físico es opcional y tiene un costo aparte.',
+    compromiso: 'Cada clase parte de lo que usted necesita. Su espacio en la plataforma crece con el trabajo que hagamos juntos, y me comprometo a darle un seguimiento cercano y personalizado desde la primera sesión.'
+};
+
+/* «17:00» → 5:00 pm. Los rangos que caen en la misma mitad del día no repiten
+   el pm: «5:00 – 6:30 pm» se lee mejor que «5:00 pm – 6:30 pm». */
+function hora12(hhmm) {
+    const [h, m] = String(hhmm).split(':').map(Number);
+    return { txt: (h % 12 || 12) + ':' + String(m || 0).padStart(2, '0'), mer: h >= 12 ? 'pm' : 'am' };
+}
+function rangoBonito(desde, hasta) {
+    const a = hora12(desde), b = hora12(hasta);
+    return a.mer === b.mer ? `${a.txt} – ${b.txt} ${b.mer}` : `${a.txt} ${a.mer} – ${b.txt} ${b.mer}`;
+}
+
+function agregarHorarioPropuesta(tipo, dia, hora, nota) {
+    const fila = document.createElement('div');
+    fila.className = 'pro-slot';
+    fila.style.cssText = 'display:grid; grid-template-columns:150px 130px 1fr 1.4fr auto; gap:0.5rem; margin-bottom:0.5rem; align-items:center;';
+    const sel = document.createElement('select');
+    [['confirmado', 'Confirmado'], ['alternativa', 'Alternativa'], ['extra', 'Un día más']].forEach(function (o) {
+        const op = document.createElement('option'); op.value = o[0]; op.textContent = o[1]; sel.appendChild(op);
+    });
+    sel.value = tipo || 'confirmado';
+    const campo = function (ph, v) {
+        const i = document.createElement('input'); i.placeholder = ph; i.value = v || '';
+        i.style.cssText = 'width:100%; padding:0.6rem; border:1px solid var(--border); border-radius:8px; font-family:inherit; font-size:1rem;';
+        return i;
+    };
+    sel.style.cssText = 'width:100%; padding:0.6rem; border:1px solid var(--border); border-radius:8px; font-family:inherit; font-size:1rem;';
+    const quitar = document.createElement('button');
+    quitar.className = 'btn pequeno secundario'; quitar.type = 'button';
+    quitar.innerHTML = '<i class="fa-solid fa-xmark"></i>'; quitar.title = 'Quitar';
+    quitar.onclick = function () { fila.remove(); };
+    fila.appendChild(sel);
+    fila.appendChild(campo('Día', dia));
+    fila.appendChild(campo('Hora, p. ej. 5:00 – 6:30 pm', hora));
+    fila.appendChild(campo('Nota (opcional)', nota));
+    fila.appendChild(quitar);
+    document.getElementById('pro-slots').appendChild(fila);
+}
+
+async function abrirPropuesta(id) {
+    const { data: p } = await supabaseClient.from('prospectos').select('*').eq('id', id).single();
+    if (!p) return;
+    proProspecto = p; proEstudiante = null;
+
+    document.getElementById('panel-propuesta').style.display = 'block';
+    document.getElementById('panel-propuesta').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('pro-titulo').textContent = 'Propuesta para ' + (p.nombre || '');
+    document.getElementById('pro-resultado').style.display = 'none';
+    document.getElementById('pro-resumen').style.display = 'none';
+    const aviso = document.getElementById('pro-cuenta');
+    const cuerpo = document.getElementById('pro-cuerpo');
+
+    const { data: enc } = await supabaseClient.rpc('buscar_estudiante', { p_email: p.email });
+    const perfil = Array.isArray(enc) ? enc[0] : enc;
+    if (!perfil) {
+        cuerpo.style.display = 'none';
+        aviso.className = 'msg error'; aviso.style.display = 'block';
+        aviso.textContent = 'Todavía no tiene cuenta con el correo ' + p.email + '. La propuesta solo se ve con su ' +
+            'sesión, así que necesita registrarse primero con ese mismo correo. Cuando lo haga, vuelve aquí.';
+        return;
+    }
+    proEstudiante = perfil;
+    aviso.className = 'msg ok'; aviso.style.display = 'block';
+    aviso.textContent = 'Cuenta encontrada: ' + (perfil.nombre_completo || p.email);
+    cuerpo.style.display = 'block';
+
+    const r = p.respuestas || {};
+    const paquete = parseFloat(String(r.horas || '').replace(/[^0-9.]/g, '')) || 10;
+    document.getElementById('pro-tarifa').value = 350;
+    document.getElementById('pro-paquete').value = paquete;
+    document.getElementById('pro-regalo').value = paquete >= 10 ? 2 : 0;
+    const minutos = r.horas_semana ? Math.round(parseFloat(r.horas_semana) * 60) : 90;
+    document.getElementById('pro-minutos').value = isFinite(minutos) && minutos >= 15 ? minutos : 90;
+    document.getElementById('pro-mensaje').value = PRO_DEFECTO.mensaje;
+    document.getElementById('pro-inicio').value = PRO_DEFECTO.inicio;
+    document.getElementById('pro-incluye').value = PRO_DEFECTO.incluye.join('\n');
+    document.getElementById('pro-nota').value = PRO_DEFECTO.nota;
+    document.getElementById('pro-compromiso').value = PRO_DEFECTO.compromiso;
+
+    /* Los horarios arrancan de lo que pidió: se corrigen, no se reescriben. */
+    document.getElementById('pro-slots').innerHTML = '';
+    const h = r.horario || {};
+    let alguno = false;
+    ['lun', 'mar', 'mie', 'jue', 'vie', 'sab', 'dom'].forEach(function (k) {
+        if (h[k] && h[k].desde && h[k].hasta) {
+            agregarHorarioPropuesta('confirmado', DIAS_PRO[k], rangoBonito(h[k].desde, h[k].hasta));
+            alguno = true;
+        }
+    });
+    if (!alguno) agregarHorarioPropuesta('confirmado', '', '');
+}
+
+function cerrarPropuesta() {
+    document.getElementById('panel-propuesta').style.display = 'none';
+    proProspecto = null; proEstudiante = null;
+}
+
+function leerHorariosPropuesta() {
+    const salida = { confirmados: [], alternativas: [], extras: [] };
+    document.querySelectorAll('#pro-slots .pro-slot').forEach(function (fila) {
+        const [tipo, dia, hora, nota] = Array.from(fila.querySelectorAll('select, input')).map(e => e.value.trim());
+        if (!dia || !hora) return;
+        const item = { dia: dia, hora: hora };
+        if (nota) item.nota = nota;
+        (tipo === 'alternativa' ? salida.alternativas : tipo === 'extra' ? salida.extras : salida.confirmados).push(item);
+    });
+    return salida;
+}
+
+document.addEventListener('click', async function (e) {
+    if (e.target.id !== 'pro-crear' && !e.target.closest('#pro-crear')) return;
+    if (!proProspecto || !proEstudiante) return;
+    const caja = document.getElementById('pro-resumen');
+    const falla = function (t) { caja.className = 'msg error'; caja.style.display = 'block'; caja.textContent = t; };
+
+    const tarifa = parseFloat(document.getElementById('pro-tarifa').value) || 0;
+    const paquete = parseFloat(document.getElementById('pro-paquete').value) || 0;
+    const regalo = parseFloat(document.getElementById('pro-regalo').value) || 0;
+    const horario = leerHorariosPropuesta();
+    if (tarifa <= 0 || paquete <= 0) return falla('La tarifa y las horas del paquete tienen que ser mayores que cero.');
+    if (!horario.confirmados.length && !horario.alternativas.length && !horario.extras.length) {
+        return falla('Pon al menos un horario, con su día y su hora.');
+    }
+    const inicio = document.getElementById('pro-inicio').value.trim();
+    if (inicio) horario.inicio = inicio;
+
+    const b = document.getElementById('pro-crear');
+    b.disabled = true; b.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Creando…';
+    const { data, error } = await supabaseClient.from('propuestas').insert({
+        estudiante_id: proEstudiante.id,
+        mensaje: document.getElementById('pro-mensaje').value.trim() || null,
+        horario: horario,
+        duracion_minutos: parseInt(document.getElementById('pro-minutos').value, 10) || null,
+        tarifa: tarifa, moneda: 'MXN', horas_paquete: paquete, horas_regalo: regalo,
+        incluye: document.getElementById('pro-incluye').value.split('\n').map(l => l.trim()).filter(Boolean),
+        nota_incluye: document.getElementById('pro-nota').value.trim() || null,
+        compromiso: document.getElementById('pro-compromiso').value.trim() || null
+    }).select().single();
+    b.disabled = false; b.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Crear propuesta';
+    if (error) return falla('No se pudo crear: ' + error.message);
+
+    mostrarPropuestaCreada(data);
+    cargarPropuestas();
+});
+
+/* Al crearla, lo siguiente es hacérsela llegar: el enlace, un WhatsApp corto y
+   el correo ya redactado en Gmail, donde se programa para la hora que sea. */
+function mostrarPropuestaCreada(fila) {
+    const p = proProspecto, url = new URL('propuesta.html', window.location.href).href;
+    const nombre = (p.nombre || '').split(' ')[0];
+    const asunto = nombre + ', su propuesta para aprender francés ya está lista';
+    const correo = 'Hola, ' + nombre + ':\n\n' +
+        'Felicitaciones por dar el primer paso. Aprender francés le abrirá muchas puertas, y será un gusto acompañarle.\n\n' +
+        'Preparé una propuesta con su horario ya confirmado, la cotización y todo lo que incluye. Puede revisarla con calma y, si le parece bien, dejar su horario asegurado con un solo clic.\n\n' +
+        'Ver mi propuesta: ' + url + '\n\n' +
+        'Para entrar, use el correo y la contraseña con los que se inscribió. Si prefiere comentarme algo, hay un espacio para eso en la misma página.\n\n' +
+        'Miguel Tillero\nProfesor de francés · San Cristóbal de Las Casas';
+    const wa = 'Hola, ' + nombre + ' 😊 Le dejo su propuesta de aprendizaje, con su horario y todo lo que incluye: ' + url +
+        ' . Para entrar, use el correo y la contraseña con los que se inscribió.';
+    const tel = String(p.telefono || '').replace(/[^0-9]/g, '');
+
+    document.getElementById('pro-cuerpo').style.display = 'none';
+    const r = document.getElementById('pro-resultado');
+    r.style.display = 'block'; r.innerHTML = '';
+    const ok = document.createElement('div'); ok.className = 'msg ok'; ok.style.display = 'block';
+    ok.textContent = 'Propuesta creada. Ya la puede ver ' + (p.nombre || '') + ' al entrar con su cuenta.';
+    r.appendChild(ok);
+
+    const enlace = document.createElement('p');
+    enlace.style.cssText = 'margin:1rem 0 0.4rem; word-break:break-all;';
+    enlace.textContent = url; r.appendChild(enlace);
+
+    const fila2 = document.createElement('p'); fila2.style.cssText = 'display:flex; gap:0.6rem; flex-wrap:wrap;';
+    const boton = function (txt, icono, href) {
+        const a = document.createElement(href ? 'a' : 'button'); a.className = 'btn pequeno';
+        a.innerHTML = '<i class="' + icono + '"></i> ' + txt;
+        if (href) { a.href = href; a.target = '_blank'; a.rel = 'noopener'; a.style.textDecoration = 'none'; }
+        return a;
+    };
+    const copiar = boton('Copiar enlace', 'fa-solid fa-copy');
+    copiar.onclick = function () { try { navigator.clipboard.writeText(url); copiar.textContent = '¡Copiado!'; } catch (e) {} };
+    fila2.appendChild(copiar);
+    if (tel) fila2.appendChild(boton('Avisar por WhatsApp', 'fab fa-whatsapp', 'https://wa.me/' + tel + '?text=' + encodeURIComponent(wa)));
+    fila2.appendChild(boton('Preparar el correo en Gmail', 'fa-regular fa-envelope',
+        'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(p.email) +
+        '&su=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(correo)));
+    r.appendChild(fila2);
+    const nota = document.createElement('p'); nota.className = 'muted';
+    nota.textContent = 'En Gmail, la flecha junto a «Enviar» tiene «Programar envío» para dejarlo a la hora que quieras.';
+    r.appendChild(nota);
+}
+
+/* Lo enviado: si la abrieron, si aceptaron y qué comentaron. «Sin abrir» es
+   información útil: quiere decir que no ha visto el mensaje, no que dijo que no. */
+async function cargarPropuestas() {
+    const cuerpo = document.getElementById('tabla-propuestas');
+    if (!cuerpo) return;
+    try {
+        const cols = 'id, creado_en, estado, visto_en, aceptada_en, estudiante_id';
+        let { data, error } = await supabaseClient.from('propuestas')
+            .select(cols + ', profiles(nombre_completo)').order('creado_en', { ascending: false }).limit(30);
+        if (error) ({ data } = await supabaseClient.from('propuestas')
+            .select(cols).order('creado_en', { ascending: false }).limit(30));
+        data = data || [];
+        let respuestas = [];
+        if (data.length) {
+            const rs = await supabaseClient.from('propuesta_respuestas').select('propuesta_id, tipo, texto, creado_en')
+                .in('propuesta_id', data.map(x => x.id)).order('creado_en');
+            respuestas = rs.data || [];
+        }
+        const dia = iso => new Date(iso).toLocaleDateString('es-MX', { day: 'numeric', month: 'short' });
+        cuerpo.innerHTML = data.map(function (x) {
+            const estado = x.aceptada_en ? `<span class="badge activa">Aceptada el ${dia(x.aceptada_en)}</span>`
+                : x.visto_en ? `<span class="badge pendiente">Vista el ${dia(x.visto_en)}</span>`
+                : '<span class="muted">Sin abrir</span>';
+            const dichas = respuestas.filter(r => r.propuesta_id === x.id).map(function (r) {
+                if (r.tipo === 'comentario') return `<div><strong>Comentó:</strong> ${esc(r.texto)}</div>`;
+                return r.texto ? `<div><strong>Eligió:</strong> ${esc(r.texto)}</div>` : '<div>Aceptó.</div>';
+            }).join('');
+            const nombre = (x.profiles && x.profiles.nombre_completo) || 'Estudiante';
+            return `<tr><td>${esc(nombre)}</td><td>${dia(x.creado_en)}</td><td>${estado}</td><td>${dichas || '<span class="muted">—</span>'}</td></tr>`;
+        }).join('') || '<tr><td colspan="4" class="muted">Todavía no has enviado ninguna propuesta.</td></tr>';
+    } catch (e) { console.warn('No se pudieron cargar las propuestas:', e); }
 }
 
 function cerrarAcuerdo() {
