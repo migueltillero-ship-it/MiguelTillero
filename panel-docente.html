@@ -294,6 +294,12 @@ th { font-family:'Syne', sans-serif; font-size:0.83rem; text-transform:uppercase
                     <thead><tr><th>Estudiante</th><th>Presente</th><th>Observación</th></tr></thead>
                     <tbody id="tabla-asistencia"></tbody>
                 </table>
+                <!-- Lo normal es que vengan todos. Empezar por ahí y destildar
+                     al que faltó es un clic en vez de uno por persona, y es la
+                     diferencia entre pasar lista siempre y no pasarla nunca. -->
+                <button class="btn pequeno secundario" onclick="marcarTodosPresentes()" id="btn-todos-presentes" style="display:none; margin-top:1rem;">
+                    <i class="fa-solid fa-check-double"></i> Todos presentes
+                </button>
                 <button class="btn pequeno" onclick="guardarAsistencia()" id="btn-guardar-asistencia" style="display:none; margin-top:1rem;">
                     <i class="fa-solid fa-floppy-disk"></i> Guardar asistencia
                 </button>
@@ -327,7 +333,12 @@ th { font-family:'Syne', sans-serif; font-size:0.83rem; text-transform:uppercase
                     <div class="form-field"><label>Nombre de la evaluación *</label><input id="ev-nombre" placeholder="Ej. Examen módulo 3"></div>
                     <div class="form-field"><label>Fecha</label><input id="ev-fecha" type="date"></div>
                     <div class="form-field"><label>Ponderación (%)</label><input id="ev-pond" type="number" min="0" max="100"></div>
+                    <div class="form-field"><label>Nota máxima</label><input id="ev-max" type="number" min="1" value="100" placeholder="100"></div>
                 </div>
+                <p class="muted" style="margin:-0.4rem 0 0.9rem;">
+                    La nota máxima es sobre cuánto se califica. Sin ella, un 19 no se sabe
+                    si es sobre 20 o sobre 100, y el promedio del ciclo sale mal.
+                </p>
                 <button class="btn pequeno" onclick="crearEvaluacion()"><i class="fa-solid fa-plus"></i> Añadir evaluación</button>
                 <div id="msg-evaluacion" class="msg"></div>
 
@@ -549,6 +560,27 @@ async function iniciar() {
 }
 
 // ---- DATOS DE TODOS LOS CURSOS (para Hoy y Calendario) ----
+/* Qué sesiones ya tienen la lista pasada. Sin esto, el desplegable de
+   asistencia son doce fechas iguales y no hay forma de saber cuál falta:
+   es justo el dato que hace que al final del ciclo no haya ninguna. */
+let sesionesConLista = new Set();
+
+async function cargarListasPasadas() {
+    const ids = todasSesiones.map(x => x.id);
+    if (!ids.length) { sesionesConLista = new Set(); return; }
+    const { data } = await supabaseClient.from('asistencia').select('sesion_id').in('sesion_id', ids);
+    sesionesConLista = new Set((data || []).map(a => a.sesion_id));
+}
+
+/* Las sesiones ya pasadas a las que todavía no se les ha pasado lista.
+   Las futuras no cuentan: no es una tarea pendiente, es que no han ocurrido. */
+function listasPendientesDe(cursoId) {
+    const hoy = new Date().toISOString().slice(0, 10);
+    return todasSesiones.filter(x => x.curso_id === cursoId
+                                  && x.fecha <= hoy
+                                  && !sesionesConLista.has(x.id));
+}
+
 async function cargarDatosGlobales() {
     const ids = cursos.map(c => c.id);
     if (!ids.length) {
@@ -563,6 +595,7 @@ async function cargarDatosGlobales() {
         todosHorarios = hor.data || [];
         inscripcionesTodas = ins.data || [];
     }
+    await cargarListasPasadas();
     pintarHoy();
     pintarCalendario();
 }
@@ -750,6 +783,8 @@ async function cargarCursos() {
             <div class="muted" style="margin:0.3rem 0 0; font-size:0.95rem;">${c.fecha_inicio || '—'} → ${c.fecha_fin || '—'}</div>
             <span class="estado">${c.estado}</span>
             ${g ? `<span class="estado" style="margin-left:0.4rem;">${g.cupo_actual}/${g.cupo_maximo} cupo</span>` : ''}
+            ${(() => { const n = listasPendientesDe(c.id).length;
+                       return n ? `<span class="estado" style="margin-left:0.4rem; background:rgba(176,74,58,.12); color:var(--danger); font-weight:600;">${n} lista${n > 1 ? 's' : ''} sin pasar</span>` : ''; })()}
         </div>
     `;
     }).join('');
@@ -1016,7 +1051,13 @@ async function cargarSesiones() {
 
     const sel = document.getElementById('asistencia-sesion');
     sel.innerHTML = '<option value="">Selecciona una sesión</option>' +
-        sesionesActuales.map(s => `<option value="${s.id}">${s.fecha} — ${esc(s.tema || 'Sin tema')}</option>`).join('');
+        sesionesActuales.map(s => {
+            const hecha = sesionesConLista.has(s.id);
+            const futura = s.fecha > new Date().toISOString().slice(0, 10);
+            const marca = hecha ? '✓' : (futura ? '·' : '⚠');
+            return `<option value="${s.id}">${marca} ${s.fecha} — ${esc(s.tema || 'Sin tema')}`
+                 + `${hecha ? '' : (futura ? ' (aún no toca)' : ' — SIN PASAR')}</option>`;
+        }).join('');
 
     const selEv = document.getElementById('ev-fecha');
 }
@@ -1061,6 +1102,12 @@ async function cargarAsistencia() {
     }).join('') || '<tr><td colspan="3" class="muted">No hay estudiantes activos en este curso.</td></tr>';
 
     btn.style.display = estudiantesActivosActuales.length ? 'inline-block' : 'none';
+    document.getElementById('btn-todos-presentes').style.display =
+        estudiantesActivosActuales.length ? 'inline-block' : 'none';
+}
+
+function marcarTodosPresentes() {
+    document.querySelectorAll('#tabla-asistencia .chk-presente').forEach(c => c.checked = true);
 }
 
 async function guardarAsistencia() {
@@ -1074,6 +1121,7 @@ async function guardarAsistencia() {
         observacion: tr.querySelector('.txt-observacion').value.trim() || null
     }));
     const { error } = await supabaseClient.from('asistencia').upsert(registros, { onConflict: 'sesion_id,estudiante_id' });
+    if (!error) { sesionesConLista.add(sesionId); pintarCursos(); await cargarSesiones(); document.getElementById('asistencia-sesion').value = sesionId; }
     if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
     mostrarMsg(msgEl, 'Asistencia guardada.', 'ok');
 }
@@ -1162,12 +1210,14 @@ async function crearEvaluacion() {
         curso_id: cursoActualId,
         nombre,
         fecha: document.getElementById('ev-fecha').value || null,
-        ponderacion: document.getElementById('ev-pond').value || null
+        ponderacion: document.getElementById('ev-pond').value || null,
+        nota_maxima: document.getElementById('ev-max').value || 100
     });
     if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
     document.getElementById('ev-nombre').value = '';
     document.getElementById('ev-fecha').value = '';
     document.getElementById('ev-pond').value = '';
+    document.getElementById('ev-max').value = '100';
     await cargarEvaluaciones();
 }
 
