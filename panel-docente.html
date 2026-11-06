@@ -91,6 +91,13 @@ th { font-family:'Syne', sans-serif; font-size:0.83rem; text-transform:uppercase
   #modal-ficha { display:flex !important; position:static; background:none; }
   #modal-ficha .ficha-box { box-shadow:none; }
 }
+.peticion-d { border:1px solid var(--border); border-left:4px solid #c2603c; border-radius:var(--r-sm); padding:1rem 1.1rem; margin-bottom:0.9rem; background:#fff; }
+.peticion-d .p-cab { display:flex; gap:0.6rem; align-items:baseline; flex-wrap:wrap; }
+.peticion-d .p-quien { font-weight:700; } .peticion-d .p-tema { color:var(--accent-green); font-weight:600; }
+.peticion-d .p-fecha { color:#6b7a70; font-size:0.85rem; margin-left:auto; }
+.peticion-d .p-detalle { margin:0.5rem 0 0.7rem; white-space:pre-line; }
+.peticion-d textarea { width:100%; padding:0.6rem 0.75rem; border:1px solid var(--border); border-radius:8px; font:inherit; min-height:4rem; resize:vertical; }
+.peticion-d .p-acc { margin-top:0.6rem; display:flex; gap:0.6rem; align-items:center; flex-wrap:wrap; }
 </style>
 <link rel="stylesheet" href="assets/css/lite.css?v=109">
 </head>
@@ -122,6 +129,12 @@ th { font-family:'Syne', sans-serif; font-size:0.83rem; text-transform:uppercase
                 <h2 id="titulo-hoy">Hoy</h2>
                 <div class="stat-row" id="resumen-hoy"></div>
                 <div id="avisos-hoy"></div>
+            </section>
+
+            <section class="panel" id="panel-ayuda" style="display:none;">
+                <h2>Quién ha pedido ayuda <span id="n-ayuda" class="estado" style="vertical-align:middle;"></span></h2>
+                <p class="muted" style="margin:-0.4rem 0 1rem;">Lo que no has contestado va primero. Al responder, le aparece en su espacio.</p>
+                <div id="lista-ayuda-docente"></div>
             </section>
 
             <section class="panel">
@@ -581,6 +594,40 @@ function listasPendientesDe(cursoId) {
                                   && !sesionesConLista.has(x.id));
 }
 
+/* ── Peticiones de ayuda ──────────────────────────────────────────────
+   Si la tabla no existe todavía, el bloque simplemente no aparece. */
+async function cargarAyudaPendiente() {
+    const panel = document.getElementById('panel-ayuda');
+    const { data, error } = await supabaseClient.from('solicitudes_ayuda')
+        .select('*').eq('estado', 'abierta').order('creada_en', { ascending: true });
+    if (error || !data || !data.length) { panel.style.display = 'none'; return; }
+    const ids = [...new Set(data.map(x => x.estudiante_id))];
+    const { data: ps } = await supabaseClient.from('profiles').select('id,nombre_completo').in('id', ids);
+    const nombre = {}; (ps || []).forEach(p => nombre[p.id] = p.nombre_completo);
+    panel.style.display = 'block';
+    document.getElementById('n-ayuda').textContent = data.length + ' sin atender';
+    document.getElementById('lista-ayuda-docente').innerHTML = data.map(x => `
+        <div class="peticion-d" data-id="${x.id}">
+            <div class="p-cab"><span class="p-quien">${esc(nombre[x.estudiante_id] || 'Estudiante')}</span>
+                <span class="p-tema">${esc(x.tema)}</span>
+                <span class="p-fecha">${esc(new Date(x.creada_en).toLocaleString('es-MX', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' }))}</span></div>
+            ${x.detalle ? `<p class="p-detalle">${esc(x.detalle)}</p>` : ''}
+            <textarea placeholder="Tu respuesta…"></textarea>
+            <div class="p-acc"><button class="btn pequeno" onclick="responderAyuda('${x.id}', this)"><i class="fa-solid fa-paper-plane"></i> Responder</button></div>
+        </div>`).join('');
+}
+
+async function responderAyuda(id, boton) {
+    const caja = boton.closest('.peticion-d');
+    const texto = caja.querySelector('textarea').value.trim();
+    if (!texto) { caja.querySelector('textarea').focus(); return; }
+    boton.disabled = true;
+    const { error } = await supabaseClient.from('solicitudes_ayuda')
+        .update({ respuesta: texto, estado: 'respondida', respondida_en: new Date().toISOString() }).eq('id', id);
+    if (error) { boton.disabled = false; alert('No se guardó: ' + error.message); return; }
+    await cargarAyudaPendiente();
+}
+
 async function cargarDatosGlobales() {
     const ids = cursos.map(c => c.id);
     if (!ids.length) {
@@ -596,6 +643,7 @@ async function cargarDatosGlobales() {
         inscripcionesTodas = ins.data || [];
     }
     await cargarListasPasadas();
+    await cargarAyudaPendiente();
     pintarHoy();
     pintarCalendario();
 }

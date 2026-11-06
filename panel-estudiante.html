@@ -95,6 +95,24 @@ th { font-family:'Syne', sans-serif; font-size:0.83rem; text-transform:uppercase
 .avisos { display:grid; gap:0.9rem; }
 .aviso-item { border:1px solid var(--border); border-left:4px solid var(--accent-green);
     border-radius:var(--r-xs); padding:1rem 1.2rem; background:rgba(43,69,53,0.04); }
+/* Pedir ayuda */
+.form-ayuda { display:grid; gap:0.55rem; max-width:640px; }
+.form-ayuda label { font-weight:600; color:var(--accent-green); font-size:0.95rem; }
+.form-ayuda input, .form-ayuda textarea { padding:0.7rem 0.85rem; border:1.5px solid var(--border); border-radius:12px; font:inherit; background:#fff; width:100%; }
+.form-ayuda input:focus, .form-ayuda textarea:focus { outline:none; border-color:var(--accent-green); box-shadow:0 0 0 3px rgba(43,69,53,0.12); }
+.ay-msg { min-height:1.3rem; font-size:0.95rem; }
+.ay-msg.ok { color:var(--accent-green); } .ay-msg.mal { color:#b4432f; }
+.peticion { border:1px solid var(--border); border-left:4px solid var(--gold); border-radius:12px; padding:1rem 1.1rem; margin-bottom:0.8rem; background:#fff; }
+.peticion.respondida { border-left-color:var(--accent-green); }
+.peticion .p-cab { display:flex; gap:0.6rem; align-items:baseline; flex-wrap:wrap; }
+.peticion .p-tema { font-weight:700; }
+.peticion .p-fecha { color:var(--text-muted, #6b7a70); font-size:0.85rem; }
+.peticion .p-estado { margin-left:auto; font-size:0.78rem; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color:var(--gold); }
+.peticion.respondida .p-estado { color:var(--accent-green); }
+.peticion .p-detalle { margin:0.5rem 0 0; white-space:pre-line; }
+.peticion .p-resp { margin-top:0.8rem; padding:0.8rem 1rem; background:rgba(43,69,53,0.07); border-radius:10px; white-space:pre-line; }
+.peticion .p-resp b { display:block; color:var(--accent-green); margin-bottom:0.25rem; }
+.punto-ayuda { display:inline-block; min-width:1.15rem; height:1.15rem; padding:0 0.3rem; border-radius:999px; background:#c2603c; color:#fff; font-size:0.72rem; line-height:1.15rem; text-align:center; margin-left:0.25rem; }
 .aviso-item.tipo-aviso { border-left-color:var(--gold); background:rgba(176,141,87,0.07); }
 .aviso-item.tipo-importante { border-left-color:#c2603c; background:rgba(194,96,60,0.07); }
 .aviso-item .a-tit { font-weight:600; color:var(--accent-green); margin-bottom:0.3rem; }
@@ -326,6 +344,7 @@ select { padding:0.7rem; border:1px solid var(--border); border-radius:8px; font
             <button class="sec-btn" data-sec="curso" onclick="cambiarSeccion('curso')">Mi curso</button>
             <button class="sec-btn" data-sec="resultados" onclick="cambiarSeccion('resultados')">Mis resultados</button>
             <button class="sec-btn" data-sec="materiales" onclick="cambiarSeccion('materiales')">Materiales</button>
+            <button class="sec-btn" data-sec="ayuda" onclick="cambiarSeccion('ayuda')">Pedir ayuda <span id="punto-ayuda" class="punto-ayuda" style="display:none;"></span></button>
             <button class="sec-btn" data-sec="pagos" onclick="cambiarSeccion('pagos')">Mis pagos</button>
         </nav>
 
@@ -419,6 +438,32 @@ select { padding:0.7rem; border:1px solid var(--border); border-radius:8px; font
                 <p class="muted" style="margin:-0.5rem 0 1.3rem;">Todo lo que hemos trabajado, con sus refuerzos y sus juegos. Vuelve cuando quieras.</p>
                 <div class="materiales" id="lista-materiales"></div>
                 <p class="vacio" id="sin-materiales" style="display:none;">Todavía no hay materiales cargados para tu curso.</p>
+            </section>
+        </div>
+
+        <div class="seccion" id="sec-ayuda" style="display:none;">
+            <section class="panel">
+                <h2>Pídele ayuda a Miguel</h2>
+                <p class="muted" style="margin:-0.5rem 0 1.3rem;">
+                    ¿Algo no te quedó claro? No esperes a la siguiente clase: cuéntame qué es y te
+                    respondo aquí. Cuanto más concreto seas, mejor te puedo ayudar.
+                </p>
+                <div class="form-ayuda">
+                    <label for="ay-tema">¿Sobre qué tema?</label>
+                    <input id="ay-tema" maxlength="120" placeholder="Ej. El participio de los verbos en -ir">
+                    <label for="ay-detalle">¿Qué es lo que no entiendes? <span class="muted" style="font-weight:400;">(opcional)</span></label>
+                    <textarea id="ay-detalle" rows="4" maxlength="1500"
+                        placeholder="Escribe un ejemplo, una frase que no te sale, o lo que pensabas que era…"></textarea>
+                    <div>
+                        <button class="btn" id="ay-enviar" onclick="enviarAyuda()"><i class="fa-solid fa-paper-plane"></i> Enviar a Miguel</button>
+                    </div>
+                    <div id="ay-msg" class="ay-msg" role="status"></div>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Tus peticiones</h2>
+                <div id="lista-ayuda"></div>
             </section>
         </div>
 
@@ -536,6 +581,7 @@ async function iniciar() {
 
     await cargarMisPagos();
     await cargarAvisos();
+    await cargarAyuda();
 
     const activa = inscripciones.find(i => i.estado === 'activa') || inscripciones[0];
     sel.value = activa.id;
@@ -548,6 +594,51 @@ async function iniciar() {
 // aparece: un aviso de más no debe romper el resto del panel.
 const ICONO_AVISO = { info: 'fa-circle-info', aviso: 'fa-bell', importante: 'fa-triangle-exclamation' };
 const PESO_AVISO  = { importante: 0, aviso: 1, info: 2 };
+
+/* ── Pedir ayuda ──────────────────────────────────────────────────────
+   Si la tabla todavía no existe en la base, la pestaña avisa en vez de romper
+   el resto del panel: una función nueva no debe tumbar lo que ya funcionaba. */
+async function cargarAyuda() {
+    const caja = document.getElementById('lista-ayuda');
+    const { data, error } = await supabaseClient.from('solicitudes_ayuda')
+        .select('*').eq('estudiante_id', perfilEstudiante.id).order('creada_en', { ascending: false });
+    if (error) {
+        caja.innerHTML = '<p class="vacio">Esta sección todavía no está activa. Vuelve en un rato.</p>';
+        document.getElementById('ay-enviar').disabled = true;
+        return;
+    }
+    const lista = data || [];
+    const respondidas = lista.filter(x => x.estado === 'respondida').length;
+    const punto = document.getElementById('punto-ayuda');
+    punto.textContent = respondidas; punto.style.display = respondidas ? 'inline-block' : 'none';
+    punto.title = respondidas + ' respuesta' + (respondidas > 1 ? 's' : '') + ' de Miguel';
+    caja.innerHTML = lista.length ? lista.map(x => `
+        <div class="peticion ${x.estado === 'respondida' ? 'respondida' : ''}">
+            <div class="p-cab"><span class="p-tema">${esc(x.tema)}</span>
+                <span class="p-fecha">${esc(new Date(x.creada_en).toLocaleDateString('es-MX', { day:'numeric', month:'short' }))}</span>
+                <span class="p-estado">${x.estado === 'respondida' ? 'Respondida' : (x.estado === 'cerrada' ? 'Cerrada' : 'Esperando a Miguel')}</span></div>
+            ${x.detalle ? `<p class="p-detalle">${esc(x.detalle)}</p>` : ''}
+            ${x.respuesta ? `<div class="p-resp"><b>Miguel te responde</b>${esc(x.respuesta)}</div>` : ''}
+        </div>`).join('')
+        : '<p class="vacio">Todavía no has pedido ayuda. Cuando algo se te atasque, aquí es.</p>';
+}
+
+async function enviarAyuda() {
+    const msg = document.getElementById('ay-msg'), btn = document.getElementById('ay-enviar');
+    const tema = document.getElementById('ay-tema').value.trim();
+    const detalle = document.getElementById('ay-detalle').value.trim();
+    const decir = (t, c) => { msg.textContent = t; msg.className = 'ay-msg ' + c; };
+    if (tema.length < 3) return decir('Dime sobre qué tema, aunque sea en pocas palabras.', 'mal');
+    btn.disabled = true; decir('Enviando…', '');
+    const { error } = await supabaseClient.from('solicitudes_ayuda')
+        .insert({ estudiante_id: perfilEstudiante.id, tema, detalle: detalle || null });
+    btn.disabled = false;
+    if (error) return decir(error.message.indexOf('5 peticiones') >= 0 ? error.message
+                            : 'No se pudo enviar. Inténtalo de nuevo en un momento.', 'mal');
+    document.getElementById('ay-tema').value = ''; document.getElementById('ay-detalle').value = '';
+    decir('Enviada. Miguel la verá y te responde aquí mismo.', 'ok');
+    await cargarAyuda();
+}
 
 async function cargarAvisos() {
     const panel = document.getElementById('panel-avisos');
