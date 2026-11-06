@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verificar acuerdo | Miguel Tillero</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Syne:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#a5824a;--green:#0d7f57;--ink:#12291c;--bg:radial-gradient(ellipse 80% 80% at 50% 40%,#c5e0d3 0%,#b8d9ca 55%,#a5cdbf 100%)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;padding:16px;color:var(--ink);font-family:'Syne',sans-serif;background:var(--bg)}
+.tarjeta{width:100%;max-width:460px;background:rgba(255,255,255,.94);border:1px solid rgba(165,130,74,.38);border-radius:20px;padding:2rem 1.5rem;text-align:center}
+h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.7rem;margin:.4rem 0}
+.sello{font-size:2.6rem}
+.nombre{font-family:'Cormorant Garamond',serif;font-size:1.6rem;margin:.8rem 0 .2rem}
+small{color:rgba(18,41,28,.75)}
+.ok{color:var(--green)} .no{color:#9a3b2e}
+a{color:var(--gold)}
+</style>
+</head>
+<body>
+<main class="tarjeta" id="t"><p>Comprobando…</p></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/js/supabase-config.js?v=1790462574"></script>
+<script>
+(async function(){
+  var t=document.getElementById('t'), q=new URLSearchParams(location.search);
+  function no(){ t.innerHTML='<div class="sello no">✕</div><h1>No se pudo verificar</h1><small>El enlace está incompleto o no corresponde a un acuerdo firmado. Si crees que es un error, escribe a Miguel.</small>'; }
+  try{
+    var r=await supabaseClient.rpc('verificar_acuerdo',{p_numero:q.get('n')||'',p_codigo:q.get('c')||''});
+    var d=r.data&&r.data[0];
+    if(r.error||!d) return no();
+    var f=new Date(d.firmado_en).toLocaleString('es-MX',{dateStyle:'long',timeStyle:'short'});
+    t.innerHTML='<div class="sello ok">✓</div><h1>Acuerdo firmado</h1><small></small><div class="nombre"></div><small id="f"></small>';
+    t.querySelector('small').textContent='Acuerdo '+d.numero+' · Miguel Tillero';
+    t.querySelector('.nombre').textContent=d.firmante||'';
+    document.getElementById('f').textContent='Firmado el '+f+(d.reglamento_en?' · reglamento confirmado':'');
+  }catch(e){ no(); }
+})();
+</script>
+</body>
+</html>

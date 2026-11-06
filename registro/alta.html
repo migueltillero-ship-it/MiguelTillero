@@ -366,7 +366,7 @@
             <div class="step"><span>3</span> En qué quedamos</div>
         </div>
 
-        <form action="https://api.web3forms.com/submit" method="POST">
+        <form id="form-alta-expres" action="https://api.web3forms.com/submit" method="POST">
             <input type="hidden" name="access_key" value="b916dcfc-fd99-4464-a963-7913e8b6799a">
             <input type="hidden" name="redirect" value="https://migueltillero-ship-it.github.io/MiguelTillero/gracias.html">
             <input type="hidden" name="subject" value="Ficha exprés de alta - Miguel Tillero">
@@ -1697,6 +1697,44 @@ window.addEventListener('DOMContentLoaded', function() {
   }
   document.addEventListener('DOMContentLoaded', ajustar);
   window.addEventListener('pagechange', ajustar);
+})();
+</script>
+<script>
+/* La ficha exprés iba solo a Web3Forms: si el envío fallaba, la persona
+   desaparecía sin rastro. Ahora se guarda primero en «prospectos» (la misma
+   red de seguridad de los demás formularios) y solo después sigue el envío
+   normal. Si guardar falla o tarda, el envío sigue igual: nunca estorba. */
+(function () {
+  var f = document.getElementById('form-alta-expres');
+  if (!f) return;
+  var yaGuardado = false;
+  f.addEventListener('submit', function (e) {
+    if (yaGuardado) return;
+    e.preventDefault();
+    var contacto = (f.elements['Contacto'].value || '').trim();
+    var esCorreo = /@/.test(contacto);
+    var datos = {
+      nombre: f.elements['Nombre'].value.trim(),
+      email: esCorreo ? contacto : '',
+      telefono: esCorreo ? null : contacto,
+      contacto: contacto,
+      acuerdo: f.elements['Acuerdo'].value.trim(),
+      formulario: 'ficha-expres'
+    };
+    var enviar = function () { yaGuardado = true; f.submit(); };
+    var plazo = new Promise(function (res) { setTimeout(res, 4000); });
+    var guardar = (async function () {
+      try {
+        if (typeof supabaseClient === 'undefined' || !supabaseClient) return;
+        var r = await supabaseClient.from('prospectos').insert({
+          origen: 'contacto', nombre: datos.nombre || 'Sin nombre',
+          email: datos.email, telefono: datos.telefono, respuestas: datos
+        });
+        if (r && r.error) console.error('Ficha exprés sin guardar:', r.error.message);
+      } catch (err) { console.error('Ficha exprés sin guardar:', err); }
+    })();
+    Promise.race([guardar, plazo]).then(enviar, enviar);
+  });
 })();
 </script>
 </body>

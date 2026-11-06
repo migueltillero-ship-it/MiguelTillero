@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Su propuesta | Miguel Tillero</title>
 <meta name="robots" content="noindex">
+<!-- Sin esto, el contenido que se revela al hacer scroll quedaría invisible
+     para siempre si el script fallara: la clase se pone antes de pintar y las
+     reglas de revelado solo existen con ella. -->
+<script>document.documentElement.classList.add('js');</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
@@ -17,14 +21,19 @@
   --glow:0 0 40px rgba(201,169,110,0.18), 0 0 80px rgba(201,169,110,0.07);
   --bg-grad:radial-gradient(ellipse 80% 80% at 50% 40%, #c5e0d3 0%, #b8d9ca 55%, #a5cdbf 100%);
   --r-sm:14px; --r-md:20px; --r-pill:999px;
+  --curva:cubic-bezier(.2,.8,.2,1);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0; color:var(--text); font-family:'Syne',sans-serif; line-height:1.6;
-  background:var(--bg-grad); background-attachment:fixed;}
+  background:var(--bg-grad); background-attachment:fixed; overflow-x:hidden;}
 /* El fondo 3D vive detrás de todo; si no arranca, queda el degradado del body. */
 #vanta-bg{position:fixed; inset:0; z-index:0;}
 .capa{position:relative; z-index:1;}
+
+/* Barra fina que avanza con la lectura: la persona sabe cuánto falta. */
+#avance{position:fixed; top:0; left:0; height:3px; width:0; z-index:50;
+  background:linear-gradient(90deg,var(--gold),#e6cf9c,var(--cyan));}
 
 nav.barra{display:flex; justify-content:space-between; align-items:center; gap:1rem;
   flex-wrap:wrap; padding:1rem clamp(1rem,5vw,3rem);
@@ -34,17 +43,42 @@ nav.barra{display:flex; justify-content:space-between; align-items:center; gap:1
   color:var(--white); text-decoration:none; letter-spacing:0.01em;}
 .barra .der{display:flex; align-items:center; gap:0.9rem; font-size:0.88rem; color:var(--muted);}
 
-.hoja{max-width:860px; margin:0 auto; padding:clamp(2rem,6vw,4.5rem) clamp(1rem,5vw,2rem) 6rem;}
+.hoja{max-width:860px; margin:0 auto; padding:clamp(1.4rem,5vw,3.5rem) clamp(1rem,5vw,2rem) 6rem;}
+
+/* ── Revelado al hacer scroll ── */
+.js .rv{opacity:0; transform:translateY(28px) scale(.985);
+  transition:opacity .9s var(--curva), transform .9s var(--curva); transition-delay:var(--d,0ms);}
+.js .rv.on{opacity:1; transform:none;}
 
 /* ── Portada ── */
-.portada{text-align:center; margin-bottom:clamp(2rem,6vw,3.5rem);}
+.portada{position:relative; text-align:center; padding:2.4rem 0 2rem; margin-bottom:clamp(1.4rem,4vw,2.4rem); overflow:hidden;}
+.letras{position:absolute; inset:0; pointer-events:none;}
+.letras span{position:absolute; left:var(--x); bottom:-10%; font-family:'Cormorant Garamond',serif;
+  font-style:italic; font-size:var(--s); color:var(--c); opacity:0;
+  animation:flota var(--t) ease-in-out var(--r) infinite;}
+@keyframes flota{
+  0%{transform:translateY(0) rotate(-8deg); opacity:0}
+  18%{opacity:.5} 82%{opacity:.5}
+  100%{transform:translateY(-300px) rotate(10deg); opacity:0}}
+.portada > *:not(.letras){position:relative;}
 .sello{display:inline-flex; align-items:center; gap:0.55rem; padding:0.45rem 1.1rem;
   border:1px solid var(--border); border-radius:var(--r-pill); background:rgba(255,255,255,0.7);
   font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold2);}
+.saludos{position:relative; height:2.2rem; margin:1.1rem 0 0;}
+.saludos span{position:absolute; left:0; right:0; font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:1.5rem; color:var(--gold2); opacity:0; transform:translateY(10px);
+  transition:opacity .7s ease, transform .7s var(--curva);}
+.saludos span.on{opacity:1; transform:none;}
 .portada h1{font-family:'Cormorant Garamond',serif; font-weight:300;
-  font-size:clamp(2.6rem,8vw,4.6rem); line-height:1.05; margin:1.2rem 0 0.6rem; color:var(--white);}
+  font-size:clamp(2.7rem,9vw,5rem); line-height:1.02; margin:0.3rem 0 0.7rem; color:var(--white);}
 .portada h1 em{font-style:italic; color:var(--gold2);}
-.portada .fecha{font-size:0.8rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted);}
+.ch{display:inline-block; opacity:0; transform:translateY(34px) rotate(5deg);
+  animation:entra .8s var(--curva) forwards; animation-delay:calc(var(--i) * 70ms + 250ms);}
+@keyframes entra{to{opacity:1; transform:none;}}
+.portada .linea2{display:block; opacity:0; transform:translateY(20px);
+  animation:entra .9s var(--curva) 1s forwards;}
+.portada .fecha{font-size:0.8rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted);
+  opacity:0; animation:entra 1s ease 1.3s forwards;}
 
 /* ── Tarjetas de papel ── */
 .bloque{background:var(--panel); border:1px solid var(--border); border-radius:var(--r-md);
@@ -60,25 +94,69 @@ nav.barra{display:flex; justify-content:space-between; align-items:center; gap:1
   hyphens:auto; -webkit-hyphens:auto;}
 @media (max-width:560px){ .largo{text-align:left; hyphens:none;} }
 
-/* ── Horario ── */
-.dias{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:0.9rem;}
-.dia{padding:1.2rem 1.3rem; border-radius:var(--r-sm); background:rgba(165,130,74,0.08);
-  border:1px solid rgba(165,130,74,0.22);}
+/* ── La semana ── */
+.semana{display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:0.4rem; margin:0 0 1.4rem;}
+/* Siete letras en una fila no caben con el tamaño de escritorio en un teléfono
+   estrecho: sin esto, el último día se salía dos píxeles por la derecha. */
+@media (max-width:420px){
+  .semana{gap:0.22rem;}
+  .semana .d{font-size:0.62rem; letter-spacing:0; padding:0.6rem 0;}
+}
+.semana .d{text-align:center; padding:0.7rem 0.1rem; border-radius:12px; font-size:0.78rem; font-weight:600;
+  letter-spacing:0.06em; text-transform:uppercase; color:rgba(18,41,28,0.35);
+  border:1px solid transparent; background:rgba(255,255,255,0.4);
+  opacity:0; transform:translateY(14px); transition:all .6s var(--curva); transition-delay:calc(var(--i) * 70ms);}
+.rv.on .semana .d, .semana.on .d{opacity:1; transform:none;}
+.semana .d.conf{background:var(--gold); color:#fff; box-shadow:0 6px 18px rgba(165,130,74,.35);}
+.semana .d.alt{border-color:var(--cyan); color:var(--cyan); background:rgba(13,127,87,.08);}
+.semana .d.ext{border:1px dashed var(--gold2); color:var(--gold2);}
+.semana .d.sel{background:var(--cyan); color:#fff; border-color:var(--cyan); animation:pulso 2s ease-in-out infinite;}
+@keyframes pulso{0%,100%{box-shadow:0 0 0 0 rgba(13,127,87,.45)} 50%{box-shadow:0 0 0 9px rgba(13,127,87,0)}}
+
+/* ── Horarios: tarjetas que se pueden marcar ── */
+.dias{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:0.9rem;}
+.dia{position:relative; text-align:left; font:inherit; color:inherit; cursor:pointer;
+  padding:1.2rem 1.3rem 1.2rem; border-radius:var(--r-sm); background:rgba(165,130,74,0.08);
+  border:1.5px solid rgba(165,130,74,0.25);
+  transition:transform .35s var(--curva), box-shadow .35s, border-color .25s, background .25s;}
+.dia:hover{transform:translateY(-4px); box-shadow:0 14px 30px rgba(20,45,32,.12);}
+.dia:focus-visible{outline:3px solid var(--goldx); outline-offset:2px;}
 .dia small{display:block; font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase;
   color:var(--muted); margin-bottom:0.3rem;}
 .dia b{font-family:'Cormorant Garamond',serif; font-size:1.7rem; font-weight:600; color:var(--white);
   line-height:1.1; display:block;}
-.dia span{display:block; margin-top:0.35rem; font-size:0.95rem; color:var(--gold2); font-weight:600;}
+.dia span.hora{display:block; margin-top:0.35rem; font-size:0.95rem; color:var(--gold2); font-weight:600;}
+.dia .nota{display:block; font-size:0.85rem; color:var(--muted); font-weight:400; margin-top:0.5rem; line-height:1.5;}
 .dia.alt{background:rgba(13,127,87,0.08); border-color:rgba(13,127,87,0.28);}
-.dia.alt span{color:var(--cyan);}
-.dia .nota{font-size:0.85rem; color:var(--muted); font-weight:400; margin-top:0.5rem;}
+.dia.alt span.hora{color:var(--cyan);}
+.dia.ext{background:rgba(255,255,255,.55); border-style:dashed; border-color:var(--gold2);}
+.dia .tilde{position:absolute; top:0.9rem; right:0.9rem; width:26px; height:26px; border-radius:50%;
+  border:1.5px solid rgba(18,41,28,.25); display:grid; place-items:center; color:transparent;
+  font-size:0.8rem; transition:all .3s var(--curva);}
+.dia[aria-pressed="true"]{border-color:var(--cyan); background:rgba(13,127,87,0.13);
+  box-shadow:0 14px 30px rgba(13,127,87,.18); transform:translateY(-3px);}
+.dia[aria-pressed="true"] .tilde{background:var(--cyan); border-color:var(--cyan); color:#fff; transform:scale(1.15) rotate(360deg);}
+.dia.sacude{animation:sacude .5s ease;}
+@keyframes sacude{20%,60%{transform:translateX(-6px)} 40%,80%{transform:translateX(6px)}}
+.ayuda{margin:1rem 0 0; font-size:0.9rem; color:var(--muted);}
 .inicio{margin:1.4rem 0 0; padding:1rem 1.2rem; border-radius:var(--r-sm);
   background:rgba(13,127,87,0.07); border:1px solid rgba(13,127,87,0.22);
   font-size:1rem; line-height:1.7;}
 .inicio i{color:var(--cyan); margin-right:0.5rem;}
 
-/* ── Cifras ── */
-.cifras{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:0.9rem;}
+/* ── Cotización: el anillo y las cifras ── */
+.cotiza{display:grid; grid-template-columns:auto 1fr; gap:1.6rem; align-items:center;}
+@media (max-width:640px){ .cotiza{grid-template-columns:1fr; justify-items:center;} }
+.anillo{position:relative; width:168px; height:168px;}
+.anillo svg{width:100%; height:100%; transform:rotate(-90deg);}
+.anillo circle{fill:none; stroke-width:13; stroke-linecap:round;}
+.anillo .pista{stroke:rgba(165,130,74,.16);}
+.anillo .pago{stroke:var(--gold); transition:stroke-dashoffset 1.6s var(--curva) .2s;}
+.anillo .regalo{stroke:var(--cyan); transition:stroke-dashoffset 1.2s var(--curva) 1.3s;}
+.anillo .centro{position:absolute; inset:0; display:grid; place-content:center; text-align:center;}
+.anillo .centro b{font-family:'Cormorant Garamond',serif; font-size:2.9rem; font-weight:600; line-height:1; color:var(--white);}
+.anillo .centro small{font-size:0.66rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted);}
+.cifras{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:0.9rem; width:100%;}
 .cifra{padding:1.1rem 1.2rem; border-radius:var(--r-sm); background:rgba(165,130,74,0.08);
   border:1px solid rgba(165,130,74,0.18);}
 .cifra small{display:block; font-size:0.68rem; letter-spacing:0.13em; text-transform:uppercase;
@@ -93,15 +171,41 @@ nav.barra{display:flex; justify-content:space-between; align-items:center; gap:1
 .resumen b{color:var(--white);}
 
 /* ── Lo que incluye ── */
-.incluye{list-style:none; margin:0; padding:0; display:grid; gap:0.8rem;}
+.incluye{list-style:none; margin:0; padding:0; display:grid; gap:0.9rem;}
 .incluye li{display:grid; grid-template-columns:auto 1fr; gap:0.85rem; align-items:start;
-  font-size:1.02rem; line-height:1.65;}
-.incluye i{color:var(--cyan); margin-top:0.3rem;}
+  font-size:1.02rem; line-height:1.65; opacity:0; transform:translateX(-14px);
+  transition:all .7s var(--curva); transition-delay:calc(var(--i) * 160ms + 200ms);}
+.rv.on .incluye li, .incluye.on li{opacity:1; transform:none;}
+.incluye i{color:var(--cyan); margin-top:0.3rem; transform:scale(0); transition:transform .5s var(--curva);
+  transition-delay:calc(var(--i) * 160ms + 450ms);}
+.rv.on .incluye i, .incluye.on i{transform:scale(1);}
 .aparte{margin:1.2rem 0 0; font-size:0.9rem; color:var(--muted); font-style:italic;}
+
+/* ── El club ── */
+.club{position:relative; overflow:hidden; color:#f6f1e7; border:0;
+  background:linear-gradient(135deg,#0d3b2e 0%,#1d6b4f 100%);}
+.club h2{color:#f1dfae !important;}
+.club .eyebrow{color:#e6cf9c;}
+.club p{margin:0 0 1.2rem; font-size:1.02rem; line-height:1.75; max-width:46ch;}
+.club .etiqueta{display:inline-block; padding:0.35rem 0.9rem; border-radius:var(--r-pill); margin-bottom:0.9rem;
+  background:#e6cf9c; color:#0d3b2e; font-size:0.72rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;}
+.club .dato{display:flex; gap:0.7rem; align-items:center; margin:0 0 1.3rem; font-weight:600; color:#e6cf9c;}
+.burbujas{position:absolute; inset:0; pointer-events:none;}
+.burbujas span{position:absolute; padding:0.5rem 1rem; border-radius:18px 18px 18px 4px;
+  background:rgba(246,241,231,.14); border:1px solid rgba(246,241,231,.22);
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.2rem; color:#f6f1e7;
+  animation:burbuja 7s ease-in-out infinite; animation-delay:var(--r);}
+.burbujas span:nth-child(1){right:7%; top:14%;}
+.burbujas span:nth-child(2){right:18%; top:46%; border-radius:18px 18px 4px 18px;}
+.burbujas span:nth-child(3){right:5%; bottom:12%;}
+@keyframes burbuja{0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)}}
+@media (max-width:640px){ .burbujas{opacity:.35;} }
 
 /* ── Decisión ── */
 .decision{border:1px solid var(--gold);
   background:linear-gradient(135deg, rgba(165,130,74,0.10), rgba(255,255,255,0.4));}
+.eleccion{margin:1.2rem 0 0; padding:0.9rem 1.1rem; border-radius:var(--r-sm); font-size:0.98rem;
+  background:rgba(13,127,87,.08); border:1px solid rgba(13,127,87,.25);}
 .botones{display:flex; gap:0.9rem; flex-wrap:wrap; margin-top:1.4rem;}
 .btn{display:inline-flex; align-items:center; justify-content:center; gap:0.6rem;
   padding:1rem 1.8rem; border-radius:var(--r-pill); border:1px solid var(--gold);
@@ -113,6 +217,8 @@ nav.barra{display:flex; justify-content:space-between; align-items:center; gap:1
 .btn.fantasma{background:transparent; color:var(--gold2);}
 .btn.wa{background:#25D366; border-color:#25D366;}
 .btn.cyan{background:var(--cyan); border-color:var(--cyan);}
+.btn.claro{background:#f1dfae; border-color:#f1dfae; color:#0d3b2e;}
+.btn.claro:hover:not(:disabled){background:#fff; border-color:#fff;}
 textarea{width:100%; padding:0.95rem 1.1rem; border:1px solid var(--border); border-radius:var(--r-sm);
   background:rgba(255,255,255,0.92); font-family:'Syne',sans-serif; font-size:1rem; color:var(--white);
   min-height:120px; resize:vertical;}
@@ -120,6 +226,12 @@ textarea:focus{outline:none; border-color:var(--gold); box-shadow:0 0 0 4px var(
 .aviso{padding:1rem 1.2rem; border-radius:var(--r-sm); margin:1rem 0;}
 .aviso.error{background:rgba(198,91,91,0.09); border:1px solid rgba(154,42,42,0.45); color:#8f2727;}
 .aviso.ok{background:rgba(13,127,87,0.09); border:1px solid rgba(13,127,87,0.4); color:#0a6444;}
+.palomita{width:64px; height:64px; display:block; margin:0 0 0.8rem;}
+.palomita circle{fill:none; stroke:var(--cyan); stroke-width:3; stroke-dasharray:166; stroke-dashoffset:166;
+  animation:traza .7s ease forwards;}
+.palomita path{fill:none; stroke:var(--cyan); stroke-width:4; stroke-linecap:round; stroke-linejoin:round;
+  stroke-dasharray:48; stroke-dashoffset:48; animation:traza .45s ease .6s forwards;}
+@keyframes traza{to{stroke-dashoffset:0}}
 
 /* ── Datos de pago ── */
 .banco{display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:0.9rem;}
@@ -133,16 +245,37 @@ textarea:focus{outline:none; border-color:var(--gold); box-shadow:0 0 0 4px var(
 /* ── Firma ── */
 .firma{text-align:center; margin-top:clamp(2rem,6vw,3.2rem);}
 .firma .nombre{font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:600;
-  font-size:clamp(2rem,6vw,2.8rem); color:var(--white); line-height:1.1;}
+  font-size:clamp(2rem,6vw,2.8rem); color:var(--white); line-height:1.1; display:inline-block;
+  clip-path:inset(0 100% 0 0); transition:clip-path 1.8s cubic-bezier(.5,0,.2,1) .3s;}
+.firma.on .nombre{clip-path:inset(0 0 0 0);}
 .firma .cargo{font-size:0.78rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--gold2); margin-top:0.4rem;}
-.firma .filete{width:70px; height:1px; background:var(--gold); margin:0 auto 1.1rem;}
+.firma .filete{width:0; height:1px; background:var(--gold); margin:0 auto 1.1rem; transition:width 1.2s var(--curva);}
+.firma.on .filete{width:70px;}
 
+#confeti{position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:60;}
 .oculto{display:none !important;}
-@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .btn{transition:none} }
+
+/* Quien pide menos movimiento lo recibe todo ya puesto, sin animar nada. */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .rv, .ch, .portada .linea2, .portada .fecha, .semana .d, .incluye li, .incluye i{
+    opacity:1 !important; transform:none !important; animation:none !important; transition:none !important;}
+  .letras, .burbujas span{animation:none !important;}
+  .letras{display:none;}
+  .firma .nombre{clip-path:none; transition:none;}
+  .firma .filete{width:70px; transition:none;}
+  .saludos span:first-child{opacity:1; transform:none;}
+  .anillo .pago, .anillo .regalo{transition:none;}
+  .btn, .dia{transition:none;}
+  .semana .d.sel{animation:none;}
+  .palomita circle, .palomita path{animation:none; stroke-dashoffset:0;}
+}
 </style>
 </head>
 <body>
+<div id="avance"></div>
 <div id="vanta-bg"></div>
+<canvas id="confeti" class="oculto" aria-hidden="true"></canvas>
 
 <div class="capa">
 <nav class="barra">
@@ -167,51 +300,82 @@ textarea:focus{outline:none; border-color:var(--gold); box-shadow:0 0 0 4px var(
   <div id="todo" class="oculto">
 
     <header class="portada">
+      <div class="letras" id="letras" aria-hidden="true"></div>
       <span class="sello"><i class="fa-solid fa-feather"></i> Su propuesta de aprendizaje</span>
-      <h1><em id="nombre-portada"></em>,<br>comencemos.</h1>
+      <div class="saludos" id="saludos" aria-hidden="true">
+        <span>Bonjour</span><span>Bienvenue</span><span>Allons-y !</span><span>À bientôt</span>
+      </div>
+      <h1><em id="nombre-portada"></em><span class="linea2">comencemos.</span></h1>
       <p class="fecha" id="fecha-portada"></p>
     </header>
 
-    <section class="bloque">
+    <section class="bloque rv">
       <p class="largo" id="mensaje"></p>
     </section>
 
-    <section class="bloque">
+    <section class="bloque rv" id="bloque-horario">
       <p class="eyebrow">Su horario</p>
       <h2>Confirmado con mi agenda</h2>
       <p class="pie" id="pie-horario"></p>
+      <div class="semana" id="semana" aria-hidden="true"></div>
       <div class="dias" id="dias"></div>
+      <p class="ayuda" id="ayuda"></p>
       <p class="inicio oculto" id="inicio"><i class="fa-solid fa-calendar-check"></i><span></span></p>
     </section>
 
-    <section class="bloque">
+    <section class="bloque rv">
       <p class="eyebrow">La propuesta</p>
       <h2>Cotización</h2>
       <p class="pie">Tarifa preferencial, con horas de regalo por el paquete.</p>
-      <div class="cifras" id="cifras"></div>
+      <div class="cotiza">
+        <div class="anillo" id="anillo" role="img" aria-label="Horas del paquete y horas de regalo">
+          <svg viewBox="0 0 120 120">
+            <circle class="pista" cx="60" cy="60" r="52"/>
+            <circle class="pago" id="arco-pago" cx="60" cy="60" r="52"/>
+            <circle class="regalo" id="arco-regalo" cx="60" cy="60" r="52"/>
+          </svg>
+          <div class="centro"><b data-cuenta="0" data-fmt="horas" id="anillo-total">0</b><small>horas</small></div>
+        </div>
+        <div class="cifras" id="cifras"></div>
+      </div>
       <p class="resumen" id="resumen"></p>
     </section>
 
-    <section class="bloque">
+    <section class="bloque rv">
       <p class="eyebrow">Incluido</p>
       <h2>Lo que recibe</h2>
       <ul class="incluye" id="incluye"></ul>
       <p class="aparte oculto" id="aparte"></p>
     </section>
 
-    <section class="bloque oculto" id="bloque-compromiso">
+    <section class="bloque club rv" id="bloque-club">
+      <div class="burbujas" aria-hidden="true">
+        <span style="--r:0s">Bonjour !</span><span style="--r:1.6s">Ça va ?</span><span style="--r:3.1s">Et toi ?</span>
+      </div>
+      <p class="eyebrow" style="position:relative;">Un regalo más</p>
+      <h2 style="position:relative;">Vendredi entre amis</h2>
+      <span class="etiqueta" style="position:relative;">Gratis el primer mes</span>
+      <p style="position:relative;">El club de conversación es completamente gratuito durante su primer mes. Sirve para
+        soltar la lengua con otras personas, no solo conmigo.</p>
+      <div class="dato" style="position:relative;"><i class="fa-regular fa-clock"></i> Todos los viernes · 6:30 pm</div>
+      <a class="btn claro" style="position:relative;" href="https://migueltillero-ship-it.github.io/VendrediEntreAmis/"
+         target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Conocer el club</a>
+    </section>
+
+    <section class="bloque rv oculto" id="bloque-compromiso">
       <p class="eyebrow">Mi compromiso</p>
       <h2>Un acompañamiento a su medida</h2>
       <p class="largo" id="compromiso"></p>
     </section>
 
-    <section class="bloque decision" id="bloque-decision">
+    <section class="bloque decision rv" id="bloque-decision">
       <p class="eyebrow">Su respuesta</p>
       <h2>¿Comenzamos?</h2>
 
       <div id="antes">
         <p class="largo">Si le parece bien, puede dejar su horario asegurado con un solo clic.
           Y si prefiere comentarme algo antes, hay un espacio justo aquí debajo.</p>
+        <p class="eleccion oculto" id="eleccion"></p>
         <div class="botones">
           <button class="btn" id="btn-asegurar"><i class="fa-solid fa-circle-check"></i> Quiero asegurar mi horario</button>
           <button class="btn fantasma" id="btn-comentar"><i class="fa-regular fa-comment"></i> Quiero comentar algo</button>
@@ -252,7 +416,7 @@ textarea:focus{outline:none; border-color:var(--gold); box-shadow:0 0 0 4px var(
       </p>
     </section>
 
-    <div class="firma">
+    <div class="firma rv" id="firma">
       <div class="filete"></div>
       <div class="nombre">Miguel Tillero</div>
       <div class="cargo">Profesor de francés · San Cristóbal de Las Casas</div>
@@ -278,6 +442,9 @@ textarea:focus{outline:none; border-color:var(--gold); box-shadow:0 0 0 4px var(
  *
  * Al responder no se escribe directamente en la tabla: se llama a
  * responder_propuesta(), que comprueba que la propuesta sea suya.
+ *
+ * Todo el movimiento se apaga solo para quien pide menos animación: ve el
+ * contenido final, completo y sin esperas.
  */
 const WA = '529671836405';
 const EMAILJS_SERVICE  = 'service_uv779js';
@@ -285,7 +452,9 @@ const EMAILJS_TEMPLATE = 'template_sp4hl5f';
 const EMAILJS_KEY      = '7FPd-e34G4AgVK5YA';
 try { emailjs.init(EMAILJS_KEY); } catch (e) {}
 
+const MENOS_MOVIMIENTO = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 let propuesta = null, perfil = null;
+const elegidos = new Set();
 
 function el(id){ return document.getElementById(id); }
 function texto(tag, clase, t){ const n = document.createElement(tag);
@@ -302,6 +471,7 @@ function horas(n){ const x = Number(n); return Number.isInteger(x) ? String(x)
 function fechaLarga(iso){ return new Date(iso).toLocaleDateString('es-MX',
   { day:'numeric', month:'long', year:'numeric' }); }
 function primerNombre(){ return ((perfil && perfil.nombre_completo) || '').trim().split(/\s+/)[0] || ''; }
+function sinTildes(t){ return String(t).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); }
 
 async function iniciar(){
   if (!supabaseConfigurado){ mostrarAvisoSinConfigurar('aviso-config'); el('cargando').classList.add('oculto'); return; }
@@ -323,69 +493,109 @@ async function iniciar(){
   propuesta = data[0];
   pintar();
   el('todo').classList.remove('oculto');
+  preparar();
   /* Que Miguel sepa si la abrió. No avisa a nadie: queda en la base. */
   if (!propuesta.visto_en) supabaseClient.rpc('marcar_propuesta_vista', { p_propuesta: propuesta.id });
+
+  if (propuesta.estado === 'aceptada') recordarEleccion();
 }
+
+/* ── Contenido ─────────────────────────────────────────────────────────── */
+
+const SEMANA = ['lunes','martes','miercoles','jueves','viernes','sabado','domingo'];
+const SEMANA_CORTA = ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
+const ROTULO = { confirmado:'Confirmado', opcion:'Alternativa', extra:'Un día más' };
 
 function pintar(){
   const p = propuesta, h = p.horario || {};
   const nombre = primerNombre();
-  el('nombre-portada').textContent = nombre;
+
+  /* Portada: el nombre entra letra a letra, y suben vocales acentuadas, que
+     es de lo que va el curso: el francés empieza por la boca. */
+  const nom = el('nombre-portada'); nom.innerHTML = '';
+  Array.from(nombre).forEach(function(c, i){
+    const s = texto('span', 'ch', c); s.style.setProperty('--i', i); nom.appendChild(s);
+  });
+  nom.appendChild(document.createTextNode(','));
   el('fecha-portada').textContent = 'Preparada el ' + fechaLarga(p.creado_en);
+  sembrarLetras();
   el('mensaje').textContent = p.mensaje || ('Gracias por su confianza, ' + nombre +
     '. Esta propuesta reúne su horario, la cotización y todo lo que incluye.');
 
   /* Horario */
+  const slots = [];
+  (h.confirmados || []).forEach(d => slots.push(Object.assign({ tipo:'confirmado' }, d)));
+  (h.alternativas || []).forEach(d => slots.push(Object.assign({ tipo:'opcion' }, d)));
+  (h.extras || []).forEach(d => slots.push(Object.assign({ tipo:'extra' }, d)));
+
+  const semana = el('semana'); semana.innerHTML = '';
+  SEMANA.forEach(function(d, i){
+    const delDia = slots.filter(s => sinTildes(s.dia).indexOf(d) === 0);
+    let clase = '';
+    if (delDia.some(s => s.tipo === 'confirmado')) clase = 'conf';
+    else if (delDia.some(s => s.tipo === 'opcion')) clase = 'alt';
+    else if (delDia.length) clase = 'ext';
+    const c = texto('div', 'd ' + clase, SEMANA_CORTA[i]); c.style.setProperty('--i', i); c.dataset.dia = d;
+    semana.appendChild(c);
+  });
+
   const dias = el('dias'); dias.innerHTML = '';
-  (h.confirmados || []).forEach(function(d){
-    const t = texto('div', 'dia');
-    t.appendChild(texto('small', '', 'Confirmado'));
-    t.appendChild(texto('b', '', d.dia));
-    t.appendChild(texto('span', '', d.hora));
-    dias.appendChild(t);
+  slots.forEach(function(s, i){
+    const b = texto('button', 'dia ' + (s.tipo === 'confirmado' ? '' : s.tipo === 'opcion' ? 'alt' : 'ext'));
+    b.type = 'button'; b.setAttribute('aria-pressed', 'false'); b.dataset.i = i;
+    b.appendChild(texto('small', '', ROTULO[s.tipo]));
+    b.appendChild(texto('b', '', s.dia));
+    b.appendChild(texto('span', 'hora', s.hora));
+    if (s.nota) b.appendChild(texto('span', 'nota', s.nota));
+    const tilde = texto('span', 'tilde'); tilde.innerHTML = '<i class="fa-solid fa-check"></i>'; b.appendChild(tilde);
+    b.addEventListener('click', function(){ alternar(b, s); });
+    dias.appendChild(b);
   });
-  (h.alternativas || []).forEach(function(d){
-    const t = texto('div', 'dia alt');
-    t.appendChild(texto('small', '', 'Alternativa'));
-    t.appendChild(texto('b', '', d.dia));
-    t.appendChild(texto('span', '', d.hora));
-    if (d.nota) t.appendChild(texto('div', 'nota', d.nota));
-    dias.appendChild(t);
-  });
+  el('bloque-horario')._slots = slots;
+
   el('pie-horario').textContent = p.duracion_minutos
     ? 'Clases de ' + (p.duracion_minutos >= 60
         ? Math.floor(p.duracion_minutos / 60) + ' h' + (p.duracion_minutos % 60 ? ' ' + (p.duracion_minutos % 60) + ' min' : '')
         : p.duracion_minutos + ' min') + ', como usted lo indicó.'
     : 'Los espacios que solicitó, revisados con mi agenda.';
+  el('ayuda').textContent = slots.length > 1
+    ? 'Toque el horario que prefiera. Puede marcar más de uno, y si ninguno le acomoda, cuéntemelo abajo.'
+    : '';
   if (h.inicio){
     el('inicio').classList.remove('oculto');
     el('inicio').lastChild.textContent = h.inicio;
   }
 
-  /* Cifras */
-  const paquete = Number(p.horas_paquete), regalo = Number(p.horas_regalo);
+  /* Cifras y anillo */
+  const paquete = Number(p.horas_paquete), regalo = Number(p.horas_regalo), total = paquete + regalo;
   const cifras = el('cifras'); cifras.innerHTML = '';
-  const cifra = function(rotulo, valor, extra){
+  const cifra = function(rotulo, valor, extra, cuenta, fmt){
     const d = texto('div', 'cifra' + (extra ? ' ' + extra : ''));
-    d.appendChild(texto('small', '', rotulo)); d.appendChild(texto('b', '', valor));
-    cifras.appendChild(d);
+    d.appendChild(texto('small', '', rotulo));
+    const b = texto('b', '', valor);
+    b.dataset.cuenta = cuenta; b.dataset.fmt = fmt; b.dataset.moneda = p.moneda;
+    d.appendChild(b); cifras.appendChild(d);
   };
-  cifra('Por hora', dinero(p.tarifa, p.moneda), 'dinero');
-  cifra('Paquete', horas(paquete) + ' h');
-  if (regalo > 0) cifra('De regalo', '+' + horas(regalo) + ' h', 'regalo');
-  cifra('Inversión del paquete', dinero(Number(p.tarifa) * paquete, p.moneda), 'total dinero');
+  cifra('Por hora', dinero(p.tarifa, p.moneda), 'dinero', p.tarifa, 'dinero');
+  cifra('Paquete', horas(paquete) + ' h', '', paquete, 'horas-h');
+  if (regalo > 0) cifra('De regalo', '+' + horas(regalo) + ' h', 'regalo', regalo, 'mas-h');
+  cifra('Inversión del paquete', dinero(Number(p.tarifa) * paquete, p.moneda), 'total dinero',
+        Number(p.tarifa) * paquete, 'dinero');
+  el('anillo-total').dataset.cuenta = total;
+  el('anillo-total').textContent = horas(total);
+
   const r = el('resumen'); r.innerHTML = '';
   r.appendChild(document.createTextNode('En total recibe '));
-  r.appendChild(texto('b', '', horas(paquete + regalo) + ' horas de clase'));
+  r.appendChild(texto('b', '', horas(total) + ' horas de clase'));
   r.appendChild(document.createTextNode(regalo > 0
     ? ': ' + horas(paquete) + ' del paquete y ' + horas(regalo) + ' de regalo, sin costo.' : '.'));
 
   /* Incluye */
   const lista = el('incluye'); lista.innerHTML = '';
-  (p.incluye || []).forEach(function(linea){
-    const li = document.createElement('li');
-    li.appendChild(texto('i', 'fa-solid fa-circle-check'));
-    li.appendChild(texto('span', '', linea));
+  (p.incluye || []).forEach(function(linea, i){
+    const li = document.createElement('li'); li.style.setProperty('--i', i);
+    const ic = texto('i', 'fa-solid fa-circle-check'); ic.style.setProperty('--i', i);
+    li.appendChild(ic); li.appendChild(texto('span', '', linea));
     lista.appendChild(li);
   });
   if (p.nota_incluye){ el('aparte').textContent = p.nota_incluye; el('aparte').classList.remove('oculto'); }
@@ -397,13 +607,172 @@ function pintar(){
   if (p.estado === 'aceptada') mostrarAceptada();
 }
 
-function mostrarAceptada(){
+/* ── Elegir horarios ───────────────────────────────────────────────────── */
+
+function alternar(boton, slot){
+  const abierto = boton.getAttribute('aria-pressed') === 'true';
+  boton.setAttribute('aria-pressed', abierto ? 'false' : 'true');
+  if (abierto) elegidos.delete(slot); else elegidos.add(slot);
+  /* La semana de arriba refleja lo que se va marcando. */
+  document.querySelectorAll('#semana .d').forEach(function(d){
+    const marcado = Array.from(elegidos).some(s => sinTildes(s.dia).indexOf(d.dataset.dia) === 0);
+    d.classList.toggle('sel', marcado);
+  });
+  const caja = el('eleccion');
+  if (elegidos.size){
+    caja.textContent = 'Su elección: ' + resumenEleccion();
+    caja.classList.remove('oculto');
+  } else caja.classList.add('oculto');
+}
+function resumenEleccion(){
+  return Array.from(elegidos).map(s => s.dia + ', ' + s.hora).join(' · ');
+}
+
+/* ── Movimiento ────────────────────────────────────────────────────────── */
+
+/* Vocales y letras con tilde que suben despacio por la portada. */
+function sembrarLetras(){
+  if (MENOS_MOVIMIENTO) return;
+  const caja = el('letras'); caja.innerHTML = '';
+  const glifos = ['é','è','ê','à','ç','ù','î','ô','œ','ü','a','e','i','o','u','â'];
+  for (let i = 0; i < 16; i++){
+    const s = texto('span', '', glifos[i % glifos.length]);
+    s.style.setProperty('--x', (3 + (i * 6.2) % 94) + '%');
+    s.style.setProperty('--s', (1.4 + (i % 4) * 0.7) + 'rem');
+    s.style.setProperty('--t', (11 + (i % 5) * 3) + 's');
+    s.style.setProperty('--r', (-(i * 1.7)) + 's');
+    s.style.setProperty('--c', i % 3 === 0 ? '#a5824a' : i % 3 === 1 ? '#0d7f57' : '#86673a');
+    caja.appendChild(s);
+  }
+}
+
+/* Los números suben desde cero la primera vez que se ven. */
+function formatear(valor, fmt, moneda){
+  if (fmt === 'dinero') return dinero(valor, moneda);
+  if (fmt === 'horas-h') return horas(valor) + ' h';
+  if (fmt === 'mas-h') return '+' + horas(valor) + ' h';
+  return horas(valor);
+}
+function contar(nodo){
+  if (nodo.dataset.contado) return;
+  nodo.dataset.contado = '1';
+  const destino = Number(nodo.dataset.cuenta), fmt = nodo.dataset.fmt || 'horas', moneda = nodo.dataset.moneda;
+  if (MENOS_MOVIMIENTO || !isFinite(destino) || destino === 0){ nodo.textContent = formatear(destino, fmt, moneda); return; }
+  const dur = 1300, t0 = performance.now();
+  (function paso(ahora){
+    const k = Math.min(1, (ahora - t0) / dur), suave = 1 - Math.pow(1 - k, 3);
+    const v = fmt === 'dinero' ? destino * suave : Math.round(destino * suave * 2) / 2;
+    nodo.textContent = formatear(k === 1 ? destino : v, fmt, moneda);
+    if (k < 1) requestAnimationFrame(paso);
+  })(t0);
+}
+
+/* El anillo: el arco dorado son las horas del paquete y el verde, las de regalo. */
+function dibujarAnillo(){
+  const p = propuesta, paquete = Number(p.horas_paquete), regalo = Number(p.horas_regalo), total = paquete + regalo;
+  const C = 2 * Math.PI * 52;
+  const pago = el('arco-pago'), reg = el('arco-regalo');
+  [pago, reg].forEach(a => { a.style.strokeDasharray = C; a.style.strokeDashoffset = C; });
+  const largoPago = C * paquete / total, largoReg = C * regalo / total;
+  /* El de regalo arranca donde acaba el dorado: se rota en vez de desplazarlo. */
+  reg.style.transformOrigin = '60px 60px';
+  reg.style.transform = 'rotate(' + (360 * paquete / total) + 'deg)';
+  const poner = function(){
+    pago.style.strokeDashoffset = C - largoPago + 4;
+    reg.style.strokeDashoffset = regalo > 0 ? C - largoReg + 4 : C;
+  };
+  if (MENOS_MOVIMIENTO) { pago.style.transition = reg.style.transition = 'none'; poner(); } else requestAnimationFrame(() => requestAnimationFrame(poner));
+}
+
+function preparar(){
+  /* Barra de avance */
+  const barra = el('avance');
+  const alvance = function(){
+    const h = document.documentElement, max = h.scrollHeight - h.clientHeight;
+    barra.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+  };
+  window.addEventListener('scroll', alvance, { passive:true }); alvance();
+
+  /* Saludos que rotan */
+  const palabras = Array.from(el('saludos').children);
+  if (palabras.length){
+    palabras[0].classList.add('on');
+    if (!MENOS_MOVIMIENTO){
+      let i = 0;
+      setInterval(function(){
+        palabras[i].classList.remove('on'); i = (i + 1) % palabras.length; palabras[i].classList.add('on');
+      }, 2300);
+    }
+  }
+
+  /* Revelado al hacer scroll. Sin IntersectionObserver, todo a la vista. */
+  const bloques = Array.from(document.querySelectorAll('.rv'));
+  const mostrar = function(b){
+    b.classList.add('on');
+    b.querySelectorAll('[data-cuenta]').forEach(contar);
+    if (b.contains(el('anillo'))) dibujarAnillo();
+  };
+  if (!('IntersectionObserver' in window) || MENOS_MOVIMIENTO){
+    bloques.forEach(mostrar);
+    if (MENOS_MOVIMIENTO) document.querySelectorAll('.semana').forEach(s => s.classList.add('on'));
+  } else {
+    const io = new IntersectionObserver(function(entradas){
+      entradas.forEach(function(e){ if (e.isIntersecting){ mostrar(e.target); io.unobserve(e.target); } });
+    }, { threshold:0.18, rootMargin:'0px 0px -6% 0px' });
+    bloques.forEach(function(b, i){ b.style.setProperty('--d', Math.min(i, 2) * 90 + 'ms'); io.observe(b); });
+  }
+}
+
+/* Confeti de la casa: papel verde, crema y oro. Dura dos segundos y se quita. */
+function lanzarConfeti(){
+  if (MENOS_MOVIMIENTO) return;
+  const lienzo = el('confeti'); lienzo.classList.remove('oculto');
+  const ctx = lienzo.getContext('2d');
+  const W = lienzo.width = window.innerWidth, H = lienzo.height = window.innerHeight;
+  const colores = ['#a5824a','#c9a96e','#0d7f57','#bcdcc9','#f6f1e7','#e6cf9c'];
+  const piezas = Array.from({ length: 110 }, function(){
+    return { x: W / 2 + (Math.random() - .5) * 120, y: H * 0.62, vx: (Math.random() - .5) * 15,
+      vy: -(Math.random() * 15 + 6), g: .38 + Math.random() * .2, w: 6 + Math.random() * 8, h: 4 + Math.random() * 6,
+      r: Math.random() * 6.28, vr: (Math.random() - .5) * .4, c: colores[(Math.random() * colores.length) | 0] };
+  });
+  const t0 = performance.now();
+  (function cuadro(ahora){
+    const dt = ahora - t0; ctx.clearRect(0, 0, W, H);
+    piezas.forEach(function(q){
+      q.vy += q.g; q.x += q.vx; q.y += q.vy; q.vx *= .992; q.r += q.vr;
+      ctx.save(); ctx.translate(q.x, q.y); ctx.rotate(q.r);
+      ctx.globalAlpha = Math.max(0, 1 - dt / 2300); ctx.fillStyle = q.c;
+      ctx.fillRect(-q.w / 2, -q.h / 2, q.w, q.h); ctx.restore();
+    });
+    if (dt < 2300) requestAnimationFrame(cuadro);
+    else { ctx.clearRect(0, 0, W, H); lienzo.classList.add('oculto'); }
+  })(t0);
+}
+
+/* ── Responder ─────────────────────────────────────────────────────────── */
+
+function mostrarAceptada(eleccion){
   el('antes').classList.add('oculto');
-  msg(el('msg-decision'),
-    'Gracias, ' + primerNombre() + '. Recibí su respuesta. Para dejar su horario asegurado, ' +
-    'puede realizar el pago del paquete cuando le venga bien; abajo están los datos. ' +
-    'Y escríbame por WhatsApp para confirmar día y hora de su primera clase.', 'ok');
+  const caja = el('msg-decision'); caja.innerHTML = '';
+  caja.insertAdjacentHTML('beforeend',
+    '<svg class="palomita" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="26"/><path d="M16 29l8 8 16-17"/></svg>');
+  const aviso = texto('div', 'aviso ok',
+    'Gracias, ' + primerNombre() + '. Recibí su respuesta' + (eleccion ? ' y su elección: ' + eleccion : '') + '. ' +
+    'Para dejar su horario asegurado, puede realizar el pago del paquete cuando le venga bien; abajo están los datos. ' +
+    'Y escríbame por WhatsApp para confirmar día y hora de su primera clase.');
+  caja.appendChild(aviso);
   el('bloque-pago').classList.remove('oculto');
+  el('bloque-pago').classList.add('on');
+}
+
+/* Si vuelve a entrar después de aceptar, se le recuerda qué eligió. */
+async function recordarEleccion(){
+  try {
+    const { data } = await supabaseClient.from('propuesta_respuestas')
+      .select('tipo, texto').eq('propuesta_id', propuesta.id).eq('tipo', 'acepta')
+      .order('creado_en', { ascending:false }).limit(1);
+    if (data && data[0] && data[0].texto) mostrarAceptada(data[0].texto);
+  } catch (e) {}
 }
 
 /* El aviso a Miguel sale por correo: si se queda esperando a que él entre al
@@ -420,20 +789,35 @@ function avisarMiguel(asunto, cuerpo){
 }
 
 el('btn-asegurar').addEventListener('click', async function(){
+  /* Si hay varios horarios, hace falta saber cuál quiere: sin eso, «asegurar»
+     no dice qué se asegura. */
+  const hayOpciones = el('dias').children.length > 1;
+  if (hayOpciones && !elegidos.size){
+    msg(el('msg-decision'), 'Antes, toque arriba el horario que prefiera (puede marcar más de uno).', 'error');
+    el('bloque-horario').scrollIntoView({ behavior:'smooth', block:'start' });
+    document.querySelectorAll('#dias .dia').forEach(function(d){
+      d.classList.remove('sacude'); void d.offsetWidth; d.classList.add('sacude');
+    });
+    return;
+  }
+  const eleccion = elegidos.size ? resumenEleccion() : null;
   const b = el('btn-asegurar');
   b.disabled = true; b.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Un momento…';
   const { error } = await supabaseClient.rpc('responder_propuesta',
-    { p_propuesta: propuesta.id, p_tipo: 'acepta', p_texto: null });
+    { p_propuesta: propuesta.id, p_tipo: 'acepta', p_texto: eleccion });
   if (error){
     msg(el('msg-decision'), 'No se pudo registrar: ' + error.message, 'error');
     b.disabled = false; b.innerHTML = '<i class="fa-solid fa-circle-check"></i> Quiero asegurar mi horario';
     return;
   }
   propuesta.estado = 'aceptada';
-  avisarMiguel('Quiere asegurar su horario', 'Pulsó «Quiero asegurar mi horario». Falta que haga el pago ' +
-    'del paquete y que le confirmes día y hora de la primera clase.').catch(function(e){ console.warn('Aviso no salió:', e); });
-  mostrarAceptada();
-  el('bloque-pago').scrollIntoView({ behavior:'smooth', block:'start' });
+  avisarMiguel('Quiere asegurar su horario',
+    (eleccion ? 'Eligió: ' + eleccion + '\n\n' : 'No marcó ningún horario.\n\n') +
+    'Falta que haga el pago del paquete y que le confirmes día y hora de la primera clase.')
+    .catch(function(e){ console.warn('Aviso no salió:', e); });
+  mostrarAceptada(eleccion);
+  lanzarConfeti();
+  setTimeout(function(){ el('bloque-pago').scrollIntoView({ behavior:'smooth', block:'start' }); }, 500);
 });
 
 el('btn-comentar').addEventListener('click', function(){
