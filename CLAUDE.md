@@ -53,6 +53,28 @@ botón de copiar:
 - El estudiante debe **aceptar el contrato y confirmar la lectura del
   reglamento** como dos actos separados, cada uno con su registro.
 
+## Al escribir a las familias
+
+El registro con los padres y madres **no es el mismo** que con los estudiantes
+ni el de un cobro. Es cercano, cálido y amable, y trata de lo que de verdad
+importa: cómo va su hijo o su hija.
+
+- **El dinero nunca es el asunto del mensaje.** Si hay una mensualidad
+  pendiente, se menciona al final, de pasada y sin señalar: «quedó pendiente
+  desde finales de octubre», no «tiene usted un pago vencido». Nunca se abre
+  un mensaje con eso, nunca se pone en el asunto, y nunca se condiciona nada
+  a que paguen.
+- **El centro es el avance del representado**, y en concreto: qué ha
+  trabajado, qué se le da bien, qué le cuesta.
+- **Dar fechas concretas de los informes**, para que sepan cuándo esperar las
+  apreciaciones del ciclo.
+- **Nada de listas de tareas ni de tono administrativo.** Se escribe como se
+  habla a la salida de clase.
+- Si hace falta algo de ellos —un correo, una cuenta—, se pide explicando
+  para qué les sirve a ellos, no por qué lo necesita la plataforma.
+
+Esto vale para WhatsApp, para los avisos de la plataforma y para los correos.
+
 ## Al escribir
 
 - Comentarios y textos de cara al usuario **en español**, explicando el porqué
