@@ -69,9 +69,9 @@ begin
        '#s6', null::date),
 
       (6, 'Parcours · Ça se fait, ça ne se fait pas (p. 19)', 'juego', 'Unité 1',
-       'Las expresiones de la actividad 22, lo que se hace y lo que no en una mesa '
-       || 'francesa, y la comparación con lo de aquí. Con el vídeo dentro: cada pregunta '
-       || 'salta a su minuto. Se valida al 80 %.',
+       'Las expresiones de la actividad 22, y tres escenas: la mesa francesa, el primer día '
+       || 'de trabajo (tu o usted) y un rendez-vous (saludo, puntualidad, quién paga). Con '
+       || 'tres vídeos dentro: cada pregunta salta a su minuto. Se valida al 80 %.',
        '#savoir-vivre', null::date),
 
       (15, 'Méthodologie DELF · Prendre des notes', 'refuerzo', 'Unité 1',
