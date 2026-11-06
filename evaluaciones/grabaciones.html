@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Grabaciones · fonética</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../assets/js/supabase-config.js?v=1790500000"></script>
+<style>
+:root{--cream:#eef4ee;--ink:#12291c;--ink2:#0d3b2e;--muted:rgba(18,41,28,.64);--line:rgba(18,41,28,.13);--gold:#a5824a;--gold2:#e3c68e;--green:#0d7f57;--red:#b4432f;
+--display:'Cormorant Garamond',Georgia,serif;--sans:'Syne',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.45}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+input,textarea{font:inherit}
+.hidden{display:none!important}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+h1,h2,h3{font-family:var(--display);line-height:1.1}
+.btn{display:inline-flex;align-items:center;gap:.35rem;padding:.5rem .95rem;border-radius:999px;background:var(--ink);color:#fff;font-weight:700}
+.btn.ghost{background:#fff;border:1.5px solid var(--line);color:var(--ink)}
+.btn:disabled{opacity:.4;cursor:default}
+header{background:var(--ink2);color:#fff}
+header .wrap{display:flex;align-items:center;gap:1rem;min-height:64px;flex-wrap:wrap}
+header h1{font-size:1.6rem}
+header h1 em{color:var(--gold2);font-style:normal}
+header .sp{flex:1}
+header a{color:var(--gold2);text-decoration:none;font-weight:600}
+#login{max-width:380px;margin:3rem auto;padding:0 16px;display:grid;gap:.7rem}
+#login input{padding:.65rem .8rem;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+#l-err{color:var(--red);min-height:1.2em}
+.hint{color:var(--muted)}
+.intro{padding:1.6rem 0 .6rem}
+.intro h2{font-size:2.1rem}
+.filtros{display:flex;gap:.5rem;flex-wrap:wrap;margin:1rem 0}
+.chip{padding:.4rem .9rem;border-radius:999px;background:#fff;border:1.5px solid var(--line);font-weight:600}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.alumno{margin:1.6rem 0 .4rem;font-size:1.5rem}
+.ejer{margin:.9rem 0 .3rem;color:var(--gold);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.78rem}
+.g{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:.9rem 1rem;margin:.5rem 0;display:grid;gap:.6rem}
+.g.nueva{border-color:var(--gold);box-shadow:0 0 0 3px rgba(165,130,74,.14)}
+.g .cab{display:flex;gap:.7rem;align-items:baseline;flex-wrap:wrap}
+.g .par{font-family:var(--display);font-size:1.7rem;font-weight:700}
+.g .cuando{color:var(--muted);font-size:.85rem}
+.g .estado{margin-left:auto;font-size:.8rem;font-weight:700;color:var(--gold)}
+.g .estado.ok{color:var(--green)}
+.g audio{width:100%}
+.g textarea{width:100%;padding:.6rem .75rem;border:1.5px solid var(--line);border-radius:10px;resize:vertical;min-height:3.4rem}
+.g .acc{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.vacio{padding:2.5rem 0;text-align:center;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:1.4rem;transform:translateX(-50%);background:var(--ink);color:#fff;padding:.6rem 1.1rem;border-radius:999px;font-weight:600;z-index:9}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <h1><em>Grabaciones</em> · fonética</h1><div class="sp"></div>
+  <a href="seguimiento.html">Seguimiento</a>
+  <a href="../panel-docente.html">Panel docente</a>
+</div></header>
+
+<form id="login" class="hidden">
+  <h2 style="font-size:2rem">Acceso docente</h2>
+  <p class="hint">Usa tu cuenta de docente de la plataforma Vive el francés.</p>
+  <input id="l-mail" type="email" placeholder="correo" autocomplete="username" required>
+  <input id="l-pass" type="password" placeholder="contraseña" autocomplete="current-password" required>
+  <button class="btn" type="submit">Entrar</button>
+  <div id="l-err"></div>
+</form>
+
+<main id="app" class="hidden"><div class="wrap">
+  <div class="intro">
+    <h2>Lo que se han grabado</h2>
+    <p class="hint">La pronunciación no se corrige leyendo: hay que oírla. Escucha, escribe qué le devuelves, y al guardar queda marcada como escuchada. Lo que aún no has oído va primero.</p>
+  </div>
+  <div class="filtros" id="filtros"></div>
+  <div id="lista"></div>
+</div></main>
+<div class="toast hidden" id="toast"></div>
+
+<script>
+(function(){
+'use strict';
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sb = typeof supabaseClient !== 'undefined' ? supabaseClient : null;
+let todas = [], nombres = {}, solo = 'sin-oir';
+
+function toast(m){ const t = $('#toast'); t.textContent = m; t.classList.remove('hidden'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.add('hidden'), 2600); }
+function showLogin(m){ $('#app').classList.add('hidden'); $('#login').classList.remove('hidden'); $('#l-err').textContent = m || ''; }
+const cuando = d => new Date(d).toLocaleString('es-MX', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' });
+
+$('#login').addEventListener('submit', async e => {
+  e.preventDefault();
+  const { error } = await sb.auth.signInWithPassword({ email:$('#l-mail').value.trim(), password:$('#l-pass').value });
+  if(error) return showLogin('Correo o contraseña incorrectos.');
+  boot();
+});
+
+async function boot(){
+  // Solo el docente: la base ya lo impide, pero un estudiante que llegue aquí
+  // vería una página vacía sin saber por qué.
+  const { data: u } = await sb.auth.getUser();
+  const { data: perfil } = await sb.from('profiles').select('role').eq('id', u.user.id).single();
+  if(!perfil || !['docente','admin'].includes(perfil.role)) return showLogin('Esta página es solo para el docente.');
+  $('#login').classList.add('hidden'); $('#app').classList.remove('hidden');
+
+  const { data, error } = await sb.from('grabaciones').select('*').order('enviado_en', { ascending:false });
+  if(error){ $('#lista').innerHTML = '<p class="vacio">No se pudieron cargar: ' + esc(error.message) + '</p>'; return; }
+  todas = data || [];
+  const ids = [...new Set(todas.map(g => g.estudiante_id))];
+  if(ids.length){
+    const { data: ps } = await sb.from('profiles').select('id,nombre_completo').in('id', ids);
+    (ps || []).forEach(p => nombres[p.id] = p.nombre_completo);
+  }
+  pintar();
+}
+
+function pintarFiltros(){
+  const nuevas = todas.filter(g => !g.escuchado_en).length;
+  $('#filtros').innerHTML =
+    `<button class="chip ${solo === 'sin-oir' ? 'on' : ''}" data-f="sin-oir">Sin escuchar · ${nuevas}</button>` +
+    `<button class="chip ${solo === 'todas' ? 'on' : ''}" data-f="todas">Todas · ${todas.length}</button>`;
+  $('#filtros').querySelectorAll('.chip').forEach(b => b.onclick = () => { solo = b.dataset.f; pintar(); });
+}
+
+async function pintar(){
+  pintarFiltros();
+  const ver = solo === 'sin-oir' ? todas.filter(g => !g.escuchado_en) : todas;
+  if(!ver.length){
+    $('#lista').innerHTML = `<p class="vacio">${todas.length ? 'No te queda nada por escuchar. 🎧' : 'Todavía nadie se ha grabado.'}</p>`;
+    return;
+  }
+  // Agrupado por persona y ejercicio, que es como se escucha: todos los
+  // intentos de «bé / bè» seguidos, para oír cómo cambian.
+  const por = {};
+  ver.forEach(g => { (por[g.estudiante_id] = por[g.estudiante_id] || {})[g.ejercicio] =
+                       ((por[g.estudiante_id] || {})[g.ejercicio] || []).concat(g); });
+  let html = '';
+  for(const id of Object.keys(por)){
+    html += `<h3 class="alumno">${esc(nombres[id] || 'Estudiante')}</h3>`;
+    for(const ej of Object.keys(por[id])){
+      html += `<div class="ejer">${esc(ej)}</div>`;
+      html += por[id][ej].map(g => `<div class="g ${g.escuchado_en ? '' : 'nueva'}" data-id="${g.id}" data-archivo="${esc(g.archivo)}">
+        <div class="cab"><span class="par">${esc(g.item)}</span><span class="cuando">${esc(cuando(g.enviado_en))}${g.segundos ? ' · ' + Math.round(g.segundos) + ' s' : ''}</span>
+          <span class="estado ${g.escuchado_en ? 'ok' : ''}">${g.escuchado_en ? 'Escuchada' : 'Nueva'}</span></div>
+        <audio controls preload="none"></audio>
+        <textarea placeholder="Lo que le devuelves: qué sonó bien, qué ajustar…">${esc(g.comentario || '')}</textarea>
+        <div class="acc"><button class="btn guardar">Guardar y marcar escuchada</button></div>
+      </div>`).join('');
+    }
+  }
+  $('#lista').innerHTML = html;
+  // El almacén es privado: cada audio se pide con un enlace firmado y de vida corta.
+  $('#lista').querySelectorAll('.g').forEach(async el => {
+    const { data } = await sb.storage.from('grabaciones').createSignedUrl(el.dataset.archivo, 3600);
+    if(data) el.querySelector('audio').src = data.signedUrl;
+    else el.querySelector('audio').replaceWith(Object.assign(document.createElement('p'), { className:'hint', textContent:'No se pudo cargar el audio.' }));
+  });
+  $('#lista').querySelectorAll('.guardar').forEach(b => b.onclick = async () => {
+    const el = b.closest('.g'), id = el.dataset.id;
+    b.disabled = true;
+    const { error } = await sb.from('grabaciones').update({
+      comentario: el.querySelector('textarea').value.trim() || null,
+      escuchado_en: new Date().toISOString()
+    }).eq('id', id);
+    b.disabled = false;
+    if(error) return toast('No se guardó: ' + error.message);
+    const g = todas.find(x => x.id === id);
+    g.comentario = el.querySelector('textarea').value.trim() || null; g.escuchado_en = new Date().toISOString();
+    toast('Guardado'); pintarFiltros();
+    el.classList.remove('nueva');
+    const est = el.querySelector('.estado'); est.textContent = 'Escuchada'; est.classList.add('ok');
+  });
+}
+
+if(sb) sb.auth.getSession().then(({ data }) => data.session ? boot() : showLogin());
+else showLogin('No se pudo conectar con la plataforma.');
+})();
+</script>
+</body>
+</html>
