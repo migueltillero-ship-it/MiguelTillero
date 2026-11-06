@@ -627,7 +627,18 @@ function pintarEstudiantes() {
     badge.textContent = sinGrupo; badge.style.display = sinGrupo ? 'inline-block' : 'none';
     const lista = estudiantesCache.filter(e => !solo || !e.total_inscripciones);
     const grupos = gruposCache.filter(g => g.estado !== 'finalizado');
-    const opciones = grupos.map(g => `<option value="${g.id}">${esc(g.codigo)} — ${esc((g.cursos || {}).nombre || '')} (${g.cupo_actual}/${g.cupo_maximo})</option>`).join('');
+    /* Los grupos individuales son de una sola persona (su dueña va en notas,
+       «particular:<id>»): solo salen en su fila, y primero, para no tener que
+       buscarlos. En la lista llevan el nombre del curso, que ya dice «Clase
+       particular — Nombre», en vez del código interno. */
+    const etiqueta = g => g.formato === 'individual'
+        ? esc((g.cursos || {}).nombre || g.codigo) + ` (${g.cupo_actual}/${g.cupo_maximo})`
+        : `${esc(g.codigo)} — ${esc((g.cursos || {}).nombre || '')} (${g.cupo_actual}/${g.cupo_maximo})`;
+    const opcionesPara = function (estId) {
+        const propios = grupos.filter(g => g.notas === 'particular:' + estId);
+        const comunes = grupos.filter(g => g.formato !== 'individual');
+        return propios.concat(comunes).map(g => `<option value="${g.id}">${etiqueta(g)}</option>`).join('');
+    };
     document.getElementById('tabla-estudiantes').innerHTML = lista.map(e => `
         <tr>
             <td><strong>${esc(e.nombre_completo)}</strong>${e.representante_nombre ? '<br><span class="muted">Representante: ' + esc(e.representante_nombre) + '</span>' : ''}</td>
@@ -635,7 +646,7 @@ function pintarEstudiantes() {
             <td>${e.created_at ? new Date(e.created_at).toLocaleDateString('es-MX') : '—'}</td>
             <td>${e.grupos ? esc(e.grupos) : '<span class="muted">Sin grupo</span>'}</td>
             <td class="acciones-fila">
-                ${grupos.length ? `<select id="asg-g-${e.id}">${opciones}</select>
+                ${grupos.length ? `<select id="asg-g-${e.id}">${opcionesPara(e.id)}</select>
                 <select id="asg-e-${e.id}"><option value="pendiente">Pendiente de pago</option><option value="activa">Activa</option></select>
                 <button class="btn pequeno" onclick="asignarEstudiante('${e.id}')">Asignar</button>` : '<span class="muted">Crea primero un grupo en la pestaña Grupos.</span>'}
             </td>
