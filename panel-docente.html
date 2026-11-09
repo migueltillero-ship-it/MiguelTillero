@@ -303,6 +303,7 @@ th { font-family:'Syne', sans-serif; font-size:0.83rem; text-transform:uppercase
                 <button class="tab-btn" data-tab="asistencia" onclick="cambiarTab('asistencia')">Asistencia</button>
                 <button class="tab-btn" data-tab="estudiantes" onclick="cambiarTab('estudiantes')">Estudiantes</button>
                 <button class="tab-btn" data-tab="notas" onclick="cambiarTab('notas')">Notas</button>
+                <button class="tab-btn" data-tab="grabaciones" onclick="cambiarTab('grabaciones')">Grabaciones</button>
             </div>
 
             <!-- PLANIFICACIÓN -->
@@ -372,6 +373,22 @@ th { font-family:'Syne', sans-serif; font-size:0.83rem; text-transform:uppercase
             </div>
 
             <!-- NOTAS -->
+            <!-- GRABACIONES DE CLASE -->
+            <div class="tab-content" id="tab-grabaciones">
+                <p class="muted" style="margin:0 0 1rem;">Al terminar una clase, pega aquí el enlace de la grabación (Zoom, Drive o YouTube sin listar). Quien tenga la inscripción activa en este curso la verá en «Mis grabaciones».</p>
+                <div class="form-grid">
+                    <div class="form-field"><label>Título *</label><input id="gr-titulo" maxlength="140" placeholder="Ej. Clase del 3 de noviembre"></div>
+                    <div class="form-field"><label>Fecha de la clase</label><input id="gr-fecha" type="date"></div>
+                    <div class="form-field"><label>Enlace * (https)</label><input id="gr-enlace" placeholder="https://…"></div>
+                    <div class="form-field"><label>Código de acceso (si lo pide)</label><input id="gr-codigo" maxlength="80"></div>
+                </div>
+                <div class="form-field"><label>Nota para el estudiante (opcional)</label><textarea id="gr-notas" rows="2" maxlength="1000" placeholder="Ej. Escucha de nuevo el minuto 40: es lo de los posesivos."></textarea></div>
+                <button class="btn" onclick="guardarGrabacion()"><i class="fa-solid fa-video"></i> Publicar grabación</button>
+                <div id="msg-grabacion" class="msg"></div>
+                <h3 style="font-family:'Cormorant Garamond',serif; color:var(--accent-green); margin:1.6rem 0 0.6rem;">Ya publicadas</h3>
+                <div id="lista-grabaciones-clase"></div>
+            </div>
+
             <div class="tab-content" id="tab-notas">
                 <p class="muted" style="margin:0 0 1rem;">
                     Calificar pruebas:
@@ -1032,7 +1049,7 @@ async function seleccionarCurso(id) {
     document.getElementById('form-editar-curso').style.display = 'none';
     await cargarCursos(); // refresca resaltado
     cambiarTab('planificacion');
-    await Promise.all([cargarSesiones(), cargarEstudiantes(), cargarEvaluaciones(), cargarHorario()]);
+    await Promise.all([cargarSesiones(), cargarEstudiantes(), cargarEvaluaciones(), cargarHorario(), cargarGrabacionesClase()]);
     document.getElementById('detalle-curso').scrollIntoView({ behavior: 'smooth' });
 }
 
@@ -1214,6 +1231,48 @@ function copiarEnlace() {
 function cambiarTab(tab) {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('activo', b.dataset.tab === tab));
     document.querySelectorAll('.tab-content').forEach(c => c.classList.toggle('activo', c.id === 'tab-' + tab));
+}
+
+// ---- GRABACIONES DE CLASE ----
+/* El enlace y el código viven en la base, nunca en el repositorio (es público).
+   Si la tabla aún no existe, la pestaña lo dice en vez de romper el panel. */
+async function cargarGrabacionesClase() {
+    const caja = document.getElementById('lista-grabaciones-clase');
+    const { data, error } = await supabaseClient.from('clases_grabadas')
+        .select('*').eq('curso_id', cursoActualId).order('fecha', { ascending: false });
+    if (error) { caja.innerHTML = '<p class="muted">No se pudieron leer las grabaciones: ' + esc(error.message) + '</p>'; return; }
+    document.getElementById('gr-fecha').value = document.getElementById('gr-fecha').value || fechaISO(new Date());
+    caja.innerHTML = (data || []).map(g => `
+        <div class="hacer"><span class="num"><i class="fa-solid fa-video"></i></span>
+            <div class="que"><strong>${esc(g.titulo)}</strong>
+                <small>${esc(g.fecha)}${g.codigo ? ' · con código' : ''}${g.notas ? ' · ' + esc(g.notas) : ''}</small></div>
+            <a class="btn pequeno secundario" href="${esc(g.enlace)}" target="_blank" rel="noopener">Abrir</a>
+            <button class="btn pequeno peligro" onclick="borrarGrabacion('${g.id}')"><i class="fa-solid fa-trash"></i></button>
+        </div>`).join('') || '<p class="muted" style="margin:0;">Todavía no has publicado ninguna.</p>';
+}
+
+async function guardarGrabacion() {
+    const msg = document.getElementById('msg-grabacion');
+    const titulo = document.getElementById('gr-titulo').value.trim();
+    const enlace = document.getElementById('gr-enlace').value.trim();
+    if (titulo.length < 3) { mostrarMsg(msg, 'Ponle un título a la grabación.', 'error'); return; }
+    if (!/^https:\/\//i.test(enlace)) { mostrarMsg(msg, 'El enlace tiene que empezar por https://', 'error'); return; }
+    const { error } = await supabaseClient.from('clases_grabadas').insert({
+        curso_id: cursoActualId, titulo, enlace,
+        fecha: document.getElementById('gr-fecha').value || fechaISO(new Date()),
+        codigo: document.getElementById('gr-codigo').value.trim() || null,
+        notas: document.getElementById('gr-notas').value.trim() || null });
+    if (error) { mostrarMsg(msg, 'No se guardó: ' + error.message, 'error'); return; }
+    ['gr-titulo', 'gr-enlace', 'gr-codigo', 'gr-notas'].forEach(id => document.getElementById(id).value = '');
+    mostrarMsg(msg, 'Publicada. Ya la ven quienes están inscritos en este curso.', 'ok');
+    await cargarGrabacionesClase();
+}
+
+async function borrarGrabacion(id) {
+    if (!confirm('¿Quitar esta grabación? Dejará de verla el estudiante.')) return;
+    const { error } = await supabaseClient.from('clases_grabadas').delete().eq('id', id);
+    if (error) { alert('No se quitó: ' + error.message); return; }
+    await cargarGrabacionesClase();
 }
 
 // ---- PLANIFICACIÓN / SESIONES ----

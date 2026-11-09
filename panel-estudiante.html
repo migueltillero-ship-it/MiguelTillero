@@ -121,6 +121,15 @@ th { font-family:'Syne', sans-serif; font-size:0.83rem; text-transform:uppercase
 .aviso-item .a-fecha { font-size:0.82rem; color:var(--muted); margin-top:0.5rem; }
 .aviso-cierre { background:rgba(43,69,53,0.07); border-radius:var(--r-xs); padding:1rem 1.2rem;
                 font-size:1.03rem; line-height:1.65; color:var(--accent-green); margin-top:1rem; }
+/* Mis grabaciones */
+.grab { display:flex; gap:1rem; align-items:center; flex-wrap:wrap; border:1px solid var(--border); border-radius:var(--r-sm); padding:1rem 1.2rem; margin-bottom:0.8rem; background:#fff; }
+.grab .g-ico { width:2.6rem; height:2.6rem; border-radius:12px; display:flex; align-items:center; justify-content:center; background:#3b6ea8; color:#fff; flex:0 0 auto; }
+.grab .g-txt { flex:1; min-width:200px; }
+.grab .g-tit { font-weight:600; color:var(--accent-green); }
+.grab .g-meta { font-size:0.9rem; color:var(--text-light); margin-top:0.15rem; }
+.grab .g-nota { margin-top:0.5rem; font-size:0.98rem; line-height:1.55; }
+.grab .g-cod { font-family:monospace; background:rgba(43,69,53,0.07); padding:0.1rem 0.45rem; border-radius:6px; }
+.grab a.btn { text-decoration:none; display:inline-block; }
 /* Barra de secciones del panel */
 .secciones { display:flex; gap:0.4rem; flex-wrap:wrap; margin:0 0 1.8rem; }
 .sec-btn { background:none; border:1px solid var(--border); color:var(--text-light);
@@ -384,6 +393,7 @@ td.fecha-celda { white-space:nowrap; color:var(--text-light); font-size:0.95rem;
             <button class="sec-btn" data-sec="curso" onclick="cambiarSeccion('curso')">Mi curso</button>
             <button class="sec-btn" data-sec="resultados" onclick="cambiarSeccion('resultados')">Mis resultados</button>
             <button class="sec-btn" data-sec="materiales" onclick="cambiarSeccion('materiales')">Materiales</button>
+            <button class="sec-btn" data-sec="grabaciones" onclick="cambiarSeccion('grabaciones')">Mis grabaciones</button>
             <button class="sec-btn" data-sec="ayuda" onclick="cambiarSeccion('ayuda')">Pedir ayuda <span id="punto-ayuda" class="punto-ayuda" style="display:none;"></span></button>
             <button class="sec-btn" data-sec="pagos" onclick="cambiarSeccion('pagos')">Mis pagos</button>
         </nav>
@@ -478,6 +488,14 @@ td.fecha-celda { white-space:nowrap; color:var(--text-light); font-size:0.95rem;
                 <p class="muted" style="margin:-0.5rem 0 1.3rem;">Todo lo que hemos trabajado, con sus refuerzos y sus juegos. Vuelve cuando quieras.</p>
                 <div class="materiales" id="lista-materiales"></div>
                 <p class="vacio" id="sin-materiales" style="display:none;">Todavía no hay materiales cargados para tu curso.</p>
+            </section>
+        </div>
+
+        <div class="seccion" id="sec-grabaciones" style="display:none;">
+            <section class="panel">
+                <h2>Mis grabaciones</h2>
+                <p class="muted" style="margin:-0.5rem 0 1.3rem;">Las clases grabadas de tu curso, para repasar cuando quieras.</p>
+                <div id="lista-grabaciones"></div>
             </section>
         </div>
 
@@ -766,7 +784,7 @@ function cambiarSeccion(sec) {
 }
 
 function marcarSeccionesBloqueadas(pendiente) {
-    ['curso', 'resultados'].forEach(sec => {
+    ['curso', 'resultados', 'grabaciones'].forEach(sec => {
         const b = document.querySelector(`.sec-btn[data-sec="${sec}"]`);
         if (!b) return;
         b.disabled = pendiente;
@@ -841,6 +859,20 @@ document.addEventListener('submit', function (ev) {
 
 /* Solo se avisa de las que siguen esperando respuesta: una ya aceptada deja
    de ser noticia y no hay por qué insistir. */
+async function cargarGrabaciones(cursoId) {
+    const caja = document.getElementById('lista-grabaciones');
+    const { data, error } = await supabaseClient.from('clases_grabadas')
+        .select('*').eq('curso_id', cursoId).order('fecha', { ascending: false });
+    if (error) { caja.innerHTML = '<p class="vacio">No se pudieron cargar las grabaciones. Inténtalo más tarde.</p>'; return; }
+    caja.innerHTML = (data || []).map(g => `
+        <div class="grab"><span class="g-ico"><i class="fa-solid fa-video"></i></span>
+            <div class="g-txt"><div class="g-tit">${esc(g.titulo)}</div>
+                <div class="g-meta">${esc(diaCorto(g.fecha))}${g.codigo ? ' · Código: <span class="g-cod">' + esc(g.codigo) + '</span>' : ''}</div>
+                ${g.notas ? `<div class="g-nota">${esc(g.notas)}</div>` : ''}</div>
+            <a class="btn" href="${esc(g.enlace)}" target="_blank" rel="noopener"><i class="fa-solid fa-play"></i> Ver la clase</a>
+        </div>`).join('') || '<p class="vacio">Todavía no hay clases grabadas. Cuando Miguel suba una, aparecerá aquí.</p>';
+}
+
 async function cargarAvisoPropuesta() {
     try {
         const { data } = await supabaseClient.from('propuestas')
@@ -1146,6 +1178,7 @@ async function seleccionarInscripcion(inscripcionId) {
     ]);
     document.getElementById('msg-constancia').style.display = 'none';
     await cargarSolicitudesConstancia(insc.id);
+    await cargarGrabaciones(curso.id);
 
     const sesiones = sesionesRes.data || [];
     const asistenciaPorSesion = {};

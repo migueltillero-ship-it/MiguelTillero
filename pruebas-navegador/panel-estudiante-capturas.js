@@ -23,6 +23,7 @@ const html = fs.readFileSync(raiz + '/panel-estudiante.html', 'utf8')
       materiales:[{ id:'m1', titulo:'Fonética: las vocales', descripcion:'Los sonidos y las vocales del francés.', url:'#', categoria:'material', unidad:null, orden:1 },{ id:'m2', titulo:'Ejercicios A1', descripcion:'Posesivos, números y pronombres.', url:'#', categoria:'refuerzo', unidad:null, orden:2 },{ id:'m3', titulo:'Juego de números', descripcion:'Repasa del 70 al 99.', url:'#', categoria:'juego', unidad:null, orden:3 }],
       avisos:[{ id:'a1', titulo:'Pago de noviembre 2026', mensaje:'Las clases se pagan por mes.\\n\\nFecha límite: 13/11/2026.', tipo:'importante', creado_en:'2026-11-06' },{ id:'a2', titulo:'Clase del jueves', mensaje:'Traigan su cuaderno.', tipo:'info', creado_en:'2026-11-05' }],
       solicitudes_ayuda:[{ id:'h1', tema:'Los posesivos', detalle:'No sé si es sa o son', estado:'respondida', creada_en:'2026-11-05T10:00:00Z', respuesta:'Depende de la cosa, no del dueño.' },{ id:'h2', tema:'El passé composé', detalle:null, estado:'abierta', creada_en:'2026-11-06T10:00:00Z', respuesta:null }],
+      clases_grabadas:[{ id:'r1', curso_id:'c1', titulo:'Clase del 3 de noviembre', fecha:'2026-11-03', enlace:'https://zoom.example/rec/abc', codigo:'clave-1', notas:'Escucha el minuto 40: es lo de los posesivos.' },{ id:'r2', curso_id:'c1', titulo:'Clase del 29 de octubre', fecha:'2026-10-29', enlace:'https://zoom.example/rec/def', codigo:null, notas:null }],
       grupo_progresion:[], tipos_constancia:[], solicitudes_constancia:[], grupo_enlaces:[], propuestas:[], pruebas_ubicacion:[]
     };
     function cons(t){ const q={ _t:t, select(){return q}, eq(){return q}, is(){return q}, order(){return q}, limit(){return q}, in(){return q}, maybeSingle(){return q}, single(){return q}, insert(){return Promise.resolve({error:null})},
@@ -37,7 +38,7 @@ const html = fs.readFileSync(raiz + '/panel-estudiante.html', 'utf8')
     const p = await n.newPage({ viewport: { width: w, height: h }, deviceScaleFactor: 1 });
     p.on('pageerror', e => errores.push(tag + ': ' + e.message));
     await p.goto('file://' + raiz + '/.captura-est.html'); await p.waitForTimeout(1800);
-    for (const s of ['inicio', 'curso', 'resultados', 'materiales', 'ayuda', 'pagos']) {
+    for (const s of ['inicio', 'curso', 'resultados', 'materiales', 'grabaciones', 'ayuda', 'pagos']) {
       await p.evaluate(x => cambiarSeccion(x), s); await p.waitForTimeout(250);
       await p.screenshot({ path: `${salida}/panel-${tag}-${s}.png`, fullPage: true });
     }

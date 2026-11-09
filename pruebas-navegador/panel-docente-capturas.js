@@ -25,7 +25,7 @@ const DATOS = {
   evaluaciones:[ {id:'v1',curso_id:'c1',nombre:'Évaluation collective (cierre de ciclo)',fecha:iso(-6)},{id:'v2',curso_id:'c1',nombre:'Évaluation individuelle (cierre de ciclo)',fecha:iso(-4)} ],
   notas:[], profiles:[ {id:'e1',nombre_completo:'Alumno A'},{id:'e2',nombre_completo:'Alumno B'},{id:'e3',nombre_completo:'Alumno C'},{id:'e4',nombre_completo:'Alumno D'},{id:'e5',nombre_completo:'Alumno E'} ],
   solicitudes_ayuda:[ {id:'h1',estudiante_id:'e1',tema:'El passé composé',detalle:'No sé cuándo usar être',estado:'abierta',creada_en:new Date().toISOString()} ],
-  grabaciones:[{id:'r1'},{id:'r2'}], feriados:[], metodos:[], metodo_unidades:[]
+  clases_grabadas:[{ id:'r1', curso_id:'c1', titulo:'Clase del 3 de noviembre', fecha:iso(-6), enlace:'https://zoom.example/rec/abc', codigo:'clave-1', notas:'Escucha el minuto 40' }], grabaciones:[{id:'r1'},{id:'r2'}], feriados:[], metodos:[], metodo_unidades:[]
 };
 function cons(t){ const q={ select(){return q}, eq(){return q}, in(){return q}, is(){return q}, order(){return q}, limit(){return q}, maybeSingle(){return q}, single(){return q},
   insert(){return Promise.resolve({error:null})}, update(){return {eq:()=>Promise.resolve({error:null})}},
@@ -48,7 +48,7 @@ const html = fs.readFileSync(raiz + '/panel-docente.html', 'utf8')
       await p.screenshot({ path: `${salida}/docente-${tag}-${s}.png`, fullPage: true });
     }
     await p.evaluate(() => { cambiarSeccion('cursos'); return seleccionarCurso('c1'); }); await p.waitForTimeout(700);
-    for (const t of ['planificacion', 'asistencia', 'estudiantes', 'notas']) {
+    for (const t of ['planificacion', 'asistencia', 'estudiantes', 'notas', 'grabaciones']) {
       await p.evaluate(x => cambiarTab(x), t); await p.waitForTimeout(300);
       await p.screenshot({ path: `${salida}/docente-${tag}-curso-${t}.png`, fullPage: true });
     }

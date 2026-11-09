@@ -21,6 +21,7 @@ psql -d plataforma_test -f 02-flujo-completo.sql
 psql -d plataforma_test -f 03-seguridad.sql
 psql -d plataforma_test -f 04-casos-limite.sql
 psql -d plataforma_test -f 07-nota-de-ejercicios.sql   # tras nota-de-ejercicios.sql
+psql -d plataforma_test -f ../grabaciones-de-clase.sql   && psql -d plataforma_test -f 09-grabaciones-de-clase.sql
 ```
 
 ## Qué debe salir
