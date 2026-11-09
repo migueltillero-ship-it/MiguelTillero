@@ -387,6 +387,11 @@ th { font-family:'Syne', sans-serif; font-size:0.83rem; text-transform:uppercase
                 <div id="msg-grabacion" class="msg"></div>
                 <h3 style="font-family:'Cormorant Garamond',serif; color:var(--accent-green); margin:1.6rem 0 0.6rem;">Ya publicadas</h3>
                 <div id="lista-grabaciones-clase"></div>
+                <div id="caja-sin-asignar" style="display:none;">
+                    <h3 style="font-family:'Cormorant Garamond',serif; color:var(--accent-green); margin:1.6rem 0 0.3rem;">Llegaron de Zoom y no sé de qué curso son</h3>
+                    <p class="muted" style="margin:0 0 0.8rem;">Ningún enlace de Zoom guardado coincide con estas reuniones. Si son de este curso, asígnalas aquí; no se ha publicado nada todavía.</p>
+                    <div id="lista-sin-asignar"></div>
+                </div>
             </div>
 
             <div class="tab-content" id="tab-notas">
@@ -730,6 +735,12 @@ async function cargarPorHacer() {
         sub: gr.data.length === 1 ? 'una sin escuchar' : gr.data.length + ' sin escuchar',
         enlace: 'evaluaciones/grabaciones.html', texto: 'Escuchar' });
 
+    // 3b) Grabaciones de Zoom que no se pudieron atribuir a un curso.
+    const sa = await supabaseClient.from('grabaciones_sin_asignar').select('id');
+    if (!sa.error && sa.data && sa.data.length) items.push({ n: sa.data.length, titulo: 'Grabaciones de Zoom sin curso',
+        sub: sa.data.length === 1 ? 'una por asignar: abre un curso y su pestaña Grabaciones' : sa.data.length + ' por asignar: abre un curso y su pestaña Grabaciones',
+        boton: "cambiarSeccion('cursos')", texto: 'Ir a Cursos' });
+
     // 4) Quién necesita atención: faltó a las dos últimas clases dadas de su grupo.
     const sesIds = todasSesiones.filter(x => x.fecha <= hoy).map(x => x.id);
     if (sesIds.length) {
@@ -1049,7 +1060,7 @@ async function seleccionarCurso(id) {
     document.getElementById('form-editar-curso').style.display = 'none';
     await cargarCursos(); // refresca resaltado
     cambiarTab('planificacion');
-    await Promise.all([cargarSesiones(), cargarEstudiantes(), cargarEvaluaciones(), cargarHorario(), cargarGrabacionesClase()]);
+    await Promise.all([cargarSesiones(), cargarEstudiantes(), cargarEvaluaciones(), cargarHorario(), cargarGrabacionesClase(), cargarSinAsignar()]);
     document.getElementById('detalle-curso').scrollIntoView({ behavior: 'smooth' });
 }
 
@@ -1249,6 +1260,44 @@ async function cargarGrabacionesClase() {
             <a class="btn pequeno secundario" href="${esc(g.enlace)}" target="_blank" rel="noopener">Abrir</a>
             <button class="btn pequeno peligro" onclick="borrarGrabacion('${g.id}')"><i class="fa-solid fa-trash"></i></button>
         </div>`).join('') || '<p class="muted" style="margin:0;">Todavía no has publicado ninguna.</p>';
+}
+
+/* Las que Zoom envió pero no se pudieron atribuir a un curso (el número de la
+   reunión no está en ningún enlace guardado). Quedan aquí, sin publicar, hasta
+   que se asignan: así nunca se enseña una clase a quien no le toca. */
+async function cargarSinAsignar() {
+    const caja = document.getElementById('caja-sin-asignar');
+    const { data, error } = await supabaseClient.from('grabaciones_sin_asignar').select('*').order('fecha', { ascending: false });
+    if (error || !data || !data.length) { caja.style.display = 'none'; return; }
+    caja.style.display = 'block';
+    document.getElementById('lista-sin-asignar').innerHTML = data.map(g => `
+        <div class="hacer"><span class="num"><i class="fa-solid fa-circle-question"></i></span>
+            <div class="que"><strong>${esc(g.tema || 'Reunión de Zoom')}</strong><small>${esc(g.fecha)}</small></div>
+            <button class="btn pequeno" onclick="asignarGrabacion('${g.id}')">Asignar a este curso</button>
+            <button class="btn pequeno peligro" onclick="descartarSinAsignar('${g.id}')"><i class="fa-solid fa-trash"></i></button>
+        </div>`).join('');
+}
+
+async function asignarGrabacion(id) {
+    const { data: g, error } = await supabaseClient.from('grabaciones_sin_asignar').select('*').eq('id', id).single();
+    if (error || !g) { alert('No se encontró la grabación.'); return; }
+    const { error: e2 } = await supabaseClient.from('clases_grabadas').insert({
+        curso_id: cursoActualId, titulo: tituloDeFecha(g.fecha), fecha: g.fecha, enlace: g.enlace,
+        codigo: g.codigo, zoom_uuid: g.zoom_uuid, origen: 'zoom' });
+    if (e2) { alert('No se asignó: ' + e2.message); return; }
+    await supabaseClient.from('grabaciones_sin_asignar').delete().eq('id', id);
+    await Promise.all([cargarGrabacionesClase(), cargarSinAsignar()]);
+}
+
+async function descartarSinAsignar(id) {
+    if (!confirm('¿Descartar esta grabación? No se publicará en ningún curso.')) return;
+    await supabaseClient.from('grabaciones_sin_asignar').delete().eq('id', id);
+    await cargarSinAsignar();
+}
+
+function tituloDeFecha(iso) {
+    const [a, m, d] = String(iso).split('-').map(Number);
+    return 'Clase del ' + d + ' de ' + new Date(a, m - 1, d).toLocaleDateString('es-MX', { month: 'long' });
 }
 
 async function guardarGrabacion() {

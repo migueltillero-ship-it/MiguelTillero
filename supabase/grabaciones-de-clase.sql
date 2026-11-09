@@ -59,3 +59,40 @@ grant select, insert, update, delete on public.clases_grabadas to authenticated;
 
 -- Comprobación
 select count(*) as grabaciones from public.clases_grabadas;
+
+
+-- ===========================================================================
+-- PUBLICACIÓN AUTOMÁTICA DESDE ZOOM
+-- ===========================================================================
+-- La función zoom-grabaciones (supabase/functions/zoom-grabaciones) recibe el
+-- aviso de Zoom y publica la grabación en el curso cuyo enlace de Zoom tiene el
+-- mismo número de reunión. Si ninguno coincide, la guarda aquí, sin asignar,
+-- para que el docente la asigne con un botón: no se pierde ni se publica en el
+-- curso equivocado.
+
+alter table public.clases_grabadas add column if not exists zoom_uuid text;
+alter table public.clases_grabadas add column if not exists origen text not null default 'manual';
+-- Índice completo, no parcial: el guardado de la función usa «on conflict (zoom_uuid)»
+-- y PostgREST no puede inferir un índice parcial. Los NULL no chocan entre sí.
+create unique index if not exists clases_grabadas_zoom_uuid on public.clases_grabadas (zoom_uuid);
+
+create table if not exists public.grabaciones_sin_asignar (
+  id         uuid primary key default gen_random_uuid(),
+  zoom_uuid  text not null unique,
+  id_reunion text,
+  tema       text,
+  fecha      date not null,
+  enlace     text not null check (enlace ~* '^https://'),
+  codigo     text,
+  recibida_en timestamptz not null default now()
+);
+alter table public.grabaciones_sin_asignar enable row level security;
+drop policy if exists "sin asignar: solo el docente" on public.grabaciones_sin_asignar;
+create policy "sin asignar: solo el docente" on public.grabaciones_sin_asignar
+  for all to authenticated
+  using (public.es_docente() or public.es_admin())
+  with check (public.es_docente() or public.es_admin());
+revoke all on public.grabaciones_sin_asignar from anon;
+grant select, insert, update, delete on public.grabaciones_sin_asignar to authenticated;
+
+select count(*) as sin_asignar from public.grabaciones_sin_asignar;

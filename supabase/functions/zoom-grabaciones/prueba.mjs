@@ -1,0 +1,23 @@
+// Prueba de la lógica del aviso de Zoom. Uso: node --experimental-strip-types prueba.mjs
+import { firmaValida, respuestaReto, leerGrabacion, tituloDe } from './logica.ts';
+import { createHmac } from 'node:crypto';
+let fallos = 0; const ok = (n, c) => { console.log((c ? '✓ ' : '✗ ') + n); if (!c) fallos++; };
+const S = 'secreto-de-prueba', cuerpo = '{"event":"recording.completed"}', ahora = Date.now(), marca = String(Math.floor(ahora/1000));
+const firma = 'v0=' + createHmac('sha256', S).update(`v0:${marca}:${cuerpo}`).digest('hex');
+ok('firma buena se acepta', await firmaValida(S, marca, firma, cuerpo, ahora));
+ok('cuerpo alterado se rechaza', !(await firmaValida(S, marca, firma, cuerpo + ' ', ahora)));
+ok('secreto equivocado se rechaza', !(await firmaValida('otro', marca, firma, cuerpo, ahora)));
+ok('sin firma se rechaza', !(await firmaValida(S, marca, null, cuerpo, ahora)));
+ok('sin secreto configurado se rechaza', !(await firmaValida('', marca, firma, cuerpo, ahora)));
+ok('aviso de hace 10 min se rechaza', !(await firmaValida(S, marca, firma, cuerpo, ahora + 10*60*1000)));
+const r = await respuestaReto(S, 'abc');
+ok('reto: HMAC correcto', r.encryptedToken === createHmac('sha256', S).update('abc').digest('hex') && r.plainToken === 'abc');
+const ev = { payload: { object: { id: 89400565303, uuid: 'u==', topic: 'Clase', start_time: '2026-11-10T01:30:00Z', share_url: 'https://zoom.us/rec/share/x', password: 'p4ss' } } };
+const g = leerGrabacion(ev);
+ok('fecha es la de México (UTC ya era el 10, en México aún el 9)', g && g.fechaMx === '2026-11-09');
+ok('número de reunión como texto y código guardado', g.idReunion === '89400565303' && g.codigo === 'p4ss');
+ok('enlace no https se descarta', leerGrabacion({ payload: { object: { ...ev.payload.object, share_url: 'http://x' } } }) === null);
+ok('enlace javascript: se descarta', leerGrabacion({ payload: { object: { ...ev.payload.object, share_url: 'javascript:alert(1)' } } }) === null);
+ok('sin uuid se descarta', leerGrabacion({ payload: { object: { ...ev.payload.object, uuid: '' } } }) === null);
+ok('título legible', tituloDe('2026-11-09') === 'Clase del 9 de noviembre');
+process.exit(fallos ? 1 : 0);
