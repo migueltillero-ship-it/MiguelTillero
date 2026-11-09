@@ -56,3 +56,8 @@ datos inventados y un cliente de Supabase simulado: no lee ni escribe nada.
 Uso: `node pruebas-navegador/panel-estudiante-capturas.js <carpeta-de-salida>`.
 Avisa si hay errores de JavaScript. Sirve para revisar el aspecto tras tocar
 estilos, sin necesitar una sesión real.
+
+## panel-docente-capturas.js
+Lo mismo para el panel del docente: Hoy, Cursos, Calendario y las cuatro pestañas
+de un curso, en escritorio y móvil, con fechas relativas a hoy para que «Hoy» tenga
+clases. `node pruebas-navegador/panel-docente-capturas.js <carpeta-de-salida>`.

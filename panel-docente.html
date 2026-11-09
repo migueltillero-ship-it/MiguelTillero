@@ -104,6 +104,38 @@ th { font-family:'Syne', sans-serif; font-size:0.83rem; text-transform:uppercase
 .hacer .que small { display:block; color:#6b7a70; }
 .hacer .num { min-width:2.1rem; height:2.1rem; border-radius:999px; background:rgba(194,96,60,.14); color:#a1652d; font-weight:800; display:flex; align-items:center; justify-content:center; }
 .hacer.verde .num { background:rgba(43,69,53,.12); color:var(--accent-green); }
+
+/* ── Retoques de aspecto ──────────────────────────────────────────────
+   Salieron al fotografiar el panel con datos de ejemplo, en móvil y escritorio. */
+/* Los enlaces de ayuda dentro de los paneles salían en azul de navegador,
+   subrayados, y desentonaban con todo lo demás. */
+.panel a:not(.btn):not(.p-quien) { color:var(--primary-color); font-weight:600; text-underline-offset:3px; }
+.panel a:not(.btn):not(.p-quien):hover { color:var(--primary-hover); }
+/* «1 sin atender» partido en dos líneas en el título: que sea una pastilla entera. */
+#n-ayuda { display:inline-block; white-space:nowrap; background:rgba(194,96,60,.14); color:#a1652d; font-size:0.85rem; padding:0.2rem 0.7rem; border-radius:var(--r-pill); letter-spacing:0.04em; }
+.sec-btn:focus-visible, .tab-btn:focus-visible, .btn:focus-visible, .curso-card:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible { outline:3px solid #a5824a; outline-offset:2px; }
+.curso-card:active { transform:scale(.99); }
+@media (prefers-reduced-motion: reduce) { * { transition:none !important; animation:none !important; } }
+@media (max-width:680px) {
+  main { padding:1.2rem 4% 3rem; }
+  .panel { padding:1.2rem 1.1rem; }
+  .panel h2 { font-size:1.35rem; }
+  /* Los botones de sección y las pestañas ocupaban dos filas cada uno: una
+     fila que se desliza deja ver más de lo importante a la primera. */
+  .secciones, .tabs { flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch; padding-bottom:0.4rem; }
+  .secciones::-webkit-scrollbar, .tabs::-webkit-scrollbar { display:none; }
+  .sec-btn, .tab-btn { flex:0 0 auto; white-space:nowrap; }
+  .sec-btn { padding:0.65rem 1.1rem; }
+  /* Tres cifras en una fila en vez de tres tarjetas a todo lo ancho. */
+  .stat-row { flex-wrap:nowrap; gap:0.6rem; }
+  .stat { flex:1 1 0; min-width:0; padding:0.7rem 0.6rem; }
+  .stat .num { font-size:1.6rem; }
+  .stat .lbl { font-size:0.7rem; letter-spacing:0.03em; }
+  /* Las tablas (asistencia, notas, estudiantes) empujaban la página hacia un lado. */
+  .panel table { display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .hacer .btn { margin-left:2.9rem; }
+  .hero-pagina { min-height:0; }
+}
 </style>
 <link rel="stylesheet" href="assets/css/lite.css?v=109">
 </head>
@@ -889,6 +921,13 @@ async function abrirCursoDesdeCalendario(cursoId) {
     await seleccionarCurso(cursoId);
 }
 
+// «30 sep 2026»: más corta y legible que 2026-09-30 en las tarjetas.
+function fechaCursoCorta(iso) {
+    if (!iso) return '—';
+    const [a, m, d] = String(iso).split('-').map(Number);
+    return new Date(a, m - 1, d).toLocaleDateString('es-MX', { day: 'numeric', month: 'short', year: 'numeric' }).replace(/\./g, '');
+}
+
 async function cargarCursos() {
     const { data, error } = await supabaseClient
         .from('cursos')
@@ -916,9 +955,9 @@ async function cargarCursos() {
         <div class="curso-card ${c.id === cursoActualId ? 'activo' : ''}" onclick="seleccionarCurso('${c.id}')">
             <h3>${esc(c.nombre)}</h3>
             <div class="muted" style="margin:0;">${esc(c.nivel || '')}${metodo ? ' · ' + esc(metodo.nombre) : ''}</div>
-            <div class="muted" style="margin:0.3rem 0 0; font-size:0.95rem;">${c.fecha_inicio || '—'} → ${c.fecha_fin || '—'}</div>
+            <div class="muted" style="margin:0.3rem 0 0; font-size:0.95rem;">${fechaCursoCorta(c.fecha_inicio)} → ${fechaCursoCorta(c.fecha_fin)}</div>
             <span class="estado">${c.estado}</span>
-            ${g ? `<span class="estado" style="margin-left:0.4rem;">${g.cupo_actual}/${g.cupo_maximo} cupo</span>` : ''}
+            ${g && g.cupo_maximo ? `<span class="estado" style="margin-left:0.4rem;">${g.cupo_actual || 0}/${g.cupo_maximo} cupo</span>` : ''}
             ${(() => { const n = listasPendientesDe(c.id).length;
                        return n ? `<span class="estado" style="margin-left:0.4rem; background:rgba(176,74,58,.12); color:var(--danger); font-weight:600;">${n} lista${n > 1 ? 's' : ''} sin pasar</span>` : ''; })()}
         </div>
