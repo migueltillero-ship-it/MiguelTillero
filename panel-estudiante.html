@@ -243,6 +243,46 @@ select { padding:0.7rem; border:1px solid var(--border); border-radius:8px; font
 .pay-albo .pay-bank-icon    { background:#3743AA; }
 .pay-remitly { border-left-color:#E8871E; background:linear-gradient(180deg, rgba(232,135,30,.06), var(--card-bg) 40%); }
 .pay-remitly .pay-bank-icon { background:#16273C; }
+
+/* ── Retoques de aspecto ──────────────────────────────────────────────
+   Se vieron al fotografiar el panel en móvil con datos de ejemplo. */
+/* El resumen del curso dejaba una franja vacía abajo cuando no hay enlaces
+   de clase que enseñar. */
+.curso-acciones:empty { display:none; }
+.panel-curso .curso-meta:has(+ .curso-acciones:empty) { margin-bottom:0; }
+/* Las fechas, en una sola línea: partirlas en «2026-» y «10-08» no se lee. */
+td.fecha-celda { white-space:nowrap; color:var(--text-light); font-size:0.95rem; }
+/* El foco del teclado tiene que verse en todo lo que se puede pulsar. */
+.sec-btn:focus-visible, .btn:focus-visible, .btn-claro:focus-visible, .btn-borde:focus-visible,
+.material:focus-visible, select:focus-visible { outline:3px solid var(--gold); outline-offset:2px; }
+/* Quien prefiere menos movimiento no debería ver las tarjetas saltar. */
+@media (prefers-reduced-motion: reduce) {
+  .panel, .resultado, .material, .pay-card, .asist-barra i { transition:none; }
+  .panel:hover, .resultado:hover, .material:hover, .pay-card:hover { transform:none; }
+}
+@media (max-width:600px) {
+  main { padding:1.2rem 4% 3rem; }
+  .panel { padding:1.2rem 1.1rem; }
+  /* El banner de 150px se comía el saludo con la cara: más alto, y el velo
+     más fuerte justo donde va el texto. */
+  .hero-estudiante { height:215px; background-position:70% 30%; }
+  .hero-estudiante { background-image:
+    linear-gradient(to top, rgba(10,22,16,0.92) 0%, rgba(10,22,16,0.72) 45%, rgba(10,22,16,0.05) 85%),
+    url('assets/images/galeria/z1-060.jpg'); }
+  .hero-estudiante .hola { font-size:1.55rem; }
+  /* Siete botones en tres filas empujaban todo hacia abajo: una sola fila
+     que se desliza hacia el lado. */
+  .secciones { flex-wrap:nowrap; overflow-x:auto; margin-left:-4%; margin-right:-4%; padding:0.2rem 4% 0.8rem;
+               scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .secciones::-webkit-scrollbar { display:none; }
+  .sec-btn { flex:0 0 auto; white-space:nowrap; padding:0.65rem 1rem; }
+  /* Las tablas se salían de la pantalla y cortaban «Observación» y «Fecha». */
+  .panel table { display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .panel th, .panel td { padding:0.55rem 0.7rem; }
+  .stat-row { gap:0.7rem; }
+  .stat { flex:1 1 40%; min-width:0; padding:0.8rem 1rem; }
+  .resultado-nota { font-size:2rem; }
+}
 </style>
 </head>
 <body>
@@ -964,6 +1004,13 @@ function fechaCorta(iso) {
     return new Date(a, m - 1, d).toLocaleDateString('es-MX', { day: 'numeric', month: 'long' });
 }
 
+// «mié 8 oct»: se lee de un vistazo y cabe en una línea, a diferencia de 2026-10-08.
+function diaCorto(iso) {
+    if (!iso) return '—';
+    const [a, m, d] = iso.split('-').map(Number);
+    return new Date(a, m - 1, d).toLocaleDateString('es-MX', { weekday: 'short', day: 'numeric', month: 'short' }).replace(/\./g, '');
+}
+
 // El horario del grupo viene como jsonb: { dias:[...], hora_inicio, hora_fin }
 function horarioTexto(grupo) {
     const h = grupo.horario;
@@ -1105,7 +1152,7 @@ async function seleccionarInscripcion(inscripcionId) {
     (asistenciaRes.data || []).forEach(a => asistenciaPorSesion[a.sesion_id] = a);
 
     document.getElementById('tabla-planificacion').innerHTML = sesiones.map(s => `
-        <tr><td>${s.fecha}</td><td>${esc(s.tema)}</td><td>${esc(s.contenido)}</td></tr>
+        <tr><td class="fecha-celda">${diaCorto(s.fecha)}</td><td>${esc(s.tema)}</td><td>${esc(s.contenido)}</td></tr>
     `).join('') || '<tr><td colspan="3" class="muted">Aún no hay sesiones planificadas.</td></tr>';
 
     let presentes = 0, registradas = 0;
@@ -1113,7 +1160,7 @@ async function seleccionarInscripcion(inscripcionId) {
         const a = asistenciaPorSesion[s.id];
         if (a) { registradas++; if (a.presente) presentes++; }
         return `<tr>
-            <td>${s.fecha}</td><td>${esc(s.tema)}</td>
+            <td class="fecha-celda">${diaCorto(s.fecha)}</td><td>${esc(s.tema)}</td>
             <td>${a ? (a.presente ? '<span class="pill-si">Presente</span>' : '<span class="pill-no">Ausente</span>') : '—'}</td>
             <td>${esc(a ? a.observacion : '')}</td>
         </tr>`;

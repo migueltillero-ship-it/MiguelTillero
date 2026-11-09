@@ -49,3 +49,10 @@ cerrada. Si un día alguien «optimiza» el motor pintando todas las secciones y
 escondiéndolas con CSS, la ficha seguiría viéndose igual pero las respuestas
 estarían en el código fuente, a un clic derecho de distancia. La comprobación
 3 de esa prueba es la que se daría cuenta.
+
+## panel-estudiante-capturas.js
+Fotografía las seis pestañas del panel del estudiante (escritorio y móvil) con
+datos inventados y un cliente de Supabase simulado: no lee ni escribe nada.
+Uso: `node pruebas-navegador/panel-estudiante-capturas.js <carpeta-de-salida>`.
+Avisa si hay errores de JavaScript. Sirve para revisar el aspecto tras tocar
+estilos, sin necesitar una sesión real.
