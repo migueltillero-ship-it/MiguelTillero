@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu opinión del ciclo | Miguel Tillero</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --gold:#a5824a; --gold2:#86673a; --green:#0d7f57; --ink:#12291c; --muted:rgba(18,41,28,0.78);
+  --border:rgba(165,130,74,0.38); --panel:rgba(255,255,255,0.94);
+  --bg:radial-gradient(ellipse 80% 80% at 50% 40%, #c5e0d3 0%, #b8d9ca 55%, #a5cdbf 100%);
+}
+*{box-sizing:border-box}
+body{margin:0; color:var(--ink); font-family:'Syne',sans-serif; line-height:1.6; background:var(--bg); background-attachment:fixed;}
+nav.barra{display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap;
+  padding:1rem clamp(1rem,5vw,3rem); background:rgba(255,255,255,0.72); border-bottom:1px solid var(--border);}
+.marca{font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:600; color:var(--ink); text-decoration:none;}
+.barra a.volver{font-size:0.88rem; color:var(--gold2); text-decoration:none;}
+.hoja{max-width:760px; margin:0 auto; padding:clamp(1.6rem,5vw,3.5rem) 16px 5rem;}
+.portada{text-align:center; margin-bottom:1.8rem;}
+.sello{display:inline-block; padding:0.4rem 1rem; border:1px solid var(--border); border-radius:999px;
+  background:rgba(255,255,255,0.7); font-size:0.72rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--gold2);}
+h1{font-family:'Cormorant Garamond',serif; font-weight:300; font-size:clamp(2.2rem,7vw,3.6rem); line-height:1.1; margin:1rem 0 0.5rem;}
+h1 em{font-style:italic; color:var(--gold2);}
+.bloque{background:var(--panel); border:1px solid var(--border); border-radius:20px;
+  box-shadow:0 18px 50px rgba(20,45,32,0.10); padding:clamp(1.2rem,4.5vw,2.2rem); margin-bottom:1.2rem;}
+.bloque h2{font-family:'Cormorant Garamond',serif; font-weight:400; font-size:1.5rem; margin:0 0 0.2rem;}
+.pie{margin:0 0 1rem; color:var(--muted); font-size:0.92rem;}
+.intro p{font-size:1.08rem; line-height:1.8; margin:0 0 0.9rem; text-align:justify;}
+.intro p:last-child{margin:0}
+.pregunta{margin:1.6rem 0 0;}
+.pregunta:first-of-type{margin-top:0}
+.pregunta > label, .pregunta > .etq{display:block; font-weight:600; margin-bottom:0.5rem;}
+textarea{width:100%; min-height:90px; padding:0.8rem; border:1px solid var(--border); border-radius:12px;
+  font-family:inherit; font-size:1rem; background:#fff; resize:vertical;}
+textarea:focus, button:focus-visible, input:focus-visible + .op{outline:2px solid var(--green); outline-offset:2px;}
+.estrellas{display:flex; gap:0.4rem; flex-wrap:wrap;}
+.estrella{flex:1 1 0; min-width:56px; padding:0.7rem 0.3rem; border:1px solid var(--border); border-radius:12px;
+  background:#fff; cursor:pointer; font-family:inherit; font-size:0.85rem; text-align:center; color:var(--ink);}
+.estrella .n{display:block; font-size:1.4rem; font-family:'Cormorant Garamond',serif;}
+.estrella[aria-pressed="true"]{background:var(--green); color:#fff; border-color:var(--green);}
+.opciones{display:grid; gap:0.5rem;}
+.opcion{position:relative;}
+.opcion input{position:absolute; opacity:0; inset:0; width:100%; height:100%; cursor:pointer; margin:0;}
+.opcion .op{display:block; padding:0.8rem 1rem; border:1px solid var(--border); border-radius:12px; background:#fff; font-size:0.98rem;}
+.opcion input:checked + .op{background:rgba(13,127,87,0.1); border-color:var(--green); box-shadow:inset 0 0 0 1px var(--green); font-weight:600;}
+.boton{display:inline-flex; align-items:center; gap:0.5rem; padding:0.9rem 1.8rem; border:0; border-radius:999px;
+  background:var(--green); color:#fff; font-family:inherit; font-weight:700; font-size:1rem; cursor:pointer;}
+.boton[disabled]{opacity:0.6; cursor:wait}
+.msg{margin-top:1rem; padding:0.8rem 1rem; border-radius:12px; font-size:0.95rem;}
+.msg.error{background:#fbe9e7; color:#8a2f22; border:1px solid #e8b7ad}
+.msg.ok{background:rgba(13,127,87,0.1); color:#0b5e41; border:1px solid rgba(13,127,87,0.35)}
+.oculto{display:none}
+.barra-voto{margin:0.45rem 0;}
+.barra-voto .fila{display:flex; justify-content:space-between; gap:0.6rem; font-size:0.92rem;}
+.barra-voto .pista{height:10px; background:rgba(18,41,28,0.1); border-radius:999px; overflow:hidden; margin-top:0.2rem;}
+.barra-voto .relleno{height:100%; background:var(--gold); border-radius:999px; transition:width .6s ease;}
+@media (prefers-reduced-motion: reduce){ .barra-voto .relleno{transition:none} }
+</style>
+</head>
+<body>
+<nav class="barra">
+  <a class="marca" href="index.html">Miguel <em>Tillero</em></a>
+  <a class="volver" id="volver" href="login.html"><i class="fa-solid fa-arrow-left"></i> Volver a mi espacio</a>
+</nav>
+
+<main class="hoja">
+  <header class="portada">
+    <span class="sello">Fin de ciclo · <span id="ciclo-rotulo">A1</span></span>
+    <h1>Tu opinión <em>cuenta</em></h1>
+  </header>
+
+  <section class="bloque intro">
+    <p id="saludo">Gracias por ser parte de este ciclo.</p>
+    <p>Cerramos una etapa y quiero que lo que sigue se parezca cada vez más a lo que necesitan quienes estudian conmigo.
+       Por eso te invito a contarme cómo lo viviste: qué te gustó, qué no tanto y qué cambiarías. Son cinco minutos, y lo leo yo personalmente.</p>
+    <p>Esto es para estudiantes y también para sus familias: si eres madre, padre o representante, tu mirada nos importa igual.
+       Lo que escribas lo veo solo yo. Del grupo únicamente se muestra cuántas personas eligieron cada momento favorito, sin nombres.</p>
+  </section>
+
+  <div id="estado" class="msg oculto"></div>
+
+  <form id="forma" class="bloque oculto" novalidate>
+    <h2>Cuéntame cómo fue</h2>
+    <p class="pie" id="ya-respondio"></p>
+
+    <div class="pregunta">
+      <span class="etq" id="q1">1. En general, ¿cómo fue el ciclo?</span>
+      <div class="estrellas" role="group" aria-labelledby="q1" id="estrellas"></div>
+    </div>
+
+    <div class="pregunta">
+      <span class="etq" id="q2">2. Tu momento favorito de la clase</span>
+      <div class="opciones" role="radiogroup" aria-labelledby="q2" id="momentos"></div>
+    </div>
+
+    <div class="pregunta"><label for="gusto">3. ¿Qué fue lo que más te gustó?</label>
+      <textarea id="gusto" maxlength="1200" placeholder="Lo que quieras que se quede igual…"></textarea></div>
+    <div class="pregunta"><label for="no_gusto">4. ¿Qué no te gustó, o te costó?</label>
+      <textarea id="no_gusto" maxlength="1200" placeholder="Con confianza: así lo puedo arreglar…"></textarea></div>
+    <div class="pregunta"><label for="mejorar">5. ¿Qué crees que podemos mejorar?</label>
+      <textarea id="mejorar" maxlength="1200" placeholder="Ideas, cambios, cosas que te gustaría ver…"></textarea></div>
+
+    <div class="pregunta">
+      <span class="etq" id="q6">6. ¿Te gustaría seguir en el próximo ciclo?</span>
+      <div class="opciones" role="radiogroup" aria-labelledby="q6" id="seguir"></div>
+    </div>
+
+    <p style="margin:1.8rem 0 0;"><button type="submit" class="boton" id="enviar"><i class="fa-solid fa-paper-plane"></i> Enviar mi opinión</button></p>
+    <div id="msg-forma" class="msg oculto"></div>
+  </form>
+
+  <section id="gracias" class="bloque oculto">
+    <h2>Gracias de verdad</h2>
+    <p class="pie">Cada respuesta me ayuda a hacer mejor el siguiente ciclo. Si quieres cambiar algo, vuelve cuando quieras a esta misma página.</p>
+    <h2 style="font-size:1.2rem; margin-top:1.2rem;">Los momentos favoritos del grupo</h2>
+    <div id="votos"></div>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/js/supabase-config.js?v=1790462574"></script>
+<script src="assets/js/auth-helpers.js?v=1790462574"></script>
+<script>
+/* Los momentos se pueden cambiar aquí sin tocar nada más: la clave se guarda
+   en la base y la etiqueta es lo que se lee. */
+const MOMENTOS = [
+  ['calentamiento', 'El inicio de la clase: retomar lo que ya sabemos'],
+  ['dialogos',      'Los diálogos y juegos de rol en pareja'],
+  ['explicacion',   'Cuando se explica la gramática con ejemplos'],
+  ['oral',          'Hablar y pronunciar, con corrección en el momento'],
+  ['juegos',        'Los juegos y actividades en grupo'],
+  ['cultura',       'Lo cultural: canciones, historias, el mundo francófono'],
+  ['cierre',        'El cierre: repasar y llevarme algo concreto']
+];
+const SEGUIR = [['si', 'Sí, quiero seguir'], ['quiza', 'Quizá, me gustaría hablarlo'], ['aun-no', 'Todavía no lo sé']];
+const CICLO = (new URLSearchParams(location.search).get('ciclo') || 'A1-OCT2026').replace(/[^A-Za-z0-9-]/g, '').slice(0, 30);
+
+const el = id => document.getElementById(id);
+let perfil = null, valoracion = null;
+
+function aviso(caja, texto, tipo) { caja.textContent = texto; caja.className = 'msg ' + tipo; }
+
+function pintarOpciones(idCaja, nombre, lista) {
+  el(idCaja).innerHTML = '';
+  lista.forEach(function (par) {
+    const l = document.createElement('label'); l.className = 'opcion';
+    const i = document.createElement('input'); i.type = 'radio'; i.name = nombre; i.value = par[0];
+    const s = document.createElement('span'); s.className = 'op'; s.textContent = par[1];
+    l.appendChild(i); l.appendChild(s); el(idCaja).appendChild(l);
+  });
+}
+
+function pintarEstrellas() {
+  const rot = ['Mejorable', 'Regular', 'Bien', 'Muy bien', 'Excelente'];
+  el('estrellas').innerHTML = '';
+  for (let n = 1; n <= 5; n++) {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'estrella';
+    b.setAttribute('aria-pressed', 'false'); b.dataset.n = n;
+    b.innerHTML = '<span class="n">' + n + '</span>' + rot[n - 1];
+    b.addEventListener('click', function () { marcar(n); });
+    el('estrellas').appendChild(b);
+  }
+}
+function marcar(n) {
+  valoracion = n;
+  document.querySelectorAll('.estrella').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.n === n)));
+}
+
+function escogido(nombre) { const c = document.querySelector('input[name="' + nombre + '"]:checked'); return c ? c.value : null; }
+function poner(nombre, valor) { const c = document.querySelector('input[name="' + nombre + '"][value="' + valor + '"]'); if (c) c.checked = true; }
+
+async function mostrarVotos() {
+  const { data } = await supabaseClient.rpc('votos_momento', { p_ciclo: CICLO });
+  const cont = el('votos'); cont.innerHTML = '';
+  const filas = data || [];
+  if (!filas.length) { cont.textContent = 'Todavía eres de las primeras personas en responder.'; return; }
+  const max = Math.max.apply(null, filas.map(f => Number(f.votos)));
+  const etiqueta = {}; MOMENTOS.forEach(m => etiqueta[m[0]] = m[1]);
+  filas.forEach(function (f) {
+    const d = document.createElement('div'); d.className = 'barra-voto';
+    const fila = document.createElement('div'); fila.className = 'fila';
+    const a = document.createElement('span'); a.textContent = etiqueta[f.momento] || f.momento;
+    const b = document.createElement('strong'); b.textContent = f.votos;
+    fila.appendChild(a); fila.appendChild(b);
+    const pista = document.createElement('div'); pista.className = 'pista';
+    const r = document.createElement('div'); r.className = 'relleno'; r.style.width = (100 * Number(f.votos) / max) + '%';
+    pista.appendChild(r); d.appendChild(fila); d.appendChild(pista); cont.appendChild(d);
+  });
+}
+
+async function iniciar() {
+  if (!supabaseConfigurado) return;
+  const contexto = await requerirSesion();
+  if (!contexto) return;
+  perfil = contexto.perfil;
+  const rol = perfil.role;
+  el('volver').href = destinoParaRol(rol);
+  el('ciclo-rotulo').textContent = CICLO.split('-')[0];
+  const nombre = (perfil.nombre_completo || '').split(' ')[0];
+  if (nombre) el('saludo').textContent = 'Gracias, ' + nombre + ', por ser parte de este ciclo.';
+
+  if (rol !== 'estudiante' && rol !== 'representante') {
+    aviso(el('estado'), 'Este espacio es para estudiantes y sus familias.', 'error');
+    return;
+  }
+
+  pintarEstrellas();
+  pintarOpciones('momentos', 'momento', MOMENTOS);
+  pintarOpciones('seguir', 'seguir', SEGUIR);
+  el('forma').classList.remove('oculto');
+
+  const { data: previa } = await supabaseClient.from('opiniones').select('*').eq('autor_id', perfil.id).eq('ciclo', CICLO).maybeSingle();
+  if (previa) {
+    marcar(previa.valoracion); poner('momento', previa.momento); poner('seguir', previa.seguir);
+    el('gusto').value = previa.gusto || ''; el('no_gusto').value = previa.no_gusto || ''; el('mejorar').value = previa.mejorar || '';
+    el('ya-respondio').textContent = 'Ya respondiste el ' + new Date(previa.actualizado_en).toLocaleDateString('es-MX', { day: 'numeric', month: 'long' }) + '. Puedes cambiar lo que quieras y volver a enviar.';
+    el('gracias').classList.remove('oculto'); mostrarVotos();
+  }
+}
+
+el('forma').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  const caja = el('msg-forma');
+  if (!valoracion) return aviso(caja, 'Elige primero cómo fue el ciclo, de 1 a 5.', 'error');
+  const b = el('enviar'); b.disabled = true;
+  const { error } = await supabaseClient.from('opiniones').upsert({
+    autor_id: perfil.id, ciclo: CICLO, valoracion: valoracion, momento: escogido('momento'),
+    gusto: el('gusto').value.trim() || null, no_gusto: el('no_gusto').value.trim() || null,
+    mejorar: el('mejorar').value.trim() || null, seguir: escogido('seguir')
+  }, { onConflict: 'autor_id,ciclo' });
+  b.disabled = false;
+  if (error) return aviso(caja, 'No se pudo guardar: ' + error.message, 'error');
+  aviso(caja, '¡Recibido! Gracias por contármelo.', 'ok');
+  el('gracias').classList.remove('oculto'); mostrarVotos();
+  el('gracias').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+iniciar();
+</script>
+</body>
+</html>

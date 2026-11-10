@@ -1781,7 +1781,7 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
     try {
         var volver = sessionStorage.getItem('mt_volver');
         sessionStorage.removeItem('mt_volver');
-        if (volver === 'propuesta.html' || volver === 'contrato.html') destino = volver;
+        if (volver === 'propuesta.html' || volver === 'contrato.html' || volver === 'opinion.html') destino = volver;
     } catch (e) {}
     window.location.href = destino;
 });
