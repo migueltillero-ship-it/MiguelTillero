@@ -79,6 +79,24 @@ importa: cómo va su hijo o su hija.
 
 Esto vale para WhatsApp, para los avisos de la plataforma y para los correos.
 
+## Fechas de clases y asistencia: se verifican, no se suponen
+
+- **Nunca dar por dada una clase ni marcar asistencia** sin confirmarlo con
+  Miguel o con el chat de la persona. Un SQL que siembra «clase del día X, con
+  asistencia» a partir de lo que se creyó entender de un chat deja un dato
+  falso que luego cuenta horas que no se dieron y se arrastra al acuerdo, al
+  calendario y a los correos.
+- **La fecha de la primera clase de cada estudiante se confirma antes de
+  escribirla** en el acuerdo, el calendario, la asistencia o un correo, y se
+  guarda en la propia plataforma (no en archivos del chat, que no sobreviven
+  a un reinicio de la sesión y no se suben al repositorio).
+- Si Miguel manda un chat, se lee ahí mismo y se anotan en la plataforma las
+  fechas y horas **acordadas**, con el día exacto (no «el sábado»), antes de
+  construir nada encima.
+- Un cambio de fecha toca cuatro sitios a la vez: **asistencia**, **calendario
+  de la plataforma**, **texto del acuerdo** y **invitaciones de Google
+  Calendar**. Revisar los cuatro y también los borradores de correo pendientes.
+
 ## Al escribir
 
 - Comentarios y textos de cara al usuario **en español**, explicando el porqué
