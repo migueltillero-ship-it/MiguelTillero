@@ -366,7 +366,7 @@ th { font-family:'Syne', sans-serif; font-size:0.83rem; text-transform:uppercase
             <!-- ESTUDIANTES -->
             <div class="tab-content" id="tab-estudiantes">
                 <table>
-                    <thead><tr><th>Nombre</th><th>Teléfono</th><th>Estado</th><th>Acciones</th></tr></thead>
+                    <thead><tr><th>Nombre</th><th>Teléfono</th><th>Estado</th><th>Tiempo en la plataforma</th><th>Acciones</th></tr></thead>
                     <tbody id="tabla-estudiantes"></tbody>
                 </table>
                 <div id="msg-estudiantes" class="msg"></div>
@@ -1425,6 +1425,15 @@ async function cargarEstudiantes() {
     const perfilPorId = {};
     perfiles.forEach(p => perfilPorId[p.id] = p);
 
+    // Minutos de uso de cada estudiante del curso (tabla legible por el docente).
+    // Si todavía no existe la tabla, la columna dice «—» y el resto sigue igual.
+    const minutosDe = {};
+    if (ids.length) {
+        const { data: act } = await supabaseClient.from('actividad_plataforma').select('estudiante_id, minutos').in('estudiante_id', ids);
+        (act || []).forEach(a => minutosDe[a.estudiante_id] = (minutosDe[a.estudiante_id] || 0) + a.minutos);
+    }
+    const durTxt = m => m == null ? '—' : (m < 60 ? m + ' min' : Math.floor(m / 60) + ' h' + (m % 60 ? ' ' + (m % 60) + ' min' : ''));
+
     estudiantesActivosActuales = (inscripciones || [])
         .filter(i => i.estado === 'activa')
         .map(i => perfilPorId[i.estudiante_id])
@@ -1436,6 +1445,7 @@ async function cargarEstudiantes() {
             <td><a href="evaluaciones/ficha-estudiante.html?id=${esc(i.estudiante_id)}" title="Ver su ficha completa: asistencia, notas, ejercicios, pagos"><strong>${esc(p.nombre_completo)}</strong></a></td>
             <td>${esc(p.telefono)}</td>
             <td><span class="badge ${i.estado}">${i.estado}</span></td>
+            <td>${durTxt(minutosDe[i.estudiante_id] || 0)}</td>
             <td class="acciones-fila">
                 ${i.estado === 'pendiente' ? `<button class="btn pequeno" onclick="cambiarEstadoInscripcion('${i.id}','activa')">Aprobar</button>
                 <button class="btn pequeno peligro" onclick="cambiarEstadoInscripcion('${i.id}','rechazada')">Rechazar</button>` : ''}

@@ -144,4 +144,23 @@ $$;
 revoke all on function public.ver_boletin(uuid) from public;
 grant execute on function public.ver_boletin(uuid) to anon, authenticated;
 
+
+-- ---------------------------------------------------------------------------
+-- Lo mismo, para la familia: el uso de cada uno de sus representados.
+-- Se añade aparte para no tocar panel_representante(), que ya es larga y
+-- está repartida en varios archivos. El panel casa cada resultado con su hijo
+-- por el nombre.
+-- ---------------------------------------------------------------------------
+create or replace function public.actividad_de_mis_representados()
+returns table (nombre text, resumen jsonb)
+language sql stable security definer set search_path = public
+as $$
+  select p.nombre_completo, public._resumen_actividad(p.id, public.hoy_mexico())
+    from public.tutorias t
+    join public.profiles p on p.id = t.estudiante_id
+   where t.representante_id = auth.uid();
+$$;
+revoke all on function public.actividad_de_mis_representados() from public, anon;
+grant execute on function public.actividad_de_mis_representados() to authenticated;
+
 select count(*) as filas from public.actividad_plataforma;

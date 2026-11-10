@@ -247,7 +247,13 @@ begin
         || ' · Plataforma ' || coalesce(r.plataforma::text || '%','0%')
         || ' · Asistencia ' || coalesce(r.pct_asistencia::text || '%','sin datos')
         || case when r.avisadas > 0 then ' (con ' || r.avisadas
-                || ' ausencia avisada, que no resta)' else '' end,
+                || ' ausencia avisada, que no resta)' else '' end
+        -- El tiempo de uso va en la observación (lo leen el estudiante y su
+        -- familia), pero no entra en la nota: es información, no una nota.
+        || ' · Tiempo en la plataforma ' || (
+             select case when m < 60 then m || ' min' else (m / 60) || ' h' || case when m % 60 > 0 then ' ' || (m % 60) || ' min' else '' end end
+               from (select coalesce(sum(a.minutos), 0)::int as m
+                       from public.actividad_plataforma a where a.estudiante_id = r.estudiante_id) x),
         v_detalle)
       on conflict (evaluacion_id, estudiante_id)
       do update set calificacion = excluded.calificacion,

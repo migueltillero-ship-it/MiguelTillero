@@ -458,6 +458,12 @@
             <div id="tabla-asistencia"></div>
         </section>
 
+        <section class="panel" id="panel-uso" style="display:none;">
+            <h2>Tiempo en la plataforma</h2>
+            <div class="stat-row" id="stats-uso"></div>
+            <p class="vacio" id="nota-uso" style="margin:0;"></p>
+        </section>
+
         <section class="panel">
             <h2>Resultados</h2>
             <div id="lista-notas"></div>
@@ -1794,9 +1800,34 @@ function dinero(n) {
 
 const ICONO_AVISO = { info: 'fa-circle-info', aviso: 'fa-bell', importante: 'fa-triangle-exclamation' };
 
+function duracionTexto(min) {
+    min = Math.round(Number(min) || 0);
+    if (min < 60) return min + ' min';
+    const hh = Math.floor(min / 60), mm = min % 60;
+    return hh + ' h' + (mm ? ' ' + mm + ' min' : '');
+}
+
+/* El uso de la plataforma de cada hijo. Cuenta el tiempo con la página abierta
+   y en uso, desde que empezó a medirse; si no hay dato, el bloque no aparece. */
+function pintarUso(h) {
+    const panel = document.getElementById('panel-uso');
+    const u = (usoHijos || []).find(x => x.nombre === h.nombre);
+    const r = u && u.resumen;
+    if (!r) { panel.style.display = 'none'; return; }
+    panel.style.display = 'block';
+    document.getElementById('stats-uso').innerHTML =
+        '<div class="stat"><span class="num">' + esc(duracionTexto(r.minutos_total)) + '</span><span class="lbl">En total</span></div>' +
+        '<div class="stat"><span class="num">' + esc(duracionTexto(r.minutos_7_dias)) + '</span><span class="lbl">Últimos 7 días</span></div>' +
+        '<div class="stat"><span class="num">' + esc(String(r.dias_con_uso || 0)) + '</span><span class="lbl">Días que entró</span></div>';
+    document.getElementById('nota-uso').textContent = r.desde
+        ? 'Se cuenta el tiempo con la plataforma abierta y en uso, desde el ' + fechaCorta(r.desde) + '.'
+        : 'Todavía no hay tiempo registrado: se cuenta cuando entra con su cuenta.';
+}
+
 function pintarHijo() {
     const h = (datos.hijos || [])[indiceHijo];
     if (!h) return;
+    pintarUso(h);
 
     /* Avisos de este hijo. Vienen ya filtrados por fecha desde la base de
        datos, y ordenados por importancia. */
@@ -1913,6 +1944,7 @@ function pintarSelectorHijos() {
     });
 }
 
+let usoHijos = [];
 (async function iniciar() {
     const contexto = await requerirSesion('representante');
     if (!contexto) return;
@@ -1931,6 +1963,8 @@ function pintarSelectorHijos() {
 
     datos = data || {};
     const hijos = datos.hijos || [];
+    // El uso no debe retrasar ni romper el panel: si falla, simplemente no se muestra.
+    try { const u = await supabaseClient.rpc('actividad_de_mis_representados'); usoHijos = u.data || []; } catch (e) { usoHijos = []; }
 
     if (!hijos.length) { document.getElementById('sin-hijos').style.display = 'block'; return; }
 
