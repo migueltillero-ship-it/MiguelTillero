@@ -34,13 +34,14 @@ function catalogoDelSql(ruta, clave){
 }
 
 const espacios = [
-  { nombre: 'A1.4', clave: 'mt-a1', fichas: 'estudiantes/espace-a1-fiches.js' }
+  { nombre: 'A1.4', clave: 'mt-a1', fichas: 'estudiantes/espace-a1-fiches.js' },
+  { nombre: 'B2', clave: 'mt-b2', fichas: 'estudiantes/espace-b2-fiches.js', sql: 'supabase/catalogo-fichas-b2.sql' }
 ];
 
 let fallos = 0;
 espacios.forEach(e => {
   const sitio = fichasDelSitio(path.join(RAIZ, e.fichas));
-  const base  = catalogoDelSql(path.join(RAIZ, 'supabase/nota-de-ejercicios.sql'), e.clave);
+  const base  = catalogoDelSql(path.join(RAIZ, e.sql || 'supabase/nota-de-ejercicios.sql'), e.clave);
   console.log(`── ${e.nombre} (${e.clave}) ──`);
   console.log(`   ${sitio.length} fichas en el sitio · ${base.length} en el catálogo`);
 
