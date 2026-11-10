@@ -37,7 +37,7 @@ const { chromium } = require('/opt/node-tools/node_modules/playwright');
         if(!(tabla in T)) return Promise.resolve({ data:null, error:{ message:'relation "'+tabla+'" does not exist' } }).then(res, rej);
         return Promise.resolve({ data:(T[tabla]).filter(r => st.f.every(f => f(r))), error:null }).then(res, rej); } };
       return o; };
-    return { auth:{ getSession:()=>Promise.resolve({data:{session:{}}}), getUser:()=>Promise.resolve({data:{user:{id:'d'}}}) }, from:q };
+    return { auth:{ getSession:()=>Promise.resolve({data:{session:{}}}), getUser:()=>Promise.resolve({data:{user:{id:'d'}}}) }, from:q, rpc:()=>Promise.resolve({ data:{ minutos_total:135, dias_con_uso:4, minutos_7_dias:90, desde:'2026-11-09' }, error:null }) };
   } };`;
   await p.route('**/supabase-js@2/**', r => r.fulfill({ contentType:'application/javascript', body: stub }));
   await p.goto('file:///home/user/MiguelTillero/evaluaciones/ficha-estudiante.html?id=e1');

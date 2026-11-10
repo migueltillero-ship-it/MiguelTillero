@@ -47,12 +47,17 @@
     return subir(filas);
   }
 
-  function aviso(html){
+  function aviso(html, fuerte){
     const hub = document.querySelector('#vue-hub .conteneur');
     if(!hub) return;
     const d = document.createElement('p');
     d.className = 'note';
-    d.style.cssText = 'margin:0 0 1rem;padding:.7rem 1rem;border-radius:12px;background:rgba(165,130,74,.12)';
+    /* Sin sesión, lo que se resuelve NO llega al profesor. Un renglón gris
+       arriba se pasaba por alto: hubo quien hizo todos los ejercicios y para
+       la plataforma no hizo ninguno. Por eso, en ese caso, el aviso es grande. */
+    d.style.cssText = fuerte
+      ? 'margin:0 0 1.2rem;padding:1.1rem 1.3rem;border-radius:14px;background:#fbeee9;border:2px solid #c2603c;font-size:1.08rem;line-height:1.55;color:#5b2a19'
+      : 'margin:0 0 1rem;padding:.7rem 1rem;border-radius:12px;background:rgba(165,130,74,.12)';
     d.innerHTML = html;
     hub.insertBefore(d, hub.firstChild);
   }
@@ -61,8 +66,10 @@
   sb.auth.getSession().then(({ data }) => {
     const s = data && data.session;
     if(!s){
-      aviso('Para que tu profesor vea tu avance, <a href="../login.html">entra con tu cuenta</a> '
-          + 'y vuelve a esta página. Lo que ya resolviste aquí se copiará solo.');
+      aviso('<b>No has entrado con tu cuenta.</b> Todo lo que resuelvas ahora se queda solo en este '
+          + 'navegador y <b>tu profesor no lo ve ni cuenta para tu nota</b>. '
+          + '<a href="../login.html" style="display:inline-block;margin-top:.5rem;padding:.5rem 1.1rem;border-radius:999px;background:#c2603c;color:#fff;font-weight:700;text-decoration:none">Entrar con mi cuenta</a> '
+          + '<br><small>Después vuelve a esta página: lo que ya resolviste aquí se copiará solo.</small>', true);
       return;
     }
     usuario = s.user.id;

@@ -405,6 +405,12 @@ td.fecha-celda { white-space:nowrap; color:var(--text-light); font-size:0.95rem;
         </section>
 
         <div class="seccion" id="sec-inicio">
+        <section class="panel" id="panel-actividad" style="display:none;">
+            <h2>Tu tiempo en la plataforma</h2>
+            <div class="stat-row" id="stats-actividad"></div>
+            <p class="muted" id="nota-actividad" style="margin:0;"></p>
+        </section>
+
         <section class="panel" id="panel-avisos" style="display:none;">
             <h2>Avisos para ti</h2>
             <div class="avisos" id="lista-avisos"></div>
@@ -581,6 +587,7 @@ td.fecha-celda { white-space:nowrap; color:var(--text-light); font-size:0.95rem;
      esperar a que Miguel entre al panel es esperar demasiado. -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script src="assets/js/supabase-config.js?v=1790462574"></script>
+<script src="assets/js/actividad.js?v=1"></script>
 <script src="assets/js/auth-helpers.js?v=1790462574"></script>
 <script>
 let perfilEstudiante = null;
@@ -640,6 +647,7 @@ async function iniciar() {
     await cargarMisPagos();
     await cargarAvisos();
     await cargarAyuda();
+    cargarActividad();
 
     const activa = inscripciones.find(i => i.estado === 'activa') || inscripciones[0];
     sel.value = activa.id;
@@ -871,6 +879,29 @@ async function cargarGrabaciones(cursoId) {
                 ${g.notas ? `<div class="g-nota">${esc(g.notas)}</div>` : ''}</div>
             <a class="btn" href="${esc(g.enlace)}" target="_blank" rel="noopener"><i class="fa-solid fa-play"></i> Ver la clase</a>
         </div>`).join('') || '<p class="vacio">Todavía no hay clases grabadas. Cuando Miguel suba una, aparecerá aquí.</p>';
+}
+
+/* Cuánto se ha usado la plataforma, para que cada estudiante lo vea igual que
+   su familia en el informe. Cuenta solo el tiempo con la página a la vista y en
+   uso, y empieza a medirse desde que se instaló: lo anterior no consta. */
+function textoDuracion(min) {
+    min = Math.round(min || 0);
+    if (min < 60) return min + ' min';
+    const h = Math.floor(min / 60), m = min % 60;
+    return h + ' h' + (m ? ' ' + m + ' min' : '');
+}
+async function cargarActividad() {
+    const panel = document.getElementById('panel-actividad');
+    const { data, error } = await supabaseClient.rpc('resumen_actividad', { p_estudiante: perfilEstudiante.id });
+    if (error || !data) { panel.style.display = 'none'; return; }
+    panel.style.display = 'block';
+    document.getElementById('stats-actividad').innerHTML = `
+        <div class="stat"><span class="num">${esc(textoDuracion(data.minutos_total))}</span><span class="lbl">En total</span></div>
+        <div class="stat"><span class="num">${esc(textoDuracion(data.minutos_7_dias))}</span><span class="lbl">Últimos 7 días</span></div>
+        <div class="stat"><span class="num">${esc(String(data.dias_con_uso || 0))}</span><span class="lbl">Días que entraste</span></div>`;
+    document.getElementById('nota-actividad').textContent = data.desde
+        ? 'Se cuenta el tiempo con la página abierta y en uso, desde el ' + fechaCorta(data.desde) + '. Recuerda entrar siempre con tu cuenta: así lo que haces se guarda.'
+        : 'Todavía no hay tiempo registrado. Se empieza a contar cuando entras con tu cuenta.';
 }
 
 async function cargarAvisoPropuesta() {

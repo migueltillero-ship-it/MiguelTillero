@@ -29,7 +29,7 @@ const html = fs.readFileSync(raiz + '/panel-estudiante.html', 'utf8')
     function cons(t){ const q={ _t:t, select(){return q}, eq(){return q}, is(){return q}, order(){return q}, limit(){return q}, in(){return q}, maybeSingle(){return q}, single(){return q}, insert(){return Promise.resolve({error:null})},
       then(r,j){ return Promise.resolve({ data: DATOS[t]||[], error:null }).then(r,j); } }; return q; }
     const supabaseClient = { from:cons, storage:{ from:()=>({ upload:async()=>({error:null}) }) },
-      rpc: async()=>({ data:[{ concepto:'Ciclo Français A1.4 · Défi 1', monto:1900, moneda:'MXN', estado:'pagado', pagado_en:'2026-10-02' },{ concepto:'Mes 2 · noviembre 2026', monto:1900, moneda:'MXN', estado:'pendiente', pagado_en:null }], error:null }) };
+      rpc: async(n)=> n==='resumen_actividad' ? ({ data:{ minutos_total:315, dias_con_uso:6, minutos_7_dias:140, desde:'2026-11-09' }, error:null }) : ({ data:[{ concepto:'Ciclo Français A1.4 · Défi 1', monto:1900, moneda:'MXN', estado:'pagado', pagado_en:'2026-10-02' },{ concepto:'Mes 2 · noviembre 2026', monto:1900, moneda:'MXN', estado:'pendiente', pagado_en:null }], error:null }) };
   </script><script>let perfilEstudiante`);
 (async () => {
   const n = await chromium.launch(); const errores = [];

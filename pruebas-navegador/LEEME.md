@@ -61,3 +61,9 @@ estilos, sin necesitar una sesión real.
 Lo mismo para el panel del docente: Hoy, Cursos, Calendario y las cuatro pestañas
 de un curso, en escritorio y móvil, con fechas relativas a hoy para que «Hoy» tenga
 clases. `node pruebas-navegador/panel-docente-capturas.js <carpeta-de-salida>`.
+
+## Tiempo en la plataforma
+`supabase/pruebas/10-actividad-plataforma.sql` prueba en la base local quién puede
+sumar y ver minutos de uso. El navegador avisa cada minuto (assets/js/actividad.js)
+solo con la página a la vista y en uso; las capturas del panel del estudiante y la
+prueba de `ficha-estudiante.js` ya incluyen la tarjeta de tiempo.

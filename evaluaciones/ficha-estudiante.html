@@ -128,13 +128,14 @@ async function boot(){
 
 async function pintar(id){
   $('#ficha').innerHTML = '<p class="vacio">Cargando…</p>';
-  const [perfil, insc, tutor, ayuda, grab, avance] = await Promise.all([
+  const [perfil, insc, tutor, ayuda, grab, avance, actividad] = await Promise.all([
     pedir(sb.from('profiles').select('*').eq('id', id)),
     pedir(sb.from('inscripciones').select('*').eq('estudiante_id', id)),
     pedir(sb.from('tutorias').select('representante_id').eq('estudiante_id', id)),
     pedir(sb.from('solicitudes_ayuda').select('*').eq('estudiante_id', id).order('creada_en', { ascending:false })),
     pedir(sb.from('grabaciones').select('id,escuchado_en').eq('estudiante_id', id)),
-    pedir(sb.from('fichas_avance').select('*').eq('estudiante_id', id))
+    pedir(sb.from('fichas_avance').select('*').eq('estudiante_id', id)),
+    pedir(sb.rpc('resumen_actividad', { p_estudiante: id }))
   ]);
   const p = (perfil.data || [])[0] || {};
   const activas = (insc.data || []).filter(i => ['activa','pendiente'].includes(i.estado));
@@ -194,6 +195,10 @@ async function pintar(id){
   if(!familia && p.representante_nombre) aviso.push(['ambar', 'Su representante aún no tiene cuenta']);
   if(!aviso.length) aviso.push(['verde', 'Todo al día']);
 
+  // ── Tiempo en la plataforma (se mide desde que se instaló; lo anterior no consta) ──
+  const act = actividad && !actividad.falla ? actividad.data : null;
+  const dur = min => { min = Math.round(Number(min) || 0); if (min < 60) return min + ' min'; const h = Math.floor(min / 60), m = min % 60; return h + ' h' + (m ? ' ' + m + ' min' : ''); };
+
   const nombreGrupo = grupo ? grupo.codigo : 'Sin grupo asignado';
   const bloqueFalla = (r, txt) => r.falla ? `<p class="aviso-bloque">${esc(txt)}</p>` : '';
 
@@ -210,6 +215,12 @@ async function pintar(id){
           const a = porSesion[s.id];
           return `<tr><td>${esc(fecha(s.fecha))} · ${esc((s.tema || '').slice(0, 42))}</td><td>${!a ? '<span class="faltan">Sin pasar</span>' : a.presente ? '<span class="ok">Presente</span>' : 'No asistió' + (a.observacion ? `<span class="nota-just">${esc(a.observacion)}</span>` : '')}</td></tr>`; }).join('')}</tbody></table>` : '<p class="vacio">Todavía no hay clases dadas.</p>'}
         ${bloqueFalla(asist, 'No se pudo leer la asistencia.')}
+      </div>
+
+      <div class="tarjeta"><h3>Tiempo en la plataforma</h3>
+        ${act ? `<div class="cifra">${esc(dur(act.minutos_total))}<small> en total · ${esc(String(act.dias_con_uso || 0))} día${Number(act.dias_con_uso) === 1 ? '' : 's'} · ${esc(dur(act.minutos_7_dias))} esta semana</small></div>
+          <p class="vacio" style="margin:.6rem 0 0">Cuenta el tiempo con la página abierta y en uso${act.desde ? ', desde el ' + esc(fecha(act.desde)) : ''}. Sin iniciar sesión no se registra.</p>`
+          : '<p class="vacio">Todavía no se puede mostrar el tiempo de uso.</p>'}
       </div>
 
       <div class="tarjeta"><h3>Notas</h3>

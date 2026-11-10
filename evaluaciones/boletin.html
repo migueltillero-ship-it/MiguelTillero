@@ -58,6 +58,7 @@ if(!/^[0-9a-f-]{36}$/i.test(token)) return fallo('El enlace está incompleto. Á
 if(typeof supabaseClient === 'undefined' || !supabaseClient) return fallo('No se pudo conectar. Revisa tu conexión y vuelve a intentarlo.');
 
 const NOMBRES = { escrita:'Prueba escrita', oral:'Prueba oral' };
+const duracion = min => { min = Math.round(Number(min) || 0); if (min < 60) return min + ' min'; const h = Math.floor(min / 60), m = min % 60; return h + ' h' + (m ? ' ' + m + ' min' : ''); };
 const QUE = {
   escrita:'En línea: comprensión de audios, comprensión de lectura y redacción breve.',
   oral:'Individual con el profesor: presentarse, hacer preguntas y resolver una situación de la vida diaria.'
@@ -89,6 +90,11 @@ supabaseClient.rpc('ver_boletin', { p_token: token }).then(({ data, error }) => 
         }).join('')}</div>` : ''}
         ${n.comentario ? `<div class="com"><span>Comentario del profesor</span>${esc(n.comentario)}</div>` : ''}
       </section>`).join('') || '<div class="msg"><p>Todavía no hay resultados publicados. Te avisaremos cuando estén listos.</p></div>'}
+    ${data.actividad ? `<section class="card">
+        <div class="kicker">Constancia en la plataforma</div>
+        <h2>${esc(duracion(data.actividad.minutos_total))} de uso</h2>
+        <p style="margin:.5rem 0 0;color:var(--muted);font-size:1.03rem">${esc(data.alumno)} ha entrado ${esc(String(data.actividad.dias_con_uso || 0))} ${Number(data.actividad.dias_con_uso) === 1 ? 'día' : 'días'}${data.actividad.minutos_7_dias ? ', y esta última semana ha dedicado ' + esc(duracion(data.actividad.minutos_7_dias)) : ''}. Se cuenta el tiempo con la página abierta y en uso${data.actividad.desde ? ', desde el ' + esc(data.actividad.desde.split('-').reverse().join('/')) : ''}.</p>
+      </section>` : ''}
     <div class="foot">
       <p>Prof. Miguel Tillero · Vive el francés. Este enlace es privado: compártelo solo con la familia.</p>
       <button class="btn no-print" onclick="window.print()">Imprimir o guardar en PDF</button>
