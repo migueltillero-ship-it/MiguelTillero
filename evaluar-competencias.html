@@ -69,6 +69,7 @@ th{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mu
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="assets/js/supabase-config.js?v=1790462574"></script>
+<script src="assets/js/aviso-guardado.js?v=1"></script>
 <script src="assets/js/auth-helpers.js?v=1790462574"></script>
 <script>
 const COMPETENCIAS = [['comprension-oral','Comprensión oral'],['comprension-escrita','Comprensión escrita'],['produccion-oral','Producción e interacción oral'],['produccion-escrita','Producción escrita']];
@@ -76,7 +77,7 @@ const el = id => document.getElementById(id);
 const nodo = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
 let grupoActual = null, estudiantes = [];
 
-function msg(id, texto, tipo) { const m = el(id); m.textContent = texto; m.className = 'msg ' + tipo; m.style.display = 'block'; }
+function msg(id, texto, tipo) { const m = el(id); m.textContent = texto; m.className = 'msg ' + tipo; m.style.display = 'block'; if (window.mtAviso && id !== 'msg-grupo') window.mtAviso(texto, tipo); }
 function fechaCorta(f) { return new Date(f + 'T12:00:00').toLocaleDateString('es-MX', { day: 'numeric', month: 'short' }); }
 
 async function cargarGrupos() {

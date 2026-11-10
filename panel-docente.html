@@ -451,6 +451,7 @@ th { font-family:'Syne', sans-serif; font-size:0.83rem; text-transform:uppercase
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="assets/js/supabase-config.js?v=1790500000"></script>
+<script src="assets/js/aviso-guardado.js?v=1"></script>
 <script src="assets/js/auth-helpers.js?v=1790500000"></script>
 <script>
 let perfilDocente = null;
@@ -590,6 +591,9 @@ function mostrarMsg(el, texto, tipo) {
     el.textContent = texto;
     el.className = 'msg ' + tipo;
     el.style.display = 'block';
+    // Además del mensaje bajo el botón (que en una tabla larga queda fuera de
+    // pantalla), un aviso flotante: así siempre se sabe si se guardó o no.
+    if (window.mtAviso) window.mtAviso(texto, tipo);
 }
 
 function esc(s) {
@@ -1591,7 +1595,13 @@ async function guardarNotas() {
     }));
     const { error } = await supabaseClient.from('notas').upsert(registros, { onConflict: 'evaluacion_id,estudiante_id' });
     if (error) { mostrarMsg(msgEl, error.message, 'error'); return; }
-    mostrarMsg(msgEl, 'Notas guardadas.', 'ok');
+    // Se vuelve a leer de la base para confirmar que de verdad quedó guardado.
+    const { data: guardadas, error: errLeer } = await supabaseClient.from('notas')
+        .select('estudiante_id, calificacion, comentario').eq('evaluacion_id', evaluacionId);
+    if (errLeer) { mostrarMsg(msgEl, 'Se envió, pero no pude confirmar que se guardó: ' + errLeer.message, 'error'); return; }
+    const conComentario = (guardadas || []).filter(n => n.comentario && n.comentario.trim()).length;
+    mostrarMsg(msgEl, 'Guardado y comprobado: ' + (guardadas || []).length + ' nota' + ((guardadas || []).length === 1 ? '' : 's')
+        + ', ' + conComentario + ' con comentario. Ya las ven el estudiante y su familia.', 'ok');
     await cargarNotas();
 }
 
