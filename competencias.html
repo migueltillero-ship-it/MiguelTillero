@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Competencias evaluadas | Miguel Tillero</title>
+<meta name="description" content="Qué se evalúa en cada nivel de francés, según el Marco común europeo de referencia, explicado con descriptores claros.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold2:#86673a;--green:#0d7f57;--ink:#12291c;--muted:rgba(18,41,28,.78);--border:rgba(165,130,74,.38);
+  --bg:radial-gradient(ellipse 80% 80% at 50% 40%,#c5e0d3 0%,#b8d9ca 55%,#a5cdbf 100%)}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font-family:'Syne',sans-serif;line-height:1.6;background:var(--bg);background-attachment:fixed}
+nav{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;padding:1rem clamp(1rem,5vw,3rem);background:rgba(255,255,255,.72);border-bottom:1px solid var(--border)}
+.marca{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--ink);text-decoration:none}
+nav a.v{font-size:.88rem;color:var(--gold2);text-decoration:none}
+main{max-width:780px;margin:0 auto;padding:clamp(1.6rem,5vw,3.2rem) 16px 5rem}
+.sello{display:inline-block;padding:.4rem 1rem;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.7);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold2)}
+header{text-align:center;margin-bottom:1.6rem}
+h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2.1rem,7vw,3.4rem);line-height:1.1;margin:1rem 0 .5rem}
+h1 em{font-style:italic;color:var(--gold2)}
+.lead{color:var(--muted);max-width:60ch;margin:0 auto}
+.niveles{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin:1.2rem 0 0}
+.niveles a{padding:.45rem 1rem;border:1px solid var(--border);border-radius:999px;background:#fff;color:var(--ink);text-decoration:none;font-weight:600;font-size:.9rem}
+.niveles a[aria-current="true"]{background:var(--green);color:#fff;border-color:var(--green)}
+.tarjeta{background:rgba(255,255,255,.94);border:1px solid var(--border);border-radius:18px;box-shadow:0 14px 40px rgba(20,45,32,.09);padding:clamp(1.1rem,4vw,1.8rem);margin-bottom:1rem}
+.tarjeta h2{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:1.45rem;margin:0 0 .4rem}
+.tarjeta .num{display:inline-block;width:1.7rem;height:1.7rem;line-height:1.7rem;text-align:center;border-radius:50%;background:var(--green);color:#fff;font-size:.85rem;margin-right:.5rem;font-family:'Syne',sans-serif}
+.desc{font-size:1.05rem;margin:0 0 .7rem}
+.ind{margin:0;padding:.7rem .9rem;background:rgba(13,127,87,.08);border-left:3px solid var(--green);border-radius:0 10px 10px 0;font-size:.95rem}
+.ind b{display:block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:.15rem}
+.nota{font-size:.9rem;color:var(--muted);text-align:center;margin-top:1.4rem}
+.vacio{text-align:center;padding:2rem 1rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<nav><a class="marca" href="index.html">Miguel <em>Tillero</em></a><a class="v" href="javascript:history.back()">← Volver</a></nav>
+<main>
+  <header>
+    <span class="sello">Marco común europeo · MCER</span>
+    <h1>Lo que <em>evaluamos</em></h1>
+    <p class="lead">En cada nivel trabajamos y evaluamos cuatro competencias. Cada una se explica con una frase de «Puedo…» y un ejemplo concreto de cómo se comprueba. Son metas alcanzables, pensadas para avanzar paso a paso.</p>
+    <div class="niveles" id="niveles"></div>
+  </header>
+  <div id="lista"></div>
+  <p class="nota">Los descriptores se basan en la cuadrícula de autoevaluación del Marco común europeo de referencia para las lenguas (Consejo de Europa) y se adaptan a lo que se trabaja en cada ciclo.</p>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/js/supabase-config.js?v=1790462574"></script>
+<script>
+const NIVELES = ['A1', 'B1', 'B2'];
+let nivel = (new URLSearchParams(location.search).get('nivel') || 'A1').toUpperCase();
+if (NIVELES.indexOf(nivel) < 0) nivel = 'A1';
+const caja = document.getElementById('lista');
+
+document.getElementById('niveles').innerHTML = '';
+NIVELES.forEach(function (n) {
+  const a = document.createElement('a'); a.href = '?nivel=' + n; a.textContent = 'Nivel ' + n;
+  if (n === nivel) a.setAttribute('aria-current', 'true');
+  document.getElementById('niveles').appendChild(a);
+});
+
+function vacio(t) { caja.innerHTML = ''; const d = document.createElement('div'); d.className = 'tarjeta vacio'; d.textContent = t; caja.appendChild(d); }
+
+(async function () {
+  if (typeof supabaseConfigurado === 'undefined' || !supabaseConfigurado) return vacio('No se pudieron cargar las competencias.');
+  const { data, error } = await supabaseClient.from('competencias_marco').select('*').eq('nivel', nivel).order('orden');
+  if (error) return vacio('No se pudieron cargar las competencias.');
+  if (!data || !data.length) return vacio('Esta ficha de competencias todavía no está publicada.');
+  caja.innerHTML = '';
+  data.forEach(function (c) {
+    const t = document.createElement('section'); t.className = 'tarjeta';
+    const h = document.createElement('h2');
+    const n = document.createElement('span'); n.className = 'num'; n.textContent = c.orden;
+    h.appendChild(n); h.appendChild(document.createTextNode(c.titulo));
+    const p = document.createElement('p'); p.className = 'desc'; p.textContent = c.descriptor;
+    const i = document.createElement('p'); i.className = 'ind';
+    const b = document.createElement('b'); b.textContent = 'Cómo lo comprobamos';
+    i.appendChild(b); i.appendChild(document.createTextNode(c.indicador));
+    t.appendChild(h); t.appendChild(p); t.appendChild(i); caja.appendChild(t);
+  });
+})();
+</script>
+</body>
+</html>
