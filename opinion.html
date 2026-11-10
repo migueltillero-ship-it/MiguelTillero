@@ -56,6 +56,10 @@ textarea:focus, button:focus-visible, input:focus-visible + .op{outline:2px soli
 .msg.error{background:#fbe9e7; color:#8a2f22; border:1px solid #e8b7ad}
 .msg.ok{background:rgba(13,127,87,0.1); color:#0b5e41; border:1px solid rgba(13,127,87,0.35)}
 .oculto{display:none}
+.fila-fam{margin:0.9rem 0 0}
+.fila-fam .t{font-weight:600;margin-bottom:0.35rem}
+.fila-fam .estrellas .estrella{padding:0.5rem 0.2rem; min-width:46px}
+.fila-fam .estrellas .estrella .n{font-size:1.15rem}
 .barra-voto{margin:0.45rem 0;}
 .barra-voto .fila{display:flex; justify-content:space-between; gap:0.6rem; font-size:0.92rem;}
 .barra-voto .pista{height:10px; background:rgba(18,41,28,0.1); border-radius:999px; overflow:hidden; margin-top:0.2rem;}
@@ -106,6 +110,14 @@ textarea:focus, button:focus-visible, input:focus-visible + .op{outline:2px soli
     <div class="pregunta"><label for="mejorar">5. ¿Qué crees que podemos mejorar?</label>
       <textarea id="mejorar" maxlength="1200" placeholder="Ideas, cambios, cosas que te gustaría ver…"></textarea></div>
 
+    <div class="pregunta oculto" id="bloque-familia">
+      <span class="etq">Su mirada como familia</span>
+      <p class="pie">De 1 (mejorable) a 5 (excelente). Con total confianza.</p>
+      <div id="filas-familia"></div>
+      <label for="fam-comentario" style="display:block;font-weight:600;margin:1.1rem 0 0.5rem;">¿Algo más que quiera decirme?</label>
+      <textarea id="fam-comentario" maxlength="1500" placeholder="Comentarios, sugerencias, lo que le preocupa o lo que le alegra…"></textarea>
+    </div>
+
     <div class="pregunta">
       <span class="etq" id="q6">6. ¿Te gustaría seguir en el próximo ciclo?</span>
       <div class="opciones" role="radiogroup" aria-labelledby="q6" id="seguir"></div>
@@ -143,6 +155,43 @@ const CICLO = (new URLSearchParams(location.search).get('ciclo') || 'A1-OCT2026'
 
 const el = id => document.getElementById(id);
 let perfil = null, valoracion = null;
+const FAMILIA = [
+  ['formacion',    'La formación en general: lo que se aprende y cómo se enseña'],
+  ['profesor',     'La relación con el profesor: la comunicación y el trato'],
+  ['plataforma',   'La relación con la plataforma: si es clara y útil'],
+  ['hijo_frances', 'La relación de su hijo o hija con el francés: ¿lo vive con ganas y confianza?']
+];
+const famVal = {};
+function pintarFamilia() {
+  const cont = el('filas-familia'); cont.innerHTML = '';
+  FAMILIA.forEach(function (f) {
+    const fila = document.createElement('div'); fila.className = 'fila-fam';
+    const t = document.createElement('div'); t.className = 't'; t.textContent = f[1];
+    const g = document.createElement('div'); g.className = 'estrellas'; g.setAttribute('role', 'group'); g.setAttribute('aria-label', f[1]);
+    for (let n = 1; n <= 5; n++) {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'estrella'; b.dataset.n = n;
+      b.setAttribute('aria-pressed', 'false'); b.innerHTML = '<span class="n">' + n + '</span>';
+      b.addEventListener('click', function () { marcarFam(f[0], n, g); });
+      g.appendChild(b);
+    }
+    fila.appendChild(t); fila.appendChild(g); cont.appendChild(fila);
+  });
+}
+function marcarFam(clave, n, grupo) {
+  famVal[clave] = n;
+  grupo.querySelectorAll('.estrella').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.n === n)));
+}
+/* A la familia se le habla de usted; al estudiante, de tú. */
+function adaptarParaFamilia() {
+  el('q1').textContent = '1. En general, ¿cómo fue el ciclo para su familia?';
+  el('q2').textContent = '2. El momento de la clase que más disfruta su hijo o hija (según lo que le cuenta)';
+  document.querySelector('label[for="gusto"]').textContent = '3. ¿Qué es lo que más le ha gustado?';
+  document.querySelector('label[for="no_gusto"]').textContent = '4. ¿Qué no le gustó, o qué le preocupa?';
+  document.querySelector('label[for="mejorar"]').textContent = '5. ¿Qué cree que podemos mejorar?';
+  el('q6').textContent = '6. ¿Le gustaría que su hijo o hija siga en el próximo ciclo?';
+  el('bloque-familia').classList.remove('oculto');
+  pintarFamilia();
+}
 
 function aviso(caja, texto, tipo) { caja.textContent = texto; caja.className = 'msg ' + tipo; }
 
@@ -213,11 +262,17 @@ async function iniciar() {
   pintarEstrellas();
   pintarOpciones('momentos', 'momento', MOMENTOS);
   pintarOpciones('seguir', 'seguir', SEGUIR);
+  if (rol === 'representante') adaptarParaFamilia();
   el('forma').classList.remove('oculto');
 
   const { data: previa } = await supabaseClient.from('opiniones').select('*').eq('autor_id', perfil.id).eq('ciclo', CICLO).maybeSingle();
   if (previa) {
     marcar(previa.valoracion); poner('momento', previa.momento); poner('seguir', previa.seguir);
+    if (previa.familia && rol === 'representante') {
+      const grupos = document.querySelectorAll('#filas-familia .estrellas');
+      FAMILIA.forEach(function (f, i) { if (previa.familia[f[0]]) marcarFam(f[0], previa.familia[f[0]], grupos[i]); });
+      el('fam-comentario').value = previa.familia.comentario || '';
+    }
     el('gusto').value = previa.gusto || ''; el('no_gusto').value = previa.no_gusto || ''; el('mejorar').value = previa.mejorar || '';
     el('ya-respondio').textContent = 'Ya respondiste el ' + new Date(previa.actualizado_en).toLocaleDateString('es-MX', { day: 'numeric', month: 'long' }) + '. Puedes cambiar lo que quieras y volver a enviar.';
     el('gracias').classList.remove('oculto'); mostrarVotos();
@@ -232,7 +287,9 @@ el('forma').addEventListener('submit', async function (e) {
   const { error } = await supabaseClient.from('opiniones').upsert({
     autor_id: perfil.id, ciclo: CICLO, valoracion: valoracion, momento: escogido('momento'),
     gusto: el('gusto').value.trim() || null, no_gusto: el('no_gusto').value.trim() || null,
-    mejorar: el('mejorar').value.trim() || null, seguir: escogido('seguir')
+    mejorar: el('mejorar').value.trim() || null, seguir: escogido('seguir'),
+    familia: perfil.role === 'representante'
+      ? Object.assign({}, famVal, { comentario: el('fam-comentario').value.trim() || null }) : null
   }, { onConflict: 'autor_id,ciclo' });
   b.disabled = false;
   if (error) return aviso(caja, 'No se pudo guardar: ' + error.message, 'error');
