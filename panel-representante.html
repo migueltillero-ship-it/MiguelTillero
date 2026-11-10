@@ -1947,12 +1947,28 @@ function pintarSelectorHijos() {
 
 let usoHijos = [];
 (async function iniciar() {
-    const contexto = await requerirSesion('representante');
+    /* Vista previa para el docente: ?como=<id de la familia>. Sirve para ver
+       exactamente lo que ve una madre o un padre antes de escribirle. Solo
+       funciona con sesión de docente: la función de la base lo comprueba. */
+    const _como = new URLSearchParams(location.search).get('como') || '';
+    const comoFamilia = /^[0-9a-f-]{36}$/i.test(_como) ? _como : null;
+
+    const contexto = await requerirSesion(comoFamilia ? 'docente' : 'representante');
     if (!contexto) return;
 
     document.getElementById('nav-nombre').textContent = contexto.perfil.nombre_completo || '';
 
-    const { data, error } = await supabaseClient.rpc('panel_representante');
+    const { data, error } = comoFamilia
+        ? await supabaseClient.rpc('panel_representante_como', { p_representante: comoFamilia })
+        : await supabaseClient.rpc('panel_representante');
+    if (comoFamilia && data && data.representante) {
+        document.getElementById('nav-nombre').textContent = data.representante.nombre || '';
+        const aviso = document.createElement('div');
+        aviso.setAttribute('role', 'status');
+        aviso.style.cssText = 'position:sticky;top:0;z-index:50;background:#12291c;color:#f1dfae;text-align:center;padding:0.6rem 1rem;font-size:0.9rem;';
+        aviso.textContent = 'Vista previa para docente: así lo ve ' + (data.representante.nombre || 'la familia') + '. Nada de lo que hagas aquí cambia su cuenta.';
+        document.body.insertBefore(aviso, document.body.firstChild);
+    }
     document.getElementById('cargando').style.display = 'none';
 
     if (error) {
@@ -1965,7 +1981,7 @@ let usoHijos = [];
     datos = data || {};
     const hijos = datos.hijos || [];
     // El uso no debe retrasar ni romper el panel: si falla, simplemente no se muestra.
-    try { const u = await supabaseClient.rpc('actividad_de_mis_representados'); usoHijos = u.data || []; } catch (e) { usoHijos = []; }
+    if (!comoFamilia) { try { const u = await supabaseClient.rpc('actividad_de_mis_representados'); usoHijos = u.data || []; } catch (e) { usoHijos = []; } }
 
     if (!hijos.length) { document.getElementById('sin-hijos').style.display = 'block'; return; }
 
