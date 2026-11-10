@@ -470,6 +470,7 @@
 
         <section class="panel">
             <h2>Resultados</h2>
+            <p style="margin:0 0 0.6rem;"><a id="btn-desempeno" class="btn" href="desempeno.html" style="display:inline-block;text-decoration:none;">Desempeño en competencias de mi representado →</a></p>
             <p style="margin:0 0 1rem;"><a href="competencias.html">Ver qué competencias se evalúan en cada nivel →</a></p>
             <div id="lista-notas"></div>
         </section>
@@ -1850,9 +1851,16 @@ function pintarUso(h) {
         : 'Todavía no hay tiempo registrado: se cuenta cuando entra con su cuenta.';
 }
 
+let mapaHijos = {};
 function pintarHijo() {
     const h = (datos.hijos || [])[indiceHijo];
     if (!h) return;
+    const bd = document.getElementById('btn-desempeno');
+    if (bd) {
+        const id = mapaHijos[h.nombre];
+        bd.href = id ? 'desempeno.html?est=' + id : 'desempeno.html';
+        bd.textContent = 'Desempeño en competencias de ' + (h.nombre || '').split(' ')[0] + ' →';
+    }
     pintarUso(h);
 
     /* Avisos de este hijo. Vienen ya filtrados por fecha desde la base de
@@ -2012,6 +2020,11 @@ let maximos = [];   // sobre cuánto se califica cada evaluación, para mostrar 
     const _args = comoFamilia ? { p_representante: comoFamilia } : {};
     try { const u = await supabaseClient.rpc('actividad_de_mis_representados', _args); usoHijos = u.data || []; } catch (e) { usoHijos = []; }
     try { const m = await supabaseClient.rpc('maximos_de_mis_representados', _args); maximos = m.data || []; } catch (e) { maximos = []; }
+
+    try {
+        const mh = await supabaseClient.rpc('mis_representados', comoFamilia ? { p_representante: comoFamilia } : {});
+        (mh.data || []).forEach(x => { mapaHijos[x.nombre] = x.id; });
+    } catch (e) { mapaHijos = {}; }
 
     if (!hijos.length) { document.getElementById('sin-hijos').style.display = 'block'; return; }
 

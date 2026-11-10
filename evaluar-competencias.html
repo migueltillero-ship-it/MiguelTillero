@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evaluar competencias | Miguel Tillero</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold2:#86673a;--green:#0d7f57;--ink:#12291c;--muted:rgba(18,41,28,.76);--border:rgba(165,130,74,.38)}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font-family:'Syne',sans-serif;line-height:1.55;background:linear-gradient(#c5e0d3,#a5cdbf);background-attachment:fixed}
+nav{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;padding:1rem clamp(1rem,5vw,3rem);background:rgba(255,255,255,.75);border-bottom:1px solid var(--border)}
+.marca{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--ink);text-decoration:none}
+nav a.v{font-size:.88rem;color:var(--gold2);text-decoration:none}
+main{max-width:1000px;margin:0 auto;padding:1.4rem 16px 4rem}
+h1{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:2rem;margin:.2rem 0}
+h2{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:1.4rem;margin:0 0 .3rem}
+.panel{background:rgba(255,255,255,.95);border:1px solid var(--border);border-radius:16px;padding:1.1rem 1.2rem;margin-bottom:1rem}
+.muted{color:var(--muted);font-size:.9rem;margin:0 0 .8rem}
+label{font-weight:600;font-size:.9rem}
+select,input[type=text],input[type=date]{font-family:inherit;font-size:.95rem;padding:.5rem .6rem;border:1px solid var(--border);border-radius:10px;background:#fff;max-width:100%}
+.est{border-top:1px solid rgba(165,130,74,.25);padding:.9rem 0}
+.est:first-of-type{border-top:0}
+.est h3{margin:0 0 .15rem;font-size:1.05rem}
+.ref{font-size:.82rem;color:var(--gold2);margin:0 0 .5rem}
+.fila{display:grid;grid-template-columns:minmax(150px,1.3fr) 150px 1.6fr;gap:.5rem;align-items:center;margin:.3rem 0}
+@media (max-width:700px){.fila{grid-template-columns:1fr}}
+.btn{display:inline-block;padding:.65rem 1.3rem;border:0;border-radius:999px;background:var(--green);color:#fff;font-family:inherit;font-weight:700;cursor:pointer}
+.btn.peq{padding:.35rem .9rem;font-size:.85rem}
+.btn[disabled]{opacity:.6}
+.msg{margin-top:.7rem;padding:.6rem .8rem;border-radius:10px;font-size:.92rem}
+.ok{background:rgba(13,127,87,.12);color:#0b5e41}.error{background:#fbe9e7;color:#8a2f22}
+.pub{margin-top:.5rem;display:flex;gap:.5rem;align-items:center;font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th,td{text-align:left;padding:.4rem .4rem;border-top:1px solid rgba(165,130,74,.2);vertical-align:middle}
+th{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);border-top:0}
+</style>
+</head>
+<body>
+<nav><a class="marca" href="index.html">Miguel Tillero</a><a class="v" href="admin.html">← Volver al panel</a></nav>
+<main>
+  <h1>Evaluar competencias</h1>
+  <p class="muted">Tu valoración por competencia, según el MCER. Nada se muestra al estudiante ni a la familia hasta que marques «Publicar». Escala: 1 lo estamos construyendo · 2 lo logra con apoyo · 3 lo logra · 4 lo logra con soltura.</p>
+
+  <div class="panel">
+    <label for="grupo">Grupo</label>
+    <select id="grupo"><option value="">— Elige un grupo —</option></select>
+    <div id="msg-grupo" class="msg error" style="display:none"></div>
+  </div>
+
+  <div id="comp" class="panel" style="display:none">
+    <h2>Competencias por estudiante</h2>
+    <div id="lista-est"></div>
+    <p style="margin:1rem 0 0"><button class="btn" id="guardar">Guardar valoraciones</button></p>
+    <div id="msg-comp" class="msg" style="display:none"></div>
+  </div>
+
+  <div id="asis" class="panel" style="display:none">
+    <h2>Asistencia y recuperaciones</h2>
+    <p class="muted">Aquí confirmas lo que realmente pasó. No se supone nada: lo que dejes vacío no cuenta como recuperado.</p>
+    <h3 style="margin:.4rem 0">Estudiantes que faltaron</h3>
+    <div id="faltas"></div>
+    <h3 style="margin:1.2rem 0 .4rem">Clases que el profesor no pudo dar</h3>
+    <div id="sesiones"></div>
+    <div id="msg-asis" class="msg" style="display:none"></div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/js/supabase-config.js?v=1790462574"></script>
+<script src="assets/js/auth-helpers.js?v=1790462574"></script>
+<script>
+const COMPETENCIAS = [['comprension-oral','Comprensión oral'],['comprension-escrita','Comprensión escrita'],['produccion-oral','Producción e interacción oral'],['produccion-escrita','Producción escrita']];
+const el = id => document.getElementById(id);
+const nodo = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
+let grupoActual = null, estudiantes = [];
+
+function msg(id, texto, tipo) { const m = el(id); m.textContent = texto; m.className = 'msg ' + tipo; m.style.display = 'block'; }
+function fechaCorta(f) { return new Date(f + 'T12:00:00').toLocaleDateString('es-MX', { day: 'numeric', month: 'short' }); }
+
+async function cargarGrupos() {
+  const { data, error } = await supabaseClient.from('grupos').select('id, codigo, fecha_inicio').order('fecha_inicio', { ascending: false });
+  if (error) return msg('msg-grupo', 'No se pudieron cargar los grupos: ' + error.message, 'error');
+  (data || []).forEach(function (g) { const o = nodo('option', '', g.codigo); o.value = g.id; el('grupo').appendChild(o); });
+}
+
+el('grupo').addEventListener('change', async function () {
+  const id = this.value; el('comp').style.display = 'none'; el('asis').style.display = 'none';
+  if (!id) return;
+  grupoActual = { id: id, codigo: this.options[this.selectedIndex].textContent };
+  const { data: ins } = await supabaseClient.from('inscripciones').select('estudiante_id').eq('grupo_id', id);
+  const ids = (ins || []).map(i => i.estudiante_id);
+  if (!ids.length) return msg('msg-grupo', 'Este grupo no tiene estudiantes inscritos.', 'error');
+  el('msg-grupo').style.display = 'none';
+  const { data: perfs } = await supabaseClient.from('profiles').select('id, nombre_completo').in('id', ids);
+  estudiantes = (perfs || []).sort((a, b) => a.nombre_completo.localeCompare(b.nombre_completo));
+  const { data: prev } = await supabaseClient.from('desempeno_competencias').select('*').eq('ciclo', grupoActual.codigo).in('estudiante_id', ids);
+  let orales = {};
+  try {
+    const { data: ns } = await supabaseClient.from('notas').select('estudiante_id, calificacion, evaluaciones(nombre, nota_maxima)').in('estudiante_id', ids);
+    (ns || []).forEach(function (n) { if (n.evaluaciones && /oral/i.test(n.evaluaciones.nombre) && n.calificacion != null) orales[n.estudiante_id] = n.calificacion + '/' + n.evaluaciones.nota_maxima; });
+  } catch (e) {}
+  pintarCompetencias(prev || [], orales);
+  el('comp').style.display = 'block';
+  cargarAsistencia(ids);
+});
+
+function pintarCompetencias(prev, orales) {
+  const cont = el('lista-est'); cont.innerHTML = '';
+  estudiantes.forEach(function (e) {
+    const caja = nodo('div', 'est'); caja.dataset.id = e.id;
+    caja.appendChild(nodo('h3', '', e.nombre_completo));
+    if (orales[e.id]) caja.appendChild(nodo('p', 'ref', 'Referencia: prueba oral ' + orales[e.id] + ' (el resto de competencias no tiene datos en la plataforma).'));
+    let publicado = false;
+    COMPETENCIAS.forEach(function (c) {
+      const p = prev.find(x => x.estudiante_id === e.id && x.competencia === c[0]);
+      if (p && p.publicado) publicado = true;
+      const f = nodo('div', 'fila'); f.dataset.comp = c[0];
+      f.appendChild(nodo('label', '', c[1]));
+      const s = document.createElement('select');
+      [['', '— sin valorar —'], ['1', '1 · Lo estamos construyendo'], ['2', '2 · Con apoyo'], ['3', '3 · Lo logra'], ['4', '4 · Con soltura']].forEach(function (o) { const op = nodo('option', '', o[1]); op.value = o[0]; s.appendChild(op); });
+      s.value = p ? String(p.logro) : '';
+      const t = document.createElement('input'); t.type = 'text'; t.maxLength = 300; t.placeholder = 'Comentario breve (opcional)'; t.value = p && p.comentario ? p.comentario : '';
+      f.appendChild(s); f.appendChild(t); caja.appendChild(f);
+    });
+    const pub = nodo('label', 'pub'); const ch = document.createElement('input'); ch.type = 'checkbox'; ch.className = 'chk-pub'; ch.checked = publicado;
+    pub.appendChild(ch); pub.appendChild(document.createTextNode('Publicar a ' + e.nombre_completo.split(' ')[0] + ' y a su familia')); caja.appendChild(pub);
+    cont.appendChild(caja);
+  });
+}
+
+el('guardar').addEventListener('click', async function () {
+  const filas = [];
+  document.querySelectorAll('#lista-est .est').forEach(function (caja) {
+    const publicar = caja.querySelector('.chk-pub').checked;
+    caja.querySelectorAll('.fila').forEach(function (f) {
+      const v = f.querySelector('select').value; if (!v) return;
+      filas.push({ estudiante_id: caja.dataset.id, ciclo: grupoActual.codigo, competencia: f.dataset.comp, logro: +v,
+        comentario: f.querySelector('input').value.trim() || null, publicado: publicar, actualizado: new Date().toISOString() });
+    });
+  });
+  if (!filas.length) return msg('msg-comp', 'No hay ninguna valoración que guardar.', 'error');
+  this.disabled = true;
+  const { error } = await supabaseClient.from('desempeno_competencias').upsert(filas, { onConflict: 'estudiante_id,ciclo,competencia' });
+  this.disabled = false;
+  msg('msg-comp', error ? 'No se pudo guardar: ' + error.message : 'Guardado: ' + filas.length + ' valoraciones.', error ? 'error' : 'ok');
+});
+
+async function cargarAsistencia(ids) {
+  el('asis').style.display = 'block';
+  const nombre = {}; estudiantes.forEach(e => nombre[e.id] = e.nombre_completo);
+  const { data: ses } = await supabaseClient.from('sesiones').select('id, fecha, tema, anulada, anulada_motivo, recuperada_en').eq('grupo_id', grupoActual.id).order('fecha');
+  const mapa = {}; (ses || []).forEach(s => mapa[s.id] = s);
+  const { data: as } = await supabaseClient.from('asistencia').select('id, sesion_id, estudiante_id, observacion, recuperada_en').eq('presente', false).in('sesion_id', Object.keys(mapa));
+  const fc = el('faltas'); fc.innerHTML = '';
+  if (!(as || []).length) fc.appendChild(nodo('p', 'muted', 'Nadie tiene faltas registradas en este grupo.'));
+  else {
+    const tb = document.createElement('table'); tb.innerHTML = '<tr><th>Estudiante</th><th>Día</th><th>Nota</th><th>Recuperó el</th><th></th></tr>';
+    as.sort((a, b) => mapa[a.sesion_id].fecha.localeCompare(mapa[b.sesion_id].fecha)).forEach(function (a) {
+      const tr = document.createElement('tr');
+      [nombre[a.estudiante_id] || '', fechaCorta(mapa[a.sesion_id].fecha), a.observacion || '—'].forEach(x => tr.appendChild(nodo('td', '', x)));
+      const td = document.createElement('td'); const d = document.createElement('input'); d.type = 'date'; d.value = a.recuperada_en || ''; td.appendChild(d); tr.appendChild(td);
+      const tg = document.createElement('td'); const b = nodo('button', 'btn peq', 'Guardar'); b.addEventListener('click', async function () {
+        const { error } = await supabaseClient.from('asistencia').update({ recuperada_en: d.value || null }).eq('id', a.id);
+        msg('msg-asis', error ? 'No se pudo guardar: ' + error.message : 'Guardado.', error ? 'error' : 'ok');
+      }); tg.appendChild(b); tr.appendChild(tg); tb.appendChild(tr);
+    });
+    fc.appendChild(tb);
+  }
+  const sc = el('sesiones'); sc.innerHTML = '';
+  const tb2 = document.createElement('table'); tb2.innerHTML = '<tr><th>Día</th><th>Tema</th><th>¿Anulada?</th><th>Motivo</th><th>Recuperada el</th><th></th></tr>';
+  (ses || []).forEach(function (s) {
+    const tr = document.createElement('tr');
+    tr.appendChild(nodo('td', '', fechaCorta(s.fecha))); tr.appendChild(nodo('td', '', (s.tema || '').slice(0, 50)));
+    const c1 = document.createElement('td'); const ck = document.createElement('input'); ck.type = 'checkbox'; ck.checked = !!s.anulada; c1.appendChild(ck); tr.appendChild(c1);
+    const c2 = document.createElement('td'); const m = document.createElement('input'); m.type = 'text'; m.maxLength = 120; m.value = s.anulada_motivo || ''; m.style.width = '150px'; c2.appendChild(m); tr.appendChild(c2);
+    const c3 = document.createElement('td'); const d = document.createElement('input'); d.type = 'date'; d.value = s.recuperada_en || ''; c3.appendChild(d); tr.appendChild(c3);
+    const c4 = document.createElement('td'); const b = nodo('button', 'btn peq', 'Guardar'); b.addEventListener('click', async function () {
+      const { error } = await supabaseClient.from('sesiones').update({ anulada: ck.checked, anulada_motivo: m.value.trim() || null, recuperada_en: d.value || null }).eq('id', s.id);
+      msg('msg-asis', error ? 'No se pudo guardar: ' + error.message : 'Guardado.', error ? 'error' : 'ok');
+    }); c4.appendChild(b); tr.appendChild(c4); tb2.appendChild(tr);
+  });
+  sc.appendChild(tb2);
+}
+
+(async function () {
+  if (!supabaseConfigurado) return;
+  const ctx = await requerirSesion('docente');
+  if (!ctx) return;
+  cargarGrupos();
+})();
+</script>
+</body>
+</html>

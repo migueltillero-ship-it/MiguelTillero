@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desempeño en competencias | Miguel Tillero</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#a5824a;--gold2:#86673a;--green:#0d7f57;--green2:#0a6244;--ink:#12291c;--muted:rgba(18,41,28,.76);--border:rgba(165,130,74,.38);
+  --bg:radial-gradient(ellipse 80% 80% at 50% 30%,#c5e0d3 0%,#b8d9ca 55%,#a5cdbf 100%)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font-family:'Syne',sans-serif;line-height:1.6;background:var(--bg);background-attachment:fixed}
+nav{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;padding:1rem clamp(1rem,5vw,3rem);background:rgba(255,255,255,.72);border-bottom:1px solid var(--border)}
+.marca{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--ink);text-decoration:none}
+nav a.v{font-size:.88rem;color:var(--gold2);text-decoration:none}
+main{max-width:900px;margin:0 auto;padding:clamp(1.4rem,4vw,3rem) 16px 5rem}
+/* Portada */
+.hero{text-align:center;margin-bottom:1.6rem}
+.sello{display:inline-block;padding:.4rem 1rem;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.7);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold2)}
+h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2.2rem,7vw,3.8rem);line-height:1.08;margin:1rem 0 .4rem}
+h1 em{font-style:italic;color:var(--gold2)}
+.sub{color:var(--muted);max-width:56ch;margin:0 auto}
+.gran{position:relative;width:min(230px,62vw);margin:1.6rem auto 0}
+.gran svg{display:block;width:100%;transform:rotate(-90deg)}
+.gran .centro{position:absolute;inset:0;display:grid;place-content:center;text-align:center;transform:none}
+.gran .centro b{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:400;line-height:1}
+.gran .centro span{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+/* Tarjetas */
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.tarjeta{background:rgba(255,255,255,.95);border:1px solid var(--border);border-radius:20px;box-shadow:0 16px 44px rgba(20,45,32,.10);padding:clamp(1.1rem,3.5vw,1.6rem)}
+.tarjeta.vista{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.tarjeta.vista.on{opacity:1;transform:none}
+.cab{display:flex;gap:1rem;align-items:center}
+.anillo{position:relative;flex:0 0 92px;width:92px;height:92px}
+.anillo svg{display:block;width:100%;transform:rotate(-90deg)}
+.anillo .n{position:absolute;inset:0;display:grid;place-content:center;font-family:'Cormorant Garamond',serif;font-size:1.7rem}
+.cab h2{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:1.4rem;margin:0}
+.nivel{display:inline-block;margin-top:.25rem;padding:.2rem .7rem;border-radius:999px;font-size:.78rem;font-weight:700;background:rgba(13,127,87,.12);color:var(--green2)}
+.nivel.nada{background:rgba(18,41,28,.08);color:var(--muted)}
+.puedo{font-size:1.02rem;margin:1rem 0 .6rem}
+.como{margin:0;padding:.65rem .85rem;background:rgba(13,127,87,.07);border-left:3px solid var(--green);border-radius:0 10px 10px 0;font-size:.92rem}
+.como b{display:block;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
+.coment{margin:.8rem 0 0;font-style:italic;color:var(--gold2)}
+.auto{margin-top:1rem;padding-top:.9rem;border-top:1px dashed var(--border)}
+.auto .t{font-weight:600;font-size:.92rem;margin-bottom:.45rem}
+.pasos{display:grid;grid-template-columns:repeat(4,1fr);gap:.35rem}
+.paso{padding:.55rem .15rem;border:1px solid var(--border);border-radius:12px;background:#fff;font-family:inherit;font-size:.74rem;color:var(--ink);cursor:pointer;line-height:1.2}
+.paso[aria-pressed="true"]{background:var(--green);color:#fff;border-color:var(--green);font-weight:700}
+.paso[disabled]{cursor:default}
+.paso:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.lectura{font-size:.9rem;color:var(--muted);margin:.5rem 0 0}
+.bien{margin:.5rem 0 0;font-size:.9rem;color:var(--green2);font-weight:600}
+/* Asistencia */
+.balance{margin-top:1.6rem}
+.balance h2{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:1.7rem;margin:0 0 .2rem}
+.pie{color:var(--muted);font-size:.92rem;margin:0 0 1rem}
+.cifras{display:grid;gap:.7rem;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.cifra{text-align:center;padding:1rem .6rem;border-radius:16px;background:rgba(13,127,87,.06);border:1px solid rgba(13,127,87,.18)}
+.cifra b{display:block;font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:400;line-height:1}
+.cifra span{font-size:.8rem;color:var(--muted)}
+.barra{display:flex;height:14px;border-radius:999px;overflow:hidden;background:rgba(18,41,28,.1);margin:1.1rem 0 .3rem}
+.barra i{display:block;height:100%;width:0;transition:width 1s ease}
+.barra .p{background:var(--green)} .barra .r{background:var(--gold)} .barra .f{background:#c9806f}
+.leyenda{display:flex;flex-wrap:wrap;gap:.9rem;font-size:.8rem;color:var(--muted)}
+.leyenda i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:.3rem}
+.aviso{padding:.9rem 1rem;border-radius:14px;background:rgba(255,255,255,.9);border:1px solid var(--border);text-align:center;color:var(--muted);margin-bottom:1rem}
+.vistaprev{background:#12291c;color:#f1dfae;text-align:center;padding:.5rem 1rem;font-size:.88rem}
+.gran .centro b,.anillo .n,.cifra b{font-family:'Syne',sans-serif;font-weight:600;font-variant-numeric:lining-nums}
+.gran .centro b{font-size:2.8rem}.anillo .n{font-size:1.25rem}.cifra b{font-size:2.1rem}
+@media (prefers-reduced-motion:reduce){.tarjeta.vista{opacity:1;transform:none;transition:none}.barra i{transition:none}}
+</style>
+</head>
+<body>
+<nav><a class="marca" href="index.html">Miguel <em>Tillero</em></a><a class="v" id="volver" href="login.html">← Volver</a></nav>
+<div id="previa" class="vistaprev" style="display:none"></div>
+<main>
+  <div id="cargando" class="aviso">Preparando el desempeño…</div>
+  <div id="contenido" style="display:none">
+    <header class="hero">
+      <span class="sello" id="sello"></span>
+      <h1 id="titulo"></h1>
+      <p class="sub" id="subtitulo"></p>
+      <div class="gran" id="gran"></div>
+    </header>
+    <div id="espera" class="aviso" style="display:none"></div>
+    <div class="grid" id="tarjetas"></div>
+    <section class="tarjeta balance" id="balance">
+      <h2>Balance de asistencia</h2>
+      <p class="pie" id="pie-balance"></p>
+      <div class="cifras" id="cifras"></div>
+      <div class="barra" id="barra"></div>
+      <div class="leyenda" id="leyenda"></div>
+    </section>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/js/supabase-config.js?v=1790462574"></script>
+<script src="assets/js/auth-helpers.js?v=1790462574"></script>
+<script>
+const MOVER = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const el = id => document.getElementById(id);
+const nodo = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
+
+/* Lo que valora el docente, en primera persona (estudiante) o en tercera (familia). */
+const LOGRO_YO  = ['', 'Lo estamos construyendo', 'Lo logro con apoyo', 'Lo logro', 'Lo logro con soltura'];
+const LOGRO_ELLA = ['', 'Lo está construyendo', 'Lo logra con apoyo', 'Lo logra', 'Lo logra con soltura'];
+const CONF_YO   = ['', 'Aún no', 'Con ayuda', 'Me siento capaz', 'Muy capaz'];
+const COLOR = ['', '#c9a36b', '#8fb98a', '#2f9a6c', '#0d7f57'];
+
+function cuenta(nodoNum, hasta, decimales) {
+  if (!MOVER) { nodoNum.textContent = hasta; return; }
+  const t0 = performance.now(), dur = 1100;
+  (function paso(t) {
+    const k = Math.min(1, (t - t0) / dur), v = hasta * (1 - Math.pow(1 - k, 3));
+    nodoNum.textContent = decimales ? v.toFixed(decimales) : Math.round(v);
+    if (k < 1) requestAnimationFrame(paso); else nodoNum.textContent = decimales ? hasta.toFixed(decimales) : hasta;
+  })(t0);
+}
+
+function aro(tam, grosor, valor01, color) {
+  const r = (tam - grosor) / 2, c = 2 * Math.PI * r, ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg'); svg.setAttribute('viewBox', '0 0 ' + tam + ' ' + tam);
+  const fondo = document.createElementNS(ns, 'circle'), arco = document.createElementNS(ns, 'circle');
+  [fondo, arco].forEach(function (x) { x.setAttribute('cx', tam / 2); x.setAttribute('cy', tam / 2); x.setAttribute('r', r); x.setAttribute('fill', 'none'); x.setAttribute('stroke-width', grosor); });
+  fondo.setAttribute('stroke', 'rgba(18,41,28,.10)');
+  arco.setAttribute('stroke', color); arco.setAttribute('stroke-linecap', 'round');
+  arco.setAttribute('stroke-dasharray', c);
+  arco.setAttribute('stroke-dashoffset', MOVER ? c : c * (1 - valor01));
+  arco.style.transition = MOVER ? 'stroke-dashoffset 1.3s cubic-bezier(.2,.8,.2,1)' : 'none';
+  svg.appendChild(fondo); svg.appendChild(arco);
+  if (MOVER) requestAnimationFrame(function () { requestAnimationFrame(function () { arco.setAttribute('stroke-dashoffset', c * (1 - valor01)); }); });
+  return svg;
+}
+
+function revelar(t, i) {
+  t.classList.add('vista');
+  if (!MOVER) { t.classList.add('on'); return; }
+  const io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { setTimeout(function () { t.classList.add('on'); }, i * 90); io.disconnect(); } }); }, { threshold: .12 });
+  io.observe(t);
+}
+
+async function guardarConfianza(clave, n, grupo, lectura, c, propio) {
+  grupo.querySelectorAll('.paso').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.n === n)));
+  const { error } = await supabaseClient.rpc('guardar_autoevaluacion', { p_competencia: clave, p_confianza: n });
+  lectura.textContent = error ? 'No se pudo guardar: ' + error.message : '¡Guardado! Gracias por contármelo.';
+  if (!error) { c.confianza = n; pintarComparacion(c, lectura.parentNode.querySelector('.bien'), propio); }
+}
+
+function pintarComparacion(c, caja, propio) {
+  if (!caja) return;
+  if (!c.logro || !c.confianza) { caja.textContent = ''; return; }
+  if (c.confianza === c.logro) caja.textContent = propio ? '¡Coincidimos! Te ves como te veo.' : 'Su percepción y la del profesor coinciden.';
+  else if (c.confianza < c.logro) caja.textContent = propio ? 'Eres más capaz de lo que crees. ¡Confía más en ti!' : 'Es más capaz de lo que cree: vamos a reforzar su confianza.';
+  else caja.textContent = propio ? 'Tu confianza es una gran base: sigamos practicando para respaldarla.' : 'Tiene mucha confianza, una gran base para seguir practicando.';
+}
+
+function tarjeta(c, i, propio, nombre, puedeAutoevaluar) {
+  const t = nodo('section', 'tarjeta');
+  const cab = nodo('div', 'cab');
+  const an = nodo('div', 'anillo'); an.appendChild(aro(92, 9, (c.logro || 0) / 4, COLOR[c.logro || 1]));
+  an.appendChild(nodo('div', 'n', c.logro ? c.logro + '/4' : '—'));
+  const tx = nodo('div');
+  tx.appendChild(nodo('h2', '', c.titulo));
+  const etq = c.logro ? (propio ? LOGRO_YO[c.logro] : LOGRO_ELLA[c.logro]) : 'Valoración en preparación';
+  tx.appendChild(nodo('span', 'nivel' + (c.logro ? '' : ' nada'), etq));
+  cab.appendChild(an); cab.appendChild(tx); t.appendChild(cab);
+  t.appendChild(nodo('p', 'puedo', c.descriptor));
+  const como = nodo('p', 'como'); como.appendChild(nodo('b', '', 'Cómo lo comprobamos')); como.appendChild(document.createTextNode(c.indicador)); t.appendChild(como);
+  if (c.comentario) t.appendChild(nodo('p', 'coment', '«' + c.comentario + '»'));
+
+  const auto = nodo('div', 'auto');
+  auto.appendChild(nodo('div', 't', propio ? '¿Qué tan capaz te sientes?' : 'Así se siente ' + nombre + ':'));
+  const grupo = nodo('div', 'pasos'); grupo.setAttribute('role', 'group'); grupo.setAttribute('aria-label', 'Autoevaluación de ' + c.titulo);
+  const lectura = nodo('p', 'lectura'); const bien = nodo('p', 'bien');
+  for (let n = 1; n <= 4; n++) {
+    const b = nodo('button', 'paso', CONF_YO[n]); b.type = 'button'; b.dataset.n = n;
+    b.setAttribute('aria-pressed', String(c.confianza === n));
+    if (puedeAutoevaluar) b.addEventListener('click', function () { guardarConfianza(c.clave, n, grupo, lectura, c, propio); });
+    else b.disabled = true;
+    grupo.appendChild(b);
+  }
+  auto.appendChild(grupo); auto.appendChild(lectura); auto.appendChild(bien);
+  if (!puedeAutoevaluar && !c.confianza) lectura.textContent = nombre + ' todavía no ha hecho su autoevaluación.';
+  pintarComparacion(c, bien, propio);
+  t.appendChild(auto);
+  revelar(t, i);
+  return t;
+}
+
+function balance(a, propio, nombre) {
+  const totalReg = a.presentes + a.faltas;
+  el('pie-balance').textContent = totalReg
+    ? (propio ? 'Mi constancia en el ciclo: ' : 'La constancia de ' + nombre + ' en el ciclo: ') + 'lo que se asistió, lo que se faltó y lo que se recuperó.'
+    : 'Todavía no hay clases registradas en este ciclo.';
+  const defs = [
+    [a.presentes, propio ? 'Clases a las que asistí' : 'Clases a las que asistió'],
+    [a.faltas, 'Faltas'],
+    [a.faltas_recuperadas, 'Faltas recuperadas'],
+    [a.clases_anuladas_profesor, 'Clases que el profesor no pudo dar'],
+    [a.anuladas_recuperadas, 'Esas clases, ya recuperadas']
+  ];
+  const cont = el('cifras'); cont.innerHTML = '';
+  defs.forEach(function (d) { const c = nodo('div', 'cifra'); const b = nodo('b', '', '0'); c.appendChild(b); c.appendChild(nodo('span', '', d[1])); cont.appendChild(c); cuenta(b, d[0]); });
+  const sinRec = Math.max(0, a.faltas - a.faltas_recuperadas), rec = a.faltas_recuperadas;
+  const barra = el('barra'); barra.innerHTML = '';
+  [['p', a.presentes], ['r', rec], ['f', sinRec]].forEach(function (x) {
+    const i = document.createElement('i'); i.className = x[0];
+    const w = totalReg ? 100 * x[1] / totalReg : 0;
+    i.style.width = MOVER ? '0' : w + '%'; barra.appendChild(i);
+    if (MOVER) setTimeout(function () { i.style.width = w + '%'; }, 250);
+  });
+  const ley = el('leyenda'); ley.innerHTML = '';
+  [['#0d7f57', 'Asistió'], ['#a5824a', 'Faltó y recuperó'], ['#c9806f', 'Faltó sin recuperar']].forEach(function (x) {
+    const s = nodo('span'); const p = nodo('i'); p.style.background = x[0]; s.appendChild(p); s.appendChild(document.createTextNode(x[1])); ley.appendChild(s);
+  });
+}
+
+async function iniciar() {
+  if (!supabaseConfigurado) return;
+  const contexto = await requerirSesion();
+  if (!contexto) return;
+  const rol = contexto.perfil.role;
+  el('volver').href = destinoParaRol(rol);
+  const q = new URLSearchParams(location.search).get('est') || '';
+  const est = /^[0-9a-f-]{36}$/i.test(q) ? q : null;
+
+  const { data: d, error } = await supabaseClient.rpc('desempeno_competencias_de', est ? { p_estudiante: est } : {});
+  el('cargando').style.display = 'none';
+  if (error || !d || d.error || d.sin_ciclo) {
+    const m = el('cargando'); m.style.display = 'block';
+    m.textContent = d && d.sin_ciclo ? 'Todavía no hay un ciclo para mostrar.' : (d && d.error === 'sin permiso' ? 'No tienes permiso para ver esta ficha.' : 'No se pudo cargar. ' + (error ? error.message : ''));
+    return;
+  }
+  const propio = !!d.puede_autoevaluar;
+  const nombre = (d.estudiante.nombre || '').split(' ')[0];
+  if (rol === 'docente' || rol === 'admin') { const p = el('previa'); p.style.display = 'block'; p.textContent = 'Vista del docente: así lo ven ' + nombre + ' y su familia (las valoraciones sin publicar solo las ves tú).'; }
+
+  el('contenido').style.display = 'block';
+  el('sello').textContent = 'MCER · Nivel ' + d.nivel + ' · ' + d.ciclo;
+  el('titulo').innerHTML = propio ? 'Lo que ya <em>puedo</em> hacer en francés' : 'Lo que ' + nombre.replace(/[<>&]/g, '') + ' ya <em>puede</em> hacer en francés';
+  el('subtitulo').textContent = propio
+    ? 'Estas son las competencias de tu nivel y cómo vas en cada una. Lo importante no es una nota: es de qué eres capaz.'
+    : 'Estas son las competencias esperadas en su nivel y cómo va ' + nombre + ' en cada una. Lo importante no es una nota: es de qué es capaz.';
+
+  const valoradas = d.competencias.filter(c => c.logro);
+  const g = el('gran'); g.innerHTML = '';
+  const prom = valoradas.length ? valoradas.reduce((s, c) => s + c.logro, 0) / valoradas.length : 0;
+  g.appendChild(aro(230, 16, prom / 4, '#0d7f57'));
+  const cen = nodo('div', 'centro'); const num = nodo('b', '', valoradas.length ? '0' : '—'); cen.appendChild(num);
+  cen.appendChild(nodo('span', '', valoradas.length ? 'nivel de logro (de 4)' : 'en preparación')); g.appendChild(cen);
+  if (valoradas.length) cuenta(num, +prom.toFixed(1), 1);
+  if (!valoradas.length) { const e = el('espera'); e.style.display = 'block'; e.textContent = propio ? 'Tu profesor está preparando tu valoración. Mientras tanto, cuéntame de qué te sientes capaz en cada competencia.' : 'La valoración del profesor aún está en preparación.'; }
+
+  const cont = el('tarjetas'); cont.innerHTML = '';
+  d.competencias.forEach(function (c, i) { cont.appendChild(tarjeta(c, i, propio, nombre, propio)); });
+  balance(d.asistencia, propio, nombre);
+}
+iniciar();
+</script>
+</body>
+</html>
