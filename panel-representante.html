@@ -1801,6 +1801,27 @@ function dinero(n) {
 
 const ICONO_AVISO = { info: 'fa-circle-info', aviso: 'fa-bell', importante: 'fa-triangle-exclamation' };
 
+/* El horario del grupo viene como jsonb ({dias, hora_inicio, hora_fin}). Se
+   pintaba tal cual y la familia leía «[object Object]». */
+const MODALIDAD_TXT = { virtual: 'En línea', presencial: 'Presencial', hibrido: 'Híbrido' };
+const DIAS_ORDEN_TXT = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'];
+function horarioTexto(h) {
+    if (!h) return '';
+    if (typeof h === 'string') return h;
+    if (!h.dias || !h.dias.length) return '';
+    const dias = h.dias.slice().sort((a, b) => DIAS_ORDEN_TXT.indexOf(a) - DIAS_ORDEN_TXT.indexOf(b));
+    const lista = dias.length > 1 ? dias.slice(0, -1).join(', ') + ' y ' + dias[dias.length - 1] : dias[0];
+    const franja = h.hora_inicio && h.hora_fin ? ' · ' + h.hora_inicio + ' a ' + h.hora_fin : '';
+    return lista.charAt(0).toUpperCase() + lista.slice(1) + franja;
+}
+
+/* « / 25»: sin el máximo, un 17 de 25 parece peor que un 85 de 100. Si no se
+   conoce, se deja la cifra sola como antes. */
+function notaSobre(hijo, evaluacion) {
+    const m = (maximos || []).find(x => x.nombre === hijo && x.evaluacion === evaluacion);
+    return m && m.maxima ? ' <small style="font-size:.55em;color:var(--text-light)">/ ' + esc(String(Number(m.maxima))) + '</small>' : '';
+}
+
 function duracionTexto(min) {
     min = Math.round(Number(min) || 0);
     if (min < 60) return min + ' min';
@@ -1848,8 +1869,9 @@ function pintarHijo() {
         c ? c.nombre : 'Sin curso asignado todavía';
     const chips = [];
     if (c) {
-        if (c.horario)   chips.push(c.horario);
-        if (c.modalidad) chips.push(c.modalidad);
+        const hor = horarioTexto(c.horario);
+        if (hor)         chips.push(hor);
+        if (c.modalidad) chips.push(MODALIDAD_TXT[c.modalidad] || c.modalidad);
         if (c.inicio)    chips.push('Del ' + fechaCorta(c.inicio) + ' al ' + fechaCorta(c.fin));
         if (c.estado_inscripcion && c.estado_inscripcion !== 'activa')
             chips.push('Inscripción ' + c.estado_inscripcion);
@@ -1895,7 +1917,7 @@ function pintarHijo() {
               '<div class="nota-top">' +
                 '<div><div class="nota-nombre">' + esc(n.evaluacion) + '</div>' +
                 '<div class="nota-fecha">' + esc(fechaCorta(n.fecha)) + '</div></div>' +
-                '<div class="nota-cifra">' + (n.nota == null ? '—' : esc(n.nota)) + '</div>' +
+                '<div class="nota-cifra">' + (n.nota == null ? '—' : esc(n.nota) + notaSobre(h.nombre, n.evaluacion)) + '</div>' +
               '</div>' +
               (n.comentario ? '<p class="nota-coment">' + esc(n.comentario) + '</p>' : '') +
             '</div>').join('')
@@ -1946,6 +1968,7 @@ function pintarSelectorHijos() {
 }
 
 let usoHijos = [];
+let maximos = [];   // sobre cuánto se califica cada evaluación, para mostrar «17 / 25» y no solo «17»
 (async function iniciar() {
     /* Vista previa para el docente: ?como=<id de la familia>. Sirve para ver
        exactamente lo que ve una madre o un padre antes de escribirle. Solo
@@ -1982,6 +2005,7 @@ let usoHijos = [];
     const hijos = datos.hijos || [];
     // El uso no debe retrasar ni romper el panel: si falla, simplemente no se muestra.
     if (!comoFamilia) { try { const u = await supabaseClient.rpc('actividad_de_mis_representados'); usoHijos = u.data || []; } catch (e) { usoHijos = []; } }
+    if (!comoFamilia) { try { const m = await supabaseClient.rpc('maximos_de_mis_representados'); maximos = m.data || []; } catch (e) { maximos = []; } }
 
     if (!hijos.length) { document.getElementById('sin-hijos').style.display = 'block'; return; }
 
