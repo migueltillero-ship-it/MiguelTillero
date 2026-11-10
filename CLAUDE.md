@@ -97,6 +97,29 @@ Esto vale para WhatsApp, para los avisos de la plataforma y para los correos.
   de la plataforma**, **texto del acuerdo** y **invitaciones de Google
   Calendar**. Revisar los cuatro y también los borradores de correo pendientes.
 
+## Cursos nuevos: siempre empiezan por el Módulo 1
+
+- **Todo curso particular empieza por el módulo introductorio** de fonética:
+  vocales una por una y compuestas, nasales, silbantes, lectoescritura, acento,
+  ritmo y silabación. **También quien ya sabe francés.** En la base es el plan
+  `modulo-introductorio` («Módulo 1 · Introducción: las bases del francés») y
+  sus materiales son los de fonética (vocales y «Les sons et les voyelles»).
+- **No se pone nivel (A1, B1…) a quien todavía no se ha ubicado**: el curso se
+  llama «Curso particular de <nombre>» y queda sin nivel hasta la evaluación.
+- **La puesta en marcha, en este orden**, y nada antes de que el estudiante
+  confirme por escrito sus horas y su horario:
+  1. Acuerdo con `crear_acuerdo_desde_prospecto`, con el plan del Módulo 1 ya
+     asignado (después de emitido, el plan no se puede cambiar sin rehacerlo).
+  2. Calendario del grupo (sesiones y horario) y enlace de Zoom en
+     `grupo_enlaces`.
+  3. Evento en Google Calendar **creado sin invitados y con el enlace de Zoom
+     en la ubicación**; el invitado se añade después (si se invita al crearlo,
+     Google le pega un Google Meet que no se usa).
+  4. Un solo correo con fecha y hora, enlace de Zoom, acceso a su espacio,
+     acuerdo por aceptar y el pago (sin condicionar nada).
+  5. Se anota la confirmación, con fecha y hora exactas, en las notas de su
+     acuerdo y de su ficha de solicitud.
+
 ## Comentarios de las notas: el modelo de Miguel
 
 Los comentarios de cada nota los leen el estudiante y su familia, y se tratan
