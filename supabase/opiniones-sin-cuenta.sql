@@ -1,0 +1,9 @@
+-- OPINIONES DE FIN DE CICLO SIN CUENTA (un solo enlace; al iniciar se elige el rol)
+-- Estudiantes, madres, padres y otros representantes responden sin iniciar sesión.
+--  · opiniones_ciclo: una respuesta por persona y ciclo (se puede corregir enviando de nuevo).
+--  · opinion_enlaces: enlace personal opcional; trae el nombre y el parentesco de la familia,
+--    de modo que el saludo dice «Estimada» o «Estimado» según el dato real, nunca por el nombre.
+--  · Lectura: solo el docente. El grupo ve únicamente los conteos de «momento favorito».
+-- Se aplicó con las migraciones opinion_familias_por_enlace y opiniones_ciclo_sin_cuenta.
+-- (Las tablas opiniones y opiniones_familia de la primera versión quedan sin uso.)
+-- Consultar las respuestas: https://migueltillero-ship-it.github.io/MiguelTillero/opinion.html (con sesión de docente)
