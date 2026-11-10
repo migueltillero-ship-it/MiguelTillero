@@ -2004,8 +2004,10 @@ let maximos = [];   // sobre cuánto se califica cada evaluación, para mostrar 
     datos = data || {};
     const hijos = datos.hijos || [];
     // El uso no debe retrasar ni romper el panel: si falla, simplemente no se muestra.
-    if (!comoFamilia) { try { const u = await supabaseClient.rpc('actividad_de_mis_representados'); usoHijos = u.data || []; } catch (e) { usoHijos = []; } }
-    if (!comoFamilia) { try { const m = await supabaseClient.rpc('maximos_de_mis_representados'); maximos = m.data || []; } catch (e) { maximos = []; } }
+    // En la vista previa del docente se pasa la familia: así ve lo mismo que ella.
+    const _args = comoFamilia ? { p_representante: comoFamilia } : {};
+    try { const u = await supabaseClient.rpc('actividad_de_mis_representados', _args); usoHijos = u.data || []; } catch (e) { usoHijos = []; }
+    try { const m = await supabaseClient.rpc('maximos_de_mis_representados', _args); maximos = m.data || []; } catch (e) { maximos = []; }
 
     if (!hijos.length) { document.getElementById('sin-hijos').style.display = 'block'; return; }
 

@@ -11,7 +11,8 @@
 -- CÓMO USAR: pégalo entero. Es seguro repetirlo.
 -- Dónde: https://supabase.com/dashboard/project/yfrdlzveleevkjqekdoq/sql/new
 -- ===========================================================================
-create or replace function public.maximos_de_mis_representados()
+drop function if exists public.maximos_de_mis_representados();
+create or replace function public.maximos_de_mis_representados(p_representante uuid default null)
 returns table (nombre text, evaluacion text, maxima numeric)
 language sql stable security definer set search_path = public
 as $$
@@ -20,10 +21,11 @@ as $$
     join public.profiles p on p.id = t.estudiante_id
     join public.notas n on n.estudiante_id = p.id
     join public.evaluaciones ev on ev.id = n.evaluacion_id
-   where t.representante_id = auth.uid();
+   where t.representante_id = case when p_representante is not null and (public.es_docente() or public.es_admin())
+                                   then p_representante else auth.uid() end;
 $$;
-revoke all on function public.maximos_de_mis_representados() from public, anon;
-grant execute on function public.maximos_de_mis_representados() to authenticated;
+revoke all on function public.maximos_de_mis_representados(uuid) from public, anon;
+grant execute on function public.maximos_de_mis_representados(uuid) to authenticated;
 
-select has_function_privilege('anon', 'public.maximos_de_mis_representados()', 'execute') as anon_puede,
-       has_function_privilege('authenticated', 'public.maximos_de_mis_representados()', 'execute') as familias_si_pueden;
+select has_function_privilege('anon', 'public.maximos_de_mis_representados(uuid)', 'execute') as anon_puede,
+       has_function_privilege('authenticated', 'public.maximos_de_mis_representados(uuid)', 'execute') as familias_si_pueden;

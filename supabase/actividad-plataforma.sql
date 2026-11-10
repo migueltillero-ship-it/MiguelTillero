@@ -151,16 +151,21 @@ grant execute on function public.ver_boletin(uuid) to anon, authenticated;
 -- está repartida en varios archivos. El panel casa cada resultado con su hijo
 -- por el nombre.
 -- ---------------------------------------------------------------------------
-create or replace function public.actividad_de_mis_representados()
+-- Con p_representante, el docente puede ver lo mismo que vería esa familia
+-- (la «vista previa» del panel del representante). Para cualquier otra
+-- persona, el parámetro se ignora: solo se ve lo propio.
+drop function if exists public.actividad_de_mis_representados();
+create or replace function public.actividad_de_mis_representados(p_representante uuid default null)
 returns table (nombre text, resumen jsonb)
 language sql stable security definer set search_path = public
 as $$
   select p.nombre_completo, public._resumen_actividad(p.id, public.hoy_mexico())
     from public.tutorias t
     join public.profiles p on p.id = t.estudiante_id
-   where t.representante_id = auth.uid();
+   where t.representante_id = case when p_representante is not null and (public.es_docente() or public.es_admin())
+                                   then p_representante else auth.uid() end;
 $$;
-revoke all on function public.actividad_de_mis_representados() from public, anon;
-grant execute on function public.actividad_de_mis_representados() to authenticated;
+revoke all on function public.actividad_de_mis_representados(uuid) from public, anon;
+grant execute on function public.actividad_de_mis_representados(uuid) to authenticated;
 
 select count(*) as filas from public.actividad_plataforma;
