@@ -254,6 +254,10 @@
   border-radius:var(--r-sm); padding:1.1rem 1.3rem; margin-bottom:0.9rem; background:var(--card-bg); }
 #lite .nota-top{ display:flex; justify-content:space-between; align-items:baseline; gap:1rem; flex-wrap:wrap; }
 #lite .nota-nombre{ font-weight:600; color:var(--accent-green); }
+/* Los comentarios son párrafos largos: se respetan los saltos de párrafo que
+   escribe el docente (antes se juntaban en un solo bloque), con interlineado
+   amplio y texto justificado para que se lean como una carta. */
+#lite .nota-coment{ white-space:pre-line; text-align:justify; hyphens:auto; -webkit-hyphens:auto; line-height:1.8; font-size:1.02rem; }
 #lite .nota-cifra{ font-family:'Cormorant Garamond',serif; font-size:1.9rem; color:var(--accent-green); line-height:1; }
 #lite .nota-fecha{ font-family:'Syne', sans-serif; font-size:0.82rem; letter-spacing:0.06em;
   text-transform:uppercase; color:var(--text-light); }

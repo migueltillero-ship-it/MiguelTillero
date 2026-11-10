@@ -97,6 +97,27 @@ Esto vale para WhatsApp, para los avisos de la plataforma y para los correos.
   de la plataforma**, **texto del acuerdo** y **invitaciones de Google
   Calendar**. Revisar los cuatro y también los borradores de correo pendientes.
 
+## Comentarios de las notas: el modelo de Miguel
+
+Los comentarios de cada nota los leen el estudiante y su familia, y se tratan
+como una carta, no como una nota al margen. Siempre en **prosa corrida, sin
+listas ni viñetas**, de **más de cinco líneas**, con **párrafos bien separados**
+por una línea en blanco, cordiales y pulidos. Estructura en cuatro bloques:
+
+1. **Reconocimiento y validación afectiva.** Saludo cordial, mención explícita de
+   la evaluación y felicitación sincera por la disposición, el compromiso y el
+   esfuerzo.
+2. **Recomendaciones técnicas prioritarias.** Dos aspectos esenciales a mejorar,
+   explicados en prosa: por qué importan y cómo ejercitarlos de forma natural.
+3. **Elevación discursiva.** Hacia dónde crecer (conectores, tiempos verbales,
+   subordinación, léxico), adaptado al nivel de la persona.
+4. **Cierre motivacional.** Confianza en sus capacidades, invitación a seguir
+   practicando, tanto en la plataforma como en clase, y respaldo del docente.
+
+Lo que dice cada comentario sale de lo que Miguel observó de esa persona; no se
+rellena con generalidades ni se repite el mismo texto para dos estudiantes. En
+las páginas se muestran con los saltos de párrafo respetados y justificados.
+
 ## Al escribir
 
 - Comentarios y textos de cara al usuario **en español**, explicando el porqué
