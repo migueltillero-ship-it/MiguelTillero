@@ -56,6 +56,12 @@ textarea:focus, button:focus-visible, input:focus-visible + .op{outline:2px soli
 .msg.error{background:#fbe9e7; color:#8a2f22; border:1px solid #e8b7ad}
 .msg.ok{background:rgba(13,127,87,0.1); color:#0b5e41; border:1px solid rgba(13,127,87,0.35)}
 .oculto{display:none}
+.resp{border-top:1px solid rgba(165,130,74,.25);padding:.9rem 0}
+.resp:first-child{border-top:0}
+.resp h3{margin:0;font-size:1.05rem}
+.resp .meta{font-size:.82rem;color:var(--gold2);margin:.1rem 0 .4rem}
+.resp p{margin:.25rem 0;font-size:.95rem}
+.resp b{font-weight:600}
 .fila-fam{margin:0.9rem 0 0}
 .fila-fam .t{font-weight:600;margin-bottom:0.35rem}
 .fila-fam .estrellas .estrella{padding:0.5rem 0.2rem; min-width:46px}
@@ -127,6 +133,18 @@ textarea:focus, button:focus-visible, input:focus-visible + .op{outline:2px soli
     <div id="msg-forma" class="msg oculto"></div>
   </form>
 
+  <section id="vista-docente" class="bloque oculto">
+    <h2>Vista del docente</h2>
+    <p class="pie">Así lo ven quienes lo responden. El formulario de abajo es de prueba: aquí no se envía nada.</p>
+    <p style="margin:0"><a href="?vista=estudiante" id="ver-est">Ver como estudiante</a> · <a href="?vista=familia" id="ver-fam">Ver como familia</a></p>
+  </section>
+
+  <section id="respuestas" class="bloque oculto">
+    <h2>Respuestas recibidas</h2>
+    <p class="pie" id="resp-pie"></p>
+    <div id="resp-lista"></div>
+  </section>
+
   <section id="gracias" class="bloque oculto">
     <h2>Gracias de verdad</h2>
     <p class="pie">Cada respuesta me ayuda a hacer mejor el siguiente ciclo. Si quieres cambiar algo, vuelve cuando quieras a esta misma página.</p>
@@ -154,7 +172,8 @@ const SEGUIR = [['si', 'Sí, quiero seguir'], ['quiza', 'Quizá, me gustaría ha
 const CICLO = (new URLSearchParams(location.search).get('ciclo') || 'A1-OCT2026').replace(/[^A-Za-z0-9-]/g, '').slice(0, 30);
 
 const el = id => document.getElementById(id);
-let perfil = null, valoracion = null;
+const nodo = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
+let perfil = null, valoracion = null, soloVista = false;
 const FAMILIA = [
   ['formacion',    'La formación en general: lo que se aprende y cómo se enseña'],
   ['profesor',     'La relación con el profesor: la comunicación y el trato'],
@@ -191,6 +210,41 @@ function adaptarParaFamilia() {
   el('q6').textContent = '6. ¿Le gustaría que su hijo o hija siga en el próximo ciclo?';
   el('bloque-familia').classList.remove('oculto');
   pintarFamilia();
+}
+
+async function cargarRespuestas() {
+  const { data, error } = await supabaseClient.from('opiniones').select('*').eq('ciclo', CICLO).order('actualizado_en', { ascending: false });
+  const box = el('resp-lista'); box.innerHTML = '';
+  el('respuestas').classList.remove('oculto');
+  if (error) { el('resp-pie').textContent = 'No se pudieron cargar: ' + error.message; return; }
+  const filas = data || [];
+  el('resp-pie').textContent = filas.length
+    ? filas.length + (filas.length === 1 ? ' respuesta' : ' respuestas') + ' del ciclo ' + CICLO + '. Solo tú las ves.'
+    : 'Todavía no hay respuestas del ciclo ' + CICLO + '. Cuando lleguen, aparecerán aquí.';
+  if (!filas.length) return;
+  const { data: perfs } = await supabaseClient.from('profiles').select('id, nombre_completo').in('id', filas.map(f => f.autor_id));
+  const nombre = {}; (perfs || []).forEach(p => nombre[p.id] = p.nombre_completo);
+  const etqM = {}; MOMENTOS.forEach(m => etqM[m[0]] = m[1]);
+  const etqS = {}; SEGUIR.forEach(m => etqS[m[0]] = m[1]);
+  filas.forEach(function (f) {
+    const c = nodo('div', 'resp');
+    c.appendChild(nodo('h3', '', nombre[f.autor_id] || 'Sin nombre'));
+    c.appendChild(nodo('div', 'meta', (f.rol === 'representante' ? 'Familia' : 'Estudiante') + ' · ' + new Date(f.actualizado_en).toLocaleDateString('es-MX', { day: 'numeric', month: 'long' })));
+    const linea = function (t, v) { if (!v) return; const p = document.createElement('p'); const b = document.createElement('b'); b.textContent = t + ' '; p.appendChild(b); p.appendChild(document.createTextNode(v)); c.appendChild(p); };
+    linea('El ciclo:', f.valoracion ? f.valoracion + ' de 5' : null);
+    linea('Momento favorito:', f.momento ? (etqM[f.momento] || f.momento) : null);
+    linea('Le gustó:', f.gusto); linea('No le gustó o le costó:', f.no_gusto); linea('Mejoraría:', f.mejorar);
+    linea('¿Seguir en el próximo ciclo?', f.seguir ? etqS[f.seguir] : null);
+    if (f.familia) {
+      const fam = f.familia;
+      linea('La formación:', fam.formacion ? fam.formacion + ' de 5' : null);
+      linea('La relación con el profesor:', fam.profesor ? fam.profesor + ' de 5' : null);
+      linea('La relación con la plataforma:', fam.plataforma ? fam.plataforma + ' de 5' : null);
+      linea('La relación de su hijo o hija con el francés:', fam.hijo_frances ? fam.hijo_frances + ' de 5' : null);
+      linea('Comentario de la familia:', fam.comentario);
+    }
+    box.appendChild(c);
+  });
 }
 
 function aviso(caja, texto, tipo) { caja.textContent = texto; caja.className = 'msg ' + tipo; }
@@ -254,21 +308,31 @@ async function iniciar() {
   const nombre = (perfil.nombre_completo || '').split(' ')[0];
   if (nombre) el('saludo').textContent = 'Gracias, ' + nombre + ', por ser parte de este ciclo.';
 
-  if (rol !== 'estudiante' && rol !== 'representante') {
+  const esDocente = (rol === 'docente' || rol === 'admin');
+  if (!esDocente && rol !== 'estudiante' && rol !== 'representante') {
     aviso(el('estado'), 'Este espacio es para estudiantes y sus familias.', 'error');
     return;
+  }
+  /* El docente entra en modo vista previa: ve el formulario como lo ve cada
+     quien (?vista=familia) y, debajo, las respuestas. No envía nada. */
+  const vista = esDocente ? (new URLSearchParams(location.search).get('vista') === 'familia' ? 'representante' : 'estudiante') : rol;
+  if (esDocente) {
+    soloVista = true;
+    el('vista-docente').classList.remove('oculto');
+    el('saludo').textContent = 'Vista previa para docente: así lo ven estudiantes y familias.';
+    cargarRespuestas();
   }
 
   pintarEstrellas();
   pintarOpciones('momentos', 'momento', MOMENTOS);
   pintarOpciones('seguir', 'seguir', SEGUIR);
-  if (rol === 'representante') adaptarParaFamilia();
+  if (vista === 'representante') adaptarParaFamilia();
   el('forma').classList.remove('oculto');
 
-  const { data: previa } = await supabaseClient.from('opiniones').select('*').eq('autor_id', perfil.id).eq('ciclo', CICLO).maybeSingle();
+  const { data: previa } = esDocente ? { data: null } : await supabaseClient.from('opiniones').select('*').eq('autor_id', perfil.id).eq('ciclo', CICLO).maybeSingle();
   if (previa) {
     marcar(previa.valoracion); poner('momento', previa.momento); poner('seguir', previa.seguir);
-    if (previa.familia && rol === 'representante') {
+    if (previa.familia && vista === 'representante') {
       const grupos = document.querySelectorAll('#filas-familia .estrellas');
       FAMILIA.forEach(function (f, i) { if (previa.familia[f[0]]) marcarFam(f[0], previa.familia[f[0]], grupos[i]); });
       el('fam-comentario').value = previa.familia.comentario || '';
@@ -282,6 +346,7 @@ async function iniciar() {
 el('forma').addEventListener('submit', async function (e) {
   e.preventDefault();
   const caja = el('msg-forma');
+  if (soloVista) return aviso(caja, 'Es una vista previa: aquí no se envía nada.', 'ok');
   if (!valoracion) return aviso(caja, 'Elige primero cómo fue el ciclo, de 1 a 5.', 'error');
   const b = el('enviar'); b.disabled = true;
   const { error } = await supabaseClient.from('opiniones').upsert({
