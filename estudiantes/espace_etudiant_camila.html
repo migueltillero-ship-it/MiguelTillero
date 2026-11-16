@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Espace Étudiant | Camila</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <script>
+        /* Si el CDN de Tailwind no responde, la página se ve sin estilos pero
+           legible; sin esta comprobación, además, el script se cortaba aquí. */
+        if (window.tailwind) {
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            afblue: '#1a365d',
+                            afgold: '#c5a059',
+                            afsand: '#f7f6f2',
+                        },
+                        fontFamily: {
+                            sans: ['Inter', 'sans-serif'],
+                            serif: ['Playfair Display', 'serif'],
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .module-card { transition: all 0.3s ease; }
+        .module-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); border-left-color: #c5a059; }
+
+        /* ── Campos y botones (los mismos del formulario de la plantilla) ── */
+        .tcf-field {
+            width: 100%;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            background-color: #ffffff;
+            padding: 0.65rem 0.85rem;
+            font-size: 0.9rem;
+            line-height: 1.55;
+            color: #1f2937;
+            resize: vertical;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+        .tcf-field::placeholder { color: #9ca3af; font-style: italic; }
+        .tcf-field:focus {
+            outline: none;
+            border-color: #c5a059;
+            box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.20);
+        }
+        .tcf-field.is-filled { border-color: #c5a059; background-color: #fffdf7; }
+
+        .tcf-save { opacity: 0; transition: opacity 0.4s ease; }
+        .tcf-save.is-visible { opacity: 1; }
+
+        .tcf-btn { transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease; }
+        .tcf-btn:hover { transform: translateY(-1px); }
+        .tcf-btn:focus-visible { outline: 2px solid #c5a059; outline-offset: 2px; }
+
+        /* ── Lo propio de esta página ─────────────────────────── */
+        /* Ejercicios de conjugación y de estilo */
+        .qz-input { display: inline-block; width: 9rem; padding: 0.3rem 0.6rem; margin: 0 0.25rem; vertical-align: baseline; resize: none; }
+        .qz-input.is-ok { border-color: #16a34a; background-color: #f0fdf4; }
+        .qz-input.is-bad { border-color: #dc2626; background-color: #fef2f2; }
+        .qz-fb { min-height: 1.25rem; font-size: 0.8rem; margin-top: 0.35rem; }
+        .qz-fb.ok { color: #15803d; }
+        .qz-fb.bad { color: #b91c1c; }
+        .qz-fb.warn { color: #92400e; }
+
+        /* Barra de palabras */
+        .barre { height: 0.5rem; border-radius: 9999px; background: #e5e7eb; overflow: hidden; }
+        .barre > i { display: block; height: 100%; width: 0; background: #c5a059; transition: width 0.4s ease; }
+        .barre.atteint > i { background: #16a34a; }
+
+        /* Lista de conectores: se marca sola */
+        .conn-item.is-done { color: #15803d; font-weight: 600; }
+
+        /* Poemas */
+        .poeme-texte { white-space: pre-line; font-family: 'Playfair Display', serif; font-style: italic; line-height: 1.8; }
+        .poeme-btn[aria-pressed="true"] { border-color: #c5a059; background-color: #fffdf7; box-shadow: 0 0 0 2px rgba(197, 160, 89, 0.25); }
+
+        details > summary { cursor: pointer; }
+
+        /* Calendario en el teléfono: cada sesión pasa a ser una tarjeta apilada
+           (fecha y estado arriba, horario y duración, y el contenido debajo),
+           para no obligar a desplazarse de lado. */
+        @media (max-width: 639px) {
+            #tabla-calendario, #tabla-calendario tbody { display: block; width: 100%; }
+            #thead-sesiones { display: none; }
+            #tabla-sesiones tr {
+                display: grid;
+                grid-template-columns: 1.75rem 1fr auto;
+                column-gap: 0.5rem;
+                row-gap: 0.2rem;
+                padding: 0.85rem 0;
+                align-items: start;
+            }
+            #tabla-sesiones td { display: block; padding: 0 !important; white-space: normal !important; }
+            #tabla-sesiones td:nth-child(1) { grid-column: 1; grid-row: 1 / span 3; }
+            #tabla-sesiones td:nth-child(2) { grid-column: 2; grid-row: 1; font-weight: 600; }
+            #tabla-sesiones td:nth-child(5) { grid-column: 3; grid-row: 1; }
+            #tabla-sesiones td:nth-child(3) { grid-column: 2; grid-row: 2; font-size: 0.8rem; color: #6b7280; }
+            #tabla-sesiones td:nth-child(4) { grid-column: 3; grid-row: 2; font-size: 0.8rem; color: #6b7280; text-align: right; }
+            #tabla-sesiones td:nth-child(6) { grid-column: 2 / span 2; grid-row: 3; font-size: 0.8rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .module-card, .tcf-field, .tcf-save, .tcf-btn, .barre > i { transition: none; }
+            .tcf-btn:hover { transform: none; }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+    <script src="../assets/js/supabase-config.js?v=1790462574"></script>
+    <script src="../assets/js/actividad.js?v=1"></script>
+</head>
+<body class="bg-afsand text-gray-800 font-sans antialiased selection:bg-afgold selection:text-white">
+
+    <!-- Navbar -->
+    <nav class="bg-afblue text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-afgold rounded flex items-center justify-center font-serif font-bold text-afblue">af</div>
+                    <span class="font-serif text-xl tracking-wide">Suivi Pédagogique</span>
+                </div>
+                <div class="text-sm font-light tracking-wider hidden md:block">
+                    Direction Générale | San Cristóbal de Las Casas
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 md:p-12 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-2 h-full bg-afgold"></div>
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div>
+                    <h1 class="text-sm uppercase tracking-widest text-gray-500 font-semibold mb-2">Portail d'Apprentissage Individuel</h1>
+                    <h2 class="text-4xl font-serif text-afblue mb-2">Espace Étudiant : Camila</h2>
+                    <p class="text-gray-600 max-w-2xl text-lg">Un espace pour pratiquer tout ce qu'on a vu en classe : le futur simple, la préparation au DELF B2 et l'atelier poétique.</p>
+                </div>
+                <div class="text-right">
+                    <span class="inline-block bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-semibold uppercase tracking-wide border border-green-200">Niveau : B2</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+
+        <!-- ═══════════ Mon parcours ═══════════ -->
+        <div class="mb-6">
+            <h3 class="text-2xl font-serif text-afblue mb-2">Mon parcours</h3>
+            <p class="text-gray-500">Ton forfait, ton avancement et ton assiduité, mis à jour par Miguel après chaque séance.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10" id="stats-parcours">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+                <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Heures réalisées</div>
+                <div class="text-3xl font-serif text-afblue" id="stat-heures">0 h</div>
+                <div class="barre mt-3" id="barre-heures"><i></i></div>
+                <div class="text-xs text-gray-500 mt-2" id="stat-heures-detail"></div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+                <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Séances réalisées</div>
+                <div class="text-3xl font-serif text-afblue" id="stat-seances">0 / 0</div>
+                <div class="text-xs text-gray-500 mt-5" id="stat-seances-detail"></div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+                <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Assiduité</div>
+                <div class="text-3xl font-serif text-afblue" id="stat-assiduite">0 %</div>
+                <div class="text-xs text-gray-500 mt-5" id="stat-assiduite-detail"></div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+                <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Clôture du forfait</div>
+                <div class="text-3xl font-serif text-afblue">21 nov.</div>
+                <div class="text-xs text-gray-500 mt-5">Au lieu du 5 décembre : la séance du jeudi 10 septembre et la séance extraordinaire du lundi 16 novembre à 15 h avancent la fin du forfait.</div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 border-l-4 border-l-afgold p-5 mb-12 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <p class="text-sm text-gray-600">
+                <span class="font-semibold text-afblue">Horaire habituel :</span> le samedi, de 9 h à 10 h 30, en ligne par Zoom.
+                Forfait : 20 heures contractées et 2 heures de tutorat offertes, soit 22 heures en tout.
+                Début le samedi 29 août 2026.
+            </p>
+            <a href="../panel-estudiante.html" class="tcf-btn inline-block text-center bg-afblue text-white text-sm font-semibold px-5 py-2.5 rounded-lg shadow-sm hover:bg-afgold">Ouvrir mon panel (lien de la classe)</a>
+        </div>
+
+        <!-- ═══════════ Modules ═══════════ -->
+        <div class="mb-10">
+            <h3 class="text-2xl font-serif text-afblue mb-2">Suivi et pratique</h3>
+            <p class="text-gray-500">Le calendrier de tes séances, tes compétences B2 et trois modules pour pratiquer à ton rythme.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8" id="module-container">
+
+            <!-- Calendrier et assiduité -->
+            <div class="module-card bg-white rounded-xl shadow-sm border border-gray-200 border-l-4 border-l-green-500 p-6 lg:col-span-2 opacity-0">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="text-xs font-bold text-green-600 uppercase tracking-wider">Seguimiento • Asistencia</span>
+                </div>
+                <h4 class="text-xl font-bold text-afblue mb-2">Calendrier et assiduité</h4>
+                <p class="text-sm text-gray-600 mb-5 max-w-3xl">Chaque séance, avec sa date, son horaire et ce qu'on y a travaillé. Les séances programmées passent à « Asistió » une fois qu'elles ont eu lieu.</p>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left" id="tabla-calendario">
+                        <thead id="thead-sesiones">
+                            <tr class="text-xs uppercase tracking-wider text-gray-500 border-b border-gray-200">
+                                <th class="py-2 pr-3 font-semibold">N°</th>
+                                <th class="py-2 pr-3 font-semibold">Date</th>
+                                <th class="py-2 pr-3 font-semibold">Horaire</th>
+                                <th class="py-2 pr-3 font-semibold">Durée</th>
+                                <th class="py-2 pr-3 font-semibold">État</th>
+                                <th class="py-2 font-semibold">Contenu</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-sesiones"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Competencias -->
+            <div class="module-card bg-white rounded-xl shadow-sm border border-gray-200 border-l-4 border-l-afgold p-6 lg:col-span-2 opacity-0">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="text-xs font-bold text-afgold uppercase tracking-wider">Seguimiento • Competencias</span>
+                </div>
+                <h4 class="text-xl font-bold text-afblue mb-2">Matrice de compétences B2</h4>
+                <p class="text-sm text-gray-600 mb-5 max-w-3xl">Ce qu'on a travaillé ensemble, avec les indicateurs de réussite de chaque compétence. L'évaluation officielle par niveaux est celle de Miguel, dans ton panel.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="matrice-competences"></div>
+            </div>
+
+            <!-- ═══ Module 1 ═══ -->
+            <div class="module-card bg-white rounded-xl shadow-sm border border-gray-200 border-l-4 border-l-blue-500 p-6 lg:col-span-2 opacity-0" id="module-1">
+                <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Módulo 1 • En curso</span>
+                        <span class="relative flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span></span>
+                    </div>
+                </div>
+                <h4 class="text-xl font-bold text-afblue mb-2">Grammaire et Conjugaison : Le Futur Simple</h4>
+                <p class="text-sm text-gray-600 mb-6 max-w-3xl">La fiche vue en classe, puis une série de dix phrases tirée au hasard dans une banque d'exercices. Chaque réponse se vérifie tout de suite.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-afsand rounded-lg p-5 border border-gray-200">
+                        <h5 class="text-base font-bold text-afblue mb-2">1. La règle générale</h5>
+                        <p class="text-sm text-gray-600 mb-3">Infinitivo del verbo más las terminaciones : <b>ai, as, a, ons, ez, ont</b>.</p>
+                        <table class="w-full text-sm">
+                            <tbody>
+                                <tr class="border-b border-gray-200"><td class="py-1 text-gray-500">je</td><td class="py-1 font-semibold text-afblue">… ai</td><td class="py-1 text-gray-500">nous</td><td class="py-1 font-semibold text-afblue">… ons</td></tr>
+                                <tr class="border-b border-gray-200"><td class="py-1 text-gray-500">tu</td><td class="py-1 font-semibold text-afblue">… as</td><td class="py-1 text-gray-500">vous</td><td class="py-1 font-semibold text-afblue">… ez</td></tr>
+                                <tr><td class="py-1 text-gray-500">il, elle, on</td><td class="py-1 font-semibold text-afblue">… a</td><td class="py-1 text-gray-500">ils, elles</td><td class="py-1 font-semibold text-afblue">… ont</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="bg-afsand rounded-lg p-5 border border-gray-200">
+                        <h5 class="text-base font-bold text-afblue mb-2">2. Verbes en ER et en IR (1er et 2e groupes)</h5>
+                        <p class="text-sm text-gray-600 mb-3">Se conserva el infinitivo entero.</p>
+                        <ul class="text-sm text-gray-700 space-y-1">
+                            <li><b>Parler</b> : je parlerai, tu parleras, nous parlerons.</li>
+                            <li><b>Finir</b> : je finirai, ils finiront.</li>
+                        </ul>
+                        <h5 class="text-base font-bold text-afblue mt-5 mb-2">3. Verbes en RE (3e groupe)</h5>
+                        <p class="text-sm text-gray-600 mb-3">Se suprime la vocal e final antes de añadir la terminación.</p>
+                        <ul class="text-sm text-gray-700 space-y-1">
+                            <li><b>Prendre</b> : je prendrai, vous prendrez.</li>
+                            <li><b>Écrire</b> : j'écrirai, elle écrira.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-afsand rounded-lg p-5 border border-gray-200 md:col-span-2">
+                        <h5 class="text-base font-bold text-afblue mb-2">4. Verbes irréguliers fréquents (changement de radical)</h5>
+                        <p class="text-sm text-gray-600 mb-3">Cambian de raíz, pero las terminaciones son siempre las mismas.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-sm" id="irreguliers"></div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                    <h5 class="text-base font-bold text-afblue">Série d'entraînement</h5>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <span class="text-xs font-semibold uppercase tracking-wide text-afblue bg-afsand border border-afgold/50 px-3 py-1 rounded-full" id="futur-score" aria-live="polite"></span>
+                        <button type="button" id="futur-nouvelle" class="tcf-btn bg-afgold text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-sm hover:bg-afblue">Nouvelle série</button>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500 mb-4">Complète chaque phrase avec le verbe entre parenthèses, au futur simple, puis appuie sur Entrée ou sur « Vérifier ».</p>
+                <ol class="space-y-5 list-decimal pl-6 text-sm text-gray-700" id="futur-liste"></ol>
+                <div class="mt-6 p-4 rounded-lg bg-afsand border border-afgold/50" id="futur-resume" hidden role="status"></div>
+            </div>
+
+            <!-- ═══ Module 2 ═══ -->
+            <div class="module-card bg-white rounded-xl shadow-sm border border-gray-200 border-l-4 border-l-blue-500 p-6 lg:col-span-2 opacity-0" id="module-2">
+                <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Módulo 2 • En curso</span>
+                        <span class="relative flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span></span>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-green-800 bg-green-100 border border-green-200 px-3 py-1 rounded-full">Compréhension orale : résultat remarquable</span>
+                </div>
+                <h4 class="text-xl font-bold text-afblue mb-2">Entraînement DELF B2</h4>
+                <p class="text-sm text-gray-600 mb-6 max-w-3xl">Compréhension orale et production écrite. La compréhension orale est déjà solide ; ici, tu prépares la production écrite argumentative.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-afsand rounded-lg p-5 border border-gray-200">
+                        <h5 class="text-base font-bold text-afblue mb-2">Compréhension orale : simulacre du 31 octobre</h5>
+                        <p class="text-sm text-gray-600">Sujet officiel <b>TP49 (B2)</b>, passé en conditions d'examen. Résultat remarquable : tu sais suivre des discours étendus, des interviews et des débats, et repérer les positions et les intentions de ceux qui parlent. Cette écoute attentive te sert aussi à l'écrit : pour argumenter, il faut savoir quelle position on défend.</p>
+                    </div>
+                    <div class="bg-afsand rounded-lg p-5 border border-gray-200">
+                        <h5 class="text-base font-bold text-afblue mb-2">La consigne travaillée le 14 novembre</h5>
+                        <blockquote class="text-sm text-gray-700 italic border-l-4 border-afgold pl-3 mb-3">« Faut il interdire l'usage des smartphones dans les établissements scolaires (du collège au lycée) pour favoriser la concentration et les relations sociales ? »</blockquote>
+                        <p class="text-sm text-gray-600">Rédigez un texte argumentatif (article d'opinion, essai ou lettre ouverte) de <b>250 mots minimum</b> dans lequel vous présentez votre point de vue de manière nuancée, en l'étayant par des arguments et des exemples concrets.</p>
+                    </div>
+                </div>
+
+                <h5 class="text-base font-bold text-afblue mb-3">Rappel de la structure B2</h5>
+                <ol class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8 text-sm text-gray-700">
+                    <li class="bg-afsand rounded-lg p-4 border border-gray-200"><span class="text-xs font-bold text-afgold uppercase tracking-wider">Paso 1</span><br><b>Le titre</b> : si tu choisis le format article.</li>
+                    <li class="bg-afsand rounded-lg p-4 border border-gray-200"><span class="text-xs font-bold text-afgold uppercase tracking-wider">Paso 2</span><br><b>L'introduction (le chapeau)</b> : présenter le débat actuel, poser la problématique et annoncer le plan.</li>
+                    <li class="bg-afsand rounded-lg p-4 border border-gray-200 md:col-span-2"><span class="text-xs font-bold text-afgold uppercase tracking-wider">Paso 3</span><br><b>Le développement (2 à 3 parties)</b> : <i>Partie 1</i>, arguments en faveur de l'interdiction (concentration en classe, lutte contre le cyberharcèlement). <i>Partie 2</i>, nuances et arguments contraires (outil pédagogique utile, autonomie des jeunes, éduquer plutôt qu'interdire). Utilise des connecteurs logiques variés : d'une part, en revanche, certes… mais, par conséquent.</li>
+                    <li class="bg-afsand rounded-lg p-4 border border-gray-200"><span class="text-xs font-bold text-afgold uppercase tracking-wider">Paso 4</span><br><b>La conclusion</b> : un bref bilan, puis une prise de position ou une question qui ouvre le débat.</li>
+                    <li class="bg-afsand rounded-lg p-4 border border-gray-200"><span class="text-xs font-bold text-afgold uppercase tracking-wider">Paso 5</span><br><b>La signature fictive</b>.</li>
+                </ol>
+
+                <h5 class="text-base font-bold text-afblue mb-3">Mon atelier d'écriture</h5>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2">
+                        <label class="block text-sm font-semibold text-gray-700 mb-1.5" for="essai-texte">Ton texte argumentatif</label>
+                        <textarea id="essai-texte" rows="14" class="tcf-field" placeholder="Écris ton texte ici. Il reste enregistré sur cet appareil..."></textarea>
+                        <div class="flex items-center justify-between mt-2 text-xs">
+                            <span id="essai-compteur" class="font-semibold text-afblue" aria-live="polite">0 / 250 mots</span>
+                            <span class="tcf-save font-semibold text-green-700" id="essai-save" role="status">Enregistré automatiquement sur cet appareil</span>
+                        </div>
+                        <div class="barre mt-2" id="essai-barre"><i></i></div>
+                        <div class="flex flex-wrap gap-3 mt-4">
+                            <button type="button" id="essai-enregistrer" class="tcf-btn bg-afblue text-white text-sm font-semibold px-5 py-2.5 rounded-lg shadow-sm hover:bg-afgold">Enregistrer le brouillon</button>
+                            <button type="button" id="essai-copier" class="tcf-btn bg-afgold text-white text-sm font-semibold px-5 py-2.5 rounded-lg shadow-sm hover:bg-afblue">Copier le texte pour Miguel</button>
+                            <button type="button" id="essai-telecharger" class="tcf-btn bg-white text-afblue text-sm font-semibold px-5 py-2.5 rounded-lg border border-afgold shadow-sm hover:bg-afsand">Télécharger en .txt</button>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-3">Envoie le texte copié ou le fichier téléchargé à Miguel par WhatsApp ou par courriel avant la prochaine séance.</p>
+                    </div>
+                    <div class="bg-afsand rounded-lg p-5 border border-gray-200 self-start">
+                        <h5 class="text-base font-bold text-afblue mb-1">Connecteurs logiques B2</h5>
+                        <p class="text-xs text-gray-500 mb-3">Ils se cochent tout seuls quand tu les écris dans ton texte.</p>
+                        <ul class="space-y-2 text-sm text-gray-700" id="essai-connecteurs"></ul>
+                        <p class="text-xs text-gray-500 mt-4" id="essai-connecteurs-compteur" aria-live="polite"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ Module 3 ═══ -->
+            <div class="module-card bg-white rounded-xl shadow-sm border border-gray-200 border-l-4 border-l-purple-600 p-6 lg:col-span-2 opacity-0" id="module-3">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">Módulo 3 • En curso</span>
+                </div>
+                <h4 class="text-xl font-bold text-afblue mb-2">Atelier Poétique et Littéraire</h4>
+                <p class="text-sm text-gray-600 mb-6 max-w-3xl">De la lecture de Sabines à tes propres poèmes en français : de quoi relire, écouter le rythme et perfectionner ton style.</p>
+
+                <details class="bg-afsand rounded-lg border border-gray-200 p-4 mb-8">
+                    <summary class="text-sm font-semibold text-afblue">Lecture du 19 septembre : « Los amorosos », de Jaime Sabines</summary>
+                    <div class="text-sm text-gray-700 mt-4 space-y-3">
+                        <p>Jaime Sabines (Tuxtla Gutiérrez, 1926 a 1999) est l'une des voix les plus lues de la poésie mexicaine contemporaine. En classe, on a lu et analysé ce poème en espagnol, en prêtant attention au silence, à la quête et à l'inquiétude de ceux qui aiment.</p>
+                        <p class="font-semibold text-afblue">À relire avec ces questions :</p>
+                        <ol class="list-decimal pl-6 space-y-1">
+                            <li>Que dit le poème du silence et de la quête ?</li>
+                            <li>Quel ton domine : mélancolie, tendresse, inquiétude ? Justifie avec une image du texte.</li>
+                            <li>Résume en français, en deux phrases, l'idée centrale. Tu peux utiliser : chercher, se taire, la solitude.</li>
+                        </ol>
+                        <p class="text-xs text-gray-500">Le texte du poème n'est pas reproduit ici : garde ta copie de classe.</p>
+                    </div>
+                </details>
+
+                <h5 class="text-base font-bold text-afblue mb-3">Ma galerie : cinq poèmes écrits le 31 octobre</h5>
+                <p class="text-xs text-gray-500 mb-4">Choisis un poème pour le lire.</p>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+                    <div class="flex flex-col gap-2" id="poemes-liste" role="group" aria-label="Choix du poème"></div>
+                    <article class="lg:col-span-2 bg-afsand rounded-lg border border-gray-200 p-6 min-h-[12rem]" id="poeme-lecture" aria-live="polite">
+                        <p class="text-sm text-gray-500">Aucun poème sélectionné pour le moment.</p>
+                    </article>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
+                    <h5 class="text-base font-bold text-afblue">Capsule de style B2 : accords du genre et des adjectifs</h5>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <span class="text-xs font-semibold uppercase tracking-wide text-afblue bg-afsand border border-afgold/50 px-3 py-1 rounded-full" id="capsule-score" aria-live="polite"></span>
+                        <button type="button" id="capsule-nouvelle" class="tcf-btn bg-afgold text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-sm hover:bg-afblue">Recommencer</button>
+                    </div>
+                </div>
+                <div class="bg-afsand rounded-lg p-4 border border-gray-200 text-sm text-gray-700 mb-4">
+                    <b>À retenir.</b> Quand la personne qui parle est une femme, l'adjectif et le participe s'accordent : <i>je suis étouffée, prête à partir</i>. Les adjectifs en <b>eux</b> font <b>euse</b> au féminin (heureux, heureuse). <b>Froid</b> devient <b>froide</b>, <b>cher</b> devient <b>chère</b>. Et certains adjectifs ne changent pas : <b>triste</b>, <b>calme</b>, <b>étrange</b>.
+                </div>
+                <p class="text-xs text-gray-500 mb-4">Chaque phrase vient d'un de tes poèmes. Complète avec la forme correcte, puis vérifie.</p>
+                <ol class="space-y-5 list-decimal pl-6 text-sm text-gray-700" id="capsule-liste"></ol>
+                <div class="mt-6 p-4 rounded-lg bg-afsand border border-afgold/50" id="capsule-resume" hidden role="status"></div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-gray-50 border-t border-gray-200 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm text-gray-400 font-light">
+            &copy; 2026 Alliance Française : Créé et géré via GitHub Pages.
+        </div>
+    </footer>
+
+    <!-- POÈMES DE CAMILA
+         Sus poemas son textos personales de una alumna menor de edad: no viven
+         en este archivo (el repositorio es público) sino en la tabla
+         textos_estudiante, que solo puede leer ella con su sesión y el docente. -->
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         DONNÉES
+         Aquí se actualiza el calendario después de cada clase. La asistencia
+         se anota solo cuando Miguel la confirma: nunca se supone.
+           estado: 'asistio' (la clase se dio) o 'programada' (todavía no)
+         Las horas, las sesiones y el porcentaje de arriba se calculan solos.
+         ═══════════════════════════════════════════════════════════════ -->
+    <script>
+        const TOTAL_HORAS = 22;   // 20 contratadas más 2 de tutoría de regalo
+
+        /* Fechas confirmadas por Miguel el 16 de noviembre de 2026, contrastadas
+           con el chat: el sábado 12 de septiembre se pasó al martes 15 (presencial),
+           la clase de la semana del viaje a Tuxtla se mantuvo el sábado 26 y el
+           jueves 10 de septiembre hubo clase en línea. El tema solo se escribe
+           cuando consta; si no, queda la mención general. */
+        const SESIONES = [
+            { n: 1,  fecha: 'Sábado 29 de agosto de 2026',        hora: '09:00 a 10:30', h: 1.5, estado: 'asistio',    tema: 'Inicio del paquete.' },
+            { n: 2,  fecha: 'Sábado 5 de septiembre de 2026',     hora: '09:00 a 10:30', h: 1.5, estado: 'asistio',    tema: 'Clase del curso.' },
+            { n: 3,  fecha: 'Jueves 10 de septiembre de 2026',    hora: '17:00 a 18:30', h: 1.5, estado: 'asistio',    tema: 'Clase en línea, por Zoom.' },
+            { n: 4,  fecha: 'Martes 15 de septiembre de 2026',    hora: '17:30 a 19:00', h: 1.5, estado: 'asistio',    tema: 'Sesión presencial en lugar del sábado 12, con material visual.' },
+            { n: 5,  fecha: 'Sábado 19 de septiembre de 2026',    hora: '09:00 a 10:30', h: 1.5, estado: 'asistio',    tema: 'Lectura y análisis de « Los amorosos », de Jaime Sabines.' },
+            { n: 6,  fecha: 'Sábado 26 de septiembre de 2026',    hora: '09:00 a 10:30', h: 1.5, estado: 'asistio',    tema: 'Clase del curso.' },
+            { n: 7,  fecha: 'Sábado 3 de octubre de 2026',        hora: '09:00 a 10:30', h: 1.5, estado: 'asistio',    tema: 'Clase del curso.' },
+            { n: 8,  fecha: 'Sábado 10 de octubre de 2026',       hora: '09:00 a 10:30', h: 1.5, estado: 'asistio',    tema: 'Trabajo con soportes visuales.' },
+            { n: 9,  fecha: 'Sábado 17 de octubre de 2026',       hora: '09:00 a 10:30', h: 1.5, estado: 'asistio',    tema: 'Clase del curso.' },
+            { n: 10, fecha: 'Sábado 24 de octubre de 2026',       hora: '09:00 a 10:30', h: 1.5, estado: 'asistio',    tema: 'Trabajo con una lámina de ejercicios.' },
+            { n: 11, fecha: 'Sábado 31 de octubre de 2026',       hora: '09:00 a 10:30', h: 1.5, estado: 'asistio',    tema: 'Cinco poemas originales en francés y práctica de comprensión oral DELF B2 (TP49), con muy buen resultado.' },
+            { n: 12, fecha: 'Sábado 7 de noviembre de 2026',      hora: '09:00 a 10:30', h: 1.5, estado: 'asistio',    tema: 'Clase del curso.' },
+            { n: 13, fecha: 'Sábado 14 de noviembre de 2026',     hora: '09:00 a 10:30', h: 1.5, estado: 'asistio',    tema: 'Método del texto argumentativo B2: los smartphones en los centros escolares.' },
+            { n: 14, fecha: 'Lunes 16 de noviembre de 2026',      hora: '15:00 a 16:30', h: 1.5, estado: 'programada', tema: 'Sesión extraordinaria entre semana.' },
+            { n: 15, fecha: 'Sábado 21 de noviembre de 2026',     hora: '09:00 a 10:00', h: 1.0, estado: 'programada', tema: 'Sesión final de una hora y cierre del paquete.' }
+        ];
+
+        const COMPETENCES = [
+            { titre: 'Compréhension de l’oral (DELF B2)',
+              etat: 'Desempeño sobresaliente', ton: 'vert',
+              indicateurs: [
+                'Comprendre des discours étendus, des interviews et des débats.',
+                'Identifier les positions et les intentions de ceux qui parlent.'
+              ],
+              preuve: 'Entraînement officiel TP49 du 31 octobre : très bon résultat.' },
+            { titre: 'Production écrite argumentative (DELF B2)',
+              etat: 'Méthode vue le 14 novembre', ton: 'or',
+              indicateurs: [
+                'Structurer un texte de 250 mots minimum : titre, chapeau avec problématique et plan, développement nuancé, conclusion qui ouvre le débat.',
+                'Enchaîner les idées avec des connecteurs logiques variés.'
+              ],
+              preuve: 'Sujet travaillé : les smartphones dans les établissements scolaires. Atelier d’écriture dans le module 2.' },
+            { titre: 'Compétence grammaticale et morphosyntaxique',
+              etat: 'En pratique', ton: 'or',
+              indicateurs: [
+                'Conjuguer au futur simple les verbes réguliers des trois groupes.',
+                'Utiliser les dix radicaux irréguliers de haute fréquence pour exprimer projections, hypothèses et faits à venir.'
+              ],
+              preuve: 'Fiche du futur simple et série d’entraînement dans le module 1.' },
+            { titre: 'Médiation littéraire et écriture créative',
+              etat: 'Cinq poèmes présentés', ton: 'vert',
+              indicateurs: [
+                'Analyser de la poésie contemporaine en espagnol.',
+                'Écrire des poèmes originaux rimés en français : émotions complexes, métaphores sensorielles, nuances affectives.'
+              ],
+              preuve: 'Analyse de « Los amorosos » le 19 septembre ; cinq poèmes présentés le 31 octobre.' }
+        ];
+
+        const IRREGULIERS = [
+            ['Avoir', 'aur', 'j’aurai'],
+            ['Être', 'ser', 'je serai'],
+            ['Aller', 'ir', 'j’irai'],
+            ['Faire', 'fer', 'je ferai'],
+            ['Venir', 'viendr', 'je viendrai'],
+            ['Pouvoir', 'pourr', 'je pourrai'],
+            ['Vouloir', 'voudr', 'je voudrai'],
+            ['Voir', 'verr', 'je verrai'],
+            ['Savoir', 'saur', 'je saurai'],
+            ['Devoir', 'devr', 'je devrai']
+        ];
+
+        /* Banco de ejercicios del módulo 1. Cada serie toma diez al azar.
+           ___ marca el hueco; resp tiene una respuesta por hueco. */
+        const BANQUE_FUTUR = [
+            { id: 'f01', verbe: 'aller',   texto: 'Le mois prochain, nous ___ (aller) visiter une exposition de poésie urbaine.', resp: ['irons'],   nota: 'Aller cambia de raíz: ir más ons. Nunca « allerons ».' },
+            { id: 'f02', verbe: 'pouvoir', texto: 'Dès que l’examen sera fini, elle ___ (pouvoir) enfin se reposer.',              resp: ['pourra'],  nota: 'Pouvoir: radical pourr, con doble r.' },
+            { id: 'f03', verbe: 'devoir',  texto: 'Avant de rendre votre essai, vous ___ (devoir) relire la conclusion.',          resp: ['devrez'],  nota: 'Devoir: radical devr más ez.' },
+            { id: 'f04', verbe: 'voir',    texto: 'En lisant ce poème, tu ___ (voir) comment l’auteur décrit la solitude.',        resp: ['verras'],  nota: 'Voir: radical verr, con doble r, más as.' },
+            { id: 'f05', verbe: 'savoir',  texto: 'Je ne connais pas encore la réponse, mais je la ___ (savoir) demain.',          resp: ['saurai'],  nota: 'Savoir: radical saur más ai.' },
+            { id: 'f06', verbe: 'vouloir', texto: 'Si le débat continue, les élèves ___ (vouloir) donner chacun leur opinion.',    resp: ['voudront'], nota: 'Vouloir: radical voudr más ont.' },
+            { id: 'f07', verbe: 'faire',   texto: 'Ce soir, ils ___ (faire) leurs devoirs avant de regarder une série.',           resp: ['feront'],  nota: 'Faire: radical fer más ont. La a del infinitivo desaparece.' },
+            { id: 'f08', verbe: 'venir',   texto: 'Tu ___ (venir) à la remise des diplômes avec ta famille ?',                     resp: ['viendras'], nota: 'Venir: radical viendr más as.' },
+            { id: 'f09', verbe: 'être',    texto: 'Dans dix ans, les smartphones ___ (être) sans doute encore plus présents à l’école.', resp: ['seront'], nota: 'Être: radical ser más ont.' },
+            { id: 'f10', verbe: 'avoir',   texto: 'Si vous vous inscrivez maintenant, vous ___ (avoir) votre résultat avant les vacances.', resp: ['aurez'], nota: 'Avoir: radical aur más ez.' },
+            { id: 'f11', verbe: 'aller',   texto: 'Demain, j’___ (aller) à la bibliothèque chercher des poèmes de Sabines.',       resp: ['irai'],    nota: 'Aller: radical ir. Con el pronombre j’ delante: j’irai.' },
+            { id: 'f12', verbe: 'pouvoir', texto: 'Si tu t’entraînes chaque jour, tu ___ (pouvoir) écrire un essai de 250 mots sans stress.', resp: ['pourras'], nota: 'Pouvoir: radical pourr más as.' },
+            { id: 'f13', verbe: 'voir',    texto: 'Nous ___ (voir) en classe comment structurer l’introduction d’un essai.',       resp: ['verrons'], nota: 'Voir: radical verr más ons.' },
+            { id: 'f14', verbe: 'devoir',  texto: 'Je ___ (devoir) apprendre les connecteurs logiques pour le DELF.',              resp: ['devrai'],  nota: 'Devoir: radical devr más ai.' },
+            { id: 'f15', verbe: 'prendre', texto: 'Pour le prochain cours, je ___ (prendre) des notes sur le document sonore.',    resp: ['prendrai'], nota: 'Verbo en RE: prendre pierde la e final, prendr más ai.' },
+            { id: 'f16', verbe: 'écrire',  texto: 'L’an prochain, j’___ (écrire) un texte argumentatif de trois cents mots.',      resp: ['écrirai'], nota: 'Verbo en RE: écrire pierde la e final, écrir más ai.' },
+            { id: 'f17', verbe: 'mettre',  texto: 'Nous ___ (mettre) nos téléphones dans un casier pendant le cours.',             resp: ['mettrons'], nota: 'Verbo en RE: mettre pierde la e final, mettr más ons.' },
+            { id: 'f18', verbe: 'vivre',   texto: 'Elle ___ (vivre) un an à l’étranger pour perfectionner son français.',          resp: ['vivra'],   nota: 'Verbo en RE: vivre pierde la e final, vivr más a.' },
+            { id: 'f19', verbe: 'dire',    texto: 'Tu ___ (dire) ce que tu penses, et nous écouterons.',                           resp: ['diras'],   nota: 'Verbo en RE: dire pierde la e final, dir más as.' },
+            { id: 'f20', verbe: 'lire',    texto: 'Je ___ (lire) ce texte à voix haute devant la classe.',                         resp: ['lirai'],   nota: 'Verbo en RE: lire pierde la e final, lir más ai.' }
+        ];
+
+        /* Cápsula de estilo: frases tomadas de sus propios poemas. */
+        const CAPSULE = [
+            { id: 'c01', verbe: 'étouffé',  texto: 'Poème 1 : « Je suis ___, les livres sont partout dans ma classe. » (étouffé, au féminin)', resp: ['étouffée'], nota: 'Quien habla es una mujer: étouffé pasa a étouffée.' },
+            { id: 'c02', verbe: 'prêt',     texto: 'Poème 1 : « Je ferme mon livre, ___ à partir. » (prêt, au féminin)',                       resp: ['prête'],    nota: 'Prêt pasa a prête, con acento circunflejo.' },
+            { id: 'c03', verbe: 'mer',      texto: 'Poème 3 : « sous ___ mer d’ivoire, si ___ » (corrige l’article et l’adjectif : un mer, froid)', resp: ['une', 'froide'], nota: 'Mer es femenino: une mer. Y froid pasa a froide: une mer d’ivoire, si froide.' },
+            { id: 'c04', verbe: 'assoiffé', texto: 'Poème 5 : « Mon garçon, je me sens ___. » (assoiffé, au féminin)',                          resp: ['assoiffée'], nota: 'Quien habla es una mujer: assoiffé pasa a assoiffée.' },
+            { id: 'c05', verbe: 'effarant', texto: 'Poème 5 : « Ta voix est ___. » (effarant)',                                                 resp: ['effarante'], nota: 'Voix es femenino singular: effarante.' },
+            { id: 'c06', verbe: 'triste',   texto: 'Poème 2 : « Je suis l’aurore, un peu ___ et fragile. » (triste, au féminin)',                resp: ['triste'],   nota: 'Triste no cambia en femenino. Es invariable.' },
+            { id: 'c07', verbe: 'étrange',  texto: 'Poème 2 : « un doux mystère, une ___ douceur » (étrange)',                                  resp: ['étrange'],  nota: 'Étrange no cambia en femenino. Ojo con « étrangère »: significa extranjera.' },
+            { id: 'c08', verbe: 'heureux',  texto: 'Poème 4 : « Avec toi, je me sens libre et ___. » (heureux, au féminin)',                    resp: ['heureuse'], nota: 'Los adjetivos en eux hacen euse en femenino: heureuse. Libre no cambia.' },
+            { id: 'c09', verbe: 'cher',     texto: 'Poème 4 : « Ma ___ amie, mon amie de cœur. » (cher)',                                       resp: ['chère'],    nota: 'Cher pasa a chère, con acento grave.' }
+        ];
+
+        /* Conectores del módulo 2. pat se compara sin acentos y con apóstrofe recto. */
+        const CONNECTEURS = [
+            { label: 'd’une part',                                       pat: /d'une part/ },
+            { label: 'd’autre part, en revanche',                        pat: /d'autre part|en revanche/ },
+            { label: 'certes… mais',                                     pat: /certes[\s\S]*\bmais\b/ },
+            { label: 'par conséquent',                                   pat: /par consequent/ },
+            { label: 'de plus, par ailleurs',                            pat: /de plus|par ailleurs/ },
+            { label: 'en effet',                                         pat: /en effet/ },
+            { label: 'cependant, néanmoins, pourtant',                   pat: /cependant|neanmoins|pourtant/ },
+            { label: 'en définitive, en somme, pour conclure',           pat: /en definitive|en somme|pour conclure|en conclusion/ }
+        ];
+        const META_MOTS = 250;
+    </script>
+
+    <script>
+        // GSAP Animation for a professional reveal
+        document.addEventListener("DOMContentLoaded", (event) => {
+            /* Las tarjetas nacen en opacity-0 y es GSAP quien las revela: si su
+               CDN no responde, la página entera se vería vacía. */
+            if (!window.gsap) {
+                document.querySelectorAll('.module-card')
+                    .forEach(function (c) { c.classList.remove('opacity-0'); });
+                return;
+            }
+            gsap.to(".module-card", {
+                y: 0,
+                opacity: 1,
+                duration: 0.6,
+                stagger: 0.15,
+                ease: "power2.out",
+                delay: 0.2
+            });
+        });
+    </script>
+
+    <script>
+    (function () {
+        'use strict';
+
+        /* ── Utilidades ────────────────────────────────────────── */
+        function el(id) { return document.getElementById(id); }
+
+        function storeGet(key) {
+            try { return localStorage.getItem(key); } catch (e) { return null; }
+        }
+        function storeSet(key, value) {
+            try { localStorage.setItem(key, value); return true; } catch (e) { return false; }
+        }
+
+        /* Se compara sin mayúsculas, sin acentos y con el apóstrofe recto. */
+        function norm(s) {
+            return (s || '').toString().toLowerCase().trim()
+                .normalize('NFD').replace(/[̀-ͯ]/g, '')
+                .replace(/[‘’´`]/g, "'")
+                .replace(/\s+/g, ' ');
+        }
+
+        function mezclar(a) {
+            var c = a.slice();
+            for (var i = c.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var t = c[i]; c[i] = c[j]; c[j] = t;
+            }
+            return c;
+        }
+
+        function fmtHoras(h) {
+            var ent = Math.floor(h);
+            return (h % 1) ? ent + ' h 30' : ent + ' h';
+        }
+
+        function contarMots(t) {
+            t = (t || '').trim();
+            return t ? t.split(/\s+/).length : 0;
+        }
+
+        function nodo(tag, clase, texto) {
+            var n = document.createElement(tag);
+            if (clase) n.className = clase;
+            if (texto !== undefined) n.textContent = texto;
+            return n;
+        }
+
+        /* Copiar con respaldo, igual que en el resto de espacios. */
+        function copiarTexto(texto, boton, etiqueta) {
+            var timer;
+            function flash(msg) {
+                boton.textContent = msg;
+                clearTimeout(timer);
+                timer = setTimeout(function () { boton.textContent = etiqueta; }, 2000);
+            }
+            function respaldo() {
+                var h = document.createElement('textarea');
+                h.value = texto;
+                h.setAttribute('readonly', '');
+                h.style.position = 'fixed'; h.style.top = '0'; h.style.opacity = '0';
+                document.body.appendChild(h);
+                h.select();
+                try { flash(document.execCommand('copy') ? 'Copié ✓' : 'Impossible de copier'); }
+                catch (e) { flash('Impossible de copier'); }
+                document.body.removeChild(h);
+            }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(texto)
+                    .then(function () { flash('Copié ✓'); })
+                    .catch(respaldo);
+            } else {
+                respaldo();
+            }
+        }
+
+        function descargarTexto(texto, nombre) {
+            var blob = new Blob([texto], { type: 'text/plain;charset=utf-8' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url; a.download = nombre;
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        /* ═══════════ Mon parcours y asistencia ═══════════ */
+        (function parcours() {
+            var dadas = SESIONES.filter(function (s) { return s.estado === 'asistio'; });
+            var horas = dadas.reduce(function (t, s) { return t + s.h; }, 0);
+            var pct = Math.round(horas * 100 / TOTAL_HORAS);
+
+            el('stat-heures').textContent = fmtHoras(horas) + ' / ' + TOTAL_HORAS + ' h';
+            el('barre-heures').firstElementChild.style.width = pct + '%';
+            el('stat-heures-detail').textContent = 'Il reste ' + fmtHoras(TOTAL_HORAS - horas) + ' pour terminer le forfait.';
+            el('stat-seances').textContent = dadas.length + ' / ' + SESIONES.length;
+            el('stat-seances-detail').textContent = (SESIONES.length - dadas.length) + ' séances restantes.';
+            /* Todas las clases dadas figuran como asistidas: la asistencia es el
+               100 % de las impartidas. Si algún día se añade 'ausente', aquí se refleja. */
+            var ausentes = SESIONES.filter(function (s) { return s.estado === 'ausente'; }).length;
+            var asist = dadas.length + ausentes ? Math.round(dadas.length * 100 / (dadas.length + ausentes)) : 0;
+            el('stat-assiduite').textContent = asist + ' %';
+            el('stat-assiduite-detail').textContent = ausentes
+                ? ausentes + ' absence' + (ausentes > 1 ? 's' : '') + ' sur les séances données.'
+                : 'Présente à toutes les séances données.';
+
+            var tbody = el('tabla-sesiones');
+            SESIONES.forEach(function (s) {
+                var tr = nodo('tr', 'border-b border-gray-100 align-top');
+                var hecha = s.estado === 'asistio';
+                tr.appendChild(nodo('td', 'py-3 pr-3 font-semibold text-afblue', String(s.n)));
+                tr.appendChild(nodo('td', 'py-3 pr-3 whitespace-nowrap', s.fecha));
+                tr.appendChild(nodo('td', 'py-3 pr-3 whitespace-nowrap', s.hora));
+                tr.appendChild(nodo('td', 'py-3 pr-3 whitespace-nowrap', fmtHoras(s.h)));
+                var tdEstado = nodo('td', 'py-3 pr-3');
+                tdEstado.appendChild(nodo('span',
+                    'inline-block text-xs px-2.5 py-0.5 rounded-full font-semibold border ' +
+                    (hecha ? 'bg-green-100 text-green-800 border-green-200' : 'bg-amber-50 text-amber-800 border-amber-200'),
+                    hecha ? 'Asistió' : 'Programada'));
+                tr.appendChild(tdEstado);
+                tr.appendChild(nodo('td', 'py-3 text-gray-600', s.tema));
+                tbody.appendChild(tr);
+            });
+        })();
+
+        /* ═══════════ Matriz de competencias ═══════════ */
+        (function competences() {
+            var cont = el('matrice-competences');
+            COMPETENCES.forEach(function (c) {
+                var card = nodo('div', 'bg-afsand rounded-lg p-5 border border-gray-200');
+                var top = nodo('div', 'flex flex-wrap items-start justify-between gap-2 mb-3');
+                top.appendChild(nodo('h5', 'text-base font-bold text-afblue', c.titre));
+                top.appendChild(nodo('span',
+                    'text-xs px-2.5 py-0.5 rounded-full font-semibold border ' +
+                    (c.ton === 'vert' ? 'bg-green-100 text-green-800 border-green-200' : 'bg-amber-50 text-amber-800 border-amber-200'),
+                    c.etat));
+                card.appendChild(top);
+                var ul = nodo('ul', 'text-sm text-gray-600 space-y-2 mb-3');
+                c.indicateurs.forEach(function (t) {
+                    var li = nodo('li', 'flex items-start gap-2');
+                    li.appendChild(nodo('div', 'w-1.5 h-1.5 mt-1.5 flex-shrink-0 rounded-full bg-afgold'));
+                    li.appendChild(nodo('span', '', t));
+                    ul.appendChild(li);
+                });
+                card.appendChild(ul);
+                card.appendChild(nodo('p', 'text-xs text-gray-500', c.preuve));
+                cont.appendChild(card);
+            });
+        })();
+
+        /* ═══════════ Ejercicios con verificación (módulos 1 y 3) ═══════════ */
+        function crearQuiz(cfg) {
+            var st = { items: [], hechos: 0, bien: 0, fallos: [] };
+
+            function marcador() {
+                el(cfg.score).textContent = 'Score : ' + st.bien + ' / ' + st.items.length +
+                    ' · vérifiées : ' + st.hechos;
+            }
+
+            function fila(it, i) {
+                var li = nodo('li', '');
+                li.setAttribute('data-id', it.id);
+                var p = nodo('p', 'leading-loose');
+                var inputs = [];
+                var trozos = it.texto.split('___');
+                trozos.forEach(function (t, k) {
+                    p.appendChild(document.createTextNode(t));
+                    if (k < trozos.length - 1) {
+                        var inp = nodo('input', 'tcf-field qz-input');
+                        inp.type = 'text';
+                        inp.autocomplete = 'off';
+                        inp.spellcheck = false;
+                        inp.setAttribute('autocapitalize', 'none');
+                        inp.setAttribute('aria-label', 'Réponse ' + (i + 1) + (trozos.length > 2 ? ', partie ' + (k + 1) : ''));
+                        inputs.push(inp);
+                        p.appendChild(inp);
+                    }
+                });
+                var btn = nodo('button', 'tcf-btn ml-2 bg-white text-afblue text-xs font-semibold px-3 py-1 rounded-lg border border-afgold hover:bg-afsand', 'Vérifier');
+                btn.type = 'button';
+                p.appendChild(btn);
+                li.appendChild(p);
+                var fb = nodo('div', 'qz-fb');
+                fb.setAttribute('role', 'status');
+                li.appendChild(fb);
+
+                function verificar() {
+                    if (li.getAttribute('data-hecho')) return;
+                    var vacio = inputs.filter(function (x) { return !x.value.trim(); })[0];
+                    if (vacio) {
+                        fb.className = 'qz-fb warn';
+                        fb.textContent = 'Écris ta réponse avant de vérifier.';
+                        vacio.focus();
+                        return;
+                    }
+                    var todoBien = true, sinAcento = [], esperadas = [];
+                    inputs.forEach(function (inp, k) {
+                        var esperada = it.resp[k];
+                        var bien = norm(inp.value) === norm(esperada);
+                        if (bien && inp.value.trim().toLowerCase() !== esperada.toLowerCase()) sinAcento.push(esperada);
+                        inp.classList.add(bien ? 'is-ok' : 'is-bad');
+                        inp.disabled = true;
+                        if (!bien) { todoBien = false; esperadas.push(esperada); }
+                    });
+                    li.setAttribute('data-hecho', '1');
+                    btn.disabled = true;
+                    st.hechos++;
+                    if (todoBien) {
+                        st.bien++;
+                        fb.className = 'qz-fb ok';
+                        fb.textContent = '✓ Correct. ' + it.nota +
+                            (sinAcento.length ? ' Attention à l’accent : ' + sinAcento.join(', ') + '.' : '');
+                    } else {
+                        st.fallos.push(it.verbe);
+                        fb.className = 'qz-fb bad';
+                        fb.textContent = '✗ Réponse attendue : ' + esperadas.join(' et ') + '. ' + it.nota;
+                    }
+                    marcador();
+                    if (st.hechos === st.items.length) final();
+                }
+
+                btn.addEventListener('click', verificar);
+                inputs.forEach(function (inp, k) {
+                    inp.addEventListener('keydown', function (ev) {
+                        if (ev.key !== 'Enter') return;
+                        ev.preventDefault();
+                        var siguiente = inputs[k + 1];
+                        if (siguiente && !siguiente.value.trim()) siguiente.focus(); else verificar();
+                    });
+                });
+                return li;
+            }
+
+            function final() {
+                var n = st.items.length;
+                var pct = Math.round(st.bien * 100 / n);
+                var msg = pct >= 90 ? 'Excellent ! ' + cfg.felicitation
+                        : pct >= 70 ? 'Très bien. Revois les réponses en rouge avant de recommencer.'
+                        : 'Relis la fiche au dessus, puis lance une nouvelle série.';
+                var box = el(cfg.resume);
+                box.innerHTML = '';
+                box.appendChild(nodo('p', 'text-sm font-semibold text-afblue', 'Score final : ' + st.bien + ' / ' + n + ' (' + pct + ' %)'));
+                box.appendChild(nodo('p', 'text-sm text-gray-700 mt-1', msg));
+                if (st.fallos.length) {
+                    box.appendChild(nodo('p', 'text-xs text-gray-500 mt-2', 'À revoir : ' + st.fallos.join(', ') + '.'));
+                }
+                var previo = parseInt(storeGet(cfg.mejorKey) || '0', 10) || 0;
+                var mejor = Math.max(previo, st.bien);
+                storeSet(cfg.mejorKey, String(mejor));
+                box.appendChild(nodo('p', 'text-xs text-gray-500 mt-1', 'Meilleur score sur cet appareil : ' + mejor + ' / ' + n + '.'));
+                box.hidden = false;
+            }
+
+            function nueva() {
+                st.items = cfg.generar();
+                st.hechos = 0; st.bien = 0; st.fallos = [];
+                var ol = el(cfg.lista);
+                ol.innerHTML = '';
+                st.items.forEach(function (it, i) { ol.appendChild(fila(it, i)); });
+                el(cfg.resume).hidden = true;
+                marcador();
+            }
+
+            el(cfg.boton).addEventListener('click', nueva);
+            nueva();
+        }
+
+        /* Módulo 1 */
+        (function futur() {
+            var rej = el('irreguliers');
+            IRREGULIERS.forEach(function (r) {
+                var c = nodo('div', 'bg-white rounded-lg border border-gray-200 p-3');
+                c.appendChild(nodo('div', 'font-bold text-afblue', r[0]));
+                c.appendChild(nodo('div', 'text-xs text-gray-500', 'radical : ' + r[1]));
+                c.appendChild(nodo('div', 'text-sm text-gray-700 mt-1', r[2]));
+                rej.appendChild(c);
+            });
+            crearQuiz({
+                lista: 'futur-liste', score: 'futur-score', resume: 'futur-resume', boton: 'futur-nouvelle',
+                mejorKey: 'camila-b2-futur-meilleur',
+                felicitation: 'Les radicaux irréguliers sont bien en place.',
+                generar: function () { return mezclar(BANQUE_FUTUR).slice(0, 10); }
+            });
+        })();
+
+        /* Módulo 3: cápsula de estilo */
+        crearQuiz({
+            lista: 'capsule-liste', score: 'capsule-score', resume: 'capsule-resume', boton: 'capsule-nouvelle',
+            mejorKey: 'camila-b2-capsule-meilleur',
+            felicitation: 'Tes accords sont solides.',
+            generar: function () { return CAPSULE.slice(); }
+        });
+
+        /* ═══════════ Módulo 2: atelier d'écriture ═══════════ */
+        (function essai() {
+            var KEY = 'camila-b2-essai-brouillon';
+            var area = el('essai-texte');
+            var compteur = el('essai-compteur');
+            var barre = el('essai-barre');
+            var saveEl = el('essai-save');
+            var lista = el('essai-connecteurs');
+            var resumen = el('essai-connecteurs-compteur');
+            var btnGuardar = el('essai-enregistrer');
+            var btnCopiar = el('essai-copier');
+            var COPIAR_ETIQUETA = btnCopiar.textContent;
+            var GUARDAR_ETIQUETA = btnGuardar.textContent;
+            var saveTimer, hideTimer, labelTimer;
+
+            var items = CONNECTEURS.map(function (c) {
+                var li = nodo('li', 'conn-item flex items-start gap-2');
+                var glifo = nodo('span', 'text-afgold', '☐');
+                glifo.setAttribute('aria-hidden', 'true');
+                li.appendChild(glifo);
+                li.appendChild(nodo('span', '', c.label));
+                lista.appendChild(li);
+                return { li: li, glifo: glifo, pat: c.pat };
+            });
+
+            function actualizar() {
+                var n = contarMots(area.value);
+                compteur.textContent = n + ' / ' + META_MOTS + ' mots';
+                barre.firstElementChild.style.width = Math.min(100, Math.round(n * 100 / META_MOTS)) + '%';
+                barre.classList.toggle('atteint', n >= META_MOTS);
+                compteur.classList.toggle('text-green-700', n >= META_MOTS);
+                area.classList.toggle('is-filled', area.value.trim().length > 0);
+                var t = norm(area.value), usados = 0;
+                items.forEach(function (it) {
+                    var ok = it.pat.test(t);
+                    if (ok) usados++;
+                    it.li.classList.toggle('is-done', ok);
+                    it.glifo.textContent = ok ? '☑' : '☐';
+                });
+                resumen.textContent = usados + ' connecteur' + (usados > 1 ? 's' : '') + ' sur ' + items.length + ' utilisés.';
+            }
+
+            function guardar(mostrarBoton) {
+                if (!storeSet(KEY, area.value)) return;
+                saveEl.classList.add('is-visible');
+                clearTimeout(hideTimer);
+                hideTimer = setTimeout(function () { saveEl.classList.remove('is-visible'); }, 1800);
+                if (mostrarBoton) {
+                    btnGuardar.textContent = 'Brouillon enregistré ✓';
+                    clearTimeout(labelTimer);
+                    labelTimer = setTimeout(function () { btnGuardar.textContent = GUARDAR_ETIQUETA; }, 2000);
+                }
+            }
+
+            function resumenExportado() {
+                var n = contarMots(area.value);
+                return [
+                    'ESSAI ARGUMENTATIF DELF B2',
+                    'Camila',
+                    '',
+                    'Sujet : Faut il interdire l’usage des smartphones dans les établissements scolaires (du collège au lycée) pour favoriser la concentration et les relations sociales ?',
+                    'Nombre de mots : ' + n + ' (objectif : ' + META_MOTS + ')',
+                    '',
+                    area.value.trim() || '(Aucun texte saisi pour le moment.)'
+                ].join('\n');
+            }
+
+            area.addEventListener('input', function () {
+                actualizar();
+                clearTimeout(saveTimer);
+                saveTimer = setTimeout(function () { guardar(false); }, 500);
+            });
+            btnGuardar.addEventListener('click', function () { clearTimeout(saveTimer); guardar(true); });
+            btnCopiar.addEventListener('click', function () { copiarTexto(resumenExportado(), btnCopiar, COPIAR_ETIQUETA); });
+            el('essai-telecharger').addEventListener('click', function () { descargarTexto(resumenExportado(), 'essai_camila_b2.txt'); });
+
+            var previo = storeGet(KEY);
+            if (previo) area.value = previo;
+            actualizar();
+        })();
+
+        /* ═══════════ Módulo 3: galería de poemas ═══════════ */
+        (function poemes() {
+            var lista = el('poemes-liste');
+            var lectura = el('poeme-lecture');
+            var poemas = [];
+
+            /* Los poemas se piden a la base con la sesión de Camila: sin sesión,
+               la página invita a entrar en lugar de mostrar nada. */
+            async function cargar() {
+                var sb = (typeof supabaseClient !== 'undefined') ? supabaseClient : null;
+                var sesion = null;
+                if (sb) { try { sesion = (await sb.auth.getSession()).data.session; } catch (e) { sesion = null; } }
+                if (!sesion) {
+                    var p = nodo('p', 'text-sm text-gray-600', 'Tes poèmes sont gardés en privé. Entre avec ton compte pour les relire : ');
+                    var a = nodo('a', 'text-afblue font-semibold underline', 'entrer dans mon espace');
+                    a.href = '../login.html';
+                    p.appendChild(a);
+                    lista.appendChild(p);
+                    return;
+                }
+                var r = await sb.from('textos_estudiante').select('titulo, cuerpo, orden').eq('tipo', 'poema').order('orden');
+                poemas = (r.data || []).map(function (t) { return { titre: t.titulo, lignes: String(t.cuerpo).split('\n') }; });
+                if (!poemas.length) {
+                    lista.appendChild(nodo('p', 'text-sm text-gray-500', 'Tes poèmes apparaîtront ici dès que ton professeur les aura liés à ton compte.'));
+                    return;
+                }
+                pintar();
+            }
+
+            function pintar() {
+
+            var botones = [];
+            poemas.forEach(function (p, i) {
+                var b = nodo('button', 'poeme-btn tcf-btn text-left bg-white border border-gray-200 rounded-lg px-4 py-3 shadow-sm');
+                b.type = 'button';
+                b.setAttribute('aria-pressed', 'false');
+                b.appendChild(nodo('span', 'block text-xs font-bold text-afgold uppercase tracking-wider', 'Poème ' + (i + 1)));
+                b.appendChild(nodo('span', 'block text-sm font-semibold text-afblue', p.titre));
+                b.addEventListener('click', function () { abrir(i); });
+                botones.push(b);
+                lista.appendChild(b);
+            });
+
+            function abrir(i) {
+                botones.forEach(function (b, k) { b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
+                lectura.innerHTML = '';
+                lectura.appendChild(nodo('h6', 'text-lg font-bold text-afblue font-serif mb-3', 'Poème ' + (i + 1) + ' : ' + poemas[i].titre));
+                lectura.appendChild(nodo('p', 'poeme-texte text-gray-800', poemas[i].lignes.join('\n')));
+            }
+            }
+            cargar();
+        })();
+    })();
+    </script>
+</body>
+</html>
