@@ -157,5 +157,9 @@ las páginas se muestran con los saltos de párrafo respetados y justificados.
   sección. Una sección que solo practica lo ya explicado en la misma ficha
   puede no repetirlo; una sección con un tema nuevo, nunca sin `rappels`.
 - Los espacios individuales siguen la identidad de los espacios del sitio
-  (cabecera grafito con filete dorado, Playfair Display y Lato, tonos de
-  `assets/css/fichas-ejercicios.css`), no plantillas ajenas.
+  (cabecera de malaquita con veta y filete dorado, Cormorant Garamond y Syne,
+  tonos de `assets/css/fichas-ejercicios.css`), no plantillas ajenas. Miguel
+  pidió en noviembre de 2026 pasar de la identidad anterior (grafito con
+  Playfair y Lato) a esta, la misma del resto del sitio. Los espacios
+  individuales que aún usan Playfair y Lato (p. ej. Camila) siguen pendientes
+  de migrar.

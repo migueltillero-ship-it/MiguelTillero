@@ -293,6 +293,48 @@ td.fecha-celda { white-space:nowrap; color:var(--text-light); font-size:0.95rem;
   .stat { flex:1 1 40%; min-width:0; padding:0.8rem 1rem; }
   .resultado-nota { font-size:2rem; }
 }
+
+/* ===== REDISEÑO · mismo lenguaje que el espacio de las familias =====
+   Más grande, con malaquita y oro, y con los números alineados (Cormorant
+   trae cifras antiguas que se leen «II» por «11»). */
+body { font-variant-numeric: lining-nums; }
+main { max-width: 1180px; padding: 2.8rem 4% 5rem; }
+.muted { font-size: 1.12rem; }
+.hola { font-size: clamp(2.5rem, 5.4vw, 4rem); line-height: 1.08; }
+.hero-estudiante { height: 300px !important; }
+.hero-estudiante .muted { font-size: 1.25rem; }
+.hero-estudiante .hola { font-size: clamp(2.1rem, 4.2vw, 3.2rem); max-width: 22ch; }
+.panel { border-radius: 22px; padding: 2.3rem 2.6rem; margin-bottom: 2rem; animation: estSube .6s both; }
+.panel::before { width: 4px; transform: none; background: linear-gradient(180deg, #e3c98f, var(--gold)); }
+.panel:hover { transform: none; }
+.panel h2 { font-size: 2.3rem; font-weight: 600; display: flex; align-items: center; gap: .6rem; margin-bottom: 1.3rem; }
+.panel h2::before { content: '✦'; color: var(--gold); font-size: .9rem; }
+@keyframes estSube { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.panel-curso { border-radius: 24px; padding: 2.4rem 2.6rem;
+  background: radial-gradient(ellipse 60% 90% at 90% 0%, rgba(60,170,130,.45) 0%, transparent 60%),
+              linear-gradient(135deg, #082a1f 0%, #0d4b38 60%, #0b3a2c 100%); }
+.panel-curso::after { content: ''; position: absolute; inset: 0; opacity: .45; pointer-events: none;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 300' preserveAspectRatio='none'><defs><linearGradient id='g' x1='0' x2='1'><stop offset='0' stop-color='%23f1dfae'/><stop offset='.5' stop-color='%23c9a45c'/><stop offset='1' stop-color='%23f1dfae'/></linearGradient></defs><path d='M-20 250 C 140 210, 210 90, 360 120 S 560 280, 700 170 S 880 30, 1030 70' fill='none' stroke='url(%23g)' stroke-width='1.4'/></svg>") center/100% 100% no-repeat; }
+.panel-curso > * { position: relative; z-index: 1; }
+.panel-curso h2 { font-size: clamp(2.2rem, 4.4vw, 3rem); font-weight: 400; }
+.panel-curso h2::before { display: none; }
+.stat { border-radius: 16px; padding: 1.2rem 1.7rem; min-width: 150px; }
+.stat .num { font-size: 2.6rem; }
+.stat .lbl { font-size: .92rem; }
+.stat.no { border-left-color: var(--gold); }
+.secciones { gap: .6rem; margin-bottom: 2.2rem; }
+.sec-btn { font-size: .95rem; padding: .8rem 1.5rem; min-height: 46px; border-color: rgba(165,130,74,.45); background: rgba(255,255,255,.7); }
+.sec-btn.activo { background: linear-gradient(135deg, #0d4b38, var(--cyan)); box-shadow: 0 8px 22px rgba(13,127,87,.28); }
+table { font-size: 1.1rem; } th { font-size: .9rem; }
+.badge { font-size: .85rem; padding: .35rem .9rem; letter-spacing: .06em; }
+.badge.rechazada { background: rgba(165,130,74,.15); color: var(--primary-color); }
+@media (max-width: 700px) {
+  main { padding: 1.6rem 1rem 3rem; }
+  .panel { padding: 1.6rem 1.3rem; } .panel h2 { font-size: 1.9rem; }
+  .panel-curso { padding: 1.7rem 1.3rem; }
+  .hero-estudiante { height: 220px !important; }
+}
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 </style>
 </head>
 <body>
