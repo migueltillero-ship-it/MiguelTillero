@@ -2,7 +2,8 @@
    EJERCICIOS COMPLEMENTARIOS · A2.1 — NOVIEMBRE 2026 · UNITÉ 5
    ═══════════════════════════════════════════════════════════════════════
    Défi 1, Unité 5 «Métro, boulot, dodo»: una ficha por cada clase del ciclo
-   (pp. 80, 81, 82-83, 84-85 y 86-88). Cada ficha empieza por la explicación
+   (pp. 80, 81, 82-83, 84-85 y 86-88), precedidas de un repaso de la
+   apertura de la unidad (pp. 76-79), que se vio al final del A1.4. Cada ficha empieza por la explicación
    del tema y sigue con la práctica; ningún tema nuevo va sin su explicación.
 
    No hay nombres ni datos de estudiantes en este archivo: se publica con el
@@ -13,6 +14,205 @@
    ═══════════════════════════════════════════════════════════════════════ */
 
 const FICHAS = [];
+
+/* ───────────────────────────────────────────────────────────────────────
+   0 · LE RYTHME DE VIE   (livre pp. 76-79, Dossier 1)
+   La apertura de la unidad: el artículo sobre el ritmo de vida de los
+   quebequenses y la historieta «Metz-Paris, Paris-Metz». Se vio al final
+   del A1.4 (la hora, el 20 de octubre; los pronominales, el 22) y aquí
+   queda para repasarlo antes de seguir con la p. 80.
+   ─────────────────────────────────────────────────────────────────────── */
+FICHAS.push({
+  id: 'u5-p76',
+  tipo: 'revision',
+  ciclo: 'Nov. 2026 · A2.1',
+  fecha: 'Repaso · pp. 76-79',
+  titulo: 'Le rythme de vie : l’heure, les repas et les verbes pronominaux',
+  resumen: 'Decir la hora, los momentos del día y las comidas, y los verbos de la rutina (se lever, s’habiller…), con el artículo sobre Quebec y la historieta de Claire.',
+  intro: 'La primera doble página de la unidad: cómo viven los quebequenses (se levantan temprano, cenan '
+       + 'a las cinco) y la historieta de Claire, que vive en Metz y trabaja en París. De ahí salen tres '
+       + 'temas: la hora, las comidas del día y los verbos pronominales.',
+
+  secciones: [
+    { titulo: '1. L’heure',
+      sous: 'El recuadro «L’heure» de la p. 79 y las horas de la historieta.',
+      rappels: [
+        { titulo: 'Dire l’heure : deux façons',
+          html: `<p>Para preguntar: <i>Quelle heure est-il ?</i> Para responder: <i>Il est huit heures.</i>
+          Para decir cuándo pasa algo: <i>à huit heures</i> (<i>Je me lève à 6 h 30</i>).</p>
+          <table style="width:100%;border-collapse:collapse;margin:.6rem 0">
+            <tr><th style="text-align:left;padding:.3rem">Hora</th>
+                <th style="text-align:left;padding:.3rem">Lenguaje corriente</th>
+                <th style="text-align:left;padding:.3rem">Horario oficial (trenes, citas)</th></tr>
+            <tr><td style="padding:.3rem">8 h 05</td><td>huit heures cinq</td><td>huit heures cinq</td></tr>
+            <tr><td style="padding:.3rem">8 h 15</td><td>huit heures <b>et quart</b></td><td>huit heures quinze</td></tr>
+            <tr><td style="padding:.3rem">8 h 30</td><td>huit heures <b>et demie</b></td><td>huit heures trente</td></tr>
+            <tr><td style="padding:.3rem">8 h 45</td><td>neuf heures <b>moins le quart</b></td><td>huit heures quarante-cinq</td></tr>
+            <tr><td style="padding:.3rem">8 h 50</td><td>neuf heures <b>moins dix</b></td><td>huit heures cinquante</td></tr>
+            <tr><td style="padding:.3rem">12 h 00</td><td><b>midi</b></td><td>douze heures</td></tr>
+            <tr><td style="padding:.3rem">19 h 45</td><td>huit heures moins le quart (du soir)</td><td>dix-neuf heures quarante-cinq</td></tr>
+            <tr><td style="padding:.3rem">0 h 00</td><td><b>minuit</b></td><td>zéro heure</td></tr>
+          </table>
+          <p>En el lenguaje corriente se cuenta hasta 12 y, pasada la media, se dice la hora siguiente
+          <b>menos</b> los minutos que faltan: 8 h 50 es <i>neuf heures moins dix</i>. En el horario
+          oficial se cuenta de 0 a 24 y nunca se usa <i>et quart, et demie</i> ni <i>moins</i>.</p>
+          <div class="piege"><b>Ojo:</b> <i>heure</i> es femenino, por eso <i>huit heures et demi<b>e</b></i>.
+          Pero con <i>midi</i> y <i>minuit</i>, que son masculinos: <i>midi et demi</i>.
+          Y en francés se escribe <b>8 h 30</b>, con una h, no 8:30.</div>` },
+        { titulo: 'Tôt ou tard ? Les moments de la journée',
+          html: `<p>El día se divide así: <b>le matin</b> (6 h a 12 h), <b>le midi</b> (12 h a 14 h),
+          <b>l’après-midi</b> (14 h a 19 h), <b>le soir</b> (19 h a 0 h) y <b>la nuit</b> (0 h a 6 h).</p>
+          <p>Para opinar sobre una hora: <i>c’est tôt</i> (es temprano) o <i>c’est tard</i> (es tarde).
+          <i>Se lever à six heures du matin, c’est tôt ! Moi, je me lève à sept heures trente.</i></p>
+          <div class="ex">Con un día de la semana sin artículo se habla de uno concreto:
+          <i>Lundi, je travaille.</i> Con <b>le</b> se habla de todos los lunes:
+          <i>Le lundi, je me réveille à 7 h 30.</i> Lo mismo con <i>le matin, le soir</i>.</div>` }
+      ],
+      ejercicios: [0, 1]
+    },
+    { titulo: '2. Les verbes pronominaux',
+      sous: 'El cuadro de la p. 79 con se lever y s’habiller.',
+      rappels: [
+        { titulo: 'Un pronom avant le verbe',
+          html: `<p>Los verbos de la rutina llevan un pronombre delante, como en español
+          (<i>me levanto, te vistes</i>), pero en francés el pronombre va <b>siempre antes</b> del verbo.</p>
+          <table style="width:100%;border-collapse:collapse;margin:.6rem 0">
+            <tr><th style="text-align:left;padding:.3rem">&nbsp;</th>
+                <th style="text-align:left;padding:.3rem">se lever</th>
+                <th style="text-align:left;padding:.3rem">s’habiller</th></tr>
+            <tr><td style="padding:.3rem">je</td><td><b>me</b> lève</td><td><b>m’</b>habille</td></tr>
+            <tr><td style="padding:.3rem">tu</td><td><b>te</b> lèves</td><td><b>t’</b>habilles</td></tr>
+            <tr><td style="padding:.3rem">il / elle / on</td><td><b>se</b> lève</td><td><b>s’</b>habille</td></tr>
+            <tr><td style="padding:.3rem">nous</td><td><b>nous</b> levons</td><td><b>nous</b> habillons</td></tr>
+            <tr><td style="padding:.3rem">vous</td><td><b>vous</b> levez</td><td><b>vous</b> habillez</td></tr>
+            <tr><td style="padding:.3rem">ils / elles</td><td><b>se</b> lèvent</td><td><b>s’</b>habillent</td></tr>
+          </table>
+          <p>Los de la historieta: <i>se réveiller, se lever, se doucher, s’habiller, se maquiller,
+          se coiffer, se coucher</i>. Todos se conjugan como verbos en -er.</p>
+          <div class="piege"><b>Delante de vocal o h muda</b>, me, te, se se convierten en
+          <b>m’, t’, s’</b>: <i>je m’habille, tu t’appelles, il s’habille</i>.
+          Y <i>se lever</i> lleva acento grave cuando la terminación no se oye:
+          <i>je me l<b>è</b>ve</i>, pero <i>nous nous levons</i>.</div>` }
+      ],
+      ejercicios: [2, 3, 4]
+    },
+    { titulo: '3. Les repas et le rythme des Québécois',
+      sous: 'El artículo de las pp. 76-77 y el recuadro «Ah bon ?!».',
+      rappels: [
+        { titulo: 'Les repas : ça change selon le pays',
+          html: `<table style="width:100%;border-collapse:collapse;margin:.6rem 0">
+            <tr><th style="text-align:left;padding:.3rem">&nbsp;</th>
+                <th style="text-align:left;padding:.3rem">Francia</th>
+                <th style="text-align:left;padding:.3rem">Bélgica y Quebec</th></tr>
+            <tr><td style="padding:.3rem">por la mañana</td><td>le petit déjeuner</td><td>le déjeuner</td></tr>
+            <tr><td style="padding:.3rem">a mediodía</td><td>le déjeuner</td><td>le dîner</td></tr>
+            <tr><td style="padding:.3rem">por la noche</td><td>le dîner</td><td>le souper</td></tr>
+          </table>
+          <p>Los verbos siguen la misma lógica: en Francia <i>on déjeune</i> a mediodía y
+          <i>on dîne</i> por la noche.</p>
+          <div class="ex">Según el artículo, los quebequenses trabajan de 8 h a 17 h, se despiertan
+          hacia las 6 h, comen entre 12 h y 13 h, <b>cenan hacia las 17 h o 18 h</b> (la comida más
+          importante del día) y se acuestan hacia las 23 h entre semana.</div>` }
+      ],
+      ejercicios: [5, 6, 7]
+    }
+  ],
+
+  ejercicios: [
+    /* 0 */ { t:'trous', etiqueta:'Écris en chiffres',
+      consigne:'Écris ces heures en chiffres, comme dans l’activité 3 (p. 79).',
+      sous:'Escribe por ejemplo 5h45.',
+      q: [
+        { enonce:'six heures moins le quart → ___', r:['5h45', '5 h 45', '545'], taille:8 },
+        { enonce:'six heures et quart → ___', r:['6h15', '6 h 15', '615'], taille:8 },
+        { enonce:'six heures et demie → ___', r:['6h30', '6 h 30', '630'], taille:8 },
+        { enonce:'dix-neuf heures quarante-cinq → ___', r:['19h45', '19 h 45', '1945'], taille:8 },
+        { enonce:'neuf heures moins dix → ___', r:['8h50', '8 h 50', '850'], taille:8,
+          note:'Faltan diez minutos para las nueve: 8 h 50.' },
+        { enonce:'vingt heures → ___', r:['20h', '20 h', '20h00', '20 h 00', '2000'], taille:8 }
+      ] },
+
+    /* 1 */ { t:'qcm', etiqueta:'Choisis',
+      consigne:'Comment dit-on cette heure dans la langue de tous les jours ?',
+      q: [
+        { enonce:'8 h 15', o:['huit heures et quart', 'huit heures et demie', 'huit heures moins le quart'], r:0 },
+        { enonce:'8 h 45', o:['huit heures et quart', 'neuf heures moins le quart', 'neuf heures et quart'], r:1 },
+        { enonce:'12 h 30', o:['douze heures et demie', 'midi et demi', 'midi et demie'], r:1,
+          note:'<i>Midi</i> es masculino: <b>midi et demi</b>.' },
+        { enonce:'7 h 30', o:['sept heures et demie', 'sept heures et demi', 'sept heures moins trente'], r:0,
+          note:'<i>Heure</i> es femenino: <b>et demie</b>.' },
+        { enonce:'0 h 00', o:['midi', 'minuit', 'zéro heures'], r:1 }
+      ] },
+
+    /* 2 */ { t:'trous', etiqueta:'Complète',
+      consigne:'Conjugue le verbe pronominal au présent.',
+      sous:'Escribe el pronombre y el verbo: me lève, t’habilles…',
+      q: [
+        { enonce:'Le matin, je ___ à six heures. <i>(se lever)</i>', r:['me lève', 'me leve'], taille:14 },
+        { enonce:'Tu ___ vite&nbsp;? <i>(s’habiller)</i>', r:['t’habilles', "t'habilles"], taille:14 },
+        { enonce:'Claire ___ dans le train. <i>(se maquiller)</i>', r:['se maquille'], taille:14 },
+        { enonce:'Nous ___ à onze heures. <i>(se coucher)</i>', r:['nous couchons'], taille:14 },
+        { enonce:'Vous ___ tôt&nbsp;? <i>(se réveiller)</i>', r:['vous réveillez', 'vous reveillez'], taille:14 },
+        { enonce:'Ses enfants ___ à sept heures. <i>(se lever)</i>', r:['se lèvent', 'se levent'], taille:14 }
+      ] },
+
+    /* 3 */ { t:'qcm', etiqueta:'Choisis',
+      consigne:'Me ou m’ ? Te ou t’ ? Se ou s’ ?',
+      q: [
+        { enonce:'Je ___ habille.', o:['me', 'm’'], r:1, note:'Delante de h muda: <b>m’</b>.' },
+        { enonce:'Il ___ douche le matin.', o:['se', 's’'], r:0 },
+        { enonce:'Tu ___ appelles comment&nbsp;?', o:['te', 't’'], r:1 },
+        { enonce:'Elles ___ coiffent.', o:['se', 's’'], r:0 },
+        { enonce:'Je ___ réveille tard.', o:['me', 'm’'], r:0, note:'<i>Réveille</i> empieza por consonante: <b>me</b>.' }
+      ] },
+
+    /* 4 */ { t:'transfo', etiqueta:'Transformer',
+      consigne:'Raconte la journée de Claire (p. 78) à la troisième personne.',
+      sous:'Pasa de je a elle y adapta el pronombre.',
+      q: [
+        { enonce:'Je me lève à 5 h 45.', modele:'Elle se lève à 5 h 45.' },
+        { enonce:'Je me douche et je m’habille.', modele:'Elle se douche et elle s’habille.' },
+        { enonce:'Dans le train, je me maquille et je me coiffe.', modele:'Dans le train, elle se maquille et elle se coiffe.' },
+        { enonce:'Je me couche à 22 h.', modele:'Elle se couche à 22 h.' }
+      ] },
+
+    /* 5 */ { t:'qcm', etiqueta:'Lire',
+      consigne:'Relis l’article « Le rythme de vie des Québécois » (pp. 76-77).',
+      q: [
+        { enonce:'Les Québécois travaillent…', o:['de 9 h à 18 h', 'de 8 h à 17 h', 'de 7 h à 15 h'], r:1 },
+        { enonce:'Le matin, ils se réveillent vers…', o:['6 h ou 6 h 30', '7 h 30', '8 h'], r:0 },
+        { enonce:'60 % des Québécois…', o:['prennent un grand petit déjeuner', 'ne prennent pas de petit déjeuner', 'déjeunent au lit'], r:1 },
+        { enonce:'Le repas le plus important de la journée, c’est…', o:['le repas de midi', 'le repas du soir, vers 17 h ou 18 h', 'le petit déjeuner'], r:1 },
+        { enonce:'En semaine, ils se couchent vers…', o:['21 h', '23 h', 'minuit et demi'], r:1 }
+      ] },
+
+    /* 6 */ { t:'paires', etiqueta:'Associe',
+      consigne:'Associe le repas en Belgique ou au Québec et son équivalent en France.',
+      pairs: [
+        ['le déjeuner (Québec)', 'le petit déjeuner (France)'],
+        ['le dîner (Québec)', 'le déjeuner (France)'],
+        ['le souper (Québec)', 'le dîner (France)'],
+        ['le matin', 'de 6 h à 12 h'],
+        ['l’après-midi', 'de 14 h à 19 h'],
+        ['la nuit', 'de 0 h à 6 h']
+      ] },
+
+    /* 7 */ { t:'prod', etiqueta:'Écrire', mots:60,
+      consigne:'Décris ta journée habituelle, comme dans l’activité 4 (p. 77).',
+      sous:'60 palabras. Con horas y verbos pronominales.',
+      check: [
+        'Al menos cuatro verbos pronominales (je me réveille, je me lève, je m’habille, je me couche…).',
+        'Al menos cuatro horas, con <b>à</b> delante: à 7 h 30.',
+        'Una hora dicha con <i>et quart, et demie</i> o <i>moins le quart</i>.',
+        'Las comidas con su nombre de Francia: le petit déjeuner, le déjeuner, le dîner.',
+        'Una comparación con los quebequenses: <i>Moi aussi… / Moi, je…</i>'
+      ],
+      modele:'En semaine, je me réveille à six heures et demie et je me lève tout de suite. Je me '
+           + 'douche, je m’habille et je prends mon petit déjeuner à sept heures. Je travaille de huit '
+           + 'heures à quatre heures. Je déjeune à deux heures moins le quart. Je dîne vers neuf heures '
+           + 'et je me couche à onze heures. Comme les Québécois, je me couche tard !' }
+  ]
+});
 
 /* ───────────────────────────────────────────────────────────────────────
    1 · SORTIR, DORMIR, PRENDRE   (livre p. 80)

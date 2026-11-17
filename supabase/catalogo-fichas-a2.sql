@@ -4,6 +4,7 @@
 -- La prueba pruebas-navegador/catalogo-al-dia.js avisa si el sitio y este catálogo se separan.
 -- Dónde: https://supabase.com/dashboard/project/yfrdlzveleevkjqekdoq/sql/new
 insert into public.fichas_catalogo (clave, ficha, titulo, ejercicios) values
+  ('mt-a2', 'u5-p76', 'Le rythme de vie : l’heure, les repas et les verbes pronominaux', 8),
   ('mt-a2', 'u5-p80', 'Sortir, dormir, prendre — la routine', 7),
   ('mt-a2', 'u5-p81', 'Faire, et le défi de la routine', 7),
   ('mt-a2', 'u5-p82', 'Temps de travail — France, Belgique, Suisse', 6),
