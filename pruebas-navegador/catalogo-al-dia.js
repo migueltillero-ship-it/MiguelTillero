@@ -35,7 +35,8 @@ function catalogoDelSql(ruta, clave){
 
 const espacios = [
   { nombre: 'A1.4', clave: 'mt-a1', fichas: 'estudiantes/espace-a1-fiches.js' },
-  { nombre: 'B2', clave: 'mt-b2', fichas: 'estudiantes/espace-b2-fiches.js', sql: 'supabase/catalogo-fichas-b2.sql' }
+  { nombre: 'B2', clave: 'mt-b2', fichas: 'estudiantes/espace-b2-fiches.js', sql: 'supabase/catalogo-fichas-b2.sql' },
+  { nombre: 'A2.1', clave: 'mt-a2', fichas: 'estudiantes/espace-a2-fiches.js', sql: 'supabase/catalogo-fichas-a2.sql' }
 ];
 
 let fallos = 0;

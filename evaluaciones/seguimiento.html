@@ -107,7 +107,8 @@ const sb = typeof supabaseClient !== 'undefined' ? supabaseClient : null;
 // Cada grupo con su espacio de ejercicios: la clave con que guarda el avance y su archivo de fichas.
 const ESPACIOS = {
   'B2-OCT2026': { clave:'mt-b2', js:'../estudiantes/espace-b2-fiches.js' },
-  'A1-OCT2026': { clave:'mt-a1', js:'../estudiantes/espace-a1-fiches.js' }
+  'A1-OCT2026': { clave:'mt-a1', js:'../estudiantes/espace-a1-fiches.js' },
+  'A2.1-NOV2026': { clave:'mt-a2', js:'../estudiantes/espace-a2-fiches.js' }
 };
 let GRUPO = new URLSearchParams(location.search).get('grupo') || 'B2-OCT2026';
 let datos = null, FICHAS_GRUPO = [];
