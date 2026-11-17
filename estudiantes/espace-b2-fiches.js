@@ -293,7 +293,25 @@ FICHAS.push({
     },
     { titulo: '3. L’article et la chronique',
       sous: 'Lo que dicen Manu y la cronista, y tu propio look.',
-      rappels: [],
+      rappels: [
+        { titulo: 'Lire un article d’opinion',
+          html: `<p>Un artículo como « Fashion faux pas ! » no informa: <b>defiende una opinión</b>. Para entenderlo hay que separar tres cosas:</p>
+          <ul>
+            <li><b>La tesis</b>: lo que el autor quiere que pensemos (aquí, que la primera impresión cuenta).</li>
+            <li><b>Los ejemplos</b> que la sostienen: las chaussettes dans les sandales, el tee shirt à message, la chemise.</li>
+            <li><b>Las marcas del juicio</b>: <i>la pire erreur, une insulte au bon goût, ça devrait être la base</i>. Son las palabras que te dicen qué piensa, más allá de lo que describe.</li>
+          </ul>
+          <p>Truco para las preguntas: busca primero el adjetivo o la expresión de juicio cerca del objeto que te preguntan; casi siempre ahí está la respuesta.</p>` },
+        { titulo: 'Décrire un look sans dire « c’est beau »',
+          html: `<p>Una buena descripción va de lo concreto a la impresión:</p>
+          <ul>
+            <li><b>La prenda y su detalle</b>: <i>une chemise unie, le col, les manches retroussées, une ceinture fine</i>.</li>
+            <li><b>El corte</b>: <i>moulant, large, cintré, à sa taille, bien assorti</i>.</li>
+            <li><b>La impresión</b>: <i>ça fait</i> + adjetivo (<i>ça fait soigné, ça fait jeune</i>) y <i>on dirait</i> + nombre o frase (<i>on dirait un panneau publicitaire</i>).</li>
+            <li><b>Lo que no te gusta</b>, con <i>pire</i>: <i>il n’y a rien de pire que…</i>, <i>le pire, c’est…</i></li>
+          </ul>
+          <div class="ex"><i>Ça fait</i> describe el efecto; <i>on dirait</i> compara. <i>Ça fait chic</i>, pero <i>on dirait un mannequin</i>.</div>` }
+      ],
       ejercicios: [5, 6]
     }
   ],
@@ -3604,7 +3622,18 @@ FICHAS.push({
     },
     { titulo: 'Production écrite',
       sous: '45 minutos, 250 palabras. Sin diccionario.',
-      rappels: [],
+      rappels: [
+        { titulo: 'La lettre formelle d’opinion (DELF B2)',
+          html: `<p>Cuando la consigna pide <b>una carta a un responsable</b>, el texto es argumentativo pero con el marco de una carta formal:</p>
+          <ul>
+            <li><b>Formule d’appel</b>: <i>Madame, Monsieur,</i> o <i>Monsieur le Responsable,</i> (nunca <i>Cher</i> a un desconocido).</li>
+            <li><b>Introducción</b>: quién eres, por qué escribes y <b>tu posición desde la primera frase</b>. <i>Habitante du quartier, je me permets de vous écrire au sujet de… Je suis tout à fait favorable à…</i></li>
+            <li><b>Desarrollo</b>: tres argumentos, cada uno en su párrafo, con su ejemplo. Después, <b>una objeción tomada en serio y refutada</b>: <i>Certains diront que… ; certes…, mais…</i></li>
+            <li><b>Propuesta concreta</b>: lo que piden los correctores para mostrar que vas más allá de opinar. <i>Je propose que la journée commence par…</i> (subjuntivo tras <i>proposer que</i>).</li>
+            <li><b>Formule finale</b>: <i>Je vous prie d’agréer, Madame, Monsieur, l’expression de mes salutations distinguées.</i></li>
+          </ul>
+          <p><b>Reparte los 45 minutos</b>: 8 de plan, 30 de redacción, 7 de relectura (acuerdos, subjuntivos, número de palabras).</p>` }
+      ],
       ejercicios: [3]
     }
   ],

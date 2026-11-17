@@ -7,7 +7,7 @@
     <title>Espace Étudiant | Camila</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <script>
         /* Si el CDN de Tailwind no responde, la página se ve sin estilos pero
            legible; sin esta comprobación, además, el script se cortaba aquí. */
@@ -16,12 +16,18 @@
                 theme: {
                     extend: {
                         colors: {
-                            afblue: '#1a365d',
-                            afgold: '#c5a059',
-                            afsand: '#f7f6f2',
+                            /* Los mismos tonos que los espacios del B2 y del A1
+                               (assets/css/fichas-ejercicios.css): grafito, oro,
+                               marfil, salvia, terracota y azul. */
+                            afblue: '#1C2321',
+                            afgold: '#A5824A',
+                            afsand: '#F9F8F6',
+                            sauge: '#557A64',
+                            terre: '#C2603C',
+                            bleu: '#2B5C8F',
                         },
                         fontFamily: {
-                            sans: ['Inter', 'sans-serif'],
+                            sans: ['Lato', 'sans-serif'],
                             serif: ['Playfair Display', 'serif'],
                         }
                     }
@@ -113,6 +119,31 @@
             .module-card, .tcf-field, .tcf-save, .tcf-btn, .barre > i { transition: none; }
             .tcf-btn:hover { transform: none; }
         }
+
+        /* ── Identidad de los espacios del sitio (como espace-b2-exercices) ── */
+        body { font-family: 'Lato', sans-serif; background: #F9F8F6; color: #2B2B2B; }
+        h1, h2, h3, h4, h5, h6, .font-serif { font-family: 'Playfair Display', serif; }
+        .espace-hero { position: relative; text-align: center; color: #FAF9F6;
+            background: linear-gradient(135deg, #1C2321 0%, #21303F 100%);
+            padding: 5rem 1.5rem 4.5rem; border-bottom: 4px solid #A5824A; }
+        .espace-hero .sur-titre { font-size: .82rem; letter-spacing: 4px; text-transform: uppercase; color: #C9A86A; font-weight: 700; margin-bottom: 1rem; }
+        .espace-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.1rem, 5.5vw, 3.6rem); line-height: 1.15; margin-bottom: 1.2rem; }
+        .espace-hero p { max-width: 760px; margin: 0 auto; font-size: 1.1rem; color: #D1D5D2; font-weight: 300; }
+        .hero-btn { background: rgba(255,255,255,.07); color: #D9C49A; border: 1px solid #A5824A; padding: .55rem 1.1rem;
+            font-size: .78rem; letter-spacing: 1.5px; text-transform: uppercase; border-radius: 4px; text-decoration: none; transition: background .2s, color .2s; }
+        .hero-btn:hover { background: #A5824A; color: #fff; }
+        .hero-retour { position: absolute; top: 1.4rem; left: 1.4rem; }
+        .espace-main { padding-top: 3rem; }
+        .espace-main h3, .espace-main h4, .espace-main h5 { font-weight: 700; }
+        .module-card, .espace-main > div > .bg-white, .espace-main .shadow-sm { box-shadow: 0 8px 30px rgba(28,35,33,.08); }
+        .tcf-btn { letter-spacing: 1.2px; text-transform: uppercase; font-size: .8rem !important; border-radius: 4px !important; }
+        .espace-pie { text-align: center; padding: 2.5rem 1rem 3rem; color: #6B6B6B; font-size: .95rem; border-top: 1px solid #EAE6E1; }
+        .espace-pie p + p { margin-top: .8rem; }
+        .espace-pie a { color: #2B5C8F; }
+        @media (max-width: 640px) {
+            .espace-hero { padding: 3.5rem 1.2rem 5rem; }
+            .hero-retour { position: static; display: inline-block; margin-bottom: 1.2rem; }
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
     <script src="../assets/js/supabase-config.js?v=1790462574"></script>
@@ -120,39 +151,14 @@
 </head>
 <body class="bg-afsand text-gray-800 font-sans antialiased selection:bg-afgold selection:text-white">
 
-    <!-- Navbar -->
-    <nav class="bg-afblue text-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 bg-afgold rounded flex items-center justify-center font-serif font-bold text-afblue">af</div>
-                    <span class="font-serif text-xl tracking-wide">Suivi Pédagogique</span>
-                </div>
-                <div class="text-sm font-light tracking-wider hidden md:block">
-                    Direction Générale | San Cristóbal de Las Casas
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Header Section -->
-    <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 md:p-12 relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-2 h-full bg-afgold"></div>
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                <div>
-                    <h1 class="text-sm uppercase tracking-widest text-gray-500 font-semibold mb-2">Portail d'Apprentissage Individuel</h1>
-                    <h2 class="text-4xl font-serif text-afblue mb-2">Espace Étudiant : Camila</h2>
-                    <p class="text-gray-600 max-w-2xl text-lg">Un espace pour pratiquer tout ce qu'on a vu en classe : le futur simple, la préparation au DELF B2 et l'atelier poétique.</p>
-                </div>
-                <div class="text-right">
-                    <span class="inline-block bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-semibold uppercase tracking-wide border border-green-200">Niveau : B2</span>
-                </div>
-            </div>
-        </div>
+    <header class="espace-hero">
+        <a class="hero-btn hero-retour" href="../panel-estudiante.html">← Mi espacio</a>
+        <div class="sur-titre">Français B2 · Espace de Camila</div>
+        <h1>Mon espace de pratique</h1>
+        <p>Tout ce qu'on a vu en classe, pour le revoir à ton rythme : ton parcours, tes compétences, le futur simple, la préparation au DELF B2 et ton atelier poétique.</p>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 espace-main">
 
         <!-- ═══════════ Mon parcours ═══════════ -->
         <div class="mb-6">
@@ -161,30 +167,30 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10" id="stats-parcours">
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-5">
                 <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Heures réalisées</div>
                 <div class="text-3xl font-serif text-afblue" id="stat-heures">0 h</div>
                 <div class="barre mt-3" id="barre-heures"><i></i></div>
                 <div class="text-xs text-gray-500 mt-2" id="stat-heures-detail"></div>
             </div>
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-5">
                 <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Séances réalisées</div>
                 <div class="text-3xl font-serif text-afblue" id="stat-seances">0 / 0</div>
                 <div class="text-xs text-gray-500 mt-5" id="stat-seances-detail"></div>
             </div>
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-5">
                 <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Assiduité</div>
                 <div class="text-3xl font-serif text-afblue" id="stat-assiduite">0 %</div>
                 <div class="text-xs text-gray-500 mt-5" id="stat-assiduite-detail"></div>
             </div>
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-5">
                 <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Clôture du forfait</div>
                 <div class="text-3xl font-serif text-afblue">21 nov.</div>
                 <div class="text-xs text-gray-500 mt-5">Au lieu du 5 décembre : la séance du jeudi 10 septembre et la séance extraordinaire du lundi 16 novembre à 15 h avancent la fin du forfait.</div>
             </div>
         </div>
 
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 border-l-4 border-l-afgold p-5 mb-12 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 border-t-4 border-t-afgold p-5 mb-12 flex flex-col md:flex-row md:items-center justify-between gap-4">
             <p class="text-sm text-gray-600">
                 <span class="font-semibold text-afblue">Horaire habituel :</span> le samedi, de 9 h à 10 h 30, en ligne par Zoom.
                 Forfait : 20 heures contractées et 2 heures de tutorat offertes, soit 22 heures en tout.
@@ -202,9 +208,9 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8" id="module-container">
 
             <!-- Calendrier et assiduité -->
-            <div class="module-card bg-white rounded-xl shadow-sm border border-gray-200 border-l-4 border-l-green-500 p-6 lg:col-span-2 opacity-0">
+            <div class="module-card bg-white rounded-lg shadow-sm border border-gray-200 border-t-4 border-t-sauge p-6 lg:col-span-2 opacity-0">
                 <div class="flex justify-between items-start mb-4">
-                    <span class="text-xs font-bold text-green-600 uppercase tracking-wider">Seguimiento • Asistencia</span>
+                    <span class="text-xs font-bold text-sauge uppercase tracking-wider">Seguimiento • Asistencia</span>
                 </div>
                 <h4 class="text-xl font-bold text-afblue mb-2">Calendrier et assiduité</h4>
                 <p class="text-sm text-gray-600 mb-5 max-w-3xl">Chaque séance, avec sa date, son horaire et ce qu'on y a travaillé. Les séances programmées passent à « Asistió » une fois qu'elles ont eu lieu.</p>
@@ -226,7 +232,7 @@
             </div>
 
             <!-- Competencias -->
-            <div class="module-card bg-white rounded-xl shadow-sm border border-gray-200 border-l-4 border-l-afgold p-6 lg:col-span-2 opacity-0">
+            <div class="module-card bg-white rounded-lg shadow-sm border border-gray-200 border-t-4 border-t-afgold p-6 lg:col-span-2 opacity-0">
                 <div class="flex justify-between items-start mb-4">
                     <span class="text-xs font-bold text-afgold uppercase tracking-wider">Seguimiento • Competencias</span>
                 </div>
@@ -236,11 +242,11 @@
             </div>
 
             <!-- ═══ Module 1 ═══ -->
-            <div class="module-card bg-white rounded-xl shadow-sm border border-gray-200 border-l-4 border-l-blue-500 p-6 lg:col-span-2 opacity-0" id="module-1">
+            <div class="module-card bg-white rounded-lg shadow-sm border border-gray-200 border-t-4 border-t-bleu p-6 lg:col-span-2 opacity-0" id="module-1">
                 <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
                     <div class="flex items-center gap-3">
-                        <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Módulo 1 • En curso</span>
-                        <span class="relative flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span></span>
+                        <span class="text-xs font-bold text-bleu uppercase tracking-wider">Módulo 1 • En curso</span>
+                        <span class="relative flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-bleu opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-bleu"></span></span>
                     </div>
                 </div>
                 <h4 class="text-xl font-bold text-afblue mb-2">Grammaire et Conjugaison : Le Futur Simple</h4>
@@ -279,6 +285,18 @@
                     </div>
                 </div>
 
+                <details class="bg-afsand rounded-lg border border-gray-200 p-4 mb-8 text-sm text-gray-700">
+                    <summary class="font-semibold text-afblue">Quand utiliser le futur simple ?</summary>
+                    <div class="mt-3 space-y-2">
+                        <p><b>Pour un fait à venir, sûr ou prévu</b> : <i>L'année prochaine, je passerai le DELF B2.</i></p>
+                        <p><b>Pour une promesse ou une prédiction</b> : <i>Je t'écrirai demain. Il fera beau samedi.</i></p>
+                        <p><b>Après « si » + présent</b>, pour une condition réaliste : <i>Si je révise ce week end, je réussirai l'épreuve.</i> Jamais de futur juste après « si ».</p>
+                        <p><b>Après « quand », « lorsque », « dès que »</b>, le français met le futur là où l'espagnol met le subjonctif : <i>Quand je serai à Paris, je visiterai le Louvre</i> (cuando esté en París).</p>
+                        <p><b>Futur simple ou futur proche ?</b> Le futur proche (<i>je vais partir</i>) est pour ce qui est imminent ou déjà décidé, surtout à l'oral ; le futur simple est plus détaché et plus soutenu, idéal à l'écrit : <i>Dans dix ans, les écoles fonctionneront autrement.</i></p>
+                        <p><b>À l'examen</b>, le futur simple sert dans la conclusion d'un texte argumentatif pour projeter : <i>Ce n'est qu'ainsi que les élèves apprendront à maîtriser leur téléphone.</i></p>
+                    </div>
+                </details>
+
                 <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
                     <h5 class="text-base font-bold text-afblue">Série d'entraînement</h5>
                     <div class="flex flex-wrap items-center gap-3">
@@ -292,13 +310,13 @@
             </div>
 
             <!-- ═══ Module 2 ═══ -->
-            <div class="module-card bg-white rounded-xl shadow-sm border border-gray-200 border-l-4 border-l-blue-500 p-6 lg:col-span-2 opacity-0" id="module-2">
+            <div class="module-card bg-white rounded-lg shadow-sm border border-gray-200 border-t-4 border-t-bleu p-6 lg:col-span-2 opacity-0" id="module-2">
                 <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
                     <div class="flex items-center gap-3">
-                        <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Módulo 2 • En curso</span>
-                        <span class="relative flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span></span>
+                        <span class="text-xs font-bold text-bleu uppercase tracking-wider">Módulo 2 • En curso</span>
+                        <span class="relative flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-bleu opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-bleu"></span></span>
                     </div>
-                    <span class="text-xs font-semibold uppercase tracking-wide text-green-800 bg-green-100 border border-green-200 px-3 py-1 rounded-full">Compréhension orale : résultat remarquable</span>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-sauge bg-sauge/10 border border-sauge/30 px-3 py-1 rounded-full">Compréhension orale : résultat remarquable</span>
                 </div>
                 <h4 class="text-xl font-bold text-afblue mb-2">Entraînement DELF B2</h4>
                 <p class="text-sm text-gray-600 mb-6 max-w-3xl">Compréhension orale et production écrite. La compréhension orale est déjà solide ; ici, tu prépares la production écrite argumentative.</p>
@@ -413,7 +431,7 @@
                         <textarea id="essai-texte" rows="14" class="tcf-field" placeholder="Écris ton texte ici. Il reste enregistré sur cet appareil..."></textarea>
                         <div class="flex items-center justify-between mt-2 text-xs">
                             <span id="essai-compteur" class="font-semibold text-afblue" aria-live="polite">0 / 250 mots</span>
-                            <span class="tcf-save font-semibold text-green-700" id="essai-save" role="status">Enregistré automatiquement sur cet appareil</span>
+                            <span class="tcf-save font-semibold text-sauge" id="essai-save" role="status">Enregistré automatiquement sur cet appareil</span>
                         </div>
                         <div class="barre mt-2" id="essai-barre"><i></i></div>
                         <div class="flex flex-wrap gap-3 mt-4">
@@ -433,9 +451,9 @@
             </div>
 
             <!-- ═══ Module 3 ═══ -->
-            <div class="module-card bg-white rounded-xl shadow-sm border border-gray-200 border-l-4 border-l-purple-600 p-6 lg:col-span-2 opacity-0" id="module-3">
+            <div class="module-card bg-white rounded-lg shadow-sm border border-gray-200 border-t-4 border-t-terre p-6 lg:col-span-2 opacity-0" id="module-3">
                 <div class="flex justify-between items-start mb-4">
-                    <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">Módulo 3 • En curso</span>
+                    <span class="text-xs font-bold text-terre uppercase tracking-wider">Módulo 3 • En curso</span>
                 </div>
                 <h4 class="text-xl font-bold text-afblue mb-2">Atelier Poétique et Littéraire</h4>
                 <p class="text-sm text-gray-600 mb-6 max-w-3xl">De la lecture de Sabines à tes propres poèmes en français : de quoi relire, écouter le rythme et perfectionner ton style.</p>
@@ -463,6 +481,22 @@
                     </article>
                 </div>
 
+                <h5 class="text-base font-bold text-afblue mb-3">Comprendre avant de s'exercer</h5>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 text-sm text-gray-700">
+                    <div class="bg-afsand rounded-lg border border-gray-200 p-5 space-y-2">
+                        <h6 class="font-bold text-afblue">L'accord : qui parle, de quoi on parle</h6>
+                        <p>En français, <b>l'adjectif et le participe passé s'accordent</b> en genre et en nombre avec le nom ou le pronom qu'ils décrivent. Quand c'est toi qui parles, « je » est féminin : <i>je suis étouffée, je me sens assoiffée, prête à partir</i>.</p>
+                        <p><b>Le féminin</b> : en général on ajoute <i>e</i> (<i>froid, froide</i>). Les adjectifs déjà en <i>e</i> ne changent pas (<i>triste, fragile, étrange</i>). Certains changent davantage : <i>heureux, heureuse ; doux, douce ; cher, chère</i>.</p>
+                        <p><b>Le genre du nom</b> ne suit pas toujours l'espagnol : <i>la mer</i> est féminin, donc <i>une mer d'ivoire, si froide</i>. Dans le doute, vérifie le genre au dictionnaire avant d'accorder.</p>
+                    </div>
+                    <div class="bg-afsand rounded-lg border border-gray-200 p-5 space-y-2">
+                        <h6 class="font-bold text-afblue">Écrire un poème en français</h6>
+                        <p><b>La rime</b> repose sur le son final, pas sur l'orthographe : <i>chanson / raison</i>, <i>cœur / douceur</i>. On alterne souvent rimes croisées (ABAB) et rimes plates (AABB).</p>
+                        <p><b>Le rythme</b> compte les syllabes prononcées. Le <i>e</i> muet se prononce devant une consonne et disparaît devant une voyelle : <i>une étoile</i> fait trois syllabes à l'oral (u, né, toile).</p>
+                        <p><b>Les images</b> donnent la force du poème : la métaphore (<i>tu es mon soleil du matin</i>) et les couleurs (<i>ciel corail, bleu marin</i>), comme tu l'as fait. Un bon poème montre l'émotion par une image plutôt que de la nommer.</p>
+                    </div>
+                </div>
+
                 <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
                     <h5 class="text-base font-bold text-afblue">Capsule de style B2 : accords du genre et des adjectifs</h5>
                     <div class="flex flex-wrap items-center gap-3">
@@ -481,10 +515,9 @@
         </div>
     </main>
 
-    <footer class="bg-gray-50 border-t border-gray-200 py-8 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 text-center text-sm text-gray-400 font-light">
-            &copy; 2026 Alliance Française : Créé et géré via GitHub Pages.
-        </div>
+    <footer class="espace-pie">
+        <p>Si quelque chose n'est pas clair, note la question : on la reprend en classe.</p>
+        <p><a href="../panel-estudiante.html">Volver a mi espacio</a> &nbsp;·&nbsp; <a href="../index.html">Vive el francés · Profesor Miguel Tillero</a></p>
     </footer>
 
     <!-- POÈMES DE CAMILA
@@ -759,7 +792,7 @@
                 var tdEstado = nodo('td', 'py-3 pr-3');
                 tdEstado.appendChild(nodo('span',
                     'inline-block text-xs px-2.5 py-0.5 rounded-full font-semibold border ' +
-                    (hecha ? 'bg-green-100 text-green-800 border-green-200' : 'bg-amber-50 text-amber-800 border-amber-200'),
+                    (hecha ? 'bg-sauge/10 text-sauge border-sauge/30' : 'bg-amber-50 text-amber-800 border-amber-200'),
                     hecha ? 'Asistió' : 'Programada'));
                 tr.appendChild(tdEstado);
                 tr.appendChild(nodo('td', 'py-3 text-gray-600', s.tema));
@@ -776,7 +809,7 @@
                 top.appendChild(nodo('h5', 'text-base font-bold text-afblue', c.titre));
                 top.appendChild(nodo('span',
                     'text-xs px-2.5 py-0.5 rounded-full font-semibold border ' +
-                    (c.ton === 'vert' ? 'bg-green-100 text-green-800 border-green-200' : 'bg-amber-50 text-amber-800 border-amber-200'),
+                    (c.ton === 'vert' ? 'bg-sauge/10 text-sauge border-sauge/30' : 'bg-amber-50 text-amber-800 border-amber-200'),
                     c.etat));
                 card.appendChild(top);
                 var ul = nodo('ul', 'text-sm text-gray-600 space-y-2 mb-3');
@@ -965,7 +998,7 @@
                 compteur.textContent = n + ' / ' + META_MOTS + ' mots';
                 barre.firstElementChild.style.width = Math.min(100, Math.round(n * 100 / META_MOTS)) + '%';
                 barre.classList.toggle('atteint', n >= META_MOTS);
-                compteur.classList.toggle('text-green-700', n >= META_MOTS);
+                compteur.classList.toggle('text-sauge', n >= META_MOTS);
                 area.classList.toggle('is-filled', area.value.trim().length > 0);
                 var t = norm(area.value), usados = 0;
                 items.forEach(function (it) {

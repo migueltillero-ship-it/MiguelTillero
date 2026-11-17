@@ -147,3 +147,15 @@ las páginas se muestran con los saltos de párrafo respetados y justificados.
   de una decisión, no lo que ya dice el código.
 - Verificar en un navegador real antes de dar algo por hecho, y decir qué se
   comprobó.
+
+## Materiales: cada tema lleva su explicación
+
+- **Todo tema de práctica, en cualquier curso (particulares, A1, A2.1, B2…),
+  va precedido de su parte explicativa**: qué es, cómo funciona, ejemplos y
+  errores típicos. Nunca ejercicios sueltos sin la explicación que los sostiene.
+- En las fichas (`espace-*-fiches.js`) la explicación va en `rappels` de cada
+  sección. Una sección que solo practica lo ya explicado en la misma ficha
+  puede no repetirlo; una sección con un tema nuevo, nunca sin `rappels`.
+- Los espacios individuales siguen la identidad de los espacios del sitio
+  (cabecera grafito con filete dorado, Playfair Display y Lato, tonos de
+  `assets/css/fichas-ejercicios.css`), no plantillas ajenas.

@@ -724,12 +724,31 @@ FICHAS.push({
   secciones: [
     { titulo: 'Diagnostic',
       sous: 'Veinte preguntas de todo lo del mes.',
-      rappels: [],
+      rappels: [
+        { titulo: 'Ce qu’on a vu ce mois-ci',
+          html: `<p>Antes de empezar, un repaso en cuatro líneas de todo lo del mes:</p>
+          <ul>
+            <li><b>Les adjectifs possessifs</b> concuerdan con lo que se posee: <i>mon livre, ma maison, mes amis</i>; <i>notre, votre, leur</i> en singular y <i>nos, vos, leurs</i> en plural. Delante de vocal, <i>mon</i> aunque sea femenino: <i>mon amie</i>.</li>
+            <li><b>Les pronoms possessifs</b> sustituyen al nombre: <i>le mien, la mienne, les miens, les miennes</i>; <i>le nôtre, la nôtre, les nôtres</i>.</li>
+            <li><b>Les nombres de 70 à 99</b> se cuentan sobre veinte: <i>soixante-dix</i> (60 + 10), <i>quatre-vingts</i> (4 × 20), <i>quatre-vingt-dix</i> (4 × 20 + 10).</li>
+            <li><b>Masculin, féminin, pluriel</b>: en general, <i>+ e</i> para el femenino y <i>+ s</i> para el plural: <i>grand, grande, grands, grandes</i>. Ojo con <i>-eux / -euse</i> y <i>-if / -ive</i>.</li>
+          </ul>` }
+      ],
       ejercicios: [0, 1, 2]
     },
     { titulo: 'Production',
       sous: 'Todo junto, en un texto tuyo.',
-      rappels: [],
+      rappels: [
+        { titulo: 'Écrire sa présentation',
+          html: `<p>Una presentación para un corresponsal sigue un orden sencillo:</p>
+          <ul>
+            <li><b>Saludo y quién eres</b>: <i>Salut ! Je m’appelle…, j’ai… ans.</i></li>
+            <li><b>Dónde y con quién vives</b>, con posesivos: <i>J’habite à… avec mes parents et ma sœur.</i></li>
+            <li><b>Tu familia o tus amigos</b>, con adjetivos bien concordados: <i>Mes amies sont gentilles.</i> Y una comparación con un pronombre posesivo: <i>Leur maison est plus grande que la nôtre.</i></li>
+            <li><b>Un número en letras</b>, por ejemplo tu teléfono: <i>zéro un, quarante-cinq, soixante-dix-huit…</i></li>
+            <li><b>Una pregunta final</b> para que te responda: <i>Et toi, tu as des frères et sœurs ?</i></li>
+          </ul>` }
+      ],
       ejercicios: [3]
     }
   ],
