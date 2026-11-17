@@ -379,6 +379,70 @@
   background:linear-gradient(135deg,var(--bosque),var(--cyan)); color:#fff!important; font-weight:700; letter-spacing:.06em; font-size:.9rem;
   box-shadow:0 8px 22px rgba(13,127,87,.28); text-decoration:none; transition:.2s; }
 #lite #btn-desempeno:hover{ transform:translateY(-2px); }
+
+/* ===== Más grande y más claro: es el espacio de la familia ===== */
+#lite .lite-main{ max-width:1180px; padding:2.8rem 4% 5rem; }
+#lite .hola{ font-size:clamp(2.5rem,5.4vw,4rem); line-height:1.08; margin-bottom:.5rem; }
+#lite #subsaludo{ font-size:1.3rem; max-width:60ch; }
+#lite .muted{ font-size:1.12rem; }
+#lite .cab-hijo{ gap:1.3rem; margin:1.4rem 0 1.4rem; }
+#lite .cab-hijo .inicial{ width:5rem; height:5rem; font-size:2.6rem; }
+#lite .cab-hijo b{ font-size:clamp(2.3rem,4.6vw,3.2rem); }
+#lite .cab-hijo span{ font-size:.9rem; }
+#lite .resumen-hijo{ gap:1.4rem; margin-bottom:2.2rem; }
+#lite .res{ padding:2rem 1.4rem; gap:.55rem; }
+#lite .res .tit{ font-size:.85rem; }
+#lite .res .grande{ font-size:3.2rem; }
+#lite .res.prox .grande{ font-size:2.3rem; }
+#lite .res .peq{ font-size:1.05rem; }
+#lite .anillo{ width:136px; height:136px; }
+#lite .anillo b{ font-size:2.5rem; }
+#lite .panel{ padding:2.3rem 2.6rem; margin-bottom:2rem; }
+#lite .panel h2{ font-size:2.3rem; margin-bottom:1.3rem; }
+#lite .panel-curso{ padding:2.4rem 2.6rem; }
+#lite .panel-curso h2{ font-size:clamp(2.2rem,4.4vw,3rem); }
+#lite .chip{ font-size:.92rem; padding:.45rem 1rem; }
+#lite .aviso-item{ padding:1.4rem 1.6rem; }
+#lite .aviso-item .a-tit{ font-size:1.15rem; }
+#lite .aviso-item .a-msg{ font-size:1.35rem; }
+#lite .stat{ padding:1.2rem 1.7rem; min-width:150px; }
+#lite .stat .num{ font-size:2.6rem; }
+#lite .stat .lbl{ font-size:.92rem; }
+#lite table{ font-size:1.1rem; }
+#lite th{ font-size:.9rem; }
+#lite .nota-card{ padding:1.7rem 1.9rem; }
+#lite .nota-nombre{ font-size:1.3rem; }
+#lite .nota-fecha{ font-size:.9rem; }
+#lite .nota-cifra{ min-width:5.2rem; height:5.2rem; font-size:2.1rem; }
+#lite .nota-coment{ font-size:1.38rem; line-height:1.8; }
+#lite .nota-coment::before{ font-size:.88rem; }
+#lite .clase .t{ font-size:1.2rem; }
+#lite .clase .c{ font-size:1.1rem; }
+#lite .clase .f{ font-size:.9rem; }
+#lite .tira i{ width:1.9rem; height:1.9rem; font-size:.85rem; }
+#lite details.mas > summary{ font-size:.92rem; }
+/* Pagos: se abren con un clic y se ven mes por mes, sin sumas */
+#lite details.pagos > summary{ display:inline-flex; align-items:center; gap:.5rem; padding:.9rem 1.7rem; border-radius:999px;
+  background:linear-gradient(135deg,var(--bosque),var(--cyan)); color:#fff; letter-spacing:.08em; font-size:.95rem;
+  box-shadow:0 8px 22px rgba(13,127,87,.28); }
+#lite .lista-pagos{ display:grid; gap:.9rem; margin-top:1.3rem; }
+#lite .pago-fila{ display:grid; grid-template-columns:1fr auto auto; gap:1.2rem; align-items:center; padding:1.1rem 1.4rem;
+  border:1px solid var(--border); border-radius:16px; background:#fffdf7; }
+#lite .pago-fila b{ display:block; font-size:1.15rem; color:var(--accent-green); }
+#lite .pago-fila span{ font-size:.92rem; color:var(--text-light); }
+#lite .pago-monto{ font-family:'Cormorant Garamond',serif; font-size:1.7rem; color:var(--accent-green); font-weight:600; }
+#lite .pago-estado{ font-size:.8rem!important; letter-spacing:.08em; text-transform:uppercase; font-weight:700; padding:.35rem .9rem; border-radius:999px; }
+#lite .pago-estado.ok{ background:rgba(13,127,87,.12); color:var(--cyan)!important; }
+#lite .pago-estado.pend{ background:rgba(165,130,74,.15); color:var(--primary-color)!important; }
+@media (max-width:700px){
+  #lite .lite-main{ padding:1.6rem 1rem 3rem; }
+  #lite .panel{ padding:1.6rem 1.3rem; }
+  #lite .res{ padding:1.4rem 1.2rem; }
+  #lite .res .grande{ font-size:2.6rem; } #lite .res.prox .grande{ font-size:2rem; }
+  #lite .anillo{ width:96px; height:96px; } #lite .anillo b{ font-size:1.9rem; }
+  #lite .nota-coment{ font-size:1.22rem; }
+  #lite .pago-fila{ grid-template-columns:1fr auto; } #lite .pago-estado{ grid-column:1 / -1; justify-self:start; }
+}
 @media (prefers-reduced-motion:reduce){ #lite *{ animation:none!important; transition:none!important; } }
 
 </style>
@@ -2085,19 +2149,19 @@ function pintarHijo() {
 
     /* Pagos */
     const p = h.pagos || { pagado: 0, por_cobrar: 0, detalle: [] };
-    document.getElementById('stats-pagos').innerHTML =
-        '<div class="stat ok"><span class="num">' + dinero(p.pagado) + '</span><span class="lbl">Pagado</span></div>' +
-        (Number(p.por_cobrar) > 0
-            ? '<div class="stat no"><span class="num">' + dinero(p.por_cobrar) + '</span><span class="lbl">Pendiente</span></div>'
-            : '');
+    /* No se muestra ningún total a la vista (una suma suelta se lee como cobro).
+       Quien quiere ver sus pagos hace clic y los ve mes por mes. */
+    document.getElementById('stats-pagos').innerHTML = '';
     const dp = (p.detalle || []).filter(x => x && x.monto != null);
     document.getElementById('tabla-pagos').innerHTML = dp.length
-        ? '<table><thead><tr><th>Concepto</th><th>Monto</th><th>Estado</th><th>Fecha</th></tr></thead><tbody>' +
-          dp.map(x => '<tr><td>' + esc(x.concepto || '—') + '</td>' +
-            '<td>' + dinero(x.monto) + ' ' + esc(x.moneda || '') + '</td>' +
-            '<td>' + esc(x.estado) + '</td>' +
-            '<td>' + esc(x.fecha ? fechaCorta(x.fecha) : '—') + '</td></tr>').join('') +
-          '</tbody></table>'
+        ? '<details class="mas pagos"><summary>Ver mis pagos</summary><div class="lista-pagos">' +
+          dp.map(x => {
+            const ok = x.estado === 'pagado';
+            return '<div class="pago-fila"><div><b>' + esc(x.concepto || '—') + '</b>' +
+              '<span>' + (ok && x.fecha ? 'Registrado el ' + esc(fechaCorta(x.fecha)) : 'Aún sin registrar') + '</span></div>' +
+              '<div class="pago-monto">' + dinero(x.monto) + ' ' + esc(x.moneda || '') + '</div>' +
+              '<span class="pago-estado ' + (ok ? 'ok' : 'pend') + '">' + (ok ? '✓ Pagado' : 'Pendiente') + '</span></div>';
+          }).join('') + '</div></details>'
         : '<p class="vacio">Sin pagos registrados todavía.</p>';
 }
 
