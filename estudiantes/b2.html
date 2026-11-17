@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Espace Virtuel d'Excellence - Français B2">
     <title>Espace B2 | Professeur Miguel Tillero</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --graphite: #1C2321;
-            --ivoire: #F9F8F6;
-            --or-academique: #8F6A1F;
-            --sauge: #557A64;
-            --terre-cuite: #A74A38;
-            --gris-doux: #EAE6E1;
+            --graphite: #082a1f;
+            --ivoire: #e8f2ed;
+            --or-academique: #a5824a;
+            --sauge: #2f8f6b;
+            --terre-cuite: #b4532f;
+            --gris-doux: #e6dfd0;
             --texte-clair: #FAF9F6;
             --texte-sombre: #2B2B2B;
-            --font-titre: 'Playfair Display', serif;
-            --font-texte: 'Lato', sans-serif;
+            --font-titre: 'Cormorant Garamond', serif;
+            --font-texte: 'Syne', sans-serif;
             --shadow-subtile: 0 8px 30px rgba(28, 35, 33, 0.08);
         }
         
@@ -223,6 +223,31 @@
         .grille-infos .encadre-grammaire { margin-bottom: 0; }
         .grille-infos h4 { font-size: 1.2rem; }
         .grille-infos p { font-size: 1rem; color: #5C5C5C; }
+    
+        /* ===== REDISEÑO · malaquita con vetas doradas (identidad del sitio) ===== */
+        :root { --noche:#082a1f; --bosque:#0d4b38; --esmeralda:#0d7f57; --oro:#a5824a; --oro-claro:#e3c98f; --borde:rgba(165,130,74,.38); }
+        body { font-variant-numeric: lining-nums; background: radial-gradient(ellipse 90% 70% at 50% 0%,#d6ebe0 0%,#c5e0d3 45%,#a9cfc0 100%) fixed; }
+        header { background:
+            radial-gradient(ellipse 60% 90% at 85% 10%,rgba(60,170,130,.45) 0%,transparent 60%),
+            radial-gradient(ellipse 70% 80% at 10% 100%,rgba(13,127,87,.40) 0%,transparent 65%),
+            linear-gradient(135deg,var(--noche) 0%,var(--bosque) 55%,#0b3a2c 100%) !important;
+            border-bottom: 0 !important; overflow: hidden; }
+        header::after { content:""; position:absolute; left:0; right:0; bottom:0; height:3px; background:linear-gradient(90deg,transparent,#e3c98f,#a5824a,#e3c98f,transparent); }
+        header::before { content:""; position:absolute; inset:0; opacity:.5; pointer-events:none;
+          background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 380' preserveAspectRatio='none'><defs><linearGradient id='g' x1='0' x2='1' y1='0' y2='1'><stop offset='0' stop-color='%23f1dfae'/><stop offset='.5' stop-color='%23c9a45c'/><stop offset='1' stop-color='%23f1dfae'/></linearGradient></defs><path d='M-20 300 C 140 250, 210 120, 360 150 S 560 330, 700 200 S 880 40, 1030 90' fill='none' stroke='url(%23g)' stroke-width='1.6'/><path d='M-20 340 C 180 330, 260 230, 420 250 S 640 360, 790 270 S 930 150, 1030 190' fill='none' stroke='url(%23g)' stroke-width='1' opacity='.7'/></svg>") center/100% 100% no-repeat; }
+        header > * { position: relative; z-index: 1; }
+        header h1 { font-weight: 300 !important; letter-spacing: .01em; }
+        header p { color: rgba(244,239,226,.85) !important; }
+        .sur-titre { letter-spacing:.22em; font-size:.72rem; font-weight:600; display:inline-block; padding:.4rem 1.1rem; border:1px solid rgba(227,201,143,.55); border-radius:999px; background:rgba(8,42,31,.35); color:var(--oro-claro) !important; }
+        .carte-hub { border-radius: 22px !important; border: 1px solid var(--borde); border-top: 1px solid var(--borde) !important; position: relative; overflow: hidden; box-shadow: 0 14px 40px rgba(20,45,32,.10); }
+        .carte-hub::before { content:""; position:absolute; left:0; right:0; top:0; height:5px; background:linear-gradient(90deg,var(--bosque),var(--esmeralda)); }
+        .carte-hub.eval::before { background:linear-gradient(90deg,#b4532f,#d98a5f); }
+        .carte-hub:hover { box-shadow: 0 22px 50px rgba(20,45,32,.18) !important; }
+        .carte-hub h2 { font-size: 2rem !important; font-weight: 600; }
+        .btn-prim { border-radius: 999px !important; background: linear-gradient(135deg,var(--bosque),var(--esmeralda)) !important; color:#fff !important; letter-spacing: .1em !important; box-shadow: 0 8px 22px rgba(13,127,87,.28); }
+        .btn-prim:hover { background: linear-gradient(135deg,var(--bosque),var(--esmeralda)) !important; color:#fff !important; transform: translateY(-2px); }
+        .btn-secondaire { border-radius: 999px !important; border-color: var(--borde) !important; }
+        @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
     </style>
 </head>
 <body>
