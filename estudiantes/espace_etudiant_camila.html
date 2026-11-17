@@ -7,7 +7,7 @@
     <title>Espace Étudiant | Camila</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
     <script>
         /* Si el CDN de Tailwind no responde, la página se ve sin estilos pero
            legible; sin esta comprobación, además, el script se cortaba aquí. */
@@ -140,6 +140,35 @@
         .espace-pie { text-align: center; padding: 2.5rem 1rem 3rem; color: #6B6B6B; font-size: .95rem; border-top: 1px solid #EAE6E1; }
         .espace-pie p + p { margin-top: .8rem; }
         .espace-pie a { color: #2B5C8F; }
+
+        /* ── REDISEÑO · malaquita con vetas doradas (misma identidad que el resto del sitio) ── */
+        body { font-family: 'Syne', sans-serif; font-variant-numeric: lining-nums; color: #12291c;
+            background: radial-gradient(ellipse 90% 70% at 50% 0%, #d6ebe0 0%, #c5e0d3 45%, #a9cfc0 100%) fixed; }
+        h1, h2, h3, h4, h5, h6, .font-serif { font-family: 'Cormorant Garamond', serif; }
+        .espace-hero { position: relative; overflow: hidden; border-bottom: 0;
+            background:
+              radial-gradient(ellipse 60% 90% at 85% 10%, rgba(60,170,130,.45) 0%, transparent 60%),
+              radial-gradient(ellipse 70% 80% at 10% 100%, rgba(13,127,87,.40) 0%, transparent 65%),
+              linear-gradient(135deg, #082a1f 0%, #0d4b38 55%, #0b3a2c 100%); }
+        .espace-hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+            background: linear-gradient(90deg, transparent, #e3c98f, #a5824a, #e3c98f, transparent); }
+        .espace-hero::before { content: ""; position: absolute; inset: 0; opacity: .5; pointer-events: none;
+            background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 380' preserveAspectRatio='none'><defs><linearGradient id='g' x1='0' x2='1' y1='0' y2='1'><stop offset='0' stop-color='%23f1dfae'/><stop offset='.5' stop-color='%23c9a45c'/><stop offset='1' stop-color='%23f1dfae'/></linearGradient></defs><path d='M-20 300 C 140 250, 210 120, 360 150 S 560 330, 700 200 S 880 40, 1030 90' fill='none' stroke='url(%23g)' stroke-width='1.6'/><path d='M-20 340 C 180 330, 260 230, 420 250 S 640 360, 790 270 S 930 150, 1030 190' fill='none' stroke='url(%23g)' stroke-width='1' opacity='.7'/></svg>") center/100% 100% no-repeat; }
+        .espace-hero > *:not([class*="hero-"]) { position: relative; z-index: 1; }
+        .hero-retour, .hero-btn { z-index: 2; }
+        .espace-hero h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; }
+        .espace-hero p { color: rgba(244,239,226,.85); }
+        .espace-hero .sur-titre { display: inline-block; padding: .4rem 1.1rem; border: 1px solid rgba(227,201,143,.55);
+            border-radius: 999px; background: rgba(8,42,31,.35); color: #e3c98f; letter-spacing: .22em; font-size: .72rem; font-weight: 600; }
+        .hero-btn { border-radius: 999px; border-color: rgba(227,201,143,.5); color: #e3c98f; background: rgba(8,42,31,.35); backdrop-filter: blur(4px); }
+        .hero-btn:hover { background: rgba(227,201,143,.2); color: #fff; }
+        .module-card, .espace-main .shadow-sm, .espace-main > div > .bg-white { border-radius: 20px; border: 1px solid rgba(165,130,74,.38); box-shadow: 0 14px 40px rgba(20,45,32,.10); }
+        .module-card:hover { box-shadow: 0 22px 50px rgba(20,45,32,.18); border-left-color: #a5824a; }
+        .tcf-btn { border-radius: 999px !important; }
+        .tcf-btn.bg-afblue { background: linear-gradient(135deg, #0d4b38, #0d7f57) !important; box-shadow: 0 8px 22px rgba(13,127,87,.28); }
+        .tcf-btn.bg-afblue:hover { background: linear-gradient(135deg, #0d4b38, #0d7f57) !important; transform: translateY(-2px); }
+        .espace-pie { border-top-color: rgba(165,130,74,.38); color: rgba(18,41,28,.72); }
+        .espace-pie a { color: #0d7f57; }
         @media (max-width: 640px) {
             .espace-hero { padding: 3.5rem 1.2rem 5rem; }
             .hero-retour { position: static; display: inline-block; margin-bottom: 1.2rem; }
