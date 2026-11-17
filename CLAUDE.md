@@ -160,6 +160,6 @@ las páginas se muestran con los saltos de párrafo respetados y justificados.
   (cabecera de malaquita con veta y filete dorado, Cormorant Garamond y Syne,
   tonos de `assets/css/fichas-ejercicios.css`), no plantillas ajenas. Miguel
   pidió en noviembre de 2026 pasar de la identidad anterior (grafito con
-  Playfair y Lato) a esta, la misma del resto del sitio. Los espacios
-  individuales que aún usan Playfair y Lato (p. ej. Camila) siguen pendientes
-  de migrar.
+  Playfair y Lato) a esta, la misma del resto del sitio. El espacio de
+  Camila, los hubs y los paneles ya están migrados; el de Harleen (archivada)
+  conserva el estilo anterior.
