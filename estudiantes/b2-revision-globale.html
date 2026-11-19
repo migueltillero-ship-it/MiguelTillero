@@ -7,53 +7,99 @@
 <title>Révision générale · B2 · Vive el francés</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Space+Mono&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* Una sola diapositiva para la clase de repaso global del B2. Misma identidad que «Les sons et les voyelles»
-   (malaquita y oro, Cormorant, Syne y Space Mono). Cada clic (o →, o espacio) revela un bloque. F = pantalla completa. */
-:root{--noche:#12332b;--bosque:#1f6b55;--crema:#f3eee2;--oro:#a5824a;--oroC:#d9bd86;--tinta:#12332b;--suave:#44645a;
-  --gram:#3b82c4;--lex:#d99a12;--sav:#cf5b7d;--display:'Cormorant Garamond',Georgia,serif;--sans:'Syne',Arial,sans-serif;--mono:'Space Mono',ui-monospace,monospace}
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;background:#06130f;overflow:hidden}
+/* Toda la clase de revisión del B2 en un solo archivo, pensada para compartir pantalla en Zoom:
+   portada y tarjetas → programa de la hora → vrai ou faux → (rappel + quiz) de gramática, léxico y savoir-faire
+   → écoute chrono → débat éclair → (rappel + Boss final) → resultados.
+   Teclas: → / espacio / clic avanza (revela un bloque, luego la respuesta, luego sigue) · ← retrocede · 1 y 2 suman los puntos al equipo 1 o 2
+   · U deshace · T cronómetro 60 s · D sortea un tema en el débat · F pantalla completa. En el móvil: toque a la derecha avanza, a la izquierda retrocede. */
+:root{--noche:#12332b;--crema:#f3eee2;--oro:#a5824a;--oroC:#d9bd86;--gram:#6aa9e0;--lex:#e8b23a;--sav:#e07a9a;
+  --display:'Cormorant Garamond',Georgia,serif;--sans:'Syne',Arial,sans-serif;--mono:'Space Mono',ui-monospace,monospace;--c:#d9bd86}
+*{box-sizing:border-box;margin:0;padding:0;font-variant-numeric:lining-nums}
+html,body{height:100%;background:#06130f;overflow:hidden;overscroll-behavior:none}
 #stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center;overflow:hidden;color:var(--crema);font-family:var(--sans);
   background:radial-gradient(circle at 80% 14%,#1f6b55 0%,#12332b 62%)}
-.fl{position:absolute;font-family:var(--display);font-style:italic;color:#fff;opacity:.06;white-space:nowrap;animation:flota var(--d,20s) ease-in-out infinite alternate}
+.fl{position:absolute;font-family:var(--display);font-style:italic;color:#fff;opacity:.05;white-space:nowrap;animation:flota var(--d,20s) ease-in-out infinite alternate;pointer-events:none}
 @keyframes flota{from{transform:translate(0,0) rotate(-3deg)}to{transform:translate(40px,-50px) rotate(4deg)}}
-.lbl{font-family:var(--mono);font-size:27px;letter-spacing:.2em;text-transform:uppercase;color:var(--oroC)}
-.abs{position:absolute}
-h1{font-family:var(--display);font-weight:400;font-size:128px;line-height:.98;letter-spacing:-.01em}
-h1 em{font-style:italic;color:var(--oroC)}
-.sub{font-size:34px;color:#bfd6cc;margin-top:10px}
-.top{left:120px;top:78px}
-.foot{position:absolute;left:120px;bottom:30px;font-family:var(--mono);font-size:25px;letter-spacing:.2em;text-transform:uppercase;color:var(--oroC)}
-.foot2{position:absolute;right:120px;bottom:30px;font-family:var(--mono);font-size:25px;letter-spacing:.2em;text-transform:uppercase;color:var(--oroC)}
-.cols{position:absolute;left:120px;right:120px;top:350px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
-.card{position:relative;background:rgba(255,255,255,.07);border:2px solid color-mix(in srgb,var(--c) 60%,transparent);border-radius:36px;padding:26px 34px 22px;min-height:540px;
-  backdrop-filter:blur(2px)}
-.card h2{font-family:var(--display);font-weight:600;font-size:60px;line-height:1;color:var(--c)}
+.lbl{font-family:var(--mono);font-size:27px;letter-spacing:.2em;text-transform:uppercase;color:var(--c)}
+#top{position:absolute;left:120px;top:64px;right:120px;display:flex;justify-content:space-between;align-items:center;height:60px}
+#num{font-family:var(--display);font-style:italic;font-size:44px;color:var(--oroC)}
+#pts{font-family:var(--mono);font-size:24px;letter-spacing:.14em;color:#12332b;background:var(--oroC);border-radius:999px;padding:8px 22px;display:none}
+#pts.on{display:inline-block}
+#view{position:absolute;inset:0}
+.hd{position:absolute;left:120px;top:128px;right:120px}
+.hd h1{font-family:var(--display);font-weight:400;font-size:112px;line-height:.98;letter-spacing:-.01em}
+.hd h1 em{font-style:italic;color:var(--oroC)}
+.hd .sub{font-size:32px;color:#bfd6cc;margin-top:8px}
+.hd.s h1{font-size:92px}
+.shimmer{background:linear-gradient(100deg,var(--oroC) 20%,#fff7dd 45%,var(--oroC) 70%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:brilla 4s linear infinite}
+@keyframes brilla{from{background-position:120% 0}to{background-position:-120% 0}}
+.pop{animation:pop .8s cubic-bezier(.2,.85,.2,1) both}
+@keyframes pop{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+.b{opacity:0;transform:translateY(46px) scale(.98);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.85,.2,1)}
+.b.on{opacity:1;transform:none}
+.b.on.off{opacity:0;transform:translateY(-30px) scale(.97);pointer-events:none}
+/* tarjetas */
+.grid{position:absolute;left:120px;right:120px;display:grid;gap:30px}
+.card{position:relative;background:rgba(255,255,255,.07);border:2px solid color-mix(in srgb,var(--c) 60%,transparent);border-radius:34px;padding:24px 32px 20px}
+.card h2{font-family:var(--display);font-weight:600;font-size:56px;line-height:1;color:var(--c)}
 .card .k{font-family:var(--mono);font-size:21px;letter-spacing:.16em;text-transform:uppercase;color:#bfd6cc;margin:4px 0 12px}
 .card ul{list-style:none}
 .card li{font-size:27px;line-height:1.22;padding:6px 0 6px 34px;position:relative;color:#e9f1ec}
 .card li::before{content:"";position:absolute;left:0;top:15px;width:13px;height:13px;border-radius:50%;background:var(--c)}
-.card li b{color:#fff}
+.card li b,.card p b{color:#fff}
+.card p{font-size:28px;line-height:1.25;color:#e9f1ec;margin-top:6px}
 .ex{margin-top:10px;font-family:var(--display);font-style:italic;font-size:31px;line-height:1.2;color:var(--oroC);border-top:1px solid rgba(217,189,134,.35);padding-top:10px}
-/* Programa de la hora: al llegar al paso 4 las tarjetas ceden el sitio y entran, una a una, las cinco actividades */
-.card{transition:opacity .7s ease,transform .9s cubic-bezier(.2,.85,.2,1)}
-.card.on.off{opacity:0;transform:translateY(-30px) scale(.97);pointer-events:none}
+.card h3{font-family:var(--display);font-weight:600;font-size:50px;line-height:1.05;color:var(--c);margin-bottom:6px}
+.card.rule{padding:20px 28px 16px}
+.card.rule p{font-size:32px;line-height:1.28}
+.card.rule .ex{font-size:34px}
+/* programa */
 .agenda{position:absolute;left:120px;right:120px;top:330px;display:grid;gap:14px}
 .row{display:grid;grid-template-columns:230px 1fr;align-items:center;gap:30px;background:rgba(255,255,255,.07);border:2px solid color-mix(in srgb,var(--c) 60%,transparent);border-radius:30px;padding:14px 34px 14px 20px;height:118px}
-.row .t{font-family:var(--mono);font-size:30px;letter-spacing:.04em;color:#12332b;background:var(--c);border-radius:22px;height:88px;display:grid;place-items:center;text-align:center;line-height:1.05;font-weight:700}
+.row .t{font-family:var(--mono);font-size:30px;color:#12332b;background:var(--c);border-radius:22px;height:88px;display:grid;place-items:center;text-align:center;line-height:1.05;font-weight:700}
 .row .t small{display:block;font-size:20px;letter-spacing:.12em;font-weight:400}
 .row h3{font-family:var(--display);font-weight:600;font-size:48px;line-height:1;color:#fff}
 .row h3 em{color:var(--c);font-style:italic}
 .row p{font-size:25px;color:#cfe0d8;margin-top:6px;line-height:1.15}
-/* pasos */
-.b{opacity:0;transform:translateY(46px) scale(.98);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.85,.2,1)}
-.b.on{opacity:1;transform:none}
-.slide-in{animation:aUp 1.1s cubic-bezier(.2,.85,.2,1) both}.d1{animation-delay:.25s}.d2{animation-delay:.5s}
-@keyframes aUp{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:none}}
-.shimmer{background:linear-gradient(100deg,var(--oroC) 20%,#fff7dd 45%,var(--oroC) 70%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:brilla 4s linear infinite}
-@keyframes brilla{from{background-position:120% 0}to{background-position:-120% 0}}
-#count{position:fixed;right:14px;bottom:14px;font:12px var(--mono);color:#fff;background:rgba(18,51,43,.7);padding:6px 12px;border-radius:999px;pointer-events:none}
-@media (prefers-reduced-motion:reduce){.fl,.shimmer{animation:none}}
+/* preguntas */
+#q{position:absolute;left:120px;right:120px;top:170px;height:480px;display:flex;flex-direction:column;justify-content:center}
+#q .t{font-family:var(--display);font-weight:500;font-size:74px;line-height:1.12;color:#fff}
+#q .t .bl{display:inline-block;min-width:150px;border-bottom:5px solid var(--c);margin:0 8px;transform:translateY(-6px)}
+#q .t i{color:var(--c)}#q .sm{font-size:54px}
+#q .hint{font-family:var(--sans);font-size:30px;color:#bfd6cc;margin-top:18px}
+#q ul{list-style:none;margin-top:8px}
+#q li{font-family:var(--display);font-size:54px;line-height:1.2;padding:6px 0 6px 74px;position:relative;color:#fff}
+#q li b{position:absolute;left:0;top:10px;width:50px;height:50px;border-radius:50%;background:var(--c);color:#12332b;font-family:var(--mono);font-size:26px;display:grid;place-items:center}
+#ans{position:absolute;left:120px;right:120px;top:660px;min-height:130px;border:2px solid var(--oroC);border-radius:34px;background:rgba(217,189,134,.12);padding:20px 38px;
+  opacity:0;transform:translateY(40px) scale(.98);transition:opacity .6s ease,transform .7s cubic-bezier(.2,.85,.2,1);display:none;align-items:center;gap:30px}
+#ans.on{opacity:1;transform:none}
+#ans .k{font-family:var(--mono);font-size:22px;letter-spacing:.2em;color:var(--oroC);text-transform:uppercase;flex:none}
+#ans .v{font-family:var(--display);font-style:italic;font-size:52px;line-height:1.12;color:var(--oroC)}
+#ans .v small{display:block;font-family:var(--sans);font-style:normal;font-size:26px;color:#cfe0d8;margin-top:6px}
+/* marcador */
+#score{position:absolute;left:120px;right:120px;bottom:50px;height:150px;display:none;grid-template-columns:1fr 1fr;gap:34px}
+.team{display:flex;align-items:center;justify-content:space-between;border:2px solid rgba(255,255,255,.22);border-radius:36px;background:rgba(255,255,255,.07);padding:0 36px;transition:border-color .4s,background .4s,transform .3s}
+.team.lead{border-color:var(--oroC);background:rgba(217,189,134,.14)}
+.team .nm{font-family:var(--display);font-weight:600;font-size:56px;outline:none;min-width:220px;color:#fff}
+.team .nm:focus{border-bottom:2px dashed var(--oroC)}
+.team .sc{font-family:var(--display);font-weight:600;font-size:110px;line-height:1;color:var(--oroC);min-width:130px;text-align:right}
+.team.bump{transform:scale(1.04)}
+.team .bt{display:flex;flex-direction:column;gap:8px;margin-right:26px}
+.team button{font-family:var(--mono);font-size:22px;border:2px solid var(--oroC);background:transparent;color:var(--oroC);border-radius:16px;padding:6px 16px;cursor:pointer}
+.team button:hover{background:var(--oroC);color:#12332b}
+#timer{position:absolute;left:50%;top:70px;transform:translateX(-50%);font-family:var(--mono);font-size:40px;color:var(--oroC);display:none}
+#timer.on{display:block}#timer.low{color:#ff8a8a}
+#foot{position:absolute;left:120px;bottom:22px;font-family:var(--mono);font-size:22px;letter-spacing:.2em;text-transform:uppercase;color:var(--oroC)}
+#foot2{position:absolute;right:120px;bottom:22px;font-family:var(--mono);font-size:22px;letter-spacing:.2em;text-transform:uppercase;color:var(--oroC)}
+body.sc #foot,body.sc #foot2{display:none}
+.big{position:absolute;left:120px;right:120px;top:300px;text-align:center}
+.big h1{font-family:var(--display);font-weight:400;font-size:190px;line-height:.95}
+.big h1 em{font-style:italic;color:var(--oroC)}
+.big p{font-size:38px;color:#bfd6cc;margin-top:26px}
+.dado{position:absolute;right:120px;top:140px;font-family:var(--mono);font-size:24px;letter-spacing:.14em;color:#12332b;background:var(--oroC);border-radius:999px;padding:10px 26px;cursor:pointer;border:0}
+.card.pick{border-color:#fff;background:rgba(255,255,255,.16);transform:scale(1.03)}
+#count{position:fixed;right:12px;bottom:10px;font:13px var(--mono);color:#fff;background:rgba(18,51,43,.7);padding:5px 11px;border-radius:999px;pointer-events:none;z-index:9}
+@media (prefers-reduced-motion:reduce){.fl,.shimmer,.pop{animation:none}}
 </style>
 </head>
 <body>
@@ -61,72 +107,186 @@ h1 em{font-style:italic;color:var(--oroC)}
   <span class="fl" style="left:1180px;top:60px;font-size:300px;--d:19s">ce qui</span>
   <span class="fl" style="left:1420px;top:560px;font-size:230px;--d:23s">tellement</span>
   <span class="fl" style="left:760px;top:40px;font-size:150px;--d:25s">goût</span>
-
-  <div class="lbl abs top slide-in">Français B2 · Unités 1 et 2</div>
-  <div class="abs" style="left:120px;top:150px;width:1700px">
-    <h1 class="slide-in d1">Révision <em class="shimmer">générale</em></h1>
-    <p class="sub slide-in d2">Une heure pour jouer avec tout le cycle — ce qu’on sait, ce qu’il faut consolider.</p>
+  <div id="top"><span class="lbl" id="ronde"></span><span id="pts"></span><span id="num"></span></div>
+  <div id="timer"></div>
+  <div id="view"></div>
+  <div id="ans"><span class="k">Réponse</span><span class="v" id="av"></span></div>
+  <div id="score">
+    <div class="team" id="t1"><span class="nm" contenteditable="true" spellcheck="false" id="n1">Équipe 1</span><span class="bt"><button data-t="1" data-d="1">+</button><button data-t="1" data-d="-1">−</button></span><span class="sc" id="s1">0</span></div>
+    <div class="team" id="t2"><span class="nm" contenteditable="true" spellcheck="false" id="n2">Équipe 2</span><span class="bt"><button data-t="2" data-d="1">+</button><button data-t="2" data-d="-1">−</button></span><span class="sc" id="s2">0</span></div>
   </div>
-
-  <div class="cols">
-    <section class="card b" data-s="1" style="--c:var(--gram)">
-      <h2>Grammaire</h2><div class="k">ce qui tombe à l’évaluation</div>
-      <ul>
-        <li><b>ce qui</b> · <b>ce que</b> · <b>ce dont</b></li>
-        <li>le <b>double comparatif</b> · mieux ≠ meilleur</li>
-        <li><b>plutôt que</b> (de)</li>
-        <li><b>tellement</b> : intensité, quantité, conséquence</li>
-        <li><b>pourvu que</b> · <b>avoir hâte que</b> + subjonctif</li>
-      </ul>
-      <div class="ex">« Ce dont j’ai besoin, c’est de temps. »</div>
-    </section>
-    <section class="card b" data-s="2" style="--c:var(--lex)">
-      <h2>Lexique</h2><div class="k">les mots du cycle</div>
-      <ul>
-        <li>les expressions avec <b>goût</b> et avec <b>valoir</b></li>
-        <li>les <b>saveurs</b> et les <b>textures</b></li>
-        <li><b>décrire un style</b>, une tenue</li>
-        <li>les <b>bonnes</b> et les <b>mauvaises manières</b></li>
-        <li>les mots du <b>stéréotype</b> · <b>attendre un enfant</b></li>
-      </ul>
-      <div class="ex">« Ça se fait / ça ne se fait pas. »</div>
-    </section>
-    <section class="card b" data-s="3" style="--c:var(--sav)">
-      <h2>Savoir-faire</h2><div class="k">ce qu’on sait faire</div>
-      <ul>
-        <li><b>prendre des notes</b> (méthode DELF)</li>
-        <li><b>nuancer</b> un désaccord</li>
-        <li>distinguer un <b>fait</b> d’une <b>opinion</b></li>
-        <li><b>défendre</b> un point de vue</li>
-      </ul>
-      <div class="ex">« Pourvu qu’elle puisse y aller ! »</div>
-    </section>
-  </div>
-
-  <div class="agenda">
-    <div class="row b" data-s="4" style="--c:#d9bd86"><div class="t">0–5<small>min</small></div><div><h3>Échauffement : <em>vrai ou faux ?</em></h3><p>Duel éclair : ce qui, ce que, ce dont… Qui repère l’erreur le premier ?</p></div></div>
-    <div class="row b" data-s="5" style="--c:var(--gram)"><div class="t">5–20<small>min</small></div><div><h3>Le grand <em>quiz</em> par équipes</h3><p>Deux équipes sur Zoom : on lève la main ou on écrit dans le chat. Grammaire, lexique, manières — et on explique ensemble.</p></div></div>
-    <div class="row b" data-s="6" style="--c:var(--lex)"><div class="t">20–35<small>min</small></div><div><h3>Écoute <em>chrono</em></h3><p>Un document sonore, on prend des notes comme au DELF… et on compare en direct avec l’autre équipe.</p></div></div>
-    <div class="row b" data-s="7" style="--c:var(--sav)"><div class="t">35–50<small>min</small></div><div><h3>Débat <em>éclair</em></h3><p>Un sujet tiré au sort : défendre, nuancer, convaincre. Pourvu que ça ne se fasse pas… trop !</p></div></div>
-    <div class="row b" data-s="8" style="--c:#8fd3b6"><div class="t">50–60<small>min</small></div><div><h3>Boss final <em>&amp; vos questions</em></h3><p>Dix questions pour finir en beauté, puis on prépare l’évaluation de lundi.</p></div></div>
-  </div>
-  <div class="foot">Vive el francés</div><div class="foot2">Révision globale · 60 min</div>
+  <div id="foot">Vive el francés</div><div id="foot2">Révision générale · 60 min</div>
 </div>
 <div id="count"></div>
 <script>
-const stage = document.getElementById('stage'), cnt = document.getElementById('count');
-const bs = [...document.querySelectorAll('.b')], MAX = Math.max(...bs.map(e => +e.dataset.s)); let step = 0;
-function render(){ bs.forEach(e => e.classList.toggle('on', step >= +e.dataset.s)); document.querySelectorAll('.card').forEach(e => e.classList.toggle('off', step >= 4)); cnt.textContent = step + ' / ' + MAX; history.replaceState(null, '', step ? '#' + step : location.pathname); }
-function go(d){ step = Math.max(0, Math.min(MAX, step + d)); render(); }
-function escalar(){ stage.style.transform = `translate(-50%,-50%) scale(${Math.min(innerWidth / 1920, innerHeight / 1080)})`; }
-addEventListener('resize', escalar); escalar();
-addEventListener('keydown', e => { if (e.metaKey || e.ctrlKey || e.altKey) return; const k = e.key;
-  if (k === 'ArrowRight' || k === ' ' || k === 'PageDown' || k === 'ArrowDown'){ e.preventDefault(); go(1); }
-  else if (k === 'ArrowLeft' || k === 'PageUp' || k === 'ArrowUp'){ e.preventDefault(); go(-1); }
-  else if (k === 'Home'){ step = 0; render(); } else if (k === 'End'){ step = MAX; render(); }
-  else if (k === 'f' || k === 'F'){ document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); } });
-addEventListener('click', () => go(1));
-const h = /^#(\d+)$/.exec(location.hash); if (h) step = Math.min(MAX, +h[1]); render();
+const bl='<span class="bl"></span>';
+const COL={g:'#6aa9e0',l:'#e8b23a',s:'#e07a9a',x:'#d9bd86'};
+const RN={g:'Grammaire',l:'Lexique',s:'Savoir-faire',x:'Échauffement'};
+const GN={ech:'Vrai ou faux',quiz:'Le grand quiz',boss:'Boss final'};
+const rule=(h,body,ex)=>`<div class="card rule b"><h3>${h}</h3><p>${body}</p>${ex?`<div class="ex">${ex}</div>`:''}</div>`;
+/* ——— El guion de la hora, en orden ——— */
+const ITEMS=[
+ {k:'cards'},
+ {k:'agenda'},
+ // 0–5 · échauffement
+ {k:'q',grp:'ech',r:'x',p:1,q:`Vrai ou faux ?<br>« Ce que me plaît dans ce film, c’est l’humour. »`,a:'Faux — ce qui',s:'« plaire » a besoin d’un sujet : ce qui.'},
+ {k:'q',grp:'ech',r:'x',p:1,q:`Vrai ou faux ?<br>« Ce dont j’ai peur, c’est de l’avion. »`,a:'Vrai',s:'« avoir peur DE » : ce dont.'},
+ {k:'q',grp:'ech',r:'x',p:1,q:`Vrai ou faux ?<br>« Il chante meilleur que moi. »`,a:'Faux — mieux',s:'meilleur = adjectif (bon) · mieux = adverbe (bien).'},
+ {k:'q',grp:'ech',r:'x',p:1,q:`Vrai ou faux ?<br>« Pourvu qu’il fait beau demain ! »`,a:'Faux — fasse',s:'Pourvu que + subjonctif.'},
+ {k:'q',grp:'ech',r:'x',p:1,q:`Vrai ou faux ?<br>« Je marche plutôt que de prendre le bus. »`,a:'Vrai',s:'plutôt que de + infinitif.'},
+ // 5–20 · quiz : rappel + preguntes por bloque
+ {k:'info',c:'g',kick:'Rappel · avant le quiz',t:'Grammaire',cols:3,
+  blocks:[
+   rule('ce qui · ce que · ce dont','<b>ce qui</b> = sujet · <b>ce que</b> = objet direct · <b>ce dont</b> = verbe + de.','« Ce dont j’ai besoin, c’est de temps. »'),
+   rule('mieux ≠ meilleur','<b>meilleur</b> = adjectif (de <i>bon</i>) · <b>mieux</b> = adverbe (de <i>bien</i>).','« Il cuisine mieux que moi. »'),
+   rule('Le double comparatif','<b>Plus… plus…</b> : deux choses qui évoluent ensemble. Aussi <b>de mieux en mieux</b>.','« Plus on s’entraîne, plus on progresse. »'),
+   rule('plutôt que (de)','On choisit une chose <b>au lieu d’</b>une autre : <b>plutôt que de</b> + infinitif.','« Je marche plutôt que de prendre le bus. »'),
+   rule('tellement','Intensité, quantité, conséquence : <b>tellement de… que…</b>','« Il y avait tellement de bruit que… »'),
+   rule('pourvu que · avoir hâte que','Toujours suivis du <b>subjonctif</b>.','« Pourvu qu’elle puisse y aller ! »')]},
+ {k:'q',grp:'quiz',r:'g',p:1,q:`« Je ne comprends pas ${bl} te plaît dans ce film. »`,a:'ce qui',s:'« plaît » a besoin d’un sujet : ce qui remplace le sujet.'},
+ {k:'q',grp:'quiz',r:'g',p:1,q:`« ${bl} j’ai besoin, c’est de calme. »`,a:'Ce dont',s:'« avoir besoin DE » : ce dont remplace le complément introduit par de.'},
+ {k:'q',grp:'quiz',r:'g',p:1,q:`« Ce restaurant est ${bl} que l’autre, et on y mange ${bl}. »`,h:'bon / bien',a:'meilleur … mieux',s:'meilleur = adjectif (bon) · mieux = adverbe (bien).'},
+ {k:'q',grp:'quiz',r:'g',p:1,q:`« ${bl} on s’entraîne, ${bl} on progresse. »`,a:'Plus … plus',s:'Double comparatif : deux choses qui évoluent ensemble (on accepte aussi « mieux »).'},
+ {k:'q',grp:'quiz',r:'g',p:2,q:`Reformulez avec <i>plutôt que de</i> :<br>« Je ne prends pas le bus, je marche. »`,a:'Je marche plutôt que de prendre le bus.',s:'plutôt que de + infinitif : on choisit une chose au lieu d’une autre.'},
+ {k:'q',grp:'quiz',r:'g',p:1,q:`« Il y avait ${bl} de bruit ${bl} nous n’entendions rien. »`,a:'tellement … que',s:'tellement de + nom + que + conséquence.'},
+ {k:'q',grp:'quiz',r:'g',p:2,q:`« Pourvu qu’il ${bl} <span class="sm">(venir)</span> à l’heure ! »<br>« J’ai hâte que tu ${bl} <span class="sm">(être)</span> là. »`,a:'vienne … sois',s:'Pourvu que et avoir hâte que demandent le subjonctif.'},
+ {k:'info',c:'l',kick:'Rappel · avant les questions',t:'Lexique',cols:3,
+  blocks:[
+   rule('goût · valoir','<b>avoir bon / mauvais goût</b> · <b>des goûts et des couleurs…</b> · <b>valoir la peine</b> = <b>valoir le coup</b> · <b>mieux vaut… que…</b>','« Mieux vaut tard que jamais. »'),
+   rule('Saveurs et textures','<b>acide, amer, sucré, salé, épicé</b> · <b>croustillant, croquant, fondant, onctueux, moelleux</b>','« Une crème onctueuse. »'),
+   rule('Décrire un style','<b>chic, élégant, soigné, décontracté, négligé</b> · une tenue, un look.','« Elle a un style très soigné. »'),
+   rule('Les manières','<b>Ça se fait / ça ne se fait pas</b> · bonnes et mauvaises manières, politesse.','« Ça ne se fait pas de couper la parole. »'),
+   rule('Stéréotypes et vie','Un <b>stéréotype</b> = une idée toute faite · <b>attendre un enfant</b> = être enceinte.','« Ma voisine attend un enfant. »')]},
+ {k:'q',grp:'quiz',r:'l',p:1,q:`« Des goûts et des couleurs, on ne ${bl} pas. »`,a:'discute',s:'Proverbe : chacun a ses goûts, inutile de se disputer.'},
+ {k:'q',grp:'quiz',r:'l',p:2,q:`Que veut dire « Ça vaut le coup » ?<br>Complétez : « Mieux vaut tard que ${bl}. »`,a:'Ça en vaut la peine · jamais',s:'valoir le coup = valoir la peine · « mieux vaut… que… » compare deux options.'},
+ {k:'q',grp:'quiz',r:'l',p:2,q:`Quel mot pour un biscuit qui craque sous la dent ?<br>Et pour une crème lisse et épaisse ?`,a:'croustillant (croquant) · onctueuse (crémeuse)',s:'Les textures : croustillant, croquant, fondant, onctueux, moelleux…'},
+ {k:'q',grp:'quiz',r:'l',p:2,q:`Elle s’habille avec beaucoup d’élégance : elle est…<br>Et le contraire ?`,a:'chic · élégante · soignée — négligée',s:'Décrire un style : chic, soigné, décontracté, négligé.'},
+ {k:'q',grp:'quiz',r:'l',p:2,q:`<ul><li><b>a</b>Arriver les mains vides chez des amis</li><li><b>b</b>Couper la parole à quelqu’un</li><li><b>c</b>Dire « bon appétit »</li></ul>`,h:'Ça se fait ou ça ne se fait pas ?',a:'a) mieux vaut apporter quelque chose · b) ça ne se fait pas · c) ça se fait',s:'« Ça se fait / ça ne se fait pas » : les bonnes et mauvaises manières.'},
+ {k:'info',c:'s',kick:'Rappel · avant les questions',t:'Savoir-faire',cols:2,
+  blocks:[
+   rule('Prendre des notes (méthode DELF)','On note l’<b>essentiel</b> : mots-clés, chiffres, abréviations (<b>p. ex.</b>, <b>c.-à-d.</b>, →, +/–). Jamais de phrases complètes.',''),
+   rule('Nuancer un désaccord','<b>Je ne suis pas tout à fait d’accord, mais…</b> · <b>Certes… cependant…</b> · <b>Je comprends ton point de vue, pourtant…</b>',''),
+   rule('Fait ou opinion ?','Un <b>fait</b> se vérifie (chiffre, date). Une <b>opinion</b> exprime un jugement : <i>le plus beau, je trouve que…</i>',''),
+   rule('Défendre un point de vue','Une idée · un <b>argument</b> · un <b>exemple</b>. Et on termine par une phrase claire : <b>Ce qui compte, c’est…</b>','')]},
+ {k:'q',grp:'quiz',r:'s',p:1,q:`Fait ou opinion ?<ul><li><b>a</b>Paris compte plus de deux millions d’habitants.</li><li><b>b</b>Paris est la plus belle ville du monde.</li></ul>`,a:'a) un fait · b) une opinion',s:'Un fait se vérifie ; une opinion exprime un jugement (« la plus belle »).'},
+ {k:'q',grp:'quiz',r:'s',p:2,q:`Nuancez ce désaccord, poliment :<br>« Tu as tort. »`,a:'« Je ne suis pas tout à fait d’accord, mais je comprends ton point de vue. »',s:'Nuancer : « pas tout à fait », « mais », « je comprends… ». Toute formule polie est bonne.'},
+ {k:'q',grp:'quiz',r:'s',p:2,q:`Prise de notes : comment abréger<br>« par exemple » et « c’est-à-dire » ?`,a:'p. ex. (ex.) · c.-à-d.',s:'En DELF, on note l’essentiel : abréviations, symboles, pas de phrases complètes.'},
+ {k:'q',grp:'quiz',r:'s',p:2,q:`« Ma voisine attend un enfant. » Dites-le autrement.<br><span class="sm">Et un stéréotype, c’est quoi ?</span>`,h:'Question de départage',a:'Elle est enceinte · une idée toute faite sur un groupe de personnes',s:'Attendre un enfant = être enceinte · un stéréotype généralise sur un groupe.'},
+ // 20–35 · écoute chrono
+ {k:'info',c:'l',kick:'20 – 35 min',t:'Écoute <em>chrono</em>',cols:3,
+  blocks:[
+   rule('Avant','Je lis la <b>consigne</b> et je repère ce qu’on me demande : <b>qui ? quoi ? où ? pourquoi ?</b>',''),
+   rule('Pendant','Je note les <b>mots-clés</b> et les chiffres. Abréviations : <b>p. ex.</b>, <b>c.-à-d.</b>, →, +, –, ≠. Je n’écris pas de phrases.',''),
+   rule('Après','Je compare mes notes avec <b>l’autre équipe</b> : qui a repéré le plus d’idées ? On reconstruit le document ensemble.','')]},
+ // 35–50 · débat éclair
+ {k:'debat'},
+ // 50–60 · boss final
+ {k:'info',c:'x',kick:'50 – 60 min',t:'Boss <em>final</em>',cols:3,
+  blocks:[
+   rule('10 questions','De la grammaire, du lexique, des manières, et <b>deux questions orales</b> à la fin.',''),
+   rule('20 points','Les questions comptent 1, 2 ou 3 points. Le marqueur continue celui du quiz.',''),
+   rule('Après le Boss','On répond à <b>vos questions</b> et on prépare l’évaluation de lundi 23.','')]},
+ {k:'q',grp:'boss',r:'g',p:1,q:`« Voilà ${bl} je t’ai parlé hier. »`,a:'ce dont',s:'« parler DE » : ce dont.'},
+ {k:'q',grp:'boss',r:'g',p:1,q:`« Dis-moi ${bl} tu veux pour ton anniversaire. »`,a:'ce que',s:'« vouloir quelque chose » : ce que remplace le complément direct.'},
+ {k:'q',grp:'boss',r:'g',p:2,q:`Mon français s’améliore : je parle ${bl}.`,h:'Double comparatif',a:'de mieux en mieux',s:'« mieux » est l’adverbe de « bien » ; on garde « meilleur » pour les noms.'},
+ {k:'q',grp:'boss',r:'g',p:2,q:`Reformulez avec <i>plutôt que de</i> :<br>« Au lieu de se plaindre, il devrait agir. »`,a:'Il devrait agir plutôt que de se plaindre.',s:'plutôt que de + infinitif.'},
+ {k:'q',grp:'boss',r:'g',p:2,q:`« Pourvu qu’elle ${bl} <span class="sm">(réussir)</span> son examen ! »<br>« Il a hâte que nous ${bl} <span class="sm">(arriver)</span>. »`,a:'réussisse … arrivions',s:'Pourvu que et avoir hâte que : subjonctif.'},
+ {k:'q',grp:'boss',r:'l',p:2,q:`« Cette robe est de mauvais ${bl}. »<br>« Il ne ${bl} pas la peine d’insister. »`,h:'goût · valoir',a:'goût … vaut',s:'Les expressions du cycle avec goût et avec valoir.'},
+ {k:'q',grp:'boss',r:'l',p:2,q:`Quelle saveur ?<ul><li><b>a</b>un citron</li><li><b>b</b>un café noir sans sucre</li><li><b>c</b>un bonbon</li></ul>`,a:'a) acide · b) amer · c) sucré',s:'Les saveurs : acide, amer, sucré, salé, épicé.'},
+ {k:'q',grp:'boss',r:'l',p:2,q:`Reformulez avec <i>ça ne se fait pas</i> :<br>« Il est impoli de parler la bouche pleine. »`,a:'Ça ne se fait pas de parler la bouche pleine.',s:'Ça se fait / ça ne se fait pas + de + infinitif.'},
+ {k:'q',grp:'boss',r:'s',p:3,q:`Défendez ou nuancez, en 30 secondes :<br>« Les jeunes passent tout leur temps sur leur téléphone. »`,h:'Un stéréotype : on nuance, on donne un exemple',a:'Toute réponse nuancée avec un exemple',s:'Ex. : « Ce n’est pas tout à fait vrai : certains s’en servent pour apprendre. Ce qui compte, c’est l’usage. »'},
+ {k:'q',grp:'boss',r:'s',p:3,q:`Le Boss : parlez 30 secondes de votre plat préféré.<br><span class="sm">Saveur, texture… et au moins deux de ces outils : <i>ce que / ce dont / plutôt que / pourvu que</i></span>`,a:'Production libre — le professeur évalue',s:'Ex. : « Ce que j’aime, c’est le croustillant. Je le choisis plutôt que de manger une salade, pourvu qu’il y ait de la sauce ! »'},
+ {k:'end'}
+];
+// numeración dentro de cada bloque (vrai ou faux, quiz, boss)
+(()=>{const c={},t={};ITEMS.forEach(i=>{if(i.k==='q'){t[i.grp]=(t[i.grp]||0)+1}});ITEMS.forEach(i=>{if(i.k==='q'){c[i.grp]=(c[i.grp]||0)+1;i.n=c[i.grp];i.tot=t[i.grp]}})})();
+const stage=document.getElementById('stage'),$=id=>document.getElementById(id);
+let idx=0,step=0,shown=false,sc=[0,0],hist=[],tm=null,left=0;
+function save(){try{localStorage.setItem('quizB2',JSON.stringify({sc,n1:$('n1').textContent,n2:$('n2').textContent}))}catch(e){}}
+try{const o=JSON.parse(localStorage.getItem('quizB2')||'null');if(o){sc=o.sc;$('n1').textContent=o.n1;$('n2').textContent=o.n2}}catch(e){}
+function paint(){$('s1').textContent=sc[0];$('s2').textContent=sc[1];$('t1').classList.toggle('lead',sc[0]>sc[1]);$('t2').classList.toggle('lead',sc[1]>sc[0]);save()}
+function award(t){const q=ITEMS[idx];if(q.k!=='q')return;const v=q.p;sc[t-1]+=v;hist.push([t-1,v]);const el=$('t'+t);el.classList.add('bump');setTimeout(()=>el.classList.remove('bump'),300);paint()}
+function undo(){const h=hist.pop();if(!h)return;sc[h[0]]=Math.max(0,sc[h[0]]-h[1]);paint()}
+function stopT(){clearInterval(tm);tm=null;$('timer').classList.remove('on','low')}
+function timer(){if(tm){stopT();return}left=60;const T=$('timer');T.classList.add('on');const f=()=>{T.textContent='0:'+String(left).padStart(2,'0');T.classList.toggle('low',left<=10);if(left--<=0){clearInterval(tm);tm=null}};f();tm=setInterval(f,1000)}
+const maxStep=it=>it.k==='cards'?4:it.k==='agenda'?5:it.k==='info'?it.blocks.length:it.k==='debat'?5:0;
+function html(it){
+  if(it.k==='cards')return `<div class="lbl" style="position:absolute;left:120px;top:64px">Français B2 · Unités 1 et 2</div>
+   <div class="hd"><h1 class="pop">Révision <em class="shimmer">générale</em></h1><p class="sub pop">Une heure pour jouer avec tout le cycle — ce qu’on sait, ce qu’il faut consolider.</p></div>
+   <div class="grid" style="top:350px;grid-template-columns:repeat(3,1fr)">
+    <section class="card b" data-s="1" style="--c:var(--gram);min-height:540px"><h2>Grammaire</h2><div class="k">ce qui tombe à l’évaluation</div><ul><li><b>ce qui</b> · <b>ce que</b> · <b>ce dont</b></li><li>le <b>double comparatif</b> · mieux ≠ meilleur</li><li><b>plutôt que</b> (de)</li><li><b>tellement</b> : intensité, quantité, conséquence</li><li><b>pourvu que</b> · <b>avoir hâte que</b> + subjonctif</li></ul><div class="ex">« Ce dont j’ai besoin, c’est de temps. »</div></section>
+    <section class="card b" data-s="2" style="--c:var(--lex)"><h2>Lexique</h2><div class="k">les mots du cycle</div><ul><li>les expressions avec <b>goût</b> et avec <b>valoir</b></li><li>les <b>saveurs</b> et les <b>textures</b></li><li><b>décrire un style</b>, une tenue</li><li>les <b>bonnes</b> et les <b>mauvaises manières</b></li><li>les mots du <b>stéréotype</b> · <b>attendre un enfant</b></li></ul><div class="ex">« Ça se fait / ça ne se fait pas. »</div></section>
+    <section class="card b" data-s="3" style="--c:var(--sav)"><h2>Savoir-faire</h2><div class="k">ce qu’on sait faire</div><ul><li><b>prendre des notes</b> (méthode DELF)</li><li><b>nuancer</b> un désaccord</li><li>distinguer un <b>fait</b> d’une <b>opinion</b></li><li><b>défendre</b> un point de vue</li></ul><div class="ex">« Pourvu qu’elle puisse y aller ! »</div></section>
+   </div>`;
+  if(it.k==='agenda')return `<div class="lbl" style="position:absolute;left:120px;top:64px">Ce soir · 60 minutes</div>
+   <div class="hd"><h1 class="pop">Révision <em class="shimmer">générale</em></h1><p class="sub pop">Une heure pour jouer avec tout le cycle — ce qu’on sait, ce qu’il faut consolider.</p></div>
+   <div class="agenda">
+    <div class="row b" data-s="1" style="--c:#d9bd86"><div class="t">0–5<small>min</small></div><div><h3>Échauffement : <em>vrai ou faux ?</em></h3><p>Duel éclair : ce qui, ce que, ce dont… Qui repère l’erreur le premier ?</p></div></div>
+    <div class="row b" data-s="2" style="--c:var(--gram)"><div class="t">5–20<small>min</small></div><div><h3>Le grand <em>quiz</em> par équipes</h3><p>Deux équipes sur Zoom : on lève la main ou on écrit dans le chat. On explique ensemble.</p></div></div>
+    <div class="row b" data-s="3" style="--c:var(--lex)"><div class="t">20–35<small>min</small></div><div><h3>Écoute <em>chrono</em></h3><p>Un document sonore, on prend des notes comme au DELF… et on compare en direct.</p></div></div>
+    <div class="row b" data-s="4" style="--c:var(--sav)"><div class="t">35–50<small>min</small></div><div><h3>Débat <em>éclair</em></h3><p>Un sujet tiré au sort : défendre, nuancer, convaincre. Pourvu que ça ne se fasse pas… trop !</p></div></div>
+    <div class="row b" data-s="5" style="--c:#8fd3b6"><div class="t">50–60<small>min</small></div><div><h3>Boss final <em>&amp; vos questions</em></h3><p>Dix questions pour finir en beauté, puis on prépare l’évaluation de lundi.</p></div></div>
+   </div>`;
+  if(it.k==='info'){const n=it.blocks.length;const rows=Math.ceil(n/it.cols);
+    return `<div class="lbl" style="position:absolute;left:120px;top:64px;color:${COL[it.c]}">${it.kick}</div>
+    <div class="hd s"><h1 class="pop">${it.t.includes('<')?it.t:`<em class="shimmer">${it.t}</em>`}</h1></div>
+    <div class="grid" style="top:270px;grid-template-columns:repeat(${it.cols},1fr);--c:${COL[it.c]};grid-auto-rows:minmax(0,1fr);height:${rows>1?680:500}px">${it.blocks.map((b,i)=>b.replace('class="card rule b"',`class="card rule b" data-s="${i+1}"`)).join('')}</div>`}
+  if(it.k==='debat')return `<div class="lbl" style="position:absolute;left:120px;top:64px;color:${COL.s}">35 – 50 min</div>
+    <div class="hd s"><h1 class="pop">Débat <em class="shimmer">éclair</em></h1></div>
+    <button class="dado" id="dado" style="top:150px">🎲 Tirer au sort (D)</button>
+    <div class="grid" style="top:270px;grid-template-columns:1fr 1fr;--c:${COL.s}">
+     <div class="card rule b" data-s="1" data-t><h3>Sujet 1</h3><p>« Les réseaux sociaux nous rendent moins sociables. »</p></div>
+     <div class="card rule b" data-s="2" data-t><h3>Sujet 2</h3><p>« Il faut toujours dire ce qu’on pense. »</p></div>
+     <div class="card rule b" data-s="3" data-t><h3>Sujet 3</h3><p>« Les bonnes manières, c’est démodé. »</p></div>
+     <div class="card rule b" data-s="4" data-t><h3>Sujet 4</h3><p>« Les goûts, ça se discute. »</p></div>
+    </div>
+    <div class="card rule b" data-s="5" style="position:absolute;left:120px;right:120px;top:735px;--c:${COL.s}"><h3>Pour nuancer</h3><p><b>Je ne suis pas tout à fait d’accord…</b> · <b>Certes, mais…</b> · <b>Ce qui compte, c’est…</b> · <b>Ça dépend de…</b> · <b>Pourvu que…</b></p><div class="ex">30 secondes : une idée, un argument, un exemple.</div></div>`;
+  return '';
+}
+function draw(){
+  stopT();const it=ITEMS[idx],v=$('view'),a=$('ans'),isQ=it.k==='q';
+  document.body.classList.toggle('sc',isQ||it.k==='end');$('score').style.display=(isQ||it.k==='end')?'grid':'none';
+  stage.style.setProperty('--c',it.c?COL[it.c]:isQ?COL[it.r]:'#d9bd86');
+  $('pts').classList.remove('on');$('num').textContent='';
+  if(isQ){a.style.display='flex';
+    $('ronde').textContent=(it.grp==='ech'?'Échauffement':GN[it.grp]+' · '+RN[it.r]);$('num').textContent=(it.h==='Question de départage'?'Bonus':'Question '+it.n+' / '+it.tot);
+    const p=$('pts');p.textContent=it.p+(it.p>1?' points':' point');p.classList.add('on');
+    v.innerHTML=`<div id="q"><div class="t pop">${it.q}</div>${it.h?`<div class="hint">${it.h}</div>`:''}</div>`;
+    $('av').innerHTML=it.a+(it.s?`<small>${it.s}</small>`:'');a.classList.toggle('on',shown);
+  }else{a.style.display='none';a.classList.remove('on');$('ronde').textContent='';
+    if(it.k==='end'){const w=sc[0]===sc[1]?'Égalité !':(sc[0]>sc[1]?$('n1').textContent:$('n2').textContent)+' gagne !';
+      $('ronde').textContent='Résultats';v.innerHTML=`<div class="big pop" style="top:230px"><h1><em class="shimmer">${w}</em></h1><p>${$('n1').textContent} ${sc[0]} — ${sc[1]} ${$('n2').textContent}</p><p style="margin-top:14px;font-size:30px">Merci ! À lundi pour l’évaluation.</p></div>`}
+    else{v.innerHTML=html(it);const d=$('dado');if(d)d.onclick=e=>{e.stopPropagation();sortear()}}}
+  paintStep();$('count').textContent=(idx+1)+' / '+ITEMS.length;
+  try{history.replaceState(null,'','#'+(idx+1))}catch(e){}
+}
+function paintStep(){const it=ITEMS[idx];document.querySelectorAll('#view .b').forEach(e=>{e.classList.toggle('on',step>=+e.dataset.s)});
+  if(it.k==='cards')document.querySelectorAll('#view .card').forEach(e=>e.classList.toggle('off',step>=4))}
+function sortear(){const cs=[...document.querySelectorAll('#view [data-t]')].filter(e=>e.classList.contains('on'));if(!cs.length)return;document.querySelectorAll('#view [data-t]').forEach(e=>e.classList.remove('pick'));
+  let n=0;const run=setInterval(()=>{cs.forEach(e=>e.classList.remove('pick'));cs[Math.floor(Math.random()*cs.length)].classList.add('pick');if(++n>12){clearInterval(run)}},110)}
+function next(){const it=ITEMS[idx];
+  if(step<maxStep(it)){step++;paintStep();return}
+  if(it.k==='q'&&!shown){shown=true;$('ans').classList.add('on');return}
+  if(idx<ITEMS.length-1){idx++;step=0;shown=false;draw()}}
+function prev(){const it=ITEMS[idx];
+  if(it.k==='q'&&shown){shown=false;$('ans').classList.remove('on');return}
+  if(step>0){step--;paintStep();return}
+  if(idx>0){idx--;const p=ITEMS[idx];step=maxStep(p);shown=p.k==='q';draw()}}
+function escalar(){const w=(window.visualViewport&&visualViewport.width)||innerWidth,h=(window.visualViewport&&visualViewport.height)||innerHeight;
+  stage.style.transform=`translate(-50%,-50%) scale(${Math.min(w/1920,h/1080)})`}
+addEventListener('resize',escalar);if(window.visualViewport)visualViewport.addEventListener('resize',escalar);setInterval(escalar,700);escalar();
+addEventListener('keydown',e=>{if(e.metaKey||e.ctrlKey||e.altKey||e.target.isContentEditable)return;const k=e.key;
+  if(k==='ArrowRight'||k===' '||k==='PageDown'||k==='ArrowDown'){e.preventDefault();next()}
+  else if(k==='ArrowLeft'||k==='PageUp'||k==='ArrowUp'){e.preventDefault();prev()}
+  else if(k==='Home'){idx=0;step=0;shown=false;draw()}
+  else if(k==='1')award(1);else if(k==='2')award(2);
+  else if(k==='u'||k==='U')undo();else if(k==='t'||k==='T')timer();else if(k==='d'||k==='D')sortear();
+  else if(k==='f'||k==='F')document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()});
+document.querySelectorAll('.team button').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();const t=+b.dataset.t,q=ITEMS[idx];+b.dataset.d>0?award(t):(sc[t-1]=Math.max(0,sc[t-1]-(q.k==='q'?q.p:1)),paint())}));
+document.querySelectorAll('.nm').forEach(n=>{n.addEventListener('input',save);n.addEventListener('keydown',e=>{e.stopPropagation();if(e.key==='Enter'){e.preventDefault();n.blur()}})});
+addEventListener('click',e=>{if(e.target.closest('.team')||e.target.closest('.dado'))return;e.clientX<innerWidth*.22?prev():next()});
+const h=/^#(\d+)$/.exec(location.hash);if(h){idx=Math.min(ITEMS.length-1,Math.max(0,+h[1]-1));shown=false}
+paint();draw();
 </script>
 </body>
 </html>
