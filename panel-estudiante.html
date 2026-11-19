@@ -334,6 +334,26 @@ table { font-size: 1.1rem; } th { font-size: .9rem; }
   .panel-curso { padding: 1.7rem 1.3rem; }
   .hero-estudiante { height: 220px !important; }
 }
+
+/* ===== «Mis pendientes»: la campanita ===== */
+.campana { position:relative; font-size:1.25rem !important; color:var(--gold2) !important; }
+.campana.hay { animation:timbre 2.8s ease-in-out infinite; transform-origin:50% 0; }
+@keyframes timbre { 0%,60%,100%{ transform:rotate(0) } 66%{ transform:rotate(14deg) } 72%{ transform:rotate(-12deg) } 78%{ transform:rotate(8deg) } 84%{ transform:rotate(-4deg) } }
+.campana-n { position:absolute; top:-.1rem; right:-.35rem; min-width:1.3rem; height:1.3rem; padding:0 .3rem; border-radius:999px; background:#b4532f; color:#fff;
+  font:700 .72rem/1.3rem 'Syne',sans-serif; text-align:center; }
+.pend-grupo { margin:0 0 1.5rem; }
+.pend-grupo h3 { font:600 .78rem 'Syne',sans-serif; letter-spacing:.18em; text-transform:uppercase; color:var(--gold2); margin:0 0 .7rem; }
+.pend-item { display:flex; gap:1rem; align-items:center; justify-content:space-between; flex-wrap:wrap; padding:1rem 1.2rem; margin:0 0 .7rem;
+  border:1px solid rgba(165,130,74,.38); border-left:5px solid var(--gold); border-radius:16px; background:#fffdf7; }
+.pend-item.t-entregar { border-left-color:#b4532f; } .pend-item.t-practicar { border-left-color:var(--cyan); } .pend-item.t-mejorar { border-left-color:#3b82c4; }
+.pend-item .p-tit { font-family:'Cormorant Garamond',serif; font-size:1.45rem; font-weight:600; color:var(--accent-green); line-height:1.15; }
+.pend-item .p-det { font-size:.98rem; color:var(--text-light); margin-top:.2rem; line-height:1.5; }
+.pend-item .p-meta { font:600 .74rem 'Syne',sans-serif; letter-spacing:.1em; text-transform:uppercase; color:var(--gold2); margin-top:.35rem; }
+.pend-acc { display:flex; gap:.5rem; flex-wrap:wrap; }
+.pend-acc a, .pend-acc button { font:700 .82rem 'Syne',sans-serif; letter-spacing:.06em; text-transform:uppercase; padding:.6rem 1.2rem; border-radius:999px; cursor:pointer; text-decoration:none; border:0;
+  background:linear-gradient(135deg,#0d4b38,var(--cyan)); color:#fff; }
+.pend-acc button.suave { background:transparent; color:var(--accent-green); border:1.5px solid rgba(165,130,74,.5); }
+.pend-vacio { text-align:center; padding:1.4rem; font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-style:italic; color:var(--accent-green); }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 </style>
 </head>
@@ -342,6 +362,7 @@ table { font-size: 1.1rem; } th { font-size: .9rem; }
     <a href="index.html" class="nav-brand">Miguel Tillero · Mi espacio</a>
     <div class="nav-right">
         <span id="nombre-estudiante"></span>
+        <button id="btn-campana" class="campana" type="button" title="Mis pendientes" aria-label="Mis pendientes" onclick="irAPendientes()"><i class="fa-solid fa-bell"></i><span id="campana-n" class="campana-n" hidden></span></button>
         <button onclick="cerrarSesion()"><i class="fa-solid fa-right-from-bracket"></i> Salir</button>
     </div>
 </nav>
@@ -448,6 +469,11 @@ table { font-size: 1.1rem; } th { font-size: .9rem; }
         </section>
 
         <div class="seccion" id="sec-inicio">
+        <section class="panel" id="panel-pendientes" style="display:none;">
+            <h2>Mis pendientes</h2>
+            <p class="muted" id="pend-intro" style="margin:-.4rem 0 1.2rem;">Lo que te falta por hacer y cómo entrenarte, para que no se te pase nada.</p>
+            <div id="lista-pendientes"></div>
+        </section>
         <section class="panel" id="panel-actividad" style="display:none;">
             <h2>Tu tiempo en la plataforma</h2>
             <div class="stat-row" id="stats-actividad"></div>
@@ -693,6 +719,7 @@ async function iniciar() {
     await cargarAvisos();
     await cargarAyuda();
     cargarActividad();
+    cargarPendientes();
 
     const activa = inscripciones.find(i => i.estado === 'activa') || inscripciones[0];
     sel.value = activa.id;
@@ -834,6 +861,46 @@ function cambiarSeccion(sec) {
     document.querySelectorAll('.sec-btn').forEach(b => {
         b.classList.toggle('activo', b.dataset.sec === sec);
     });
+}
+
+
+/* ── «Mis pendientes» ─────────────────────────────────────────────────────
+   Junta lo que el docente le pidió en concreto, los deberes que no ha entregado y las
+   fichas de ejercicios sin terminar (la base lo calcula: función mis_pendientes). */
+function irAPendientes() {
+    cambiarSeccion('inicio');
+    const p = document.getElementById('panel-pendientes');
+    if (p && p.style.display !== 'none') p.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+async function cargarPendientes() {
+    try {
+        const { data, error } = await supabaseClient.rpc('mis_pendientes');
+        if (error || !data) return;
+        const entregar = [], practicar = [], mejorar = [];
+        (data.manuales || []).forEach(m => ({ entregar, practicar, mejorar }[m.tipo] || practicar).push({
+            id: m.id, titulo: m.titulo, detalle: m.detalle, enlace: m.enlace, limite: m.fecha_limite, tipo: m.tipo, manual: true }));
+        (data.deberes || []).forEach(d => entregar.push({ titulo: d.titulo, detalle: 'Un deber por entregar en «Mes devoirs».', enlace: d.enlace, limite: d.entregar_antes, tipo: 'entregar' }));
+        (data.fichas || []).forEach(f => practicar.push({ titulo: f.titulo,
+            detalle: f.hechos > 0 ? 'Llevas ' + f.hechos + ' de ' + f.de + ' ejercicios. Termínala cuando puedas.' : 'Todavía no la has empezado: ' + f.de + ' ejercicios, con su explicación al principio.',
+            enlace: f.enlace, tipo: 'practicar' }));
+        const total = entregar.length + practicar.length + mejorar.length;
+        const nb = document.getElementById('campana-n'), bell = document.getElementById('btn-campana');
+        nb.hidden = !total; nb.textContent = total; bell.classList.toggle('hay', total > 0);
+        const panel = document.getElementById('panel-pendientes');
+        panel.style.display = 'block';
+        const fecha = d => d ? new Date(d + 'T12:00:00').toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric', month: 'long' }) : '';
+        const item = it => '<div class="pend-item t-' + it.tipo + '"><div><div class="p-tit">' + esc(it.titulo) + '</div>' +
+            (it.detalle ? '<div class="p-det">' + esc(it.detalle) + '</div>' : '') +
+            (it.limite ? '<div class="p-meta">Para el ' + esc(fecha(it.limite)) + '</div>' : '') + '</div>' +
+            '<div class="pend-acc">' + (it.enlace ? '<a href="' + esc(/^https?:/.test(it.enlace) ? it.enlace : it.enlace) + '">Ir a hacerlo →</a>' : '') +
+            (it.manual ? '<button type="button" class="suave" data-hecho="' + esc(it.id) + '">✓ Ya lo hice</button>' : '') + '</div></div>';
+        const grupo = (t, arr) => arr.length ? '<div class="pend-grupo"><h3>' + t + '</h3>' + arr.map(item).join('') + '</div>' : '';
+        document.getElementById('lista-pendientes').innerHTML = total
+            ? grupo('Por entregar', entregar) + grupo('Para practicar', practicar) + grupo('Para mejorar', mejorar)
+            : '<div class="pend-vacio">Estás al día. ¡Muy bien!</div>';
+        document.querySelectorAll('[data-hecho]').forEach(b => b.onclick = async () => {
+            b.disabled = true; await supabaseClient.rpc('completar_pendiente', { p_id: b.dataset.hecho, p_hecho: true }); cargarPendientes(); });
+    } catch (e) { /* si falla, el panel simplemente no aparece */ }
 }
 
 function marcarSeccionesBloqueadas(pendiente) {
