@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Le grand quiz · B2 · Vive el francés</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Space+Mono&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Quiz por equipos para la clase de revisión del B2. Una pregunta por pantalla; la respuesta aparece al pulsar →.
+   Teclas: → avanza (primero muestra la respuesta, luego pasa a la siguiente) · ← retrocede · 1 / 2 suman los puntos al equipo 1 / 2
+   · U deshace el último punto · T cronómetro de 60 s · F pantalla completa. Los nombres de los equipos se editan con un clic. */
+:root{--oro:#a5824a;--oroC:#d9bd86;--crema:#f3eee2;--display:'Cormorant Garamond',Georgia,serif;--sans:'Syne',Arial,sans-serif;--mono:'Space Mono',ui-monospace,monospace;--c:#d9bd86}
+*{box-sizing:border-box;margin:0;padding:0;font-variant-numeric:lining-nums}
+html,body{height:100%;background:#06130f;overflow:hidden}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center;overflow:hidden;color:var(--crema);font-family:var(--sans);
+  background:radial-gradient(circle at 80% 14%,#1f6b55 0%,#12332b 62%)}
+.fl{position:absolute;font-family:var(--display);font-style:italic;color:#fff;opacity:.05;white-space:nowrap;animation:flota var(--d,20s) ease-in-out infinite alternate}
+@keyframes flota{from{transform:translate(0,0) rotate(-3deg)}to{transform:translate(40px,-50px) rotate(4deg)}}
+.lbl{font-family:var(--mono);font-size:27px;letter-spacing:.2em;text-transform:uppercase;color:var(--c)}
+#top{position:absolute;left:120px;top:70px;right:120px;display:flex;justify-content:space-between;align-items:center}
+#num{font-family:var(--display);font-style:italic;font-size:44px;color:var(--oroC)}
+#pts{font-family:var(--mono);font-size:24px;letter-spacing:.14em;color:#12332b;background:var(--oroC);border-radius:999px;padding:8px 22px;display:none}
+#pts.on{display:inline-block}
+#q{position:absolute;left:120px;right:120px;top:190px;height:460px;display:flex;flex-direction:column;justify-content:center}
+#q .t{font-family:var(--display);font-weight:500;font-size:76px;line-height:1.12;color:#fff}
+#q .t .bl{display:inline-block;min-width:150px;border-bottom:5px solid var(--c);margin:0 8px;transform:translateY(-6px)}
+#q .t i{color:var(--c)}
+#q .sm{font-size:56px}
+#q .hint{font-family:var(--sans);font-size:30px;color:#bfd6cc;margin-top:18px}
+#q ul{list-style:none;margin-top:8px}
+#q li{font-family:var(--display);font-size:56px;line-height:1.2;padding:6px 0 6px 74px;position:relative;color:#fff}
+#q li b{position:absolute;left:0;top:10px;width:50px;height:50px;border-radius:50%;background:var(--c);color:#12332b;font-family:var(--mono);font-size:26px;display:grid;place-items:center}
+#ans{position:absolute;left:120px;right:120px;top:660px;min-height:130px;border:2px solid var(--oroC);border-radius:34px;background:rgba(217,189,134,.12);padding:22px 38px;
+  opacity:0;transform:translateY(40px) scale(.98);transition:opacity .6s ease,transform .7s cubic-bezier(.2,.85,.2,1);display:flex;align-items:center;gap:30px}
+#ans.on{opacity:1;transform:none}
+#ans .k{font-family:var(--mono);font-size:22px;letter-spacing:.2em;color:var(--oroC);text-transform:uppercase;flex:none}
+#ans .v{font-family:var(--display);font-style:italic;font-size:54px;line-height:1.12;color:var(--oroC)}
+#ans .v small{display:block;font-family:var(--sans);font-style:normal;font-size:27px;color:#cfe0d8;margin-top:6px}
+/* marcador */
+#score{position:absolute;left:120px;right:120px;bottom:50px;height:150px;display:grid;grid-template-columns:1fr 1fr;gap:34px}
+.team{display:flex;align-items:center;justify-content:space-between;border:2px solid rgba(255,255,255,.22);border-radius:36px;background:rgba(255,255,255,.07);padding:0 36px;transition:border-color .4s,background .4s,transform .3s}
+.team.lead{border-color:var(--oroC);background:rgba(217,189,134,.14)}
+.team .nm{font-family:var(--display);font-weight:600;font-size:56px;outline:none;min-width:220px;color:#fff}
+.team .nm:focus{border-bottom:2px dashed var(--oroC)}
+.team .sc{font-family:var(--display);font-weight:600;font-size:110px;line-height:1;font-variant-numeric:lining-nums;color:var(--oroC);min-width:130px;text-align:right}
+.team.bump{transform:scale(1.04)}
+.team .bt{display:flex;flex-direction:column;gap:8px;margin-right:26px}
+.team button{font-family:var(--mono);font-size:22px;border:2px solid var(--oroC);background:transparent;color:var(--oroC);border-radius:16px;padding:6px 16px;cursor:pointer}
+.team button:hover{background:var(--oroC);color:#12332b}
+#timer{position:absolute;left:50%;top:76px;transform:translateX(-50%);font-family:var(--mono);font-size:40px;color:var(--oroC);display:none}
+#timer.on{display:block}#timer.low{color:#ff8a8a}
+#foot{position:absolute;left:0;right:0;bottom:14px;text-align:center;font-family:var(--mono);font-size:17px;letter-spacing:.16em;color:rgba(217,189,134,.6);text-transform:uppercase}
+/* portada y resultados */
+.big{position:absolute;left:120px;right:120px;top:210px;text-align:center}
+.big h1{font-family:var(--display);font-weight:400;font-size:190px;line-height:.95}
+.big h1 em{font-style:italic;color:var(--oroC)}
+.big p{font-size:38px;color:#bfd6cc;margin-top:26px}
+.shimmer{background:linear-gradient(100deg,var(--oroC) 20%,#fff7dd 45%,var(--oroC) 70%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:brilla 4s linear infinite}
+@keyframes brilla{from{background-position:120% 0}to{background-position:-120% 0}}
+.pop{animation:pop .8s cubic-bezier(.2,.85,.2,1) both}
+@keyframes pop{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.fl,.shimmer,.pop{animation:none}}
+</style>
+</head>
+<body>
+<div id="stage">
+  <span class="fl" style="left:1180px;top:80px;font-size:300px;--d:19s">ce dont</span>
+  <span class="fl" style="left:1300px;top:520px;font-size:240px;--d:23s">plutôt</span>
+  <span class="fl" style="left:60px;top:430px;font-size:200px;--d:25s">goût</span>
+  <div id="top"><span class="lbl" id="ronde"></span><span id="pts"></span><span id="num"></span></div>
+  <div id="timer"></div>
+  <div id="q"></div>
+  <div id="ans"><span class="k">Réponse</span><span class="v" id="av"></span></div>
+  <div id="score">
+    <div class="team" id="t1"><span class="nm" contenteditable="true" spellcheck="false" id="n1">Équipe 1</span><span class="bt"><button data-t="1" data-d="1">+</button><button data-t="1" data-d="-1">−</button></span><span class="sc" id="s1">0</span></div>
+    <div class="team" id="t2"><span class="nm" contenteditable="true" spellcheck="false" id="n2">Équipe 2</span><span class="bt"><button data-t="2" data-d="1">+</button><button data-t="2" data-d="-1">−</button></span><span class="sc" id="s2">0</span></div>
+  </div>
+  <div id="foot">→ réponse / suivante · 1 · 2 points · U annuler · T chrono · F plein écran</div>
+</div>
+<script>
+const R={g:['Grammaire','#6aa9e0'],l:['Lexique','#e8b23a'],s:['Savoir-faire','#e07a9a']};
+const bl='<span class="bl"></span>';
+const Q=[
+ {r:'g',p:1,q:`« Je ne comprends pas ${bl} te plaît dans ce film. »`,a:'ce qui'},
+ {r:'g',p:1,q:`« ${bl} j’ai besoin, c’est de calme. »`,a:'Ce dont'},
+ {r:'g',p:1,q:`« Ce restaurant est ${bl} que l’autre, et on y mange ${bl}. »`,h:'bon / bien',a:'meilleur … mieux'},
+ {r:'g',p:1,q:`« ${bl} on s’entraîne, ${bl} on progresse. »`,a:'Plus … plus',s:'(on accepte aussi « mieux »)'},
+ {r:'g',p:2,q:`Reformulez avec <i>plutôt que de</i> :<br>« Je ne prends pas le bus, je marche. »`,a:'Je marche plutôt que de prendre le bus.'},
+ {r:'g',p:1,q:`« Il y avait ${bl} de bruit ${bl} nous n’entendions rien. »`,a:'tellement … que'},
+ {r:'g',p:2,q:`« Pourvu qu’il ${bl} <span class="sm">(venir)</span> à l’heure ! »<br>« J’ai hâte que tu ${bl} <span class="sm">(être)</span> là. »`,a:'vienne … sois'},
+ {r:'l',p:1,q:`« Des goûts et des couleurs, on ne ${bl} pas. »`,a:'discute'},
+ {r:'l',p:2,q:`Que veut dire « Ça vaut le coup » ?<br>Complétez : « Mieux vaut tard que ${bl}. »`,a:'Ça en vaut la peine · jamais'},
+ {r:'l',p:2,q:`Quel mot pour un biscuit qui craque sous la dent ?<br>Et pour une crème lisse et épaisse ?`,a:'croustillant (croquant) · onctueuse (crémeuse)'},
+ {r:'l',p:2,q:`Elle s’habille avec beaucoup d’élégance : elle est…<br>Et le contraire ?`,a:'chic · élégante · soignée — négligée'},
+ {r:'l',p:2,q:`<ul><li><b>a</b>Arriver les mains vides chez des amis</li><li><b>b</b>Couper la parole à quelqu’un</li><li><b>c</b>Dire « bon appétit »</li></ul>`,h:'Ça se fait ou ça ne se fait pas ?',a:'a) mieux vaut apporter quelque chose · b) ça ne se fait pas · c) ça se fait'},
+ {r:'s',p:1,q:`Fait ou opinion ?<ul><li><b>a</b>Paris compte plus de deux millions d’habitants.</li><li><b>b</b>Paris est la plus belle ville du monde.</li></ul>`,a:'a) un fait · b) une opinion'},
+ {r:'s',p:2,q:`Nuancez ce désaccord, poliment :<br>« Tu as tort. »`,a:'« Je ne suis pas tout à fait d’accord, mais je comprends ton point de vue. »',s:'(toute formule polie et nuancée)'},
+ {r:'s',p:2,q:`Prise de notes : comment abréger<br>« par exemple » et « c’est-à-dire » ?`,a:'p. ex. (ex.) · c.-à-d.'},
+ {r:'d',p:2,q:`« Ma voisine attend un enfant. » Dites-le autrement.<br><span class="sm">Et un stéréotype, c’est quoi ?</span>`,h:'Question de départage',a:'Elle est enceinte · une idée toute faite sur un groupe de personnes'}
+];
+const NAMES={d:['Départage','#d9bd86']};
+const stage=document.getElementById('stage'),$=id=>document.getElementById(id);
+let i=-1,shown=false,sc=[0,0],hist=[],tm=null,left=0;
+function save(){try{localStorage.setItem('quizB2',JSON.stringify({sc,n1:$('n1').textContent,n2:$('n2').textContent}))}catch(e){}}
+try{const o=JSON.parse(localStorage.getItem('quizB2')||'null');if(o){sc=o.sc;$('n1').textContent=o.n1;$('n2').textContent=o.n2}}catch(e){}
+function paint(){$('s1').textContent=sc[0];$('s2').textContent=sc[1];$('t1').classList.toggle('lead',sc[0]>sc[1]);$('t2').classList.toggle('lead',sc[1]>sc[0]);save()}
+function award(t,d){const q=Q[i];const v=(d||1)*(q?q.p:1);sc[t-1]=Math.max(0,sc[t-1]+v);hist.push([t-1,v]);const el=$('t'+t);el.classList.add('bump');setTimeout(()=>el.classList.remove('bump'),300);paint()}
+function undo(){const h=hist.pop();if(!h)return;sc[h[0]]=Math.max(0,sc[h[0]]-h[1]);paint()}
+function stopT(){clearInterval(tm);tm=null;$('timer').classList.remove('on','low')}
+function timer(){if(tm){stopT();return}left=60;const T=$('timer');T.classList.add('on');const f=()=>{T.textContent='0:'+String(left).padStart(2,'0');T.classList.toggle('low',left<=10);if(left--<=0){clearInterval(tm);tm=null}};f();tm=setInterval(f,1000)}
+function render(){
+  stopT();const q=$('q'),a=$('ans');
+  a.classList.toggle('on',shown&&i>=0&&i<Q.length);
+  if(i<0){$('ronde').textContent='Révision générale';$('num').textContent='';$('pts').classList.remove('on');
+    q.innerHTML=`<div class="big pop" style="top:0"><h1>Le grand <em class="shimmer">quiz</em></h1><p>Deux équipes · un timbre · 15 questions · 15 minutes</p></div>`;a.classList.remove('on');return}
+  if(i>=Q.length){const w=sc[0]===sc[1]?'Égalité !':(sc[0]>sc[1]?$('n1').textContent:$('n2').textContent)+' gagne !';
+    $('ronde').textContent='Résultats';$('num').textContent='';$('pts').classList.remove('on');
+    q.innerHTML=`<div class="big pop" style="top:0"><h1><em class="shimmer">${w}</em></h1><p>${$('n1').textContent} ${sc[0]} — ${sc[1]} ${$('n2').textContent}</p></div>`;a.classList.remove('on');return}
+  const d=Q[i],[nm,col]=d.r==='d'?NAMES.d:R[d.r];stage.style.setProperty('--c',col);
+  $('ronde').textContent=nm;$('num').textContent=d.r==='d'?'Bonus':'Question '+(i+1)+' / 15';
+  const p=$('pts');p.textContent=d.p+(d.p>1?' points':' point');p.classList.add('on');
+  q.innerHTML=`<div class="t pop">${d.q}</div>${d.h?`<div class="hint">${d.h}</div>`:''}`;
+  $('av').innerHTML=d.a+(d.s?`<small>${d.s}</small>`:'');
+}
+function next(){if(i>=0&&i<Q.length&&!shown){shown=true;render();return}if(i<Q.length){i++;shown=false;render()}}
+function prev(){if(i>=0&&i<Q.length&&shown){shown=false;render();return}if(i>=0){i--;shown=i>=0&&i<Q.length;render()}}
+function escalar(){stage.style.transform=`translate(-50%,-50%) scale(${Math.min(innerWidth/1920,innerHeight/1080)})`}
+addEventListener('resize',escalar);escalar();
+addEventListener('keydown',e=>{if(e.metaKey||e.ctrlKey||e.altKey||e.target.isContentEditable)return;const k=e.key;
+  if(k==='ArrowRight'||k===' '||k==='PageDown'){e.preventDefault();next()}
+  else if(k==='ArrowLeft'||k==='PageUp'){e.preventDefault();prev()}
+  else if(k==='1')award(1);else if(k==='2')award(2);
+  else if(k==='u'||k==='U')undo();else if(k==='t'||k==='T')timer();
+  else if(k==='f'||k==='F')document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+  else if(k==='0'&&e.shiftKey===false&&false){}});
+document.querySelectorAll('.team button').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();const t=+b.dataset.t;+b.dataset.d>0?award(t):(sc[t-1]=Math.max(0,sc[t-1]-(Q[i]?Q[i].p:1)),paint())}));
+document.querySelectorAll('.nm').forEach(n=>{n.addEventListener('input',save);n.addEventListener('keydown',e=>{e.stopPropagation();if(e.key==='Enter'){e.preventDefault();n.blur()}})});
+addEventListener('click',e=>{if(e.target.closest('.team'))return;next()});
+paint();render();
+</script>
+</body>
+</html>
