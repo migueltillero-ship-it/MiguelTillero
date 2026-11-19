@@ -35,9 +35,16 @@ h1 em{font-style:italic;color:var(--oroC)}
 .card li::before{content:"";position:absolute;left:0;top:15px;width:13px;height:13px;border-radius:50%;background:var(--c)}
 .card li b{color:#fff}
 .ex{margin-top:10px;font-family:var(--display);font-style:italic;font-size:31px;line-height:1.2;color:var(--oroC);border-top:1px solid rgba(217,189,134,.35);padding-top:10px}
-.plan{position:absolute;left:120px;right:120px;top:938px;display:flex;gap:18px;align-items:center;font-family:var(--mono);font-size:25px;letter-spacing:.06em;color:#e9f1ec}
-.plan span.n{display:inline-grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--oroC);color:#12332b;font-weight:700;margin-right:12px}
-.plan .it{padding:0 24px 0 0}
+/* Programa de la hora: al llegar al paso 4 las tarjetas ceden el sitio y entran, una a una, las cinco actividades */
+.card{transition:opacity .7s ease,transform .9s cubic-bezier(.2,.85,.2,1)}
+.card.on.off{opacity:0;transform:translateY(-30px) scale(.97);pointer-events:none}
+.agenda{position:absolute;left:120px;right:120px;top:330px;display:grid;gap:14px}
+.row{display:grid;grid-template-columns:230px 1fr;align-items:center;gap:30px;background:rgba(255,255,255,.07);border:2px solid color-mix(in srgb,var(--c) 60%,transparent);border-radius:30px;padding:14px 34px 14px 20px;height:118px}
+.row .t{font-family:var(--mono);font-size:30px;letter-spacing:.04em;color:#12332b;background:var(--c);border-radius:22px;height:88px;display:grid;place-items:center;text-align:center;line-height:1.05;font-weight:700}
+.row .t small{display:block;font-size:20px;letter-spacing:.12em;font-weight:400}
+.row h3{font-family:var(--display);font-weight:600;font-size:48px;line-height:1;color:#fff}
+.row h3 em{color:var(--c);font-style:italic}
+.row p{font-size:25px;color:#cfe0d8;margin-top:6px;line-height:1.15}
 /* pasos */
 .b{opacity:0;transform:translateY(46px) scale(.98);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.85,.2,1)}
 .b.on{opacity:1;transform:none}
@@ -58,7 +65,7 @@ h1 em{font-style:italic;color:var(--oroC)}
   <div class="lbl abs top slide-in">Français B2 · Unités 1 et 2</div>
   <div class="abs" style="left:120px;top:150px;width:1700px">
     <h1 class="slide-in d1">Révision <em class="shimmer">générale</em></h1>
-    <p class="sub slide-in d2">Tout le cycle, au même endroit — ce qu’on sait, ce qu’il faut consolider.</p>
+    <p class="sub slide-in d2">Une heure pour jouer avec tout le cycle — ce qu’on sait, ce qu’il faut consolider.</p>
   </div>
 
   <div class="cols">
@@ -96,20 +103,20 @@ h1 em{font-style:italic;color:var(--oroC)}
     </section>
   </div>
 
-  <div class="plan b" data-s="4">
-    <span class="lbl" style="margin-right:12px">Ce soir</span>
-    <span class="it"><span class="n">1</span>Diagnostic</span>
-    <span class="it"><span class="n">2</span>Compréhension orale</span>
-    <span class="it"><span class="n">3</span>Production orale</span>
-    <span class="it"><span class="n">4</span>Vos questions</span>
+  <div class="agenda">
+    <div class="row b" data-s="4" style="--c:#d9bd86"><div class="t">0–5<small>min</small></div><div><h3>Échauffement : <em>vrai ou faux ?</em></h3><p>Duel éclair : ce qui, ce que, ce dont… Qui repère l’erreur le premier ?</p></div></div>
+    <div class="row b" data-s="5" style="--c:var(--gram)"><div class="t">5–20<small>min</small></div><div><h3>Le grand <em>quiz</em> par équipes</h3><p>Deux équipes, buzzer, points bonus : grammaire, lexique du goût, saveurs, manières.</p></div></div>
+    <div class="row b" data-s="6" style="--c:var(--lex)"><div class="t">20–35<small>min</small></div><div><h3>Écoute <em>chrono</em></h3><p>Un document sonore, on prend des notes comme au DELF… et on compare avec l’autre équipe.</p></div></div>
+    <div class="row b" data-s="7" style="--c:var(--sav)"><div class="t">35–50<small>min</small></div><div><h3>Débat <em>éclair</em></h3><p>Un sujet tiré au sort : défendre, nuancer, convaincre. Pourvu que ça ne se fasse pas… trop !</p></div></div>
+    <div class="row b" data-s="8" style="--c:#8fd3b6"><div class="t">50–60<small>min</small></div><div><h3>Boss final <em>&amp; vos questions</em></h3><p>Dix questions pour finir en beauté, puis on prépare l’évaluation de lundi.</p></div></div>
   </div>
-  <div class="foot">Vive el francés</div><div class="foot2">Révision globale</div>
+  <div class="foot">Vive el francés</div><div class="foot2">Révision globale · 60 min</div>
 </div>
 <div id="count"></div>
 <script>
 const stage = document.getElementById('stage'), cnt = document.getElementById('count');
 const bs = [...document.querySelectorAll('.b')], MAX = Math.max(...bs.map(e => +e.dataset.s)); let step = 0;
-function render(){ bs.forEach(e => e.classList.toggle('on', step >= +e.dataset.s)); cnt.textContent = step + ' / ' + MAX; history.replaceState(null, '', step ? '#' + step : location.pathname); }
+function render(){ bs.forEach(e => e.classList.toggle('on', step >= +e.dataset.s)); document.querySelectorAll('.card').forEach(e => e.classList.toggle('off', step >= 4)); cnt.textContent = step + ' / ' + MAX; history.replaceState(null, '', step ? '#' + step : location.pathname); }
 function go(d){ step = Math.max(0, Math.min(MAX, step + d)); render(); }
 function escalar(){ stage.style.transform = `translate(-50%,-50%) scale(${Math.min(innerWidth / 1920, innerHeight / 1080)})`; }
 addEventListener('resize', escalar); escalar();
