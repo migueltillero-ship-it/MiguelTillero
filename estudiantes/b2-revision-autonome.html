@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Révision autonome · B2 · Vive el francés</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Space+Mono&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Versión de trabajo autónomo de la revisión B2 (para cuando la clase en línea no puede darse en directo).
+   Pensada para el móvil: una sola columna, pasos numerados, autocorrección con la respuesta y la explicación,
+   y un «bilan» final que el estudiante copia o envía por WhatsApp (es la prueba de que lo hizo). */
+:root{--noche:#12332b;--bosque:#1f6b55;--oro:#a5824a;--oroC:#d9bd86;--crema:#f3eee2;--gram:#6aa9e0;--lex:#e8b23a;--sav:#e07a9a;
+  --display:'Cormorant Garamond',Georgia,serif;--sans:'Syne',Arial,sans-serif;--mono:'Space Mono',ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0;font-variant-numeric:lining-nums}
+html{background:#0b2018}
+body{font-family:var(--sans);color:var(--crema);background:radial-gradient(circle at 85% 0%,#1f6b55 0%,#12332b 55%,#0b2018 100%) fixed;min-height:100vh;line-height:1.5;font-size:17px}
+.wrap{max-width:860px;margin:0 auto;padding:22px 16px 90px}
+.lbl{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--oroC)}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(40px,9vw,72px);line-height:1;margin:8px 0 6px}
+h1 em{font-style:italic;color:var(--oroC)}
+.sub{color:#bfd6cc;font-size:18px}
+.clock{position:sticky;top:0;z-index:5;margin:14px -16px 0;padding:10px 16px;background:rgba(11,32,24,.92);backdrop-filter:blur(6px);border-bottom:1px solid rgba(217,189,134,.35);display:flex;justify-content:space-between;gap:10px;align-items:center;font-family:var(--mono);font-size:13px;letter-spacing:.08em}
+.clock b{color:var(--oroC);font-size:16px}
+.bar{height:8px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden;flex:1;max-width:240px}.bar i{display:block;height:100%;width:0;background:var(--oroC);transition:width .5s}
+section.step{margin-top:26px;background:rgba(255,255,255,.06);border:1.5px solid rgba(217,189,134,.35);border-radius:26px;padding:20px 18px 22px}
+.step h2{font-family:var(--display);font-weight:600;font-size:34px;line-height:1.05;display:flex;gap:12px;align-items:center}
+.step h2 .n{flex:none;width:44px;height:44px;border-radius:50%;background:var(--oroC);color:#12332b;font-family:var(--mono);font-size:20px;display:grid;place-items:center}
+.step h2 .ok{display:none;margin-left:auto;font-family:var(--mono);font-size:13px;color:#12332b;background:#8fd3b6;border-radius:99px;padding:4px 12px}
+.step.done h2 .ok{display:inline-block}
+.tiempo{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--oroC);margin:8px 0 6px}
+.how{background:rgba(217,189,134,.12);border-left:4px solid var(--oroC);border-radius:12px;padding:10px 14px;margin:10px 0 14px;font-size:16px;color:#f3eee2}
+.how b{color:var(--oroC)}
+ol.plan{margin:14px 0 0 22px;color:#e9f1ec}ol.plan li{margin:7px 0}
+.btn{font-family:var(--mono);font-size:14px;letter-spacing:.06em;border:2px solid var(--oroC);background:transparent;color:var(--oroC);border-radius:14px;padding:10px 16px;cursor:pointer}
+.btn:hover,.btn.on{background:var(--oroC);color:#12332b}.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.big{background:var(--oroC);color:#12332b;font-weight:700;padding:14px 22px;font-size:16px}
+details.card{margin-top:12px;border:1.5px solid color-mix(in srgb,var(--c) 60%,transparent);border-radius:20px;background:rgba(255,255,255,.05);padding:4px 16px}
+details.card summary{cursor:pointer;font-family:var(--display);font-weight:600;font-size:28px;color:var(--c);padding:10px 0;list-style:none}
+details.card summary::after{content:"+";float:right;font-family:var(--mono)}details.card[open] summary::after{content:"–"}
+.rule{padding:10px 0 12px;border-top:1px solid rgba(255,255,255,.12)}
+.rule h3{font-family:var(--display);font-size:25px;color:var(--c);font-weight:600}
+.rule p{font-size:16px;color:#e9f1ec}.rule b{color:#fff}.rule .ex{font-family:var(--display);font-style:italic;font-size:21px;color:var(--oroC);margin-top:2px}
+.q{margin-top:14px;border:1.5px solid color-mix(in srgb,var(--c) 55%,transparent);border-radius:20px;background:rgba(255,255,255,.05);padding:14px 16px}
+.q.ok{border-color:#8fd3b6;background:rgba(143,211,182,.1)}.q.ko{border-color:#e07a9a;background:rgba(224,122,154,.08)}
+.q .meta{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--c)}
+.q .t{font-family:var(--display);font-size:25px;line-height:1.2;margin:6px 0 8px;color:#fff}
+.q .t i{color:var(--c)}.bl{display:inline-block;min-width:70px;border-bottom:3px solid var(--c);margin:0 4px;transform:translateY(-3px)}
+.q ul{list-style:none}.q li{margin:2px 0}.q li b{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--c);color:#12332b;font:12px var(--mono);margin-right:8px}
+.q input,textarea{width:100%;font:17px var(--sans);color:#fff;background:rgba(0,0,0,.25);border:1.5px solid rgba(255,255,255,.25);border-radius:12px;padding:10px 12px;outline:none}
+.q input:focus,textarea:focus{border-color:var(--oroC)}
+textarea{min-height:170px;resize:vertical;font-family:var(--display);font-size:22px;line-height:1.3}
+.rev{display:none;margin-top:10px;border-top:1px dashed rgba(217,189,134,.5);padding-top:10px}.q.shown .rev{display:block}
+.rev .a{font-family:var(--display);font-style:italic;font-size:27px;color:var(--oroC)}.rev small{display:block;color:#cfe0d8;font-size:15px;margin:4px 0 8px}
+.q .row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.chip{font-family:var(--mono);font-size:13px;border:1.5px solid rgba(255,255,255,.3);border-radius:99px;padding:4px 12px;color:#bfd6cc}.chip.on{background:#8fd3b6;border-color:#8fd3b6;color:#12332b}
+.texto{font-family:var(--display);font-size:25px;line-height:1.35;color:#fff;background:rgba(0,0,0,.2);border-radius:16px;padding:14px 16px;margin:10px 0}.texto b{color:var(--oroC)}
+.timer{font-family:var(--mono);font-size:34px;color:var(--oroC);margin:6px 0}.timer.low{color:#ff8a8a}
+.hide{display:none}
+.check{list-style:none;margin:10px 0}.check li{padding:4px 0 4px 32px;position:relative}.check li::before{content:"○";position:absolute;left:0;color:var(--oroC);font-family:var(--mono)}.check li.y::before{content:"✓";color:#8fd3b6}.check li.y{color:#bfd6cc}
+.bilan{white-space:pre-wrap;background:rgba(0,0,0,.28);border-radius:14px;padding:14px;font-family:var(--mono);font-size:14px;line-height:1.45;margin:10px 0}
+.sc{font-family:var(--display);font-size:64px;color:var(--oroC);line-height:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="lbl">Français B2 · Unités 1 et 2 · Vive el francés</div>
+  <h1>Révision <em>autonome</em></h1>
+  <p class="sub">Tu travailles seul(e), à ton rythme, avec des consignes claires. À la fin, tu envoies ton « bilan » : c’est la preuve de ton travail.</p>
+
+  <div class="clock"><span>Fin : <b>20 h 20</b> · <span id="resta">…</span></span><span class="bar"><i id="prog"></i></span><span id="pct">0 %</span></div>
+
+  <section class="step" id="s0">
+    <h2><span class="n">0</span> Avant de commencer</h2>
+    <div class="how"><b>Importante / obligatorio.</b> Esta clase se hace de forma autónoma porque el profesor tiene un problema de conexión. Es una actividad evaluada: hay que hacer <b>todos los pasos</b>, en orden, y enviar el <b>bilan</b> al final. Tienes hasta las <b>20:20</b>.</div>
+    <label class="lbl" for="nom">Ton nom et ton prénom</label>
+    <p style="margin:6px 0"><input id="nom" placeholder="Ex. : Ana Pérez" style="width:100%;font:17px var(--sans);color:#fff;background:rgba(0,0,0,.25);border:1.5px solid rgba(255,255,255,.25);border-radius:12px;padding:10px 12px"></p>
+    <ol class="plan">
+      <li><b>Paso 1 · Rappel</b> (5 min): lee las tres tarjetas, ábrelas todas.</li>
+      <li><b>Paso 2 · Quiz</b> (15 min): 20 preguntas. Escribe tu respuesta, pulsa «Voir la réponse», lee la explicación y marca si acertaste.</li>
+      <li><b>Paso 3 · Lecture éclair</b> (7 min): lees un texto 90 segundos y respondes sin mirarlo.</li>
+      <li><b>Paso 4 · Production écrite</b> (8 min): escribes un texto corto con las estructuras del ciclo.</li>
+      <li><b>Paso 5 · Bilan</b>: copias o envías tu resultado por WhatsApp al profesor.</li>
+    </ol>
+  </section>
+
+  <section class="step" id="s1">
+    <h2><span class="n">1</span> Rappel <span class="ok">✓ fait</span></h2>
+    <div class="tiempo">5 min · obligatorio</div>
+    <div class="how"><b>Qué hacer:</b> abre cada tarjeta (Grammaire, Lexique, Savoir-faire) y lee las reglas y los ejemplos. Te ayudarán en el quiz.</div>
+    <details class="card" style="--c:var(--gram)" data-r><summary>Grammaire</summary>
+      <div class="rule" style="--c:var(--gram)"><h3>ce qui · ce que · ce dont</h3><p><b>ce qui</b> = sujeto · <b>ce que</b> = objeto directo · <b>ce dont</b> = verbo + de.</p><div class="ex">« Ce dont j’ai besoin, c’est de temps. »</div></div>
+      <div class="rule" style="--c:var(--gram)"><h3>mieux ≠ meilleur</h3><p><b>meilleur</b> = adjetivo (de <i>bon</i>) · <b>mieux</b> = adverbio (de <i>bien</i>).</p><div class="ex">« Il cuisine mieux que moi. »</div></div>
+      <div class="rule" style="--c:var(--gram)"><h3>Le double comparatif</h3><p><b>Plus… plus…</b> : dos cosas que evolucionan juntas. También <b>de mieux en mieux</b>.</p><div class="ex">« Plus on s’entraîne, plus on progresse. »</div></div>
+      <div class="rule" style="--c:var(--gram)"><h3>plutôt que (de)</h3><p>Se elige algo <b>en lugar de</b> otra cosa: <b>plutôt que de</b> + infinitivo.</p><div class="ex">« Je marche plutôt que de prendre le bus. »</div></div>
+      <div class="rule" style="--c:var(--gram)"><h3>tellement</h3><p>Intensidad, cantidad, consecuencia: <b>tellement de… que…</b></p><div class="ex">« Il y avait tellement de bruit que… »</div></div>
+      <div class="rule" style="--c:var(--gram)"><h3>pourvu que · avoir hâte que</h3><p>Siempre con <b>subjuntivo</b>.</p><div class="ex">« Pourvu qu’elle puisse y aller ! »</div></div>
+    </details>
+    <details class="card" style="--c:var(--lex)" data-r><summary>Lexique</summary>
+      <div class="rule" style="--c:var(--lex)"><h3>goût · valoir</h3><p><b>avoir bon / mauvais goût</b> · <b>des goûts et des couleurs…</b> · <b>valoir la peine = valoir le coup</b> · <b>mieux vaut… que…</b></p><div class="ex">« Mieux vaut tard que jamais. »</div></div>
+      <div class="rule" style="--c:var(--lex)"><h3>Saveurs et textures</h3><p><b>acide, amer, sucré, salé, épicé</b> · <b>croustillant, croquant, fondant, onctueux, moelleux</b></p><div class="ex">« Une crème onctueuse. »</div></div>
+      <div class="rule" style="--c:var(--lex)"><h3>Décrire un style</h3><p><b>chic, élégant, soigné, décontracté, négligé</b> · une tenue, un look.</p><div class="ex">« Elle a un style très soigné. »</div></div>
+      <div class="rule" style="--c:var(--lex)"><h3>Les manières</h3><p><b>Ça se fait / ça ne se fait pas</b> · bonnes et mauvaises manières.</p><div class="ex">« Ça ne se fait pas de couper la parole. »</div></div>
+      <div class="rule" style="--c:var(--lex)"><h3>Stéréotypes et vie</h3><p>Un <b>stéréotype</b> = una idea hecha · <b>attendre un enfant</b> = être enceinte.</p><div class="ex">« Ma voisine attend un enfant. »</div></div>
+    </details>
+    <details class="card" style="--c:var(--sav)" data-r><summary>Savoir-faire</summary>
+      <div class="rule" style="--c:var(--sav)"><h3>Prendre des notes (méthode DELF)</h3><p>Se anota lo <b>esencial</b>: palabras clave, cifras, abreviaturas (<b>p. ex.</b>, <b>c.-à-d.</b>, →, +/–). Nunca frases completas.</p></div>
+      <div class="rule" style="--c:var(--sav)"><h3>Nuancer un désaccord</h3><p><b>Je ne suis pas tout à fait d’accord, mais…</b> · <b>Certes… cependant…</b> · <b>Je comprends ton point de vue, pourtant…</b></p></div>
+      <div class="rule" style="--c:var(--sav)"><h3>Fait ou opinion ?</h3><p>Un <b>hecho</b> se verifica (cifra, fecha). Una <b>opinión</b> expresa un juicio: <i>le plus beau, je trouve que…</i></p></div>
+      <div class="rule" style="--c:var(--sav)"><h3>Défendre un point de vue</h3><p>Una idea · un <b>argumento</b> · un <b>ejemplo</b>. Se termina con <b>Ce qui compte, c’est…</b></p></div>
+    </details>
+  </section>
+
+  <section class="step" id="s2">
+    <h2><span class="n">2</span> Quiz <span class="ok">✓ fait</span></h2>
+    <div class="tiempo">15 min · obligatorio · 20 preguntas</div>
+    <div class="how"><b>Qué hacer, pregunta por pregunta:</b> 1) escribe tu respuesta en el campo (o en tu cuaderno); 2) pulsa <b>Voir la réponse</b>; 3) lee la explicación; 4) pulsa <b>✓ J’avais juste</b> o <b>✗ Je me suis trompé(e)</b>. Sé honesto(a): el resultado es para que sepas qué repasar.</div>
+    <div id="lista"></div>
+    <details class="card" style="--c:#d9bd86;margin-top:18px" id="extra"><summary>Pour aller plus loin (opcional) · Boss final écrit</summary><div id="listaB"></div></details>
+  </section>
+
+  <section class="step" id="s3">
+    <h2><span class="n">3</span> Lecture éclair <span class="ok">✓ fait</span></h2>
+    <div class="tiempo">7 min · obligatorio</div>
+    <div class="how"><b>Qué hacer:</b> 1) pulsa <b>Commencer</b>: aparece el texto durante <b>90 segundos</b>; 2) toma notas en tu cuaderno (solo lo esencial); 3) cuando el texto desaparezca, responde las 4 preguntas <b>sin mirarlo</b>; 4) pulsa <b>Voir les réponses</b> y compara.</div>
+    <button class="btn big" id="lgo">Commencer (90 s)</button>
+    <div id="lbox" class="hide">
+      <div class="timer" id="ltimer">1:30</div>
+      <div class="texto" id="ltexto">Vous croyez que les Français passent leur vie à table ? Ce n’est pas tout à fait faux : le repas gastronomique des Français est inscrit au patrimoine de l’UNESCO depuis 2010. Mais, au quotidien, beaucoup de gens mangent vite, <b>plutôt que</b> de passer des heures autour d’une grande table. <b>Ce qui</b> reste important, c’est le partage : chez eux, ça ne se fait pas de commencer à manger avant les autres. <b>Pourvu que</b> la conversation soit bonne, personne ne regarde sa montre !</div>
+      <div id="lq" class="hide">
+        <div class="q" style="--c:var(--lex)"><div class="t">1. Quel est le <i>stéréotype</i> dont parle le texte ?</div><input id="lr1" placeholder="Ta réponse…"></div>
+        <div class="q" style="--c:var(--lex)"><div class="t">2. Quel <i>fait</i> (avec une date) est cité ?</div><input id="lr2" placeholder="Ta réponse…"></div>
+        <div class="q" style="--c:var(--lex)"><div class="t">3. Qu’est-ce qui <i>ne se fait pas</i> à table ?</div><input id="lr3" placeholder="Ta réponse…"></div>
+        <div class="q" style="--c:var(--lex)"><div class="t">4. Que veut dire « personne ne regarde sa montre » ?</div><input id="lr4" placeholder="Ta réponse…"></div>
+        <p style="margin-top:12px"><button class="btn big" id="lrev">Voir les réponses</button></p>
+        <div id="lans" class="hide how"><b>1.</b> Les Français passent leur vie à table · <b>2.</b> Le repas gastronomique inscrit à l’UNESCO en 2010 · <b>3.</b> Commencer à manger avant les autres · <b>4.</b> On ne s’ennuie pas : on prend son temps.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="step" id="s4">
+    <h2><span class="n">4</span> Production écrite <span class="ok">✓ fait</span></h2>
+    <div class="tiempo">8 min · obligatorio · mínimo 40 palabras</div>
+    <div class="how"><b>Qué hacer:</b> elige <b>un</b> tema y escribe un texto de <b>40 palabras o más</b>. Usa <b>al menos dos</b> de las estructuras de abajo: se iluminarán cuando las uses.</div>
+    <p style="margin:8px 0"><label><input type="radio" name="tema" value="plat" checked> <b>A.</b> Parle de ton plat préféré : saveur, texture, pourquoi tu l’aimes.</label></p>
+    <p style="margin:8px 0"><label><input type="radio" name="tema" value="tel"> <b>B.</b> « Les jeunes passent tout leur temps sur leur téléphone. » Nuance et donne un exemple.</label></p>
+    <div class="chips" id="chips"><span class="chip" data-r="ce qui">ce qui</span><span class="chip" data-r="ce que">ce que</span><span class="chip" data-r="ce dont">ce dont</span><span class="chip" data-r="plutôt que">plutôt que</span><span class="chip" data-r="pourvu que">pourvu que</span><span class="chip" data-r="tellement">tellement</span></div>
+    <textarea id="texte" placeholder="Écris ici…"></textarea>
+    <p class="lbl" style="margin-top:6px"><span id="palabras">0</span> mots · <span id="outils">0</span> structure(s)</p>
+  </section>
+
+  <section class="step" id="s5">
+    <h2><span class="n">5</span> Bilan</h2>
+    <div class="how"><b>Qué hacer:</b> cuando todos los pasos estén ✓, se activa el botón. Pulsa <b>Envoyer par WhatsApp</b> (abre WhatsApp con tu bilan ya escrito; elige al profesor) o <b>Copier</b> y pégalo en el grupo. <b>Hazlo antes de las 20:20.</b></div>
+    <ul class="check" id="check"></ul>
+    <div class="sc" id="score">0</div>
+    <div class="bilan hide" id="bilan"></div>
+    <p style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn big" id="wa" style="text-decoration:none;opacity:.4;pointer-events:none" target="_blank" rel="noopener">Envoyer par WhatsApp</a><button class="btn" id="copiar" disabled>Copier mon bilan</button></p>
+    <p class="sub" id="msg" style="margin-top:8px"></p>
+  </section>
+</div>
+<script>
+const bl='<span class="bl"></span>';
+const Q=[
+ {id:'e1',p:1,r:'x',g:'Échauffement',q:`Vrai ou faux ?<br>« Ce que me plaît dans ce film, c’est l’humour. »`,a:'Faux — ce qui',s:'« plaire » a besoin d’un sujet : ce qui.'},
+ {id:'e2',p:1,r:'x',g:'Échauffement',q:`Vrai ou faux ?<br>« Ce dont j’ai peur, c’est de l’avion. »`,a:'Vrai',s:'« avoir peur DE » : ce dont.'},
+ {id:'e3',p:1,r:'x',g:'Échauffement',q:`Vrai ou faux ?<br>« Il chante meilleur que moi. »`,a:'Faux — mieux',s:'meilleur = adjectif (bon) · mieux = adverbe (bien).'},
+ {id:'e4',p:1,r:'x',g:'Échauffement',q:`Vrai ou faux ?<br>« Pourvu qu’il fait beau demain ! »`,a:'Faux — fasse',s:'Pourvu que + subjonctif.'},
+ {id:'e5',p:1,r:'x',g:'Échauffement',q:`Vrai ou faux ?<br>« Je marche plutôt que de prendre le bus. »`,a:'Vrai',s:'plutôt que de + infinitif.'},
+ {id:'q1',p:1,r:'g',g:'Grammaire',q:`« Je ne comprends pas ${bl} te plaît dans ce film. »`,a:'ce qui',s:'« plaît » a besoin d’un sujet : ce qui remplace le sujet.'},
+ {id:'q2',p:1,r:'g',g:'Grammaire',q:`« ${bl} j’ai besoin, c’est de calme. »`,a:'Ce dont',s:'« avoir besoin DE » : ce dont.'},
+ {id:'q3',p:1,r:'g',g:'Grammaire',q:`« Ce restaurant est ${bl} que l’autre, et on y mange ${bl}. » (bon / bien)`,a:'meilleur … mieux',s:'meilleur = adjectif · mieux = adverbe.'},
+ {id:'q4',p:1,r:'g',g:'Grammaire',q:`« ${bl} on s’entraîne, ${bl} on progresse. »`,a:'Plus … plus',s:'Double comparatif (on accepte aussi « mieux »).'},
+ {id:'q5',p:2,r:'g',g:'Grammaire',q:`Reformulez avec <i>plutôt que de</i> : « Je ne prends pas le bus, je marche. »`,a:'Je marche plutôt que de prendre le bus.',s:'plutôt que de + infinitif.'},
+ {id:'q6',p:1,r:'g',g:'Grammaire',q:`« Il y avait ${bl} de bruit ${bl} nous n’entendions rien. »`,a:'tellement … que',s:'tellement de + nom + que + conséquence.'},
+ {id:'q7',p:2,r:'g',g:'Grammaire',q:`« Pourvu qu’il ${bl} (venir) à l’heure ! » · « J’ai hâte que tu ${bl} (être) là. »`,a:'vienne … sois',s:'Pourvu que et avoir hâte que demandent le subjonctif.'},
+ {id:'q8',p:1,r:'l',g:'Lexique',q:`« Des goûts et des couleurs, on ne ${bl} pas. »`,a:'discute',s:'Proverbe : chacun a ses goûts.'},
+ {id:'q9',p:2,r:'l',g:'Lexique',q:`Que veut dire « Ça vaut le coup » ? Complétez : « Mieux vaut tard que ${bl}. »`,a:'Ça en vaut la peine · jamais',s:'valoir le coup = valoir la peine.'},
+ {id:'q10',p:2,r:'l',g:'Lexique',q:`Quel mot pour un biscuit qui craque sous la dent ? Et pour une crème lisse et épaisse ?`,a:'croustillant (croquant) · onctueuse (crémeuse)',s:'Les textures : croustillant, croquant, fondant, onctueux, moelleux.'},
+ {id:'q11',p:2,r:'l',g:'Lexique',q:`Elle s’habille avec beaucoup d’élégance : elle est… Et le contraire ?`,a:'chic · élégante · soignée — négligée',s:'Décrire un style : chic, soigné, décontracté, négligé.'},
+ {id:'q12',p:2,r:'l',g:'Lexique',q:`Ça se fait ou ça ne se fait pas ?<ul><li><b>a</b>Arriver les mains vides chez des amis</li><li><b>b</b>Couper la parole à quelqu’un</li><li><b>c</b>Dire « bon appétit »</li></ul>`,a:'a) mieux vaut apporter quelque chose · b) ça ne se fait pas · c) ça se fait',s:'Les bonnes et mauvaises manières.'},
+ {id:'q13',p:1,r:'s',g:'Savoir-faire',q:`Fait ou opinion ?<ul><li><b>a</b>Paris compte plus de deux millions d’habitants.</li><li><b>b</b>Paris est la plus belle ville du monde.</li></ul>`,a:'a) un fait · b) une opinion',s:'Un fait se vérifie ; une opinion exprime un jugement.'},
+ {id:'q14',p:2,r:'s',g:'Savoir-faire',q:`Nuancez ce désaccord, poliment : « Tu as tort. »`,a:'« Je ne suis pas tout à fait d’accord, mais je comprends ton point de vue. »',s:'Toute formule polie et nuancée est bonne.'},
+ {id:'q15',p:2,r:'s',g:'Savoir-faire',q:`Prise de notes : comment abréger « par exemple » et « c’est-à-dire » ?`,a:'p. ex. (ex.) · c.-à-d.',s:'En DELF, on note l’essentiel : abréviations, pas de phrases complètes.'}
+];
+const B=[
+ {id:'b1',p:1,r:'g',g:'Boss',q:`« Voilà ${bl} je t’ai parlé hier. »`,a:'ce dont',s:'« parler DE » : ce dont.'},
+ {id:'b2',p:1,r:'g',g:'Boss',q:`« Dis-moi ${bl} tu veux pour ton anniversaire. »`,a:'ce que',s:'« vouloir quelque chose » : ce que.'},
+ {id:'b3',p:2,r:'g',g:'Boss',q:`Mon français s’améliore : je parle ${bl}.`,a:'de mieux en mieux',s:'« mieux » est l’adverbe de « bien ».'},
+ {id:'b4',p:2,r:'g',g:'Boss',q:`Reformulez avec <i>plutôt que de</i> : « Au lieu de se plaindre, il devrait agir. »`,a:'Il devrait agir plutôt que de se plaindre.',s:'plutôt que de + infinitif.'},
+ {id:'b5',p:2,r:'g',g:'Boss',q:`« Pourvu qu’elle ${bl} (réussir) son examen ! » · « Il a hâte que nous ${bl} (arriver). »`,a:'réussisse … arrivions',s:'Subjonctif.'},
+ {id:'b6',p:2,r:'l',g:'Boss',q:`« Cette robe est de mauvais ${bl}. » · « Il ne ${bl} pas la peine d’insister. »`,a:'goût … vaut',s:'Expressions avec goût et avec valoir.'},
+ {id:'b7',p:2,r:'l',g:'Boss',q:`Quelle saveur ? a) un citron · b) un café noir sans sucre · c) un bonbon`,a:'a) acide · b) amer · c) sucré',s:'Les saveurs.'},
+ {id:'b8',p:2,r:'l',g:'Boss',q:`Reformulez avec <i>ça ne se fait pas</i> : « Il est impoli de parler la bouche pleine. »`,a:'Ça ne se fait pas de parler la bouche pleine.',s:'Ça ne se fait pas + de + infinitif.'}
+];
+const COL={g:'#6aa9e0',l:'#e8b23a',s:'#e07a9a',x:'#d9bd86'};
+const $=id=>document.getElementById(id);
+let S={nom:'',rap:[0,0,0],res:{},lect:false,texto:'',tema:'plat'};
+try{const o=JSON.parse(localStorage.getItem('autonomeB2')||'null');if(o)S=Object.assign(S,o)}catch(e){}
+function save(){try{localStorage.setItem('autonomeB2',JSON.stringify(S))}catch(e){}}
+function card(it,n){const el=document.createElement('div');el.className='q'+(S.res[it.id]?' shown '+S.res[it.id]:'');el.style.setProperty('--c',COL[it.r]);el.id='q-'+it.id;
+  el.innerHTML=`<div class="meta">${it.g} · ${n} · ${it.p} pt${it.p>1?'s':''}</div><div class="t">${it.q}</div><input placeholder="Ta réponse…" autocomplete="off"><div class="row"><button class="btn" data-a="v">Voir la réponse</button></div>
+   <div class="rev"><div class="a">${it.a}</div><small>${it.s}</small><div class="row"><button class="btn" data-a="ok">✓ J’avais juste</button><button class="btn" data-a="ko">✗ Je me suis trompé(e)</button></div></div>`;
+  el.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const a=b.dataset.a;
+    if(a==='v'){el.classList.add('shown')}else{S.res[it.id]=a;el.classList.remove('ok','ko');el.classList.add(a);save();upd()}});return el}
+Q.forEach((it,i)=>$('lista').appendChild(card(it,'Question '+(i+1)+' / '+Q.length)));
+B.forEach((it,i)=>$('listaB').appendChild(card(it,'Boss '+(i+1)+' / '+B.length)));
+document.querySelectorAll('details[data-r]').forEach((d,i)=>{if(S.rap[i])d.open=true;d.addEventListener('toggle',()=>{if(d.open){S.rap[i]=1;save();upd()}})});
+$('nom').value=S.nom;$('nom').addEventListener('input',()=>{S.nom=$('nom').value;save();upd()});
+/* lecture */
+let lt=null;function lstop(){clearInterval(lt);lt=null}
+function lshow(){ $('lbox').classList.remove('hide');$('ltexto').classList.add('hide');$('ltimer').classList.add('hide');$('lq').classList.remove('hide')}
+$('lgo').onclick=()=>{$('lgo').classList.add('hide');$('lbox').classList.remove('hide');let n=90;const T=$('ltimer');const f=()=>{T.textContent=Math.floor(n/60)+':'+String(n%60).padStart(2,'0');T.classList.toggle('low',n<=10);if(n--<=0){lstop();lshow()}};f();lt=setInterval(f,1000)};
+$('lrev').onclick=()=>{$('lans').classList.remove('hide');S.lect=true;save();upd()};
+if(S.lect){$('lgo').classList.add('hide');lshow();$('lans').classList.remove('hide')}
+/* escritura */
+const OUT=['ce qui','ce que','ce dont','plutôt que','pourvu que','tellement'];
+function texto(){const t=$('texte').value;S.texto=t;const low=t.toLowerCase();let c=0;document.querySelectorAll('#chips .chip').forEach(ch=>{const on=low.includes(ch.dataset.r);ch.classList.toggle('on',on);if(on)c++});
+  const w=(t.trim().match(/\S+/g)||[]).length;$('palabras').textContent=w;$('outils').textContent=c;S.w=w;S.o=c;S.tema=document.querySelector('input[name=tema]:checked').value;save();upd()}
+$('texte').value=S.texto||'';$('texte').addEventListener('input',texto);document.querySelectorAll('input[name=tema]').forEach(r=>{if(r.value===S.tema)r.checked=true;r.addEventListener('change',texto)});
+/* progreso y bilan */
+function calc(){const ids=Q.map(q=>q.id);const resp=ids.filter(i=>S.res[i]).length;const pts=[...Q,...B].reduce((s,q)=>s+(S.res[q.id]==='ok'?q.p:0),0);
+  const tot=Q.reduce((s,q)=>s+q.p,0);return{resp,pts,tot,n:ids.length}}
+function upd(){const c=calc(),rap=S.rap.every(x=>x),lect=S.lect,w=(S.w||0)>=40&&(S.o||0)>=2,nom=(S.nom||'').trim().length>2;
+  const done=[rap,c.resp===c.n,lect,w];
+  ['s1','s2','s3','s4'].forEach((id,i)=>$(id).classList.toggle('done',done[i]));
+  const pc=Math.round(([nom,...done].filter(Boolean).length/5)*100);$('prog').style.width=pc+'%';$('pct').textContent=pc+' %';
+  const items=[[nom,'Ton nom est écrit (étape 0)'],[rap,'Rappel : les 3 tarjetas abiertas'],[c.resp===c.n,`Quiz : ${c.resp} / ${c.n} preguntas marcadas`],[lect,'Lecture éclair : respuestas vistas'],[w,`Production écrite : ${S.w||0} mots, ${S.o||0} structure(s) (mín. 40 mots, 2 structures)`]];
+  $('check').innerHTML=items.map(([y,t])=>`<li class="${y?'y':''}">${t}</li>`).join('');
+  const ok=nom&&done.every(Boolean);$('score').textContent=c.pts+' pts (quiz + boss)';
+  const hora=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+  const txt=`BILAN · Révision autonome B2\nÉlève : ${S.nom}\nHeure : ${hora}\nRappel : ${S.rap.every(x=>x)?'fait':'incomplet'}\nQuiz : ${c.resp}/${c.n} questions · score ${c.pts} pts (sur ${c.tot} en quiz ; le boss ajoute des points)\nLecture éclair : ${S.lect?'faite':'non faite'}\nProduction écrite (${S.tema==='plat'?'plat préféré':'téléphone'}) · ${S.w||0} mots · ${S.o||0} structure(s) :\n${S.texto||''}`;
+  const b=$('bilan');b.textContent=ok?txt:'';b.classList.toggle('hide',!ok);
+  const wa=$('wa');wa.href=ok?'https://wa.me/?text='+encodeURIComponent(txt):'#';wa.style.opacity=ok?1:.4;wa.style.pointerEvents=ok?'auto':'none';$('copiar').disabled=!ok;$('copiar').dataset.t=txt;
+  $('msg').textContent=ok?'Prêt ! Envoie ton bilan avant 20 h 20 : c’est ce qui prouve que tu as fait le travail.':'Termine les étapes marquées ○ pour activer l’envoi.'}
+$('copiar').onclick=async()=>{try{await navigator.clipboard.writeText($('copiar').dataset.t);$('msg').textContent='Copié ! Colle-le dans le groupe WhatsApp.'}catch(e){const r=document.createRange();r.selectNodeContents($('bilan'));getSelection().removeAllRanges();getSelection().addRange(r);$('msg').textContent='Sélectionné : copie-le à la main.'}};
+/* reloj hasta las 20:20 */
+function reloj(){const n=new Date(),f=new Date(n);f.setHours(20,20,0,0);const m=Math.round((f-n)/60000);$('resta').textContent=m>0?`il reste ${m} min`:'20 h 20 passée : envoie ton bilan maintenant';}
+reloj();setInterval(reloj,20000);upd();
+</script>
+</body>
+</html>
