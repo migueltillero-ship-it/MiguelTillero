@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Révision générale · B2 · Vive el francés</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Space+Mono&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Una sola diapositiva para la clase de repaso global del B2. Misma identidad que «Les sons et les voyelles»
+   (malaquita y oro, Cormorant, Syne y Space Mono). Cada clic (o →, o espacio) revela un bloque. F = pantalla completa. */
+:root{--noche:#12332b;--bosque:#1f6b55;--crema:#f3eee2;--oro:#a5824a;--oroC:#d9bd86;--tinta:#12332b;--suave:#44645a;
+  --gram:#3b82c4;--lex:#d99a12;--sav:#cf5b7d;--display:'Cormorant Garamond',Georgia,serif;--sans:'Syne',Arial,sans-serif;--mono:'Space Mono',ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#06130f;overflow:hidden}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center;overflow:hidden;color:var(--crema);font-family:var(--sans);
+  background:radial-gradient(circle at 80% 14%,#1f6b55 0%,#12332b 62%)}
+.fl{position:absolute;font-family:var(--display);font-style:italic;color:#fff;opacity:.06;white-space:nowrap;animation:flota var(--d,20s) ease-in-out infinite alternate}
+@keyframes flota{from{transform:translate(0,0) rotate(-3deg)}to{transform:translate(40px,-50px) rotate(4deg)}}
+.lbl{font-family:var(--mono);font-size:27px;letter-spacing:.2em;text-transform:uppercase;color:var(--oroC)}
+.abs{position:absolute}
+h1{font-family:var(--display);font-weight:400;font-size:128px;line-height:.98;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--oroC)}
+.sub{font-size:34px;color:#bfd6cc;margin-top:10px}
+.top{left:120px;top:78px}
+.foot{position:absolute;left:120px;bottom:30px;font-family:var(--mono);font-size:25px;letter-spacing:.2em;text-transform:uppercase;color:var(--oroC)}
+.foot2{position:absolute;right:120px;bottom:30px;font-family:var(--mono);font-size:25px;letter-spacing:.2em;text-transform:uppercase;color:var(--oroC)}
+.cols{position:absolute;left:120px;right:120px;top:350px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+.card{position:relative;background:rgba(255,255,255,.07);border:2px solid color-mix(in srgb,var(--c) 60%,transparent);border-radius:36px;padding:26px 34px 22px;min-height:540px;
+  backdrop-filter:blur(2px)}
+.card h2{font-family:var(--display);font-weight:600;font-size:60px;line-height:1;color:var(--c)}
+.card .k{font-family:var(--mono);font-size:21px;letter-spacing:.16em;text-transform:uppercase;color:#bfd6cc;margin:4px 0 12px}
+.card ul{list-style:none}
+.card li{font-size:27px;line-height:1.22;padding:6px 0 6px 34px;position:relative;color:#e9f1ec}
+.card li::before{content:"";position:absolute;left:0;top:15px;width:13px;height:13px;border-radius:50%;background:var(--c)}
+.card li b{color:#fff}
+.ex{margin-top:10px;font-family:var(--display);font-style:italic;font-size:31px;line-height:1.2;color:var(--oroC);border-top:1px solid rgba(217,189,134,.35);padding-top:10px}
+.plan{position:absolute;left:120px;right:120px;top:938px;display:flex;gap:18px;align-items:center;font-family:var(--mono);font-size:25px;letter-spacing:.06em;color:#e9f1ec}
+.plan span.n{display:inline-grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--oroC);color:#12332b;font-weight:700;margin-right:12px}
+.plan .it{padding:0 24px 0 0}
+/* pasos */
+.b{opacity:0;transform:translateY(46px) scale(.98);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.85,.2,1)}
+.b.on{opacity:1;transform:none}
+.slide-in{animation:aUp 1.1s cubic-bezier(.2,.85,.2,1) both}.d1{animation-delay:.25s}.d2{animation-delay:.5s}
+@keyframes aUp{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:none}}
+.shimmer{background:linear-gradient(100deg,var(--oroC) 20%,#fff7dd 45%,var(--oroC) 70%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:brilla 4s linear infinite}
+@keyframes brilla{from{background-position:120% 0}to{background-position:-120% 0}}
+#count{position:fixed;right:14px;bottom:14px;font:12px var(--mono);color:#fff;background:rgba(18,51,43,.7);padding:6px 12px;border-radius:999px;pointer-events:none}
+@media (prefers-reduced-motion:reduce){.fl,.shimmer{animation:none}}
+</style>
+</head>
+<body>
+<div id="stage">
+  <span class="fl" style="left:1180px;top:60px;font-size:300px;--d:19s">ce qui</span>
+  <span class="fl" style="left:1420px;top:560px;font-size:230px;--d:23s">tellement</span>
+  <span class="fl" style="left:760px;top:40px;font-size:150px;--d:25s">goût</span>
+
+  <div class="lbl abs top slide-in">Français B2 · Unités 1 et 2</div>
+  <div class="abs" style="left:120px;top:150px;width:1700px">
+    <h1 class="slide-in d1">Révision <em class="shimmer">générale</em></h1>
+    <p class="sub slide-in d2">Tout le cycle, au même endroit — ce qu’on sait, ce qu’il faut consolider.</p>
+  </div>
+
+  <div class="cols">
+    <section class="card b" data-s="1" style="--c:var(--gram)">
+      <h2>Grammaire</h2><div class="k">ce qui tombe à l’évaluation</div>
+      <ul>
+        <li><b>ce qui</b> · <b>ce que</b> · <b>ce dont</b></li>
+        <li>le <b>double comparatif</b> · mieux ≠ meilleur</li>
+        <li><b>plutôt que</b> (de)</li>
+        <li><b>tellement</b> : intensité, quantité, conséquence</li>
+        <li><b>pourvu que</b> · <b>avoir hâte que</b> + subjonctif</li>
+      </ul>
+      <div class="ex">« Ce dont j’ai besoin, c’est de temps. »</div>
+    </section>
+    <section class="card b" data-s="2" style="--c:var(--lex)">
+      <h2>Lexique</h2><div class="k">les mots du cycle</div>
+      <ul>
+        <li>les expressions avec <b>goût</b> et avec <b>valoir</b></li>
+        <li>les <b>saveurs</b> et les <b>textures</b></li>
+        <li><b>décrire un style</b>, une tenue</li>
+        <li>les <b>bonnes</b> et les <b>mauvaises manières</b></li>
+        <li>les mots du <b>stéréotype</b> · <b>attendre un enfant</b></li>
+      </ul>
+      <div class="ex">« Ça se fait / ça ne se fait pas. »</div>
+    </section>
+    <section class="card b" data-s="3" style="--c:var(--sav)">
+      <h2>Savoir-faire</h2><div class="k">ce qu’on sait faire</div>
+      <ul>
+        <li><b>prendre des notes</b> (méthode DELF)</li>
+        <li><b>nuancer</b> un désaccord</li>
+        <li>distinguer un <b>fait</b> d’une <b>opinion</b></li>
+        <li><b>défendre</b> un point de vue</li>
+      </ul>
+      <div class="ex">« Pourvu qu’elle puisse y aller ! »</div>
+    </section>
+  </div>
+
+  <div class="plan b" data-s="4">
+    <span class="lbl" style="margin-right:12px">Ce soir</span>
+    <span class="it"><span class="n">1</span>Diagnostic</span>
+    <span class="it"><span class="n">2</span>Compréhension orale</span>
+    <span class="it"><span class="n">3</span>Production orale</span>
+    <span class="it"><span class="n">4</span>Vos questions</span>
+  </div>
+  <div class="foot">Vive el francés</div><div class="foot2">Révision globale</div>
+</div>
+<div id="count"></div>
+<script>
+const stage = document.getElementById('stage'), cnt = document.getElementById('count');
+const bs = [...document.querySelectorAll('.b')], MAX = Math.max(...bs.map(e => +e.dataset.s)); let step = 0;
+function render(){ bs.forEach(e => e.classList.toggle('on', step >= +e.dataset.s)); cnt.textContent = step + ' / ' + MAX; history.replaceState(null, '', step ? '#' + step : location.pathname); }
+function go(d){ step = Math.max(0, Math.min(MAX, step + d)); render(); }
+function escalar(){ stage.style.transform = `translate(-50%,-50%) scale(${Math.min(innerWidth / 1920, innerHeight / 1080)})`; }
+addEventListener('resize', escalar); escalar();
+addEventListener('keydown', e => { if (e.metaKey || e.ctrlKey || e.altKey) return; const k = e.key;
+  if (k === 'ArrowRight' || k === ' ' || k === 'PageDown' || k === 'ArrowDown'){ e.preventDefault(); go(1); }
+  else if (k === 'ArrowLeft' || k === 'PageUp' || k === 'ArrowUp'){ e.preventDefault(); go(-1); }
+  else if (k === 'Home'){ step = 0; render(); } else if (k === 'End'){ step = MAX; render(); }
+  else if (k === 'f' || k === 'F'){ document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); } });
+addEventListener('click', () => go(1));
+const h = /^#(\d+)$/.exec(location.hash); if (h) step = Math.min(MAX, +h[1]); render();
+</script>
+</body>
+</html>
