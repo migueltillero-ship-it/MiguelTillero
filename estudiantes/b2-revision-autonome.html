@@ -66,13 +66,13 @@ textarea{min-height:170px;resize:vertical;font-family:var(--display);font-size:2
 <div class="wrap">
   <div class="lbl">Français B2 · Unités 1 et 2 · Vive el francés</div>
   <h1>Révision <em>autonome</em></h1>
-  <p class="sub">Tu travailles seul(e), à ton rythme, avec des consignes claires. À la fin, tu envoies ton « bilan » : c’est la preuve de ton travail.</p>
+  <p class="sub">Tu travailles seul(e), à ton rythme, avec des consignes claires. À la fin, tu envoies tes résultats à la plateforme : ils comptent dans tes notes.</p>
 
-  <div class="clock"><span>Fin : <b>20 h 20</b> · <span id="resta">…</span></span><span class="bar"><i id="prog"></i></span><span id="pct">0 %</span></div>
+  <div class="clock"><span>Révision autonome · <span id="resta">…</span></span><span class="bar"><i id="prog"></i></span><span id="pct">0 %</span></div>
 
   <section class="step" id="s0">
     <h2><span class="n">0</span> Avant de commencer</h2>
-    <div class="how"><b>Importante / obligatorio.</b> Esta clase se hace de forma autónoma porque el profesor tiene un problema de conexión. Es una actividad evaluada: hay que hacer <b>todos los pasos</b>, en orden, y enviar el <b>bilan</b> al final. Tienes hasta las <b>20:20</b>.</div>
+    <div class="how"><b>Importante / obligatorio.</b> Esta clase se hace de forma autónoma porque el profesor tiene un problema de conexión. Es una actividad evaluada: hay que hacer <b>todos los pasos</b>, en orden, y <b>enviar tus resultados</b> al final: se guardan en la plataforma y cuentan en tus notas. Debes haber iniciado sesión.</div>
     <label class="lbl" for="nom">Ton nom et ton prénom</label>
     <p style="margin:6px 0"><input id="nom" placeholder="Ex. : Ana Pérez" style="width:100%;font:17px var(--sans);color:#fff;background:rgba(0,0,0,.25);border:1.5px solid rgba(255,255,255,.25);border-radius:12px;padding:10px 12px"></p>
     <ol class="plan">
@@ -80,7 +80,7 @@ textarea{min-height:170px;resize:vertical;font-family:var(--display);font-size:2
       <li><b>Paso 2 · Quiz</b> (15 min): 20 preguntas. Escribe tu respuesta, pulsa «Voir la réponse», lee la explicación y marca si acertaste.</li>
       <li><b>Paso 3 · Lecture éclair</b> (7 min): lees un texto 90 segundos y respondes sin mirarlo.</li>
       <li><b>Paso 4 · Production écrite</b> (8 min): escribes un texto corto con las estructuras del ciclo.</li>
-      <li><b>Paso 5 · Bilan</b>: copias o envías tu resultado por WhatsApp al profesor.</li>
+      <li><b>Paso 5 · Bilan</b>: pulsas «Envoyer mes résultats» y se guardan en la plataforma.</li>
     </ol>
   </section>
 
@@ -151,14 +151,17 @@ textarea{min-height:170px;resize:vertical;font-family:var(--display);font-size:2
 
   <section class="step" id="s5">
     <h2><span class="n">5</span> Bilan</h2>
-    <div class="how"><b>Qué hacer:</b> cuando todos los pasos estén ✓, se activa el botón. Pulsa <b>Envoyer par WhatsApp</b> (abre WhatsApp con tu bilan ya escrito; elige al profesor) o <b>Copier</b> y pégalo en el grupo. <b>Hazlo antes de las 20:20.</b></div>
+    <div class="how"><b>Qué hacer:</b> cuando todos los pasos estén ✓, se activa el botón <b>Envoyer mes résultats</b>: tu trabajo se guarda en la plataforma y tu profesor lo ve. Puedes volver a enviarlo si lo mejoras. WhatsApp es solo un respaldo opcional.</div>
     <ul class="check" id="check"></ul>
     <div class="sc" id="score">0</div>
     <div class="bilan hide" id="bilan"></div>
-    <p style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn big" id="wa" style="text-decoration:none;opacity:.4;pointer-events:none" target="_blank" rel="noopener">Envoyer par WhatsApp</a><button class="btn" id="copiar" disabled>Copier mon bilan</button></p>
+    <p style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn big" id="enviar" disabled>Envoyer mes résultats</button><a class="btn" id="wa" style="text-decoration:none;opacity:.4;pointer-events:none" target="_blank" rel="noopener">Respaldo: WhatsApp</a><button class="btn" id="copiar" disabled>Copier mon bilan</button></p>
     <p class="sub" id="msg" style="margin-top:8px"></p>
   </section>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../assets/js/supabase-config.js?v=1790500000"></script>
+<script src="../assets/js/exigir-sesion.js?v=1"></script>
 <script>
 const bl='<span class="bl"></span>';
 const Q=[
@@ -231,11 +234,19 @@ function upd(){const c=calc(),rap=S.rap.every(x=>x),lect=S.lect,w=(S.w||0)>=40&&
   const hora=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
   const txt=`BILAN · Révision autonome B2\nÉlève : ${S.nom}\nHeure : ${hora}\nRappel : ${S.rap.every(x=>x)?'fait':'incomplet'}\nQuiz : ${c.resp}/${c.n} questions · score ${c.pts} pts (sur ${c.tot} en quiz ; le boss ajoute des points)\nLecture éclair : ${S.lect?'faite':'non faite'}\nProduction écrite (${S.tema==='plat'?'plat préféré':'téléphone'}) · ${S.w||0} mots · ${S.o||0} structure(s) :\n${S.texto||''}`;
   const b=$('bilan');b.textContent=ok?txt:'';b.classList.toggle('hide',!ok);
-  const wa=$('wa');wa.href=ok?'https://wa.me/?text='+encodeURIComponent(txt):'#';wa.style.opacity=ok?1:.4;wa.style.pointerEvents=ok?'auto':'none';$('copiar').disabled=!ok;$('copiar').dataset.t=txt;
-  $('msg').textContent=ok?'Prêt ! Envoie ton bilan avant 20 h 20 : c’est ce qui prouve que tu as fait le travail.':'Termine les étapes marquées ○ pour activer l’envoi.'}
+  const wa=$('wa');wa.href=ok?'https://wa.me/?text='+encodeURIComponent(txt):'#';wa.style.opacity=ok?1:.4;wa.style.pointerEvents=ok?'auto':'none';$('copiar').disabled=!ok;$('enviar').disabled=!ok;$('copiar').dataset.t=txt;
+  if(!S.enviado)$('msg').textContent=ok?'Prêt ! Pulsa « Envoyer mes résultats » : así quedan guardados en la plataforma.':'Termine les étapes marquées ○ pour activer l’envoi.'}
 $('copiar').onclick=async()=>{try{await navigator.clipboard.writeText($('copiar').dataset.t);$('msg').textContent='Copié ! Colle-le dans le groupe WhatsApp.'}catch(e){const r=document.createRange();r.selectNodeContents($('bilan'));getSelection().removeAllRanges();getSelection().addRange(r);$('msg').textContent='Sélectionné : copie-le à la main.'}};
-/* reloj hasta las 20:20 */
-function reloj(){const n=new Date(),f=new Date(n);f.setHours(20,20,0,0);const m=Math.round((f-n)/60000);$('resta').textContent=m>0?`il reste ${m} min`:'20 h 20 passée : envoie ton bilan maintenant';}
+/* envío a la plataforma (tabla revision_autonoma_envios + nota sugerida en `notas`) */
+$('enviar').onclick=async()=>{const sb=window.supabaseClient;if(!sb){$('msg').textContent='No se pudo conectar con la plataforma. Usa el respaldo de WhatsApp.';return}
+  const b=$('enviar');b.disabled=true;$('msg').textContent='Envoi en cours…';
+  const c=calc();const quizPts=Q.reduce((a,q)=>a+(S.res[q.id]==='ok'?q.p:0),0),bossPts=B.reduce((a,q)=>a+(S.res[q.id]==='ok'?q.p:0),0);
+  const {error}=await sb.rpc('enviar_revision_autonoma',{p_datos:{nombre:S.nom,rappel:S.rap.every(x=>x),lectura:S.lect,quiz_resp:c.resp,quiz_pts:quizPts,boss_pts:bossPts,palabras:S.w||0,estructuras:S.o||0,tema:S.tema,texto:S.texto||'',respuestas:S.res}});
+  if(error){b.disabled=false;$('msg').textContent='No se pudo guardar: '+error.message+' · Usa el respaldo de WhatsApp o inténtalo de nuevo.';return}
+  S.enviado=new Date().toISOString();save();b.disabled=false;b.textContent='Renvoyer (si tu as amélioré)';$('msg').textContent='✓ Résultats enregistrés dans la plateforme. ¡Gracias! Tu profesor los verá y te dará tu nota.'};
+if(S.enviado){$('enviar').textContent='Renvoyer (si tu as amélioré)';$('msg').textContent='✓ Ya enviaste tus resultados. Puedes reenviarlos si los mejoras.'}
+/* reloj */
+function reloj(){$('resta').textContent='à ton rythme';}
 reloj();setInterval(reloj,20000);upd();
 </script>
 </body>
