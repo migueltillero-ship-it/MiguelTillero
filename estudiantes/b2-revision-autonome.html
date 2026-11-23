@@ -120,6 +120,9 @@ h2 em{font-style:italic;color:var(--c)}
 .conf{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:9}
 .conf i{position:absolute;top:-20px;width:9px;height:14px;background:var(--oroC);border-radius:2px;animation:cae var(--t,3s) linear forwards}
 @keyframes cae{to{transform:translateY(110vh) rotate(540deg);opacity:.2}}
+.sub{font-family:var(--display);font-weight:600;font-size:clamp(26px,4vw,34px);color:var(--oroC);margin:26px 0 8px}
+.plan{margin:6px 0 0 20px;display:grid;gap:8px;color:#e9f1ec}.plan li{font-size:15.5px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
 /* barra de acción */
 #acc{position:fixed;left:0;right:0;bottom:0;z-index:5;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(transparent,#0b2018 45%);}
 #acc .in2{max-width:860px;margin:0 auto;display:flex;gap:10px;align-items:center}
@@ -216,6 +219,22 @@ const QUIZ_TOT=QUIZ_IDS.reduce((a,i)=>a+QBY[i].p,0), BOSS_TOT=BOSS_IDS.reduce((a
 const LECTURA=`Vous croyez que les Français passent leur vie à table ? Ce n’est pas tout à fait faux : le repas gastronomique des Français est inscrit au patrimoine de l’UNESCO depuis 2010. Mais, au quotidien, beaucoup de gens mangent vite, <b>plutôt que</b> de passer des heures autour d’une grande table. <b>Ce qui</b> reste important, c’est le partage : chez eux, ça ne se fait pas de commencer à manger avant les autres. <b>Pourvu que</b> la conversation soit bonne, personne ne regarde sa montre !`;
 const LQ=[['Quel est le <i>stéréotype</i> dont parle le texte ?','Les Français passent leur vie à table.'],['Quel <i>fait</i> (avec une date) est cité ?','Le repas gastronomique inscrit à l’UNESCO en 2010.'],['Qu’est-ce qui <i>ne se fait pas</i> à table ?','Commencer à manger avant les autres.'],['Que veut dire « personne ne regarde sa montre » ?','On ne s’ennuie pas : on prend son temps.']];
 const TEMAS={plat:'A · Parle de ton plat préféré : saveur, texture, pourquoi tu l’aimes.',tel:'B · « Les jeunes passent tout leur temps sur leur téléphone. » Nuance et donne un exemple.'};
+/* Cada pregunta remite a un concepto del rappel: así el balance dice QUÉ revisar, no solo cuánto falló. */
+const CONC={
+ cqd:{n:'ce qui · ce que · ce dont',r:['g',0],tip:'Escribe tres frases sobre ti, una con cada forma: « Ce qui me plaît… », « Ce que j’aime… », « Ce dont j’ai besoin… ».',q:['e1','e2','q1','q2','b1','b2']},
+ mm:{n:'mieux ≠ meilleur',r:['g',1],tip:'Antes de escribir, pregúntate: ¿es un nombre (meilleur) o un verbo (mieux)? Practica con « Il cuisine… / C’est un … plat ».',q:['e3','q3','b3']},
+ dc:{n:'Le double comparatif',r:['g',2],tip:'Inventa dos frases con « Plus… plus… » sobre tus hábitos (estudio, comida, deporte).',q:['q4']},
+ pq:{n:'plutôt que (de)',r:['g',3],tip:'Cuenta tres elecciones de tu día con « plutôt que de + infinitif ».',q:['e5','q5','b4']},
+ tel:{n:'tellement',r:['g',4],tip:'Escribe una frase de consecuencia: « Il y avait tellement de… que… ».',q:['q6']},
+ sub:{n:'Le subjonctif (pourvu que · avoir hâte que)',r:['g',5],tip:'Escribe tres deseos con « Pourvu que… » y comprueba cada verbo en subjuntivo.',q:['e4','q7','b5']},
+ gv:{n:'goût · valoir',r:['l',0],tip:'Aprende de memoria « des goûts et des couleurs… » y « mieux vaut… que… » y úsalas en una frase tuya.',q:['q8','q9','b6']},
+ st:{n:'Saveurs et textures',r:['l',1],tip:'Describe en voz alta tu comida favorita con tres palabras de sabor o textura.',q:['q10','b7']},
+ sty:{n:'Décrire un style',r:['l',2],tip:'Describe la ropa de alguien que conoces con tres adjetivos (chic, soigné, décontracté…).',q:['q11']},
+ man:{n:'Les manières',r:['l',3],tip:'Haz una lista de tres cosas que « ça se fait » y tres que « ça ne se fait pas » en tu cultura.',q:['q12','b8']},
+ fo:{n:'Fait ou opinion ?',r:['s',2],tip:'Lee una noticia corta y subraya un hecho (verificable) y una opinión (juicio).',q:['q13']},
+ nu:{n:'Nuancer un désaccord',r:['s',1],tip:'Practica tres fórmulas: « Je ne suis pas tout à fait d’accord, mais… », « Certes… cependant… ».',q:['q14']},
+ not:{n:'Prendre des notes',r:['s',0],tip:'En tu próxima lectura, anota solo palabras clave y cifras, sin frases completas.',q:['q15']}
+};
 const ETAPAS=['Rappel','Quiz','Lecture','Écriture','Bilan'];
 
 /* ───────── Estado (se guarda por usuario: si se cierra, se retoma) ───────── */
@@ -347,6 +366,10 @@ function render(){
     const porT=t=>{const ids=QUIZ_IDS.filter(i=>QBY[i].th===t||(t==='g'&&QBY[i].th==='x'));const ok=ids.filter(i=>resultado(i)==='ok').length;return[ok,ids.length]};
     const ths=['g','l','s'].map(t=>[t,...porT(t)]);
     const flojos=ths.filter(x=>x[2]&&x[1]/x[2]<.7);
+    const conceptos=Object.entries(CONC).map(([k,c])=>{const ids=c.q.filter(i=>S.res[i]);const mal=ids.filter(i=>resultado(i)==='ko');return {k,c,ids,mal}}).filter(x=>x.ids.length);
+    const dom_c=conceptos.filter(x=>!x.mal.length), rev_c=conceptos.filter(x=>x.mal.length).sort((a,b)=>b.mal.length-a.mal.length);
+    const usadas=['ce qui','ce que','ce dont','plutôt que','pourvu que','tellement'].filter(o=>S.texto.toLowerCase().includes(o));
+    const faltan=['ce qui','ce que','ce dont','plutôt que','pourvu que','tellement'].filter(o=>!usadas.includes(o));
     const w=(S.texto.trim().match(/\S+/g)||[]).length;
     const R=2*Math.PI*66;
     el.innerHTML=`<div class="in"><div class="lbl">Étape 5 · Ton bilan</div><h2>Voilà <em class="shimmer">où tu en es</em></h2>
@@ -354,14 +377,26 @@ function render(){
       <div class="barras">${ths.map(x=>`<div style="--c:${C[x[0]]}">${TH[x[0]]} · ${x[1]}/${x[2]} au premier essai<div class="tr"><i data-w="${x[2]?Math.round(100*x[1]/x[2]):0}"></i></div></div>`).join('')}</div></div>
      <ul class="sig"><li>Premier essai : <b>${qp}/${QUIZ_TOT} points</b> · maîtrise après rattrapage : <b>${dom}/${QUIZ_IDS.length}</b>.</li>
       <li>Texte écrit : <b>${w} mots</b>${S.bonus?` · bonus : <b>${bp}/${BOSS_TOT}</b>`:''}.</li>
-      <li>${flojos.length?'<b>Où aller ensuite :</b> repasa '+flojos.map(x=>TH[x[0]]).join(' y ')+'. Vuelve a las tarjetas del rappel o pregúntame en clase.':'<b>Où aller ensuite :</b> ¡buen dominio! Sigue practicando en tu espacio de ejercicios.'}</li></ul>
-     <div class="nota" id="msgb">Pulsa <b>Envoyer mes résultats</b> para guardarlos en la plataforma. Puedes volver a enviarlos si mejoras algo.</div></div>`;
+      </ul>
+     <h3 class="sub">Ce que tu maîtrises</h3>
+     ${dom_c.length?`<div class="chips">${dom_c.map(x=>`<span class="chip on">${x.c.n}</span>`).join('')}</div>`:'<p class="lead" style="font-size:15px">Todavía no hay un tema que hayas acertado por completo al primer intento: es normal, y por eso hay un plan abajo.</p>'}
+     <h3 class="sub">À revoir en priorité</h3>
+     ${rev_c.length?rev_c.slice(0,4).map(x=>{const R=RAPPEL[x.c.r[0]].reglas[x.c.r[1]];return `<div class="regla" style="--c:${C[RAPPEL[x.c.r[0]].c]}"><h3>${x.c.n}</h3><p>${R[1]}</p>${R[2]?`<div class="ex">${R[2]}</div>`:''}<p style="margin-top:8px"><b style="color:var(--oroC)">Cómo entrenarlo:</b> ${x.c.tip}</p></div>`}).join(''):'<div class="nota"><b>Nada urgente.</b> Acertaste todo al primer intento. Pasa a usar estas estructuras al hablar y escribir.</div>'}
+     <h3 class="sub">Ton texte</h3>
+     <p class="lead" style="font-size:15.5px">Usaste <b>${usadas.length}</b> de las 6 estructuras${usadas.length?' ('+usadas.join(', ')+')':''}.${faltan.length?' En tu próximo texto, prueba también <b>'+faltan.slice(0,2).join('</b> y <b>')+'</b>.':' ¡Las usaste todas!'}</p>
+     <h3 class="sub">Ton plan pour cette semaine</h3>
+     <ol class="plan">
+      <li>${rev_c.length?'Relee la regla de <b>'+rev_c[0].c.n+'</b> y haz el ejercicio de entrenamiento de arriba.':'Elige una estructura del ciclo y úsala en tres frases tuyas.'}</li>
+      <li>Haz las fichas del <a href="espace-b2-exercices.html" style="color:var(--oroC)">espacio de ejercicios B2</a>: son 10 minutos y cuentan para tu avance.</li>
+      <li>Antes de la próxima clase, prepara <b>una pregunta</b> sobre lo que más te costó: la resolvemos juntos.</li>
+     </ol>
+     <div class="nota" id="msgb">Más abajo tienes tu balance y lo que te recomiendo revisar. Cuando termines de leerlo, pulsa <b>Envoyer mes résultats</b> para guardarlo en la plataforma; puedes reenviarlo si mejoras algo.</div></div>`;
     nxt=S.enviado?'Renvoyer mes résultats':'Envoyer mes résultats';ctx.bilan=1;break}
    case 'fin':{
     el.innerHTML=`<div class="in"><div class="lbl">Terminé</div><h1>Merci${nombre?', <em class="shimmer">'+esc(nombre.split(' ')[0])+'</em>':''} !</h1>
       <p class="lead">Tu trabajo est <b>enregistré dans la plateforme</b>. Lo veré, leeré tu texto y completaré tu nota.</p>
       <p class="msgprof">« Beau travail. On se retrouve en classe pour continuer ensemble. »</p><p class="lbl">— Miguel</p></div>`;
-    nxt='Revoir mon bilan';ctx.fin=1;break}
+    nxt='Revoir mon bilan et mes recommandations';ctx.fin=1;break}
   }
   $('stage').innerHTML='';$('stage').appendChild(el);el.scrollTop=0;
   $('next').textContent=nxt;$('next').disabled=dis;$('back').style.visibility=back?'visible':'hidden';$('hint').textContent=hint;
@@ -438,7 +473,7 @@ async function enviar(){
   const b=$('next');b.disabled=true;$('msgb').textContent='Envoi en cours…';
   const w=(S.texto.trim().match(/\S+/g)||[]).length,low=S.texto.toLowerCase();
   const est=['ce qui','ce que','ce dont','plutôt que','pourvu que','tellement'].filter(o=>low.includes(o)).length;
-  const respuestas={};Object.keys(S.res).forEach(k=>respuestas[k]=S.res[k].f);respuestas._maitrise=dominados();respuestas._rattrapage=Object.keys(S.retry).filter(k=>S.retry[k]==='ok').length;
+  const respuestas={};Object.keys(S.res).forEach(k=>respuestas[k]=S.res[k].f);respuestas._maitrise=dominados();respuestas._revoir=Object.entries(CONC).filter(([k,c])=>c.q.some(i=>resultado(i)==='ko')).map(([k])=>k);respuestas._rattrapage=Object.keys(S.retry).filter(k=>S.retry[k]==='ok').length;
   const {error}=await sb.rpc('enviar_revision_autonoma',{p_datos:{nombre,rappel:S.rap.every(x=>x),lectura:!!S.lectOk&&S.lect.every(x=>x),quiz_resp:QUIZ_IDS.filter(i=>S.res[i]).length,quiz_pts:ptsPrimero(QUIZ_IDS),boss_pts:ptsPrimero(BOSS_IDS),palabras:w,estructuras:est,tema:S.tema,texto:S.texto,respuestas}});
   if(error){b.disabled=false;$('msgb').innerHTML='No se pudo guardar: '+esc(error.message)+'. Inténtalo de nuevo.';return}
   S.enviado=new Date().toISOString();save();S.idx++;render();
