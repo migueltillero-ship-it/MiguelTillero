@@ -25,24 +25,17 @@ const { chromium } = require('/opt/node-tools/node_modules/playwright');
   console.log('3. MT_SYNC existe:',
     await pagina.evaluate(() => typeof window.MT_SYNC === 'function') ? '✓' : '✗');
 
-  const aviso = await pagina.locator('#vue-hub .note').first().textContent().catch(() => '');
-  console.log('4. Sin cuenta, sale el aviso para entrar:',
-    /entra con tu cuenta/i.test(aviso) ? '✓ «' + aviso.trim().slice(0, 52) + '…»'
-                                       : '✗ (' + aviso.slice(0, 40) + ')');
-  console.log('5. El enlace al login apunta bien:',
-    await pagina.locator('#vue-hub .note a').first().getAttribute('href') === '../login.html'
-      ? '✓' : '✗');
-
-  const fichas = await pagina.locator('#grille-fiches .carte').count();
-  console.log('6. Las fichas siguen ahí:', fichas, fichas === 7 ? '✓' : '✗ (esperaba 7)');
-
-  /* Lo importante: sin sesión no se intenta escribir nada. Si esto fallara,
-     cada ejercicio de cada visitante anónimo sería una petición rechazada. */
-  await pagina.locator('#grille-fiches .carte').first().click();
-  await pagina.waitForTimeout(300);
-  await pagina.locator('#ex-0 .jeton').first().click();
-  await pagina.locator('#ex-0 button:has-text("Corriger")').click();
-  await pagina.waitForTimeout(800);
+  /* Sin sesión, la página pone una cortina que no se cierra (exigir-sesion.js): hay que iniciar sesión
+     ahí mismo, y mientras tanto no se puede tocar nada ni se escribe nada en la base. */
+  const cortina = await pagina.locator('#mt-cortina-sesion').count();
+  console.log('4. Sin cuenta, sale la cortina para iniciar sesión:', cortina === 1 ? '✓' : '✗');
+  console.log('5. La cortina trae su formulario de entrada:',
+    await pagina.locator('#mt-c-email').count() && await pagina.locator('#mt-c-pass').count() ? '✓' : '✗');
+  console.log('6. La cortina cubre la pantalla entera (no se puede pulsar lo de debajo):',
+    await pagina.evaluate(() => { const c = document.getElementById('mt-cortina-sesion'); if(!c) return false;
+      const r = c.getBoundingClientRect();
+      const el = document.elementFromPoint(innerWidth/2, innerHeight/2);
+      return r.width >= innerWidth - 1 && r.height >= innerHeight - 1 && !!(el && el.closest('#mt-cortina-sesion')); }) ? '✓' : '✗');
   console.log('7. Sin cuenta no escribe en la base:',
     escrituras.length === 0 ? '✓' : '✗ (' + escrituras.join(', ') + ')');
 

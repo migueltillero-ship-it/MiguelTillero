@@ -424,3 +424,23 @@ header h1{font-weight:300;letter-spacing:.01em}
 .barre-globale i{background:linear-gradient(90deg,var(--or),var(--bleu))}
 .medaille{border-radius:999px;letter-spacing:.1em}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+
+/* ═══ Balance de la ficha ═══════════════════════════════════════════════
+   Aparece bajo el sello cuando todos los ejercicios están hechos: lo que se domina,
+   lo que hay que revisar (con la regla y cómo entrenarlo) y el siguiente paso. */
+.balance{display:none;margin:0 0 1.6rem;border:1.5px solid var(--or);border-radius:14px;padding:1.3rem 1.4rem;background:var(--fond-doux)}
+.balance.visible{display:block;animation:balEntra .6s cubic-bezier(.2,.85,.2,1) both}
+@keyframes balEntra{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.bal-titre{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.9rem;font-weight:600;line-height:1.05}
+.bal-resume{display:flex;align-items:center;gap:1rem;margin:.6rem 0 .2rem;flex-wrap:wrap;font-size:.98rem}
+.bal-pct{font-family:'Cormorant Garamond',Georgia,serif;font-size:2.6rem;line-height:1;color:var(--or);font-variant-numeric:lining-nums}
+.bal-sec{font-family:'Space Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--or);margin:1.3rem 0 .5rem}
+.bal-chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.bal-chip{font-size:.86rem;border:1.5px solid var(--sauge);background:rgba(85,122,100,.14);border-radius:999px;padding:.2rem .8rem}
+.bal-p{font-size:.95rem;line-height:1.6;margin:.4rem 0}
+.bal-card{border:1.5px solid rgba(165,130,74,.45);border-radius:12px;padding:.9rem 1.1rem;margin:.7rem 0;background:rgba(165,130,74,.08)}
+.bal-card-t{font-weight:700;display:flex;justify-content:space-between;gap:1rem}
+.bal-card-t span{font-family:'Space Mono',ui-monospace,monospace;color:var(--or)}
+.bal-fallos{margin:.5rem 0 .2rem 1.1rem;font-size:.9rem;line-height:1.55}
+.bal-plan{margin:.2rem 0 0 1.2rem;font-size:.95rem;line-height:1.7}

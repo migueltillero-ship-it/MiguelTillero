@@ -9,6 +9,10 @@ const { chromium } = require('/opt/node-tools/node_modules/playwright');
   await p.addInitScript(() => { window.YT = { Player: function(id, cfg){
     this.seekTo=()=>{}; this.playVideo=()=>{}; setTimeout(()=>cfg.events.onReady(),10); }};});
 
+  /* Las páginas de actividades exigen sesión (cortina). Aquí se simula una sesión para probar el motor. */
+  await p.route('**/supabase-config.js*', r => r.fulfill({ contentType: 'application/javascript', body:
+    "window.supabaseConfigurado=true;window.supabaseClient={auth:{getSession:async()=>({data:{session:{user:{id:'u'}}}})},from:()=>({upsert:async()=>({error:null})}),rpc:async()=>({data:[],error:null})};" }));
+  await p.route('**/@supabase/**', r => r.fulfill({ contentType: 'application/javascript', body: '' }));
   await p.goto('file:///home/user/MiguelTillero/estudiantes/espace-b2-exercices.html#savoir-vivre');
   await p.waitForTimeout(500);
 

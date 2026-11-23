@@ -364,6 +364,7 @@ function abrirFicha(id){
     </div>`;
   });
   html += `<div class="sello" id="sello"></div>
+    <div class="balance" id="balance"></div>
     <div class="nav-fiches">
       <button class="btn doux" onclick="irAlHub()">← Toutes les séances</button>
       ${siguienteFicha(f) ? `<button class="btn" onclick="abrirFicha('${siguienteFicha(f).id}')">Séance suivante →</button>` : ''}
@@ -418,6 +419,113 @@ function pintarSello(){
     caja.innerHTML = `<b>${bien}/${total} (${pct}&#8239;%).</b> Il te manque peu de chose&#8239;:
       reprends les exercices en rouge avec le bouton «&#8239;Recommencer&#8239;». La fiche se valide à 80&#8239;%.`;
   }
+  pintarBalance(pendientes);
+}
+
+/* ═══ BALANCE DE LA FICHA ═════════════════════════════════════════════
+   El sello dice SI la ficha está validada; el balance dice QUÉ pasó y QUÉ
+   hacer: lo que ya se domina, lo que conviene revisar (con las respuestas
+   que fallaron, la regla donde está la explicación y un modo concreto de
+   entrenarlo) y el siguiente paso. Aparece cuando todos los ejercicios están
+   hechos. Se apoya en la retroalimentación de proceso (qué reglas, qué
+   estrategia) y no en elogios o reproches a la persona. */
+const ENTRENAR = {
+  qcm:     ['Relis la règle, puis explique à voix haute pourquoi la bonne réponse est juste.', 'Vuelve a la regla y explica en voz alta por qué la respuesta correcta lo es.'],
+  trous:   ['Réécris chaque phrase en entier, à voix haute, avec le mot correct.', 'Reescribe cada frase completa, en voz alta, con la palabra correcta.'],
+  tri:     ['Refais le classement sans regarder la règle, puis vérifie.', 'Repite la clasificación sin mirar la regla y luego comprueba.'],
+  paires:  ['Fais-toi des petites cartes (mot d’un côté, sens de l’autre) et répète-les.', 'Haz tarjetas pequeñas (palabra por un lado, significado por el otro) y repásalas.'],
+  dictee:  ['Écoute la phrase trois fois, écris, puis compare lettre par lettre.', 'Escucha la frase tres veces, escribe y compara letra por letra.'],
+  defi:    ['Refais le défi : la vitesse vient avec la répétition.', 'Repite el desafío: la rapidez llega con la repetición.'],
+  dialogue:['Rejoue le dialogue à voix haute, en changeant de rôle.', 'Repite el diálogo en voz alta, cambiando de papel.'],
+  points:  ['Refais l’exercice en lisant la consigne lentement.', 'Repite el ejercicio leyendo la consigna despacio.'],
+  ordre:   ['Lis la suite à voix haute pour sentir l’ordre logique.', 'Lee la secuencia en voz alta para sentir el orden lógico.']
+};
+function seccionDe(f, i){
+  const secs = f.secciones || [];
+  for(let k = 0; k < secs.length; k++) if((secs[k].ejercicios || []).indexOf(i) >= 0) return k;
+  return -1;
+}
+function sinHtml(t){ const d = document.createElement('div'); d.innerHTML = t || ''; return (d.textContent || '').replace(/\s+/g, ' ').trim(); }
+
+/* Qué fue lo que falló, para decirlo con precisión. Se calcula justo después
+   de corregir, mirando lo que el motor acaba de marcar en pantalla. */
+function fallosDe(e, i){
+  const out = [];
+  try {
+    if(e.t === 'qcm'){
+      e.q.forEach((q, qi) => { if(estado[i].elegido[qi] !== q.r) out.push((qi+1) + ') ' + sinHtml(q.enonce) + '  →  ' + sinHtml(q.o[q.r])); });
+    } else if(e.t === 'trous'){
+      e.q.forEach((q, qi) => {
+        const c = document.querySelector(`#cuerpo-${i} .trou[data-q="${qi}"]`);
+        if(c && c.classList.contains('faux')) out.push((qi+1) + ') ' + sinHtml(q.p || q.enonce || q.frase || '') + '  →  ' + (Array.isArray(q.r) ? q.r[0] : q.r));
+      });
+    } else if(e.t === 'tri'){
+      e.items.forEach((it, k) => { const b = document.querySelector(`#ex-${i} .jeton[data-it="${k}"]`); if(b && b.classList.contains('faux')) out.push(sinHtml(it[0]) + '  →  ' + e.cols[it[1]]); });
+    } else if(e.t === 'paires'){
+      e.pairs.forEach((p, k) => { const b = document.querySelector(`#ex-${i} .jeton[data-lado="g"][data-k="${k}"]`); if(b && b.classList.contains('faux')) out.push(sinHtml(p[0]) + '  →  ' + sinHtml(p[1])); });
+    } else if(e.t === 'dictee'){
+      e.q.forEach((q, qi) => { const c = document.querySelector(`#cuerpo-${i} .trou[data-q="${qi}"]`); if(c && c.classList.contains('faux')) out.push((qi+1) + ') ' + q.texte); });
+    }
+  } catch(err){ /* si algo no cuadra, el balance sigue sin el detalle */ }
+  return out.slice(0, 4);
+}
+
+function irARegla(i){
+  const k = seccionDe(fichaActual, i);
+  const el = document.getElementById(k >= 0 ? 'sec-' + k : 'ex-' + i);
+  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+function rehacerDesdeBalance(i){
+  rehacer(i);
+  const el = document.getElementById('ex-' + i);
+  if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function pintarBalance(pendientes){
+  const caja = document.getElementById('balance');
+  if(!caja || !fichaActual) return;
+  if(pendientes){ caja.innerHTML = ''; caja.classList.remove('visible'); return; }
+  const f = fichaActual, h = avance[f.id] || {};
+  let bien = 0, total = 0;
+  const dom = [], rev = [];
+  f.ejercicios.forEach((e, i) => {
+    const r = h[i]; if(!r || typeof r.t !== 'number') return;
+    bien += r.b; total += r.t;
+    const ficha = {i, e, r, pct: r.t ? r.b / r.t : 1};
+    (ficha.pct >= 0.8 ? dom : rev).push(ficha);
+  });
+  if(!total){ caja.innerHTML = ''; return; }
+  const pct = Math.round(bien * 100 / total), val = pct >= 80;
+  const nom = x => 'Exercice ' + (x.i + 1) + (x.e.etiqueta ? ' · ' + esc(x.e.etiqueta) : '');
+  const sig = siguienteFicha(f);
+  let html = `<div class="bal-titre">Bilan de la fiche</div>
+    <div class="bal-resume"><span class="bal-pct">${pct}&#8239;%</span>
+      <span>${bien}/${total} réponses justes · ${val ? 'fiche validée' : 'encore un effort : la fiche se valide à 80&#8239;%'}</span></div>`;
+  html += `<div class="bal-sec">Ce que tu maîtrises</div>`;
+  html += dom.length ? `<div class="bal-chips">${dom.map(x => `<span class="bal-chip">${nom(x)}</span>`).join('')}</div>`
+                     : `<p class="bal-p">Aucun exercice n’est encore à 80&#8239;% : c’est normal, le plan ci-dessous est fait pour ça.</p>`;
+  html += `<div class="bal-sec">À revoir en priorité</div>`;
+  if(!rev.length){
+    html += `<p class="bal-p"><b>Rien d’urgent.</b> Tous les exercices sont au-dessus de 80&#8239;%. Utilise ce que tu viens de voir à l’oral et à l’écrit.</p>`;
+  } else {
+    rev.sort((a, b) => a.pct - b.pct).forEach(x => {
+      const k = seccionDe(f, x.i), sec = k >= 0 ? f.secciones[k].titulo : '';
+      const tip = ENTRENAR[x.e.t] || ENTRENAR.qcm, fa = (h['f' + x.i] || []);
+      html += `<div class="bal-card">
+        <div class="bal-card-t">${nom(x)} <span>${x.r.b}/${x.r.t}</span></div>
+        ${fa.length ? `<ul class="bal-fallos">${fa.map(t => `<li>${esc(t)}</li>`).join('')}</ul>` : ''}
+        ${sec ? `<p class="bal-p"><b>Où est l’explication :</b> «&#8239;${esc(sec)}&#8239;» (relis l’encadré de la règle).</p>` : ''}
+        <p class="bal-p"><b>Comment t’entraîner :</b> ${tip[0]}<br><i>${tip[1]}</i></p>
+        <div class="actions"><button class="btn doux" onclick="irARegla(${x.i})">Relire la règle</button>
+          <button class="btn" onclick="rehacerDesdeBalance(${x.i})">Refaire cet exercice</button></div></div>`;
+    });
+  }
+  html += `<div class="bal-sec">Où aller ensuite</div><ol class="bal-plan">
+    <li>${rev.length ? 'Reprends d’abord <b>' + nom(rev[0]) + '</b> (relire la règle, puis le refaire).' : 'Relis une dernière fois la fiche avant l’évaluation.'}</li>
+    <li>${val ? (sig ? 'Passe à la <b>séance suivante</b> : tu es prêt(e).' : 'Tu as terminé les fiches du cycle : révise-les avant l’évaluation.') : 'Quand les exercices en rouge sont refaits, la fiche se valide.'}</li>
+    <li>Prépare <b>une question</b> sur ce qui t’a le plus coûté : on la résout ensemble en classe.</li></ol>`;
+  caja.innerHTML = html;
+  caja.classList.add('visible');
 }
 
 function siguienteFicha(f){
@@ -961,6 +1069,7 @@ function corregir(i){
   if(!CORREGIR[e.t]) return;
   const [bien, total] = CORREGIR[e.t](e, i);
   anotar(i, bien, total);
+  avance[fichaActual.id]['f' + i] = fallosDe(e, i); guardarAvance();
   const aide = document.getElementById('aide-'+i);
   if(aide) aide.classList.add('vue');
   const modele = document.getElementById('modele-'+i);
@@ -986,7 +1095,7 @@ function mostrarVerdicto(i, bien, total, texto){
     : pct >= 0.5 ? ['Pas mal, mais il faut repasser la règle au-dessus.']
     : ['À reprendre tranquillement. Relis l’encadré et recommence : '
       + 'no pasa nada, para eso está.'];
-  v.innerHTML = `<b>${bien}/${total}.</b> ${juicios[0]}`;
+  v.innerHTML = `<b>${bien}/${total}.</b> ${juicios[0]}` + (pct < 0.8 ? ` <button class="btn doux" style="margin-left:.4rem" onclick="irARegla(${i})">Relire la règle</button>` : '');
   document.getElementById('ex-'+i).classList.add('resolu');
 }
 
