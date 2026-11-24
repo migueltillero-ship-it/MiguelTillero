@@ -303,7 +303,7 @@ DECK.push({ theme: 'light', trans: 'slide', label: 'Définition',
 /* 3 · Deux états */
 DECK.push({ theme: 'dark', trans: 'circle', label: 'Deux états',
   notes: 'Minutos 4 a 6. Un verbo puede estar en dos estados: infinitivo (sin sujeto, el nombre del verbo) y conjugado (con sujeto, cambia de forma).',
-  html: `${chrome('Deux états', 'Infinitif · Conjugué')}
+  html: `<div class="abs" style="left:0;top:0;width:1920px;height:1080px;background:url(img/verbes-etats.svg) center/cover"></div>${chrome('Deux états', 'Infinitif · Conjugué')}
    <h2 class="h2 a-up" style="position:absolute;left:120px;top:150px;width:1680px">Un verbe peut être dans <em>deux états</em></h2>
    <div class="abs b vcard" data-s="1" data-fx="left" style="left:120px;top:430px;width:810px;height:430px;padding:50px 56px"><div class="lbl" style="color:var(--oro-claro)">État 1</div><div class="vw" style="font-size:130px;margin:14px 0 14px;color:#8cc4f5">INFINITIF</div><p class="p">Le verbe <b>à l’état naturel</b>, sans personne. C’est son nom : <i>parler, chanter</i>.</p></div>
    <div class="abs b vcard" data-s="2" data-fx="right" style="left:990px;top:430px;width:810px;height:430px;padding:50px 56px"><div class="lbl" style="color:var(--oro-claro)">État 2</div><div class="vw" style="font-size:130px;margin:14px 0 14px;color:#ffd166">CONJUGUÉ</div><p class="p">Le verbe <b>avec une personne</b> : il change de forme. <i>je parle, nous chantons</i>.</p></div>` });
@@ -340,7 +340,7 @@ DECK.push({ theme: 'light', trans: 'wipe', label: 'La chanson',
 /* 7 · Avec de la musique */
 DECK.push({ theme: 'dark', trans: 'iris', label: 'Musique',
   notes: 'Minutos 20 a 24. Cantad: pulsa «Chanter» y la clase repite con el ritmo. Dos velocidades. Idea: que lo acompañen con palmas. Las terminaciones se retienen con el ritmo.',
-  html: `${chrome('Avec de la musique', 'On chante !')}
+  html: `<div class="abs" style="left:0;top:0;width:1920px;height:1080px;background:url(img/verbes-musique.svg) center/cover"></div>${chrome('Avec de la musique', 'On chante !')}
    <h2 class="h2 a-up" style="position:absolute;left:120px;top:140px;width:1680px">Avec de la <em>musique</em></h2>
    <div class="abs" id="chantList" style="left:120px;top:310px;width:1100px;display:grid;gap:10px">
     ${pronR.map(([p, f, w], i) => `<div class="chant-row vcard" data-i="${i}" style="display:grid;grid-template-columns:340px 1fr;align-items:center;padding:0 40px;transition:.25s"><span class="vw pron" style="font-size:56px">${p}</span><span class="vw" style="font-size:68px"><span class="vb">parl</span><span class="vt">${f}</span></span></div>`).join('')}</div>
