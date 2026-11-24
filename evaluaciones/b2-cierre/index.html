@@ -254,7 +254,7 @@ body.shield main{filter:blur(14px)}
     <div>
       <div class="kicker" style="color:var(--gold2)">Vive el francés · Prof. Miguel Tillero · Français B2</div>
       <h1 style="margin-top:.8rem">Questions<br><em>de goût</em></h1>
-      <p style="margin-top:1rem">Le goût, les manières, les stéréotypes : qui décide de ce qui est « bien » ? Pendant 90 minutes, vous allez écouter, lire et argumenter, comme à l’épreuve écrite du DELF B2.</p>
+      <p style="margin-top:1rem">Le goût, les manières, les stéréotypes : qui décide de ce qui est « bien » ? Sans limite de temps, vous allez écouter, lire et argumenter, comme à l’épreuve écrite du DELF B2.</p>
       <p style="margin-top:.6rem;font-size:.8rem;color:rgba(255,255,255,.6)">Évaluation de fin de cycle · Unités 1 et 2</p>
     </div>
     <div class="route">
@@ -278,7 +278,7 @@ body.shield main{filter:blur(14px)}
       <strong style="color:var(--ink)">Antes de empezar</strong>
       <ul>
         <li>Usa una <b>computadora</b> con audífonos, en un lugar tranquilo.</li>
-        <li>Tienes <b>un solo intento</b> y <b>90 minutos</b>. El reloj es del servidor y no se detiene.</li>
+        <li>Tienes <b>un solo intento</b> y <b>no hay límite de tiempo</b>: tu profesor cerrará la evaluación cuando todos hayan terminado. Trabaja con calma.</li>
         <li>El examen se hace en <b>pantalla completa</b>. Salir, cambiar de pestaña, copiar, pegar o traducir queda registrado.</li>
         <li>Cada audio se escucha <b>máximo 2 veces</b>.</li>
         <li>Las secciones van en orden: al pasar a la siguiente <b>no se puede volver</b>.</li>
@@ -579,6 +579,7 @@ function begin(resumed){
   timers.push(setInterval(tick, 500));
   timers.push(setInterval(save, 15000));
   timers.push(setInterval(idleCheck, 30000));
+  timers.push(setInterval(preguntarCierre, 20000));
   save();
 }
 
@@ -801,11 +802,21 @@ const warned = {};
 function tick(){
   if(!active()) return;
   const rem = att.limite - now();
+  if(rem > 6*3600*1000){ $('#timer').classList.add('hidden'); return; }   // sin límite de tiempo: lo cierra el profesor
   const s = Math.max(0, Math.floor(rem/1000));
   $('#timer').textContent = String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
   $('#timer').classList.toggle('warn', s <= 300);
   [[600,'Quedan 10 minutos.'],[300,'Quedan 5 minutos.'],[60,'¡Queda 1 minuto! El examen se enviará solo.']].forEach(([t,m]) => { if(s <= t && !warned[t]){ warned[t] = 1; toast('⏱ ' + m, 5000); } });
   if(rem <= 0) submit('tiempo');
+}
+/* El profesor cierra la evaluación (cierra_en): se envía lo último que hay y sale el recibo. */
+async function preguntarCierre(){
+  if(DEMO || !att || finished || !sb) return;
+  try{
+    const { data, error } = await sb.rpc('examen_estado', { p_id:att.id, p_token:att.token });
+    if(error) return;
+    if(data && data.cerrado){ toast('L’évaluation est terminée. Envoi de tes réponses…', 8000); submit('cerrado'); }
+  }catch(e){ /* sin conexión: se vuelve a preguntar en 20 s */ }
 }
 async function save(){
   if(!att || saving || finished) return;
