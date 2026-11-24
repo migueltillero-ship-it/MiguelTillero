@@ -249,6 +249,10 @@
         .btn-secondaire { border-radius: 999px !important; border-color: var(--borde) !important; }
         @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
     </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../assets/js/supabase-config.js?v=1790500000"></script>
+<script>window.MT_DOSSIER_CLAVE='dossier-b2';</script>
+<script src="../assets/js/dossier-sync.js?v=1"></script>
 </head>
 <body>
     <div id="progress-bar-container"><div id="progress-bar"></div></div>
@@ -1652,6 +1656,7 @@
         function sauvegarderProgression(idQuestion, reussi) {
             progression[idQuestion] = reussi;
             localStorage.setItem('progressionB2Dossier00', JSON.stringify(progression));
+            if (window.MT_DOSSIER) MT_DOSSIER.guardar('dossier00', idQuestion, reussi ? 1 : 0, 1);
             majProgressionGlobale();
             majBilans();
         }
@@ -1701,9 +1706,26 @@
             document.getElementById('progress-bar').style.width = pourcentage + '%';
         }
 
-        function reinitialiserProgression() {
+        /* Sincronización con la plataforma (assets/js/dossier-sync.js) */
+        window.MT_DOSSIER_LOCAL = function () {
+            return Object.keys(progression).map(id => ({ ficha: 'dossier00', ejercicio: id, bien: progression[id] ? 1 : 0, total: 1 }));
+        };
+        window.MT_DOSSIER_FUSIONAR = function (filas) {
+            let cambio = false;
+            filas.forEach(r => {
+                if (r.ficha !== 'dossier00') return;
+                const ok = r.bien > 0;
+                if (progression[r.ejercicio] === undefined || (ok && !progression[r.ejercicio])) { progression[r.ejercicio] = ok; cambio = true; }
+            });
+            if (!cambio) return;
+            localStorage.setItem('progressionB2Dossier00', JSON.stringify(progression));
+            restituerProgression(); majBilans(); majProgressionGlobale();
+        };
+
+        async function reinitialiserProgression() {
             if(confirm("Voulez-vous effacer votre progression\u202f?")) {
                 localStorage.removeItem('progressionB2Dossier00');
+                if (window.MT_DOSSIER) { try { await MT_DOSSIER.borrar(); } catch (e) {} }
                 location.reload();
             }
         }

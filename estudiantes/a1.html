@@ -224,6 +224,10 @@
         .barre-outils { top: 5.4rem; }
         @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
     </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../assets/js/supabase-config.js?v=1790500000"></script>
+<script>window.MT_DOSSIER_CLAVE='dossier-a1';</script>
+<script src="../assets/js/dossier-sync.js?v=1"></script>
 </head>
 <body>
 
@@ -1112,8 +1116,23 @@
         const meilleur = p[mod] && p[mod].score >= score ? p[mod].score : score;
         p[mod] = { score: meilleur, total: total };
         localStorage.setItem('espaceA1Progres', JSON.stringify(p));
+        if (window.MT_DOSSIER) MT_DOSSIER.guardar(mod, 'quiz', meilleur, total);
         majAffichageProgression();
     }
+    /* Sincronización con la plataforma (assets/js/dossier-sync.js) */
+    window.MT_DOSSIER_LOCAL = function () {
+        const p = chargerProgres();
+        return Object.keys(p).map(m => ({ ficha: m, ejercicio: 'quiz', bien: p[m].score, total: p[m].total }));
+    };
+    window.MT_DOSSIER_FUSIONAR = function (filas) {
+        const p = chargerProgres();
+        filas.forEach(r => {
+            if (r.ejercicio !== 'quiz' || !r.total) return;
+            if (!p[r.ficha] || p[r.ficha].score < r.bien) p[r.ficha] = { score: r.bien, total: r.total };
+        });
+        localStorage.setItem('espaceA1Progres', JSON.stringify(p));
+        majAffichageProgression();
+    };
     function majAffichageProgression() {
         const p = chargerProgres();
         const modules = ['mod1', 'mod2', 'mod3', 'mod4'];
