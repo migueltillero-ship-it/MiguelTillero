@@ -38,10 +38,14 @@ function guardarAvance(){
 function normalizar(s){
   return (s||'').toString().toLowerCase().trim()
     .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-    .replace(/[''`´]/g,"'")
+    .replace(/[\u2018\u2019\u02bc`\u00b4]/g,"'")
     .replace(/[.,;:!?«»"]/g,'')
     .replace(/\s+/g,' ');
 }
+/* Dos respuestas son la misma aunque cambien los espacios o los guiones: «est-ce que» = «est ce que»,
+   «peut-être» = «peut etre». No se tocan los apóstrofes, porque «l'a» y «la» son palabras distintas. */
+function sinEspacios(s){ return normalizar(s).replace(/[\s\-]/g, ''); }
+function mismaRespuesta(dado, esperado){ return normalizar(dado) === normalizar(esperado) || sinEspacios(dado) === sinEspacios(esperado); }
 function esc(s){
   return (s||'').toString().replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 }
@@ -997,6 +1001,17 @@ const CORREGIR = {
       if(elegido === q.r) bien++;
       const nota = document.getElementById(`note-${i}-${qi}`);
       if(nota) nota.classList.add('vue');
+      else if(elegido !== q.r){
+        /* Sin nota escrita a mano: una explicación mínima, para que el fallo enseñe algo. */
+        const k = seccionDe(fichaActual, i), sec = k >= 0 ? fichaActual.secciones[k].titulo : '';
+        const caja = document.querySelector(`#cuerpo-${i} .opt[data-q="${qi}"]`);
+        if(caja && caja.parentElement && !document.getElementById(`auto-${i}-${qi}`)){
+          const d = document.createElement('div');
+          d.className = 'aide vue'; d.id = `auto-${i}-${qi}`;
+          d.innerHTML = `<b>Bonne réponse&#8239;:</b> ${q.o[q.r]}.` + (sec ? ` Relis l’encadré de «&#8239;${esc(sec)}&#8239;».` : '');
+          caja.parentElement.insertAdjacentElement('afterend', d);
+        }
+      }
     });
     return [bien, e.q.length];
   },
@@ -1006,7 +1021,7 @@ const CORREGIR = {
     e.q.forEach((q,qi) => {
       const campo = document.querySelector(`#cuerpo-${i} .trou[data-q="${qi}"]`);
       const dado = normalizar(campo.value);
-      const ok = (Array.isArray(q.r)?q.r:[q.r]).some(r => normalizar(r) === dado);
+      const ok = (Array.isArray(q.r)?q.r:[q.r]).some(r => mismaRespuesta(campo.value, r));
       campo.classList.add(ok ? 'juste' : 'faux');
       if(!ok) campo.value = campo.value + '  →  ' + (Array.isArray(q.r)?q.r[0]:q.r);
       if(ok) bien++;
@@ -1055,7 +1070,7 @@ const CORREGIR = {
     let bien = 0;
     e.q.forEach((q,qi) => {
       const campo = document.querySelector(`#cuerpo-${i} .trou[data-q="${qi}"]`);
-      const ok = normalizar(campo.value) === normalizar(q.texte);
+      const ok = mismaRespuesta(campo.value, q.texte);
       campo.classList.add(ok ? 'juste' : 'faux');
       if(!ok) campo.value = campo.value + '  →  ' + q.texte;
       if(ok) bien++;

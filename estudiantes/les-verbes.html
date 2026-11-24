@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Les verbes · Vive el francés</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Space+Mono&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===========================================================================
+   LES VERBES · de l'infinitif au conjugué
+   Misma identidad que «Les sons et les voyelles» y «Les sons nasaux, sifflants et vibrants»:
+   malaquita y oro, Cormorant Garamond, Syne y Space Mono. Los dos colores del verbo son
+   los mismos en todas las diapositivas: azul = la base, ámbar = la terminación.
+   Teclas: → / espacio / clic = avanzar · ← = retroceder · F = pantalla completa
+   · N = notas · S = sonido · B = saltar/incluir el bonus · ? = ayuda
+   =========================================================================== */
+:root{
+  --noche:#12332b; --bosque:#1f6b55; --menta:#eef5f0; --menta2:#d5e5db; --crema:#f3eee2;
+  --oro:#a5824a; --oro2:#7a5e2e; --oro-claro:#d9bd86; --tinta:#12332b; --suave:#44645a;
+  /* una familia de sonidos = un color, en todas las diapositivas */
+  --nas:#3b82c4; --sif:#1f9d73; --vib:#d99a12; --chu:#cf5b7d;
+  --display:'Cormorant Garamond',Georgia,serif; --sans:'Syne',Arial,sans-serif; --mono:'Space Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#06130f;overflow:hidden;font-family:var(--sans)}
+#viewport{position:fixed;inset:0;overflow:hidden}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform:translate(-50%,-50%);transform-origin:center center;overflow:hidden;background:#12332b}
+
+/* ── Diapositivas y transiciones ───────────────────────────────────────── */
+.slide{position:absolute;inset:0;visibility:hidden;opacity:0;z-index:1;overflow:hidden;
+  transition:opacity .9s ease,transform .95s cubic-bezier(.2,.7,.2,1),filter .9s ease,clip-path 1.05s cubic-bezier(.7,0,.2,1)}
+.slide.active{visibility:visible;opacity:1;z-index:3;transform:none;filter:none;clip-path:none}
+.slide.leaving{visibility:visible;opacity:1;z-index:2;transform:none;filter:none;clip-path:none;transition:none}
+.slide:not(.active):not(.leaving){transition:none}
+.slide[data-trans=zoom]{transform:scale(1.16);filter:blur(22px)}
+.slide[data-trans=slide]{transform:translateX(14%)}
+.slide[data-trans=rise]{transform:translateY(9%)}
+.slide[data-trans=flip]{transform:perspective(2600px) rotateY(-38deg) scale(.88);transform-origin:left center}
+.slide[data-trans=circle]{opacity:1;clip-path:circle(0% at 50% 50%)}
+.slide[data-trans=circle].active{clip-path:circle(150% at 50% 50%)}
+.slide[data-trans=wipe]{opacity:1;clip-path:inset(0 100% 0 0)}
+.slide[data-trans=wipe].active{clip-path:inset(0 0 0 0)}
+.slide[data-trans=iris]{opacity:1;clip-path:circle(0% at 80% 20%)}
+.slide[data-trans=iris].active{clip-path:circle(150% at 80% 20%)}
+/* el estado «activo» manda sobre el de partida de cada transición (misma especificidad: sin esto, ganaba el que iba después) */
+.slide.active[data-trans=zoom],.slide.active[data-trans=slide],.slide.active[data-trans=rise],.slide.active[data-trans=flip],.slide.leaving[data-trans]{transform:none;filter:none}
+.slide.leaving[data-trans=circle],.slide.leaving[data-trans=wipe],.slide.leaving[data-trans=iris]{clip-path:none}
+.slide.dark{background:radial-gradient(circle at 80% 20%,#1f6b55 0%,#12332b 62%);color:var(--crema)}
+.slide.light{background:radial-gradient(circle at 12% 0%,#f7fbf8 0%,var(--menta) 55%,#dcebe2 100%);color:var(--tinta)}
+.bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.fl{position:absolute;font-family:var(--display);font-style:italic;color:#fff;opacity:.07;white-space:nowrap;
+  animation:flota var(--d,18s) ease-in-out infinite alternate}
+@keyframes flota{from{transform:translate(0,0) rotate(var(--r0,-4deg))}to{transform:translate(var(--dx,40px),var(--dy,-60px)) rotate(var(--r1,5deg))}}
+
+/* ── Texto ─────────────────────────────────────────────────────────────── */
+.abs{position:absolute}
+.lbl{font-family:var(--mono);font-size:27px;letter-spacing:.2em;text-transform:uppercase;color:var(--oro2)}
+.dark .lbl{color:var(--oro-claro)}
+.top{position:absolute;left:120px;top:78px}
+.foot,.foot2{position:absolute;bottom:62px;font-family:var(--mono);font-size:25px;letter-spacing:.2em;text-transform:uppercase;color:var(--oro2)}
+.foot{left:120px}.foot2{right:120px}
+.dark .foot,.dark .foot2{color:var(--oro-claro)}
+.h1{font-family:var(--display);font-weight:400;font-size:178px;line-height:.98;letter-spacing:-.01em}
+.h2{font-family:var(--display);font-weight:400;font-size:112px;line-height:1.02}
+.h3{font-family:var(--display);font-weight:500;font-size:64px;line-height:1.1}
+.h1 em,.h2 em,.h3 em{font-style:italic;color:var(--oro)}
+.dark .h1 em,.dark .h2 em,.dark .h3 em{color:var(--oro-claro)}
+.lead{font-size:42px;line-height:1.35;color:var(--suave);font-weight:400}
+.dark .lead{color:#bfd6cc}
+.p{font-size:34px;line-height:1.45;color:var(--suave)}
+.dark .p{color:#bfd6cc}
+.rule{width:150px;height:5px;background:var(--oro);border-radius:3px;margin:34px 0}
+.dark .rule{background:var(--oro-claro)}
+.mono{font-family:var(--mono)}
+em.i{font-style:italic}
+.nas{color:var(--nas)}.sif{color:var(--sif)}.vib{color:var(--vib)}.chu{color:var(--chu)}
+
+/* ── Construcción por pasos (clic a clic) ──────────────────────────────── */
+.b{opacity:0;transform:translateY(46px) scale(.98);transition:opacity .75s ease,transform .85s cubic-bezier(.2,.85,.2,1)}
+.b.on{opacity:1;transform:none}
+.b[data-fx=pop]{transform:scale(.35)}
+.b[data-fx=left]{transform:translateX(-140px)}
+.b[data-fx=right]{transform:translateX(140px)}
+.b[data-fx=blur]{filter:blur(24px);transform:scale(1.1)}
+.b[data-fx=wipe]{transform:none;clip-path:inset(0 100% 0 0);opacity:1;transition:clip-path 1s cubic-bezier(.7,0,.2,1)}
+.b[data-fx=wipe].on{clip-path:inset(0 0 0 0)}
+.b[data-fx=flip]{transform:perspective(900px) rotateX(-85deg);transform-origin:top center}
+.b[data-fx=flip].on{transform:none}
+.b.on[data-fx]{opacity:1;transform:none;filter:none}
+.b.off{opacity:0!important;transform:scale(.96);visibility:hidden;transition:opacity .5s,transform .5s,visibility 0s .5s}
+.bo{opacity:0;transition:opacity .7s ease}.bo.on{opacity:1}.bo.off{opacity:0}
+.ln{fill:none;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.1s cubic-bezier(.6,0,.2,1)}
+.ln.on{stroke-dashoffset:0}
+.ln.dots{opacity:0;transition:opacity 2s .6s}.ln.dots.on{opacity:.8}
+
+/* ── Animaciones automáticas al entrar ─────────────────────────────────── */
+.slide.active .a-up{animation:aUp 1s cubic-bezier(.2,.85,.2,1) both}
+.slide.active .a-fade{animation:aFade 1.6s ease both}
+.slide.active .d1{animation-delay:.25s}.slide.active .d2{animation-delay:.5s}.slide.active .d3{animation-delay:.75s}
+.slide.active .a-pop{animation:aPop .9s cubic-bezier(.2,1.4,.3,1) both}
+@keyframes aUp{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:none}}
+@keyframes aFade{from{opacity:0}to{opacity:1}}
+@keyframes aPop{from{opacity:0;transform:scale(.3) rotate(-8deg)}to{opacity:1;transform:none}}
+.slide.active .ghost{animation:gFade 1.8s ease both}
+@keyframes gFade{from{opacity:0}to{opacity:.07}}
+.shimmer{background:linear-gradient(100deg,var(--oro-claro) 20%,#fff7dd 45%,var(--oro-claro) 70%);background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:brilla 4s linear infinite}
+@keyframes brilla{from{background-position:120% 0}to{background-position:-120% 0}}
+
+/* ── Fichas de palabras (clic = escuchar) ──────────────────────────────── */
+.chip{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:6px;text-align:left;
+  background:#fff;border:2px solid color-mix(in srgb,var(--c) 45%,transparent);border-left:10px solid var(--c);border-radius:26px;padding:20px 30px;
+  cursor:pointer;font:inherit;color:var(--tinta);box-shadow:0 14px 34px rgba(18,51,43,.10)}
+.chip[data-c=nas]{--c:var(--nas)}.chip[data-c=sif]{--c:var(--sif)}.chip[data-c=vib]{--c:var(--vib)}.chip[data-c=chu]{--c:var(--chu)}
+.chip .w{font-family:var(--display);font-size:64px;font-weight:500;line-height:1}
+.chip .ipa{font-family:var(--mono);font-size:26px;color:var(--c)}
+.chip::after{content:"♪";position:absolute;right:24px;top:18px;font-size:30px;color:var(--c);opacity:.55}
+.chip:hover{transform:translateY(-4px)}
+.chip.say{animation:latido .6s ease}
+@keyframes latido{40%{transform:scale(1.07);box-shadow:0 0 0 14px color-mix(in srgb,var(--c) 22%,transparent)}}
+.cu .chip{padding:12px 26px}.cu .chip .w{font-size:52px}
+.pill{display:inline-block;font-family:var(--mono);font-size:26px;letter-spacing:.12em;text-transform:uppercase;padding:10px 24px;border-radius:999px;
+  background:color-mix(in srgb,var(--c,var(--oro)) 16%,#fff);color:var(--c,var(--oro2));border:2px solid color-mix(in srgb,var(--c,var(--oro)) 55%,transparent)}
+.btn{font:inherit;font-family:var(--mono);font-size:28px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:0;border-radius:999px;
+  padding:18px 40px;background:linear-gradient(135deg,#12332b,var(--bosque));color:var(--crema);box-shadow:0 12px 28px rgba(18,51,43,.3);transition:transform .2s}
+.btn:hover{transform:translateY(-3px)}
+.btn.gold{background:linear-gradient(135deg,var(--oro2),var(--oro));color:#fff}
+.btn.ghost{background:transparent;color:var(--tinta);box-shadow:none;border:2px solid var(--oro)}
+.card{background:#fff;border:2px solid rgba(165,130,74,.35);border-radius:34px;box-shadow:0 18px 44px rgba(18,51,43,.10)}
+
+/* resaltados de sonido dentro de las palabras */
+.hn,.hs,.hz,.hc{font-style:normal;border-radius:10px;padding:0 6px;margin:0 -2px}
+.hn{background:color-mix(in srgb,var(--nas) 22%,transparent);color:var(--nas)}
+.hs{background:color-mix(in srgb,var(--sif) 22%,transparent);color:var(--sif)}
+.hz{background:color-mix(in srgb,var(--vib) 26%,transparent);color:#9a6a00}
+.hc{background:color-mix(in srgb,var(--chu) 22%,transparent);color:var(--chu)}
+.dark .hs{color:#5be3b3}.dark .hz{color:#ffd166}.dark .hn{color:#8cc4f5}.dark .hc{color:#ff9fba}
+.hz.buzz{display:inline-block;animation:vibra .12s linear infinite}
+@keyframes vibra{0%{transform:translate(0,0)}25%{transform:translate(1.5px,-1.5px)}50%{transform:translate(-1.5px,1px)}75%{transform:translate(1px,1.5px)}100%{transform:translate(0,0)}}
+.hs.sss{display:inline-block;animation:sisea 2.4s ease-in-out infinite}
+@keyframes sisea{50%{transform:scaleX(1.18) skewX(-8deg)}}
+
+/* ── Interfaz fuera del escenario ──────────────────────────────────────── */
+#ui{position:fixed;left:0;right:0;bottom:0;z-index:20;pointer-events:none}
+#prog{height:5px;background:rgba(255,255,255,.08)}
+#prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--oro),var(--oro-claro));transition:width .5s ease}
+#count{position:fixed;right:14px;bottom:14px;font:12px var(--mono);letter-spacing:.1em;color:#fff;background:rgba(18,51,43,.7);padding:6px 12px;border-radius:999px;pointer-events:none;opacity:.85}
+#tools{position:fixed;right:14px;top:14px;z-index:30;display:flex;gap:8px;transition:opacity .4s}
+#tools button{font:600 13px var(--mono);background:rgba(18,51,43,.78);color:#e9dcb7;border:1px solid rgba(217,189,134,.5);border-radius:999px;padding:8px 14px;cursor:pointer}
+#tools button:hover{background:rgba(31,107,85,.95)}
+body.quiet #tools{opacity:0}
+#notes{position:fixed;left:0;right:0;bottom:0;z-index:25;background:rgba(10,24,19,.95);color:#f3eee2;padding:18px 32px 24px;font:16px/1.55 var(--sans);display:none;border-top:2px solid var(--oro)}
+#notes.on{display:block}
+#notes b{font-family:var(--mono);color:var(--oro-claro);letter-spacing:.14em;font-size:12px;text-transform:uppercase;display:block;margin-bottom:6px}
+#help{position:fixed;inset:0;z-index:40;background:rgba(6,19,15,.92);color:#f3eee2;display:none;place-items:center;font:20px/1.9 var(--sans)}
+#help.on{display:grid}#help div{max-width:620px}#help kbd{font-family:var(--mono);background:#1f6b55;padding:2px 10px;border-radius:8px;margin-right:6px}
+#toast{position:fixed;left:50%;top:18px;transform:translateX(-50%);z-index:50;background:#12332b;color:#e9dcb7;border:1px solid var(--oro);padding:10px 22px;border-radius:999px;font:600 14px var(--mono);opacity:0;transition:opacity .4s;pointer-events:none}
+#toast.on{opacity:1}
+canvas.scope{display:block;width:100%;height:100%}
+@media print{#tools,#ui,#count{display:none}}
+@media (prefers-reduced-motion:reduce){.fl,.shimmer,.hz.buzz,.hs.sss{animation:none!important}}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage"></div></div>
+<div id="ui"><div id="prog"><i></i></div></div>
+<div id="count"></div>
+<div id="tools"><button id="bSound" title="Sonido (S)">♪ SON</button><button id="bNotes" title="Notas (N)">NOTES</button><button id="bFull" title="Pantalla completa (F)">⛶</button><button id="bHelp" title="Ayuda (?)">?</button></div>
+<div id="notes"></div>
+<div id="help"><div><b style="font:600 14px var(--mono);letter-spacing:.2em;color:#d9bd86">ATAJOS</b><br>
+<kbd>→</kbd><kbd>espacio</kbd><kbd>clic</kbd> avanzar un paso<br><kbd>←</kbd> retroceder<br><kbd>F</kbd> pantalla completa<br>
+<kbd>N</kbd> notas de la clase (con los tiempos)<br><kbd>S</kbd> sonido sí / no<br><kbd>B</kbd> saltar o incluir las diapositivas bonus<br>
+<kbd>1</kbd>–<kbd>9</kbd> · <kbd>Inicio</kbd> · <kbd>Fin</kbd> ir a otra diapositiva<br>Las fichas de palabras suenan al hacer clic.</div></div>
+<div id="toast"></div>
+
+<script>
+/* ═══ 1. AUDIO: el silbido de la serpiente y el zumbido de la abeja se generan aquí ═══ */
+let AC = null, soundOn = true;
+function ac(){ if (!AC){ const C = window.AudioContext || window.webkitAudioContext; if (C) AC = new C(); } if (AC && AC.state === 'suspended') AC.resume(); return AC; }
+function ruido(a, d){ const n = Math.floor(a.sampleRate * d), buf = a.createBuffer(1, n, a.sampleRate), x = buf.getChannelData(0);
+  for (let i = 0; i < n; i++) x[i] = Math.random() * 2 - 1; const s = a.createBufferSource(); s.buffer = buf; return s; }
+/* [s]: ruido agudo, sin voz */
+function hiss(d = 1.7){ if (!soundOn) return; const a = ac(); if (!a) return; const t = a.currentTime;
+  const s = ruido(a, d), hp = a.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 4800;
+  const g = a.createGain(); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.32, t + .18); g.gain.setValueAtTime(.32, t + d - .35); g.gain.linearRampToValueAtTime(0, t + d);
+  s.connect(hp); hp.connect(g); g.connect(a.destination); s.start(t); }
+/* [z]: el mismo ruido, pero con la voz (un pulso grave) por debajo: eso es «vibrar» */
+function buzz(d = 1.7){ if (!soundOn) return; const a = ac(); if (!a) return; const t = a.currentTime;
+  const s = ruido(a, d), hp = a.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 3800;
+  const am = a.createGain(); am.gain.value = .12; const lfo = a.createOscillator(); lfo.frequency.value = 95; const lg = a.createGain(); lg.gain.value = .12; lfo.connect(lg); lg.connect(am.gain);
+  const voz = a.createOscillator(); voz.type = 'sawtooth'; voz.frequency.value = 118; const vg = a.createGain(); vg.gain.value = .07;
+  const g = a.createGain(); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.9, t + .18); g.gain.setValueAtTime(.9, t + d - .35); g.gain.linearRampToValueAtTime(0, t + d);
+  s.connect(hp); hp.connect(am); am.connect(g); voz.connect(vg); vg.connect(g); g.connect(a.destination);
+  lfo.start(t); voz.start(t); s.start(t); lfo.stop(t + d); voz.stop(t + d); }
+function speak(txt, rate = .82){ if (!soundOn || !('speechSynthesis' in window)) return; try{
+  speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(txt); u.lang = 'fr-FR'; u.rate = rate;
+  const v = speechSynthesis.getVoices().find(v => /^fr/i.test(v.lang)); if (v) u.voice = v; speechSynthesis.speak(u); }catch(e){} }
+
+/* ═══ 2. DIBUJOS (SVG) reutilizables ═══ */
+const SVG_SNAKE_HEAD = `<svg viewBox="0 0 150 110" width="150" height="110"><defs><linearGradient id="gs" x1="0" x2="1"><stop offset="0" stop-color="#1f9d73"/><stop offset="1" stop-color="#0d6b4c"/></linearGradient></defs>
+  <g class="tong"><path d="M120 55 L168 55 M150 55 L168 42 M150 55 L168 68" stroke="#e0485f" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+  <path d="M6 20 C40 4 100 4 130 40 C140 52 140 58 130 70 C100 106 40 106 6 90 Z" fill="url(#gs)"/>
+  <circle cx="92" cy="38" r="13" fill="#fff7dd"/><circle cx="96" cy="38" r="7" fill="#12332b"/><circle cx="98" cy="35" r="2.4" fill="#fff"/></svg>`;
+const SVG_BEE = `<svg viewBox="0 0 240 170" width="240" height="170"><defs><clipPath id="cb"><ellipse cx="108" cy="98" rx="62" ry="42"/></clipPath></defs>
+  <g class="wing"><ellipse cx="96" cy="44" rx="42" ry="26" transform="rotate(-18 96 44)" fill="#fff" opacity=".7"/><ellipse cx="136" cy="50" rx="36" ry="22" transform="rotate(14 136 50)" fill="#fff" opacity=".55"/></g>
+  <ellipse cx="108" cy="98" rx="62" ry="42" fill="#f0b429"/>
+  <g clip-path="url(#cb)"><rect x="70" y="40" width="20" height="120" fill="#12332b"/><rect x="108" y="40" width="20" height="120" fill="#12332b"/><rect x="146" y="40" width="20" height="120" fill="#12332b"/></g>
+  <path d="M46 98 L12 92 L46 112 Z" fill="#12332b"/>
+  <circle cx="178" cy="86" r="30" fill="#2a2a24"/><circle cx="190" cy="80" r="9" fill="#fff"/><circle cx="193" cy="80" r="4.6" fill="#12332b"/>
+  <path d="M170 60 C168 36 180 24 196 22 M184 62 C192 40 208 36 222 40" stroke="#2a2a24" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M168 96 C176 106 190 106 198 98" stroke="#fff7dd" stroke-width="4" fill="none" stroke-linecap="round"/></svg>`;
+const SVG_ROSE = `<svg viewBox="0 0 420 560" width="420" height="560"><defs><radialGradient id="rg" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#ee8fa8"/><stop offset="1" stop-color="#b13c5c"/></radialGradient></defs>
+  <path d="M210 270 C204 360 222 440 208 556" stroke="#1f6b55" stroke-width="14" fill="none" stroke-linecap="round"/>
+  <path d="M212 430 C270 400 322 410 340 380 C300 372 238 384 212 430Z" fill="#2f9e74"/><path d="M206 470 C150 450 100 455 78 424 C124 418 180 430 206 470Z" fill="#2f9e74"/>
+  <g class="bloom" transform="translate(210 190)">
+   <g fill="url(#rg)" stroke="#8f2c49" stroke-width="3"><ellipse cx="0" cy="-92" rx="62" ry="78"/><ellipse cx="0" cy="-92" rx="62" ry="78" transform="rotate(72)"/><ellipse cx="0" cy="-92" rx="62" ry="78" transform="rotate(144)"/><ellipse cx="0" cy="-92" rx="62" ry="78" transform="rotate(216)"/><ellipse cx="0" cy="-92" rx="62" ry="78" transform="rotate(288)"/></g>
+   <g fill="#e7728f" stroke="#a63a58" stroke-width="3"><ellipse cx="0" cy="-58" rx="44" ry="54" transform="rotate(36)"/><ellipse cx="0" cy="-58" rx="44" ry="54" transform="rotate(108)"/><ellipse cx="0" cy="-58" rx="44" ry="54" transform="rotate(180)"/><ellipse cx="0" cy="-58" rx="44" ry="54" transform="rotate(252)"/><ellipse cx="0" cy="-58" rx="44" ry="54" transform="rotate(324)"/></g>
+   <circle r="34" fill="#c4486a" stroke="#8f2c49" stroke-width="3"/><path d="M-18 -4 C-8 -26 14 -22 14 -2 C14 14 -8 18 -10 4" fill="none" stroke="#8f2c49" stroke-width="4" stroke-linecap="round"/></g>
+  <g fill="#fff" opacity=".9"><circle cx="150" cy="300" r="5"/><circle cx="276" cy="312" r="4"/><circle cx="214" cy="326" r="3.4"/></g></svg>`;
+/* perfil de cabeza (mirando a la derecha) con el camino del aire */
+const SVG_HEAD = `<svg viewBox="0 0 560 520" width="780" height="724"><defs><linearGradient id="hg" x1="0" x2="1"><stop offset="0" stop-color="#e8d9bd"/><stop offset="1" stop-color="#f6ead2"/></linearGradient></defs>
+  <path d="M120 70 C190 24 296 44 312 128 C318 160 322 178 332 198 C340 212 356 232 372 246 L380 258 C372 268 354 268 338 268 L336 290 C350 296 350 306 336 310 C350 316 350 326 334 330 L328 354 C334 378 322 398 296 404 L270 428 L266 500 L116 500 L108 310 C86 238 88 120 120 70Z" fill="url(#hg)" stroke="#a5824a" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M236 470 C238 400 244 380 250 360" stroke="#a5824a" stroke-width="4" fill="none" stroke-dasharray="3 9" stroke-linecap="round"/>
+  <g class="bo" data-s="1" data-until="9"><path class="flow" d="M248 372 C262 330 296 312 338 308 L470 308" fill="none" stroke="#3b82c4" stroke-width="10" stroke-linecap="round" stroke-dasharray="4 22"/><circle class="puff" cx="480" cy="308" r="14" fill="#3b82c4" opacity=".45"/><circle class="puff p2" cx="506" cy="308" r="9" fill="#3b82c4" opacity=".4"/></g>
+  <g class="bo" data-s="2"><path class="flow" d="M250 330 C262 290 300 262 352 258 L470 232" fill="none" stroke="#cf5b7d" stroke-width="10" stroke-linecap="round" stroke-dasharray="4 22"/><circle class="puff" cx="482" cy="228" r="14" fill="#cf5b7d" opacity=".5"/><circle class="puff p2" cx="508" cy="224" r="9" fill="#cf5b7d" opacity=".4"/></g>
+</svg>`;
+const CSSX = `<style>
+.flow{animation:fluye 1.1s linear infinite}@keyframes fluye{to{stroke-dashoffset:-52}}
+.puff{animation:bocanada 1.6s ease-out infinite;transform-box:fill-box;transform-origin:center}.puff.p2{animation-delay:.5s}
+@keyframes bocanada{0%{transform:scale(.5);opacity:.7}100%{transform:scale(2.4);opacity:0}}
+.wing{transform-box:fill-box;transform-origin:50% 100%;animation:aletea .09s ease-in-out infinite alternate}@keyframes aletea{to{transform:scaleY(.55) rotate(-6deg)}}
+.tong{animation:lengua 1.4s ease-in-out infinite;transform-box:fill-box;transform-origin:left center}@keyframes lengua{0%,55%,100%{transform:scaleX(.2)}70%,85%{transform:scaleX(1)}}
+.bloom{transform-box:fill-box;transform-origin:center;animation:florece 1.6s cubic-bezier(.2,1.2,.3,1) both}@keyframes florece{from{transform:translate(210px,190px) scale(.1) rotate(-40deg)}to{transform:translate(210px,190px) scale(1) rotate(0)}}
+.ring{position:absolute;border:4px solid var(--vib);border-radius:50%;opacity:0}
+.go .ring{animation:onda 1.6s ease-out infinite}.go .ring:nth-child(2){animation-delay:.4s}.go .ring:nth-child(3){animation-delay:.8s}
+@keyframes onda{0%{transform:scale(.2);opacity:.9}100%{transform:scale(1.6);opacity:0}}
+.rr{position:absolute;border:3px solid var(--oro-claro);border-radius:50%;opacity:0;animation:onda2 6s ease-out infinite}
+@keyframes onda2{0%{transform:scale(.15);opacity:.55}100%{transform:scale(1.5);opacity:0}}
+.slither{animation:repta 3.6s cubic-bezier(.45,.05,.3,1) both;offset-rotate:auto}@keyframes repta{from{offset-distance:0%}to{offset-distance:100%}}
+.fly{animation:vuela 6.5s cubic-bezier(.4,.1,.3,1) both;offset-rotate:0deg}@keyframes vuela{from{offset-distance:0%}to{offset-distance:100%}}
+.wob{animation:zumba .5s ease-in-out infinite alternate}@keyframes zumba{from{transform:translateY(-8px) rotate(-3deg)}to{transform:translateY(8px) rotate(3deg)}}
+.quiz .opt{font-family:var(--display);font-size:70px;font-weight:500;padding:20px 56px;border-radius:28px;border:3px solid color-mix(in srgb,var(--c) 55%,transparent);background:#fff;color:var(--c);cursor:pointer;box-shadow:0 12px 30px rgba(18,51,43,.1);transition:transform .2s,background .3s}
+.quiz .opt:hover{transform:translateY(-4px)}
+.quiz .opt.ok{background:var(--c);color:#fff;animation:latido .6s}
+.quiz .opt.no{animation:sacude .45s;opacity:.45}
+@keyframes sacude{25%{transform:translateX(-14px)}50%{transform:translateX(14px)}75%{transform:translateX(-8px)}}
+.quiz .fb{font-family:var(--display);font-style:italic;font-size:52px;min-height:70px}
+</style>`;
+
+/* ═══ 3. LAS DIAPOSITIVAS ═══ */
+const DECK = [];
+const chip = (w, ipa, c, s, say) => `<button class="chip b" data-fx="pop" data-s="${s}" data-c="${c}" data-say="${say || w}"><span class="w">${w}</span><span class="ipa">${ipa}</span></button>`;
+const chrome = (lab, sec) => `<div class="top lbl">${lab}</div><div class="foot">Vive el francés</div><div class="foot2">${sec}</div>`;
+
+
+/* ═══ LES VERBES · la conjugaison, de l'infinitif au conjugué ═══ */
+const XCSS = `<style>
+.vb{color:var(--nas)}.vt{color:#c98a00}.dark .vb{color:#8cc4f5}.dark .vt{color:#ffd166}
+.vw{font-family:var(--display);font-weight:600;line-height:1}
+.vcard{background:#fff;border:2px solid rgba(165,130,74,.35);border-radius:34px;box-shadow:0 18px 44px rgba(18,51,43,.10);color:var(--tinta)}
+.dark .vcard{background:rgba(255,255,255,.07);border-color:rgba(217,189,134,.4);color:var(--crema);box-shadow:none}
+.row6{display:grid;grid-template-columns:420px 1fr 1fr;gap:0}
+.cell{font-family:var(--display);font-size:62px;line-height:1.1;padding:8px 30px}
+.cell small{font-family:var(--mono);font-size:24px;letter-spacing:.08em;color:var(--oro2);margin-left:14px}
+.dark .cell small{color:var(--oro-claro)}
+.pron{color:var(--oro2);font-style:italic}.dark .pron{color:var(--oro-claro)}
+.bar{display:inline-block;width:14px;border-radius:7px;background:currentColor;margin:0 5px;animation:eq 0.9s ease-in-out infinite alternate;vertical-align:bottom}
+@keyframes eq{from{height:20px}to{height:84px}}
+.ex-row{display:grid;grid-template-columns:330px 1fr;align-items:center;border-bottom:2px solid rgba(165,130,74,.25)}
+.ex-row:last-child{border-bottom:0}
+.ans{font-family:var(--display);font-size:60px;font-weight:600}
+.pulse{animation:pulsa .6s ease}@keyframes pulsa{40%{transform:scale(1.06)}}
+.fl{opacity:.05!important}
+.flowarrow{font-family:var(--display);font-size:90px;color:var(--oro);line-height:1}
+</style>`;
+
+const pronR = [['je', 'e', 'parle'], ['tu', 'es', 'parles'], ['il / elle / on', 'e', 'parle'], ['nous', 'ons', 'parlons'], ['vous', 'ez', 'parlez'], ['ils / elles', 'ent', 'parlent']];
+const filaV = (base, fins, ipa, s0, dark) => pronR.map((p, i) => `<div class="b row6" data-s="${s0 + i}" data-fx="right" style="border-bottom:2px solid ${dark ? 'rgba(217,189,134,.25)' : 'rgba(165,130,74,.25)'}">
+  <div class="cell pron">${p[0]}</div><div class="cell"><span class="vb">${base}</span><span class="vt">${fins[i]}</span></div><div class="cell mono" style="font-size:36px;color:var(--oro2);align-self:center">${ipa ? ipa[i] : ''}</div></div>`).join('');
+
+/* 1 · Portada */
+DECK.push({ theme: 'dark', trans: 'zoom', label: 'Portada',
+  notes: 'Minuto 0. Portada. «Les verbes»: el motor de la frase. Hoy: qué es un verbo, infinitivo y conjugado, y la canción de la conjugación para los verbos en -ER.',
+  html: `<div class="bg"><span class="fl" style="left:1200px;top:70px;font-size:300px;--d:19s">parler</span><span class="fl" style="left:1380px;top:470px;font-size:240px;--d:23s;--r0:6deg">chanter</span><span class="fl" style="left:900px;top:760px;font-size:190px;--d:21s">manger</span></div>
+   <div class="abs" style="left:120px;top:260px;width:1500px"><div class="lbl a-up">Les bases · Niveau A1</div>
+    <h1 class="h1 a-up d1" style="margin-top:26px;font-size:230px">Les <em class="shimmer">verbes</em></h1>
+    <div class="rule b" data-s="1" data-fx="wipe"></div>
+    <p class="lead b" data-s="1" style="max-width:1200px">Les mots qui font bouger la phrase… et la chanson pour les conjuguer.</p></div>
+   <div class="foot">Vive el francés</div>${XCSS}${CSSX}` });
+
+/* 2 · Un verbe, c'est quoi ? */
+DECK.push({ theme: 'light', trans: 'slide', label: 'Définition',
+  notes: 'Minutos 1 a 4. Un verbo describe una acción, un estado o un acontecimiento. Haz clic en cada ficha para oírla. Pregunta: «¿qué otros verbos conocen?» y anótalos.',
+  html: `${chrome('Un verbe, c’est quoi ?', 'Définition')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:150px;width:1680px">Un verbe <em>décrit…</em></h2>
+   <div class="abs b vcard" data-s="1" data-fx="left" style="left:120px;top:380px;width:760px;padding:50px 56px"><p class="p" style="font-size:44px;color:var(--tinta)">Un <b>verbe</b> est un mot qui décrit <b>une action</b>, <b>un état</b> ou <b>un événement</b>.</p></div>
+   <div class="abs" style="left:960px;top:360px;width:840px;display:grid;gap:30px">
+    ${[['courir', 'une action', 2], ['manger', 'une action', 3], ['être', 'un état', 4]].map(([w, t, s]) => `<button class="chip b" data-fx="pop" data-s="${s}" data-c="${s === 4 ? 'chu' : 'sif'}" data-say="${w}"><span class="w" style="font-size:96px">${w}</span><span class="ipa" style="font-size:30px">${t}</span></button>`).join('')}</div>
+   <p class="abs b" data-s="5" data-fx="blur" style="left:120px;top:870px;width:760px;font-family:var(--display);font-style:italic;font-size:50px;color:var(--oro2)">Sans verbe, pas de phrase.</p>` });
+
+/* 3 · Deux états */
+DECK.push({ theme: 'dark', trans: 'circle', label: 'Deux états',
+  notes: 'Minutos 4 a 6. Un verbo puede estar en dos estados: infinitivo (sin sujeto, el nombre del verbo) y conjugado (con sujeto, cambia de forma).',
+  html: `${chrome('Deux états', 'Infinitif · Conjugué')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:150px;width:1680px">Un verbe peut être dans <em>deux états</em></h2>
+   <div class="abs b vcard" data-s="1" data-fx="left" style="left:120px;top:430px;width:810px;height:430px;padding:50px 56px"><div class="lbl" style="color:var(--oro-claro)">État 1</div><div class="vw" style="font-size:130px;margin:14px 0 14px;color:#8cc4f5">INFINITIF</div><p class="p">Le verbe <b>à l’état naturel</b>, sans personne. C’est son nom : <i>parler, chanter</i>.</p></div>
+   <div class="abs b vcard" data-s="2" data-fx="right" style="left:990px;top:430px;width:810px;height:430px;padding:50px 56px"><div class="lbl" style="color:var(--oro-claro)">État 2</div><div class="vw" style="font-size:130px;margin:14px 0 14px;color:#ffd166">CONJUGUÉ</div><p class="p">Le verbe <b>avec une personne</b> : il change de forme. <i>je parle, nous chantons</i>.</p></div>` });
+
+/* 4 · L'infinitif */
+DECK.push({ theme: 'light', trans: 'rise', label: 'Infinitif',
+  notes: 'Minutos 6 a 10. El infinitivo se compone de una base (PARL-) y una terminación (-ER). Hoy: los verbos en -ER, que son los más numerosos. Pide que digan otros ejemplos: chanter, manger, placer.',
+  html: `${chrome('L’infinitif', 'Base + terminaison')}
+   <div class="abs" style="left:120px;top:190px;width:1680px;text-align:center"><div class="lbl">L’infinitif</div>
+    <div class="vw" style="font-size:300px;margin-top:20px"><span class="vb b on" data-s="1" style="opacity:1">PARL</span><span class="vt b" data-s="1" data-fx="pop">ER</span></div></div>
+   <div class="abs b" data-s="2" data-fx="blur" style="left:340px;top:610px;width:600px;text-align:center"><div style="height:8px;background:var(--nas);border-radius:6px;margin-bottom:16px"></div><span class="mono vb" style="font-size:40px;letter-spacing:.2em">LA BASE</span></div>
+   <div class="abs b" data-s="2" data-fx="blur" style="left:1000px;top:610px;width:520px;text-align:left"><div style="width:310px;height:8px;background:#d99a12;border-radius:6px;margin-bottom:16px"></div><span class="mono vt" style="font-size:38px;letter-spacing:.14em;white-space:nowrap">LA TERMINAISON</span></div>
+   <p class="abs b" data-s="3" data-fx="blur" style="left:120px;top:760px;width:1680px;text-align:center;font-size:44px;line-height:1.4;color:var(--suave)">Aujourd’hui : les verbes en <b class="vt">-ER</b>, les plus nombreux du français.</p>
+   <div class="abs cu" style="left:120px;top:880px;width:1680px;display:flex;gap:26px;justify-content:center">${[['parler', 4], ['chanter', 5], ['manger', 6], ['placer', 7]].map(([w, s]) => `<button class="chip b" data-fx="pop" data-s="${s}" data-c="nas" data-say="${w}"><span class="w">${w}</span></button>`).join('')}</div>` });
+
+/* 5 · Le conjugué */
+DECK.push({ theme: 'dark', trans: 'flip', label: 'Conjugué',
+  notes: 'Minutos 10 a 14. Conjugar es cambiar la terminación según la persona: la base se queda (PARL-) y la terminación cambia. Ve un clic por persona.',
+  html: `${chrome('Le conjugué', 'La terminaison change')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:130px;width:1680px">La base reste, la terminaison <em>change</em></h2>
+   <div class="abs" style="left:120px;top:330px;width:1680px;display:grid;gap:16px">
+    ${[['je', 'e', 1], ['tu', 'es', 2], ['nous', 'ons', 3], ['ils', 'ent', 4]].map(([p, f, s]) => `<div class="b vcard" data-s="${s}" data-fx="left" style="display:grid;grid-template-columns:330px 1fr;align-items:center;padding:2px 50px"><span class="vw pron" style="font-size:66px">${p}</span><span class="vw" style="font-size:96px"><span class="vb">parl</span><span class="vt">${f}</span></span></div>`).join('')}</div>
+   <p class="abs b" data-s="5" data-fx="blur" style="left:120px;top:900px;width:1680px;text-align:center;font-family:var(--display);font-style:italic;font-size:54px;color:var(--oro-claro)">Chaque personne, sa terminaison.</p>` });
+
+/* 6 · La chanson (tableau) */
+DECK.push({ theme: 'light', trans: 'wipe', label: 'La chanson',
+  notes: 'Minutos 14 a 20. «La chanson de la conjugaison»: las terminaciones de todos los verbos regulares: JE -e/-s, TU siempre -s, IL -e/-t/-d, NOUS -ons, VOUS -ez, ILS -ent. Un clic por persona; léelo a ritmo.',
+  html: `${chrome('La chanson de la conjugaison', 'Les terminaisons')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:130px;width:1680px">La chanson de la <em>conjugaison</em></h2>
+   <div class="abs vcard" style="left:120px;top:300px;width:1680px;padding:10px 40px">
+   ${[['je', 'e <small>ou</small> s', 1], ['tu', 'toujours s', 2], ['il · elle · on', 'e <small>ou</small> t <small>ou</small> d', 3], ['nous', 'ons', 4], ['vous', 'ez', 5], ['ils · elles', 'ent', 6]].map(([p, f, s]) => `<div class="b" data-s="${s}" data-fx="right" style="display:grid;grid-template-columns:500px 1fr;align-items:center;border-bottom:2px solid rgba(165,130,74,.25);padding:0"><span class="cell pron" style="font-size:58px;padding:6px 30px">${p}</span><span class="cell vt" style="font-size:66px;font-weight:600;padding:6px 30px">${f}</span></div>`).join('')}</div>
+   <p class="abs b" data-s="7" data-fx="blur" style="left:120px;top:925px;width:1680px;text-align:center;font-family:var(--display);font-style:italic;font-size:46px;color:var(--oro2)">Pour les verbes en <b class="vt">-ER</b> : <b class="vt">e · es · e · ons · ez · ent</b></p>` });
+
+/* 7 · Avec de la musique */
+DECK.push({ theme: 'dark', trans: 'iris', label: 'Musique',
+  notes: 'Minutos 20 a 24. Cantad: pulsa «Chanter» y la clase repite con el ritmo. Dos velocidades. Idea: que lo acompañen con palmas. Las terminaciones se retienen con el ritmo.',
+  html: `${chrome('Avec de la musique', 'On chante !')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:140px;width:1680px">Avec de la <em>musique</em></h2>
+   <div class="abs" id="chantList" style="left:120px;top:310px;width:1100px;display:grid;gap:10px">
+    ${pronR.map(([p, f, w], i) => `<div class="chant-row vcard" data-i="${i}" style="display:grid;grid-template-columns:340px 1fr;align-items:center;padding:0 40px;transition:.25s"><span class="vw pron" style="font-size:56px">${p}</span><span class="vw" style="font-size:68px"><span class="vb">parl</span><span class="vt">${f}</span></span></div>`).join('')}</div>
+   <div class="abs" style="left:1330px;top:360px;width:470px;text-align:center">
+    <div id="eq" style="height:110px;color:#ffd166"><i class="bar" style="animation-delay:0s"></i><i class="bar" style="animation-delay:.15s"></i><i class="bar" style="animation-delay:.3s"></i><i class="bar" style="animation-delay:.1s"></i><i class="bar" style="animation-delay:.25s"></i></div>
+    <button class="btn gold" data-act="vchant" data-rate=".8" style="margin-top:34px">▶ Chanter</button><br>
+    <button class="btn" data-act="vchant" data-rate=".62" style="margin-top:22px;background:rgba(255,255,255,.1);color:#f3eee2;border:2px solid #d9bd86;box-shadow:none">▶ Plus lent</button>
+    <p class="mono" style="margin-top:34px;font-size:22px;letter-spacing:.08em;color:var(--oro-claro)">je parle · tu parles · il parle<br>nous parlons · vous parlez · ils parlent</p></div>` });
+
+/* 8 · Voyons l'exemple : PARLER */
+DECK.push({ theme: 'light', trans: 'slide', label: 'Exemple PARLER',
+  notes: 'Minutos 24 a 28. Se construye la conjugación de PARLER, una persona por clic: base azul, terminación ámbar y su pronunciación entre corchetes. Subraya: cuatro formas suenan igual.',
+  html: `${chrome('Voyons l’exemple', 'PARLER')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:120px;width:1680px">Voyons l’exemple : <em>PARL</em><span style="color:#c98a00;font-style:italic">ER</span></h2>
+   <div class="abs vcard" style="left:120px;top:290px;width:1680px;padding:10px 20px">${filaV('parl', ['e', 'es', 'e', 'ons', 'ez', 'ent'], ['[paʁl]', '[paʁl]', '[paʁl]', '[paʁlɔ̃]', '[paʁle]', '[paʁl]'], 1, false)}</div>
+   <p class="abs b" data-s="7" data-fx="blur" style="left:120px;top:925px;width:1680px;text-align:center;font-family:var(--display);font-style:italic;font-size:46px;color:var(--oro2)">La base ne bouge pas : <b class="vb">parl</b>.</p>` });
+
+/* 9 · On l'entend ? */
+DECK.push({ theme: 'dark', trans: 'zoom', label: 'Ce qu’on entend',
+  notes: 'Minutos 28 a 31. Punto clave: je parle, tu parles, il parle y ils parlent suenan IGUAL. Solo nous y vous se oyen distintos. Haz clic en cada ficha para escucharla.',
+  html: `${chrome('Ce qu’on entend', 'Ce qu’on écrit ≠ ce qu’on dit')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:140px;width:1680px">À l’oreille, <em>presque pareil</em></h2>
+   <div class="abs" style="left:120px;top:370px;width:1680px;display:grid;grid-template-columns:repeat(4,1fr);gap:26px">
+    ${[['je parle', 1], ['tu parles', 1], ['il parle', 1], ['ils parlent', 1]].map(([w], i) => `<button class="chip b" data-fx="pop" data-s="${i + 1}" data-c="sif" data-say="${w}"><span class="w" style="font-size:58px">${w}</span><span class="ipa" style="font-size:34px">[paʁl]</span></button>`).join('')}</div>
+   <p class="abs b" data-s="5" data-fx="blur" style="left:120px;top:590px;width:1680px;text-align:center;font-family:var(--display);font-size:60px;color:#5be3b3">les quatre se disent <em>pareil</em> : [paʁl]</p>
+   <div class="abs" style="left:120px;top:730px;width:1680px;display:grid;grid-template-columns:1fr 1fr;gap:40px">
+    <button class="chip b" data-fx="left" data-s="6" data-c="vib" data-say="nous parlons"><span class="w" style="font-size:66px">nous parlons</span><span class="ipa" style="font-size:34px">[paʁlɔ̃]</span></button>
+    <button class="chip b" data-fx="right" data-s="7" data-c="chu" data-say="vous parlez"><span class="w" style="font-size:66px">vous parlez</span><span class="ipa" style="font-size:34px">[paʁle]</span></button></div>
+   <p class="abs b" data-s="8" data-fx="blur" style="left:120px;top:940px;width:1680px;text-align:center;font-size:40px;color:#bfd6cc">Seuls <b style="color:#ffd166">nous</b> et <b style="color:#ff9fba">vous</b> se font entendre. Les autres terminaisons sont <b>muettes</b>.</p>` });
+
+/* 10 · Cas particuliers */
+DECK.push({ theme: 'light', trans: 'rise', label: 'Cas particuliers',
+  notes: 'Minutos 31 a 35. MANGER: nous mangeons (se conserva la e para que la G suene [ʒ]); PLACER: nous plaçons (cedilla para que suene [s]). Se explica cada caso en dos clics.',
+  html: `${chrome('Deux cas à retenir', 'Pour garder le son')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:140px;width:1680px">Pour garder <em>le même son</em></h2>
+   <div class="abs vcard" style="left:120px;top:360px;width:810px;height:560px;padding:44px 52px"><div class="lbl">MANGER</div>
+     <div class="b vw" data-s="1" data-fx="blur" style="font-size:78px;margin-top:20px;color:#b13c5c"><s style="text-decoration-thickness:6px">nous mangons</s> <small style="font-size:34px;font-family:var(--mono)">[ɡ] ✗</small></div>
+     <div class="b vw" data-s="2" data-fx="pop" style="font-size:96px;margin-top:20px"><span class="vb">mang</span><span style="color:#1f9d73">e</span><span class="vt">ons</span> <small style="font-size:34px;font-family:var(--mono);color:var(--sif)">[ʒ] ✓</small></div>
+     <p class="p b" data-s="3" data-fx="blur" style="margin-top:20px">On <b>garde le e</b> : sans lui, la lettre G sonnerait [ɡ].</p></div>
+   <div class="abs vcard" style="left:990px;top:360px;width:810px;height:560px;padding:44px 52px"><div class="lbl">PLACER</div>
+     <div class="b vw" data-s="4" data-fx="blur" style="font-size:78px;margin-top:20px;color:#b13c5c"><s style="text-decoration-thickness:6px">nous placons</s> <small style="font-size:34px;font-family:var(--mono)">[k] ✗</small></div>
+     <div class="b vw" data-s="5" data-fx="pop" style="font-size:96px;margin-top:20px"><span class="vb">pla</span><span style="color:#1f9d73">ç</span><span class="vt">ons</span> <small style="font-size:34px;font-family:var(--mono);color:var(--sif)">[s] ✓</small></div>
+     <p class="p b" data-s="6" data-fx="blur" style="margin-top:20px">On met une <b>cédille</b> : sans elle, le C sonnerait [k].</p></div>` });
+
+/* 11-13 · À toi : chanter, manger, placer */
+const ejercicio = (verbo, num, base, fins, notas, trans) => ({ theme: num % 2 ? 'dark' : 'light', trans, label: 'À toi · ' + verbo.toUpperCase(),
+  notes, html: `${chrome('À toi : conjugue', verbo.toUpperCase())}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:120px;width:1680px">Conjugue <em>${verbo.toUpperCase()}</em></h2>
+   <p class="mono" style="position:absolute;left:120px;top:290px;font-size:30px;letter-spacing:.14em;color:var(--oro${num % 2 ? '-claro' : '2'})">Exercice ${num} · Réponds à voix haute, puis un clic pour vérifier.</p>
+   <div class="abs vcard" style="left:120px;top:350px;width:1680px;padding:4px 50px">${pronR.map((p, i) => `<div class="ex-row" style="padding:2px 0"><span class="vw pron" style="font-size:56px">${p[0]}</span><span class="ans b" data-s="${i + 1}" data-fx="pop">${base[i] || base[0]}<span class="vt">${fins[i]}</span></span></div>`).join('')}</div>` });
+DECK.push(ejercicio('chanter', 1, ['chant'], ['e', 'es', 'e', 'ons', 'ez', 'ent'], 'Minutos 35 a 38. Cada alumno conjuga en voz alta antes de cada clic: je chante, tu chantes, il chante, nous chantons, vous chantez, ils chantent.', 'slide'));
+DECK.push(ejercicio('manger', 2, ['mang', 'mang', 'mang', 'mange', 'mang', 'mang'], ['e', 'es', 'e', 'ons', 'ez', 'ent'], 'Minutos 38 a 41. Cuidado con «nous mangeons»: conservar la e. Los demás, como PARLER.', 'rise'));
+DECK.push(ejercicio('placer', 3, ['plac', 'plac', 'plac', 'plaç', 'plac', 'plac'], ['e', 'es', 'e', 'ons', 'ez', 'ent'], 'Minutos 41 a 44. Cuidado con «nous plaçons»: cedilla. Los demás, como PARLER.', 'wipe'));
+
+/* 14 · Pour retenir */
+DECK.push({ theme: 'dark', trans: 'circle', label: 'Pour retenir',
+  notes: 'Minutos 44 a 47. Resumen en tres ideas: base + terminación; la canción e-es-e-ons-ez-ent; los dos cuidados (mangeons, plaçons).',
+  html: `${chrome('Pour retenir', 'Trois idées')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:140px;width:1680px">Trois idées <em>à garder</em></h2>
+   <div class="abs" style="left:120px;top:370px;width:1680px;display:grid;gap:30px">
+    <div class="b vcard" data-s="1" data-fx="left" style="padding:36px 56px;display:grid;grid-template-columns:130px 1fr;align-items:center"><span class="vw" style="font-size:110px;color:var(--oro-claro)">1</span><span class="p" style="font-size:46px">Un verbe = <b class="vb">base</b> + <b class="vt">terminaison</b>. À l’infinitif : <b>parl</b>+<b>er</b>.</span></div>
+    <div class="b vcard" data-s="2" data-fx="left" style="padding:36px 56px;display:grid;grid-template-columns:130px 1fr;align-items:center"><span class="vw" style="font-size:110px;color:var(--oro-claro)">2</span><span class="p" style="font-size:46px">La chanson : <b class="vt">e · es · e · ons · ez · ent</b>. Seuls nous et vous s’entendent.</span></div>
+    <div class="b vcard" data-s="3" data-fx="left" style="padding:36px 56px;display:grid;grid-template-columns:130px 1fr;align-items:center"><span class="vw" style="font-size:110px;color:var(--oro-claro)">3</span><span class="p" style="font-size:46px">Pour garder le son : <b>nous mange<u>o</u>ns</b>, <b>nous pla<u>ç</u>ons</b>.</span></div></div>` });
+
+/* 15 · Bonus : petits changements */
+DECK.push({ theme: 'light', trans: 'slide', label: 'Bonus · petits changements', bonus: true,
+  notes: 'Diapositiva bonus (tecla B para omitirla). Algunos verbos en -ER cambian un poco ANTES de las terminaciones mudas: appeler → j’appelle, acheter → j’achète, payer → je paie, envoyer → j’envoie. Solo las formas je/tu/il/ils; nous y vous quedan normales.',
+  html: `${chrome('Bonus', 'Petits changements')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:140px;width:1680px">Quelques verbes <em>changent un peu</em></h2>
+   <p class="p b" data-s="1" data-fx="blur" style="position:absolute;left:120px;top:330px;width:1680px;font-size:38px">Avant une terminaison <b>muette</b> (je, tu, il, ils), la base se modifie. Nous et vous : rien ne change.</p>
+   <div class="abs" style="left:120px;top:470px;width:1680px;display:grid;grid-template-columns:1fr 1fr;gap:26px">
+    ${[['appeler', 'j’appelle', 'nous appelons', 2], ['acheter', 'j’achète', 'nous achetons', 3], ['payer', 'je paie', 'nous payons', 4], ['envoyer', 'j’envoie', 'nous envoyons', 5]].map(([a, b, c, s]) => `<div class="b vcard" data-s="${s}" data-fx="pop" style="padding:24px 40px"><div class="mono" style="font-size:28px;color:var(--oro2);letter-spacing:.12em">${a.toUpperCase()}</div><div class="vw" style="font-size:70px;margin-top:6px"><span class="vt">${b}</span></div><div class="vw" style="font-size:48px;color:var(--suave);margin-top:4px">${c}</div></div>`).join('')}</div>` });
+
+/* 16 · Cierre */
+DECK.push({ theme: 'dark', trans: 'zoom', label: 'Merci',
+  notes: 'Minutos 47 a 50. Cierre. Pide que canten una última vez. Deberes: conjugar tres verbos en -ER a elección en su espacio personal y grabarse cantando la canción.',
+  html: `<canvas id="confetti" width="1920" height="1080" class="abs" style="left:0;top:0;pointer-events:none"></canvas>
+   <div class="bg"><span class="fl" style="left:1200px;top:90px;font-size:290px;--d:19s">ons</span><span class="fl" style="left:1430px;top:520px;font-size:250px;--d:23s">ez</span></div>
+   <div class="abs" style="left:120px;top:250px;width:1560px"><h1 class="h1 a-up" style="font-size:190px">Chanter, c’est <em class="shimmer">retenir</em> !</h1>
+    <div class="rule b" data-s="1" data-fx="wipe"></div>
+    <p class="lead b" data-s="1" style="max-width:1300px"><b class="vb">parl</b><b class="vt">e</b> · <b class="vb">parl</b><b class="vt">es</b> · <b class="vb">parl</b><b class="vt">e</b> · <b class="vb">parl</b><b class="vt">ons</b> · <b class="vb">parl</b><b class="vt">ez</b> · <b class="vb">parl</b><b class="vt">ent</b></p>
+    <p class="lead b" data-s="2" style="margin-top:20px">Dans ton espace : <em class="i" style="color:var(--oro-claro)">trois verbes en -ER à conjuguer et à chanter</em>.</p></div>
+   <div class="foot">Vive el francés</div>`,
+  step: (n) => { if (n === 1) confeti(); } });
+
+
+/* ═══ 4. MOTOR: pasos, transiciones, interacciones ═══ */
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const stage = $('#stage'); let cur = -1, step = 0, skipBonus = false, anim = null;
+/* partículas de fondo en las diapositivas oscuras */
+const GLIFOS = ['parl', 'chant', 'mang', 'plac', 'e', 'es', 'ons', 'ez', 'ent'];
+function particulas(){ let h = ''; for (let i = 0; i < 9; i++){ const g = GLIFOS[(i * 3) % GLIFOS.length];
+  h += `<span class="fl" style="left:${(i * 211) % 1800}px;top:${(i * 137) % 900}px;font-size:${90 + (i * 47) % 160}px;--d:${15 + (i * 3) % 14}s;--dx:${30 + i * 9}px;--dy:${-30 - i * 12}px">${g}</span>`; } return h; }
+stage.innerHTML = DECK.map((d, i) => `<section class="slide ${d.theme}" data-i="${i}" data-trans="${d.trans}">${d.theme === 'dark' && !/class="bg"/.test(d.html) ? `<div class="bg">${particulas()}</div>` : ''}${d.html}</section>`).join('');
+const slides = $$('.slide');
+const maxStep = el => Math.max(0, ...$$('[data-s]', el).map(e => +e.dataset.s));
+DECK.forEach((d, i) => d.max = maxStep(slides[i]));
+
+function aplicar(el, n, avanzando){
+  $$('[data-s]', el).forEach(e => { const s = +e.dataset.s, u = e.dataset.until ? +e.dataset.until : 1e9;
+    const on = n >= s && n < u; e.classList.toggle('on', on); e.classList.toggle('off', n >= u); });
+}
+function render(){ const s = slides[cur]; aplicar(s, step);
+  $('#prog i').style.width = ((cur + (DECK[cur].max ? step / (DECK[cur].max + 1) : 0)) / (DECK.length - 1) * 100) + '%';
+  $('#count').textContent = String(cur + 1).padStart(2, '0') + ' / ' + DECK.length;
+  $('#notes').innerHTML = '<b>Diapositiva ' + (cur + 1) + ' · ' + DECK[cur].label + '</b>' + DECK[cur].notes;
+  history.replaceState(null, '', '#' + (cur + 1)); }
+function ir(n, st = 0){ n = Math.max(0, Math.min(DECK.length - 1, n)); if (n === cur) return;
+  const prev = slides[cur]; if (prev){ prev.classList.remove('active'); prev.classList.add('leaving'); setTimeout(() => prev.classList.remove('leaving'), 1100); detener(cur); }
+  cur = n; step = st; const s = slides[cur]; s.classList.remove('leaving');
+  /* los pasos se aplican antes de activar, para que lo ya construido no «llegue volando» al retroceder */
+  aplicar(s, step); void s.offsetWidth; s.classList.add('active'); iniciar(cur); render(); disparar(cur, step); }
+function siguiente(){ const d = DECK[cur]; if (step < d.max){ step++; render(); disparar(cur, step); return; }
+  let n = cur + 1; while (skipBonus && DECK[n] && DECK[n].bonus) n++; if (n < DECK.length) ir(n, 0); }
+function anterior(){ if (step > 0){ step--; render(); return; } let n = cur - 1; while (skipBonus && DECK[n] && DECK[n].bonus) n--; if (n >= 0) ir(n, DECK[n].max); }
+function disparar(i, n){ const d = DECK[i]; if (d.step) d.step(n); }
+function iniciar(i){ if (DECK[i].scopes) iniciarScopes(slides[i]); if (/data-quiz/.test(DECK[i].html)) $$('.quiz', slides[i]).forEach(q => { if (!q.dataset.ready) montarQuiz(q); }); }
+function detener(i){ if (DECK[i].scopes) detenerScopes(); }
+
+/* escala 1920×1080 al tamaño de la ventana */
+function escalar(){ const k = Math.min(innerWidth / 1920, innerHeight / 1080); stage.style.transform = `translate(-50%,-50%) scale(${k})`; }
+addEventListener('resize', escalar); escalar();
+
+/* osciloscopio: ruido sin forma para [s]; ruido + pulso regular para [z] */
+let scopeRAF = null;
+function iniciarScopes(el){ detenerScopes(); const cs = $$('canvas.scope', el); const t0 = performance.now();
+  const dibuja = t => { cs.forEach(c => { const g = c.getContext('2d'), w = c.width, h = c.height, voiced = c.dataset.scope === 'voiced', tt = (t - t0) / 1000;
+      g.clearRect(0, 0, w, h); g.lineWidth = 3; g.lineJoin = 'round'; g.strokeStyle = voiced ? '#ffd166' : '#5be3b3'; g.beginPath();
+      for (let x = 0; x <= w; x += 4){ const ruido = (Math.random() - .5) * (voiced ? 70 : 120); const pulso = voiced ? Math.sin(x * .09 - tt * 28) * 70 * (0.65 + .35 * Math.sin(tt * 3)) : 0;
+        const y = h / 2 + ruido * (voiced ? .6 : 1) + pulso; x ? g.lineTo(x, y) : g.moveTo(x, y); } g.stroke(); }); scopeRAF = requestAnimationFrame(dibuja); };
+  scopeRAF = requestAnimationFrame(dibuja); }
+function detenerScopes(){ if (scopeRAF) cancelAnimationFrame(scopeRAF); scopeRAF = null; }
+
+/* confeti */
+function confeti(){ const c = $('#confetti'); if (!c) return; const g = c.getContext('2d'), P = [], col = ['#d9bd86', '#1f9d73', '#3b82c4', '#cf5b7d', '#ffd166', '#f3eee2'];
+  for (let i = 0; i < 220; i++) P.push({ x: Math.random() * 1920, y: -Math.random() * 900, vx: (Math.random() - .5) * 5, vy: 3 + Math.random() * 6, s: 10 + Math.random() * 16, r: Math.random() * 6, vr: (Math.random() - .5) * .3, c: col[i % col.length] });
+  let f = 0; const tick = () => { g.clearRect(0, 0, 1920, 1080); P.forEach(p => { p.x += p.vx; p.y += p.vy; p.r += p.vr; g.save(); g.translate(p.x, p.y); g.rotate(p.r); g.fillStyle = p.c; g.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); g.restore(); });
+    if (++f < 420) requestAnimationFrame(tick); else g.clearRect(0, 0, 1920, 1080); }; tick(); }
+
+/* juegos de opción múltiple (nasales y S / Z) */
+const QUIZ = {
+  nas: { titulo: 'Quelle nasale ?', color: 'nas', opts: [['a', 'an · en'], ['i', 'in · ain'], ['o', 'on'], ['u', 'un']],
+    items: [['vent', '[vɑ̃]', 'a'], ['pain', '[pɛ̃]', 'i'], ['bon', '[bɔ̃]', 'o'], ['parfum', '[paʁfœ̃]', 'u'], ['lundi', '[lœ̃di]', 'u'], ['maison', '[mɛzɔ̃]', 'o'], ['matin', '[matɛ̃]', 'i'], ['temps', '[tɑ̃]', 'a']] },
+  sz: { titulo: 'Serpent ou abeille ?', color: 'vib', opts: [['s', '🐍  [s]'], ['z', '🐝  [z]']],
+    items: [['sac', '[sak]', 's'], ['zéro', '[zeʁo]', 'z'], ['rose', '[ʁoz]', 'z'], ['classe', '[klas]', 's'], ['maison', '[mɛzɔ̃]', 'z'], ['merci', '[mɛʁsi]', 's'], ['musée', '[myze]', 'z'], ['garçon', '[gaʁsɔ̃]', 's']] } };
+function montarQuiz(q){ const D = QUIZ[q.dataset.quiz]; q.dataset.ready = 1; let i = 0, pts = 0, resp = false; const col = `var(--${D.color})`;
+  const pinta = () => { const it = D.items[i];
+    q.innerHTML = `<div class="mono" style="font-size:26px;color:var(--oro2);letter-spacing:.16em">${D.titulo.toUpperCase()} · ${i + 1} / ${D.items.length} · ${pts} ✓</div>
+      <div style="margin:34px 0 8px;font-family:var(--display);font-size:250px;font-weight:600;line-height:1;color:var(--tinta)">${it[0]}</div>
+      <div class="mono" style="font-size:40px;color:var(--oro2);min-height:56px" id="ipa">${resp ? it[1] : '[ ? ]'}</div>
+      <div style="display:flex;gap:30px;justify-content:center;margin:38px 0 22px" id="opts">${D.opts.map(o => `<button class="opt" style="--c:${col}" data-r="${o[0]}">${o[1]}</button>`).join('')}</div>
+      <div class="fb" id="fb"></div>
+      <div style="display:flex;gap:18px;justify-content:center;margin-top:14px"><button class="btn ghost" data-q="say">♪ Écouter</button><button class="btn" data-q="next">${i + 1 < D.items.length ? 'Suivant →' : 'Terminer ✓'}</button></div>`;
+    $('[data-q=say]', q).onclick = () => speak(it[0]);
+    $('[data-q=next]', q).onclick = () => { if (i + 1 < D.items.length){ i++; resp = false; pinta(); } else q.innerHTML = `<div style="margin-top:200px;font-family:var(--display);font-size:200px;color:var(--tinta)">${pts} / ${D.items.length}</div><div style="font-family:var(--display);font-style:italic;font-size:74px;color:var(--oro)">${pts > D.items.length - 2 ? 'Bravo ! Oreille d’or.' : 'Bien ! On recommence ?'}</div><button class="btn" style="margin-top:50px" data-q="again">↺ Rejouer</button>`, $('[data-q=again]', q).onclick = () => { i = 0; pts = 0; resp = false; pinta(); }; };
+    $$('.opt', q).forEach(b => b.onclick = () => { if (resp) return; resp = true; const ok = b.dataset.r === it[2]; if (ok) pts++;
+      b.classList.add(ok ? 'ok' : 'no'); if (!ok) $$('.opt', q).forEach(x => { if (x.dataset.r === it[2]) x.classList.add('ok'); });
+      $('#ipa', q).textContent = it[1]; $('#fb', q).innerHTML = ok ? '<span style="color:var(--sif)">Oui !</span>' : `<span style="color:var(--chu)">Non… c’est ${D.opts.find(o => o[0] === it[2])[1]}</span>`;
+      if (q.dataset.quiz === 'sz') (it[2] === 's' ? hiss(1) : buzz(1)); speak(it[0]); }); };
+  pinta(); }
+
+/* clics en botones, fichas y el avance general */
+stage.addEventListener('click', e => {
+  const chipEl = e.target.closest('.chip'); if (chipEl){ chipEl.classList.remove('say'); void chipEl.offsetWidth; chipEl.classList.add('say'); speak(chipEl.dataset.say); return; }
+  const act = e.target.closest('[data-act]'); if (act){ const a = act.dataset.act;
+    if (a === 'hiss') hiss(1.8); else if (a === 'buzz') buzz(1.8);
+    else if (a === 'poem') speak('Siffle le serpent. Le serpent qui danse, danse et se balance, au son des cymbales, sur un air de valse que jouent les cigales.', .72);
+    else if (a === 'bee') speak('Une abeille se pose sur une belle rose et vient l’arroser. Laquelle ? La rosée !', .72);
+    else if (a === 'twister-slow') speak('Si six scies scient six cyprès, six cent six scies scient six cent six cyprès.', .6);
+    else if (a === 'twister-fast') speak('Si six scies scient six cyprès, six cent six scies scient six cent six cyprès.', 1.15);
+    const r = act.parentElement; if (a === 'buzz'){ } return; }
+  const say = e.target.closest('[data-say]'); if (say){ speak(say.dataset.say); return; }
+  if (e.target.closest('button,a,.quiz')) return;
+  siguiente(); });
+
+/* teclado, ayuda, notas, sonido */
+function toast(t){ const el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('on'), 1600); }
+function pantalla(){ if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); }
+addEventListener('keydown', e => { if (e.metaKey || e.ctrlKey || e.altKey) return; const k = e.key;
+  if (k === 'ArrowRight' || k === 'PageDown' || k === ' ' || k === 'ArrowDown'){ e.preventDefault(); siguiente(); }
+  else if (k === 'ArrowLeft' || k === 'PageUp' || k === 'ArrowUp'){ e.preventDefault(); anterior(); }
+  else if (k === 'Home') ir(0); else if (k === 'End') ir(DECK.length - 1);
+  else if (/^[1-9]$/.test(k)) ir(+k - 1);
+  else if (k === 'f' || k === 'F') pantalla();
+  else if (k === 'n' || k === 'N') $('#notes').classList.toggle('on');
+  else if (k === 's' || k === 'S'){ soundOn = !soundOn; if (!soundOn && 'speechSynthesis' in window) speechSynthesis.cancel(); $('#bSound').textContent = soundOn ? '♪ SON' : '✕ SON'; toast(soundOn ? 'Sonido activado' : 'Sonido desactivado'); }
+  else if (k === 'b' || k === 'B'){ skipBonus = !skipBonus; toast(skipBonus ? 'Bonus omitido' : 'Bonus incluido'); }
+  else if (k === '?' || k === 'h' || k === 'H') $('#help').classList.toggle('on');
+  else if (k === 'Escape'){ $('#help').classList.remove('on'); $('#notes').classList.remove('on'); } });
+$('#bSound').onclick = e => { e.stopPropagation(); soundOn = !soundOn; $('#bSound').textContent = soundOn ? '♪ SON' : '✕ SON'; if (!soundOn && 'speechSynthesis' in window) speechSynthesis.cancel(); };
+$('#bNotes').onclick = () => $('#notes').classList.toggle('on'); $('#bFull').onclick = pantalla; $('#bHelp').onclick = () => $('#help').classList.toggle('on');
+$('#help').onclick = () => $('#help').classList.remove('on');
+/* los controles se esconden cuando se proyecta */
+let idle; const despierta = () => { document.body.classList.remove('quiet'); clearTimeout(idle); idle = setTimeout(() => document.body.classList.add('quiet'), 3200); };
+['mousemove', 'keydown', 'touchstart'].forEach(ev => addEventListener(ev, despierta)); despierta();
+/* gesto táctil */
+let tx = null; addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+addEventListener('touchend', e => { if (tx === null) return; const dx = e.changedTouches[0].clientX - tx; tx = null; if (Math.abs(dx) > 60){ dx < 0 ? siguiente() : anterior(); } }, { passive: true });
+if ('speechSynthesis' in window) speechSynthesis.getVoices();
+const m = /^#(\d+)$/.exec(location.hash); ir(m ? +m[1] - 1 : 0, 0);
+addEventListener('hashchange', () => { const h = /^#(\d+)$/.exec(location.hash); if (h && +h[1] - 1 !== cur) ir(+h[1] - 1, 0); });
+
+/* ═══ La chanson de la conjugaison: cada persona se ilumina al ritmo de la voz ═══ */
+(function () {
+  const st = document.createElement('style');
+  st.textContent = '.chant-row.on{transform:scale(1.03);border-color:#ffd166!important;background:rgba(255,209,102,.2)!important}';
+  document.head.appendChild(st);
+  const FRASES = ['je parle', 'tu parles', 'il parle', 'nous parlons', 'vous parlez', 'ils parlent'];
+  let cantando = false;
+  function tic(f = 190) { if (!soundOn) return; const a = ac(); if (!a) return; const t = a.currentTime, o = a.createOscillator(), g = a.createGain();
+    o.type = 'sine'; o.frequency.setValueAtTime(f, t); o.frequency.exponentialRampToValueAtTime(60, t + .12);
+    g.gain.setValueAtTime(.3, t); g.gain.exponentialRampToValueAtTime(.001, t + .2); o.connect(g); g.connect(a.destination); o.start(t); o.stop(t + .22); }
+  const pausa = ms => new Promise(r => setTimeout(r, ms));
+  function decir(txt, rate) {
+    return new Promise(res => {
+      if (!soundOn || !('speechSynthesis' in window)) return setTimeout(res, 900 / rate);
+      let fin = false; const hecho = () => { if (!fin) { fin = true; res(); } };
+      try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(txt); u.lang = 'fr-FR'; u.rate = rate;
+        const v = speechSynthesis.getVoices().find(v => /^fr/i.test(v.lang)); if (v) u.voice = v; u.onend = hecho; speechSynthesis.speak(u); } catch (e) { hecho(); }
+      setTimeout(hecho, 2600);   // sin voz o sin evento «end»: no se queda colgado
+    });
+  }
+  async function cantar(rate) {
+    if (cantando) return; cantando = true;
+    const filas = [...document.querySelectorAll('.chant-row')];
+    for (let r = 0; r < 2; r++) {
+      for (let i = 0; i < FRASES.length; i++) {
+        filas.forEach(f => f.classList.remove('on')); if (filas[i]) filas[i].classList.add('on');
+        tic(i % 3 === 0 ? 220 : 160); await decir(FRASES[i], rate); await pausa(120);
+      }
+    }
+    filas.forEach(f => f.classList.remove('on')); cantando = false;
+  }
+  document.getElementById('stage').addEventListener('click', e => { const b = e.target.closest('[data-act="vchant"]'); if (b) cantar(parseFloat(b.dataset.rate) || .8); });
+})();
+
+</script>
+</body>
+</html>
