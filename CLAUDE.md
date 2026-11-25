@@ -148,6 +148,15 @@ las páginas se muestran con los saltos de párrafo respetados y justificados.
 - Verificar en un navegador real antes de dar algo por hecho, y decir qué se
   comprobó.
 
+## Actividades: formato inmersivo, de diapositiva
+
+- **Toda actividad nueva sigue el estilo de la revisión autónoma de B2 y de
+  las presentaciones**: pantalla completa, una idea por pantalla, explicación
+  antes de práctica, progreso siempre a la vista, corrección inmediata y un
+  balance final con recomendaciones. Las fichas de A1, A2 y B2 ya lo tienen
+  con `assets/js/fichas-inmersivo.js` («Parcours immersif»).
+- Los resultados se guardan en la plataforma, no solo en el navegador.
+
 ## Materiales: cada tema lleva su explicación
 
 - **Todo tema de práctica, en cualquier curso (particulares, A1, A2.1, B2…),
