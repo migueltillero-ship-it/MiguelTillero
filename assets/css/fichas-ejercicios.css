@@ -498,3 +498,16 @@ header h1{font-weight:300;letter-spacing:.01em}
 #inm.con-arte .inm-arte{opacity:1;-webkit-mask-image:linear-gradient(90deg,transparent 0%,transparent 28%,#000 75%);mask-image:linear-gradient(90deg,transparent 0%,transparent 28%,#000 75%)}
 #inm.con-arte .inm-arte::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,32,26,.92) 0%,rgba(6,32,26,.55) 55%,rgba(6,32,26,.1) 100%)}
 @media(max-width:700px){#inm.con-arte .inm-arte{opacity:.35}}
+
+/* Explicaciones que vienen de los dossiers (espace-a1-dossier.js, espace-b2-dossier.js) */
+.encadre-grammaire,.encadre-culture{background:rgba(165,130,74,.07);border-left:4px solid var(--or);padding:1rem 1.2rem;margin:.8rem 0;border-radius:0 12px 12px 0}
+.encadre-culture{border-left-color:var(--sauge)}
+.encadre-grammaire h4,.encadre-culture h4{font-family:var(--font-titre);font-size:1.3rem;margin:0 0 .6rem;color:var(--bleu)}
+.encadre-grammaire ul{margin:.4rem 0 .6rem 1.4rem}.encadre-grammaire li{margin-bottom:.4rem}
+.tableau-temps{width:100%;border-collapse:collapse;margin:.8rem 0}
+.tableau-temps th,.tableau-temps td{text-align:left;padding:.5rem .7rem;border-bottom:1px solid var(--gris)}
+.exemple{border-left:3px solid var(--sauge);padding:.6rem 0 .6rem 1rem;margin:.8rem 0;background:rgba(47,143,107,.06)}
+.grille-vocab{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.5rem}
+.item-vocab{padding:.5rem .7rem;border:1px solid var(--gris);border-radius:10px;background:#fff}
+.btn-audio{background:transparent;border:1px solid var(--gris);border-radius:999px;cursor:pointer;padding:.05rem .45rem;font-size:.85rem;margin-left:.2rem}
+.carte.dossier{border-top-color:var(--sauge)}

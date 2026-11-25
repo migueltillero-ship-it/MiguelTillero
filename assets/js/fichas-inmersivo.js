@@ -165,10 +165,10 @@
     ov.querySelector('.inm-sig').focus();
   };
 
-  // El botón de entrada, en la cabecera de cada ficha y en el hub si lo piden.
-  const abrirOrig = abrirFicha;
-  window.abrirFicha = abrirFicha = function(id){
-    abrirOrig(id);
+  // El botón de entrada, en la cabecera de cada ficha. El recorrido inmersivo es la forma
+  // NORMAL de hacer una ficha: se abre solo. Al salir queda la ficha en página corrida y el
+  // botón «Commencer» para volver. Con ?sin-inmersivo en la dirección no se abre solo.
+  function entrada(id){
     const f = FICHAS.find(x => x.id === id), cont = document.getElementById('f-cuerpo');
     if(!f || !cont || !fichaDisponible(f) || document.getElementById('btn-inm')) return;
     const b = document.createElement('div');
@@ -176,8 +176,10 @@
     b.innerHTML = `<div><b>Parcours immersif</b><span>La fiche en plein écran, une idée par écran, avec ton balance à la fin.</span></div>
       <button class="btn" type="button" onclick="abrirInmersivo()">▶ Commencer</button>`;
     cont.insertBefore(b, cont.firstChild);
-    // El recorrido inmersivo es la forma NORMAL de hacer una ficha: se abre solo.
-    // Al salir queda la ficha en página corrida y el botón «Commencer» para volver.
     if(!/sin-inmersivo/.test(location.search)) window.abrirInmersivo();
-  };
+  }
+  const abrirOrig = abrirFicha;
+  window.abrirFicha = abrirFicha = function(id){ abrirOrig(id); entrada(id); };
+  // Si la página se abrió ya con #ficha en la dirección, el motor la abrió antes de cargar este archivo.
+  if(fichaActual && document.getElementById('vue-fiche') && document.getElementById('vue-fiche').classList.contains('active')) entrada(fichaActual.id);
 })();
