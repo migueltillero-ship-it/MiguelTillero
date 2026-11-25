@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Siffler, chuchoter et trouver le rythme · Vive el francés</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Space+Mono&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===========================================================================
+   LES SONS NASAUX, SIFFLANTS ET VIBRANTS
+   Continuación de «Les sons et les voyelles»: misma paleta (malaquita y oro),
+   mismos tipos (Cormorant Garamond, Syne y Space Mono para las etiquetas) y la
+   misma firma al pie. Todo es CSS, SVG y un poco de JavaScript: no hay imágenes
+   externas, así que la presentación pesa poco y funciona sin conexión (salvo
+   las tipografías, que tienen respaldo).
+   Teclas: → / espacio / clic = avanzar · ← = retroceder · F = pantalla completa
+   · N = notas · S = sonido · B = saltar/incluir el bonus · ? = ayuda
+   =========================================================================== */
+:root{
+  --noche:#12332b; --bosque:#1f6b55; --menta:#eef5f0; --menta2:#d5e5db; --crema:#f3eee2;
+  --oro:#a5824a; --oro2:#7a5e2e; --oro-claro:#d9bd86; --tinta:#12332b; --suave:#44645a;
+  /* una familia de sonidos = un color, en todas las diapositivas */
+  --nas:#3b82c4; --sif:#1f9d73; --vib:#d99a12; --chu:#cf5b7d;
+  --display:'Cormorant Garamond',Georgia,serif; --sans:'Syne',Arial,sans-serif; --mono:'Space Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#06130f;overflow:hidden;font-family:var(--sans)}
+#viewport{position:fixed;inset:0;overflow:hidden}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform:translate(-50%,-50%);transform-origin:center center;overflow:hidden;background:#12332b}
+
+/* ── Diapositivas y transiciones ───────────────────────────────────────── */
+.slide{position:absolute;inset:0;visibility:hidden;opacity:0;z-index:1;overflow:hidden;
+  transition:opacity .9s ease,transform .95s cubic-bezier(.2,.7,.2,1),filter .9s ease,clip-path 1.05s cubic-bezier(.7,0,.2,1)}
+.slide.active{visibility:visible;opacity:1;z-index:3;transform:none;filter:none;clip-path:none}
+.slide.leaving{visibility:visible;opacity:1;z-index:2;transform:none;filter:none;clip-path:none;transition:none}
+.slide:not(.active):not(.leaving){transition:none}
+.slide[data-trans=zoom]{transform:scale(1.16);filter:blur(22px)}
+.slide[data-trans=slide]{transform:translateX(14%)}
+.slide[data-trans=rise]{transform:translateY(9%)}
+.slide[data-trans=flip]{transform:perspective(2600px) rotateY(-38deg) scale(.88);transform-origin:left center}
+.slide[data-trans=circle]{opacity:1;clip-path:circle(0% at 50% 50%)}
+.slide[data-trans=circle].active{clip-path:circle(150% at 50% 50%)}
+.slide[data-trans=wipe]{opacity:1;clip-path:inset(0 100% 0 0)}
+.slide[data-trans=wipe].active{clip-path:inset(0 0 0 0)}
+.slide[data-trans=iris]{opacity:1;clip-path:circle(0% at 80% 20%)}
+.slide[data-trans=iris].active{clip-path:circle(150% at 80% 20%)}
+/* el estado «activo» manda sobre el de partida de cada transición (misma especificidad: sin esto, ganaba el que iba después) */
+.slide.active[data-trans=zoom],.slide.active[data-trans=slide],.slide.active[data-trans=rise],.slide.active[data-trans=flip],.slide.leaving[data-trans]{transform:none;filter:none}
+.slide.leaving[data-trans=circle],.slide.leaving[data-trans=wipe],.slide.leaving[data-trans=iris]{clip-path:none}
+.slide.dark{background:radial-gradient(circle at 80% 20%,#1f6b55 0%,#12332b 62%);color:var(--crema)}
+.slide.light{background:radial-gradient(circle at 12% 0%,#f7fbf8 0%,var(--menta) 55%,#dcebe2 100%);color:var(--tinta)}
+.bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.fl{position:absolute;font-family:var(--display);font-style:italic;color:#fff;opacity:.07;white-space:nowrap;
+  animation:flota var(--d,18s) ease-in-out infinite alternate}
+@keyframes flota{from{transform:translate(0,0) rotate(var(--r0,-4deg))}to{transform:translate(var(--dx,40px),var(--dy,-60px)) rotate(var(--r1,5deg))}}
+
+/* ── Texto ─────────────────────────────────────────────────────────────── */
+.abs{position:absolute}
+.lbl{font-family:var(--mono);font-size:27px;letter-spacing:.2em;text-transform:uppercase;color:var(--oro2)}
+.dark .lbl{color:var(--oro-claro)}
+.top{position:absolute;left:120px;top:78px}
+.foot,.foot2{position:absolute;bottom:62px;font-family:var(--mono);font-size:25px;letter-spacing:.2em;text-transform:uppercase;color:var(--oro2)}
+.foot{left:120px}.foot2{right:120px}
+.dark .foot,.dark .foot2{color:var(--oro-claro)}
+.h1{font-family:var(--display);font-weight:400;font-size:178px;line-height:.98;letter-spacing:-.01em}
+.h2{font-family:var(--display);font-weight:400;font-size:112px;line-height:1.02}
+.h3{font-family:var(--display);font-weight:500;font-size:64px;line-height:1.1}
+.h1 em,.h2 em,.h3 em{font-style:italic;color:var(--oro)}
+.dark .h1 em,.dark .h2 em,.dark .h3 em{color:var(--oro-claro)}
+.lead{font-size:42px;line-height:1.35;color:var(--suave);font-weight:400}
+.dark .lead{color:#bfd6cc}
+.p{font-size:34px;line-height:1.45;color:var(--suave)}
+.dark .p{color:#bfd6cc}
+.rule{width:150px;height:5px;background:var(--oro);border-radius:3px;margin:34px 0}
+.dark .rule{background:var(--oro-claro)}
+.mono{font-family:var(--mono)}
+em.i{font-style:italic}
+.nas{color:var(--nas)}.sif{color:var(--sif)}.vib{color:var(--vib)}.chu{color:var(--chu)}
+
+/* ── Construcción por pasos (clic a clic) ──────────────────────────────── */
+.b{opacity:0;transform:translateY(46px) scale(.98);transition:opacity .75s ease,transform .85s cubic-bezier(.2,.85,.2,1)}
+.b.on{opacity:1;transform:none}
+.b[data-fx=pop]{transform:scale(.35)}
+.b[data-fx=left]{transform:translateX(-140px)}
+.b[data-fx=right]{transform:translateX(140px)}
+.b[data-fx=blur]{filter:blur(24px);transform:scale(1.1)}
+.b[data-fx=wipe]{transform:none;clip-path:inset(0 100% 0 0);opacity:1;transition:clip-path 1s cubic-bezier(.7,0,.2,1)}
+.b[data-fx=wipe].on{clip-path:inset(0 0 0 0)}
+.b[data-fx=flip]{transform:perspective(900px) rotateX(-85deg);transform-origin:top center}
+.b[data-fx=flip].on{transform:none}
+.b.on[data-fx]{opacity:1;transform:none;filter:none}
+.b.off{opacity:0!important;transform:scale(.96);visibility:hidden;transition:opacity .5s,transform .5s,visibility 0s .5s}
+.bo{opacity:0;transition:opacity .7s ease}.bo.on{opacity:1}.bo.off{opacity:0}
+.ln{fill:none;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.1s cubic-bezier(.6,0,.2,1)}
+.ln.on{stroke-dashoffset:0}
+.ln.dots{opacity:0;transition:opacity 2s .6s}.ln.dots.on{opacity:.8}
+
+/* ── Animaciones automáticas al entrar ─────────────────────────────────── */
+.slide.active .a-up{animation:aUp 1s cubic-bezier(.2,.85,.2,1) both}
+.slide.active .a-fade{animation:aFade 1.6s ease both}
+.slide.active .d1{animation-delay:.25s}.slide.active .d2{animation-delay:.5s}.slide.active .d3{animation-delay:.75s}
+.slide.active .a-pop{animation:aPop .9s cubic-bezier(.2,1.4,.3,1) both}
+@keyframes aUp{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:none}}
+@keyframes aFade{from{opacity:0}to{opacity:1}}
+@keyframes aPop{from{opacity:0;transform:scale(.3) rotate(-8deg)}to{opacity:1;transform:none}}
+.slide.active .ghost{animation:gFade 1.8s ease both}
+@keyframes gFade{from{opacity:0}to{opacity:.07}}
+.shimmer{background:linear-gradient(100deg,var(--oro-claro) 20%,#fff7dd 45%,var(--oro-claro) 70%);background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:brilla 4s linear infinite}
+@keyframes brilla{from{background-position:120% 0}to{background-position:-120% 0}}
+
+/* ── Fichas de palabras (clic = escuchar) ──────────────────────────────── */
+.chip{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:6px;text-align:left;
+  background:#fff;border:2px solid color-mix(in srgb,var(--c) 45%,transparent);border-left:10px solid var(--c);border-radius:26px;padding:20px 30px;
+  cursor:pointer;font:inherit;color:var(--tinta);box-shadow:0 14px 34px rgba(18,51,43,.10)}
+.chip[data-c=nas]{--c:var(--nas)}.chip[data-c=sif]{--c:var(--sif)}.chip[data-c=vib]{--c:var(--vib)}.chip[data-c=chu]{--c:var(--chu)}
+.chip .w{font-family:var(--display);font-size:64px;font-weight:500;line-height:1}
+.chip .ipa{font-family:var(--mono);font-size:26px;color:var(--c)}
+.chip::after{content:"♪";position:absolute;right:24px;top:18px;font-size:30px;color:var(--c);opacity:.55}
+.chip:hover{transform:translateY(-4px)}
+.chip.say{animation:latido .6s ease}
+@keyframes latido{40%{transform:scale(1.07);box-shadow:0 0 0 14px color-mix(in srgb,var(--c) 22%,transparent)}}
+.cu .chip{padding:12px 26px}.cu .chip .w{font-size:52px}
+.pill{display:inline-block;font-family:var(--mono);font-size:26px;letter-spacing:.12em;text-transform:uppercase;padding:10px 24px;border-radius:999px;
+  background:color-mix(in srgb,var(--c,var(--oro)) 16%,#fff);color:var(--c,var(--oro2));border:2px solid color-mix(in srgb,var(--c,var(--oro)) 55%,transparent)}
+.btn{font:inherit;font-family:var(--mono);font-size:28px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:0;border-radius:999px;
+  padding:18px 40px;background:linear-gradient(135deg,#12332b,var(--bosque));color:var(--crema);box-shadow:0 12px 28px rgba(18,51,43,.3);transition:transform .2s}
+.btn:hover{transform:translateY(-3px)}
+.btn.gold{background:linear-gradient(135deg,var(--oro2),var(--oro));color:#fff}
+.btn.ghost{background:transparent;color:var(--tinta);box-shadow:none;border:2px solid var(--oro)}
+.card{background:#fff;border:2px solid rgba(165,130,74,.35);border-radius:34px;box-shadow:0 18px 44px rgba(18,51,43,.10)}
+
+/* resaltados de sonido dentro de las palabras */
+.hn,.hs,.hz,.hc{font-style:normal;border-radius:10px;padding:0 6px;margin:0 -2px}
+.hn{background:color-mix(in srgb,var(--nas) 22%,transparent);color:var(--nas)}
+.hs{background:color-mix(in srgb,var(--sif) 22%,transparent);color:var(--sif)}
+.hz{background:color-mix(in srgb,var(--vib) 26%,transparent);color:#9a6a00}
+.hc{background:color-mix(in srgb,var(--chu) 22%,transparent);color:var(--chu)}
+.dark .hs{color:#5be3b3}.dark .hz{color:#ffd166}.dark .hn{color:#8cc4f5}.dark .hc{color:#ff9fba}
+.hz.buzz{display:inline-block;animation:vibra .12s linear infinite}
+@keyframes vibra{0%{transform:translate(0,0)}25%{transform:translate(1.5px,-1.5px)}50%{transform:translate(-1.5px,1px)}75%{transform:translate(1px,1.5px)}100%{transform:translate(0,0)}}
+.hs.sss{display:inline-block;animation:sisea 2.4s ease-in-out infinite}
+@keyframes sisea{50%{transform:scaleX(1.18) skewX(-8deg)}}
+
+/* ── Interfaz fuera del escenario ──────────────────────────────────────── */
+#ui{position:fixed;left:0;right:0;bottom:0;z-index:20;pointer-events:none}
+#prog{height:5px;background:rgba(255,255,255,.08)}
+#prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--oro),var(--oro-claro));transition:width .5s ease}
+#count{position:fixed;right:14px;bottom:14px;font:12px var(--mono);letter-spacing:.1em;color:#fff;background:rgba(18,51,43,.7);padding:6px 12px;border-radius:999px;pointer-events:none;opacity:.85}
+#tools{position:fixed;right:14px;top:14px;z-index:30;display:flex;gap:8px;transition:opacity .4s}
+#tools button{font:600 13px var(--mono);background:rgba(18,51,43,.78);color:#e9dcb7;border:1px solid rgba(217,189,134,.5);border-radius:999px;padding:8px 14px;cursor:pointer}
+#tools button:hover{background:rgba(31,107,85,.95)}
+body.quiet #tools{opacity:0}
+#notes{position:fixed;left:0;right:0;bottom:0;z-index:25;background:rgba(10,24,19,.95);color:#f3eee2;padding:18px 32px 24px;font:16px/1.55 var(--sans);display:none;border-top:2px solid var(--oro)}
+#notes.on{display:block}
+#notes b{font-family:var(--mono);color:var(--oro-claro);letter-spacing:.14em;font-size:12px;text-transform:uppercase;display:block;margin-bottom:6px}
+#help{position:fixed;inset:0;z-index:40;background:rgba(6,19,15,.92);color:#f3eee2;display:none;place-items:center;font:20px/1.9 var(--sans)}
+#help.on{display:grid}#help div{max-width:620px}#help kbd{font-family:var(--mono);background:#1f6b55;padding:2px 10px;border-radius:8px;margin-right:6px}
+#toast{position:fixed;left:50%;top:18px;transform:translateX(-50%);z-index:50;background:#12332b;color:#e9dcb7;border:1px solid var(--oro);padding:10px 22px;border-radius:999px;font:600 14px var(--mono);opacity:0;transition:opacity .4s;pointer-events:none}
+#toast.on{opacity:1}
+canvas.scope{display:block;width:100%;height:100%}
+@media print{#tools,#ui,#count{display:none}}
+@media (prefers-reduced-motion:reduce){.fl,.shimmer,.hz.buzz,.hs.sss{animation:none!important}}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage"></div></div>
+<div id="ui"><div id="prog"><i></i></div></div>
+<div id="count"></div>
+<div id="tools"><button id="bSound" title="Sonido (S)">♪ SON</button><button id="bNotes" title="Notas (N)">NOTES</button><button id="bFull" title="Pantalla completa (F)">⛶</button><button id="bHelp" title="Ayuda (?)">?</button></div>
+<div id="notes"></div>
+<div id="help"><div><b style="font:600 14px var(--mono);letter-spacing:.2em;color:#d9bd86">ATAJOS</b><br>
+<kbd>→</kbd><kbd>espacio</kbd><kbd>clic</kbd> avanzar un paso<br><kbd>←</kbd> retroceder<br><kbd>F</kbd> pantalla completa<br>
+<kbd>N</kbd> notas de la clase (con los tiempos)<br><kbd>S</kbd> sonido sí / no<br><kbd>B</kbd> saltar o incluir las diapositivas bonus<br>
+<kbd>1</kbd>–<kbd>9</kbd> · <kbd>Inicio</kbd> · <kbd>Fin</kbd> ir a otra diapositiva<br>Las fichas de palabras suenan al hacer clic.</div></div>
+<div id="toast"></div>
+
+<script>
+/* ═══ 1. AUDIO: el silbido de la serpiente y el zumbido de la abeja se generan aquí ═══ */
+let AC = null, soundOn = true;
+function ac(){ if (!AC){ const C = window.AudioContext || window.webkitAudioContext; if (C) AC = new C(); } if (AC && AC.state === 'suspended') AC.resume(); return AC; }
+function ruido(a, d){ const n = Math.floor(a.sampleRate * d), buf = a.createBuffer(1, n, a.sampleRate), x = buf.getChannelData(0);
+  for (let i = 0; i < n; i++) x[i] = Math.random() * 2 - 1; const s = a.createBufferSource(); s.buffer = buf; return s; }
+/* [s]: ruido agudo, sin voz */
+function hiss(d = 1.7){ if (!soundOn) return; const a = ac(); if (!a) return; const t = a.currentTime;
+  const s = ruido(a, d), hp = a.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 4800;
+  const g = a.createGain(); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.32, t + .18); g.gain.setValueAtTime(.32, t + d - .35); g.gain.linearRampToValueAtTime(0, t + d);
+  s.connect(hp); hp.connect(g); g.connect(a.destination); s.start(t); }
+/* [z]: el mismo ruido, pero con la voz (un pulso grave) por debajo: eso es «vibrar» */
+function buzz(d = 1.7){ if (!soundOn) return; const a = ac(); if (!a) return; const t = a.currentTime;
+  const s = ruido(a, d), hp = a.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 3800;
+  const am = a.createGain(); am.gain.value = .12; const lfo = a.createOscillator(); lfo.frequency.value = 95; const lg = a.createGain(); lg.gain.value = .12; lfo.connect(lg); lg.connect(am.gain);
+  const voz = a.createOscillator(); voz.type = 'sawtooth'; voz.frequency.value = 118; const vg = a.createGain(); vg.gain.value = .07;
+  const g = a.createGain(); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.9, t + .18); g.gain.setValueAtTime(.9, t + d - .35); g.gain.linearRampToValueAtTime(0, t + d);
+  s.connect(hp); hp.connect(am); am.connect(g); voz.connect(vg); vg.connect(g); g.connect(a.destination);
+  lfo.start(t); voz.start(t); s.start(t); lfo.stop(t + d); voz.stop(t + d); }
+function speak(txt, rate = .82){ if (!soundOn || !('speechSynthesis' in window)) return; try{
+  speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(txt); u.lang = 'fr-FR'; u.rate = rate;
+  const v = speechSynthesis.getVoices().find(v => /^fr/i.test(v.lang)); if (v) u.voice = v; speechSynthesis.speak(u); }catch(e){} }
+
+/* ═══ 2. DIBUJOS (SVG) reutilizables ═══ */
+const SVG_SNAKE_HEAD = `<svg viewBox="0 0 150 110" width="150" height="110"><defs><linearGradient id="gs" x1="0" x2="1"><stop offset="0" stop-color="#1f9d73"/><stop offset="1" stop-color="#0d6b4c"/></linearGradient></defs>
+  <g class="tong"><path d="M120 55 L168 55 M150 55 L168 42 M150 55 L168 68" stroke="#e0485f" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+  <path d="M6 20 C40 4 100 4 130 40 C140 52 140 58 130 70 C100 106 40 106 6 90 Z" fill="url(#gs)"/>
+  <circle cx="92" cy="38" r="13" fill="#fff7dd"/><circle cx="96" cy="38" r="7" fill="#12332b"/><circle cx="98" cy="35" r="2.4" fill="#fff"/></svg>`;
+const SVG_BEE = `<svg viewBox="0 0 240 170" width="240" height="170"><defs><clipPath id="cb"><ellipse cx="108" cy="98" rx="62" ry="42"/></clipPath></defs>
+  <g class="wing"><ellipse cx="96" cy="44" rx="42" ry="26" transform="rotate(-18 96 44)" fill="#fff" opacity=".7"/><ellipse cx="136" cy="50" rx="36" ry="22" transform="rotate(14 136 50)" fill="#fff" opacity=".55"/></g>
+  <ellipse cx="108" cy="98" rx="62" ry="42" fill="#f0b429"/>
+  <g clip-path="url(#cb)"><rect x="70" y="40" width="20" height="120" fill="#12332b"/><rect x="108" y="40" width="20" height="120" fill="#12332b"/><rect x="146" y="40" width="20" height="120" fill="#12332b"/></g>
+  <path d="M46 98 L12 92 L46 112 Z" fill="#12332b"/>
+  <circle cx="178" cy="86" r="30" fill="#2a2a24"/><circle cx="190" cy="80" r="9" fill="#fff"/><circle cx="193" cy="80" r="4.6" fill="#12332b"/>
+  <path d="M170 60 C168 36 180 24 196 22 M184 62 C192 40 208 36 222 40" stroke="#2a2a24" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M168 96 C176 106 190 106 198 98" stroke="#fff7dd" stroke-width="4" fill="none" stroke-linecap="round"/></svg>`;
+const SVG_ROSE = `<svg viewBox="0 0 420 560" width="420" height="560"><defs><radialGradient id="rg" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#ee8fa8"/><stop offset="1" stop-color="#b13c5c"/></radialGradient></defs>
+  <path d="M210 270 C204 360 222 440 208 556" stroke="#1f6b55" stroke-width="14" fill="none" stroke-linecap="round"/>
+  <path d="M212 430 C270 400 322 410 340 380 C300 372 238 384 212 430Z" fill="#2f9e74"/><path d="M206 470 C150 450 100 455 78 424 C124 418 180 430 206 470Z" fill="#2f9e74"/>
+  <g class="bloom" transform="translate(210 190)">
+   <g fill="url(#rg)" stroke="#8f2c49" stroke-width="3"><ellipse cx="0" cy="-92" rx="62" ry="78"/><ellipse cx="0" cy="-92" rx="62" ry="78" transform="rotate(72)"/><ellipse cx="0" cy="-92" rx="62" ry="78" transform="rotate(144)"/><ellipse cx="0" cy="-92" rx="62" ry="78" transform="rotate(216)"/><ellipse cx="0" cy="-92" rx="62" ry="78" transform="rotate(288)"/></g>
+   <g fill="#e7728f" stroke="#a63a58" stroke-width="3"><ellipse cx="0" cy="-58" rx="44" ry="54" transform="rotate(36)"/><ellipse cx="0" cy="-58" rx="44" ry="54" transform="rotate(108)"/><ellipse cx="0" cy="-58" rx="44" ry="54" transform="rotate(180)"/><ellipse cx="0" cy="-58" rx="44" ry="54" transform="rotate(252)"/><ellipse cx="0" cy="-58" rx="44" ry="54" transform="rotate(324)"/></g>
+   <circle r="34" fill="#c4486a" stroke="#8f2c49" stroke-width="3"/><path d="M-18 -4 C-8 -26 14 -22 14 -2 C14 14 -8 18 -10 4" fill="none" stroke="#8f2c49" stroke-width="4" stroke-linecap="round"/></g>
+  <g fill="#fff" opacity=".9"><circle cx="150" cy="300" r="5"/><circle cx="276" cy="312" r="4"/><circle cx="214" cy="326" r="3.4"/></g></svg>`;
+/* perfil de cabeza (mirando a la derecha) con el camino del aire */
+const SVG_HEAD = `<svg viewBox="0 0 560 520" width="780" height="724"><defs><linearGradient id="hg" x1="0" x2="1"><stop offset="0" stop-color="#e8d9bd"/><stop offset="1" stop-color="#f6ead2"/></linearGradient></defs>
+  <path d="M120 70 C190 24 296 44 312 128 C318 160 322 178 332 198 C340 212 356 232 372 246 L380 258 C372 268 354 268 338 268 L336 290 C350 296 350 306 336 310 C350 316 350 326 334 330 L328 354 C334 378 322 398 296 404 L270 428 L266 500 L116 500 L108 310 C86 238 88 120 120 70Z" fill="url(#hg)" stroke="#a5824a" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M236 470 C238 400 244 380 250 360" stroke="#a5824a" stroke-width="4" fill="none" stroke-dasharray="3 9" stroke-linecap="round"/>
+  <g class="bo" data-s="1" data-until="9"><path class="flow" d="M248 372 C262 330 296 312 338 308 L470 308" fill="none" stroke="#3b82c4" stroke-width="10" stroke-linecap="round" stroke-dasharray="4 22"/><circle class="puff" cx="480" cy="308" r="14" fill="#3b82c4" opacity=".45"/><circle class="puff p2" cx="506" cy="308" r="9" fill="#3b82c4" opacity=".4"/></g>
+  <g class="bo" data-s="2"><path class="flow" d="M250 330 C262 290 300 262 352 258 L470 232" fill="none" stroke="#cf5b7d" stroke-width="10" stroke-linecap="round" stroke-dasharray="4 22"/><circle class="puff" cx="482" cy="228" r="14" fill="#cf5b7d" opacity=".5"/><circle class="puff p2" cx="508" cy="224" r="9" fill="#cf5b7d" opacity=".4"/></g>
+</svg>`;
+const CSSX = `<style>
+.flow{animation:fluye 1.1s linear infinite}@keyframes fluye{to{stroke-dashoffset:-52}}
+.puff{animation:bocanada 1.6s ease-out infinite;transform-box:fill-box;transform-origin:center}.puff.p2{animation-delay:.5s}
+@keyframes bocanada{0%{transform:scale(.5);opacity:.7}100%{transform:scale(2.4);opacity:0}}
+.wing{transform-box:fill-box;transform-origin:50% 100%;animation:aletea .09s ease-in-out infinite alternate}@keyframes aletea{to{transform:scaleY(.55) rotate(-6deg)}}
+.tong{animation:lengua 1.4s ease-in-out infinite;transform-box:fill-box;transform-origin:left center}@keyframes lengua{0%,55%,100%{transform:scaleX(.2)}70%,85%{transform:scaleX(1)}}
+.bloom{transform-box:fill-box;transform-origin:center;animation:florece 1.6s cubic-bezier(.2,1.2,.3,1) both}@keyframes florece{from{transform:translate(210px,190px) scale(.1) rotate(-40deg)}to{transform:translate(210px,190px) scale(1) rotate(0)}}
+.ring{position:absolute;border:4px solid var(--vib);border-radius:50%;opacity:0}
+.go .ring{animation:onda 1.6s ease-out infinite}.go .ring:nth-child(2){animation-delay:.4s}.go .ring:nth-child(3){animation-delay:.8s}
+@keyframes onda{0%{transform:scale(.2);opacity:.9}100%{transform:scale(1.6);opacity:0}}
+.rr{position:absolute;border:3px solid var(--oro-claro);border-radius:50%;opacity:0;animation:onda2 6s ease-out infinite}
+@keyframes onda2{0%{transform:scale(.15);opacity:.55}100%{transform:scale(1.5);opacity:0}}
+.slither{animation:repta 3.6s cubic-bezier(.45,.05,.3,1) both;offset-rotate:auto}@keyframes repta{from{offset-distance:0%}to{offset-distance:100%}}
+.fly{animation:vuela 6.5s cubic-bezier(.4,.1,.3,1) both;offset-rotate:0deg}@keyframes vuela{from{offset-distance:0%}to{offset-distance:100%}}
+.wob{animation:zumba .5s ease-in-out infinite alternate}@keyframes zumba{from{transform:translateY(-8px) rotate(-3deg)}to{transform:translateY(8px) rotate(3deg)}}
+.quiz .opt{font-family:var(--display);font-size:70px;font-weight:500;padding:20px 56px;border-radius:28px;border:3px solid color-mix(in srgb,var(--c) 55%,transparent);background:#fff;color:var(--c);cursor:pointer;box-shadow:0 12px 30px rgba(18,51,43,.1);transition:transform .2s,background .3s}
+.quiz .opt:hover{transform:translateY(-4px)}
+.quiz .opt.ok{background:var(--c);color:#fff;animation:latido .6s}
+.quiz .opt.no{animation:sacude .45s;opacity:.45}
+@keyframes sacude{25%{transform:translateX(-14px)}50%{transform:translateX(14px)}75%{transform:translateX(-8px)}}
+.quiz .fb{font-family:var(--display);font-style:italic;font-size:52px;min-height:70px}
+</style>`;
+
+/* ═══ 3. LAS DIAPOSITIVAS ═══ */
+const DECK = [];
+const chip = (w, ipa, c, s, say) => `<button class="chip b" data-fx="pop" data-s="${s}" data-c="${c}" data-say="${say || w}"><span class="w">${w}</span><span class="ipa">${ipa}</span></button>`;
+const chrome = (lab, sec) => `<div class="top lbl">${lab}</div><div class="foot">Vive el francés</div><div class="foot2">${sec}</div>`;
+
+/* Botón de pista de audio (las pistas de la Fiche 1, en estudiantes/audio/rythme/) */
+const piste = (n, txt) => `<button class="btn gold" data-audio="audio/rythme/piste-${n}.mp3">▶ ${txt}</button>`;
+
+/* 1 · Portada */
+DECK.push({ theme:'dark', trans:'zoom', label:'Portada',
+  notes:'Minutos 0 a 3. Clase de 2 horas (16:00 a 18:00). Plan: repaso de la serpiente [s] y la abeja [z] (3 a 28), el sonido «chut» [ʃ] y su pareja [ʒ] (28 a 50), pausa (50 a 55), acento, ritmo y silabación con la Fiche 1 y sus pistas (55 a 112), cierre (112 a 120). Las pistas se oyen con los botones dorados.',
+  html:`<div class="bg"><span class="fl" style="left:1180px;top:80px;font-size:300px;--d:19s">ss</span><span class="fl" style="left:1500px;top:420px;font-size:260px;--d:23s;--r0:6deg">zz</span>
+    <span class="fl" style="left:1050px;top:620px;font-size:220px;--d:21s">ch</span><span class="fl" style="left:1480px;top:790px;font-size:200px;--d:17s">ta·TA</span><span class="fl" style="left:760px;top:60px;font-size:150px;--d:25s">j</span></div>
+   <div class="abs" style="left:120px;top:250px;width:1500px">
+     <div class="lbl a-up">Classe d’initiation · Module 1</div>
+     <h1 class="h1 a-up d1" style="margin-top:26px">Siffler, chuchoter<br><em>et trouver le rythme</em></h1>
+     <div class="rule b" data-s="1" data-fx="wipe"></div>
+     <p class="lead b" data-s="1" style="max-width:1150px">Le serpent, l’abeille, le « chut »… et la musique du français : l’accent, le rythme et les syllabes.</p></div>
+   <div class="foot">Vive el francés</div>` });
+
+/* 2 · El viaje */
+DECK.push({ theme:'light', trans:'slide', label:'Notre voyage',
+  notes:'Minutos 3 a 5. La ruta del Módulo 1: lo hecho lleva palomita. Hoy repasamos la serpiente y la abeja, vemos el «chut» y entramos en la música del francés. El R queda para la próxima clase.',
+  html:`${chrome('Notre voyage · Module 1','Plan de la classe')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:150px">Où en <em>sommes-nous</em> ?</h2>
+   <div class="abs" style="left:120px;right:120px;top:548px;height:10px;background:rgba(165,130,74,.25);border-radius:6px"></div>
+   <div class="abs" style="left:60px;top:440px;width:1800px;display:flex;justify-content:space-between">
+     ${[['✓','Voyelles','',1,'done'],['✓','Nasales','',1,'done'],['3','[s] [z]','on révise',2,'now'],['4','Chut !','[ʃ] · [ʒ]',3,'now'],['5','Rythme','accent · syllabes',4,'now'],['6','Le R','la prochaine fois',5,'next']]
+       .map(n=>`<div class="b" data-fx="pop" data-s="${n[3]}" style="width:260px;text-align:center"><div style="width:128px;height:128px;margin:0 auto 26px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:64px;font-weight:600;
+          ${n[4]==='done'?'background:var(--bosque);color:#fff':n[4]==='now'?'background:var(--oro);color:#fff;box-shadow:0 0 0 14px rgba(165,130,74,.25)':'background:#fff;color:var(--oro);border:4px dashed var(--oro)'}">${n[0]}</div>
+          <div style="font-family:var(--display);font-size:52px;font-weight:600;line-height:1">${n[1]}</div><div class="mono" style="font-size:24px;color:var(--oro2);margin-top:12px">${n[2]}</div></div>`).join('')}
+   </div>
+   <p class="p b" data-s="5" style="position:absolute;left:120px;top:830px;width:1600px;font-size:40px">Aujourd’hui : les <em class="i">oreilles</em>, la <em class="i">gorge</em>… et les <em class="i">mains</em> pour marquer le rythme.</p>` });
+
+/* ═══ A · REPASO [s] / [z] ═══ */
+DECK.push({ theme:'dark', trans:'circle', label:'01 · [s] [z]',
+  notes:'Minuto 5. Transición. Pregunta: «¿Qué cambia entre la serpiente y la abeja?». Que responda ella antes de pasar: la voz, la garganta que vibra.',
+  html:`<div class="bg"><div class="abs ghost" style="right:60px;top:-120px;font-family:var(--display);font-style:italic;font-size:820px;color:#fff;opacity:.07;line-height:1">01</div></div>
+   <div class="abs" style="left:120px;top:330px;width:1400px"><div class="lbl a-up">Première partie · on révise</div>
+    <h1 class="h1 a-up d1" style="margin-top:24px">Le serpent<br><em class="shimmer">et l’abeille</em></h1>
+    <p class="lead a-up d3" style="margin-top:36px">Même bouche. Une seule différence : la voix.</p></div>
+   <div class="foot">Vive el francés</div>` });
+
+DECK.push({ theme:'dark', trans:'zoom', label:'Même bouche', scopes:true,
+  notes:'Minutos 5 a 10. Recordatorio de la clase pasada. Mano en la garganta: sss (no vibra) y zzz (vibra). Alterna sss, zzz, sss, zzz. Pulsa los botones para oír cada uno; el micrófono dibuja ruido sin forma para [s] y un pulso regular para [z].',
+  html:`${chrome('Même bouche, même position','01 · [s] [z]')}
+   <div class="abs" style="left:120px;top:190px;width:780px;text-align:center">
+     <div style="font-family:var(--display);font-size:140px;line-height:1;color:#5be3b3;font-weight:600">[s]</div><div class="mono" style="font-size:27px;color:#bfd6cc;margin-bottom:12px">le serpent · sans voix</div>
+     <div style="height:230px"><canvas class="scope" data-scope="noise" width="900" height="300"></canvas></div><button class="btn" data-act="hiss" style="margin-top:16px;font-size:26px;padding:14px 34px">▶ Sss</button></div>
+   <div class="abs" style="left:1020px;top:190px;width:780px;text-align:center">
+     <div style="font-family:var(--display);font-size:140px;line-height:1;color:#ffd166;font-weight:600">[z]</div><div class="mono" style="font-size:27px;color:#bfd6cc;margin-bottom:12px">l’abeille · avec voix</div>
+     <div style="height:230px"><canvas class="scope" data-scope="voiced" width="900" height="300"></canvas></div><button class="btn gold" data-act="buzz" style="margin-top:16px;font-size:26px;padding:14px 34px">▶ Zzz</button></div>
+   <p class="lead b" data-s="1" style="position:absolute;left:120px;top:880px;width:1680px;text-align:center">La main sur la gorge : <b style="color:#ffd166">ça vibre ?</b> C’est l’abeille.</p>` });
+
+DECK.push({ theme:'light', trans:'wipe', label:'Les règles',
+  notes:'Minutos 10 a 15. Tres reglas, un clic cada una. 1) S sola entre dos vocales suena [z]: rose, maison, cousin. 2) SS, S al inicio, C ante e/i, Ç y -tion suenan [s]. 3) La liaison: les amis [lezami], vous avez [vuzave], deux enfants [døzɑ̃fɑ̃]. Toca cada palabra para oírla.',
+  html:`${chrome('Quand ça siffle, quand ça vibre','01 · [s] [z]')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:140px">Trois <em>règles</em></h2>
+   <div class="abs" style="left:120px;top:330px;width:1680px;display:grid;gap:26px">
+     <div class="b card" data-s="1" data-fx="right" style="padding:26px 46px;display:flex;gap:30px;align-items:center;flex-wrap:wrap"><span class="pill" style="--c:var(--vib)">S entre voyelles = [z]</span>${chip('rose','[ʁoz]','vib',1)}${chip('maison','[mɛzɔ̃]','vib',1)}${chip('cousin','[kuzɛ̃]','vib',1)}</div>
+     <div class="b card" data-s="2" data-fx="right" style="padding:26px 46px;display:flex;gap:30px;align-items:center;flex-wrap:wrap"><span class="pill" style="--c:var(--sif)">ss · c · ç · -tion = [s]</span>${chip('poisson','[pwasɔ̃]','sif',2)}${chip('merci','[mɛʁsi]','sif',2)}${chip('garçon','[gaʁsɔ̃]','sif',2)}${chip('attention','[atɑ̃sjɔ̃]','sif',2)}</div>
+     <div class="b card" data-s="3" data-fx="right" style="padding:26px 46px;display:flex;gap:30px;align-items:center;flex-wrap:wrap"><span class="pill" style="--c:var(--vib)">la liaison = [z]</span>${chip('les amis','[lezami]','vib',3)}${chip('vous avez','[vuzave]','vib',3)}${chip('deux enfants','[døzɑ̃fɑ̃]','vib',3)}</div>
+   </div>${CSSX}` });
+
+DECK.push({ theme:'light', trans:'slide', label:'Un son de différence',
+  notes:'Minutos 15 a 20. Pares que cambian de sentido por un solo sonido. Que lea la columna verde y luego la ámbar, con la mano en la garganta. poisson (pescado) / poison (veneno); dessert (postre) / désert (desierto); coussin (cojín) / cousin (primo); basse (baja) / base (base). Error típico: decir «poisson» con [z] y anunciar que va a comer veneno.',
+  html:`${chrome('Un son de différence','01 · [s] [z]')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:140px">Attention au <em>sens</em> !</h2>
+   <div class="abs" style="left:120px;top:320px;width:1680px;display:grid;gap:22px">
+     ${[['poisson','[pwasɔ̃] · pescado','poison','[pwazɔ̃] · veneno'],['dessert','[desɛʁ] · postre','désert','[dezɛʁ] · desierto'],['coussin','[kusɛ̃] · cojín','cousin','[kuzɛ̃] · primo'],['basse','[bas] · baja','base','[baz] · base']]
+       .map((r,i)=>`<div class="b" data-s="${i+1}" data-fx="right" style="display:grid;grid-template-columns:1fr 1fr;gap:30px">
+         <button class="chip" data-c="sif" data-say="${r[0]}" style="flex-direction:row;align-items:baseline;gap:26px;padding:16px 36px"><span class="w">${r[0]}</span><span class="ipa">${r[1]}</span></button>
+         <button class="chip" data-c="vib" data-say="${r[2]}" style="flex-direction:row;align-items:baseline;gap:26px;padding:16px 36px"><span class="w">${r[2]}</span><span class="ipa">${r[3]}</span></button></div>`).join('')}</div>` });
+
+DECK.push({ theme:'light', trans:'zoom', label:'Jeu · serpent ou abeille ?',
+  notes:'Minutos 20 a 26. Que diga la palabra con la mano en la garganta y luego elija. Palabras nuevas respecto a la clase pasada.',
+  html:`${chrome('Jeu · [s] ou [z] ?','01 · [s] [z]')}
+   <div class="quiz abs" data-quiz="sz2" style="left:120px;right:120px;top:150px;height:800px;text-align:center"></div>${CSSX}` });
+
+DECK.push({ theme:'light', trans:'slide', label:'Virelangue [s]',
+  notes:'Minutos 26 a 28. Trabalenguas: primero lento, luego rápido. Doce [s] seguidos. Es un juego: nadie lo dice perfecto a la primera.',
+  html:`${chrome('Virelangue','01 · [s] [z]')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:140px">À vous de <em>siffler</em> !</h2>
+   <div class="abs b card" data-s="1" data-fx="blur" style="left:120px;top:340px;width:1680px;padding:40px 60px">
+     <div style="font-family:var(--display);font-size:76px;line-height:1.3"><i class="hs">S</i>i <i class="hs">s</i>ix <i class="hs">sc</i>ies <i class="hs">sc</i>ient <i class="hs">s</i>ix <i class="hs">c</i>yprès,<br><i class="hs">s</i>ix <i class="hs">c</i>ent <i class="hs">s</i>ix <i class="hs">sc</i>ies <i class="hs">sc</i>ient <i class="hs">s</i>ix <i class="hs">c</i>ent <i class="hs">s</i>ix <i class="hs">c</i>yprès.</div>
+     <div style="display:flex;gap:18px;margin-top:30px"><button class="btn ghost" data-say="Si six scies scient six cyprès, six cent six scies scient six cent six cyprès.">♪ Écouter</button></div></div>` });
+
+/* ═══ B · CHUT ! [ʃ] [ʒ] ═══ */
+DECK.push({ theme:'dark', trans:'circle', label:'02 · Chut !',
+  notes:'Minuto 28. Transición. El gesto del dedo en los labios: «chut!». Es la misma historia que la serpiente y la abeja, pero con los labios hacia adelante.',
+  html:`<div class="bg"><div class="abs ghost" style="right:60px;top:-120px;font-family:var(--display);font-style:italic;font-size:820px;color:#fff;opacity:.07;line-height:1">02</div></div>
+   <div class="abs" style="left:120px;top:330px;width:1400px"><div class="lbl a-up">Deuxième partie</div>
+    <h1 class="h1 a-up d1" style="margin-top:24px">Chut !<br><em class="shimmer">[ʃ] et [ʒ]</em></h1>
+    <p class="lead a-up d3" style="margin-top:36px">Les lèvres en avant, comme pour un bisou.</p></div>
+   <div class="foot">Vive el francés</div>` });
+
+DECK.push({ theme:'light', trans:'rise', label:'Comment faire [ʃ] [ʒ]',
+  notes:'Minutos 28 a 33. Clic 1: [ʃ] se hace como la [s] pero con la lengua un poco más atrás y los labios redondeados y hacia adelante; sin voz. Clic 2: [ʒ] es lo mismo con voz (la garganta vibra), como la «ll» rioplatense de «calle». Clic 3: las grafías. Error típico de hispanohablantes: decir «ch» como en «chocolate» en español [tʃ]; en francés no hay golpe de la T, es un soplo continuo.',
+  html:`${chrome('Comment faire « chut » ?','02 · [ʃ] [ʒ]')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:140px">Le même geste, <em>deux sons</em></h2>
+   <div class="abs b card" data-s="1" data-fx="right" style="left:120px;top:330px;width:820px;padding:34px 44px">
+     <div class="mono" style="font-size:120px;color:var(--chu);font-weight:700;line-height:1">[ʃ]</div>
+     <p class="p" style="font-size:34px;margin-top:14px">Lèvres en avant, langue un peu en arrière, <b>sans voix</b>. Un souffle continu : « chhhh ».</p>
+     <p class="p" style="font-size:30px;margin-top:10px;color:var(--oro2)">On écrit <b>ch</b> : chat, chocolat, dimanche.</p></div>
+   <div class="abs b card" data-s="2" data-fx="right" style="left:980px;top:330px;width:820px;padding:34px 44px">
+     <div class="mono" style="font-size:120px;color:var(--vib);font-weight:700;line-height:1">[ʒ]</div>
+     <p class="p" style="font-size:34px;margin-top:14px">Le même geste, <b>avec la voix</b> : la gorge vibre. « jjjj ».</p>
+     <p class="p" style="font-size:30px;margin-top:10px;color:var(--oro2)">On écrit <b>j</b>, <b>g</b> devant e, i, y, et <b>ge</b> devant a, o : jour, rouge, girafe, mangeons.</p></div>
+   <div class="abs b" data-s="3" data-fx="pop" style="left:120px;top:830px;width:1680px;font-family:var(--display);font-size:44px;font-style:italic;color:var(--chu)">⚠ « ch » français ≠ « ch » espagnol : pas de petit « t » au début. Chhh, pas tch !</div>` });
+
+DECK.push({ theme:'light', trans:'slide', label:'Mots [ʃ] [ʒ]',
+  notes:'Minutos 33 a 38. Toca cada ficha para oírla y que repita. Rosa = [ʃ] sin voz; ámbar = [ʒ] con voz. Con la mano en la garganta.',
+  html:`${chrome('Mots avec [ʃ] et [ʒ]','02 · [ʃ] [ʒ]')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:140px">On <em>écoute</em> et on répète</h2>
+   <div class="abs" style="left:120px;top:330px;width:1680px;display:flex;flex-wrap:wrap;gap:24px">
+     ${chip('chat','[ʃa]','chu',1)}${chip('chocolat','[ʃɔkɔla]','chu',1)}${chip('chercher','[ʃɛʁʃe]','chu',1)}${chip('dimanche','[dimɑ̃ʃ]','chu',1)}${chip('machine','[maʃin]','chu',1)}
+     ${chip('jour','[ʒuʁ]','vib',2)}${chip('rouge','[ʁuʒ]','vib',2)}${chip('girafe','[ʒiʁaf]','vib',2)}${chip('manger','[mɑ̃ʒe]','vib',2)}${chip('bonjour','[bɔ̃ʒuʁ]','vib',2)}</div>` });
+
+DECK.push({ theme:'light', trans:'slide', label:'Paires [ʃ] [ʒ]',
+  notes:'Minutos 38 a 42. Pares mínimos: chou (col) / joue (mejilla); bouche (boca) / bouge (se mueve); cache (esconde) / cage (jaula); hache (hacha) / âge (edad). La boca no cambia: solo la voz.',
+  html:`${chrome('Un son de différence','02 · [ʃ] [ʒ]')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:140px">Sans voix, <em>avec voix</em></h2>
+   <div class="abs" style="left:120px;top:320px;width:1680px;display:grid;gap:22px">
+     ${[['chou','[ʃu] · col','joue','[ʒu] · mejilla'],['bouche','[buʃ] · boca','bouge','[buʒ] · se mueve'],['cache','[kaʃ] · esconde','cage','[kaʒ] · jaula'],['hache','[aʃ] · hacha','âge','[aʒ] · edad']]
+       .map((r,i)=>`<div class="b" data-s="${i+1}" data-fx="right" style="display:grid;grid-template-columns:1fr 1fr;gap:30px">
+         <button class="chip" data-c="chu" data-say="${r[0]}" style="flex-direction:row;align-items:baseline;gap:26px;padding:16px 36px"><span class="w">${r[0]}</span><span class="ipa">${r[1]}</span></button>
+         <button class="chip" data-c="vib" data-say="${r[2]}" style="flex-direction:row;align-items:baseline;gap:26px;padding:16px 36px"><span class="w">${r[2]}</span><span class="ipa">${r[3]}</span></button></div>`).join('')}</div>` });
+
+DECK.push({ theme:'light', trans:'zoom', label:'Jeu · [ʃ] ou [ʒ] ?',
+  notes:'Minutos 42 a 47. Que diga la palabra con la mano en la garganta y luego elija.',
+  html:`${chrome('Jeu · [ʃ] ou [ʒ] ?','02 · [ʃ] [ʒ]')}
+   <div class="quiz abs" data-quiz="cj" style="left:120px;right:120px;top:150px;height:800px;text-align:center"></div>${CSSX}` });
+
+DECK.push({ theme:'light', trans:'slide', label:'Virelangue [ʃ]',
+  notes:'Minutos 47 a 50. El trabalenguas más famoso de Francia. Lento, luego rápido. Archiduchesse = archiduquesa; sèches = secas.',
+  html:`${chrome('Virelangue','02 · [ʃ] [ʒ]')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:140px">Le plus célèbre <em>de France</em></h2>
+   <div class="abs b card" data-s="1" data-fx="blur" style="left:120px;top:340px;width:1680px;padding:40px 60px">
+     <div style="font-family:var(--display);font-size:80px;line-height:1.3">Les <i class="hc">ch</i>au<i class="hs">ss</i>ettes de l’ar<i class="hc">ch</i>idu<i class="hc">ch</i>e<i class="hs">ss</i>e<br>sont-elles <i class="hs">s</i>è<i class="hc">ch</i>es ? Ar<i class="hc">ch</i>i-<i class="hs">s</i>è<i class="hc">ch</i>es !</div>
+     <div style="display:flex;gap:18px;margin-top:30px"><button class="btn ghost" data-say="Les chaussettes de l'archiduchesse sont-elles sèches ? Archi-sèches !">♪ Écouter</button></div></div>` });
+
+DECK.push({ theme:'dark', trans:'zoom', label:'Pause',
+  notes:'Minutos 50 a 55. Pausa de cinco minutos: agua, estirarse. Lo que sigue es la parte musical: el acento y el ritmo.',
+  html:`<div class="abs" style="left:120px;top:360px;width:1600px"><div class="lbl a-up">Cinq minutes</div>
+    <h1 class="h1 a-up d1" style="margin-top:24px">Pause <em class="shimmer">café</em> ☕</h1>
+    <p class="lead a-up d3" style="margin-top:36px">Ensuite : la musique du français.</p></div>
+   <div class="foot">Vive el francés</div>` });
+
+/* ═══ C · ACENTO, RITMO Y SILABACIÓN (Fiche 1) ═══ */
+DECK.push({ theme:'dark', trans:'circle', label:'03 · Le rythme',
+  notes:'Minuto 55. Transición al bloque de la Fiche 1. Objetivo: adquirir el ritmo, la silabación y la acentuación del francés. Los hispanohablantes suelen poner demasiados acentos en una frase; hoy aprendemos a dejar solo uno al final de cada grupo.',
+  html:`<div class="bg"><div class="abs ghost" style="right:60px;top:-120px;font-family:var(--display);font-style:italic;font-size:820px;color:#fff;opacity:.07;line-height:1">03</div></div>
+   <div class="abs" style="left:120px;top:330px;width:1500px"><div class="lbl a-up">Troisième partie · Fiche 1</div>
+    <h1 class="h1 a-up d1" style="margin-top:24px">L’accent, le rythme<br><em class="shimmer">et la syllabation</em></h1>
+    <p class="lead a-up d3" style="margin-top:36px">Le français a une musique très régulière.</p></div>
+   <div class="foot">Vive el francés</div>` });
+
+DECK.push({ theme:'light', trans:'rise', label:'L’accent : toujours à la fin',
+  notes:'Minutos 55 a 60. La explicación central. Clic 1: en español el acento cambia de lugar según la palabra (CA-sa, ca-FÉ, MÉ-di-co). Clic 2: en francés el acento cae SIEMPRE en la última sílaba pronunciada: mai-SON, ca-FÉ, mé-de-CIN. Clic 3: y no es un golpe fuerte, sino una sílaba un poco más larga, sin emoción. Clic 4: error típico: acentuar cada palabra como en español. En francés, todas las sílabas iguales y solo la última se alarga.',
+  html:`${chrome('Où tombe l’accent ?','03 · Accent et rythme')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:140px">L’accent tombe <em>à la fin</em></h2>
+   <div class="abs b card" data-s="1" data-fx="right" style="left:120px;top:330px;width:820px;padding:30px 44px">
+     <div class="mono" style="font-size:28px;color:var(--oro2);letter-spacing:.12em">EN ESPAGNOL · ÇA BOUGE</div>
+     <div style="font-family:var(--display);font-size:64px;line-height:1.5;margin-top:10px"><b>CA</b>-sa · ca-<b>FÉ</b> · <b>MÉ</b>-di-co</div></div>
+   <div class="abs b card" data-s="2" data-fx="right" style="left:980px;top:330px;width:820px;padding:30px 44px">
+     <div class="mono" style="font-size:28px;color:var(--oro2);letter-spacing:.12em">EN FRANÇAIS · TOUJOURS À LA FIN</div>
+     <div style="font-family:var(--display);font-size:64px;line-height:1.5;margin-top:10px">mai-<b style="color:var(--oro)">SON</b> · ca-<b style="color:var(--oro)">FÉ</b> · mé-de-<b style="color:var(--oro)">CIN</b></div></div>
+   <p class="p b" data-s="3" style="position:absolute;left:120px;top:620px;width:1680px;font-size:40px">Ce n’est pas un coup fort : la dernière syllabe est <b>un peu plus longue</b>. Sans émotion, sans insistance.</p>
+   <div class="abs b" data-s="4" data-fx="pop" style="left:120px;top:780px;width:1680px;font-family:var(--display);font-size:46px;font-style:italic;color:var(--chu)">⚠ Erreur typique : mettre un accent sur chaque mot. En français, toutes les syllabes sont égales… sauf la dernière.</div>` });
+
+DECK.push({ theme:'light', trans:'slide', label:'Activité 1 · Les pays',
+  notes:'Minutos 60 a 67. Actividad 1 de la ficha. Pista 1: los 25 países de la Unión Europea (lista de la ficha). Escuchar primero, luego repetir uno por uno acentuando la última sílaba (en dorado). Sin emoción, como quien lee una lista. Fíjate en Danemark, Portugal, Luxembourg: en español el acento va en otro lugar.',
+  html:`${chrome('Activité 1 · Piste 1','03 · Accent et rythme')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:140px">L’Europe <em>à la française</em></h2>
+   <div class="abs" style="left:120px;top:290px;width:1680px;font-family:var(--display);font-size:46px;line-height:1.6;columns:3;column-gap:60px">
+     ${['l’Allema<b>gne</b>','l’Autri<b>che</b>','la Belgi<b>que</b>','Chy<b>pre</b>','le Dane<b>mark</b>','l’Espa<b>gne</b>','l’Esto<b>nie</b>','la Fin<b>lande</b>','la <b>France</b>','la <b>Grèce</b>','la Hon<b>grie</b>','l’Ir<b>lande</b>','l’Ita<b>lie</b>','la Letto<b>nie</b>','la Litua<b>nie</b>','le Luxem<b>bourg</b>','<b>Malte</b>','les Pays-<b>Bas</b>','la Polo<b>gne</b>','le Portu<b>gal</b>','la Républi<b>que tchèque</b>','le Royaume-<b>Uni</b>','la Slova<b>quie</b>','la Slové<b>nie</b>','la <b>Suède</b>']
+       .map((p,i)=>`<div class="b" data-s="${1+Math.floor(i/9)}" data-fx="pop">${p.replace(/<b>/g,'<b style="color:var(--oro)">')}</div>`).join('')}</div>
+   <div class="abs" style="left:120px;top:900px">${piste(1,'Piste 1 · les pays')}</div>` });
+
+DECK.push({ theme:'light', trans:'wipe', label:'Activité 2 · Le groupe grandit',
+  notes:'Minutos 67 a 75. Actividad 2. Explicación: el acento no es de la palabra sino del GRUPO. Cuando el grupo crece, el acento se desplaza al final. Marquen el ritmo con la mano en la mesa: 1-2-3, 1-2-3-4, 1-2-3-4-5, y luego la frase con el mismo golpe. Un solo aliento por frase. Pista 2.',
+  html:`${chrome('Activité 2 · Piste 2','03 · Accent et rythme')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:140px">L’accent <em>se déplace</em></h2>
+   <div class="abs" style="left:120px;top:300px;width:1680px;display:grid;grid-template-columns:repeat(3,1fr);gap:30px">
+     ${[['J’ai deux <b>chats</b>.','J’ai deux beaux <b>chats</b>.','J’ai deux beaux chats <b>gris</b>.'],['J’aime mar<b>cher</b>.','J’aime bien mar<b>cher</b>.','J’aime bien marcher <b>vite</b>.'],['Il vient <b>voir</b>.','Il vient voir <b>Jean</b>.','Il vient revoir Jean-<b>Paul</b>.']]
+       .map((s,i)=>`<div class="b card" data-s="${i+1}" data-fx="rise" style="padding:28px 34px">
+         <div class="mono" style="font-size:26px;color:var(--oro2)">1·2·3 → 1·2·3·4 → 1·2·3·4·5</div>
+         ${s.map(f=>`<div style="font-family:var(--display);font-size:50px;line-height:1.5;margin-top:10px">${f.replace(/<b>/g,'<b style="color:var(--oro)">')}</div>`).join('')}</div>`).join('')}</div>
+   <p class="p b" data-s="4" style="position:absolute;left:120px;top:800px;width:1300px;font-size:36px">Un seul souffle par phrase. Marquez le rythme avec la main.</p>
+   <div class="abs" style="left:120px;top:900px">${piste(2,'Piste 2 · les groupes')}</div>` });
+
+DECK.push({ theme:'light', trans:'slide', label:'Activité 3 · Même longueur',
+  notes:'Minutos 75 a 85. Actividad 3: grupos del mismo largo. Un clic por columna: ritmo de 2, de 3, de 4, de 5 sílabas. Que repita después de la pista marcando las sílabas con los dedos. Observa en la columna de 3: «je n’crois pas»: la e de «ne» desaparece al hablar, y eso cambia el número de sílabas.',
+  html:`${chrome('Activité 3 · Piste 3','03 · Accent et rythme')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:140px">Le même <em>nombre de pas</em></h2>
+   <div class="abs" style="left:120px;top:290px;width:1680px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px">
+     ${[['2','ta-TA',['bonjour','merci','pardon','demain','il dort']],['3','ta-ta-TA',['aujourd’hui','mercredi','ça va bien','à bientôt','je n’sais pas']],['4','ta-ta-ta-TA',['j’ai essayé','j’ai étudié','c’est terminé','j’ai entendu','je n’ai rien dit']],['5','ta-ta-ta-ta-TA',['elle a essayé','il a tout compris','j’ai bien réfléchi','c’est très important','on a tout donné']]]
+       .map((c,i)=>`<div class="b card" data-s="${i+1}" data-fx="rise" style="padding:24px 28px">
+         <div style="font-family:var(--display);font-size:90px;color:var(--oro);line-height:1">${c[0]}</div><div class="mono" style="font-size:24px;color:var(--oro2);margin-bottom:12px">${c[1]}</div>
+         ${c[2].map(w=>`<button class="chip" data-c="nas" data-say="${w}" style="display:block;width:100%;margin-top:10px;padding:10px 18px"><span class="w" style="font-size:40px">${w}</span></button>`).join('')}</div>`).join('')}</div>
+   <div class="abs" style="left:120px;top:960px">${piste(3,'Piste 3 · les rythmes')}</div>` });
+
+DECK.push({ theme:'light', trans:'rise', label:'La syllabe française',
+  notes:'Minutos 85 a 90. Explicación antes de la Actividad 4. Clic 1: la sílaba francesa tiende a ser abierta, consonante más vocal: ma-ri, pe-tit. Clic 2: las palabras se encadenan: la consonante final se pega a la vocal siguiente (il‿a → i-la; vous‿avez → vou-za-vez). Clic 3: la e muda: se puede pronunciar o no, y eso cambia el número de sílabas. Ejemplo de la ficha: «Je m’appelle Julie Manon» = 7 sílabas (je-ma-pelle-ju-lie-ma-non) o 6 si la e no se pronuncia (jma-pelle…). Clic 4: los grupos de soplo: 3 + 4, o 2 + 4.',
+  html:`${chrome('Compter les syllabes','03 · Syllabation')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:140px">Comment on <em>découpe</em></h2>
+   <div class="abs" style="left:120px;top:310px;width:1680px;display:grid;gap:22px">
+     <div class="b card" data-s="1" data-fx="right" style="padding:24px 44px;font-size:40px"><b>Syllabe ouverte :</b> consonne + voyelle. <span class="mono" style="color:var(--oro)">ma-ri · pe-tit · ca-fé</span></div>
+     <div class="b card" data-s="2" data-fx="right" style="padding:24px 44px;font-size:40px"><b>Enchaînement :</b> la consonne finale s’accroche à la voyelle suivante. <span class="mono" style="color:var(--oro)">il a → i-la · vous avez → vou-za-vez</span></div>
+     <div class="b card" data-s="3" data-fx="right" style="padding:24px 44px;font-size:40px"><b>Le « e » muet :</b> on peut le dire… ou pas. <span class="mono" style="color:var(--oro)">je-ma-pelle-ju-lie-ma-non (7) · jma-pelle-ju-lie-ma-non (6)</span></div>
+     <div class="b card" data-s="4" data-fx="right" style="padding:24px 44px;font-size:40px"><b>Groupes de souffle :</b> <span class="mono" style="color:var(--oro)">Je m’appelle / Julie Manon</span> → 3 + 4 ou 2 + 4</div>
+   </div>` });
+
+const SYL = [
+  ['Je vous offre un petit café.','je-vou-zo-ffreun-pe-tit-ca-fé','8 (7 si « p’tit »)'],
+  ['J’ai pensé déménager.','jai-pen-sé-dé-mé-na-ger','7'],
+  ['Il faut absolument l’appeler.','il-faut-ab-so-lu-ment-la-pe-ler','9 (8 si « l’app’ler »)'],
+  ['Tu vas vite prendre une douche.','tu-vas-vite-pren-dreune-douche','6'],
+  ['Je suis en France pour quatre ans.','je-sui-zen-France-pour-qua-trans','7 (6 si « j’suis »)'],
+  ['Mardi, on part en vacances.','mar-di / on-par-ten-va-cances','7 · 2 + 5'],
+  ['Ce soir, téléphone-moi.','ce-soir / té-lé-phone-moi','6 · 2 + 4'],
+  ['Je n’ai pas réussi à le lui dire.','je-nai-pas-ré-u-ssi-à-le-lui-dire','10'],
+  ['J’ai commencé à écrire dès l’âge de 10 ans.','jai-co-mmen-cé-à-é-crire / dès-lâ-ge-de-di-zans','12'],
+  ['Il m’a promis de rester ici s’il faisait beau.','il-ma-pro-mis-de-res-ter-i-ci / sil-fai-sait-beau','13'] ];
+DECK.push({ theme:'light', trans:'slide', label:'Activité 4 · Compter',
+  notes:'Minutos 90 a 98. Actividad 4. Pista 4: escuchar cada frase y anotar el número de sílabas, luego los grupos de soplo. Un clic revela el conteo de cada frase. Los números dependen de la e muda: se aceptan las dos versiones. Corrección: la ficha dice «un douche»; lo correcto es «une douche».',
+  html:`${chrome('Activité 4 · Piste 4','03 · Syllabation')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:120px">Combien de <em>syllabes</em> ?</h2>
+   <div class="abs" style="left:120px;top:260px;width:1680px;display:grid;grid-template-columns:1fr 1fr;gap:14px 40px">
+     ${SYL.map((s,i)=>`<div class="card" style="padding:14px 26px"><div style="font-family:var(--display);font-size:36px;line-height:1.2"><b class="mono" style="color:var(--oro2);font-size:24px">${'abcdefghij'[i]}.</b> ${s[0]}</div>
+       <div class="b mono" data-s="${i+1}" data-fx="blur" style="font-size:22px;color:var(--oro);margin-top:6px">${s[1]} → <b>${s[2]}</b></div></div>`).join('')}</div>
+   <div class="abs" style="left:120px;top:975px">${piste(4,'Piste 4 · les phrases')}</div>` });
+
+DECK.push({ theme:'light', trans:'wipe', label:'Activité 5 · À l’envers',
+  notes:'Minutos 98 a 104. Actividad 5: el corte regresivo. Se pronuncia la frase empezando por la ÚLTIMA sílaba y se van añadiendo hacia atrás, así la última siempre queda acentuada. Clics 1 a 5: el ejemplo de la ficha. Clic 6: las seis frases para que lo haga ella.',
+  html:`${chrome('Activité 5 · Découpage régressif','03 · Syllabation')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:140px">On commence <em>par la fin</em></h2>
+   <div class="abs" style="left:120px;top:300px;width:900px;font-family:var(--display);font-size:56px;line-height:1.45;text-align:right">
+     ${['diante','tu-diante','té-tu-diante','lè-té-tu-diante','e-lè-té-tu-diante'].map((l,i)=>`<div class="b" data-s="${i+1}" data-fx="right">${l.replace(/diante/,'<b style="color:var(--oro)">diante</b>')}</div>`).join('')}
+     <div class="b mono" data-s="5" style="font-size:26px;color:var(--oro2);margin-top:10px">Elle est étudiante</div></div>
+   <div class="abs b card" data-s="6" data-fx="rise" style="left:1080px;top:300px;width:720px;padding:28px 40px">
+     <div class="mono" style="font-size:26px;color:var(--oro2)">À VOUS !</div>
+     ${['Il vient demain soir.','J’ai bien déjeuné.','Tu viens avec elle.','Elle est américaine.','Vous avez le temps.','Ils sont célibataires.'].map((f,i)=>`<div style="font-family:var(--display);font-size:44px;line-height:1.5">${i+1}. ${f}</div>`).join('')}</div>` });
+
+DECK.push({ theme:'light', trans:'zoom', label:'Activité 6 · La comptine',
+  notes:'Minutos 104 a 108. Actividad 6. Pista 5: la cancioncita infantil. Marcar el ritmo con las palmas: cada verso tiene el mismo pulso y el acento cae al final (trois, bois, six, cerises…). Primero escuchar, luego cantarla juntos. Si hay tiempo, la pista extra trae dos canciones tradicionales más.',
+  html:`${chrome('Activité 6 · Piste 5','03 · Rythme')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:140px">Rythmez <em>la comptine</em> 👏</h2>
+   <div class="abs b card" data-s="1" data-fx="blur" style="left:120px;top:310px;width:1680px;padding:36px 60px;display:grid;grid-template-columns:1fr 1fr;gap:20px 80px;font-family:var(--display);font-size:56px;line-height:1.4">
+     <div>Un, deux, <b style="color:var(--oro)">trois</b><br>Nous irons au <b style="color:var(--oro)">bois</b></div>
+     <div>Sept, huit, <b style="color:var(--oro)">neuf</b><br>Dans un panier <b style="color:var(--oro)">neuf</b></div>
+     <div>Quatre, cinq, <b style="color:var(--oro)">six</b><br>Cueillir des ce<b style="color:var(--oro)">rises</b></div>
+     <div>Dix, onze, <b style="color:var(--oro)">douze</b><br>Elles seront toutes <b style="color:var(--oro)">rouges</b></div></div>
+   <div class="abs" style="left:120px;top:900px;display:flex;gap:18px">${piste(5,'Piste 5 · la comptine')} <button class="btn ghost" data-audio="audio/rythme/piste-comptines.mp3">▶ Bonus · deux comptines</button></div>` });
+
+DECK.push({ theme:'light', trans:'rise', label:'Activité 7 · Le sens',
+  notes:'Minutos 108 a 112. Actividad 7: el ritmo cambia el sentido. Clic por par. 1) Me había ido hacía mucho y me esperaban / Me había ido; hacía mucho que me esperaban. 2) Solo los niños cansados dejaron de jugar / Todos los niños, que estaban cansados, dejaron de jugar. 3) No quiero morir tonto / No quiero morir, ¡imbécil! 4) Trabaja tan bien que lo logró / Trabaja; por eso lo logró. La pista 6 no venía con los audios: léelas tú marcando la pausa. Clic 5: que ella invente dos sentidos para cada frase de la parte B (ejemplos: «Maxime, va manger ton dessert» / «Maxime va manger ton dessert»; «Non, ce n’est pas le gâteau…» / «Non ce n’est pas le gâteau…»).',
+  html:`${chrome('Activité 7 · Rythme et sens','03 · Rythme')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:120px">Une virgule, <em>un autre sens</em></h2>
+   <div class="abs" style="left:120px;top:250px;width:1680px;display:grid;gap:16px">
+     ${[['J’étais parti depuis longtemps, on m’attendait.','J’étais parti, depuis longtemps on m’attendait.'],['Les enfants qui étaient fatigués s’arrêtèrent de jouer.','Les enfants, qui étaient fatigués, s’arrêtèrent de jouer.'],['Je ne veux pas mourir imbécile !','Je ne veux pas mourir, imbécile !'],['Il travaille si bien qu’il a réussi.','Il travaille, si bien qu’il a réussi.']]
+       .map((p,i)=>`<div class="b card" data-s="${i+1}" data-fx="right" style="padding:14px 34px;font-family:var(--display);font-size:38px;line-height:1.35">${p[0]}<br><span style="color:var(--oro)">${p[1]}</span></div>`).join('')}</div>
+   <div class="abs b" data-s="5" data-fx="pop" style="left:120px;top:850px;width:1680px;font-size:34px"><b>À vous :</b> deux sens pour chaque phrase. <i>Maxime va manger ton dessert. · Je crois ce professeur excellent. · Je n’aime pas ce vin chaud.</i></div>` });
+
+DECK.push({ theme:'light', trans:'zoom', label:'Jeu · combien de syllabes ?',
+  notes:'Minutos 112 a 115. Juego de cierre: contar las sílabas marcando con los dedos, luego elegir. Todas salen de la Actividad 3.',
+  html:`${chrome('Jeu · combien de syllabes ?','03 · Syllabation')}
+   <div class="quiz abs" data-quiz="syl" style="left:120px;right:120px;top:150px;height:800px;text-align:center"></div>${CSSX}` });
+
+DECK.push({ theme:'light', trans:'slide', label:'À retenir',
+  notes:'Minutos 115 a 118. Lo que se lleva hoy y cómo practicar en casa: volver a escuchar las pistas en esta presentación, grabarse en el ejercicio de las vocales de su espacio. Próxima clase: la R.',
+  html:`${chrome('À retenir','Bilan')}
+   <h2 class="h2 a-up" style="position:absolute;left:120px;top:140px">Ce que vous <em>emportez</em></h2>
+   <div class="abs" style="left:120px;top:320px;width:1680px;display:grid;gap:22px">
+     ${['<b>[s] / [z]</b> et <b>[ʃ] / [ʒ]</b> : même bouche, la voix fait la différence.','<b>L’accent</b> tombe sur la dernière syllabe du groupe, sans insistance.','<b>Le rythme</b> est régulier : toutes les syllabes égales, la dernière un peu plus longue.','<b>Les syllabes</b> s’enchaînent, et le « e » muet peut disparaître.']
+       .map((t,i)=>`<div class="b card" data-s="${i+1}" data-fx="right" style="padding:24px 44px;font-size:42px">${t}</div>`).join('')}</div>` });
+
+DECK.push({ theme:'dark', trans:'zoom', label:'Merci',
+  notes:'Minutos 118 a 120. Cierre. «Merci beaucoup»: el acento en «coup». Anuncia la próxima: el R, la reina de los sonidos.',
+  html:`<canvas id="confetti" width="1920" height="1080" class="abs" style="left:0;top:0;pointer-events:none"></canvas>
+   <div class="abs" style="left:120px;top:250px;width:1500px">
+     <h1 class="h1 a-up" style="font-size:190px">Merci beau<em class="shimmer">coup</em> !</h1>
+     <div class="b" data-s="1" data-fx="blur" style="font-family:var(--display);font-style:italic;font-size:78px;color:var(--oro-claro);margin-top:6px">À bien<u>tôt</u></div>
+     <div class="rule b" data-s="1" data-fx="wipe"></div>
+     <p class="lead b" data-s="2" style="margin-top:20px">Prochaine étape : <em class="i" style="color:var(--oro-claro)">le R, la reine des sons</em>.</p></div>
+   <div class="foot">Vive el francés</div>`,
+  step:(n)=>{ if (n===1) confeti(); } });
+
+/* ═══ 4. MOTOR: pasos, transiciones, interacciones ═══ */
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const stage = $('#stage'); let cur = -1, step = 0, skipBonus = false, anim = null;
+/* partículas de fondo en las diapositivas oscuras */
+const GLIFOS = ['s', 'z', 'ch', 'j', 'ta', 'TA', '1·2·3', 'ss', 'ge', '♪'];
+function particulas(){ let h = ''; for (let i = 0; i < 9; i++){ const g = GLIFOS[(i * 3) % GLIFOS.length];
+  h += `<span class="fl" style="left:${(i * 211) % 1800}px;top:${(i * 137) % 900}px;font-size:${90 + (i * 47) % 160}px;--d:${15 + (i * 3) % 14}s;--dx:${30 + i * 9}px;--dy:${-30 - i * 12}px">${g}</span>`; } return h; }
+stage.innerHTML = DECK.map((d, i) => `<section class="slide ${d.theme}" data-i="${i}" data-trans="${d.trans}">${d.theme === 'dark' && !/class="bg"/.test(d.html) ? `<div class="bg">${particulas()}</div>` : ''}${d.html}</section>`).join('');
+const slides = $$('.slide');
+const maxStep = el => Math.max(0, ...$$('[data-s]', el).map(e => +e.dataset.s));
+DECK.forEach((d, i) => d.max = maxStep(slides[i]));
+
+function aplicar(el, n, avanzando){
+  $$('[data-s]', el).forEach(e => { const s = +e.dataset.s, u = e.dataset.until ? +e.dataset.until : 1e9;
+    const on = n >= s && n < u; e.classList.toggle('on', on); e.classList.toggle('off', n >= u); });
+}
+function render(){ const s = slides[cur]; aplicar(s, step);
+  $('#prog i').style.width = ((cur + (DECK[cur].max ? step / (DECK[cur].max + 1) : 0)) / (DECK.length - 1) * 100) + '%';
+  $('#count').textContent = String(cur + 1).padStart(2, '0') + ' / ' + DECK.length;
+  $('#notes').innerHTML = '<b>Diapositiva ' + (cur + 1) + ' · ' + DECK[cur].label + '</b>' + DECK[cur].notes;
+  history.replaceState(null, '', '#' + (cur + 1)); }
+function ir(n, st = 0){ n = Math.max(0, Math.min(DECK.length - 1, n)); if (n === cur) return;
+  const prev = slides[cur]; if (prev){ prev.classList.remove('active'); prev.classList.add('leaving'); setTimeout(() => prev.classList.remove('leaving'), 1100); detener(cur); }
+  cur = n; step = st; const s = slides[cur]; s.classList.remove('leaving');
+  /* los pasos se aplican antes de activar, para que lo ya construido no «llegue volando» al retroceder */
+  aplicar(s, step); void s.offsetWidth; s.classList.add('active'); iniciar(cur); render(); disparar(cur, step); }
+function siguiente(){ const d = DECK[cur]; if (step < d.max){ step++; render(); disparar(cur, step); return; }
+  let n = cur + 1; while (skipBonus && DECK[n] && DECK[n].bonus) n++; if (n < DECK.length) ir(n, 0); }
+function anterior(){ if (step > 0){ step--; render(); return; } let n = cur - 1; while (skipBonus && DECK[n] && DECK[n].bonus) n--; if (n >= 0) ir(n, DECK[n].max); }
+function disparar(i, n){ const d = DECK[i]; if (d.step) d.step(n); }
+function iniciar(i){ if (DECK[i].scopes) iniciarScopes(slides[i]); if (/data-quiz/.test(DECK[i].html)) $$('.quiz', slides[i]).forEach(q => { if (!q.dataset.ready) montarQuiz(q); }); }
+function detener(i){ if (DECK[i].scopes) detenerScopes(); }
+
+/* escala 1920×1080 al tamaño de la ventana */
+function escalar(){ const k = Math.min(innerWidth / 1920, innerHeight / 1080); stage.style.transform = `translate(-50%,-50%) scale(${k})`; }
+addEventListener('resize', escalar); escalar();
+
+/* osciloscopio: ruido sin forma para [s]; ruido + pulso regular para [z] */
+let scopeRAF = null;
+function iniciarScopes(el){ detenerScopes(); const cs = $$('canvas.scope', el); const t0 = performance.now();
+  const dibuja = t => { cs.forEach(c => { const g = c.getContext('2d'), w = c.width, h = c.height, voiced = c.dataset.scope === 'voiced', tt = (t - t0) / 1000;
+      g.clearRect(0, 0, w, h); g.lineWidth = 3; g.lineJoin = 'round'; g.strokeStyle = voiced ? '#ffd166' : '#5be3b3'; g.beginPath();
+      for (let x = 0; x <= w; x += 4){ const ruido = (Math.random() - .5) * (voiced ? 70 : 120); const pulso = voiced ? Math.sin(x * .09 - tt * 28) * 70 * (0.65 + .35 * Math.sin(tt * 3)) : 0;
+        const y = h / 2 + ruido * (voiced ? .6 : 1) + pulso; x ? g.lineTo(x, y) : g.moveTo(x, y); } g.stroke(); }); scopeRAF = requestAnimationFrame(dibuja); };
+  scopeRAF = requestAnimationFrame(dibuja); }
+function detenerScopes(){ if (scopeRAF) cancelAnimationFrame(scopeRAF); scopeRAF = null; }
+
+/* confeti */
+function confeti(){ const c = $('#confetti'); if (!c) return; const g = c.getContext('2d'), P = [], col = ['#d9bd86', '#1f9d73', '#3b82c4', '#cf5b7d', '#ffd166', '#f3eee2'];
+  for (let i = 0; i < 220; i++) P.push({ x: Math.random() * 1920, y: -Math.random() * 900, vx: (Math.random() - .5) * 5, vy: 3 + Math.random() * 6, s: 10 + Math.random() * 16, r: Math.random() * 6, vr: (Math.random() - .5) * .3, c: col[i % col.length] });
+  let f = 0; const tick = () => { g.clearRect(0, 0, 1920, 1080); P.forEach(p => { p.x += p.vx; p.y += p.vy; p.r += p.vr; g.save(); g.translate(p.x, p.y); g.rotate(p.r); g.fillStyle = p.c; g.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); g.restore(); });
+    if (++f < 420) requestAnimationFrame(tick); else g.clearRect(0, 0, 1920, 1080); }; tick(); }
+
+/* juegos de opción múltiple (nasales y S / Z) */
+const QUIZ = {
+  sz2: { titulo: 'Serpent ou abeille ?', color: 'vib', opts: [['s', '🐍  [s]'], ['z', '🐝  [z]']],
+    items: [['cousin', '[kuzɛ̃]', 'z'], ['coussin', '[kusɛ̃]', 's'], ['désert', '[dezɛʁ]', 'z'], ['dessert', '[desɛʁ]', 's'], ['église', '[egliz]', 'z'], ['leçon', '[ləsɔ̃]', 's'], ['onze', '[ɔ̃z]', 'z'], ['nation', '[nasjɔ̃]', 's']] },
+  cj: { titulo: '[ʃ] ou [ʒ] ?', color: 'chu', opts: [['c', '🤫  [ʃ]'], ['j', '🐝  [ʒ]']],
+    items: [['chou', '[ʃu]', 'c'], ['joue', '[ʒu]', 'j'], ['manger', '[mɑ̃ʒe]', 'j'], ['dimanche', '[dimɑ̃ʃ]', 'c'], ['girafe', '[ʒiʁaf]', 'j'], ['chercher', '[ʃɛʁʃe]', 'c'], ['rouge', '[ʁuʒ]', 'j'], ['cache', '[kaʃ]', 'c']] },
+  syl: { titulo: 'Combien de syllabes ?', color: 'nas', opts: [['2', '2'], ['3', '3'], ['4', '4'], ['5', '5']],
+    items: [['bonjour', 'bon-jour', '2'], ['aujourd’hui', 'au-jour-d’hui', '3'], ['j’ai étudié', 'j’ai-é-tu-dié', '4'], ['il a tout compris', 'i-la-tout-com-pris', '5'], ['à bientôt', 'à-bien-tôt', '3'], ['c’est terminé', 'c’est-ter-mi-né', '4'], ['merci', 'mer-ci', '2'], ['elle a essayé', 'e-lla-e-ssa-yé', '5']] } };
+function montarQuiz(q){ const D = QUIZ[q.dataset.quiz]; q.dataset.ready = 1; let i = 0, pts = 0, resp = false; const col = `var(--${D.color})`;
+  const pinta = () => { const it = D.items[i];
+    q.innerHTML = `<div class="mono" style="font-size:26px;color:var(--oro2);letter-spacing:.16em">${D.titulo.toUpperCase()} · ${i + 1} / ${D.items.length} · ${pts} ✓</div>
+      <div style="margin:34px 0 8px;font-family:var(--display);font-size:250px;font-weight:600;line-height:1;color:var(--tinta)">${it[0]}</div>
+      <div class="mono" style="font-size:40px;color:var(--oro2);min-height:56px" id="ipa">${resp ? it[1] : '[ ? ]'}</div>
+      <div style="display:flex;gap:30px;justify-content:center;margin:38px 0 22px" id="opts">${D.opts.map(o => `<button class="opt" style="--c:${col}" data-r="${o[0]}">${o[1]}</button>`).join('')}</div>
+      <div class="fb" id="fb"></div>
+      <div style="display:flex;gap:18px;justify-content:center;margin-top:14px"><button class="btn ghost" data-q="say">♪ Écouter</button><button class="btn" data-q="next">${i + 1 < D.items.length ? 'Suivant →' : 'Terminer ✓'}</button></div>`;
+    $('[data-q=say]', q).onclick = () => speak(it[0]);
+    $('[data-q=next]', q).onclick = () => { if (i + 1 < D.items.length){ i++; resp = false; pinta(); } else q.innerHTML = `<div style="margin-top:200px;font-family:var(--display);font-size:200px;color:var(--tinta)">${pts} / ${D.items.length}</div><div style="font-family:var(--display);font-style:italic;font-size:74px;color:var(--oro)">${pts > D.items.length - 2 ? 'Bravo ! Oreille d’or.' : 'Bien ! On recommence ?'}</div><button class="btn" style="margin-top:50px" data-q="again">↺ Rejouer</button>`, $('[data-q=again]', q).onclick = () => { i = 0; pts = 0; resp = false; pinta(); }; };
+    $$('.opt', q).forEach(b => b.onclick = () => { if (resp) return; resp = true; const ok = b.dataset.r === it[2]; if (ok) pts++;
+      b.classList.add(ok ? 'ok' : 'no'); if (!ok) $$('.opt', q).forEach(x => { if (x.dataset.r === it[2]) x.classList.add('ok'); });
+      $('#ipa', q).textContent = it[1]; $('#fb', q).innerHTML = ok ? '<span style="color:var(--sif)">Oui !</span>' : `<span style="color:var(--chu)">Non… c’est ${D.opts.find(o => o[0] === it[2])[1]}</span>`;
+      if (q.dataset.quiz === 'sz') (it[2] === 's' ? hiss(1) : buzz(1)); speak(it[0]); }); };
+  pinta(); }
+
+/* clics en botones, fichas y el avance general */
+/* Pistas de audio de la Fiche 1: un clic reproduce, otro clic detiene. */
+let pista = null;
+document.addEventListener('click', e => { const b = e.target.closest('[data-audio]'); if (!b) return;
+  e.stopPropagation(); e.preventDefault();
+  if (pista && pista.dataset === b.dataset.audio && !pista.a.paused){ pista.a.pause(); b.classList.remove('say'); return; }
+  if (pista) pista.a.pause(); const a = new Audio(b.dataset.audio); a.play().catch(()=>{}); pista = { a, dataset: b.dataset.audio }; }, true);
+stage.addEventListener('click', e => {
+  const chipEl = e.target.closest('.chip'); if (chipEl){ chipEl.classList.remove('say'); void chipEl.offsetWidth; chipEl.classList.add('say'); speak(chipEl.dataset.say); return; }
+  const act = e.target.closest('[data-act]'); if (act){ const a = act.dataset.act;
+    if (a === 'hiss') hiss(1.8); else if (a === 'buzz') buzz(1.8);
+    else if (a === 'poem') speak('Siffle le serpent. Le serpent qui danse, danse et se balance, au son des cymbales, sur un air de valse que jouent les cigales.', .72);
+    else if (a === 'bee') speak('Une abeille se pose sur une belle rose et vient l’arroser. Laquelle ? La rosée !', .72);
+    else if (a === 'twister-slow') speak('Si six scies scient six cyprès, six cent six scies scient six cent six cyprès.', .6);
+    else if (a === 'twister-fast') speak('Si six scies scient six cyprès, six cent six scies scient six cent six cyprès.', 1.15);
+    const r = act.parentElement; if (a === 'buzz'){ } return; }
+  const say = e.target.closest('[data-say]'); if (say){ speak(say.dataset.say); return; }
+  if (e.target.closest('button,a,.quiz')) return;
+  siguiente(); });
+
+/* teclado, ayuda, notas, sonido */
+function toast(t){ const el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('on'), 1600); }
+function pantalla(){ if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); }
+addEventListener('keydown', e => { if (e.metaKey || e.ctrlKey || e.altKey) return; const k = e.key;
+  if (k === 'ArrowRight' || k === 'PageDown' || k === ' ' || k === 'ArrowDown'){ e.preventDefault(); siguiente(); }
+  else if (k === 'ArrowLeft' || k === 'PageUp' || k === 'ArrowUp'){ e.preventDefault(); anterior(); }
+  else if (k === 'Home') ir(0); else if (k === 'End') ir(DECK.length - 1);
+  else if (/^[1-9]$/.test(k)) ir(+k - 1);
+  else if (k === 'f' || k === 'F') pantalla();
+  else if (k === 'n' || k === 'N') $('#notes').classList.toggle('on');
+  else if (k === 's' || k === 'S'){ soundOn = !soundOn; if (!soundOn && 'speechSynthesis' in window) speechSynthesis.cancel(); $('#bSound').textContent = soundOn ? '♪ SON' : '✕ SON'; toast(soundOn ? 'Sonido activado' : 'Sonido desactivado'); }
+  else if (k === 'b' || k === 'B'){ skipBonus = !skipBonus; toast(skipBonus ? 'Bonus omitido' : 'Bonus incluido'); }
+  else if (k === '?' || k === 'h' || k === 'H') $('#help').classList.toggle('on');
+  else if (k === 'Escape'){ $('#help').classList.remove('on'); $('#notes').classList.remove('on'); } });
+$('#bSound').onclick = e => { e.stopPropagation(); soundOn = !soundOn; $('#bSound').textContent = soundOn ? '♪ SON' : '✕ SON'; if (!soundOn && 'speechSynthesis' in window) speechSynthesis.cancel(); };
+$('#bNotes').onclick = () => $('#notes').classList.toggle('on'); $('#bFull').onclick = pantalla; $('#bHelp').onclick = () => $('#help').classList.toggle('on');
+$('#help').onclick = () => $('#help').classList.remove('on');
+/* los controles se esconden cuando se proyecta */
+let idle; const despierta = () => { document.body.classList.remove('quiet'); clearTimeout(idle); idle = setTimeout(() => document.body.classList.add('quiet'), 3200); };
+['mousemove', 'keydown', 'touchstart'].forEach(ev => addEventListener(ev, despierta)); despierta();
+/* gesto táctil */
+let tx = null; addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+addEventListener('touchend', e => { if (tx === null) return; const dx = e.changedTouches[0].clientX - tx; tx = null; if (Math.abs(dx) > 60){ dx < 0 ? siguiente() : anterior(); } }, { passive: true });
+if ('speechSynthesis' in window) speechSynthesis.getVoices();
+const m = /^#(\d+)$/.exec(location.hash); ir(m ? +m[1] - 1 : 0, 0);
+addEventListener('hashchange', () => { const h = /^#(\d+)$/.exec(location.hash); if (h && +h[1] - 1 !== cur) ir(+h[1] - 1, 0); });
+</script>
+</body>
+</html>
