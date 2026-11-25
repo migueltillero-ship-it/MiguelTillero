@@ -59,6 +59,8 @@
     cuerpo.className = 'inm-cuerpo p-' + p.t;
     cuerpo.scrollTop = 0;
     let h = '';
+    ov.querySelector('.inm-arte').style.backgroundImage = (p.t === 'portada' && ficha.arte) ? `url(${ficha.arte})` : 'none';
+    ov.classList.toggle('con-arte', p.t === 'portada' && !!ficha.arte);
     if(p.t === 'portada'){
       h = `<div class="inm-k">${esc(ficha.fecha || '')}</div>
            <h2 class="inm-h">${esc(ficha.titulo)}</h2>
@@ -140,7 +142,7 @@
     ov = document.createElement('div');
     ov.id = 'inm'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true');
     ov.setAttribute('aria-label', 'Parcours immersif · ' + ficha.titulo);
-    ov.innerHTML = `<div class="inm-veta"></div>
+    ov.innerHTML = `<div class="inm-arte"></div><div class="inm-veta"></div>
       <div class="inm-top"><span class="inm-marca">${esc(ficha.titulo)}</span>
         <span class="inm-cuenta"></span>
         <button class="inm-x" type="button" aria-label="Fermer le parcours">✕</button></div>
@@ -174,5 +176,8 @@
     b.innerHTML = `<div><b>Parcours immersif</b><span>La fiche en plein écran, une idée par écran, avec ton balance à la fin.</span></div>
       <button class="btn" type="button" onclick="abrirInmersivo()">▶ Commencer</button>`;
     cont.insertBefore(b, cont.firstChild);
+    // El recorrido inmersivo es la forma NORMAL de hacer una ficha: se abre solo.
+    // Al salir queda la ficha en página corrida y el botón «Commencer» para volver.
+    if(!/sin-inmersivo/.test(location.search)) window.abrirInmersivo();
   };
 })();

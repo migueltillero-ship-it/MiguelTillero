@@ -20,7 +20,7 @@ const __B = [];
 const TBL = 'style="width:100%;border-collapse:collapse;margin:.6rem 0"';
 
 __B.push(Object.assign({}, RN, {
-  id: 'rn-1', fecha: 'Les bases · 1/9',
+  id: 'rn-1', arte: 'img/voyelles-portada.svg', fecha: 'Les bases · 1/9',
   titulo: 'Les voyelles, simples et composées',
   resumen: 'Las vocales una por una, los acentos y las vocales compuestas (ou, oi, ai, eau, eu, ui), con el par que más cuesta: ou y u.',
   intro: 'Todo lo demás —la hora, los números, los verbos— se apoya en oír y escribir bien las vocales. '
@@ -124,7 +124,7 @@ __B.push(Object.assign({}, RN, {
 }));
 
 __B.push(Object.assign({}, RN, {
-  id: 'rn-2', fecha: 'Les bases · 2/9',
+  id: 'rn-2', arte: 'img/nasales-portada.svg', fecha: 'Les bases · 2/9',
   titulo: 'Les sons nasaux : an, on, in, un',
   resumen: 'Cuatro vocales nasales y la regla para saber cuándo la n se oye y cuándo solo nasaliza.',
   intro: 'Las nasales son lo que más delata el acento en francés, y también lo que más se pierde al escribir. '
@@ -204,7 +204,7 @@ __B.push(Object.assign({}, RN, {
 }));
 
 __B.push(Object.assign({}, RN, {
-  id: 'rn-3', fecha: 'Les bases · 3/9',
+  id: 'rn-3', arte: 'img/nombres-portada.svg', fecha: 'Les bases · 3/9',
   titulo: 'Les nombres de 0 à 100 : 60, 70, 80, 90',
   resumen: 'Cómo se forman los números, por qué 70 es «sesenta y diez» y 80 «cuatro veinte», y cuándo se escribe la s de quatre-vingts.',
   intro: 'Los números 70 a 99 son los que más se traban porque se cuentan con otra lógica. Aquí se explica la lógica y luego se practica '
@@ -309,7 +309,7 @@ __B.push(Object.assign({}, RN, {
 }));
 
 __B.push(Object.assign({}, RN, {
-  id: 'rn-4', fecha: 'Les bases · 4/9',
+  id: 'rn-4', arte: 'img/heure-portada.svg', fecha: 'Les bases · 4/9',
   titulo: 'L’heure : dire, lire et écrire',
   resumen: 'La hora en lenguaje corriente y en horario oficial, y las palabras que acompañan una hora (à, de… à, vers).',
   intro: 'La hora es lo que más se usa en la rutina y donde más se mezclan las dos maneras de decirla. '
@@ -409,7 +409,7 @@ __B.push(Object.assign({}, RN, {
 }));
 
 __B.push(Object.assign({}, RN, {
-  id: 'rn-5', fecha: 'Les bases · 5/9',
+  id: 'rn-5', arte: 'img/verbes-etats.svg', fecha: 'Les bases · 5/9',
   titulo: 'Les verbes du premier groupe : -er',
   resumen: 'El presente de los verbos en -er (parler, manger, commencer…), por qué las terminaciones casi no se oyen y las pequeñas excepciones.',
   intro: 'Más del 90 % de los verbos franceses terminan en -er y se conjugan igual. Si esto queda firme, el resto del camino se simplifica. '
@@ -513,7 +513,7 @@ __B.push(Object.assign({}, RN, {
 }));
 
 __B.push(Object.assign({}, RN, {
-  id: 'rn-6', fecha: 'Les bases · 6/9',
+  id: 'rn-6', arte: 'img/verbes-etats.svg', fecha: 'Les bases · 6/9',
   titulo: 'Les verbes du deuxième groupe : -ir, -issons',
   resumen: 'Finir, choisir, réussir: el presente con -iss- en el plural, y cómo distinguirlos de dormir, sortir y partir.',
   intro: 'Los verbos en -ir se dividen en dos familias. Los del segundo grupo son regulares y tienen una marca fácil de oír: '
@@ -606,7 +606,7 @@ __B.push(Object.assign({}, RN, {
 }));
 
 __B.push(Object.assign({}, RN, {
-  id: 'rn-7', fecha: 'Les bases · 7/9',
+  id: 'rn-7', arte: 'img/verbes-musique.svg', fecha: 'Les bases · 7/9',
   titulo: 'Les verbes du troisième groupe : être, avoir, aller, faire…',
   resumen: 'Los verbos más usados e irregulares: être, avoir, aller, faire, prendre, venir, pouvoir, vouloir y dire, en presente.',
   intro: 'No tienen una regla única, y por eso conviene conocerlos de memoria. Son pocos y se usan todos los días: '
@@ -712,7 +712,7 @@ __B.push(Object.assign({}, RN, {
 }));
 
 __B.push(Object.assign({}, RN, {
-  id: 'rn-8', fecha: 'Les bases · 8/9',
+  id: 'rn-8', arte: 'img/verbes-etats.svg', fecha: 'Les bases · 8/9',
   titulo: 'Les verbes de la routine : du présent au passé composé',
   resumen: 'Los verbos del día (se réveiller, se lever, prendre, travailler, se coucher…) en presente y el paso al passé composé con avoir y être.',
   intro: 'Este es el objetivo de todo el camino: poder contar una rutina en presente y después contarla en pasado. '
@@ -829,7 +829,7 @@ __B.push(Object.assign({}, RN, {
 }));
 
 __B.push(Object.assign({}, RN, {
-  id: 'rn-9', fecha: 'Les bases · 9/9',
+  id: 'rn-9', arte: 'img/voyelles-portada.svg', fecha: 'Les bases · 9/9',
   titulo: 'Bilan : tout ensemble',
   resumen: 'Un balance que mezcla vocales, nasales, números, hora y verbos, con un dictado y un texto final.',
   intro: 'Última ficha del recorrido. Aquí no hay explicación nueva: se usa todo lo anterior a la vez. '
