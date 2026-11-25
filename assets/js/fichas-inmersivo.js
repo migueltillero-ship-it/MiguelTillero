@@ -28,8 +28,16 @@
     [/travail|débat|opinion|discours|contact|identit|état civil|goût|éducat|savoir|atelier/i, 'delf-master'],
     [/./, 'delf-rebond']
   ];
+  // Casos en que el tema no coincide con ninguna palabra clave: se fijan a mano, por id de ficha.
+  const ARTE_FIJA = {
+    'posesivos':'delf-master', 'pronombres':'delf-master', 'passe-compose':'verbes-etats',
+    'dos-a1-mod1':'delf-master', 'dos-a1-mod2':'nombres-portada', 'dos-a1-mod3':'delf-master',
+    's7':'delf-master', 'netiquette':'delf-rebond', 'u1-p14':'delf-master',
+    'dos-b2-mod1':'nombres-portada', 'dos-b2-mod5':'delf-rebond', 'dos-b2-mod6':'delf-master', 'dos-b2-mod7':'delf-rebond'
+  };
   function arteDe(f){
     if(f.arte) return f.arte;
+    if(ARTE_FIJA[f.id]) return 'img/' + ARTE_FIJA[f.id] + '.svg';
     const t = (f.titulo || '') + ' ' + (f.resumen || '');
     for(const [re, n] of ARTE) if(re.test(t)) return 'img/' + n + '.svg';
     return null;
