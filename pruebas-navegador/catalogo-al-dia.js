@@ -15,17 +15,20 @@ const fs = require('fs');
 const path = require('path');
 const RAIZ = path.join(__dirname, '..');
 
-function fichasDelSitio(ruta){
+function fichasDelSitio(ruta, bases){
   const FICHAS = [];
   const src = fs.readFileSync(ruta, 'utf8').replace(/^const FICHAS = \[\];$/m, '');
   new Function('FICHAS', src)(FICHAS);
+  if (bases) {   // las nueve fichas de base que cargan todos los espacios
+    new Function('FICHAS', 'window', fs.readFileSync(path.join(RAIZ, 'estudiantes/fichas-bases.js'), 'utf8'))(FICHAS, {});
+  }
   return FICHAS.map(f => ({ id: f.id, titulo: f.titulo, n: f.ejercicios.length }));
 }
 
 function catalogoDelSql(ruta, clave){
   const sql = fs.readFileSync(ruta, 'utf8');
   const filas = [];
-  const re = new RegExp("\\('" + clave + "',\\s*'([^']+)',\\s*'((?:[^']|'')*)',\\s*(\\d+)\\)", 'g');
+  const re = new RegExp("\\('" + clave + "',\\s*'([^']+)',\\s*'((?:[^']|'')*)',\\s*(\\d+)(?:,\\s*(?:true|false))?\\)", 'g');
   let m;
   while ((m = re.exec(sql)) !== null) {
     filas.push({ id: m[1], titulo: m[2].replace(/''/g, "'"), n: +m[3] });
@@ -41,8 +44,9 @@ const espacios = [
 
 let fallos = 0;
 espacios.forEach(e => {
-  const sitio = fichasDelSitio(path.join(RAIZ, e.fichas));
-  const base  = catalogoDelSql(path.join(RAIZ, e.sql || 'supabase/nota-de-ejercicios.sql'), e.clave);
+  const sitio = fichasDelSitio(path.join(RAIZ, e.fichas), true);
+  const base  = catalogoDelSql(path.join(RAIZ, e.sql || 'supabase/nota-de-ejercicios.sql'), e.clave)
+    .concat(catalogoDelSql(path.join(RAIZ, 'supabase/catalogo-bases.sql'), e.clave));
   console.log(`── ${e.nombre} (${e.clave}) ──`);
   console.log(`   ${sitio.length} fichas en el sitio · ${base.length} en el catálogo`);
 
