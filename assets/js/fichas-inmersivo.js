@@ -19,6 +19,22 @@
   let pasos = [], k = 0, ficha = null, huesped = null, marcador = null;
   let ov = null;
 
+  // Ilustración de portada: la de la ficha si la trae; si no, una según su tema.
+  const ARTE = [
+    [/heure|rythme/i, 'heure-portada'], [/calendrier|jours|mois|date/i, 'calendrier-portada'],
+    [/nombre|chiffre|portrait/i, 'nombres-portada'], [/logement|maison|il y a/i, 'maison-portada'],
+    [/nasal/i, 'nasales-portada'], [/voyelle|phon/i, 'voyelles-portada'],
+    [/musique|chanson/i, 'verbes-musique'], [/verbe|sortir|dormir|prendre|faire|pronominal|fréquence|présent/i, 'verbes-etats'],
+    [/travail|débat|opinion|discours|contact|identit|état civil|goût|éducat|savoir|atelier/i, 'delf-master'],
+    [/./, 'delf-rebond']
+  ];
+  function arteDe(f){
+    if(f.arte) return f.arte;
+    const t = (f.titulo || '') + ' ' + (f.resumen || '');
+    for(const [re, n] of ARTE) if(re.test(t)) return 'img/' + n + '.svg';
+    return null;
+  }
+
   function construir(f){
     const P = [{ t:'portada' }];
     (f.secciones || []).forEach((sec, si) => {
@@ -59,8 +75,8 @@
     cuerpo.className = 'inm-cuerpo p-' + p.t;
     cuerpo.scrollTop = 0;
     let h = '';
-    ov.querySelector('.inm-arte').style.backgroundImage = (p.t === 'portada' && ficha.arte) ? `url(${ficha.arte})` : 'none';
-    ov.classList.toggle('con-arte', p.t === 'portada' && !!ficha.arte);
+    ov.querySelector('.inm-arte').style.backgroundImage = (p.t === 'portada' && arteDe(ficha)) ? `url(${arteDe(ficha)})` : 'none';
+    ov.classList.toggle('con-arte', p.t === 'portada' && !!arteDe(ficha));
     if(p.t === 'portada'){
       h = `<div class="inm-k">${esc(ficha.fecha || '')}</div>
            <h2 class="inm-h">${esc(ficha.titulo)}</h2>
