@@ -22,6 +22,9 @@ function fichasDelSitio(ruta, bases){
   if (/a1-fiches/.test(ruta)) {   // el dossier de A1 convertido en fichas
     new Function('FICHAS', fs.readFileSync(path.join(RAIZ, 'estudiantes/espace-a1-dossier.js'), 'utf8'))(FICHAS);
   }
+  if (/b2-fiches/.test(ruta)) {
+    new Function('FICHAS', 'window', fs.readFileSync(path.join(RAIZ, 'estudiantes/espace-b2-dossier.js'), 'utf8'))(FICHAS, {});
+  }
   if (bases) {   // las nueve fichas de base que cargan todos los espacios
     new Function('FICHAS', 'window', fs.readFileSync(path.join(RAIZ, 'estudiantes/fichas-bases.js'), 'utf8'))(FICHAS, {});
   }
@@ -50,7 +53,8 @@ espacios.forEach(e => {
   const sitio = fichasDelSitio(path.join(RAIZ, e.fichas), true);
   const base  = catalogoDelSql(path.join(RAIZ, e.sql || 'supabase/nota-de-ejercicios.sql'), e.clave)
     .concat(catalogoDelSql(path.join(RAIZ, 'supabase/catalogo-bases.sql'), e.clave))
-    .concat(catalogoDelSql(path.join(RAIZ, 'supabase/catalogo-dossier-a1.sql'), e.clave));
+    .concat(catalogoDelSql(path.join(RAIZ, 'supabase/catalogo-dossier-a1.sql'), e.clave))
+    .concat(catalogoDelSql(path.join(RAIZ, 'supabase/catalogo-dossier-b2.sql'), e.clave));
   console.log(`── ${e.nombre} (${e.clave}) ──`);
   console.log(`   ${sitio.length} fichas en el sitio · ${base.length} en el catálogo`);
 

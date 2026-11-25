@@ -511,3 +511,44 @@ header h1{font-weight:300;letter-spacing:.01em}
 .item-vocab{padding:.5rem .7rem;border:1px solid var(--gris);border-radius:10px;background:#fff}
 .btn-audio{background:transparent;border:1px solid var(--gris);border-radius:999px;cursor:pointer;padding:.05rem .45rem;font-size:.85rem;margin-left:.2rem}
 .carte.dossier{border-top-color:var(--sauge)}
+
+/* Esquemas y traducciones de los dossiers B2 (espace-b2-dossier.js) */
+.schema { margin: 2rem 0; overflow-x: auto; }
+.schema svg { width: 100%; min-width: 480px; height: auto; display: block; }
+.s-etiq { font-family: var(--font-texte); font-size: 12px; font-weight: 700; letter-spacing: 2px; fill: var(--or); }
+.s-mot { font-family: var(--font-texte); font-size: 16px; font-weight: 700; fill: #12332b; text-anchor: middle; }
+.s-mot.s-clair { fill: #f3eee2; }
+.s-sujet { fill: #EFEBE0; stroke: var(--or); stroke-width: 1.5; }
+.s-verbe { fill: #12332b; }
+.s-objet { fill: #E4EBE6; stroke: var(--sauge); stroke-width: 1.5; }
+.s-agent { fill: #FBF8F1; stroke: var(--or); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.s-fleche { fill: none; stroke-width: 1.5; stroke-dasharray: 5 4; }
+.s-vers-sujet { stroke: var(--sauge); }
+.s-vers-agent { stroke: var(--or); }
+.s-axe { stroke: var(--gris); stroke-width: 2; }
+.s-grad { font-family: var(--font-texte); font-size: 12px; font-weight: 700; fill: #8A8880; text-anchor: middle; }
+.s-point { fill: var(--or); }
+.s-point-nul { fill: var(--terre-cuite); }
+.s-point-total { fill: var(--sauge); }
+.s-lgd { font-family: var(--font-texte); font-size: 13px; font-weight: 700; fill: #12332b; text-anchor: middle; }
+.s-lgd.s-gris { font-weight: 400; fill: #8A8880; font-size: 12px; }
+.s-fin { text-anchor: end; }
+.s-debut { text-anchor: start; }
+.s-sep { fill: var(--gris); }
+.s-lien { fill: none; stroke: #12332b; stroke-width: 1.5; }
+.s-connecteurs { font-family: var(--font-texte); font-size: 11.5px; fill: #8A8880; }
+.s-centre { text-anchor: middle; }
+.s-souligne { fill: var(--or); font-weight: 700; }
+.s-etiq2 { font-family: var(--font-texte); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-anchor: middle; }
+.s-ex.s-petit { font-size: 13px; }
+.s-note { font-family: var(--font-texte); font-size: 12px; font-weight: 700; text-anchor: middle; }
+.s-note-sauge { fill: var(--sauge); }
+.s-note-or { fill: var(--or); }
+.s-ex { font-family: var(--font-texte); font-size: 16px; fill: #12332b; font-weight: 600; }
+.s-ex.s-gris { fill: #8A8880; font-weight: 400; }
+.s-marque { fill: var(--terre-cuite); font-weight: 700; }
+.encadre-grammaire{position:relative}
+.btn-traduction{background:transparent;border:1px solid var(--or);color:var(--or);padding:.3rem .8rem;border-radius:999px;cursor:pointer;font-size:.8rem;margin-bottom:.6rem}
+.btn-traduction:hover{background:var(--or);color:#fff}
+.texte-espanol{display:none;margin-top:1rem;padding-top:1rem;border-top:1px dashed var(--gris);color:#4a4a4a;font-style:italic}
+.fleche{color:var(--or);margin:0 .5rem}
