@@ -73,6 +73,7 @@ header p{max-width:760px;margin:0 auto;font-size:1.1rem;color:rgba(244,239,226,.
 .carte.revision{border-top-color:var(--sauge)}
 .carte.eval{border-top-color:var(--terre)}
 .carte.outil{border-top-color:var(--or)}
+.carte.bases{border-top-color:var(--or)}
 .carte .date{font-size:.78rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--bleu);font-weight:700}
 .carte h2{font-family:var(--font-titre);font-size:1.4rem;margin:.7rem 0 .6rem;color:var(--texte)}
 .carte p{color:var(--texte-doux);font-size:.98rem;flex:1}
