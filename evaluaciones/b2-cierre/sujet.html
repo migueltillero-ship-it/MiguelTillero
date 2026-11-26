@@ -34,6 +34,9 @@
   textarea{ width:100%; min-height:220px; border:1px solid #d9d2c1; border-radius:14px; padding:1rem; font:1rem/1.5 'Syne',sans-serif; background:#fff; }
   .nota{ font-size:.85rem; color:var(--suave); margin-top:.5rem; }
   .aviso{ background:#fff; border-radius:18px; padding:2rem; text-align:center; }
+  .texto{ background:#fff; border-radius:18px; padding:1.6rem 1.8rem; margin-top:1rem; border-left:4px solid var(--oro); font-family:'Cormorant Garamond',serif; font-size:1.3rem; line-height:1.55; white-space:pre-line; box-shadow:0 10px 26px rgba(13,59,46,.08); }
+  .texto h3{ font-size:1.7rem; line-height:1.2; margin-bottom:.4rem; white-space:normal; }
+  .texto .src{ font-family:'Syne',sans-serif; font-size:.8rem; letter-spacing:2px; color:var(--oro); margin-bottom:1rem; white-space:normal; }
 </style>
 </head>
 <body>
@@ -53,6 +56,53 @@ const DOCS = [
   ['« La politesse n’est pas démodée : elle a changé de forme. »', 'Chronique Société'],
   ['« Connaître le sexe de son bébé avant la naissance ? De plus en plus de parents refusent. »', 'Magazine Familles']
 ];
+
+/* Texto de cada documento, en el mismo orden que DOCS. Se muestra entero al
+   elegirlo: el alumno prepara su exposé a partir de él. */
+const TEXTOS = [
+`Qui décide de ce qui est beau ? Pendant des siècles, une petite élite a fixé les règles : ce qu'il fallait porter, écouter, accrocher à ses murs. Le « bon goût » était celui des salons parisiens, et tout le reste était jugé vulgaire.
+
+Aujourd'hui, ces règles semblent avoir perdu leur autorité. Les chaussettes dans les sandales s'affichent sur les podiums, la musique populaire remplit les salles de concert et chacun partage ses préférences sur les réseaux sociaux. Pour beaucoup de sociologues, le goût n'est pas une qualité naturelle : il dépend de notre milieu, de notre éducation et de notre époque.
+
+Pourtant, tout le monde n'est pas d'accord. Certains défendent l'idée qu'il existe des critères objectifs, comme l'harmonie, la qualité ou le savoir-faire, et qu'on ne peut pas tout mettre sur le même plan. Dire « chacun ses goûts », n'est-ce pas renoncer à juger ?
+
+Alors, le bon goût est-il une invention des élites ou une référence utile pour tous ?`,
+`Il y a vingt ans, les tendances naissaient dans les magazines et sur les podiums. Aujourd'hui, elles naissent sur un téléphone. Une influenceuse publie une photo, un algorithme la montre à des millions de personnes, et une semaine plus tard, tout le monde porte le même pantalon.
+
+Pour ses défenseurs, ce phénomène est une démocratisation : n'importe qui peut lancer une mode, sans passer par les grandes maisons. Les jeunes créateurs se font connaître sans argent, et les styles des quatre coins du monde circulent librement.
+
+Mais d'autres s'inquiètent. Les filtres imposent un visage « parfait », les mêmes décors se répètent à l'infini, et ceux qui ne suivent pas risquent d'être moqués. Selon une enquête récente, plus de la moitié des adolescents disent avoir déjà acheté un vêtement uniquement parce qu'ils l'avaient vu en ligne.
+
+Les réseaux sociaux nous rendent-ils plus libres, ou décident-ils à notre place de ce qui est beau ?`,
+`Dans plusieurs lycées, la direction envisage d'introduire un code vestimentaire : pas de shorts, pas de casquettes, pas de vêtements « trop courts » ou « trop voyants ». Objectif affiché : créer un climat de travail sérieux et éviter les comparaisons entre élèves.
+
+Les lycéens, eux, protestent. Pour eux, choisir ses vêtements, c'est exprimer sa personnalité. Ils dénoncent aussi des règles injustes : selon eux, ces codes visent surtout les filles et laissent croire que leur tenue serait responsable du comportement des autres.
+
+Certains parents soutiennent pourtant le projet. Un uniforme ou une tenue simple, disent-ils, efface les différences sociales et évite la pression des marques. D'autres proposent une solution intermédiaire : des règles discutées et votées avec les élèves.
+
+Faut-il imposer une tenue au lycée, ou laisser chacun s'habiller comme il veut ?`,
+`Dans les magasins de jouets, la frontière est souvent visible au premier coup d'œil : d'un côté, des poupées, des cuisines et des bijoux roses ; de l'autre, des voitures, des robots et des jeux de construction bleus. Depuis quelques années, des associations demandent la fin de cette séparation.
+
+Selon elles, ces rayons enferment les enfants dans des rôles avant même qu'ils sachent lire : les filles apprennent à s'occuper des autres, les garçons à construire et à conquérir. Plusieurs pays européens ont déjà encouragé les fabricants à présenter les jouets par thèmes plutôt que par sexe.
+
+D'autres parents trouvent ce débat exagéré. Les enfants, disent-ils, ont des préférences naturelles, et interdire les couleurs ne changera rien. Ils craignent aussi que l'État décide à la place des familles.
+
+Rose pour les filles, bleu pour les garçons : faut-il en finir, et comment ?`,
+`On entend souvent que « les jeunes ne disent plus bonjour » ou qu'on ne sait plus se tenir à table. Pourtant, les spécialistes des comportements sont plus nuancés : selon eux, la politesse n'a pas disparu, elle a simplement changé de forme.
+
+Aujourd'hui, être poli, c'est aussi répondre à un message dans un délai raisonnable, ne pas regarder son téléphone pendant une conversation ou demander l'autorisation avant de publier la photo de quelqu'un. Ces nouvelles règles, qu'on appelle parfois la « nétiquette », n'existaient pas il y a trente ans.
+
+À l'inverse, certaines habitudes anciennes semblent démodées : le baisemain, le vouvoiement entre collègues ou les longues formules de politesse dans les lettres. Faut-il les regretter ?
+
+La politesse se perd-elle, ou évolue-t-elle avec son temps ?`,
+`Grâce à l'échographie, les futurs parents peuvent connaître le sexe de leur bébé dès le quatrième mois de grossesse. Fêtes de « révélation », chambres décorées en rose ou en bleu, prénoms choisis à l'avance : pour beaucoup, c'est un moment de joie.
+
+Pourtant, de plus en plus de couples préfèrent attendre la naissance. Certains veulent garder la surprise ; d'autres refusent que le bébé soit enfermé dans des stéréotypes avant même d'être né. « Nous voulions préparer l'arrivée d'un enfant, pas d'une fille ou d'un garçon », explique une jeune mère.
+
+Les partisans de l'annonce répondent que savoir permet de mieux se préparer, de s'organiser et de créer un lien avec l'enfant. Ils ne voient pas pourquoi une simple information poserait problème.
+
+Connaître le sexe de son bébé avant la naissance : un choix personnel sans conséquence, ou le début des stéréotypes ?`
+];
 /* Cada código recibe dos documentos distintos; así no hay dos alumnos con el mismo par. */
 const PARES = { 'k7m2': [0, 2], 'r4v9': [1, 5], 'm3q8': [3, 4], 's6t1': [4, 0] };
 const code = new URLSearchParams(location.search).get('e');
@@ -71,6 +121,7 @@ function pintar() {
   app.innerHTML = `
     <h2>1. Choisis ton document</h2>
     ${par.map((d, i) => `<button class="doc ${st.elegido === d ? 'sel' : ''}" data-d="${d}"><div class="n">DOCUMENT ${i + 1}</div><div class="t">${esc(DOCS[d][0])}</div><div class="s">${esc(DOCS[d][1])}</div></button>`).join('')}
+    ${st.elegido != null ? `<div class="texto"><h3>${esc(DOCS[st.elegido][0].replace(/[«»]/g, '').trim())}</h3><div class="src">${esc(DOCS[st.elegido][1])}</div>${esc(TEXTOS[st.elegido])}</div>` : `<p class="nota">Touche un document pour lire son texte complet.</p>`}
     ${st.elegido != null ? `<p class="nota">Tu as choisi le document ${par.indexOf(st.elegido) + 1}. Envoie ton choix à ton professeur :</p>
       <p style="margin-top:.6rem"><a class="btn" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent('Oral B2 : j’ai choisi le document « ' + DOCS[st.elegido][0].replace(/[«»]/g, '').trim() + ' »')}">Envoyer mon choix par WhatsApp</a></p>` : ''}
     <h2>2. 30 minutes de préparation</h2>
