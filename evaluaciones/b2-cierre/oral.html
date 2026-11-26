@@ -132,6 +132,56 @@ textarea{width:100%;min-height:86px;border:1.5px solid var(--line);border-radius
 .pub{font-size:.78rem;color:var(--muted);margin-top:8px}
 .pub.ok{color:var(--ok)}
 .pill.pub-ok{background:var(--gold);color:#fff}
+
+/* ═══ CONSOLA INMERSIVA (noviembre 2026) ═══
+   Mismo lenguaje que la pantalla del alumno (scene.html): malaquita, oro,
+   Cormorant y Syne. La grilla queda fija a la derecha para calificar sin
+   perder de vista la parte en curso. */
+:root, :root[data-theme]{
+  --bg:#072a20; --surface:rgba(247,243,234,.06); --sunk:rgba(247,243,234,.04); --fg:#f2ede1; --muted:#a9bdb2;
+  --line:rgba(201,168,106,.28); --em:#0f5c45; --em2:#c9a86a; --gold:#c9a86a; --gold-soft:rgba(201,168,106,.18); color-scheme:dark }
+body{ background: radial-gradient(1100px 600px at 90% -10%, rgba(201,168,106,.16), transparent 60%),
+  radial-gradient(900px 600px at -10% 110%, rgba(15,92,69,.85), transparent 70%), linear-gradient(135deg,#0b3a2c,#062219); background-attachment:fixed; }
+.wrap{ max-width:1500px }
+.top{ position:sticky; top:0; z-index:20; padding:14px 18px; margin:0 -16px 18px; background:rgba(7,42,32,.82); backdrop-filter:blur(10px); border-bottom:1px solid var(--line) }
+.top h1{ font-weight:600 } .top h1 em{ color:#e6cf9f }
+.student select, .student input{ background:rgba(247,243,234,.08); color:var(--fg); border-color:var(--line) }
+.student select option{ color:#14261f }
+.btn{ background:rgba(247,243,234,.07); border-color:var(--line); color:var(--fg) }
+.btn.solid{ background:#0f5c45; border-color:#1d7a5d; color:#fff }
+.btn.gold{ background:#c9a86a; border-color:#c9a86a; color:#0b3a2c }
+.clock{ background:linear-gradient(135deg,#c9a86a,#a5824a); color:#0b3a2c; padding:.45rem .6rem .45rem 1.2rem }
+.clock b{ font-family:'Cormorant Garamond',serif; font-size:1.9rem; color:#0b3a2c }
+.clock .kicker{ color:#0b3a2c !important }
+.clock button{ background:rgba(11,58,44,.18); color:#0b3a2c }
+.layout{ grid-template-columns:minmax(0,1.5fr) minmax(380px,1fr); gap:22px }
+.panel{ border-radius:24px; padding:22px; backdrop-filter:blur(6px); box-shadow:0 20px 50px rgba(0,0,0,.25) }
+aside.panel{ position:sticky; top:96px; max-height:calc(100vh - 110px); overflow:auto }
+.tabs{ gap:10px; margin-bottom:18px }
+.tab{ padding:.7rem 1.2rem; font-size:.9rem; background:transparent; color:var(--muted) }
+.tab[aria-selected="true"]{ background:#c9a86a; border-color:#c9a86a; color:#0b3a2c; box-shadow:0 0 0 6px rgba(201,168,106,.18) }
+.tab[aria-selected="true"] .t{ color:#0b3a2c }
+.part-head h2{ font-size:2.4rem; font-weight:600 }
+.q{ background:rgba(247,243,234,.05); color:var(--fg); padding:.65rem 1rem; font-size:.95rem; border-radius:14px }
+.q.now{ background:rgba(201,168,106,.22); border-color:#c9a86a }
+.card{ background:rgba(201,168,106,.10); border:1.5px solid rgba(201,168,106,.45); color:var(--fg); font-size:1.35rem; line-height:1.25; padding:20px 16px; text-align:left }
+.card.done{ opacity:1; background:#c9a86a; color:#0b3a2c; border-style:solid }
+.situation{ background:rgba(247,243,234,.05); border:1px solid var(--line) }
+.crit{ padding:14px 0 }
+.crit-h b{ font-size:1rem; color:#f7f3ea }
+.crit-h span{ font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:#e6cf9f }
+.scale{ gap:6px }
+.scale button{ min-width:2.9rem; padding:.5rem .4rem; border-radius:12px; font-size:.85rem; background:rgba(247,243,234,.06); color:var(--fg) }
+.scale button[aria-pressed="true"]{ background:#c9a86a; border-color:#c9a86a; color:#0b3a2c; transform:scale(1.06); box-shadow:0 6px 16px rgba(201,168,106,.35) }
+.total{ background:linear-gradient(135deg,#0f5c45,#0b3a2c); border:1px solid var(--line); padding:16px 20px; border-radius:18px }
+.total b{ font-size:3.2rem; color:#e6cf9f }
+textarea{ background:rgba(247,243,234,.06); color:var(--fg); border-color:var(--line) }
+.roster tr.cur td{ background:rgba(201,168,106,.14) }
+.vista-alumno{ margin:0 0 18px; border-radius:18px; overflow:hidden; border:1px solid var(--line); position:relative; aspect-ratio:16/9; background:#062219 }
+.vista-alumno iframe{ position:absolute; left:0; top:0; width:1600px; height:900px; border:0; transform-origin:0 0; pointer-events:none }
+.vista-alumno .et{ position:absolute; left:12px; top:10px; z-index:2; font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; color:#e6cf9f; background:rgba(7,42,32,.7); padding:.25rem .6rem; border-radius:999px }
+#login{ background:rgba(7,42,32,.9); color:var(--fg) }
+#login input{ background:rgba(247,243,234,.08); color:var(--fg) }
 </style>
 </head>
 <body>
@@ -171,6 +221,7 @@ textarea{width:100%;min-height:86px;border:1.5px solid var(--line);border-radius
         <button class="tab" role="tab" data-p="1">2 · Exposé <span class="t">≈ 8 min</span></button>
         <button class="tab" role="tab" data-p="2">3 · Débat <span class="t">≈ 10 min</span></button>
       </div>
+      <div class="vista-alumno" id="vista-alumno"><span class="et">Ce que voit l’élève</span><iframe src="scene.html" title="Vista previa de la pantalla del alumno" tabindex="-1"></iframe></div>
       <div id="part"></div>
     </section>
 
@@ -405,6 +456,8 @@ $('#rz').onclick = resetClock;
 
 $('#escena').onclick = () => { window.open('scene.html', 'oral-b2-escena', 'width=1280,height=720'); setTimeout(emitir, 800); };
 $('#envivo').onclick = () => { enVivo = !enVivo; $('#envivo').textContent = enVivo ? '⏸ Volver a la bienvenida' : '▶ Empezar en vivo'; emitir(); };
+function escalarVista(){ const v = document.getElementById('vista-alumno'); if(!v) return; const f = v.querySelector('iframe'); f.style.transform = 'scale(' + (v.clientWidth / 1600) + ')'; }
+window.addEventListener('resize', escalarVista); setTimeout(escalarVista, 50);
 function paintAll(){
   paintSel();
   if(!S.students.length){ $('#part').innerHTML = '<p class="hint">Todavía no hay alumnos. Escribe un nombre arriba y pulsa «Agregar».</p>'; $('#grid').innerHTML = ''; $('#roster').innerHTML = ''; return; }
