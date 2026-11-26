@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="fr" translate="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Oral B2 · Questions de goût</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* PANTALLA DEL ALUMNO · se comparte en Zoom.
+   La maneja el panel del profesor (oral.html) desde otra ventana del mismo
+   navegador, por BroadcastChannel: aquí no hay botones ni criterios, solo lo
+   que el alumno debe ver: la parte en curso, la pregunta, su documento, el
+   tema del debate y el tiempo. */
+:root{ --mal:#0b3a2c; --mal2:#0f5c45; --oro:#c9a86a; --oro2:#e6cf9f; --crema:#f7f3ea; }
+*{ box-sizing:border-box; margin:0; padding:0; }
+html,body{ height:100%; overflow:hidden; }
+body{ font-family:'Syne',sans-serif; color:var(--crema);
+  background: radial-gradient(1200px 700px at 85% 10%, rgba(201,168,106,.18), transparent 60%),
+              radial-gradient(900px 600px at 0% 100%, rgba(15,92,69,.9), transparent 70%),
+              linear-gradient(135deg, var(--mal) 0%, #072a20 100%); }
+/* veta de malaquita */
+body::before{ content:''; position:fixed; inset:-20%; opacity:.10; pointer-events:none;
+  background: repeating-radial-gradient(circle at 30% 40%, transparent 0 22px, rgba(255,255,255,.5) 23px 24px, transparent 25px 46px);
+  animation: veta 60s linear infinite; }
+@keyframes veta{ to{ transform: rotate(360deg); } }
+.marco{ position:fixed; inset:28px; border:1px solid rgba(201,168,106,.35); border-radius:28px; pointer-events:none; }
+header{ position:fixed; top:56px; left:72px; right:72px; display:flex; justify-content:space-between; align-items:center; }
+.marca{ font-size:.85rem; letter-spacing:.32em; text-transform:uppercase; color:var(--oro); }
+.pasos{ display:flex; gap:10px; }
+.paso{ font-size:.8rem; letter-spacing:.18em; text-transform:uppercase; padding:.55rem 1.1rem; border-radius:999px; border:1px solid rgba(201,168,106,.35); color:rgba(247,243,234,.55); transition:all .5s; }
+.paso.on{ background:var(--oro); color:var(--mal); border-color:var(--oro); font-weight:700; box-shadow:0 0 0 6px rgba(201,168,106,.18); }
+.paso.ok{ color:var(--oro2); }
+main{ position:fixed; top:150px; bottom:150px; left:72px; right:72px; display:grid; place-items:center; }
+.vista{ width:100%; max-width:1500px; text-align:center; animation: entra .8s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes entra{ from{ opacity:0; transform: translateY(26px) scale(.98); filter:blur(6px); } to{ opacity:1; transform:none; filter:none; } }
+.sur{ font-size:clamp(.8rem,1.3vw,1.05rem); letter-spacing:.35em; text-transform:uppercase; color:var(--oro); margin-bottom:1.4rem; }
+h1{ font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(3rem,7.5vw,7.5rem); line-height:1.02; }
+h1 em{ color:var(--oro2); }
+.pregunta{ font-family:'Cormorant Garamond',serif; font-size:clamp(2.4rem,5.4vw,5.4rem); line-height:1.12; }
+.docs{ display:grid; grid-template-columns:repeat(auto-fit,minmax(360px,1fr)); gap:34px; }
+.doc{ background:rgba(247,243,234,.06); border:1px solid rgba(201,168,106,.4); border-radius:28px; padding:2.4rem 2.6rem; text-align:left; backdrop-filter: blur(4px); transition: all .6s; }
+.doc .n{ font-size:.85rem; letter-spacing:.3em; color:var(--oro); }
+.doc .t{ font-family:'Cormorant Garamond',serif; font-size:clamp(1.8rem,3.2vw,3.2rem); line-height:1.15; margin-top:.8rem; }
+.doc .s{ margin-top:1rem; color:rgba(247,243,234,.6); letter-spacing:.08em; }
+.doc.unico{ padding:3.4rem 3.8rem; }
+.doc.unico .t{ font-size:clamp(2.4rem,4.6vw,4.6rem); }
+.consigne{ margin-top:2rem; color:rgba(247,243,234,.75); font-size:clamp(1rem,1.5vw,1.3rem); line-height:1.6; }
+.consigne b{ color:var(--oro2); font-weight:600; }
+.sit p{ font-size:clamp(1.1rem,1.8vw,1.6rem); color:rgba(247,243,234,.8); margin-top:1rem; line-height:1.5; }
+.sit .rol{ display:inline-block; margin-top:1.6rem; padding:.7rem 1.4rem; border-radius:999px; background:rgba(201,168,106,.16); color:var(--oro2); letter-spacing:.06em; }
+footer{ position:fixed; bottom:56px; left:72px; right:72px; display:flex; justify-content:space-between; align-items:flex-end; }
+.alumno{ font-family:'Cormorant Garamond',serif; font-size:2rem; color:var(--oro2); font-style:italic; }
+.reloj{ display:flex; align-items:center; gap:18px; }
+.reloj svg{ width:92px; height:92px; transform: rotate(-90deg); }
+.reloj .t{ font-family:'Cormorant Garamond',serif; font-size:3.2rem; line-height:1; min-width:3.2ch; text-align:right; }
+.reloj .l{ font-size:.75rem; letter-spacing:.25em; text-transform:uppercase; color:var(--oro); }
+.reloj.pasado .t{ color:#f0b48a; }
+</style>
+</head>
+<body>
+<div class="marco"></div>
+<header>
+  <div class="marca">Vive el français · Évaluation orale B2</div>
+  <div class="pasos"><span class="paso" data-p="0">Mise en route</span><span class="paso" data-p="1">Exposé</span><span class="paso" data-p="2">Débat</span></div>
+</header>
+<main id="main"></main>
+<footer>
+  <div class="alumno" id="alumno"></div>
+  <div class="reloj" id="reloj" hidden>
+    <div style="text-align:right"><div class="l" id="reloj-l">Temps</div><div class="t" id="reloj-t">0:00</div></div>
+    <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="none" stroke="rgba(201,168,106,.2)" stroke-width="6"/>
+      <circle id="aro" cx="50" cy="50" r="44" fill="none" stroke="#c9a86a" stroke-width="6" stroke-linecap="round" stroke-dasharray="276.5" stroke-dashoffset="276.5"/></svg>
+  </div>
+</footer>
+<script>
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]));
+const main = document.getElementById('main');
+let ultima = '';
+
+function bienvenida(nombre){
+  return `<div class="vista"><div class="sur">Questions de goût · fin de cycle</div>
+    <h1>Bienvenue${nombre ? ', <em>' + esc(nombre) + '</em>' : ''}</h1>
+    <p class="consigne" style="max-width:900px;margin-left:auto;margin-right:auto">Trois moments : quelques questions pour commencer, <b>ton exposé</b> sur le document que tu as choisi, puis <b>un débat</b> avec ton professeur. Respire, prends ton temps : tu es prêt·e.</p></div>`;
+}
+function vista(m){
+  if (m.part === 0) return `<div class="vista"><div class="sur">Mise en route · faisons connaissance</div>
+    <div class="pregunta">${m.q ? esc(m.q) : 'Bonjour ! Comment ça va ?'}</div></div>`;
+  if (m.part === 1){
+    const docs = m.cards || [];
+    if (m.elegido != null && docs.some(d => d.i === m.elegido)){
+      const d = docs.find(x => x.i === m.elegido);
+      return `<div class="vista"><div class="sur">Exposé · ton document</div>
+        <div class="doc unico"><div class="t">${esc(d.t)}</div>${d.s ? `<div class="s">${esc(d.s)}</div>` : ''}</div>
+        <p class="consigne">Présente <b>le thème</b>, pose <b>une problématique</b>, annonce <b>ton plan</b> et défends ton point de vue avec <b>des arguments</b> et <b>des exemples</b>.</p></div>`;
+    }
+    return `<div class="vista"><div class="sur">Exposé · choisis ton document</div>
+      <div class="docs">${docs.map((d, k) => `<div class="doc"><div class="n">DOCUMENT ${k + 1}</div><div class="t">${esc(d.t)}</div>${d.s ? `<div class="s">${esc(d.s)}</div>` : ''}</div>`).join('')}</div></div>`;
+  }
+  const x = m.sit || {};
+  return `<div class="vista sit"><div class="sur">Débat · défends ton point de vue</div>
+    <div class="pregunta">${esc(x.t || '')}</div>
+    ${(x.p || []).map(p => `<p>${esc(p)}</p>`).join('')}</div>`;
+}
+function reloj(m){
+  const r = document.getElementById('reloj'); r.hidden = !(m.ms > 0 || m.run);
+  const lim = m.lim || 1, ms = m.ms || 0, pasado = ms > lim;
+  const s = Math.floor(ms / 1000);
+  document.getElementById('reloj-t').textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+  document.getElementById('reloj-l').textContent = pasado ? 'Pour conclure' : 'Temps';
+  r.classList.toggle('pasado', pasado);
+  document.getElementById('aro').style.strokeDashoffset = 276.5 * (1 - Math.min(1, ms / lim));
+}
+function pintar(m){
+  document.querySelectorAll('.paso').forEach(p => { const n = +p.dataset.p;
+    p.classList.toggle('on', m.started && n === m.part); p.classList.toggle('ok', m.started && n < m.part); });
+  document.getElementById('alumno').textContent = m.nombre || '';
+  const html = m.started ? vista(m) : bienvenida(m.nombre);
+  if (html !== ultima){ main.innerHTML = html; ultima = html; }
+  reloj(m);
+}
+pintar({});
+const canal = new BroadcastChannel('oral-b2-cierre');
+canal.onmessage = e => pintar(e.data || {});
+canal.postMessage({ hola: true });   // pide al panel el estado actual
+</script>
+</body>
+</html>

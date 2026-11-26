@@ -158,6 +158,8 @@ textarea{width:100%;min-height:86px;border:1.5px solid var(--line);border-radius
       <input id="newname" placeholder="Agregar alumno…" aria-label="Nombre del nuevo alumno">
       <button class="btn sm" id="add">Agregar</button>
       <a class="btn sm solid" href="../boletines.html?grupo=B2-CIERRE">Boletines y envío</a>
+      <button class="btn sm gold" id="escena">Pantalla del alumno ↗</button>
+      <button class="btn sm" id="envivo">▶ Empezar en vivo</button>
     </div>
     <div class="clock" aria-live="off"><span class="kicker" style="color:rgba(255,255,255,.75)" id="clock-l">Parte 1</span><b id="clock">0:00</b><button id="go">Iniciar</button><button id="rz">Reiniciar</button></div>
   </header>
@@ -241,7 +243,7 @@ function paintSel(){
   $('#sel').innerHTML = S.students.map((s,i) => `<option value="${i}" ${i===S.cur?'selected':''}>${esc(s.n)}</option>`).join('');
   $('#who').textContent = st().n;
 }
-$('#sel').onchange = e => { S.cur = +e.target.value; S.part = 0; save(); resetClock(); paintAll(); };
+$('#sel').onchange = e => { S.cur = +e.target.value; S.part = 0; enVivo = false; const b = document.getElementById('envivo'); if(b) b.textContent = '▶ Empezar en vivo'; save(); resetClock(); paintAll(); };
 
 /* partes */
 $$('.tab').forEach(t => t.onclick = () => { S.part = +t.dataset.p; save(); paintPart(); resetClock(); });
@@ -263,9 +265,13 @@ function paintPart(){
     if(!s.cards.length){ s.cards = draw(2, P2); save(); }
     box.innerHTML = `<div class="part-head"><div><h2>Exposé</h2><p>El alumno saca dos documentos, elige uno y presenta su punto de vista: el tema, una problemática, un plan, argumentos y ejemplos. Unos 5 a 7 minutos, sin interrumpir.</p></div>
       <div class="actions"><button class="btn" id="redraw">Sacar otros dos</button><button class="btn solid" id="pj">Proyectar documentos</button></div></div>
-      <div class="cards">${s.cards.map(i => `<button class="card ${s.asked.includes('c'+i)?'done':''}" data-i="${i}">${esc(P2[i][0])}</button>`).join('')}</div>`;
+      <div class="cards">${s.cards.map(i => `<button class="card ${s.asked.includes('c'+i)?'done':''}" data-i="${i}">${esc(P2[i][0])}</button>`).join('')}</div>
+      <p class="hint" style="margin-top:14px">Sus dos documentos (los de su enlace de preparación): toca para ponerlos o quitarlos.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px">${P2.map((d, i) => `<button class="btn sm ${s.cards.includes(i)?'solid':''}" data-all="${i}">${i+1}. ${esc(d[0].split('—')[0].replace(/[«»]/g,'').trim().slice(0, 48))}…</button>`).join('')}</div>`;
     $$('.card', box).forEach(c => c.onclick = () => { const id = 'c' + c.dataset.i; const k = s.asked.indexOf(id); k >= 0 ? s.asked.splice(k,1) : s.asked.push(id); save(); paintPart(); });
     $('#redraw').onclick = () => { s.cards = draw(2, P2); save(); paintPart(); };
+    $$('[data-all]', box).forEach(x => x.onclick = () => { const i = +x.dataset.all, k = s.cards.indexOf(i);
+      if(k >= 0) s.cards.splice(k, 1); else { s.cards.push(i); if(s.cards.length > 2) s.cards.shift(); } save(); paintPart(); });
     $('#pj').onclick = () => proj(true);
   } else {
     if(s.sit == null){ s.sit = Math.floor(Math.random()*P3.length); save(); }
@@ -369,6 +375,26 @@ $('#cp-all').onclick = () => {
   copy([head, ...S.students.map(s => [s.n, ...GRID.map(([k]) => s.sc[k] ?? ''), total(s), (s.notes||'').replace(/\s+/g,' ')].join('\t'))].join('\n'));
 };
 
+/* PANTALLA DEL ALUMNO (scene.html): se abre en otra ventana, que es la que
+   compartes en Zoom. Este panel le manda lo que debe mostrar; tus criterios y
+   notas nunca salen de aquí. */
+const canal = ('BroadcastChannel' in window) ? new BroadcastChannel('oral-b2-cierre') : null;
+let enVivo = false;
+function emitir(){
+  if(!canal || !S.students.length) return;
+  const s = st(), nombre = String(s.n || '').split(/\s+/)[0].toLowerCase().replace(/^./, c => c.toUpperCase());
+  const ms = acc + (run ? Date.now() - t0 : 0);
+  const elegido = (s.asked || []).filter(a => /^c\d+$/.test(a)).map(a => +a.slice(1)).find(i => (s.cards || []).includes(i));
+  const m = { started: enVivo, nombre, part: S.part, ms, run: !!run, lim: [180, 480, 600][S.part] * 1000,
+    q: nowQ ? P1[+nowQ.split('.')[0]][1][+nowQ.split('.')[1]] : null,
+    cards: (s.cards || []).map(i => { const t = P2[i][0], k = t.lastIndexOf('—'); return { i, t: k > 0 ? t.slice(0, k).trim() : t, s: k > 0 ? t.slice(k + 1).trim() : '' }; }),
+    elegido: elegido == null ? null : elegido,
+    sit: S.part === 2 && s.sit != null ? { t: P3[s.sit].t, p: P3[s.sit].p.slice(0, 1) } : null };
+  canal.postMessage(m);
+}
+if(canal) canal.onmessage = e => { if(e.data && e.data.hola) emitir(); };
+setInterval(emitir, 500);
+
 /* reloj */
 let t0 = 0, acc = 0, run = null;
 const fmt = ms => { const x = Math.floor(ms/1000); return Math.floor(x/60) + ':' + String(x%60).padStart(2,'0'); };
@@ -377,6 +403,8 @@ $('#go').onclick = () => { if(run){ acc += Date.now() - t0; clearInterval(run); 
 function resetClock(){ clearInterval(run); run = null; acc = 0; $('#go').textContent = 'Iniciar'; tick(); }
 $('#rz').onclick = resetClock;
 
+$('#escena').onclick = () => { window.open('scene.html', 'oral-b2-escena', 'width=1280,height=720'); setTimeout(emitir, 800); };
+$('#envivo').onclick = () => { enVivo = !enVivo; $('#envivo').textContent = enVivo ? '⏸ Volver a la bienvenida' : '▶ Empezar en vivo'; emitir(); };
 function paintAll(){
   paintSel();
   if(!S.students.length){ $('#part').innerHTML = '<p class="hint">Todavía no hay alumnos. Escribe un nombre arriba y pulsa «Agregar».</p>'; $('#grid').innerHTML = ''; $('#roster').innerHTML = ''; return; }
