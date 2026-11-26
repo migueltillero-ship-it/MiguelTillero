@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Oral B2 · Ma préparation</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Página que recibe cada alumno para preparar su oral: sus dos documentos,
+     la elección de uno, el reloj de 30 minutos y una guía de preparación.
+     No lleva nombres: cada enlace se distingue por un código (?e=...). */
+  :root{ --mal:#0d3b2e; --mal2:#145c46; --oro:#a5824a; --oro2:#c9a86a; --crema:#f7f3ea; --tinta:#14261f; --suave:#5a665f; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ font-family:'Syne',sans-serif; background:var(--crema); color:var(--tinta); }
+  header{ background:linear-gradient(135deg,var(--mal) 0%,var(--mal2) 100%); color:#f7f3ea; text-align:center; padding:3rem 1.2rem 3.4rem; border-bottom:4px solid var(--oro); }
+  .sur{ font-size:.78rem; letter-spacing:4px; text-transform:uppercase; color:var(--oro2); font-weight:700; }
+  h1{ font-family:'Cormorant Garamond',serif; font-weight:600; font-size:clamp(2.2rem,6vw,3.4rem); margin:.6rem 0 .4rem; }
+  header p{ color:#d6e2dc; max-width:640px; margin:0 auto; line-height:1.5; }
+  main{ max-width:900px; margin:0 auto; padding:2rem 1.2rem 4rem; }
+  h2{ font-family:'Cormorant Garamond',serif; font-size:2rem; margin:2rem 0 .8rem; color:var(--mal); }
+  .doc{ display:block; width:100%; text-align:left; background:#fff; border:2px solid rgba(165,130,74,.35); border-radius:18px; padding:1.4rem 1.6rem; margin-bottom:1rem; cursor:pointer; font:inherit; color:inherit; box-shadow:0 10px 26px rgba(13,59,46,.08); transition:transform .2s, border-color .2s; }
+  .doc:hover{ transform:translateY(-3px); }
+  .doc.sel{ border-color:var(--oro); background:#fffdf6; box-shadow:0 0 0 4px rgba(165,130,74,.2); }
+  .doc .n{ font-size:.75rem; letter-spacing:3px; color:var(--oro); font-weight:700; }
+  .doc .t{ font-family:'Cormorant Garamond',serif; font-size:1.7rem; line-height:1.25; margin-top:.3rem; }
+  .doc .s{ font-size:.9rem; color:var(--suave); margin-top:.3rem; }
+  .reloj{ display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; background:var(--mal); color:#fff; border-radius:18px; padding:1.2rem 1.6rem; margin-top:1rem; }
+  .reloj .t{ font-family:'Cormorant Garamond',serif; font-size:3rem; line-height:1; }
+  .btn{ background:var(--oro); color:#fff; border:none; border-radius:999px; padding:.8rem 1.5rem; font:700 .85rem 'Syne',sans-serif; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; text-decoration:none; display:inline-block; }
+  .btn.ghost{ background:transparent; border:2px solid var(--oro2); color:var(--oro2); }
+  .guia{ background:#fff; border-radius:18px; padding:1.4rem 1.6rem; border-left:4px solid var(--oro); line-height:1.6; }
+  .guia li{ margin:.45rem 0 .45rem 1.2rem; }
+  textarea{ width:100%; min-height:220px; border:1px solid #d9d2c1; border-radius:14px; padding:1rem; font:1rem/1.5 'Syne',sans-serif; background:#fff; }
+  .nota{ font-size:.85rem; color:var(--suave); margin-top:.5rem; }
+  .aviso{ background:#fff; border-radius:18px; padding:2rem; text-align:center; }
+</style>
+</head>
+<body>
+<header>
+  <div class="sur">Français B2 · Évaluation orale de fin de cycle</div>
+  <h1>Ma préparation</h1>
+  <p>Tu as deux documents. Choisis-en un, prépare-toi pendant 30 minutes, puis connecte-toi à Zoom à l’heure de ton passage.</p>
+</header>
+<main id="app"></main>
+<script>
+/* Los documentos son los mismos de la herramienta del profesor (oral.html, P2). */
+const DOCS = [
+  ['« Le bon goût n’existe pas : il n’y a que des goûts. »', 'Tribune, rubrique Idées'],
+  ['« Les réseaux sociaux décident désormais de ce qui est beau. »', 'Magazine Tendances'],
+  ['« Un code vestimentaire au lycée ? Les élèves disent non. »', 'Journal des lycéens'],
+  ['« Rose pour les filles, bleu pour les garçons : il est temps d’en finir. »', 'Blog Éducation'],
+  ['« La politesse n’est pas démodée : elle a changé de forme. »', 'Chronique Société'],
+  ['« Connaître le sexe de son bébé avant la naissance ? De plus en plus de parents refusent. »', 'Magazine Familles']
+];
+/* Cada código recibe dos documentos distintos; así no hay dos alumnos con el mismo par. */
+const PARES = { 'k7m2': [0, 2], 'r4v9': [1, 5], 'm3q8': [3, 4], 's6t1': [4, 0] };
+const code = new URLSearchParams(location.search).get('e');
+const par = PARES[code];
+const app = document.getElementById('app');
+const KEY = 'oral-b2-prep-' + code;
+let st = {}; try { st = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { st = {}; }
+const guardar = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]));
+
+if (!par) {
+  app.innerHTML = '<div class="aviso">Ce lien n’est pas complet. Demande-le à nouveau à ton professeur.</div>';
+} else pintar();
+
+function pintar() {
+  app.innerHTML = `
+    <h2>1. Choisis ton document</h2>
+    ${par.map((d, i) => `<button class="doc ${st.elegido === d ? 'sel' : ''}" data-d="${d}"><div class="n">DOCUMENT ${i + 1}</div><div class="t">${esc(DOCS[d][0])}</div><div class="s">${esc(DOCS[d][1])}</div></button>`).join('')}
+    ${st.elegido != null ? `<p class="nota">Tu as choisi le document ${par.indexOf(st.elegido) + 1}. Envoie ton choix à ton professeur :</p>
+      <p style="margin-top:.6rem"><a class="btn" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent('Oral B2 : j’ai choisi le document « ' + DOCS[st.elegido][0].replace(/[«»]/g, '').trim() + ' »')}">Envoyer mon choix par WhatsApp</a></p>` : ''}
+    <h2>2. 30 minutes de préparation</h2>
+    <div class="reloj"><div><div class="sur" style="color:var(--oro2)">Temps restant</div><div class="t" id="t">30:00</div></div>
+      <div><button class="btn" id="go">${st.inicio ? 'Recommencer' : 'Commencer'}</button></div></div>
+    <h2>3. Comment te préparer</h2>
+    <div class="guia"><ol>
+      <li><b>Le thème</b> : de quoi parle le document ? Dis-le avec tes mots.</li>
+      <li><b>La problématique</b> : pose une question claire. « Faut-il… ? », « Peut-on… ? »</li>
+      <li><b>Ton plan</b> : deux ou trois parties, annoncées dès le début.</li>
+      <li><b>Tes arguments</b> : chaque partie avec un argument et un exemple concret.</li>
+      <li><b>La nuance</b> : « certes…, mais… », « il est vrai que…, cependant… ».</li>
+      <li><b>La conclusion</b> : ton opinion, et une ouverture.</li>
+      <li><b>Le débat</b> : prévois ce que ton professeur pourrait te répondre.</li>
+    </ol>
+    <p class="nota">Note seulement des mots-clés : tu ne lis pas un texte, tu parles. Pas de dictionnaire ni de traducteur. L’épreuve dure 20 minutes : 10 minutes d’exposé, 10 minutes de débat.</p></div>
+    <h2>4. Mes notes</h2>
+    <textarea id="notas" placeholder="Mes mots-clés, mon plan…">${esc(st.notas || '')}</textarea>
+    <p class="nota">Tes notes restent sur cet appareil. Garde-les sous les yeux pendant ton passage.</p>`;
+  app.querySelectorAll('.doc').forEach(b => b.onclick = () => { st.elegido = +b.dataset.d; guardar(); pintar(); });
+  document.getElementById('notas').oninput = e => { st.notas = e.target.value; guardar(); };
+  document.getElementById('go').onclick = () => { st.inicio = Date.now(); guardar(); pintar(); };
+}
+setInterval(() => {
+  const t = document.getElementById('t'); if (!t || !st.inicio) return;
+  const resta = Math.max(0, 30 * 60 * 1000 - (Date.now() - st.inicio));
+  const m = Math.floor(resta / 60000), s = Math.floor(resta / 1000) % 60;
+  t.textContent = resta ? `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}` : 'C’est l’heure !';
+}, 500);
+</script>
+</body>
+</html>
